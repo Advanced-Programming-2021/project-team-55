@@ -2,6 +2,14 @@ View:
 
 Input
 
+LoginMenu
+MainMenu
+ScoreBoardMenu
+ProfileMenu
+ShopMenu
+DuelMenu
+DeckMenu
+
 ***********************
 Controller:
 
@@ -14,20 +22,13 @@ DuelMenuController
 DeckMenuController
 DataBaseInitialize
 GameController
+
 File
 
 
 
 ***********************
 Model:
-
-LoginMenu
-MainMenu
-ScoreBoardMenu
-ProfileMenu
-ShopMenu
-DuelMenu
-DeckMenu
 
 User->>Player , AIPlayer
 Card->>Monster , Spell , Trap
