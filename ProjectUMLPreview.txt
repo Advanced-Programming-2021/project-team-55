@@ -20,11 +20,10 @@ ProfileMenuController
 ShopMenuController
 DuelMenuController
 DeckMenuController
-DataBaseInitialize
 GameController
+CheatAndDeveloperModeController
 
-File
-
+DataBaseInitialization
 
 
 ***********************
