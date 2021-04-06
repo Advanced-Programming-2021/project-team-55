@@ -2,6 +2,7 @@ View:
 
 Input
 
+Menu -->
 LoginMenu
 MainMenu
 ScoreBoardMenu
