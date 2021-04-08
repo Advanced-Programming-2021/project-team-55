@@ -1,0 +1,40 @@
+View:
+
+Input
+
+Menu -->
+LoginMenu
+MainMenu
+ScoreBoardMenu
+ProfileMenu
+ShopMenu
+DuelMenu
+DeckMenu
+
+***********************
+Controller:
+
+LoginMenuController
+MainMenuController
+ScoreBoardMenuController
+ProfileMenuController
+ShopMenuController
+DuelMenuController
+DeckMenuController
+GameController
+CheatAndDeveloperModeController
+
+DataBaseInitialization
+
+
+***********************
+Model:
+
+User->>Player , AIPlayer
+Card->>Monster , Spell , Trap
+Enum(CardsAtribiute)
+Deck
+
+Game->>GameBoard
+
+***********************
