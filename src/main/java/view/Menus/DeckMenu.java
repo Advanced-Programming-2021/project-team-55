@@ -1,4 +1,4 @@
-package view;
+package view.Menus;
 
 public class DeckMenu {
 }
