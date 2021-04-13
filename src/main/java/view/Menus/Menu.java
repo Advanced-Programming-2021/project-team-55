@@ -2,11 +2,15 @@ package view.Menus;
 
 import java.util.Scanner;
 
-public abstract class Menu {
+public class Menu {
     public static MenuType currentMenu=MenuType.LOGINMENU;
-    protected static Scanner input=new Scanner(System.in);
-    public abstract void run();
-    protected String getInput() {
-        return input.nextLine();
+    protected static LoginMenu loginMenu=new LoginMenu();
+    public void run(){
+        while(true) {
+            if (currentMenu == MenuType.LOGINMENU) {
+                loginMenu.execute();
+            }
+        }
     }
+
 }

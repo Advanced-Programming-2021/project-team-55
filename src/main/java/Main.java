@@ -1,7 +1,8 @@
 import view.Menus.LoginMenu;
+import view.Menus.Menu;
 
 public class Main {
     public static void main(String[] args) {
-        new LoginMenu().run();
+        new Menu().run();
     }
 }
