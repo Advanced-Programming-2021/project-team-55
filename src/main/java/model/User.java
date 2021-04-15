@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class User {
     private static ArrayList<User>allUsers;
+    public static User loggedInUser;
     private String username;
     private String password;
     private String nickname;
@@ -63,5 +64,9 @@ public class User {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public static void setLoggedInUser(User user){
+        loggedInUser=user;
     }
 }

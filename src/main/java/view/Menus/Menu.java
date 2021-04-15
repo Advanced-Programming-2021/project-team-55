@@ -1,7 +1,5 @@
 package view.Menus;
 
-import java.util.Scanner;
-
 abstract public class Menu {
     public static MenuType currentMenu=MenuType.LOGINMENU;
     protected static LoginMenu loginMenu=new LoginMenu();
@@ -15,5 +13,7 @@ abstract public class Menu {
     abstract protected void execute();
     abstract protected String processCommand(String command);
 
-
+    public static void setCurrentMenu(MenuType currentMenu) {
+        Menu.currentMenu = currentMenu;
+    }
 }

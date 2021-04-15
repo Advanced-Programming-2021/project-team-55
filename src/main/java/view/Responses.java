@@ -1,8 +1,8 @@
-package controller;
+package view;
 
 public enum Responses {
+    INVALIDCOMMAND("invalid command"),
     LOGINSUCCESSFULL("user logged in successfully"),
-    LOGINFAILED("Username and password didn't match!"),
     CREATESUCCESSFULLY("user created successfully!");
     public final String response;
 
