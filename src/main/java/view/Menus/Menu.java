@@ -2,7 +2,7 @@ package view.Menus;
 
 import java.util.Scanner;
 
-public class Menu {
+abstract public class Menu {
     public static MenuType currentMenu=MenuType.LOGINMENU;
     protected static LoginMenu loginMenu=new LoginMenu();
     public static void run(){
@@ -12,6 +12,8 @@ public class Menu {
             }
         }
     }
+    abstract protected void execute();
+    abstract protected String processCommand(String command);
 
 
 }

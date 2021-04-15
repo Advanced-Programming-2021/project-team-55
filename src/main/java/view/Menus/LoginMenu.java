@@ -6,11 +6,11 @@ import view.ViewInterface;
 public class LoginMenu extends Menu {
     private static LoginMenuController loginMenuController= LoginMenuController.getInstance();
 
-    public void execute() {
+    protected void execute() {
         String response=processCommand(ViewInterface.getInput());
         ViewInterface.showResult(response);
     }
-    private String processCommand(String command){
+    protected String processCommand(String command){
         if(command.matches("^user login --password (.*) --username (.*)$")){
             return loginMenuController.loginUser(ViewInterface.getCommandMatcher(command,"^user login --password (.*) --username (.*)$"));
         }
