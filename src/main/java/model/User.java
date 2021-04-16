@@ -1,6 +1,7 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.*;
+import java.lang.Comparable;
 
 public class User {
     private static ArrayList<User>allUsers;
@@ -8,6 +9,7 @@ public class User {
     private String username;
     private String password;
     private String nickname;
+    private int score;
     static {
         allUsers=new ArrayList<>();
     }
@@ -41,6 +43,9 @@ public class User {
         }
         return false;
     }
+    public static void setLoggedInUser(User user){
+        loggedInUser=user;
+    }
 
     public String getUsername() {
         return username;
@@ -66,7 +71,45 @@ public class User {
         this.nickname = nickname;
     }
 
-    public static void setLoggedInUser(User user){
-        loggedInUser=user;
+    public static LinkedHashMap<Integer, String> getScoreBoardUsers() {
+        Collections.sort(allUsers, new Comparator<User>() {
+            @Override
+            public int compare(User user1, User user2) {
+                Integer score1=user1.score;
+                Integer score2=user2.score;
+                if(score1.equals(score2)){
+                    return user1.nickname.compareTo(user2.nickname);
+                }
+                return score2.compareTo(score1);
+            }
+        });
+        LinkedHashMap<Integer,String>scoreBoard=new LinkedHashMap<>();
+        int rank=1;
+        int sameNumbers=1;
+        for(int i=0;i<allUsers.size();i++){
+            scoreBoard.put(rank,allUsers.get(i).toString());
+            if(i+1<allUsers.size()&&allUsers.get(i).score!=allUsers.get(i+1).score){
+                rank+=sameNumbers;
+                sameNumbers=1;
+            }
+            else{
+                sameNumbers++;
+            }
+
+        }
+        return scoreBoard;
+    }
+
+
+    public int getScore() {
+        return score;
+    }
+    public void changeScore(int amount){
+        this.score+=amount;
+    }
+
+    @Override
+    public String toString() {
+        return "- "+nickname+": "+score;
     }
 }

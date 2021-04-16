@@ -1,4 +1,4 @@
-package controller;
+package controller.MenuController;
 
 
 import exceptions.MenuException;
@@ -6,7 +6,7 @@ import model.User;
 import view.Menus.Menu;
 import view.Menus.MenuType;
 
-public class LoginMenuController extends Controller {
+public class LoginMenuController extends MenuController {
     private static LoginMenuController loginMenuController;
 
     private LoginMenuController() {
@@ -24,7 +24,7 @@ public class LoginMenuController extends Controller {
         if (user == null || !user.getPassword().equals(password)) {
             throw new MenuException("Username and password didn't match!");
         } else {
-            Menu.currentMenu = MenuType.MAINMENU;
+            Menu.currentMenu = MenuType.MAIN;
             User.setLoggedInUser(user);
         }
     }
@@ -45,7 +45,7 @@ public class LoginMenuController extends Controller {
         } else if (!menu.equals("Main")) {
             throw new MenuException("menu navigation is not possible");
         }
-        Menu.setCurrentMenu(MenuType.MAINMENU);
+        Menu.setCurrentMenu(MenuType.MAIN);
     }
 
     @Override
