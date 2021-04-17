@@ -1,4 +1,4 @@
-package controller.MenuController;
+package controller.menucontroller;
 
 public class DeckMenuController {
 }

@@ -1,9 +1,13 @@
-package controller.MenuController;
+package controller.menucontroller;
 
 import exceptions.MenuException;
 
 public class DuelMenuController extends MenuController{
     private static DuelMenuController duelMenuController;
+
+    private DuelMenuController(){
+
+    }
 
     public static DuelMenuController getInstance() {
         if (duelMenuController == null) {

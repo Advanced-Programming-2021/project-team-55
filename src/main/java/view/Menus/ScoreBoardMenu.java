@@ -1,6 +1,6 @@
 package view.Menus;
 
-import controller.MenuController.ScoreBoardMenuController;
+import controller.menucontroller.ScoreBoardMenuController;
 import view.Regexes;
 import view.Responses;
 import view.ViewInterface;

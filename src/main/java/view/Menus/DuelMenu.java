@@ -1,6 +1,6 @@
 package view.Menus;
 
-import controller.MenuController.DuelMenuController;
+import controller.menucontroller.DuelMenuController;
 
 public class DuelMenu extends Menu{
     private static final DuelMenuController duelMenuController = DuelMenuController.getInstance();

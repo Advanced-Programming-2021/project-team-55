@@ -1,6 +1,6 @@
 package view.Menus;
 
-import controller.MenuController.MainMenuController;
+import controller.menucontroller.MainMenuController;
 import exceptions.MenuException;
 import view.Regexes;
 import view.Responses;
