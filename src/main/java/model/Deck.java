@@ -1,4 +1,99 @@
 package model;
 
+import javax.naming.PartialResultException;
+import java.util.ArrayList;
+
 public class Deck {
+    private String name;
+    private User owner;
+    private ArrayList<Card>mainDeck;
+    private ArrayList<Card>sideDeck;
+    private boolean isActive;
+
+
+    public Deck(String name,User owner){
+
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    private void setName(String name) {
+        this.name = name;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    private void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public ArrayList<Card> getMainDeck() {
+        return mainDeck;
+    }
+
+    public void addCardToMainDeck(Card card) {
+        mainDeck.add(card);
+    }
+
+    public ArrayList<Card> getSideDeck() {
+        return sideDeck;
+    }
+
+    public void addCardToSideDeck(Card card) {
+        sideDeck.add(card);
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public void deleteDeck(){
+        //TODO deck has to be deleted from user
+    }
+    public boolean isDeckValid(){
+        //TODO checkForEachCardFrequency
+        return true;
+    }
+    public boolean isMainDeckFull(){
+        return mainDeck.size()==60;
+    }
+    public boolean isSideDeckFull(){
+        return sideDeck.size()==15;
+    }
+    private int getCardCountInDeck(Card cardToSearch){
+        int count=0;
+        for(Card card:mainDeck){
+            if(card.getName().equals(cardToSearch.getName())){
+                count++;
+            }
+        }
+        for(Card card:sideDeck){
+            if(card.getName().equals(cardToSearch.getName())){
+                count++;
+            }
+        }
+        return count;
+    }
+    public void removeCardFromDeck(Card card){
+
+    }
+
+    @Override
+    public String toString() {
+        String information= name+": main deck "+mainDeck.size()+", side deck "+sideDeck.size()+", ";
+        if(isDeckValid()){
+            return information+"valid";
+        }
+        else{
+            return information+"invalid";
+        }
+    }
 }
