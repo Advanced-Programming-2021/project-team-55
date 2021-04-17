@@ -1,7 +1,13 @@
 package controller;
 
+import com.opencsv.bean.CsvToBeanBuilder;
 import controller.menucontroller.MenuController;
 import exceptions.MenuException;
+import model.MonsterCardDetails;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.List;
 
 public class DataBaseController extends MenuController {
     private static DataBaseController dataBaseController;
@@ -25,6 +31,16 @@ public class DataBaseController extends MenuController {
 
     }
 
+    public List<MonsterCardDetails> importMonsterDetails() throws FileNotFoundException {//todo save the list in model
+        List<MonsterCardDetails> monsterCardsDetailsList = new CsvToBeanBuilder(
+                new FileReader("src/resources/cards details/Monster.csv"))
+                .withType(MonsterCardDetails.class).build().parse();
+
+        if (MonsterCardDetails.getMonsterCardsDetailsList() == null)
+            MonsterCardDetails.setMonsterCardsDetailsList(monsterCardsDetailsList);
+
+        return monsterCardsDetailsList;
+    }
 
 
 }
