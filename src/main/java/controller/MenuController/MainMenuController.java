@@ -47,7 +47,7 @@ public class MainMenuController extends MenuController {
                 break;
             }
             case "Import/Export": {
-                Menu.setCurrentMenu(MenuType.IMPORTEXPORT);
+                Menu.setCurrentMenu(MenuType.IMPORT_EXPORT);
                 break;
             }
             default: {

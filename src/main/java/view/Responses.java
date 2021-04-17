@@ -1,9 +1,9 @@
 package view;
 
 public enum Responses {
-    INVALIDCOMMAND("invalid command"),
-    LOGINSUCCESSFULL("user logged in successfully"),
-    CREATESUCCESSFULLY("user created successfully!");
+    INVALID_COMMAND("invalid command"),
+    LOGIN_SUCCESSFUL("user logged in successfully"),
+    CREATE_SUCCESSFULLY("user created successfully!");
     public final String response;
 
     Responses(String label) {

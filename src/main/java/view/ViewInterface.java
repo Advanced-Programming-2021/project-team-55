@@ -20,13 +20,13 @@ public class ViewInterface {
     public static Matcher getCommandMatcher(String input, String regex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
-        matcher.find();
+        if (!matcher.find()) return null;
         return matcher;
     }
 
     private static String interpreteAbreviations(String input) {
         return "has to be handled";
-    }
+    }//todo fill
 
     private static String sortFields(String input) {
         if (input.indexOf("--") != -1) {
@@ -46,4 +46,5 @@ public class ViewInterface {
             return (init + sortedFields).trim();
         } else return input;
     }
+
 }

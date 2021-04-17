@@ -20,35 +20,35 @@ public class LoginMenu extends Menu {
     @Override
     protected String processCommand(String command) {
         String response = "";
-        if (command.matches(Regexes.LOGINUSER.regex)) {
+        if (command.matches(Regexes.LOGIN_USER.regex)) {
             try {
-                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.LOGINUSER.regex);
+                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.LOGIN_USER.regex);
                 loginMenuController.loginUser(matcher.group(2), matcher.group(1));
-                response = Responses.LOGINSUCCESSFULL.response;
+                response = Responses.LOGIN_SUCCESSFUL.response;
             } catch (MenuException e) {
                 response = e.toString();
             }
-        } else if (command.matches(Regexes.CREATEUSER.regex)) {
+        } else if (command.matches(Regexes.CREATE_USER.regex)) {
             try {
-                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.CREATEUSER.regex);
+                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.CREATE_USER.regex);
                 loginMenuController.createUser(matcher.group(3), matcher.group(2), matcher.group(1));
-                response = Responses.CREATESUCCESSFULLY.response;
+                response = Responses.CREATE_SUCCESSFULLY.response;
             } catch (MenuException e) {
                 response = e.toString();
             }
-        } else if (command.matches(Regexes.ENTERMENU.regex)) {
+        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
             try {
-                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTERMENU.regex);
+                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
                 loginMenuController.enterMenu(matcher.group(1));
             } catch (MenuException e) {
                 response = e.toString();
             }
-        } else if (command.matches(Regexes.EXITMENU.regex)) {
+        } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             loginMenuController.exitMenu();
-        } else if (command.matches(Regexes.SHOWMENU.regex)) {
+        } else if (command.matches(Regexes.SHOW_MENU.regex)) {
             response = showCurrentMenu();
         } else {
-            response = Responses.INVALIDCOMMAND.response;
+            response = Responses.INVALID_COMMAND.response;
         }
         return response;
     }

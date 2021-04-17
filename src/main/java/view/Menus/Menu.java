@@ -58,4 +58,5 @@ abstract public class Menu {
     abstract protected void execute();
 
     abstract protected String processCommand(String command);
+
 }

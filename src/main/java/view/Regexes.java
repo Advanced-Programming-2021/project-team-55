@@ -1,13 +1,13 @@
 package view;
 
 public enum Regexes {
-    LOGINUSER("^user login --password (.*) --username (.*)$"),
-    CREATEUSER("^user create --nickname (.*) --password (.*) --username (.*)$"),
-    LOGOUTUSER("^user logout$"),
-    ENTERMENU("^menu enter (.*)$"),
-    EXITMENU("^menu exit$"),
-    SHOWMENU("^menu show-current$"),
-    SHOWSCOREBOARD("^scoreboard show$");
+    LOGIN_USER("^user login --password (.*) --username (.*)$"),
+    CREATE_USER("^user create --nickname (.*) --password (.*) --username (.*)$"),
+    LOGOUT_USER("^user logout$"),
+    ENTER_MENU("^menu enter (.*)$"),
+    EXIT_MENU("^menu exit$"),
+    SHOW_MENU("^menu show-current$"),
+    SHOW_SCOREBOARD("^scoreboard show$");
     public final String regex;
 
     Regexes(String label) {

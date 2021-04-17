@@ -20,10 +20,10 @@ public class ScoreBoardMenu extends Menu {
     @Override
     protected String processCommand(String command) {
         String response = "";
-        if (command.matches(Regexes.SHOWSCOREBOARD.regex)) {
+        if (command.matches(Regexes.SHOW_SCOREBOARD.regex)) {
             showScoreBoard(scoreBoardMenuController.getScoreBoard());
         } else {
-            response = Responses.INVALIDCOMMAND.response;
+            response = Responses.INVALID_COMMAND.response;
         }
         return response;
     }

@@ -8,7 +8,7 @@ public enum MenuType {
     SCOREBOARD("ScoreBoard Menu"),
     SHOP("Shop Menu"),
     PROFILE("Profile Menu"),
-    IMPORTEXPORT("Import/Export Menu");
+    IMPORT_EXPORT("Import/Export Menu");
 
     public final String menuName;
 

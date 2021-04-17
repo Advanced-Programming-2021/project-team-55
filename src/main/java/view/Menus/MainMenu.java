@@ -18,21 +18,21 @@ public class MainMenu extends Menu {
 
     protected String processCommand(String command) {
         String response = "";
-        if (command.matches(Regexes.LOGOUTUSER.regex)) {
+        if (command.matches(Regexes.LOGOUT_USER.regex)) {
             mainMenuController.logout();
-        } else if (command.matches(Regexes.ENTERMENU.regex)) {
+        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
             try {
-                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTERMENU.regex);
+                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
                 mainMenuController.enterMenu(matcher.group(1));
             } catch (MenuException e) {
                 response = e.toString();
             }
-        } else if (command.matches(Regexes.EXITMENU.regex)) {
+        } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             mainMenuController.exitMenu();
-        } else if (command.matches(Regexes.SHOWMENU.regex)) {
+        } else if (command.matches(Regexes.SHOW_MENU.regex)) {
             response = showCurrentMenu();
         } else {
-            response = Responses.INVALIDCOMMAND.response;
+            response = Responses.INVALID_COMMAND.response;
         }
         return response;
     }
