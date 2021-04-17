@@ -4,6 +4,7 @@ import exceptions.MenuException;
 import model.User;
 import view.Menus.Menu;
 import view.Menus.MenuType;
+import view.Responses;
 
 public class MainMenuController extends MenuController {
     private static MainMenuController mainMenuController;
@@ -59,6 +60,6 @@ public class MainMenuController extends MenuController {
 
     @Override
     public void exitMenu() {
-        Menu.setCurrentMenu(MenuType.MAIN);
+        Menu.setCurrentMenu(MenuType.LOGIN);
     }
 }

@@ -33,6 +33,14 @@ public class User {
         }
         return null;
     }
+    public static User getUserbyNickname(String nickname) {
+        for (User user : allUsers) {
+            if (user.getNickname().equals(nickname)) {
+                return user;
+            }
+        }
+        return null;
+    }
 
     public static boolean usernameExists(String username) {
         for (User user : allUsers) {

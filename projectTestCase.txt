@@ -1,0 +1,3 @@
+user create --username parham --password 123 --nickname par
+user create --username mamamd --nickname mam --password 321
+user login --username parham --password 123

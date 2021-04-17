@@ -7,7 +7,8 @@ public enum Regexes {
     ENTER_MENU("^menu enter (.*)$"),
     EXIT_MENU("^menu exit$"),
     SHOW_MENU("^menu show-current$"),
-    SHOW_SCOREBOARD("^scoreboard show$");
+    SHOW_SCOREBOARD("^scoreboard show$"),
+    CHANGE_NICKNAME("^profile change --nickname (.*)$");
     public final String regex;
 
     Regexes(String label) {

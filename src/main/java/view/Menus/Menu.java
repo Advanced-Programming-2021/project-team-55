@@ -25,34 +25,6 @@ abstract public class Menu {
 
     public static String showCurrentMenu() {
         return currentMenu.menuName;
-//        switch (currentMenu) {//todo parham check this
-//            case LOGIN: {
-//                return MenuType.LOGIN.menuName;
-//            }
-//            case MAIN: {
-//                return MenuType.MAIN.menuName;
-//            }
-//            case DUEL: {
-//                return MenuType.DUEL.menuName;
-//            }
-//            case DECK: {
-//                return MenuType.DECK.menuName;
-//            }
-//            case SCOREBOARD: {
-//                return MenuType.SCOREBOARD.menuName;
-//            }
-//            case SHOP: {
-//                return MenuType.SHOP.menuName;
-//            }
-//            case PROFILE: {
-//                return MenuType.PROFILE.menuName;
-//            }
-//            case IMPORTEXPORT: {
-//                return MenuType.IMPORTEXPORT.menuName;
-//            }
-//            default:
-//                return null;
-//        }
     }
 
     abstract protected void execute();

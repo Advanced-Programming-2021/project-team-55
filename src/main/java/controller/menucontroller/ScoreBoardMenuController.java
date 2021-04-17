@@ -1,10 +1,13 @@
 package controller.menucontroller;
 
+import exceptions.MenuException;
 import model.User;
+import view.Menus.Menu;
+import view.Menus.MenuType;
 
 import java.util.LinkedHashMap;
 
-public class ScoreBoardMenuController {
+public class ScoreBoardMenuController extends MenuController{
     private static ScoreBoardMenuController scoreBoardMenuController;
 
     private ScoreBoardMenuController() {
@@ -19,5 +22,15 @@ public class ScoreBoardMenuController {
 
     public LinkedHashMap<Integer, String> getScoreBoard() {
         return User.getScoreBoardUsers();
+    }
+
+    @Override
+    public void enterMenu(String menu) throws MenuException {
+        throw new MenuException("menu navigation is not possible");
+    }
+
+    @Override
+    public void exitMenu() {
+        Menu.setCurrentMenu(MenuType.MAIN);
     }
 }
