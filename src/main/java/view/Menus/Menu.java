@@ -48,7 +48,7 @@ abstract public class Menu {
         Menu.currentMenu = currentMenu;
     }
 
-    public static String showCurrentMenu() {
+    public static String getCurrentMenu() {
         return currentMenu.menuName;
     }
 

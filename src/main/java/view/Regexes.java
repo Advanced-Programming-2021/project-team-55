@@ -9,7 +9,9 @@ public enum Regexes {
     SHOW_MENU("^menu show-current$"),
     SHOW_SCOREBOARD("^scoreboard show$"),
     CHANGE_NICKNAME("^profile change --nickname (.*)$"),
-    CHANGE_PASSWORD("^profile change --current (.*) --new (.*) --password$");
+    CHANGE_PASSWORD("^profile change --current (.*) --new (.*) --password$"),
+    BUY_SHOP("^shop buy (.*)$"),
+    SHOW_SHOP("^shop show --all$");
     public final String regex;
 
     Regexes(String label) {

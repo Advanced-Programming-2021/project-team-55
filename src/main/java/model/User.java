@@ -8,15 +8,23 @@ import java.util.LinkedHashMap;
 public class User {
     public static User loggedInUser;
     private static final ArrayList<User> allUsers;
+    private String username;
+    private String password;
+    private String nickname;
+    private int score;
+    private int money;
+    private ArrayList<Deck> decks;
+    private Deck activeDeck;
+    private ArrayList<Card> cardsInventory;
 
     static {
         allUsers = new ArrayList<>();
     }
 
-    private String username;
-    private String password;
-    private String nickname;
-    private int score;
+    {
+        decks = new ArrayList<>();
+        cardsInventory = new ArrayList<>();
+    }
 
     public User(String username, String nickname, String password) {
         setUsername(username);
@@ -33,6 +41,7 @@ public class User {
         }
         return null;
     }
+
     public static User getUserbyNickname(String nickname) {
         for (User user : allUsers) {
             if (user.getNickname().equals(nickname)) {
@@ -118,6 +127,34 @@ public class User {
 
     public int getScore() {
         return score;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void changeMoney(int money) {
+        this.money = money;
+    }
+
+    public ArrayList<Deck> getDecks() {
+        return decks;
+    }
+
+    public void addDeck(Deck deck) {
+        decks.add(deck);
+    }
+
+    public Deck getActiveDeck() {
+        return activeDeck;
+    }
+
+    public void setActiveDeck(Deck activeDeck) {
+        this.activeDeck = activeDeck;
+    }
+
+    public void addCardToInventory(Card card) {
+        cardsInventory.add(card);
     }
 
     public void changeScore(int amount) {

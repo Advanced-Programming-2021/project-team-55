@@ -35,7 +35,7 @@ public class ScoreBoardMenu extends Menu {
             scoreBoardMenuController.exitMenu();
         }
         else if(command.matches(Regexes.SHOW_MENU.regex)){
-            response=showCurrentMenu();
+            response= getCurrentMenu();
         }
         else {
             response = Responses.INVALID_COMMAND.response;
