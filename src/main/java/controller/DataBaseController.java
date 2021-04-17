@@ -1,6 +1,7 @@
 package controller;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+
 import controller.menucontroller.MenuController;
 import exceptions.MenuException;
 import model.MonsterCardDetails;
@@ -12,7 +13,7 @@ import java.util.List;
 public class DataBaseController extends MenuController {
     private static DataBaseController dataBaseController;
 
-    private DataBaseController(){
+    private DataBaseController() {
 
     }
 

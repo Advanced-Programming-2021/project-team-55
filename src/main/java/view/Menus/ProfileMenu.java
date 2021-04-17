@@ -25,14 +25,29 @@ public class ProfileMenu extends Menu {
             try {
                 Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.CHANGE_NICKNAME.regex);
                 profileMenuController.changeNickname(matcher.group(1));
-                response= Responses.NICKNAME_CHANGED_SUCCESSFULLY.response;
+                response = Responses.NICKNAME_CHANGED_SUCCESSFULLY.response;
+            } catch (MenuException e) {
+                response = e.toString();
             }
-            catch (MenuException e){
-                response=e.toString();
+        } else if (command.matches(Regexes.CHANGE_NICKNAME.regex)) {
+            try {
+                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.CHANGE_PASSWORD.regex);
+                profileMenuController.changePassword(matcher.group(1), matcher.group(2));
+                response = Responses.PASSWORD_CHANGED_SUCCESSFULLY.response;
+            } catch (MenuException e) {
+                response = e.toString();
             }
-        }
-        else {
-            response=Responses.INVALID_COMMAND.response;
+        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
+            try {
+                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
+                profileMenuController.enterMenu(matcher.group(1));
+            } catch (MenuException e) {
+                response = e.toString();
+            }
+        } else if (command.matches(Regexes.EXIT_MENU.regex)) {
+            profileMenuController.exitMenu();
+        } else {
+            response = Responses.INVALID_COMMAND.response;
         }
         return response;
     }
