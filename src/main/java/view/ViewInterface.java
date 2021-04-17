@@ -14,7 +14,9 @@ public class ViewInterface {
     }
 
     public static void showResult(String result) {
-        System.out.println(result);
+        if (!result.equals("")) {
+            System.out.println(result);
+        }
     }
 
     public static Matcher getCommandMatcher(String input, String regex) {

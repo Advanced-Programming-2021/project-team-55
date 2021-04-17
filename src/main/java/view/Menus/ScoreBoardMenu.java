@@ -1,11 +1,13 @@
 package view.Menus;
 
 import controller.menucontroller.ScoreBoardMenuController;
+import exceptions.MenuException;
 import view.Regexes;
 import view.Responses;
 import view.ViewInterface;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
 
 public class ScoreBoardMenu extends Menu {
     private static final ScoreBoardMenuController scoreBoardMenuController = ScoreBoardMenuController.getInstance();
@@ -22,7 +24,20 @@ public class ScoreBoardMenu extends Menu {
         String response = "";
         if (command.matches(Regexes.SHOW_SCOREBOARD.regex)) {
             showScoreBoard(scoreBoardMenuController.getScoreBoard());
-        } else {
+        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
+            try {
+                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
+                scoreBoardMenuController.enterMenu(matcher.group(1));
+            } catch (MenuException e) {
+                response = e.toString();
+            }
+        } else if (command.matches(Regexes.EXIT_MENU.regex)) {
+            scoreBoardMenuController.exitMenu();
+        }
+        else if(command.matches(Regexes.SHOW_MENU.regex)){
+            response=showCurrentMenu();
+        }
+        else {
             response = Responses.INVALID_COMMAND.response;
         }
         return response;

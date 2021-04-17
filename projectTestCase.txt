@@ -1,3 +1,13 @@
 user create --username parham --password 123 --nickname par
 user create --username mamamd --nickname mam --password 321
 user login --username parham --password 123
+menu enter Profile
+profile change --nickname pari
+profile change --nickname pari
+menu show-current
+menu exit
+menu show-current
+menu enter Scoreboard
+scoreboard show
+menu exit
+user logout

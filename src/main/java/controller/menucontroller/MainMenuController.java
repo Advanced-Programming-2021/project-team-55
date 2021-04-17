@@ -21,7 +21,7 @@ public class MainMenuController extends MenuController {
 
     public void logout() {
         User.setLoggedInUser(null);
-        Menu.setCurrentMenu(MenuType.MAIN);
+        Menu.setCurrentMenu(MenuType.LOGIN);
     }
 
     @Override
