@@ -141,6 +141,15 @@ public class User {
         return decks;
     }
 
+    public Deck getDeckByName(String deckName){
+        for(Deck deck:decks){
+            if(deck.getName().equals(deckName)){
+                return deck;
+            }
+        }
+        return null;
+    }
+
     public void addDeck(Deck deck) {
         decks.add(deck);
     }
@@ -153,12 +162,26 @@ public class User {
         this.activeDeck = activeDeck;
     }
 
-    public void addCardToInventory(Card card) {
-        cardsInventory.add(card);
+    public boolean cardExistsInInventory(Card card){
+        return cardsInventory.contains(card);
     }
 
+    public void addCardsToInventory(ArrayList<Card>cards) {
+        cardsInventory.addAll(cards);
+    }
+
+    public void removeCardFromInventory(Card card){
+        cardsInventory.remove(card);
+    }
     public void changeScore(int amount) {
         this.score += amount;
+    }
+
+    public void removeDeck(Deck deck){
+        decks.remove(deck);
+        if(activeDeck==deck){
+            setActiveDeck(null);
+        }
     }
 
     @Override

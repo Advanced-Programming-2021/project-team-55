@@ -14,6 +14,14 @@ public class Deck {
     public Deck(String name,User owner){
 
     }
+    public static boolean deckNameExists(String deckName,User owner){//TODO: it only checks Deck names in owner decks.Is it correct?
+        for(Deck deck:owner.getDecks()){
+            if(deck.getName().equals(deckName)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public String getName() {
         return name;
@@ -68,7 +76,7 @@ public class Deck {
     public boolean isSideDeckFull(){
         return sideDeck.size()==15;
     }
-    private int getCardCountInDeck(Card cardToSearch){
+    public int getCardCountInDeck(Card cardToSearch){
         int count=0;
         for(Card card:mainDeck){
             if(card.getName().equals(cardToSearch.getName())){
@@ -85,6 +93,7 @@ public class Deck {
     public void removeCardFromDeck(Card card){
 
     }
+
 
     @Override
     public String toString() {
