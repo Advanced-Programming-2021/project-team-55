@@ -10,16 +10,19 @@ public class MainMenuController extends MenuController {
 
     private MainMenuController() {
     }
+
     public static MainMenuController getInstance() {
         if (mainMenuController == null) {
             mainMenuController = new MainMenuController();
         }
         return mainMenuController;
     }
-    public void logout(){
+
+    public void logout() {
         User.setLoggedInUser(null);
         Menu.setCurrentMenu(MenuType.MAIN);
     }
+
     @Override
     public void enterMenu(String menu) throws MenuException {
         switch (menu) {

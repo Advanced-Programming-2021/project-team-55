@@ -1,31 +1,23 @@
 package view.Menus;
 
 
-import controller.MenuController.ScoreBoardMenuController;
-
 abstract public class Menu {
     public static MenuType currentMenu = MenuType.LOGIN;
-    private static LoginMenu loginMenu = new LoginMenu();
-    private static MainMenu mainMenu=new MainMenu();
-    private static ScoreBoardMenu scoreBoardMenu=new ScoreBoardMenu();
+    private static final LoginMenu loginMenu = new LoginMenu();
+    private static final MainMenu mainMenu = new MainMenu();
+    private static final ScoreBoardMenu scoreBoardMenu = new ScoreBoardMenu();
 
     public static void run() {
         while (true) {
             if (currentMenu == MenuType.LOGIN) {
                 loginMenu.execute();
-            }
-            else if(currentMenu==MenuType.MAIN){
+            } else if (currentMenu == MenuType.MAIN) {
                 mainMenu.execute();
-            }
-            else if(currentMenu==MenuType.SCOREBOARD){
+            } else if (currentMenu == MenuType.SCOREBOARD) {
                 scoreBoardMenu.execute();
             }
         }
     }
-
-    abstract protected void execute();
-
-    abstract protected String processCommand(String command);
 
     public static void setCurrentMenu(MenuType currentMenu) {
         Menu.currentMenu = currentMenu;
@@ -61,4 +53,8 @@ abstract public class Menu {
                 return null;
         }
     }
+
+    abstract protected void execute();
+
+    abstract protected String processCommand(String command);
 }

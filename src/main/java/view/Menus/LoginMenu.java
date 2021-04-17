@@ -1,15 +1,15 @@
 package view.Menus;
 
 import controller.MenuController.LoginMenuController;
+import exceptions.MenuException;
 import view.Regexes;
 import view.Responses;
-import exceptions.MenuException;
 import view.ViewInterface;
 
 import java.util.regex.Matcher;
 
 public class LoginMenu extends Menu {
-    private static LoginMenuController loginMenuController = LoginMenuController.getInstance();
+    private static final LoginMenuController loginMenuController = LoginMenuController.getInstance();
 
     @Override
     protected void execute() {

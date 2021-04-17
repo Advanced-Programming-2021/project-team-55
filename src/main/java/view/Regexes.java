@@ -10,7 +10,7 @@ public enum Regexes {
     SHOWSCOREBOARD("^scoreboard show$");
     public final String regex;
 
-    private Regexes(String label) {
+    Regexes(String label) {
         this.regex = label;
     }
 }

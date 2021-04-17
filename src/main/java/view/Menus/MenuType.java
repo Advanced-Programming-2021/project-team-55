@@ -11,7 +11,8 @@ public enum MenuType {
     IMPORTEXPORT("Import/Export Menu");
 
     public final String menuName;
-    private MenuType(String label) {
+
+    MenuType(String label) {
         this.menuName = label;
     }
 }
