@@ -13,14 +13,14 @@ public class User {
         allUsers = new ArrayList<>();
     }
 
+    private final ArrayList<Deck> decks;
+    private final ArrayList<Card> cardsInventory;
     private String username;
     private String password;
     private String nickname;
     private int score;
     private int money;
-    private final ArrayList<Deck> decks;
     private Deck activeDeck;
-    private final ArrayList<Card> cardsInventory;
 
     {
         decks = new ArrayList<>();

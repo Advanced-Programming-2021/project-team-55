@@ -7,7 +7,8 @@ import view.Menus.MenuType;
 
 import java.util.LinkedHashMap;
 
-public class ScoreBoardMenuController extends MenuController{
+public class ScoreBoardMenuController extends MenuController {
+
     private static ScoreBoardMenuController scoreBoardMenuController;
 
     private ScoreBoardMenuController() {
@@ -33,4 +34,5 @@ public class ScoreBoardMenuController extends MenuController{
     public void exitMenu() {
         Menu.setCurrentMenu(MenuType.MAIN);
     }
+
 }

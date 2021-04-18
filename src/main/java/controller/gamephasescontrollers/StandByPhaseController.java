@@ -11,16 +11,16 @@ public class StandByPhaseController {
 
     }
 
+    public static StandByPhaseController getInstance() {
+        return null;
+    }
+
     public void handleEffectsOfCards(Card card) {
 
     }
 
-    public void fastCardsActivator(Card card) {
+    public void activateFastCards(Card card) {
 
-    }
-
-    public static StandByPhaseController getInstance() {
-        return null;
     }
 
 }

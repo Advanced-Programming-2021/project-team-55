@@ -6,32 +6,31 @@ import model.User;
 
 import java.util.ArrayList;
 
-public class ShopMenuController extends MenuController{
+public class ShopMenuController extends MenuController {
 
     private static ShopMenuController shopMenuController;
 
-    private ShopMenuController(){}
+    private ShopMenuController() {
+    }
 
     public static ShopMenuController getInstance() {
         if (shopMenuController == null) shopMenuController = new ShopMenuController();
         return shopMenuController;
     }
 
-    public void buyCard(String cardName)throws MenuException{
-        Card card=Card.getCardByName(cardName);
-        if(card==null){
+    public void buyCard(String cardName) throws MenuException {
+        Card card = Card.getCardByName(cardName);
+        if (card == null) {
             throw new MenuException("there is no card with this name");
-        }
-        else if(User.loggedInUser.getMoney()<card.getPrice()){
+        } else if (User.loggedInUser.getMoney() < card.getPrice()) {
             throw new MenuException("not enough money");
-        }
-        else{
+        } else {
             User.loggedInUser.changeMoney(-card.getPrice());
             User.loggedInUser.addCardToInventory(card);
         }
     }
 
-    public ArrayList<Card> getAllCards(){
+    public ArrayList<Card> getAllCards() {
         return Card.getCards();
     }
 
