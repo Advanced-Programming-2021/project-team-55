@@ -1,4 +1,4 @@
-package controller;
+package controller.gamephasescontrollers;
 
 import model.Card;
 import model.Player;

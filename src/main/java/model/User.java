@@ -188,4 +188,7 @@ public class User {
     public String toString() {
         return "- " + nickname + ": " + score;
     }
+
+    public void addCardToInventory(Card card) {
+    }
 }

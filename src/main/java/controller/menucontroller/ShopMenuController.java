@@ -7,6 +7,7 @@ import model.User;
 import java.util.ArrayList;
 
 public class ShopMenuController extends MenuController{
+
     private static ShopMenuController shopMenuController;
 
     private ShopMenuController(){}
