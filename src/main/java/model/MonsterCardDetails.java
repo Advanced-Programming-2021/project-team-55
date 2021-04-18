@@ -35,6 +35,14 @@ public class MonsterCardDetails {//temporary class for csv files import understa
     @CsvBindByName
     private String price;
 
+    public static List<MonsterCardDetails> getMonsterCardsDetailsList() {
+        return monsterCardsDetailsList;
+    }
+
+    public static void setMonsterCardsDetailsList(List<MonsterCardDetails> monsterCardsDetailsList) {
+        MonsterCardDetails.monsterCardsDetailsList = monsterCardsDetailsList;
+    }
+
     public String getName() {
         return Name;
     }
@@ -69,14 +77,6 @@ public class MonsterCardDetails {//temporary class for csv files import understa
 
     public String getPrice() {
         return price;
-    }
-
-    public static List<MonsterCardDetails> getMonsterCardsDetailsList() {
-        return monsterCardsDetailsList;
-    }
-
-    public static void setMonsterCardsDetailsList(List<MonsterCardDetails> monsterCardsDetailsList) {
-        MonsterCardDetails.monsterCardsDetailsList = monsterCardsDetailsList;
     }
 
 }

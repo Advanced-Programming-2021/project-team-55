@@ -2,10 +2,10 @@ package controller.menucontroller;
 
 import exceptions.MenuException;
 
-public class DuelMenuController extends MenuController{
+public class DuelMenuController extends MenuController {
     private static DuelMenuController duelMenuController;
 
-    private DuelMenuController(){
+    private DuelMenuController() {
 
     }
 

@@ -8,9 +8,11 @@ import model.User;
 import java.util.ArrayList;
 
 public class DeckMenuController extends MenuController {
+
     private static DeckMenuController deckMenuController;
 
     private DeckMenuController() {
+
     }
 
     public static DeckMenuController getInstance() {
@@ -32,57 +34,49 @@ public class DeckMenuController extends MenuController {
 
     public void deleteDeck(String deckName) throws MenuException {
         Deck deck = User.loggedInUser.getDeckByName(deckName);
-        if(deck==null){
+        if (deck == null) {
             throw new MenuException("deck with name " + deckName + " does not exist");
-        }
-        else {
+        } else {
             User.loggedInUser.removeDeck(deck);
             User.loggedInUser.addCardsToInventory(deck.getMainDeck());
             User.loggedInUser.addCardsToInventory(deck.getSideDeck());
         }
     }
 
-    public void activeDeck(String deckName)throws MenuException {
-        Deck deck=User.loggedInUser.getDeckByName(deckName);
-        if(deck==null){
-            throw new MenuException("deck with name "+deckName+" does not exist");
-        }
-        else{
+    public void activeDeck(String deckName) throws MenuException {
+        Deck deck = User.loggedInUser.getDeckByName(deckName);
+        if (deck == null) {
+            throw new MenuException("deck with name " + deckName + " does not exist");
+        } else {
             User.loggedInUser.setActiveDeck(deck);
         }
 
     }
 
-    public void addCardToDeck(String cardName, String deckName, boolean isSide)throws MenuException {
-        Card card=Card.getCardByName(cardName);
-        Deck deck=User.loggedInUser.getDeckByName(deckName);
-        if(!User.loggedInUser.cardExistsInInventory(card)){
-            throw new MenuException("card with name "+cardName+" does not exist");
-        }
-        else if(deck==null){
-            throw new MenuException("deck with name "+deckName+" does not exist");
-        }
-        else if(deck.isMainDeckFull()){
+    public void addCardToDeck(String cardName, String deckName, boolean isSide) throws MenuException {
+        Card card = Card.getCardByName(cardName);
+        Deck deck = User.loggedInUser.getDeckByName(deckName);
+        if (!User.loggedInUser.cardExistsInInventory(card)) {
+            throw new MenuException("card with name " + cardName + " does not exist");
+        } else if (deck == null) {
+            throw new MenuException("deck with name " + deckName + " does not exist");
+        } else if (deck.isMainDeckFull()) {
             throw new MenuException("main deck is full");
-        }
-        else if(deck.isSideDeckFull()){
+        } else if (deck.isSideDeckFull()) {
             throw new MenuException("side deck is full");
-        }
-        else if(deck.getCardCountInDeck(card)==3){
-            throw new MenuException("there are already three cards with name "+cardName+" in deck " +deckName);
-        }
-        else{
+        } else if (deck.getCardCountInDeck(card) == 3) {
+            throw new MenuException("there are already three cards with name " + cardName + " in deck " + deckName);
+        } else {
             User.loggedInUser.removeCardFromInventory(card);
-            if(isSide){
+            if (isSide) {
                 deck.addCardToSideDeck(card);
-            }
-            else{
+            } else {
                 deck.addCardToMainDeck(card);
             }
         }
     }
 
-    public void removeCardFromDeck(String cardName, String deckName, boolean isSide)throws MenuException {
+    public void removeCardFromDeck(String cardName, String deckName, boolean isSide) throws MenuException {
 
     }
 
@@ -110,4 +104,5 @@ public class DeckMenuController extends MenuController {
     public void exitMenu() {
 
     }
+
 }

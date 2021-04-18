@@ -6,20 +6,21 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 
 public class User {
-    public static User loggedInUser;
     private static final ArrayList<User> allUsers;
+    public static User loggedInUser;
+
+    static {
+        allUsers = new ArrayList<>();
+    }
+
     private String username;
     private String password;
     private String nickname;
     private int score;
     private int money;
-    private ArrayList<Deck> decks;
+    private final ArrayList<Deck> decks;
     private Deck activeDeck;
-    private ArrayList<Card> cardsInventory;
-
-    static {
-        allUsers = new ArrayList<>();
-    }
+    private final ArrayList<Card> cardsInventory;
 
     {
         decks = new ArrayList<>();
@@ -141,9 +142,9 @@ public class User {
         return decks;
     }
 
-    public Deck getDeckByName(String deckName){
-        for(Deck deck:decks){
-            if(deck.getName().equals(deckName)){
+    public Deck getDeckByName(String deckName) {
+        for (Deck deck : decks) {
+            if (deck.getName().equals(deckName)) {
                 return deck;
             }
         }
@@ -162,24 +163,25 @@ public class User {
         this.activeDeck = activeDeck;
     }
 
-    public boolean cardExistsInInventory(Card card){
+    public boolean cardExistsInInventory(Card card) {
         return cardsInventory.contains(card);
     }
 
-    public void addCardsToInventory(ArrayList<Card>cards) {
+    public void addCardsToInventory(ArrayList<Card> cards) {
         cardsInventory.addAll(cards);
     }
 
-    public void removeCardFromInventory(Card card){
+    public void removeCardFromInventory(Card card) {
         cardsInventory.remove(card);
     }
+
     public void changeScore(int amount) {
         this.score += amount;
     }
 
-    public void removeDeck(Deck deck){
+    public void removeDeck(Deck deck) {
         decks.remove(deck);
-        if(activeDeck==deck){
+        if (activeDeck == deck) {
             setActiveDeck(null);
         }
     }

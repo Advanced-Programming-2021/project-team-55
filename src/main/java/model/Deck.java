@@ -1,22 +1,22 @@
 package model;
 
-import javax.naming.PartialResultException;
 import java.util.ArrayList;
 
 public class Deck {
     private String name;
     private User owner;
-    private ArrayList<Card>mainDeck;
-    private ArrayList<Card>sideDeck;
+    private ArrayList<Card> mainDeck;
+    private ArrayList<Card> sideDeck;
     private boolean isActive;
 
 
-    public Deck(String name,User owner){
+    public Deck(String name, User owner) {
 
     }
-    public static boolean deckNameExists(String deckName,User owner){//TODO: it only checks Deck names in owner decks.Is it correct?
-        for(Deck deck:owner.getDecks()){
-            if(deck.getName().equals(deckName)){
+
+    public static boolean deckNameExists(String deckName, User owner) {//TODO: it only checks Deck names in owner decks.Is it correct?
+        for (Deck deck : owner.getDecks()) {
+            if (deck.getName().equals(deckName)) {
                 return true;
             }
         }
@@ -63,46 +63,50 @@ public class Deck {
         isActive = active;
     }
 
-    public void deleteDeck(){
+    public void deleteDeck() {
         //TODO deck has to be deleted from user
     }
-    public boolean isDeckValid(){
+
+    public boolean isDeckValid() {
         //TODO checkForEachCardFrequency
         return true;
     }
-    public boolean isMainDeckFull(){
-        return mainDeck.size()==60;
+
+    public boolean isMainDeckFull() {
+        return mainDeck.size() == 60;
     }
-    public boolean isSideDeckFull(){
-        return sideDeck.size()==15;
+
+    public boolean isSideDeckFull() {
+        return sideDeck.size() == 15;
     }
-    public int getCardCountInDeck(Card cardToSearch){
-        int count=0;
-        for(Card card:mainDeck){
-            if(card.getName().equals(cardToSearch.getName())){
+
+    public int getCardCountInDeck(Card cardToSearch) {
+        int count = 0;
+        for (Card card : mainDeck) {
+            if (card.getName().equals(cardToSearch.getName())) {
                 count++;
             }
         }
-        for(Card card:sideDeck){
-            if(card.getName().equals(cardToSearch.getName())){
+        for (Card card : sideDeck) {
+            if (card.getName().equals(cardToSearch.getName())) {
                 count++;
             }
         }
         return count;
     }
-    public void removeCardFromDeck(Card card){
+
+    public void removeCardFromDeck(Card card) {
 
     }
 
 
     @Override
     public String toString() {
-        String information= name+": main deck "+mainDeck.size()+", side deck "+sideDeck.size()+", ";
-        if(isDeckValid()){
-            return information+"valid";
-        }
-        else{
-            return information+"invalid";
+        String information = name + ": main deck " + mainDeck.size() + ", side deck " + sideDeck.size() + ", ";
+        if (isDeckValid()) {
+            return information + "valid";
+        } else {
+            return information + "invalid";
         }
     }
 }
