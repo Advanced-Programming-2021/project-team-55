@@ -33,11 +33,9 @@ public class ScoreBoardMenu extends Menu {
             }
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             scoreBoardMenuController.exitMenu();
-        }
-        else if(command.matches(Regexes.SHOW_MENU.regex)){
-            response=showCurrentMenu();
-        }
-        else {
+        } else if (command.matches(Regexes.SHOW_MENU.regex)) {
+            response = getCurrentMenu();
+        } else {
             response = Responses.INVALID_COMMAND.response;
         }
         return response;

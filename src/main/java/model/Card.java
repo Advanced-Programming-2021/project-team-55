@@ -1,75 +1,119 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Card {
-    protected String cardName, description;//Changed name to cardName due to similarity problem
-    protected int number, price;
+    protected static ArrayList<Card> cards;
+    protected String name;
+    protected String description;
+    protected int number;
+    protected int price;
     protected Counter counter;
-    protected static ArrayList<Card> allCards;
 
-    static {
-        allCards=new ArrayList<>();
-    }
-
-    protected Card(String cardName, String description, int number, int price) {
-        setCardName(cardName);
+    public Card(String name, String description, int price, int number) {
+        setName(name);
         setDescription(description);
-        setNumber(number);
         setPrice(price);
-        allCards.add(this);
+        setNumber(number);
+        cards.add(this);
     }
 
-    protected void setCardName(String cardName) {
-        this.cardName = cardName;
+    public static ArrayList<Card> getCards() {
+        return cards;
     }
 
-    protected void setDescription(String description) {
-        this.description = description;
+    public static Card getCardByName(String name) {
+        for (Card card : cards) {
+            if (card.getName().equals(name)) {
+                return card;
+            }
+        }
+        return null;
+    }
+    public static ArrayList<Card>sortCards(ArrayList<Card>cardsToBeSorted){
+        Collections.sort(cardsToBeSorted, new Comparator<Card>() {
+            @Override
+            public int compare(Card card1, Card card2) {
+                return card1.name.compareTo(card2.name);
+            }
+        });
+        return cardsToBeSorted;
+    }
+    public static ArrayList<Card>getMonstersSorted(ArrayList<Card>cards){
+        ArrayList<Card>monsters=new ArrayList<>();
+        for(Card card:cards){
+            if(card instanceof Monster){
+                monsters.add(card);
+            }
+        }
+        Collections.sort(monsters, new Comparator<Card>() {
+            @Override
+            public int compare(Card card1, Card card2) {
+                return card1.name.compareTo(card2.name);
+            }
+        });
+        return monsters;
+    }
+    public static ArrayList<Card>getMagicsSorted(ArrayList<Card>cards){
+        ArrayList<Card>spellAndTraps=new ArrayList<>();
+        for(Card card:cards){
+            if(!(card instanceof Monster)){
+                spellAndTraps.add(card);
+            }
+        }
+        Collections.sort(spellAndTraps, new Comparator<Card>() {
+            @Override
+            public int compare(Card card1, Card card2) {
+                return card1.name.compareTo(card2.name);
+            }
+        });
+        return spellAndTraps;
     }
 
-    protected void setPrice(int price) {
-        this.price = price;
+    public String getName() {
+        return name;
     }
 
-    protected void setNumber(int number) {
-        this.number = number;
-    }
-
-    protected void setCounter(Counter counter) {
-        this.counter = counter;
-    }
-
-    public String getCardName() {
-        return cardName;
+    protected void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
         return description;
     }
 
+    protected void setDescription(String description) {
+        this.description = description;
+    }
+
     public int getNumber() {
         return number;
+    }
+
+    protected void setNumber(int number) {
+        this.number = number;
     }
 
     public int getPrice() {
         return price;
     }
 
+    protected void setPrice(int price) {
+        this.price = price;
+    }
+
     public Counter getCounter() {
         return counter;
     }
 
-    public static ArrayList<Card> getAllCards() {
-        return allCards;
+    protected void setCounter(Counter counter) {
+        this.counter = counter;
     }
 
-    public static Card getCardByCardName(String cardName) {
-        for (Card card : allCards
-        ) {
-            if (cardName.equals(card.cardName))
-                return card;
-        }
-        return null;
+    @Override
+    public String toString() {
+        return name+": "+description;
     }
 }

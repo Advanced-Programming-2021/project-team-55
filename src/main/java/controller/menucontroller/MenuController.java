@@ -3,8 +3,9 @@ package controller.menucontroller;
 import exceptions.MenuException;
 
 abstract public class MenuController {
-    abstract public void enterMenu(String menu) throws MenuException;
 
-    abstract public void exitMenu();
+    abstract protected void enterMenu(String menu) throws MenuException;
+
+    abstract protected void exitMenu();
 
 }

@@ -2,7 +2,7 @@ package view.Menus;
 
 import controller.menucontroller.DuelMenuController;
 
-public class DuelMenu extends Menu{
+public class DuelMenu extends Menu {
     private static final DuelMenuController duelMenuController = DuelMenuController.getInstance();
 
 

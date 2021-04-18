@@ -7,9 +7,11 @@ import view.Menus.Menu;
 import view.Menus.MenuType;
 
 public class LoginMenuController extends MenuController {
+
     private static LoginMenuController loginMenuController;
 
     private LoginMenuController() {
+
     }
 
     public static LoginMenuController getInstance() {
@@ -52,4 +54,5 @@ public class LoginMenuController extends MenuController {
     public void exitMenu() {
         System.exit(0);
     }
+
 }

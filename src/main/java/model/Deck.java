@@ -1,79 +1,142 @@
 package model;
 
-import org.apache.commons.lang3.ObjectUtils;
-
 import java.util.ArrayList;
 
 public class Deck {
     private String name;
     private User owner;
-    private ArrayList<Card> mainDeck;
-    private ArrayList<Card> sideDeck;
+    private ArrayList<Card>mainDeck;
+    private ArrayList<Card>sideDeck;
     private boolean isActive;
 
-    {
-        mainDeck = new ArrayList<>();
-        sideDeck = new ArrayList<>();
-    }
 
-    public Deck(String name, User owner) {
-        setName(name);
-        setOwner(owner);
-    }
+    public Deck(String name,User owner){
 
-    private void setName(String name) {
-        this.name = name;
     }
-
-    private void setOwner(User owner) {
-        this.owner = owner;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
+    public static boolean deckNameExists(String deckName,User owner){//TODO: it only checks Deck names in owner decks.Is it correct?
+        for(Deck deck:owner.getDecks()){
+            if(deck.getName().equals(deckName)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public String getName() {
         return name;
     }
 
+    private void setName(String name) {
+        this.name = name;
+    }
+
     public User getOwner() {
         return owner;
     }
 
-    public ArrayList<Card> getDeck(String deckType) {
-        if (deckType.equals("mainDeck"))
-            return mainDeck;
-        else if (deckType.equals("sideDeck"))
-            return sideDeck;
-        else {
-            //exception error
-            return null;
-        }
+    private void setOwner(User owner) {
+        this.owner = owner;
     }
+
+    public ArrayList<Card> getMainDeck() {
+        return mainDeck;
+    }
+
+    public void addCardToMainDeck(Card card) {
+        mainDeck.add(card);
+    }
+
+    public ArrayList<Card> getSideDeck() {
+        return sideDeck;
+    }
+
+    public void addCardToSideDeck(Card card) {
+        sideDeck.add(card);
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
     public void deleteDeck(){
-        mainDeck.clear();
-        sideDeck.clear();
-    }
-    public void addCartToDeck(Card card, String deckType){
-        getDeck(deckType).add(card);
+        //TODO deck has to be deleted from user
     }
     public boolean isDeckValid(){
-        return false;//needs to be written
+        //TODO checkForEachCardFrequency
+        return true;
     }
     public boolean isMainDeckFull(){
-        return false;//needs to be written
+        return mainDeck.size()==60;
     }
     public boolean isSideDeckFull(){
-        return false;//needs to be written
+        return sideDeck.size()==15;
     }
-    public int getACardsCount(){
-        return -1;//needs to be written
+    public int getCardCountInDeck(Card cardToSearch){
+        int count=0;
+        for(Card card:mainDeck){
+            if(card.getName().equals(cardToSearch.getName())){
+                count++;
+            }
+        }
+        for(Card card:sideDeck){
+            if(card.getName().equals(cardToSearch.getName())){
+                count++;
+            }
+        }
+        return count;
     }
-    public void removeACardFromDeck(Card card){
-        //needs to be written.be careful with where the card should be removed from
+    public void removeCardFromMainDeck(String cardName){
+        for(Card card:mainDeck){//TODO : check if we have to remove all cards with that name from deck or just one card
+            if(card.getName().equals(cardName)){
+                mainDeck.remove(card);
+                ArrayList<Card>cardsRemoved=new ArrayList<>();
+                cardsRemoved.add(card);
+                owner.addCardsToInventory(cardsRemoved);
+                return;
+            }
+        }
     }
-    public String toString(){
-        return null;//needs to be written
+    public void removeCardFromSideDeck(String cardName){
+        for(Card card:sideDeck){
+            if(card.getName().equals(cardName)){
+                sideDeck.remove(card);
+                ArrayList<Card>cardsRemoved=new ArrayList<>();
+                cardsRemoved.add(card);
+                owner.addCardsToInventory(cardsRemoved);
+                return;
+            }
+        }
+    }
+    public boolean cardExistsInMainDeck(String cardName){
+        for(Card card:mainDeck){
+            if(card.getName().equals(cardName)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean cardExistsInSideDeck(String cardName){
+        for(Card card:sideDeck){
+            if(card.getName().equals(cardName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    @Override
+    public String toString() {
+        String information= name+": main deck "+mainDeck.size()+", side deck "+sideDeck.size()+", ";
+        if(isDeckValid()){
+            return information+"valid";
+        }
+        else{
+            return information+"invalid";
+        }
     }
 }

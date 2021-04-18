@@ -20,7 +20,7 @@ public class MainMenu extends Menu {
         String response = "";
         if (command.matches(Regexes.LOGOUT_USER.regex)) {
             mainMenuController.logout();
-            response=Responses.LOGOUT_SUCCESSFULLY.response;
+            response = Responses.LOGOUT_SUCCESSFULLY.response;
         } else if (command.matches(Regexes.ENTER_MENU.regex)) {
             try {
                 Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
@@ -31,7 +31,7 @@ public class MainMenu extends Menu {
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             mainMenuController.exitMenu();
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {
-            response = showCurrentMenu();
+            response = getCurrentMenu();
         } else {
             response = Responses.INVALID_COMMAND.response;
         }

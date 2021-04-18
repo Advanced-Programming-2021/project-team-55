@@ -6,17 +6,26 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 
 public class User {
-    public static User loggedInUser;
     private static final ArrayList<User> allUsers;
+    public static User loggedInUser;
 
     static {
         allUsers = new ArrayList<>();
     }
 
+    private final ArrayList<Deck> decks;
+    private final ArrayList<Card> cardsInventory;
     private String username;
     private String password;
     private String nickname;
     private int score;
+    private int money;
+    private Deck activeDeck;
+
+    {
+        decks = new ArrayList<>();
+        cardsInventory = new ArrayList<>();
+    }
 
     public User(String username, String nickname, String password) {
         setUsername(username);
@@ -25,7 +34,7 @@ public class User {
         allUsers.add(this);
     }
 
-    public static User getUserByUsername(String username) {
+    public static User getUserbyUsername(String username) {
         for (User user : allUsers) {
             if (user.getUsername().equals(username)) {
                 return user;
@@ -33,7 +42,8 @@ public class User {
         }
         return null;
     }
-    public static User getUserByNickname(String nickname) {
+
+    public static User getUserbyNickname(String nickname) {
         for (User user : allUsers) {
             if (user.getNickname().equals(nickname)) {
                 return user;
@@ -120,8 +130,63 @@ public class User {
         return score;
     }
 
+    public int getMoney() {
+        return money;
+    }
+
+    public void changeMoney(int money) {
+        this.money = money;
+    }
+
+    public ArrayList<Deck> getDecks() {
+        return decks;
+    }
+
+    public Deck getDeckByName(String deckName) {
+        for (Deck deck : decks) {
+            if (deck.getName().equals(deckName)) {
+                return deck;
+            }
+        }
+        return null;
+    }
+    public ArrayList<Card>getCardsInventory(){
+        return cardsInventory;
+    }
+
+    public void addDeck(Deck deck) {
+        decks.add(deck);
+    }
+
+    public Deck getActiveDeck() {
+        return activeDeck;
+    }
+
+    public void setActiveDeck(Deck activeDeck) {
+        this.activeDeck = activeDeck;
+    }
+
+    public boolean cardExistsInInventory(Card card) {
+        return cardsInventory.contains(card);
+    }
+
+    public void addCardsToInventory(ArrayList<Card> cards) {
+        cardsInventory.addAll(cards);
+    }
+
+    public void removeCardFromInventory(Card card) {
+        cardsInventory.remove(card);
+    }
+
     public void changeScore(int amount) {
         this.score += amount;
+    }
+
+    public void removeDeck(Deck deck) {
+        decks.remove(deck);
+        if (activeDeck == deck) {
+            setActiveDeck(null);
+        }
     }
 
     @Override
