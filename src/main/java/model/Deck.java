@@ -1,6 +1,5 @@
 package model;
 
-import javax.naming.PartialResultException;
 import java.util.ArrayList;
 
 public class Deck {
@@ -90,8 +89,43 @@ public class Deck {
         }
         return count;
     }
-    public void removeCardFromDeck(Card card){
-
+    public void removeCardFromMainDeck(String cardName){
+        for(Card card:mainDeck){//TODO : check if we have to remove all cards with that name from deck or just one card
+            if(card.getName().equals(cardName)){
+                mainDeck.remove(card);
+                ArrayList<Card>cardsRemoved=new ArrayList<>();
+                cardsRemoved.add(card);
+                owner.addCardsToInventory(cardsRemoved);
+                return;
+            }
+        }
+    }
+    public void removeCardFromSideDeck(String cardName){
+        for(Card card:sideDeck){
+            if(card.getName().equals(cardName)){
+                sideDeck.remove(card);
+                ArrayList<Card>cardsRemoved=new ArrayList<>();
+                cardsRemoved.add(card);
+                owner.addCardsToInventory(cardsRemoved);
+                return;
+            }
+        }
+    }
+    public boolean cardExistsInMainDeck(String cardName){
+        for(Card card:mainDeck){
+            if(card.getName().equals(cardName)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean cardExistsInSideDeck(String cardName){
+        for(Card card:sideDeck){
+            if(card.getName().equals(cardName)){
+                return true;
+            }
+        }
+        return false;
     }
 
 

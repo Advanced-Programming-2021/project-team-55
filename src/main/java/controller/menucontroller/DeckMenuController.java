@@ -6,6 +6,8 @@ import model.Deck;
 import model.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class DeckMenuController extends MenuController {
     private static DeckMenuController deckMenuController;
@@ -83,16 +85,48 @@ public class DeckMenuController extends MenuController {
     }
 
     public void removeCardFromDeck(String cardName, String deckName, boolean isSide)throws MenuException {
-
+        Deck deck=User.loggedInUser.getDeckByName(deckName);
+        if(deck==null){
+            throw new MenuException("deck with name "+deckName+" does not exist");
+        }
+        else if(isSide&&!deck.cardExistsInSideDeck(cardName)){
+            throw new MenuException("card with name "+cardName+" does not exist in side deck");
+        }
+        else if(!isSide&!deck.cardExistsInMainDeck(cardName)){
+            throw new MenuException("card with name "+cardName+" does not exist in main deck");
+        }
+        else{
+            if(isSide){
+                deck.removeCardFromSideDeck(cardName);
+            }
+            else{
+                deck.removeCardFromMainDeck(cardName);
+            }
+        }
     }
 
     public ArrayList<Deck> getAllDecks() {
-        //TODO get all decks from Deck class
-        return new ArrayList<>();
+        ArrayList<Deck>decksToShow=User.loggedInUser.getDecks();
+        Deck activeDeck=User.loggedInUser.getActiveDeck();
+        boolean activeDeckRemoved=false;
+        if(activeDeck!=null){
+            decksToShow.remove(activeDeck);
+            activeDeckRemoved=true;
+        }
+        Collections.sort(decksToShow, new Comparator<Deck>() {
+            @Override
+            public int compare(Deck deck1, Deck deck2) {
+                return deck1.getName().compareTo(deck2.getName());
+            }
+        });
+        if(activeDeckRemoved){
+            decksToShow.add(0,activeDeck);
+        }
+        return decksToShow;
     }
 
     public Deck getADeck(String deckName) {
-        //TODO get a deck by name from Deck class
+
         return new Deck("", User.loggedInUser);
     }
 

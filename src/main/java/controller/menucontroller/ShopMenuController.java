@@ -26,7 +26,9 @@ public class ShopMenuController extends MenuController{
         }
         else{
             User.loggedInUser.changeMoney(-card.getPrice());
-            User.loggedInUser.addCardToInventory(card);
+            ArrayList<Card>cardsToadd=new ArrayList<>();
+            cardsToadd.add(card);
+            User.loggedInUser.addCardsToInventory(cardsToadd);
         }
     }
 
