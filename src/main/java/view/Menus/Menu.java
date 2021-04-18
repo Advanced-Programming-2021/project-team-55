@@ -2,7 +2,6 @@ package view.Menus;
 
 
 abstract public class Menu {
-    public static MenuType currentMenu = MenuType.LOGIN;
     private static final LoginMenu loginMenu = new LoginMenu();
     private static final MainMenu mainMenu = new MainMenu();
     private static final ScoreBoardMenu scoreBoardMenu = new ScoreBoardMenu();
@@ -10,6 +9,7 @@ abstract public class Menu {
     private static final ShopMenu shopMenu = new ShopMenu();
     private static final DeckMenu deckMenu = new DeckMenu();
     private static final DuelMenu duelMenu = new DuelMenu();
+    public static MenuType currentMenu = MenuType.LOGIN;
 
     public static void run() {
         while (true) {
@@ -44,12 +44,12 @@ abstract public class Menu {
         }
     }
 
-    public static void setCurrentMenu(MenuType currentMenu) {
-        Menu.currentMenu = currentMenu;
-    }
-
     public static String getCurrentMenu() {
         return currentMenu.menuName;
+    }
+
+    public static void setCurrentMenu(MenuType currentMenu) {
+        Menu.currentMenu = currentMenu;
     }
 
     abstract protected void execute();

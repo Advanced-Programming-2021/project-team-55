@@ -4,12 +4,13 @@ import exceptions.MenuException;
 import model.User;
 import view.Menus.Menu;
 import view.Menus.MenuType;
-import view.Responses;
 
 public class MainMenuController extends MenuController {
+
     private static MainMenuController mainMenuController;
 
     private MainMenuController() {
+
     }
 
     public static MainMenuController getInstance() {
@@ -62,4 +63,5 @@ public class MainMenuController extends MenuController {
     public void exitMenu() {
         Menu.setCurrentMenu(MenuType.LOGIN);
     }
+
 }

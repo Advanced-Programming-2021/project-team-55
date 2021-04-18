@@ -1,4 +1,4 @@
-package controller;
+package controller.gamephasescontrollers;
 
 public class EndPhaseController {
 
@@ -8,11 +8,11 @@ public class EndPhaseController {
 
     }
 
-    private String changePlayerTurn() {
+    public static EndPhaseController getInstance() {
         return null;
     }
 
-    public static EndPhaseController getInstance() {
+    private String changePlayerTurn() {
         return null;
     }
 

@@ -2,7 +2,7 @@ package view.Menus;
 
 import controller.DataBaseController;
 
-public class ImportExportMenu extends Menu{
+public class ImportExportMenu extends Menu {
     private static final DataBaseController dataBaseController = DataBaseController.getInstance();
 
     @Override
