@@ -12,4 +12,5 @@ scoreboard show
 menu exit
 menu enter Deck
 deck show --all
+menu show-current
 user logout

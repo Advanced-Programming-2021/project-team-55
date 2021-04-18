@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Card {
     protected static ArrayList<Card> cards;
@@ -29,6 +31,45 @@ public class Card {
             }
         }
         return null;
+    }
+    public static ArrayList<Card>sortCards(ArrayList<Card>cardsToBeSorted){
+        Collections.sort(cardsToBeSorted, new Comparator<Card>() {
+            @Override
+            public int compare(Card card1, Card card2) {
+                return card1.name.compareTo(card2.name);
+            }
+        });
+        return cardsToBeSorted;
+    }
+    public static ArrayList<Card>getMonstersSorted(ArrayList<Card>cards){
+        ArrayList<Card>monsters=new ArrayList<>();
+        for(Card card:cards){
+            if(card instanceof Monster){
+                monsters.add(card);
+            }
+        }
+        Collections.sort(monsters, new Comparator<Card>() {
+            @Override
+            public int compare(Card card1, Card card2) {
+                return card1.name.compareTo(card2.name);
+            }
+        });
+        return monsters;
+    }
+    public static ArrayList<Card>getMagicsSorted(ArrayList<Card>cards){
+        ArrayList<Card>spellAndTraps=new ArrayList<>();
+        for(Card card:cards){
+            if(!(card instanceof Monster)){
+                spellAndTraps.add(card);
+            }
+        }
+        Collections.sort(spellAndTraps, new Comparator<Card>() {
+            @Override
+            public int compare(Card card1, Card card2) {
+                return card1.name.compareTo(card2.name);
+            }
+        });
+        return spellAndTraps;
     }
 
     public String getName() {
@@ -71,4 +112,8 @@ public class Card {
         this.counter = counter;
     }
 
+    @Override
+    public String toString() {
+        return name+": "+description;
+    }
 }

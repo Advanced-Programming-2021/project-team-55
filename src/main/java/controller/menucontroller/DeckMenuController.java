@@ -3,7 +3,10 @@ package controller.menucontroller;
 import exceptions.MenuException;
 import model.Card;
 import model.Deck;
+import model.Monster;
 import model.User;
+import view.Menus.Menu;
+import view.Menus.MenuType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -125,23 +128,51 @@ public class DeckMenuController extends MenuController {
         return decksToShow;
     }
 
-    public Deck getADeck(String deckName) {
-
-        return new Deck("", User.loggedInUser);
+    public String getADeck(String deckName,boolean isSide)throws MenuException {
+        for(Deck deck:User.loggedInUser.getDecks()){
+            if(deck.getName().equals(deckName)){
+                String deckInfo="Deck: "+deckName+"\n";
+                if(isSide){
+                    ArrayList<Card>monsters=Card.getMonstersSorted(deck.getSideDeck());
+                    ArrayList<Card>spellAndTraps=Card.getMagicsSorted(deck.getSideDeck());
+                    deckInfo+="Side deck:\nMonsters:\n";
+                    for(Card card:monsters){
+                        deckInfo+=card+"\n";
+                    }
+                    deckInfo+="Spell and Traps:\n";
+                    for(Card card:spellAndTraps){
+                        deckInfo+=card+"\n";
+                    }
+                }
+                else{
+                    ArrayList<Card>monsters=Card.getMonstersSorted(deck.getMainDeck());
+                    ArrayList<Card>spellAndTraps=Card.getMagicsSorted(deck.getMainDeck());
+                    deckInfo+="Main deck:\nMonsters:\n";
+                    for(Card card:monsters){
+                        deckInfo+=card+"\n";
+                    }
+                    deckInfo+="Spell and Traps:\n";
+                    for(Card card:spellAndTraps){
+                        deckInfo+=card+"\n";
+                    }
+                }
+                return deckInfo;
+            }
+        }
+        throw new MenuException("deck with name "+deckName+" does not exist");
     }
 
     public ArrayList<Card> getCards() {
-        //TODO get cards from deck
-        return new ArrayList<>();
+        return Card.sortCards(User.loggedInUser.getCardsInventory());
     }
 
     @Override
     public void enterMenu(String menu) throws MenuException {
-
+        throw new MenuException("menu navigation is not possible");
     }
 
     @Override
     public void exitMenu() {
-
+        Menu.setCurrentMenu(MenuType.MAIN);
     }
 }

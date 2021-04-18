@@ -150,6 +150,9 @@ public class User {
         }
         return null;
     }
+    public ArrayList<Card>getCardsInventory(){
+        return cardsInventory;
+    }
 
     public void addDeck(Deck deck) {
         decks.add(deck);
@@ -189,8 +192,5 @@ public class User {
     @Override
     public String toString() {
         return "- " + nickname + ": " + score;
-    }
-
-    public void addCardToInventory(Card card) {
     }
 }

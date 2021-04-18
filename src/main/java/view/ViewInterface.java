@@ -32,14 +32,17 @@ public class ViewInterface {
 
     private static String sortFields(String input) {
         if (input.indexOf("--") != -1) {
-            input += " ";
+            input += "  ";
             String init = input.substring(0, input.indexOf("--"));
-            Pattern pattern = Pattern.compile("(--[^-]+)");
-            Matcher matcher = pattern.matcher(input);
             ArrayList<String> fields = new ArrayList<>();
-            while (matcher.find()) {
-                fields.add(matcher.group());
+            int start=input.indexOf("--");
+            for (int i=input.indexOf("--");i<input.length();i++){
+                if(i<input.length()-2&&input.charAt(i)=='-'&&input.charAt(i+1)=='-'||i==input.length()-1){
+                    fields.add(input.substring(start,i));
+                    start=i;
+                }
             }
+
             Collections.sort(fields);
             String sortedFields = "";
             for (int i = 0; i < fields.size(); i++) {
