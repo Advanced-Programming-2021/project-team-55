@@ -9,6 +9,7 @@ import view.ViewInterface;
 import java.util.regex.Matcher;
 
 public class MainMenu extends Menu {
+
     private static final MainMenuController mainMenuController = MainMenuController.getInstance();
 
     protected void execute() {

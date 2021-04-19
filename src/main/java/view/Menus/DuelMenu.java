@@ -8,8 +8,8 @@ import view.ViewInterface;
 import java.util.regex.Matcher;
 
 public class DuelMenu extends Menu {
-    private static final DuelMenuController duelMenuController = DuelMenuController.getInstance();
 
+    private static final DuelMenuController duelMenuController = DuelMenuController.getInstance();
 
     @Override
     protected void execute() {

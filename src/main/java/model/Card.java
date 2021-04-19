@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Card {
+
     protected static ArrayList<Card> cards;
     protected String name;
     protected String description;
@@ -32,7 +33,8 @@ public class Card {
         }
         return null;
     }
-    public static ArrayList<Card>sortCards(ArrayList<Card>cardsToBeSorted){
+
+    public static ArrayList<Card> sortCards(ArrayList<Card> cardsToBeSorted) {
         Collections.sort(cardsToBeSorted, new Comparator<Card>() {
             @Override
             public int compare(Card card1, Card card2) {
@@ -41,10 +43,11 @@ public class Card {
         });
         return cardsToBeSorted;
     }
-    public static ArrayList<Card>getMonstersSorted(ArrayList<Card>cards){
-        ArrayList<Card>monsters=new ArrayList<>();
-        for(Card card:cards){
-            if(card instanceof Monster){
+
+    public static ArrayList<Card> getMonstersSorted(ArrayList<Card> cards) {
+        ArrayList<Card> monsters = new ArrayList<>();
+        for (Card card : cards) {
+            if (card instanceof Monster) {
                 monsters.add(card);
             }
         }
@@ -56,10 +59,11 @@ public class Card {
         });
         return monsters;
     }
-    public static ArrayList<Card>getMagicsSorted(ArrayList<Card>cards){
-        ArrayList<Card>spellAndTraps=new ArrayList<>();
-        for(Card card:cards){
-            if(!(card instanceof Monster)){
+
+    public static ArrayList<Card> getMagicsSorted(ArrayList<Card> cards) {
+        ArrayList<Card> spellAndTraps = new ArrayList<>();
+        for (Card card : cards) {
+            if (!(card instanceof Monster)) {
                 spellAndTraps.add(card);
             }
         }
@@ -114,6 +118,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return name+": "+description;
+        return name + ": " + description;
     }
+
 }
