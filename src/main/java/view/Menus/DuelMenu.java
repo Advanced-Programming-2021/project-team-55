@@ -39,5 +39,6 @@ public class DuelMenu extends Menu {
                 response=e.toString();
             }
         }
+        return null;//todo
     }
 }
