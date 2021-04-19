@@ -22,7 +22,7 @@ public class LoginMenuController extends MenuController {
     }
 
     public void loginUser(String username, String password) throws MenuException {
-        User user = User.getUserbyUsername(username);
+        User user = User.getUserByUsername(username);
         if (user == null || !user.getPassword().equals(password)) {
             throw new MenuException("Username and password didn't match!");
         } else {

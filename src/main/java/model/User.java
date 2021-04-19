@@ -34,7 +34,7 @@ public class User {
         allUsers.add(this);
     }
 
-    public static User getUserbyUsername(String username) {
+    public static User getUserByUsername(String username) {
         for (User user : allUsers) {
             if (user.getUsername().equals(username)) {
                 return user;
