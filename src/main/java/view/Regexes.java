@@ -19,7 +19,9 @@ public enum Regexes {
     REMOVE_CARD_FROM_CARD("^deck rm-card --card (\\S+) --deck (\\S+)( --side)?$"),
     SHOW_ALL_DECKS("^deck show --all$"),
     SHOW_DECK("^deck show --deck-name (\\S+)( --side)?$"),
-    SHOW_DECK_CARDS("^deck show --cards$");
+    SHOW_DECK_CARDS("^deck show --cards$"),
+    DUEL_PLAYER("^duel --new --rounds (\\d+) --second-player (\\S+)$"),
+    DUEL_AI("^duel --ai --new --rounds (\\d+)$");
     public final String regex;
 
     Regexes(String label) {

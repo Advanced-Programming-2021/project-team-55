@@ -1,7 +1,9 @@
 package controller.menucontroller;
 
 import exceptions.MenuException;
+import model.Deck;
 import model.Player;
+import model.User;
 
 public class DuelMenuController extends MenuController {
 
@@ -28,12 +30,43 @@ public class DuelMenuController extends MenuController {
 
     }
 
-    public void newPVPDuel(String secondPlayer, int rounds) {
+    public void newPVPDuel(String secondPlayer, int rounds) throws MenuException{
+        User rival=User.getUserByUsername(secondPlayer);
+        if(rival==null){
+            throw new MenuException("there is no player with this username");
+        }
+        else if(User.loggedInUser.getActiveDeck()==null){
+            throw new MenuException(User.loggedInUser.getUsername()+" has no active deck");
+        }
+        else if(rival.getActiveDeck()==null){
+            throw new MenuException(rival.getUsername()+" has no active deck");
+        }
+        else{
+            Deck player1Deck=User.loggedInUser.getActiveDeck();
+            Deck player2Deck=rival.getActiveDeck();
+            if(!player1Deck.isDeckValid()){
+                throw new MenuException(User.loggedInUser.getUsername()+"’s deck is invalid");
+            }
+            else if(!player2Deck.isDeckValid()){
+                throw new MenuException(rival.getUsername()+"’s deck is invalid");
+            }
+            else if(rounds!=1&&rounds!=3){
+                throw new MenuException("number of rounds is not supported");
+            }
+            else{
+                //TODO -->>Start pvp game
+            }
+        }
 
     }
 
-    public void newAIDuel(int rounds) {
-
+    public void newAIDuel(int rounds)throws MenuException {
+        if(rounds!=1&&rounds!=3){
+            throw new MenuException("number of rounds is not supported");
+        }
+        else{
+            //TODO -->>Start ai game
+        }
     }
 
     private boolean checkOpponentExists(String secondPlayer) {
