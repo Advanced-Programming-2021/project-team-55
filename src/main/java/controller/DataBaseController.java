@@ -8,6 +8,8 @@ import model.TrapAndSpellCardDetails;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -64,14 +66,4 @@ public class DataBaseController extends MenuController {
         return null;
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
-        List<TrapAndSpellCardDetails> s = (new DataBaseController()).importTrapAndSpellDetails();
-        int counter = 0;
-        for (TrapAndSpellCardDetails trapAndSpellCardDetails: s){
-//            counter++;
-//            System.out.println(counter + " :" +trapAndSpellCardDetails.getName());
-            String x = trapAndSpellCardDetails.getName().trim().toUpperCase(Locale.ROOT).replace(' ', '_');
-            System.out.println(x + ',');
-        }
-    }
 }
