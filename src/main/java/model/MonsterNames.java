@@ -1,6 +1,6 @@
 package model;
 
-public enum CardNames {
+public enum MonsterNames {
 
     BATTLE_OX,
     AXE_RAIDER,

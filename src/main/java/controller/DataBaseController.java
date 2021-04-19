@@ -4,6 +4,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import controller.menucontroller.MenuController;
 import exceptions.MenuException;
 import model.MonsterCardDetails;
+import model.TrapAndSpellCardDetails;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -41,6 +42,17 @@ public class DataBaseController extends MenuController {
             MonsterCardDetails.setMonsterCardsDetailsList(monsterCardsDetailsList);
 
         return monsterCardsDetailsList;
+    }
+
+    public List<TrapAndSpellCardDetails> importTrapAndSpellDetails() throws FileNotFoundException {//todo save the list in model
+        List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList = new CsvToBeanBuilder(
+                new FileReader("src/resources/cards details/SpellTrap.csv"))
+                .withType(TrapAndSpellCardDetails.class).build().parse();
+
+        if (TrapAndSpellCardDetails.getTrapAndSpellCardDetailsList() == null)
+            TrapAndSpellCardDetails.setTrapAndSpellCardDetailsList(trapAndSpellCardDetailsList);
+
+        return trapAndSpellCardDetailsList;
     }
 
     public String importCard(String cardName) {
