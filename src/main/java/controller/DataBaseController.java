@@ -27,15 +27,6 @@ public class DataBaseController extends MenuController {
         return dataBaseController;
     }
 
-    @Override
-    public void enterMenu(String menu) throws MenuException {
-
-    }
-
-    @Override
-    public void exitMenu() {
-
-    }
     //TODO there should be a method which imports users and puts them in users array in model
     public static List<MonsterCardDetails> importMonsterDetails() throws FileNotFoundException {//todo save the list in model
         List<MonsterCardDetails> monsterCardsDetailsList = new CsvToBeanBuilder(
@@ -57,6 +48,51 @@ public class DataBaseController extends MenuController {
             TrapAndSpellCardDetails.setTrapAndSpellCardDetailsList(trapAndSpellCardDetailsList);
 
         return trapAndSpellCardDetailsList;
+    }
+
+    public static void writeJSON(Object object, String fileAddress) throws IOException {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        writeFile(fileAddress, gson.toJson(object));
+    }
+
+    public static void saveUserInfo(User user) throws IOException {
+        writeJSON(user, "src\\resources\\users\\" + user.getUsername() + ".json");
+    }
+
+    public static void writeFile(String fileAddress, String content) throws IOException {
+        FileWriter writer = new FileWriter(fileAddress);
+        writer.write(content);
+        writer.close();
+    }
+
+    public static void usersDataBaseInitialization() throws FileNotFoundException {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+       /* BufferedReader bufferedReader = new BufferedReader(
+                new FileReader("resources\\users\\"+username+".json"));
+        User user= gson.fromJson(bufferedReader, User.class);*/
+        File directoryPath = new File("src\\resources\\users");
+        File filesList[] = directoryPath.listFiles();
+        ArrayList<User> dataBaseUsers = new ArrayList<>();
+        for (File file : filesList) {
+            BufferedReader bufferedReader = new BufferedReader(
+                    new FileReader(file.getPath())
+            );
+            User user = gson.fromJson(bufferedReader, User.class);
+            dataBaseUsers.add(user);
+        }
+        User.setAllUsers(dataBaseUsers);
+    }
+
+    @Override
+    public void enterMenu(String menu) throws MenuException {
+
+    }
+
+    @Override
+    public void exitMenu() {
+
     }
 
     public String importCard(String cardName) {
@@ -82,41 +118,6 @@ public class DataBaseController extends MenuController {
             e.printStackTrace();
         }
         return output.toString();
-    }
-
-    public static void writeJSON(Object object, String fileAddress) throws IOException {
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        writeFile(fileAddress, gson.toJson(object));
-    }
-
-    public static void saveUserInfo(User user) throws IOException {
-        writeJSON(user, "src\\resources\\users\\"+user.getUsername()+".json");
-    }
-
-    public static void writeFile(String fileAddress, String content) throws IOException {
-        FileWriter writer = new FileWriter(fileAddress);
-        writer.write(content);
-        writer.close();
-    }
-
-    public static void usersDataBaseInitialization() throws FileNotFoundException {
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-       /* BufferedReader bufferedReader = new BufferedReader(
-                new FileReader("resources\\users\\"+username+".json"));
-        User user= gson.fromJson(bufferedReader, User.class);*/
-        File directoryPath =new File("src\\resources\\users");
-        File filesList[] = directoryPath.listFiles();
-        ArrayList<User>dataBaseUsers=new ArrayList<>();
-        for(File file:filesList){
-            BufferedReader bufferedReader=new BufferedReader(
-                    new FileReader(file.getPath())
-            );
-            User user=gson.fromJson(bufferedReader,User.class);
-            dataBaseUsers.add(user);
-        }
-        User.setAllUsers(dataBaseUsers);
     }
 
 }
