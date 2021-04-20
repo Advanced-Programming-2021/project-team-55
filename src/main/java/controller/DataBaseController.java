@@ -66,20 +66,20 @@ public class DataBaseController extends MenuController {
     }
 
     public String readFileContent(String address) {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         try {
             File file = new File(address);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String data = scanner.nextLine();
-                output += data;
+                output.append(data);
             }
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("read file error");
             e.printStackTrace();
         }
-        return output;
+        return output.toString();
     }
 
 }
