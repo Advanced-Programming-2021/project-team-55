@@ -28,9 +28,9 @@ public class MainMenuController extends MenuController {
         DataBaseController dataBaseController=DataBaseController.getInstance();
         for (User user:User.getAllUsers()) {
             try {
-                dataBaseController.writeJSON(user);
+                dataBaseController.saveUserInfo(user);
             } catch (IOException e) {
-
+                System.out.println("unable to save user data");
             }
         }
         User.setLoggedInUser(null);
