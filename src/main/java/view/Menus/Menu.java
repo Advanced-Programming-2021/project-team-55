@@ -1,6 +1,11 @@
 package view.Menus;
 
 
+import controller.DataBaseController;
+import model.User;
+
+import java.io.IOException;
+
 abstract public class Menu {
     private static final LoginMenu loginMenu = new LoginMenu();
     private static final MainMenu mainMenu = new MainMenu();
@@ -12,6 +17,11 @@ abstract public class Menu {
     public static MenuType currentMenu = MenuType.LOGIN;
 
     public static void run() {
+        try {
+            DataBaseController.usersDataBaseInitialization();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
         while (true) {
             switch (currentMenu) {
                 case LOGIN: {

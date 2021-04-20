@@ -1,14 +1,16 @@
 package controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.opencsv.bean.CsvToBeanBuilder;
 import controller.menucontroller.MenuController;
 import exceptions.MenuException;
 import model.MonsterCardDetails;
 import model.TrapAndSpellCardDetails;
+import model.User;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -34,7 +36,7 @@ public class DataBaseController extends MenuController {
     public void exitMenu() {
 
     }
-
+    //TODO there should be a method which imports users and puts them in users array in model
     public List<MonsterCardDetails> importMonsterDetails() throws FileNotFoundException {//todo save the list in model
         List<MonsterCardDetails> monsterCardsDetailsList = new CsvToBeanBuilder(
                 new FileReader("src/resources/cards details/Monster.csv"))
@@ -80,6 +82,32 @@ public class DataBaseController extends MenuController {
             e.printStackTrace();
         }
         return output.toString();
+    }
+    public static void writeJSON(User user) throws IOException {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        FileWriter writer = new FileWriter("src\\resources\\users\\"+user.getUsername()+".json");
+        writer.write(gson.toJson(user));
+        writer.close();
+    }
+
+    public static void usersDataBaseInitialization() throws FileNotFoundException {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+       /* BufferedReader bufferedReader = new BufferedReader(
+                new FileReader("resources\\users\\"+username+".json"));
+        User user= gson.fromJson(bufferedReader, User.class);*/
+        File directoryPath =new File("src\\resources\\users");
+        File filesList[] = directoryPath.listFiles();
+        ArrayList<User>dataBaseUsers=new ArrayList<>();
+        for(File file:filesList){
+            BufferedReader bufferedReader=new BufferedReader(
+                    new FileReader(file.getPath())
+            );
+            User user=gson.fromJson(bufferedReader,User.class);
+            dataBaseUsers.add(user);
+        }
+        User.setAllUsers(dataBaseUsers);
     }
 
 }

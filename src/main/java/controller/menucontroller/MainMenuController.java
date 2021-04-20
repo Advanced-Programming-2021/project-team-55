@@ -1,9 +1,12 @@
 package controller.menucontroller;
 
+import controller.DataBaseController;
 import exceptions.MenuException;
 import model.User;
 import view.Menus.Menu;
 import view.Menus.MenuType;
+
+import java.io.IOException;
 
 public class MainMenuController extends MenuController {
 
@@ -21,6 +24,15 @@ public class MainMenuController extends MenuController {
     }
 
     public void logout() {
+
+        DataBaseController dataBaseController=DataBaseController.getInstance();
+        for (User user:User.getAllUsers()) {
+            try {
+                dataBaseController.writeJSON(user);
+            } catch (IOException e) {
+
+            }
+        }
         User.setLoggedInUser(null);
         Menu.setCurrentMenu(MenuType.LOGIN);
     }
