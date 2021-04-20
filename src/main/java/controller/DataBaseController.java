@@ -66,8 +66,7 @@ public class DataBaseController extends MenuController {
     }
 
     public String readFileContent(String Address) {
-
-        StringBuilder output = null;
+        StringBuilder output = new StringBuilder();
         try {
             File file = new File("filename.txt");
             Scanner scanner = new Scanner(file);
@@ -80,10 +79,7 @@ public class DataBaseController extends MenuController {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-
-        assert output != null;
         return output.toString();
-
     }
 
 }
