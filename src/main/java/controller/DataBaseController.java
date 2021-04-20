@@ -65,21 +65,21 @@ public class DataBaseController extends MenuController {
         return null;
     }
 
-    public String readFileContent(String Address) {
-        StringBuilder output = new StringBuilder();
+    public String readFileContent(String address) {
+        String output = "";
         try {
-            File file = new File("filename.txt");
+            File file = new File(address);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String data = scanner.nextLine();
-                output.append(data);
+                output += data;
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
+            System.out.println("read file error");
             e.printStackTrace();
         }
-        return output.toString();
+        return output;
     }
 
 }
