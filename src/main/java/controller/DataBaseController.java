@@ -6,12 +6,11 @@ import exceptions.MenuException;
 import model.MonsterCardDetails;
 import model.TrapAndSpellCardDetails;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
+import java.util.Scanner;
 
 public class DataBaseController extends MenuController {
 
@@ -64,6 +63,27 @@ public class DataBaseController extends MenuController {
 
     public String exportCard(String cardName) {
         return null;
+    }
+
+    public String readFileContent(String Address) {
+
+        StringBuilder output = null;
+        try {
+            File file = new File("filename.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String data = scanner.nextLine();
+                output.append(data);
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        assert output != null;
+        return output.toString();
+
     }
 
 }
