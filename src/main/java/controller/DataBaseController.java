@@ -28,7 +28,7 @@ public class DataBaseController extends MenuController {
     }
 
     //TODO there should be a method which imports users and puts them in users array in model
-    public static List<MonsterCardDetails> importMonsterDetails() throws FileNotFoundException {//todo save the list in model
+    public List<MonsterCardDetails> importMonsterDetails() throws FileNotFoundException {//todo save the list in model
         List<MonsterCardDetails> monsterCardsDetailsList = new CsvToBeanBuilder(
                 new FileReader("src/resources/cards details/Monster.csv"))
                 .withType(MonsterCardDetails.class).build().parse();
@@ -39,7 +39,7 @@ public class DataBaseController extends MenuController {
         return monsterCardsDetailsList;
     }
 
-    public static List<TrapAndSpellCardDetails> importTrapAndSpellDetails() throws FileNotFoundException {//todo save the list in model
+    public List<TrapAndSpellCardDetails> importTrapAndSpellDetails() throws FileNotFoundException {//todo save the list in model
         List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList = new CsvToBeanBuilder(
                 new FileReader("src/resources/cards details/SpellTrap.csv"))
                 .withType(TrapAndSpellCardDetails.class).build().parse();
@@ -65,6 +65,8 @@ public class DataBaseController extends MenuController {
         writer.write(content);
         writer.close();
     }
+
+    //todo parham chera inaro static kardi? mage getInstance nazashtim??
 
     public static void usersDataBaseInitialization() throws FileNotFoundException {
         GsonBuilder builder = new GsonBuilder();
