@@ -1,8 +1,10 @@
 package controller.menucontroller;
 
+import com.sun.tools.sjavac.Log;
 import controller.DataBaseController;
 import exceptions.MenuException;
 import model.User;
+import view.LoggerMessage;
 import view.Menus.Menu;
 import view.Menus.MenuType;
 
@@ -30,7 +32,8 @@ public class MainMenuController extends MenuController {
             try {
                 dataBaseController.saveUserInfo(user);
             } catch (IOException e) {
-                System.out.println("unable to save user data");
+                LoggerMessage.log("unable to save user data");
+                e.printStackTrace();
             }
         }
         User.setLoggedInUser(null);
