@@ -1,6 +1,5 @@
 package controller.menucontroller;
 
-import com.sun.tools.sjavac.Log;
 import controller.DataBaseController;
 import exceptions.MenuException;
 import model.User;
