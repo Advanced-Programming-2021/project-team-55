@@ -6,14 +6,13 @@ import model.cards.Deck;
 public class Player {
     private User user;
     private Deck playDeck;
-    private int LP;
+    private int LP=8000;//todo is it correct?
     private GameBoard playerGameBoard;
     private boolean isAI;
 
-    public Player(User user, Deck playDeck, int LP) {
+    public Player(User user, Deck playDeck) {
         this.user = user;
         this.playDeck = playDeck;
-        this.LP = LP;
     }
 
     public void setUser(User user) {

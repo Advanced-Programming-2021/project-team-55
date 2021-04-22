@@ -2,6 +2,7 @@ package view.Menus;
 
 import controller.menucontroller.DuelMenuController;
 import exceptions.MenuException;
+import view.gamephases.Duel;
 import view.Regexes;
 import view.Responses;
 import view.ViewInterface;
@@ -24,7 +25,7 @@ public class DuelMenu extends Menu {
         if(command.matches(Regexes.DUEL_PLAYER.regex)){
             Matcher matcher=ViewInterface.getCommandMatcher(command,Regexes.DUEL_PLAYER.regex);
            try {
-               duelMenuController.newPVPDuel(matcher.group(2),Integer.parseInt(matcher.group(1)));
+               Duel.runGame(duelMenuController.newPVPDuel(matcher.group(2),Integer.parseInt(matcher.group(1))));
            }
            catch (MenuException e){
                response=e.toString();

@@ -3,6 +3,7 @@ package controller.gamephasescontrollers;
 import controller.CheatController;
 import model.board.Cell;
 import model.Player;
+import model.board.Game;
 
 import java.util.ArrayList;
 
@@ -11,12 +12,13 @@ public class GameController {
     protected static CheatController cheatController;
     protected Player currentTurnPlayer;
     protected Player currentTurnOpponentPlayer;
-    protected GamePhase currentPhase;
+    protected GamePhase currentPhase=GamePhase.DRAW;
     protected ArrayList<Cell> changedPositionCells;
     protected ArrayList<Cell> attackerCellsThisTurn;
+    protected Game game;
 
-    public GameController() {
-
+    public GameController(Game game) {
+        this.game=game;
     }
 
     protected String showGameBoards() {

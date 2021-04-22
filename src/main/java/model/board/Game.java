@@ -8,7 +8,7 @@ public class Game {
     Player secondPlayer;
     int rounds;
 
-    public Game(Player firstPlayer, Player secondPlayer, Deck firstDeck, Deck secondDeck, int rounds) {
+    public Game(Player firstPlayer, Player secondPlayer, int rounds) {
         setPlayers(firstPlayer, secondPlayer);
         setRounds(rounds);
         //?

@@ -12,7 +12,10 @@ public class StandByPhaseController {
     }
 
     public static StandByPhaseController getInstance() {
-        return null;
+        if(standByPhaseController==null){
+            return new StandByPhaseController();
+        }
+        return standByPhaseController;
     }
 
     public void handleEffectsOfCards(Card card) {

@@ -1,6 +1,8 @@
 package controller.menucontroller;
 
+import controller.gamephasescontrollers.GameController;
 import exceptions.MenuException;
+import model.board.Game;
 import model.cards.Deck;
 import model.Player;
 import model.User;
@@ -32,7 +34,7 @@ public class DuelMenuController extends MenuController {
         Menu.setCurrentMenu(MenuType.MAIN);
     }
 
-    public void newPVPDuel(String secondPlayer, int rounds) throws MenuException{
+    public GameController newPVPDuel(String secondPlayer, int rounds) throws MenuException{
         User rival=User.getUserByUsername(secondPlayer);
         if(rival==null){
             throw new MenuException("there is no player with this username");
@@ -57,6 +59,9 @@ public class DuelMenuController extends MenuController {
             }
             else{
                 //TODO -->>Start pvp game
+                Player player1=new Player(User.loggedInUser,player1Deck);
+                Player player2=new Player(rival,player2Deck);
+                return new GameController(new Game(player1,player2,rounds));
             }
         }
 
