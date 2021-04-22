@@ -1,12 +1,8 @@
-package model;
+package model.cards;
 
 import com.opencsv.bean.CsvBindByName;
 
-import java.util.List;
-
-public class MonsterCardDetails {//temporary class for csv files import understanding
-
-    private static List<MonsterCardDetails> monsterCardsDetailsList;
+public class MonsterCardDetails {
 
     @CsvBindByName
     private String Name;
@@ -34,14 +30,6 @@ public class MonsterCardDetails {//temporary class for csv files import understa
 
     @CsvBindByName
     private String price;
-
-    public static List<MonsterCardDetails> getMonsterCardsDetailsList() {
-        return monsterCardsDetailsList;
-    }
-
-    public static void setMonsterCardsDetailsList(List<MonsterCardDetails> monsterCardsDetailsList) {
-        MonsterCardDetails.monsterCardsDetailsList = monsterCardsDetailsList;
-    }
 
     public String getName() {
         return Name;

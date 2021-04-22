@@ -9,8 +9,8 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 
 public class User {
-    private static/*final*/ ArrayList<User> allUsers;//TODO i dont think this should be final because we have to set it every time from database
     public static User loggedInUser;
+    private static ArrayList<User> allUsers;
 
     static {
         allUsers = new ArrayList<>();
@@ -105,6 +105,14 @@ public class User {
         return scoreBoard;
     }
 
+    public static ArrayList<User> getAllUsers() {
+        return allUsers;
+    }
+
+    public static void setAllUsers(ArrayList<User> allUsers) {
+        User.allUsers = allUsers;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -153,7 +161,8 @@ public class User {
         }
         return null;
     }
-    public ArrayList<Card>getCardsInventory(){
+
+    public ArrayList<Card> getCardsInventory() {
         return cardsInventory;
     }
 
@@ -190,14 +199,6 @@ public class User {
         if (activeDeck == deck) {
             setActiveDeck(null);
         }
-    }
-
-    public static void setAllUsers(ArrayList<User> allUsers) {
-        User.allUsers = allUsers;
-    }
-
-    public static ArrayList<User> getAllUsers() {
-        return allUsers;
     }
 
     @Override
