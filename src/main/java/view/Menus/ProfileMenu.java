@@ -29,7 +29,7 @@ public class ProfileMenu extends Menu {
             } catch (MenuException e) {
                 response = e.toString();
             }
-        } else if (command.matches(Regexes.CHANGE_NICKNAME.regex)) {
+        } else if (command.matches(Regexes.CHANGE_PASSWORD.regex)) {
             try {
                 Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.CHANGE_PASSWORD.regex);
                 profileMenuController.changePassword(matcher.group(1), matcher.group(2));

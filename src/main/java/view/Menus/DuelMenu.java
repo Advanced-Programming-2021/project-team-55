@@ -3,6 +3,7 @@ package view.Menus;
 import controller.menucontroller.DuelMenuController;
 import exceptions.MenuException;
 import view.Regexes;
+import view.Responses;
 import view.ViewInterface;
 
 import java.util.regex.Matcher;
@@ -15,7 +16,6 @@ public class DuelMenu extends Menu {
     protected void execute() {
         String response =processCommand(ViewInterface.getInput());
         ViewInterface.showResult(response);
-
     }
 
     @Override
@@ -39,6 +39,24 @@ public class DuelMenu extends Menu {
                 response=e.toString();
             }
         }
-        return null;//todo
+        else if(command.matches(Regexes.ENTER_MENU.regex)){
+            Matcher matcher=ViewInterface.getCommandMatcher(command,Regexes.ENTER_MENU.regex);
+            try {
+                duelMenuController.enterMenu(matcher.group(1));
+            }
+            catch (MenuException e){
+                response=e.toString();
+            }
+        }
+        else if(command.matches(Regexes.EXIT_MENU.regex)){
+            duelMenuController.exitMenu();
+        }
+        else if(command.matches(Regexes.SHOW_MENU.regex)){
+            response=getCurrentMenu();
+        }
+        else{
+            response= Responses.INVALID_COMMAND.response;
+        }
+        return response;
     }
 }

@@ -1,0 +1,11 @@
+user login --password 123 --username parham
+menu enter Profile
+profile change --nickname Mr.parham
+profile change --nickname abol
+profile change --password --current 321 --new 123
+profile change --password --current 123 --new 123
+profile change --password --current 123 --new 1380
+menu show-current
+menu exit
+menu exit
+menu exit

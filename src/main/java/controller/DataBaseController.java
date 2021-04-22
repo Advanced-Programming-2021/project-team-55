@@ -8,6 +8,8 @@ import exceptions.MenuException;
 import model.cards.MonsterCardDetails;
 import model.cards.TrapAndSpellCardDetails;
 import model.User;
+import view.Menus.Menu;
+import view.Menus.MenuType;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -27,7 +29,6 @@ public class DataBaseController extends MenuController {
         return dataBaseController;
     }
 
-    //TODO there should be a method which imports users and puts them in users array in model
     public List<MonsterCardDetails> importMonstersDetails() throws FileNotFoundException {//todo save the list in model
         List<MonsterCardDetails> monsterCardsDetailsList = new CsvToBeanBuilder(
                 new FileReader("src/resources/cards details/Monster.csv"))
@@ -61,6 +62,8 @@ public class DataBaseController extends MenuController {
     }
 
     //todo parham chera inaro static kardi? mage getInstance nazashtim??
+    //todo: bebin serfan goftam chon ma ino tu Menu seda mikonim behtare static bashe serfan ye tabe ejra
+    //      she dige khod object ro nemikhaim ama mishe ba getInstance karo jelo bord farqhi nemikone
 
     public static void usersDataBaseInitialization() throws FileNotFoundException {
         GsonBuilder builder = new GsonBuilder();
@@ -83,16 +86,16 @@ public class DataBaseController extends MenuController {
 
     @Override
     public void enterMenu(String menu) throws MenuException {
-
+        throw new MenuException("menu navigation is not possible");
     }
 
     @Override
     public void exitMenu() {
-
+        Menu.setCurrentMenu(MenuType.MAIN);
     }
 
-    public String importCard(String cardName) {
-        return null;
+    public void importCard(String cardName) {
+        ;
     }
 
     public String exportCard(String cardName) {

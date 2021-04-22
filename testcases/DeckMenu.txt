@@ -1,0 +1,30 @@
+user login --username parham --password 1380
+user login --username parham --password 123
+menu enter Deck
+menu show-current
+deck create MyFirstDeck
+deck create MyFirstDeck
+deck delete MyFirstDeck
+deck delete MySecondDeck
+deck create MyFirstDeck
+deck create MySecondDeck
+deck set-active MyFirstDeck
+deck set-active NotExistsDeck
+deck add-card --card Babydragon --deck MyFirstDeck
+deck add-card --card Yami --deck MyFirstDeck --side
+deck add-card --card Babydragon --deck MyFirstDeck
+deck add-card --card Babydragon --deck MyFirstDeck
+deck add-card --card parham --deck MySecondDeck
+deck rm-card --card mammad --deck MyFirstDeck --side
+deck rm-card --card Babydragon --deck MyFirstDeck
+deck rm-card --card Yami --deck alaki --side
+deck show --all
+deck show --deck-name alaki --side
+deck show --deck-name MyFirstDeck --side
+deck show --deck-name MyFirstDeck
+deck show --cards
+menu exit
+user logout
+menu exit
+
+
