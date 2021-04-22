@@ -1,0 +1,12 @@
+user login --username parham --password 123
+menu show-current
+menu enter Scoreboard
+menu show-current
+scoreboard show
+menu exit
+menu enter Main
+menu exit
+menu enter Main
+user logout
+menu exit
+

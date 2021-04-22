@@ -3,10 +3,7 @@ package model;
 import model.cards.Card;
 import model.cards.Deck;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
+import java.util.*;
 
 public class User {
     private static/*final*/ ArrayList<User> allUsers;//TODO i dont think this should be final because we have to set it every time from database
@@ -77,7 +74,7 @@ public class User {
         loggedInUser = user;
     }
 
-    public static LinkedHashMap<Integer, String> getScoreBoardUsers() {
+    public static LinkedHashMap<Integer,HashMap<Integer, String>> getScoreBoardUsers() {
         Collections.sort(allUsers, new Comparator<User>() {
             @Override
             public int compare(User user1, User user2) {
@@ -89,11 +86,13 @@ public class User {
                 return score2.compareTo(score1);
             }
         });
-        LinkedHashMap<Integer, String> scoreBoard = new LinkedHashMap<>();
+        LinkedHashMap<Integer,HashMap<Integer, String>> scoreBoard = new LinkedHashMap<>();
         int rank = 1;
         int sameNumbers = 1;
         for (int i = 0; i < allUsers.size(); i++) {
-            scoreBoard.put(rank, allUsers.get(i).toString());
+            HashMap<Integer,String>userInfo=new HashMap<>();
+            userInfo.put(rank,allUsers.get(i).toString());
+            scoreBoard.put(i, userInfo);
             if (i + 1 < allUsers.size() && allUsers.get(i).score != allUsers.get(i + 1).score) {
                 rank += sameNumbers;
                 sameNumbers = 1;

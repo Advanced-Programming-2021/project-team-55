@@ -7,6 +7,7 @@ import view.Responses;
 import view.ViewInterface;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
 
 public class ScoreBoardMenu extends Menu {
@@ -41,10 +42,11 @@ public class ScoreBoardMenu extends Menu {
         return response;
     }
 
-    private void showScoreBoard(HashMap<Integer, String> scoreBoard) {
+    private void showScoreBoard(LinkedHashMap<Integer,HashMap<Integer,String>> scoreBoard) {
         for (int i = 0; i < scoreBoard.size(); i++) {
-            for (int rank : scoreBoard.keySet()) {
-                System.out.println(rank + scoreBoard.get(rank));
+            HashMap<Integer,String> userInfo=scoreBoard.get(i);
+            for (int rank : userInfo.keySet()) {
+                System.out.println(rank + userInfo.get(rank));
             }
         }
     }

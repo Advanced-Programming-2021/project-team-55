@@ -1,0 +1,11 @@
+user login --username mammad --password 123
+user create --username parham --nickname pari --password 123
+menu show-current
+user login --username abol --password 1231231
+user create --username new --password test --nickname testi
+user login --username new --password test
+menu show-current
+menu exit
+menu enter Main
+user logout
+menu exit

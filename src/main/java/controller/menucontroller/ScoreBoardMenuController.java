@@ -5,6 +5,7 @@ import model.User;
 import view.Menus.Menu;
 import view.Menus.MenuType;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class ScoreBoardMenuController extends MenuController {
@@ -21,7 +22,7 @@ public class ScoreBoardMenuController extends MenuController {
         return scoreBoardMenuController;
     }
 
-    public LinkedHashMap<Integer, String> getScoreBoard() {
+    public LinkedHashMap<Integer, HashMap<Integer, String>> getScoreBoard() {
         return User.getScoreBoardUsers();
     }
 
