@@ -4,6 +4,8 @@ import exceptions.MenuException;
 import model.cards.Deck;
 import model.Player;
 import model.User;
+import view.Menus.Menu;
+import view.Menus.MenuType;
 
 public class DuelMenuController extends MenuController {
 
@@ -22,12 +24,12 @@ public class DuelMenuController extends MenuController {
 
     @Override
     public void enterMenu(String menu) throws MenuException {
-
+        throw new MenuException("menu navigation is not possible");
     }
 
     @Override
     public void exitMenu() {
-
+        Menu.setCurrentMenu(MenuType.MAIN);
     }
 
     public void newPVPDuel(String secondPlayer, int rounds) throws MenuException{

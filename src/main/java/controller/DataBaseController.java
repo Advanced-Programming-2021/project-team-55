@@ -8,6 +8,8 @@ import exceptions.MenuException;
 import model.cards.MonsterCardDetails;
 import model.cards.TrapAndSpellCardDetails;
 import model.User;
+import view.Menus.Menu;
+import view.Menus.MenuType;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -84,12 +86,12 @@ public class DataBaseController extends MenuController {
 
     @Override
     public void enterMenu(String menu) throws MenuException {
-
+        throw new MenuException("menu navigation is not possible");
     }
 
     @Override
     public void exitMenu() {
-
+        Menu.setCurrentMenu(MenuType.MAIN);
     }
 
     public void importCard(String cardName) {
