@@ -1,6 +1,6 @@
 package model.cards;
 
-public enum MonsterNames {
+public enum MonsterNames { //todo seems useless, can be deleted
 
     BATTLE_OX,
     AXE_RAIDER,

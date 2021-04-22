@@ -1,7 +1,7 @@
 package model.cards.monsters;
 
-import model.cards.MonsterAttribute;
-import model.cards.CardType;
+import model.cards.cardfeaturesenums.MonsterAttribute;
+import model.cards.cardfeaturesenums.CardType;
 
 
 public class SpiralSerpent {

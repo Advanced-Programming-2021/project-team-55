@@ -1,6 +1,6 @@
 package model.cards;
 
-public abstract class Monster extends Card {
+public abstract class Monster extends Card {//todo seems useless, can be deleted
 
     private int attackPower, defensePower, level;
 

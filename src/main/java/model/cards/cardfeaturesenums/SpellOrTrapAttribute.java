@@ -1,4 +1,4 @@
-package model.cards;
+package model.cards.cardfeaturesenums;
 
 public enum SpellOrTrapAttribute {
     NORMAL,

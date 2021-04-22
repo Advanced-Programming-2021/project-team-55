@@ -129,8 +129,8 @@ public class DataBaseController extends MenuController {
 //                    .replaceAll(",","").replaceAll("'", "");
 //            String fileContent = "package model.cards.monsters;\n" +
 //                    "\n" +
-//                    "import model.cards.MonsterAttribute;\n" +
-//                    "import model.cards.CardType;\n\n" +
+//                    "import model.cards.cardfeaturesenums.MonsterAttribute;\n" +
+//                    "import model.cards.cardfeaturesenum.CardType;\n\n" +
 //                    "\n" +
 //                    "public class " + className + " {\n" +
 //                    "\n" +
@@ -159,9 +159,9 @@ public class DataBaseController extends MenuController {
 //                    .replaceAll(",","").replaceAll("'", "");
 //            String fileContent = "package model.cards.trapandspells;\n" +
 //                    "\n" +
-//                    "import model.cards.SpellOrTrap;\n" +
-//                    "import model.cards.SpellOrTrapAttribute;\n" +
-//                    "import model.cards.Status;\n" +
+//                    "import model.cards.cardfeaturesenums.SpellOrTrap;\n" +
+//                    "import model.cards.cardfeaturesenums.SpellOrTrapAttribute;\n" +
+//                    "import model.cards.cardfeaturesenums.Status;\n" +
 //                    "\n" +
 //                    "public class " + className +" {\n" +
 //                    "\n" +

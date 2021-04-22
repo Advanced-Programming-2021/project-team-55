@@ -1,8 +1,8 @@
 package model.cards.trapandspells;
 
-import model.cards.SpellOrTrap;
-import model.cards.SpellOrTrapAttribute;
-import model.cards.Status;
+import model.cards.cardfeaturesenums.SpellOrTrap;
+import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
+import model.cards.cardfeaturesenums.Status;
 
 public class CallofTheHaunted {
 

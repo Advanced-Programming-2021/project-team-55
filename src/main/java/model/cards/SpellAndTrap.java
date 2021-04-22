@@ -1,6 +1,6 @@
 package model.cards;
 
-public abstract class SpellAndTrap extends Card {
+public abstract class SpellAndTrap extends Card {//todo seems useless, can be deleted
 
     private boolean activated = false;
 

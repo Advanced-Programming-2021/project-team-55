@@ -1,6 +1,6 @@
 package model.cards;
 
-public enum TrapAndSpellNames {
+public enum TrapAndSpellNames {//todo seems useless, can be deleted
 
     TRAP_HOLE,
     MIRROR_FORCE,

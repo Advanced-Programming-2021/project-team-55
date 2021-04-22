@@ -15,7 +15,10 @@ public class Deck {
     public Deck(String name,User owner){
 
     }
-    public static boolean deckNameExists(String deckName,User owner){//TODO: it only checks Deck names in owner decks.Is it correct?
+
+    public static boolean deckNameExists(String deckName,User owner){
+        //TODO: it only checks Deck names in owner decks.Is it correct?
+        //todo گفتن انگار قرار نیست تست کیس بدن. هرجور برامون منطقی بود بزنیم به نظرم
         for(Deck deck:owner.getDecks()){
             if(deck.getName().equals(deckName)){
                 return true;
