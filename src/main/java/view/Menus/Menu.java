@@ -22,9 +22,6 @@ abstract public class Menu {
         }catch (IOException e){
             e.printStackTrace();
         }
-//        for(User user:User.getAllUsers()){
-//            System.out.println(user);
-//        }
         while (true) {
             switch (currentMenu) {
                 case LOGIN: {
