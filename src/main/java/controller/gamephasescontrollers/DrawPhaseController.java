@@ -10,7 +10,11 @@ public class DrawPhaseController {
     private static DrawPhaseController drawPhaseController;
 
     public static DrawPhaseController getInstance() {
-        return null;
+
+        if (drawPhaseController == null) {
+            return new DrawPhaseController();
+        }
+        return drawPhaseController;
     }
 
     private void getFirstDeckCard(Player player) {

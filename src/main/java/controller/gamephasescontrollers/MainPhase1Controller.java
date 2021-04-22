@@ -9,7 +9,10 @@ public class MainPhase1Controller {
     }
 
     public static MainPhase1Controller getInstance() {
-        return null;
+        if(mainPhase1Controller==null){
+            return new MainPhase1Controller();
+        }
+        return mainPhase1Controller;
     }
 
 }

@@ -9,7 +9,10 @@ public class EndPhaseController {
     }
 
     public static EndPhaseController getInstance() {
-        return null;
+        if(endPhaseController==null){
+            return new EndPhaseController();
+        }
+        return endPhaseController;
     }
 
     private String changePlayerTurn() {
