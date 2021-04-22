@@ -1,0 +1,23 @@
+user login --username parham --password 123
+menu enter Shop
+menu show-current
+shop buy Babydragon
+shop buy parham:)
+shop show--all
+shop buy Forest
+shop buy Forest
+shop buy Forest
+shop buy Forest
+shop buy Forest
+shop buy Forest
+shop buy Forest
+shop buy DarkHole
+shop buy Forest
+shop buy Forest
+shop buy Forest
+shop buy ChangeofHeart
+menu exit
+menu enter Shop
+menu exit
+user logout
+menu exit

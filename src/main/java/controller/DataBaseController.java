@@ -27,7 +27,6 @@ public class DataBaseController extends MenuController {
         return dataBaseController;
     }
 
-    //TODO there should be a method which imports users and puts them in users array in model
     public List<MonsterCardDetails> importMonstersDetails() throws FileNotFoundException {//todo save the list in model
         List<MonsterCardDetails> monsterCardsDetailsList = new CsvToBeanBuilder(
                 new FileReader("src/resources/cards details/Monster.csv"))
@@ -61,6 +60,8 @@ public class DataBaseController extends MenuController {
     }
 
     //todo parham chera inaro static kardi? mage getInstance nazashtim??
+    //todo: bebin serfan goftam chon ma ino tu Menu seda mikonim behtare static bashe serfan ye tabe ejra
+    //      she dige khod object ro nemikhaim ama mishe ba getInstance karo jelo bord farqhi nemikone
 
     public static void usersDataBaseInitialization() throws FileNotFoundException {
         GsonBuilder builder = new GsonBuilder();
@@ -91,8 +92,8 @@ public class DataBaseController extends MenuController {
 
     }
 
-    public String importCard(String cardName) {
-        return null;
+    public void importCard(String cardName) {
+        ;
     }
 
     public String exportCard(String cardName) {

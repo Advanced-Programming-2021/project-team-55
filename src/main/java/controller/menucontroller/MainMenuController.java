@@ -25,16 +25,6 @@ public class MainMenuController extends MenuController {
     }
 
     public void logout() {
-
-        DataBaseController dataBaseController=DataBaseController.getInstance();
-        for (User user:User.getAllUsers()) {
-            try {
-                dataBaseController.saveUserInfo(user);
-            } catch (IOException e) {
-                LoggerMessage.log("unable to save user data");
-                e.printStackTrace();
-            }
-        }
         User.setLoggedInUser(null);
         Menu.setCurrentMenu(MenuType.LOGIN);
     }

@@ -67,4 +67,18 @@ public class MonsterCardDetails {
         return price;
     }
 
+    @Override
+    public String toString() {
+        return "MonsterCardDetails{" +
+                "Name='" + Name + '\'' +
+                ", level='" + level + '\'' +
+                ", attribute='" + attribute + '\'' +
+                ", monsterType='" + monsterType + '\'' +
+                ", cardType='" + cardType + '\'' +
+                ", Atk='" + Atk + '\'' +
+                ", Def='" + Def + '\'' +
+                ", description='" + description + '\'' +
+                ", price='" + price + '\'' +
+                '}';
+    }
 }

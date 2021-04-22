@@ -1,10 +1,14 @@
 package controller.menucontroller;
 
 
+import controller.DataBaseController;
 import exceptions.MenuException;
 import model.User;
+import view.LoggerMessage;
 import view.Menus.Menu;
 import view.Menus.MenuType;
+
+import java.io.IOException;
 
 public class LoginMenuController extends MenuController {
 
@@ -52,6 +56,16 @@ public class LoginMenuController extends MenuController {
 
     @Override
     public void exitMenu() {
+        DataBaseController dataBaseController=DataBaseController.getInstance();
+        for (User user:User.getAllUsers()) {
+            try {
+                dataBaseController.saveUserInfo(user);
+            } catch (IOException e) {
+                LoggerMessage.log("unable to save user data");
+                e.printStackTrace();
+            }
+        }
+
         System.exit(0);
     }
 
