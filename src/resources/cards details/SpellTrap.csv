@@ -1,4 +1,4 @@
-Name,Type ,Icon (Property),Description,Status,Price
+Name,Type ,iconOrProperty,Description,Status,Price
 Trap Hole,Trap,Normal,When your opponent Normal or Flip Summons 1 monster with 1000 or more ATK: Target that monster; destroy that target.,Unlimited,2000
 Mirror Force,Trap,Normal,When an opponent's monster declares an attack: Destroy all your opponent's Attack Position monsters.,Unlimited,2000
 Magic Cylinder,Trap,Normal,"When an opponent's monster declares an attack: Target the attacking monster; negate the attack, and if you do, inflict damage to your opponent equal to its ATK.",Unlimited,2000

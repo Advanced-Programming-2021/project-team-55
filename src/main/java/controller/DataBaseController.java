@@ -65,6 +65,8 @@ public class DataBaseController extends MenuController {
     //todo: bebin serfan goftam chon ma ino tu Menu seda mikonim behtare static bashe serfan ye tabe ejra
     //      she dige khod object ro nemikhaim ama mishe ba getInstance karo jelo bord farqhi nemikone
 
+    //todo اوکی ولی از این به بعد یکدست پیش بریم بهتره
+
     public static void usersDataBaseInitialization() throws FileNotFoundException {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
@@ -119,33 +121,63 @@ public class DataBaseController extends MenuController {
         return output.toString();
     }
 
-    public static void main(String[] args) throws IOException {
-        List<MonsterCardDetails> monsters = DataBaseController.getInstance().importMonstersDetails();
-        for (MonsterCardDetails monsterCardsDetails: monsters){
-            String className = monsterCardsDetails.getName().trim()
-                    .replaceAll(" ","").replaceAll("-", "")
-                    .replaceAll(",","").replaceAll("'", "");
-            String fileContent = "package model.cards.monsters;\n" +
-                    "\n" +
-                    "import model.cards.MonsterAttribute;\n" +
-                    "import model.cards.CardType;\n\n" +
-                    "\n" +
-                    "public class " + className + " {\n" +
-                    "\n" +
-                    "    private String name = \"" + monsterCardsDetails.getName() + "\";\n" +
-                    "    private int level = " + monsterCardsDetails.getLevel() + ";\n" +
-                    "    private MonsterAttribute attribute = MonsterAttribute." + monsterCardsDetails.getAttribute().toUpperCase() + ";\n" +
-                    "    private String monsterType = \"" + monsterCardsDetails.getMonsterType() + "\";\n" +
-                    "    private CardType cardType = CardType." + monsterCardsDetails.getCardType().toUpperCase() + ";\n" +
-                    "    private int atk = " + monsterCardsDetails.getAtk() + ";\n" +
-                    "    private int def = " + monsterCardsDetails.getDef() + ";\n" +
-                    "    private static final String description = \"" + monsterCardsDetails.getDescription() + "\";\n" +
-                    "    private int price = " + monsterCardsDetails.getPrice() + ";\n" +
-                    "\n" +
-                    "\n" +
-                    "}\n";
-            writeFile("src\\main\\java\\model\\cards\\monsters\\" + className + ".java", fileContent);
+//    public static void main(String[] args) throws IOException {
+//        List<MonsterCardDetails> monsters = DataBaseController.getInstance().importMonstersDetails();
+//        for (MonsterCardDetails monsterCardsDetails: monsters){
+//            String className = monsterCardsDetails.getName().trim()
+//                    .replaceAll(" ","").replaceAll("-", "")
+//                    .replaceAll(",","").replaceAll("'", "");
+//            String fileContent = "package model.cards.monsters;\n" +
+//                    "\n" +
+//                    "import model.cards.MonsterAttribute;\n" +
+//                    "import model.cards.CardType;\n\n" +
+//                    "\n" +
+//                    "public class " + className + " {\n" +
+//                    "\n" +
+//                    "    private String name = \"" + monsterCardsDetails.getName() + "\";\n" +
+//                    "    private int level = " + monsterCardsDetails.getLevel() + ";\n" +
+//                    "    private MonsterAttribute attribute = MonsterAttribute." + monsterCardsDetails.getAttribute().toUpperCase() + ";\n" +
+//                    "    private String monsterType = \"" + monsterCardsDetails.getMonsterType() + "\";\n" +
+//                    "    private CardType cardType = CardType." + monsterCardsDetails.getCardType().toUpperCase() + ";\n" +
+//                    "    private int atk = " + monsterCardsDetails.getAtk() + ";\n" +
+//                    "    private int def = " + monsterCardsDetails.getDef() + ";\n" +
+//                    "    private static final String description = \"" + monsterCardsDetails.getDescription() + "\";\n" +
+//                    "    private int price = " + monsterCardsDetails.getPrice() + ";\n" +
+//                    "\n" +
+//                    "\n" +
+//                    "}\n";
+//            writeFile("src\\main\\java\\model\\cards\\monsters\\" + className + ".java", fileContent);
+//
+//        }
+//    }
 
-        }
-    }
+//    public static void main(String[] args) throws IOException {
+//        List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList = DataBaseController.getInstance().importTrapAndSpellsDetails();
+//        for (TrapAndSpellCardDetails trapAndSpellCardDetails: trapAndSpellCardDetailsList){
+//            String className = trapAndSpellCardDetails.getName().trim()
+//                    .replaceAll(" ","").replaceAll("-", "")
+//                    .replaceAll(",","").replaceAll("'", "");
+//            String fileContent = "package model.cards.trapandspells;\n" +
+//                    "\n" +
+//                    "import model.cards.SpellOrTrap;\n" +
+//                    "import model.cards.SpellOrTrapAttribute;\n" +
+//                    "import model.cards.Status;\n" +
+//                    "\n" +
+//                    "public class " + className +" {\n" +
+//                    "\n" +
+//                    "    private boolean isActive = false;\n" +
+//                    "\n" +
+//                    "    private String name = \"" + trapAndSpellCardDetails.getName() + "\";\n" +
+//                    "    private SpellOrTrap type = SpellOrTrap." + trapAndSpellCardDetails.getType().toUpperCase() + ";\n" +
+//                    "    private SpellOrTrapAttribute attribute = SpellOrTrapAttribute." + trapAndSpellCardDetails.getIconOrProperty().toUpperCase() + ";\n" +
+//                    "    private static final String description = \"" + trapAndSpellCardDetails.getDescription() + "\";\n" +
+//                    "    private Status status = Status." + trapAndSpellCardDetails.getStatus().toUpperCase() + ";\n" +
+//                    "    private int price = " + trapAndSpellCardDetails.getPrice() + ";\n" +
+//                    "    \n" +
+//                    "}";
+//            writeFile("src\\main\\java\\model\\cards\\trapandspells\\" + className + ".java", fileContent);
+//
+//        }
+//    }
+
 }
