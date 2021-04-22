@@ -1,18 +1,16 @@
 package model.cards.monsters;
 
 import model.cards.MonsterAttribute;
-import model.cards.KindOfMonster;
+import model.cards.CardType;
 
-import static model.cards.MonsterAttribute.*;
-import static model.cards.KindOfMonster.*;
 
 public class Battlewarrior {
 
     private String name = "Battle warrior";
     private int level = 3;
-    private MonsterAttribute attribute = EARTH;
+    private MonsterAttribute attribute = MonsterAttribute.EARTH;
     private String monsterType = "Warrior";
-    private KindOfMonster kindOfMonster = Normal;
+    private CardType cardType = CardType.NORMAL;
     private int atk = 700;
     private int def = 1000;
     private static final String description = "A warrior that fights with his bare hands!!!";

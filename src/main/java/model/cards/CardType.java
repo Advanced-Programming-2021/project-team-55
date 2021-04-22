@@ -1,6 +1,6 @@
 package model.cards;
 
-public enum KindOfMonster {
+public enum CardType {
     NORMAL,
     EFFECTIVE,
     RITUAL

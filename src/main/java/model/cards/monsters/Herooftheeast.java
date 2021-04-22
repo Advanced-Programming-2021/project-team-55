@@ -1,18 +1,16 @@
 package model.cards.monsters;
 
 import model.cards.MonsterAttribute;
-import model.cards.KindOfMonster;
+import model.cards.CardType;
 
-import static model.cards.MonsterAttribute.*;
-import static model.cards.KindOfMonster.*;
 
 public class Herooftheeast {
 
     private String name = "Hero of the east";
     private int level = 3;
-    private MonsterAttribute attribute = EARTH;
+    private MonsterAttribute attribute = MonsterAttribute.EARTH;
     private String monsterType = "Warrior";
-    private KindOfMonster kindOfMonster = Normal;
+    private CardType cardType = CardType.NORMAL;
     private int atk = 1100;
     private int def = 1000;
     private static final String description = "Feel da strength ah dis sword-swinging samurai from da Far East.";

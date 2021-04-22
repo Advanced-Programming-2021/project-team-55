@@ -1,18 +1,16 @@
 package model.cards.monsters;
 
 import model.cards.MonsterAttribute;
-import model.cards.KindOfMonster;
+import model.cards.CardType;
 
-import static model.cards.MonsterAttribute.*;
-import static model.cards.KindOfMonster.*;
 
 public class HornImp {
 
     private String name = "Horn Imp";
     private int level = 4;
-    private MonsterAttribute attribute = DARK;
+    private MonsterAttribute attribute = MonsterAttribute.DARK;
     private String monsterType = "Fiend";
-    private KindOfMonster kindOfMonster = Normal;
+    private CardType cardType = CardType.NORMAL;
     private int atk = 1300;
     private int def = 1000;
     private static final String description = "A small fiend that dwells in the dark, its single horn makes it a formidable opponent.";

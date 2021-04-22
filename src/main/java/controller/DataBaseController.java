@@ -128,18 +128,15 @@ public class DataBaseController extends MenuController {
             String fileContent = "package model.cards.monsters;\n" +
                     "\n" +
                     "import model.cards.MonsterAttribute;\n" +
-                    "import model.cards.KindOfMonster;\n" +
-                    "\n" +
-                    "import static model.cards.MonsterAttribute.*;\n" +
-                    "import static model.cards.KindOfMonster.*;\n" +
+                    "import model.cards.CardType;\n\n" +
                     "\n" +
                     "public class " + className + " {\n" +
                     "\n" +
                     "    private String name = \"" + monsterCardsDetails.getName() + "\";\n" +
                     "    private int level = " + monsterCardsDetails.getLevel() + ";\n" +
-                    "    private MonsterAttribute attribute = " + monsterCardsDetails.getAttribute() + ";\n" +
+                    "    private MonsterAttribute attribute = MonsterAttribute." + monsterCardsDetails.getAttribute().toUpperCase() + ";\n" +
                     "    private String monsterType = \"" + monsterCardsDetails.getMonsterType() + "\";\n" +
-                    "    private KindOfMonster kindOfMonster = " + monsterCardsDetails.getCardType() + ";\n" +
+                    "    private CardType cardType = CardType." + monsterCardsDetails.getCardType().toUpperCase() + ";\n" +
                     "    private int atk = " + monsterCardsDetails.getAtk() + ";\n" +
                     "    private int def = " + monsterCardsDetails.getDef() + ";\n" +
                     "    private static final String description = \"" + monsterCardsDetails.getDescription() + "\";\n" +

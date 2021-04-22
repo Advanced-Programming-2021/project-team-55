@@ -1,18 +1,16 @@
 package model.cards.monsters;
 
 import model.cards.MonsterAttribute;
-import model.cards.KindOfMonster;
+import model.cards.CardType;
 
-import static model.cards.MonsterAttribute.*;
-import static model.cards.KindOfMonster.*;
 
 public class Wattkid {
 
     private String name = "Wattkid";
     private int level = 3;
-    private MonsterAttribute attribute = LIGHT;
+    private MonsterAttribute attribute = MonsterAttribute.LIGHT;
     private String monsterType = "Thunder";
-    private KindOfMonster kindOfMonster = Normal;
+    private CardType cardType = CardType.NORMAL;
     private int atk = 1000;
     private int def = 500;
     private static final String description = "A creature that electrocutes opponents with bolts of lightning.";
