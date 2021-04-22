@@ -1,12 +1,8 @@
 package model.cards;
 
-import java.util.HashMap;
-
-public class Monster extends Card {
+public abstract class Monster extends Card {
 
     private int attackPower, defensePower, level;
-
-    HashMap<String, Class<? extends Monster>> AllMonsters = new HashMap<>();
 
     protected Monster(String cardName, String description, int number, int price, int attackPower, int defensePower, int level) {
         super(cardName, description, number, price);
@@ -38,4 +34,5 @@ public class Monster extends Card {
     public void setLevel(int level) {
         this.level = level;
     }
+
 }

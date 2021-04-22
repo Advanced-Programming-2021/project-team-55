@@ -5,8 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.opencsv.bean.CsvToBeanBuilder;
 import controller.menucontroller.MenuController;
 import exceptions.MenuException;
-import model.MonsterCardDetails;
-import model.TrapAndSpellCardDetails;
+import model.cards.MonsterCardDetails;
+import model.cards.TrapAndSpellCardDetails;
 import model.User;
 
 import java.io.*;
@@ -28,24 +28,18 @@ public class DataBaseController extends MenuController {
     }
 
     //TODO there should be a method which imports users and puts them in users array in model
-    public List<MonsterCardDetails> importMonsterDetails() throws FileNotFoundException {//todo save the list in model
+    public List<MonsterCardDetails> importMonstersDetails() throws FileNotFoundException {//todo save the list in model
         List<MonsterCardDetails> monsterCardsDetailsList = new CsvToBeanBuilder(
                 new FileReader("src/resources/cards details/Monster.csv"))
                 .withType(MonsterCardDetails.class).build().parse();
 
-        if (MonsterCardDetails.getMonsterCardsDetailsList() == null)
-            MonsterCardDetails.setMonsterCardsDetailsList(monsterCardsDetailsList);
-
         return monsterCardsDetailsList;
     }
 
-    public List<TrapAndSpellCardDetails> importTrapAndSpellDetails() throws FileNotFoundException {//todo save the list in model
+    public List<TrapAndSpellCardDetails> importTrapAndSpellsDetails() throws FileNotFoundException {//todo save the list in model
         List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList = new CsvToBeanBuilder(
                 new FileReader("src/resources/cards details/SpellTrap.csv"))
                 .withType(TrapAndSpellCardDetails.class).build().parse();
-
-        if (TrapAndSpellCardDetails.getTrapAndSpellCardDetailsList() == null)
-            TrapAndSpellCardDetails.setTrapAndSpellCardDetailsList(trapAndSpellCardDetailsList);
 
         return trapAndSpellCardDetailsList;
     }

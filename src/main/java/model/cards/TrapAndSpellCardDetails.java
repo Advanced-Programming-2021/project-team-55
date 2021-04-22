@@ -1,12 +1,9 @@
-package model;
+package model.cards;
 
 import com.opencsv.bean.CsvBindByName;
 
-import java.util.List;
-
 public class TrapAndSpellCardDetails {
 
-    private static List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList;
     @CsvBindByName
     private String name;
     @CsvBindByName
@@ -19,14 +16,6 @@ public class TrapAndSpellCardDetails {
     private String status;
     @CsvBindByName
     private String price;
-
-    public static List<TrapAndSpellCardDetails> getTrapAndSpellCardDetailsList() {
-        return trapAndSpellCardDetailsList;
-    }
-
-    public static void setTrapAndSpellCardDetailsList(List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList) {
-        TrapAndSpellCardDetails.trapAndSpellCardDetailsList = trapAndSpellCardDetailsList;
-    }
 
     public String getName() {
         return name;
@@ -51,4 +40,5 @@ public class TrapAndSpellCardDetails {
     public String getPrice() {
         return price;
     }
+
 }

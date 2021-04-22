@@ -1,6 +1,6 @@
 package model.cards;
 
-public class SpellAndTrap extends Card {
+public abstract class SpellAndTrap extends Card {
 
     private boolean activated = false;
 
