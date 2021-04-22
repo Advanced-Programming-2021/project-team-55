@@ -117,4 +117,36 @@ public class DataBaseController extends MenuController {
         return output.toString();
     }
 
+    public static void main(String[] args) throws IOException {
+        List<MonsterCardDetails> monsters = DataBaseController.getInstance().importMonstersDetails();
+        for (MonsterCardDetails monsterCardsDetails: monsters){
+            String className = monsterCardsDetails.getName().trim()
+                    .replaceAll(" ","").replaceAll("-", "")
+                    .replaceAll(",","").replaceAll("'", "");
+            String fileContent = "package model.cards.monsters;\n" +
+                    "\n" +
+                    "import model.cards.MonsterAttribute;\n" +
+                    "import model.cards.KindOfMonster;\n" +
+                    "\n" +
+                    "import static model.cards.MonsterAttribute.*;\n" +
+                    "import static model.cards.KindOfMonster.*;\n" +
+                    "\n" +
+                    "public class " + className + " {\n" +
+                    "\n" +
+                    "    private String name = \"" + monsterCardsDetails.getName() + "\";\n" +
+                    "    private int level = " + monsterCardsDetails.getLevel() + ";\n" +
+                    "    private MonsterAttribute attribute = " + monsterCardsDetails.getAttribute() + ";\n" +
+                    "    private String monsterType = \"" + monsterCardsDetails.getMonsterType() + "\";\n" +
+                    "    private KindOfMonster kindOfMonster = " + monsterCardsDetails.getCardType() + ";\n" +
+                    "    private int atk = " + monsterCardsDetails.getAtk() + ";\n" +
+                    "    private int def = " + monsterCardsDetails.getDef() + ";\n" +
+                    "    private static final String description = \"" + monsterCardsDetails.getDescription() + "\";\n" +
+                    "    private int price = " + monsterCardsDetails.getPrice() + ";\n" +
+                    "\n" +
+                    "\n" +
+                    "}\n";
+            writeFile("src\\main\\java\\model\\cards\\monsters\\" + className + ".java", fileContent);
+
+        }
+    }
 }
