@@ -1,9 +1,8 @@
 package controller.menucontroller;
 
 import exceptions.MenuException;
-import model.Card;
-import model.Deck;
-import model.Monster;
+import model.cards.Card;
+import model.cards.Deck;
 import model.User;
 import view.Menus.Menu;
 import view.Menus.MenuType;

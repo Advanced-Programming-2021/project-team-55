@@ -1,7 +1,7 @@
 package controller.gamephasescontrollers;
 
 import controller.CheatController;
-import model.Cell;
+import model.board.Cell;
 import model.Player;
 
 import java.util.ArrayList;

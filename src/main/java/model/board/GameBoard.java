@@ -1,4 +1,7 @@
-package model;
+package model.board;
+
+import model.cards.Deck;
+import model.cards.Card;
 
 import java.util.ArrayList;
 

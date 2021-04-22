@@ -1,4 +1,7 @@
-package model;
+package model.board;
+
+import model.cards.Deck;
+import model.Player;
 
 public class Game {
     Player firstPlayer;

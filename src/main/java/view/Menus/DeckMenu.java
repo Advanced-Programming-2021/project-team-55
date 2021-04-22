@@ -2,14 +2,13 @@ package view.Menus;
 
 import controller.menucontroller.DeckMenuController;
 import exceptions.MenuException;
-import model.Card;
-import model.Deck;
+import model.cards.Card;
+import model.cards.Deck;
 import view.Regexes;
 import view.Responses;
 import view.ViewInterface;
 
 import java.util.ArrayList;
-import java.util.jar.Attributes;
 import java.util.regex.Matcher;
 
 public class DeckMenu extends Menu {

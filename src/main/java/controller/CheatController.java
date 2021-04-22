@@ -1,6 +1,6 @@
 package controller;
 
-import model.Card;
+import model.cards.Card;
 
 public class CheatController {
 

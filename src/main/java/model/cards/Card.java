@@ -1,4 +1,6 @@
-package model;
+package model.cards;
+
+import model.Counter;
 
 import java.util.ArrayList;
 import java.util.Collections;

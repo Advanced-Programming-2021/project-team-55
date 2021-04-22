@@ -1,4 +1,6 @@
-package model;
+package model.board;
+
+import model.cards.Card;
 
 public class Cell {
     private Card card;

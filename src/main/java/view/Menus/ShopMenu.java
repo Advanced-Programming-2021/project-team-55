@@ -2,7 +2,7 @@ package view.Menus;
 
 import controller.menucontroller.ShopMenuController;
 import exceptions.MenuException;
-import model.Card;
+import model.cards.Card;
 import view.Regexes;
 import view.ViewInterface;
 

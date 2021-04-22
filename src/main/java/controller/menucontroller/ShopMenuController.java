@@ -1,7 +1,7 @@
 package controller.menucontroller;
 
 import exceptions.MenuException;
-import model.Card;
+import model.cards.Card;
 import model.User;
 
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package controller.menucontroller;
 
 import exceptions.MenuException;
-import model.Deck;
+import model.cards.Deck;
 import model.Player;
 import model.User;
 

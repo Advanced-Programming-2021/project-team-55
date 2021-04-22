@@ -1,10 +1,10 @@
-package model;
+package model.cards;
 
-public class Spell extends Card {
+public class SpellAndTrap extends Card {
 
     private boolean activated = false;
 
-    protected Spell(String cardName, String description, int number, int price) {
+    protected SpellAndTrap(String cardName, String description, int number, int price) {
         super(cardName, description, number, price);
     }
 
@@ -17,4 +17,5 @@ public class Spell extends Card {
     public boolean isActivated(){
         return activated;
     }
+
 }

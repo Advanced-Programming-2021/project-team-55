@@ -1,5 +1,8 @@
 package model;
 
+import model.board.GameBoard;
+import model.cards.Deck;
+
 public class Player {
     private User user;
     private Deck playDeck;
