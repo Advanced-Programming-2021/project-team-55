@@ -1,18 +1,15 @@
 package model.cards.trapandspells;
 
+import model.cards.SpellAndTrap;
 import model.cards.cardfeaturesenums.SpellOrTrap;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
 import model.cards.cardfeaturesenums.Status;
 
-public class Mysticalspacetyphoon {
+public class Mysticalspacetyphoon extends SpellAndTrap {
 
-    private boolean isActive = false;
+    public Mysticalspacetyphoon() {
+        super("Mystical space typhoon", "Target 1 Spell/Trap on the field; destroy that target.",
+                3500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.QUICK_PLAY, Status.UNLIMITED);
+    }
 
-    private String name = "Mystical space typhoon";
-    private SpellOrTrap type = SpellOrTrap.SPELL;
-    private SpellOrTrapAttribute attribute = SpellOrTrapAttribute.QUICK_PLAY;
-    private static final String description = "Target 1 Spell/Trap on the field; destroy that target.";
-    private Status status = Status.UNLIMITED;
-    private int price = 3500;
-    
 }

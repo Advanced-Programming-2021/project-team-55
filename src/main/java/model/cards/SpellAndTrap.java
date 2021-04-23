@@ -1,21 +1,68 @@
 package model.cards;
 
-public abstract class SpellAndTrap extends Card {//todo seems useless, can be deleted
+import model.cards.cardfeaturesenums.SpellOrTrap;
+import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
+import model.cards.cardfeaturesenums.Status;
 
-    private boolean activated = false;
+public abstract class SpellAndTrap extends Card {
 
-    protected SpellAndTrap(String cardName, String description, int price) {
-        super(cardName, description, price);
+    private boolean isActive;
+
+    private SpellOrTrap type;
+    private SpellOrTrapAttribute attribute;
+    private Status status;
+
+    public SpellAndTrap(String name, String description, int price, boolean isActive,
+                        SpellOrTrap type, SpellOrTrapAttribute attribute, Status status) {
+        super(name, description, price);
+        this.isActive = isActive;
+        this.type = type;
+        this.attribute = attribute;
+        this.status = status;
     }
 
     public void setActivated() {
 
     }
-    public void deactivate (){
+
+    public void deactivate() {
 
     }
-    public boolean isActivated(){
-        return activated;
+
+    public boolean isActivated() {
+        return isActive;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public SpellOrTrap getType() {
+        return type;
+    }
+
+    public void setType(SpellOrTrap type) {
+        this.type = type;
+    }
+
+    public SpellOrTrapAttribute getAttribute() {
+        return attribute;
+    }
+
+    public void setAttribute(SpellOrTrapAttribute attribute) {
+        this.attribute = attribute;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
 }

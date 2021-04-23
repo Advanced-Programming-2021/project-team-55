@@ -1,6 +1,6 @@
-package model.cards;
+package model.cards.cardfeaturesenums;
 
-public enum MonsterNames { //todo seems useless, can be deleted
+public enum MonsterNames {
 
     BATTLE_OX,
     AXE_RAIDER,

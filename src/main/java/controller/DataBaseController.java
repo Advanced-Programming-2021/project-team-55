@@ -5,9 +5,9 @@ import com.google.gson.GsonBuilder;
 import com.opencsv.bean.CsvToBeanBuilder;
 import controller.menucontroller.MenuController;
 import exceptions.MenuException;
+import model.User;
 import model.cards.MonsterCardDetails;
 import model.cards.TrapAndSpellCardDetails;
-import model.User;
 import view.Menus.Menu;
 import view.Menus.MenuType;
 
@@ -29,22 +29,6 @@ public class DataBaseController extends MenuController {
         return dataBaseController;
     }
 
-    public List<MonsterCardDetails> importMonstersDetails() throws FileNotFoundException {//todo save the list in model
-        List<MonsterCardDetails> monsterCardsDetailsList = new CsvToBeanBuilder(
-                new FileReader("src/resources/cards details/Monster.csv"))
-                .withType(MonsterCardDetails.class).build().parse();
-
-        return monsterCardsDetailsList;
-    }
-
-    public List<TrapAndSpellCardDetails> importTrapAndSpellsDetails() throws FileNotFoundException {//todo save the list in model
-        List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList = new CsvToBeanBuilder(
-                new FileReader("src/resources/cards details/SpellTrap.csv"))
-                .withType(TrapAndSpellCardDetails.class).build().parse();
-
-        return trapAndSpellCardDetailsList;
-    }
-
     public static void writeJSON(Object object, String fileAddress) throws IOException {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
@@ -61,12 +45,6 @@ public class DataBaseController extends MenuController {
         writer.close();
     }
 
-    //todo parham chera inaro static kardi? mage getInstance nazashtim??
-    //todo: bebin serfan goftam chon ma ino tu Menu seda mikonim behtare static bashe serfan ye tabe ejra
-    //      she dige khod object ro nemikhaim ama mishe ba getInstance karo jelo bord farqhi nemikone
-
-    //todo اوکی ولی از این به بعد یکدست پیش بریم بهتره
-
     public static void usersDataBaseInitialization() throws FileNotFoundException {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
@@ -74,7 +52,7 @@ public class DataBaseController extends MenuController {
                 new FileReader("resources\\users\\"+username+".json"));
         User user= gson.fromJson(bufferedReader, User.class);*/
         File directoryPath = new File("src\\resources\\users");
-        File filesList[] = directoryPath.listFiles();
+        File[] filesList = directoryPath.listFiles();
         ArrayList<User> dataBaseUsers = new ArrayList<>();
         for (File file : filesList) {
             BufferedReader bufferedReader = new BufferedReader(
@@ -84,6 +62,23 @@ public class DataBaseController extends MenuController {
             dataBaseUsers.add(user);
         }
         User.setAllUsers(dataBaseUsers);
+    }
+
+
+    public List<MonsterCardDetails> importMonstersDetails() throws FileNotFoundException {//todo save the list in model
+        List<MonsterCardDetails> monsterCardsDetailsList = new CsvToBeanBuilder(
+                new FileReader("src/resources/cards details/Monster.csv"))
+                .withType(MonsterCardDetails.class).build().parse();
+
+        return monsterCardsDetailsList;
+    }
+
+    public List<TrapAndSpellCardDetails> importTrapAndSpellsDetails() throws FileNotFoundException {//todo save the list in model
+        List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList = new CsvToBeanBuilder(
+                new FileReader("src/resources/cards details/SpellTrap.csv"))
+                .withType(TrapAndSpellCardDetails.class).build().parse();
+
+        return trapAndSpellCardDetailsList;
     }
 
     @Override
@@ -97,7 +92,6 @@ public class DataBaseController extends MenuController {
     }
 
     public void importCard(String cardName) {
-        ;
     }
 
     public String exportCard(String cardName) {
@@ -180,11 +174,65 @@ public class DataBaseController extends MenuController {
 //        }
 //    }
 
-    public static void main(String[] args) throws FileNotFoundException {
-        List<MonsterCardDetails> monsters = DataBaseController.getInstance().importMonstersDetails();
-        for (MonsterCardDetails monsterCardsDetails: monsters) {
-            System.out.println(monsterCardsDetails.getMonsterType().toUpperCase() + ",");
-        }
-    }
+//    public static void main(String[] args) throws FileNotFoundException {
+//        List<MonsterCardDetails> monsters = DataBaseController.getInstance().importMonstersDetails();
+//        for (MonsterCardDetails monsterCardsDetails: monsters) {
+//            System.out.println(monsterCardsDetails.getMonsterType().toUpperCase() + ",");
+//        }
+//    }
+
+
+//    public static void main(String[] args) throws IOException {
+//        List<MonsterCardDetails> monsters = DataBaseController.getInstance().importMonstersDetails();
+//        for (MonsterCardDetails monsterCardsDetails: monsters){
+//            String className = monsterCardsDetails.getName().trim()
+//                    .replaceAll(" ","").replaceAll("-", "")
+//                    .replaceAll(",","").replaceAll("'", "");
+//            String fileContent = "package model.cards.monsters;\n" +
+//                    "\n" +
+//                    "import model.cards.Monster;\n" +
+//                    "import model.cards.cardfeaturesenums.CardType;\n" +
+//                    "import model.cards.cardfeaturesenums.MonsterAttribute;\n" +
+//                    "import model.cards.cardfeaturesenums.MonsterType;\n" +
+//                    "\n" +
+//                    "public class " + className + " extends Monster {\n" +
+//                    "\n" +
+//                    "    public " + className + "() {\n" +
+//                    "        super(\"" + monsterCardsDetails.getName() + "\", \"" + monsterCardsDetails.getDescription() + "\"\n" +
+//                    "                , " + monsterCardsDetails.getPrice() + ", " + monsterCardsDetails.getAtk() + ", " + monsterCardsDetails.getDef() + ", " + monsterCardsDetails.getLevel() + ", MonsterAttribute." + monsterCardsDetails.getAttribute().toUpperCase() + ", MonsterType." + monsterCardsDetails.getMonsterType().toUpperCase() + ", CardType." + monsterCardsDetails.getCardType().toUpperCase() + ");\n" +
+//                    "    }\n" +
+//                    "\n" +
+//                    "}\n";
+//            writeFile("src\\main\\java\\model\\cards\\monsters\\" + className + ".java", fileContent);
+//
+//        }
+//    }
+//    public static void main(String[] args) throws IOException {
+//        List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList = DataBaseController.getInstance().importTrapAndSpellsDetails();
+//        for (TrapAndSpellCardDetails trapAndSpellCardDetails : trapAndSpellCardDetailsList) {
+//            String className = trapAndSpellCardDetails.getName().trim()
+//                    .replaceAll(" ", "").replaceAll("-", "")
+//                    .replaceAll(",", "").replaceAll("'", "");
+//            String fileContent = "package model.cards.trapandspells;\n" +
+//                    "\n" +
+//                    "import model.cards.SpellAndTrap;\n" +
+//                    "import model.cards.cardfeaturesenums.SpellOrTrap;\n" +
+//                    "import model.cards.cardfeaturesenums.SpellOrTrapAttribute;\n" +
+//                    "import model.cards.cardfeaturesenums.Status;\n" +
+//                    "\n" +
+//                    "public class " + className + " extends SpellAndTrap {\n" +
+//                    "    \n" +
+//                    "    public " + className + "() {\n" +
+//                    "        super(\"" + trapAndSpellCardDetails.getName() + "\", \"" + trapAndSpellCardDetails.getDescription() + "\",\n" +
+//                    "                " + trapAndSpellCardDetails.getPrice() + ", false, SpellOrTrap." + trapAndSpellCardDetails.getType().toUpperCase() +
+//                    ", SpellOrTrapAttribute." + trapAndSpellCardDetails.getIconOrProperty().toUpperCase() + ", Status." + trapAndSpellCardDetails.getStatus().toUpperCase() +
+//                    ");\n" +
+//                    "    }\n" +
+//                    "    \n" +
+//                    "}";
+//            writeFile("src\\main\\java\\model\\cards\\trapandspells\\" + className + ".java", fileContent);
+//
+//        }
+//    }
 
 }

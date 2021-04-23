@@ -6,7 +6,7 @@ import model.cards.Deck;
 public class Player {
     private User user;
     private Deck playDeck;
-    private int LP=8000;//todo is it correct?
+    private int LP = 8000;//todo is it correct?
     private GameBoard playerGameBoard;
     private boolean isAI;
 
@@ -27,12 +27,12 @@ public class Player {
         this.playDeck = deckToPlay;
     }
 
-    public void setLP(int LP) {
-        this.LP = LP;
-    }
-
     public int getLP() {
         return LP;
+    }
+
+    public void setLP(int LP) {
+        this.LP = LP;
     }
 
     public GameBoard getGameBoard() {//better to rename to getPlayerGameBoard

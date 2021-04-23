@@ -1,8 +1,8 @@
 package controller.menucontroller;
 
 import exceptions.MenuException;
-import model.cards.Card;
 import model.User;
+import model.cards.Card;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class ShopMenuController extends MenuController {
             throw new MenuException("not enough money");
         } else {
             User.loggedInUser.changeMoney(-card.getPrice());
-            ArrayList<Card>cardsToadd=new ArrayList<>();
+            ArrayList<Card> cardsToadd = new ArrayList<>();
             cardsToadd.add(card);
             User.loggedInUser.addCardsToInventory(cardsToadd);
         }

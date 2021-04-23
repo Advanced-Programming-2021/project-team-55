@@ -1,18 +1,18 @@
 package model.board;
 
-import model.cards.Deck;
 import model.cards.Card;
+import model.cards.Deck;
 
 import java.util.ArrayList;
 
 public class GameBoard {
-    private int[] areasNumber;
-    private Cell[] monsterCardZone;
-    private ArrayList<Integer> cellsNumbering;
-    private ArrayList<Cell> graveyard;
-    private Cell[] spellAndTrapCardZone;
-    private ArrayList<Cell> deckZone;
-    private ArrayList<Cell> handCards;
+    private final int[] areasNumber;
+    private final Cell[] monsterCardZone;
+    private final ArrayList<Integer> cellsNumbering;
+    private final ArrayList<Cell> graveyard;
+    private final Cell[] spellAndTrapCardZone;
+    private final ArrayList<Cell> deckZone;
+    private final ArrayList<Cell> handCards;
     private Cell fieldZone;
 
     {
@@ -24,7 +24,8 @@ public class GameBoard {
         deckZone = new ArrayList<>();
         handCards = new ArrayList<>();
     }
-    public GameBoard(Deck deck){
+
+    public GameBoard(Deck deck) {
 
     }
 
@@ -47,20 +48,25 @@ public class GameBoard {
     public ArrayList<Cell> getHandCards() {//handDeck changed to handCards
         return handCards;
     }
+
     //the next methods should get Card or Cell?---------------------
-    public void addCardToMonsterCardZone(Card card){
+    public void addCardToMonsterCardZone(Card card) {
 
     }
-    public void addCardToGraveyard(Card card){
+
+    public void addCardToGraveyard(Card card) {
 
     }
-    public void addCardToSpellAndTrapCardZone(Card card){
+
+    public void addCardToSpellAndTrapCardZone(Card card) {
 
     }
-    public void addCardToHandDeck(Card card){
+
+    public void addCardToHandDeck(Card card) {
 
     }
-    public void addCardToFieldZone(Card card){
+
+    public void addCardToFieldZone(Card card) {
 
     }
 }

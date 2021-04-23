@@ -2,7 +2,7 @@ package model.cards;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class MonsterCardDetails {//todo can be deleted
+public class MonsterCardDetails {//todo can be deleted, just needed for "tahvil be TA"
 
     @CsvBindByName
     private String Name;

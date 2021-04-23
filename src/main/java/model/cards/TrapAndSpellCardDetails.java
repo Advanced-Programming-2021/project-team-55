@@ -2,7 +2,7 @@ package model.cards;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class TrapAndSpellCardDetails {//todo can be deleted
+public class TrapAndSpellCardDetails {//todo can be deleted, just needed for "tahvil be TA"
 
     @CsvBindByName
     private String name;

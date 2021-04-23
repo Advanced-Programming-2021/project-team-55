@@ -3,15 +3,20 @@ package model;
 import java.util.ArrayList;
 
 public class Counter {
-    private int count;
-    private static ArrayList<Counter> allCounters;
+    private static final ArrayList<Counter> allCounters;
 
     static {
         allCounters = new ArrayList<>();
     }
 
+    private int count;
+
     public Counter() {
         allCounters.add(this);
+    }
+
+    public static ArrayList<Counter> getAllCounters() {
+        return allCounters;
     }
 
     public int getCount() {
@@ -20,9 +25,5 @@ public class Counter {
 
     public void increaseCount() {//is correct?
         this.count++;
-    }
-
-    public static ArrayList<Counter> getAllCounters() {
-        return allCounters;
     }
 }

@@ -2,11 +2,8 @@ package view.Menus;
 
 
 import controller.DataBaseController;
-import model.User;
-import model.cards.MonsterCardDetails;
 
 import java.io.IOException;
-import java.util.List;
 
 abstract public class Menu {
     private static final LoginMenu loginMenu = new LoginMenu();
@@ -21,7 +18,7 @@ abstract public class Menu {
     public static void run() {
         try {
             DataBaseController.usersDataBaseInitialization();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         while (true) {

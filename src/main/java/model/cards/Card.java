@@ -9,10 +9,12 @@ import java.util.Comparator;
 public class Card {
 
     protected static ArrayList<Card> cards;
+
     protected String name;
     protected String description;
     protected int price;
     protected Counter counter;
+    protected int number;
 
     public Card(String name, String description, int price) {
         setName(name);
@@ -23,6 +25,10 @@ public class Card {
 
     public static ArrayList<Card> getCards() {
         return cards;
+    }
+
+    public static void setCards(ArrayList<Card> cards) {
+        Card.cards = cards;
     }
 
     public static Card getCardByName(String name) {
@@ -74,6 +80,14 @@ public class Card {
             }
         });
         return spellAndTraps;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public String getName() {

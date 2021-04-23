@@ -1,6 +1,5 @@
 package model.board;
 
-import model.cards.Deck;
 import model.Player;
 
 public class Game {
@@ -23,10 +22,6 @@ public class Game {
         this.secondPlayer = secondPlayer;
     }
 
-    public void setRounds(int rounds) {
-        this.rounds = rounds;
-    }
-
     public Player getFirstPlayer() {
         return firstPlayer;
     }
@@ -37,5 +32,9 @@ public class Game {
 
     public int getRounds() {
         return rounds;
+    }
+
+    public void setRounds(int rounds) {
+        this.rounds = rounds;
     }
 }

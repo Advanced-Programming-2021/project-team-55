@@ -35,11 +35,11 @@ public class ViewInterface {
             input += "  ";
             String init = input.substring(0, input.indexOf("--"));
             ArrayList<String> fields = new ArrayList<>();
-            int start=input.indexOf("--");
-            for (int i=input.indexOf("--");i<input.length();i++){
-                if(i<input.length()-2&&input.charAt(i)=='-'&&input.charAt(i+1)=='-'||i==input.length()-1){
-                    fields.add(input.substring(start,i));
-                    start=i;
+            int start = input.indexOf("--");
+            for (int i = input.indexOf("--"); i < input.length(); i++) {
+                if (i < input.length() - 2 && input.charAt(i) == '-' && input.charAt(i + 1) == '-' || i == input.length() - 1) {
+                    fields.add(input.substring(start, i));
+                    start = i;
                 }
             }
 
