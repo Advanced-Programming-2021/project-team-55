@@ -9,10 +9,12 @@ import java.util.Comparator;
 public class Card {
 
     protected static ArrayList<Card> cards;
+
     protected String name;
     protected String description;
     protected int price;
     protected Counter counter;
+    protected int number;
 
     public Card(String name, String description, int price) {
         setName(name);

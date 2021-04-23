@@ -2,6 +2,7 @@ package model.cards;
 
 import model.cards.cardfeaturesenums.CardType;
 import model.cards.cardfeaturesenums.MonsterAttribute;
+import model.cards.cardfeaturesenums.MonsterType;
 
 public abstract class Monster extends Card {
 
@@ -9,11 +10,11 @@ public abstract class Monster extends Card {
     private int def;
     private int level;
     private MonsterAttribute attribute;
-    private String monsterType;
+    private MonsterType monsterType;
     private CardType cardType;
 
     protected Monster(String cardName, String description, int price, int atk, int def, int level,
-                      MonsterAttribute attribute, String monsterType, CardType cardType) {
+                      MonsterAttribute attribute, MonsterType monsterType, CardType cardType) {
         super(cardName, description, price);
         this.atk = atk;
         this.def = def;
@@ -55,11 +56,11 @@ public abstract class Monster extends Card {
         this.attribute = attribute;
     }
 
-    public String getMonsterType() {
+    public MonsterType getMonsterType() {
         return monsterType;
     }
 
-    public void setMonsterType(String monsterType) {
+    public void setMonsterType(MonsterType monsterType) {
         this.monsterType = monsterType;
     }
 

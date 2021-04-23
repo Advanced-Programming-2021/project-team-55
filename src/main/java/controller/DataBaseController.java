@@ -180,10 +180,37 @@ public class DataBaseController extends MenuController {
 //        }
 //    }
 
-    public static void main(String[] args) throws FileNotFoundException {
+//    public static void main(String[] args) throws FileNotFoundException {
+//        List<MonsterCardDetails> monsters = DataBaseController.getInstance().importMonstersDetails();
+//        for (MonsterCardDetails monsterCardsDetails: monsters) {
+//            System.out.println(monsterCardsDetails.getMonsterType().toUpperCase() + ",");
+//        }
+//    }
+
+
+    public static void main(String[] args) throws IOException {
         List<MonsterCardDetails> monsters = DataBaseController.getInstance().importMonstersDetails();
-        for (MonsterCardDetails monsterCardsDetails: monsters) {
-            System.out.println(monsterCardsDetails.getMonsterType().toUpperCase() + ",");
+        for (MonsterCardDetails monsterCardsDetails: monsters){
+            String className = monsterCardsDetails.getName().trim()
+                    .replaceAll(" ","").replaceAll("-", "")
+                    .replaceAll(",","").replaceAll("'", "");
+            String fileContent = "package model.cards.monsters;\n" +
+                    "\n" +
+                    "import model.cards.Monster;\n" +
+                    "import model.cards.cardfeaturesenums.CardType;\n" +
+                    "import model.cards.cardfeaturesenums.MonsterAttribute;\n" +
+                    "import model.cards.cardfeaturesenums.MonsterType;\n" +
+                    "\n" +
+                    "public class " + className + " extends Monster {\n" +
+                    "\n" +
+                    "    public " + className + "() {\n" +
+                    "        super(\"" + monsterCardsDetails.getName() + "\", \"" + monsterCardsDetails.getDescription() + "\"\n" +
+                    "                , " + monsterCardsDetails.getPrice() + ", " + monsterCardsDetails.getAtk() + ", " + monsterCardsDetails.getDef() + ", " + monsterCardsDetails.getLevel() + ", MonsterAttribute." + monsterCardsDetails.getAttribute().toUpperCase() + ", MonsterType." + monsterCardsDetails.getMonsterType().toUpperCase() + ", CardType." + monsterCardsDetails.getCardType().toUpperCase() + ");\n" +
+                    "    }\n" +
+                    "\n" +
+                    "}\n";
+            writeFile("src\\main\\java\\model\\cards\\monsters\\" + className + ".java", fileContent);
+
         }
     }
 
