@@ -13,6 +13,7 @@ public class Player {
     public Player(User user, Deck playDeck) {
         this.user = user;
         this.playDeck = playDeck;
+        this.playerGameBoard=new GameBoard(playDeck);
     }
 
     public void setUser(User user) {

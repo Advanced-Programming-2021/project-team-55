@@ -5,7 +5,10 @@ import model.cards.Card;
 import view.gamephases.BattlePhase;
 
 public class BattlePhaseController implements methods {
-
+    private GameController gameController;
+    public BattlePhaseController(GameController gameController){
+        this.gameController=gameController;
+    }
     public void startBattlePhase() {
 
     }

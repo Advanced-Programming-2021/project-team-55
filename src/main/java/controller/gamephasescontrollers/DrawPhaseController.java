@@ -8,10 +8,10 @@ import view.gamephases.DrawPhase;
 
 import java.util.ArrayList;
 
-public class DrawPhaseController implements methods{
-
-    public DrawPhaseController(){
-
+public class DrawPhaseController implements methods {
+    private GameController gameController;
+    public DrawPhaseController(GameController gameController){
+        this.gameController=gameController;
     }
 
     private void getFirstDeckCard(Player player) {

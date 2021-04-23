@@ -11,12 +11,12 @@ import java.util.ArrayList;
 
 public class GameController {
 
-    protected static CheatController cheatController;
-    protected Player currentTurnPlayer;
-    protected Player currentTurnOpponentPlayer;
-    protected GamePhase currentPhase=GamePhase.DRAW;
-    protected ArrayList<Cell> changedPositionCells;
-    protected ArrayList<Cell> attackerCellsThisTurn;
+    public static CheatController cheatController;
+    public Player currentTurnPlayer;
+    public Player currentTurnOpponentPlayer;
+    public GamePhase currentPhase=GamePhase.DRAW;
+    public ArrayList<Cell> changedPositionCells;
+    public ArrayList<Cell> attackerCellsThisTurn;
     protected Game game;
     private DrawPhaseController drawPhaseController;
     private StandByPhaseController standByPhaseController;
@@ -30,12 +30,12 @@ public class GameController {
         this.game=game;
         this.currentTurnPlayer= game.getFirstPlayer();
         this.currentTurnOpponentPlayer=game.getSecondPlayer();
-        drawPhaseController=new DrawPhaseController();
-        standByPhaseController=new StandByPhaseController();
-        mainPhase1Controller=new MainPhase1Controller();
-        battlePhaseController=new BattlePhaseController();
-        mainPhase2Controller=new MainPhase2Controller();
-        endPhaseController=new EndPhaseController();
+        drawPhaseController=new DrawPhaseController(this);
+        standByPhaseController=new StandByPhaseController(this);
+        mainPhase1Controller=new MainPhase1Controller(this);
+        battlePhaseController=new BattlePhaseController(this);
+        mainPhase2Controller=new MainPhase2Controller(this);
+        endPhaseController=new EndPhaseController(this);
 
     }
 
