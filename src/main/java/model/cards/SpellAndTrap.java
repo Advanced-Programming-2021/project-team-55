@@ -4,8 +4,8 @@ public abstract class SpellAndTrap extends Card {//todo seems useless, can be de
 
     private boolean activated = false;
 
-    protected SpellAndTrap(String cardName, String description, int number, int price) {
-        super(cardName, description, number, price);
+    protected SpellAndTrap(String cardName, String description, int price) {
+        super(cardName, description, price);
     }
 
     public void setActivated() {

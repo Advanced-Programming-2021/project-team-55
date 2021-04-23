@@ -180,4 +180,11 @@ public class DataBaseController extends MenuController {
 //        }
 //    }
 
+    public static void main(String[] args) throws FileNotFoundException {
+        List<MonsterCardDetails> monsters = DataBaseController.getInstance().importMonstersDetails();
+        for (MonsterCardDetails monsterCardsDetails: monsters) {
+            System.out.println(monsterCardsDetails.getMonsterType().toUpperCase() + ",");
+        }
+    }
+
 }
