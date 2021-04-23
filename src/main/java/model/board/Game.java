@@ -31,6 +31,10 @@ public class Game {
         return firstPlayer;
     }
 
+    public Player getSecondPlayer() {
+        return secondPlayer;
+    }
+
     public int getRounds() {
         return rounds;
     }

@@ -1,20 +1,26 @@
 package view.gamephases;
 
 import controller.gamephasescontrollers.EndPhaseController;
-import controller.gamephasescontrollers.GameController;
+import view.ViewInterface;
 
 public class EndPhase extends Duel {
     private EndPhaseController endPhaseController;
 
 
     @Override
-    protected void execute(GameController gameController) {
-        endPhaseController=gameController.getEndPhaseController();
+    protected void execute() {
+        String response=processCommand("");
+        ViewInterface.showResult(response);
+        showPhase(gameController);
     }
 
     @Override
-    protected void processCommand(String command) {
+    protected String processCommand(String command) {
+        String response="its "+gameController.getCurrentTurnOpponentPlayer().getUser().getNickname()+"’s turn";
+        gameController.changeTurn();
+        gameController.changePhase();
 
+        return response;
     }
 
 }

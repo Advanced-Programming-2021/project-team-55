@@ -1,8 +1,6 @@
 package view.gamephases;
 
-import controller.gamephasescontrollers.DrawPhaseController;
 import controller.gamephasescontrollers.GameController;
-import controller.gamephasescontrollers.GamePhase;
 import view.ViewInterface;
 
 abstract public class Duel {
@@ -13,42 +11,44 @@ abstract public class Duel {
     private static StandByPhase standByPhase = new StandByPhase();
     private static MainPhase2 mainPhase2 = new MainPhase2();
     private static EndPhase endPhase = new EndPhase();
+    public static GameController gameController;
 
     public static void runGame(GameController gameController) {
+        Duel.gameController=gameController;
         showPhase(gameController);
         while (true) {
             switch (gameController.getCurrentPhase()) {
                 case DRAW: {
-                    drawPhase.execute(gameController);
+                    drawPhase.execute();
                     break;
                 }
                 case STANDBY: {
-                    standByPhase.execute(gameController);
+                    standByPhase.execute();
                     break;
                 }
                 case MAIN1: {
-                    mainPhase1.execute(gameController);
+                    mainPhase1.execute();
                     break;
                 }
                 case MAIN2: {
-                    mainPhase2.execute(gameController);
+                    mainPhase2.execute();
                     break;
                 }
                 case BATTLE: {
-                    battlePhase.execute(gameController);
+                    battlePhase.execute();
                     break;
                 }
                 case END: {
-                    endPhase.execute(gameController);
+                    endPhase.execute();
                     break;
                 }
             }
         }
     }
 
-    abstract protected void execute(GameController gameController);
-    abstract protected void processCommand(String command);
+    abstract protected void execute();
+    abstract protected String  processCommand(String command);
     protected static void showPhase(GameController gameController){
-        ViewInterface.showResult(gameController.getCurrentPhase().name);
+        ViewInterface.showResult("phase: "+gameController.getCurrentPhase().name);
     }
 }

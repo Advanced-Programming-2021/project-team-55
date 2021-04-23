@@ -28,6 +28,8 @@ public class GameController {
 
     public GameController(Game game) {
         this.game=game;
+        this.currentTurnPlayer= game.getFirstPlayer();
+        this.currentTurnOpponentPlayer=game.getSecondPlayer();
         drawPhaseController=new DrawPhaseController();
         standByPhaseController=new StandByPhaseController();
         mainPhase1Controller=new MainPhase1Controller();
@@ -130,6 +132,10 @@ public class GameController {
 
     public Player getCurrentTurnPlayer() {
         return currentTurnPlayer;
+    }
+
+    public Player getCurrentTurnOpponentPlayer(){
+        return currentTurnOpponentPlayer;
     }
 
     public DrawPhaseController getDrawPhaseController() {

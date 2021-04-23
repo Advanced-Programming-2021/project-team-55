@@ -1,20 +1,31 @@
 package view.gamephases;
 
 import controller.gamephasescontrollers.BattlePhaseController;
-import controller.gamephasescontrollers.GameController;
+import view.ViewInterface;
 
 public class BattlePhase extends Duel {
     private static BattlePhaseController battlePhaseController;
 
     @Override
-    protected void execute(GameController gameController) {
-        battlePhaseController=gameController.getBattlePhaseController();
-
+    protected void execute() {
+        String response=processCommand(ViewInterface.getInput());
+        ViewInterface.showResult(response);
     }
 
     @Override
-    protected void processCommand(String command) {
+    protected String processCommand(String command) {
+        String response="";
+        if(command.matches(GameRegexes.NEXT_PHASE.regex)){
+            gameController.changePhase();
+            showPhase(gameController);
+        }
 
+
+
+
+
+
+        return response;
     }
 
 

@@ -19,6 +19,10 @@ public class Player {
         this.user = user;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public void setDeckToPlay(Deck deckToPlay) {
         this.playDeck = deckToPlay;
     }
