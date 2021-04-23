@@ -1,13 +1,15 @@
 package view.gamephases;
 
+import controller.gamephasescontrollers.GameController;
 import controller.gamephasescontrollers.MainPhase2Controller;
 
 public class MainPhase2 extends Duel {
-    private MainPhase2Controller mainPhase2Controller=MainPhase2Controller.getInstance();
+    private MainPhase2Controller mainPhase2Controller;
 
 
     @Override
-    protected void execute() {
+    protected void execute(GameController gameController) {
+        mainPhase2Controller=gameController.getMainPhase2Controller();
 
     }
 
@@ -16,8 +18,4 @@ public class MainPhase2 extends Duel {
 
     }
 
-    @Override
-    protected void enterNextPhase() {
-
-    }
 }

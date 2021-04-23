@@ -1,7 +1,12 @@
 package view.Menus;
 
+import controller.gamephasescontrollers.GameController;
 import controller.menucontroller.DuelMenuController;
 import exceptions.MenuException;
+import model.Player;
+import model.User;
+import model.board.Game;
+import model.cards.Deck;
 import view.gamephases.Duel;
 import view.Regexes;
 import view.Responses;
@@ -23,13 +28,16 @@ public class DuelMenu extends Menu {
     protected String processCommand(String command) {
         String response="";
         if(command.matches(Regexes.DUEL_PLAYER.regex)){
-            Matcher matcher=ViewInterface.getCommandMatcher(command,Regexes.DUEL_PLAYER.regex);
-           try {
+            //todo this is for testing the game
+           Matcher matcher=ViewInterface.getCommandMatcher(command,Regexes.DUEL_PLAYER.regex);
+            Duel.runGame(new GameController(new Game(new Player(new User("sdfd","sdf","sdfdf"),new Deck("sdfd", User.loggedInUser)),
+                    new Player(new User("eter","sdf","sdf"),new Deck("sdfdf",User.loggedInUser)),3)));
+           /*try {
                Duel.runGame(duelMenuController.newPVPDuel(matcher.group(2),Integer.parseInt(matcher.group(1))));
            }
            catch (MenuException e){
                response=e.toString();
-           }
+           }*/
         }
         else if(command.matches(Regexes.DUEL_AI.regex)){
             Matcher matcher=ViewInterface.getCommandMatcher(command,Regexes.DUEL_AI.regex);

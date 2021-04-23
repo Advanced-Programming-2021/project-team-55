@@ -10,7 +10,7 @@ public class Mysticalspacetyphoon {
 
     private String name = "Mystical space typhoon";
     private SpellOrTrap type = SpellOrTrap.SPELL;
-    private SpellOrTrapAttribute attribute = SpellOrTrapAttribute.QUICK-PLAY;
+    private SpellOrTrapAttribute attribute = SpellOrTrapAttribute.QUICK_PLAY;
     private static final String description = "Target 1 Spell/Trap on the field; destroy that target.";
     private Status status = Status.UNLIMITED;
     private int price = 3500;

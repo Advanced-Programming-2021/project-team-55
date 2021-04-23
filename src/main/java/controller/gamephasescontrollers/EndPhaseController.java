@@ -1,19 +1,8 @@
 package controller.gamephasescontrollers;
 
-public class EndPhaseController {
+import model.board.Game;
 
-    private static EndPhaseController endPhaseController;
-
-    private EndPhaseController() {
-
-    }
-
-    public static EndPhaseController getInstance() {
-        if(endPhaseController==null){
-            return new EndPhaseController();
-        }
-        return endPhaseController;
-    }
+public class EndPhaseController implements methods {
 
     private String changePlayerTurn() {
         return null;

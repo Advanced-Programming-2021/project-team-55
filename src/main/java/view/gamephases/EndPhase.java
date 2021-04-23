@@ -1,14 +1,15 @@
 package view.gamephases;
 
 import controller.gamephasescontrollers.EndPhaseController;
+import controller.gamephasescontrollers.GameController;
 
 public class EndPhase extends Duel {
-    private EndPhaseController endPhaseController=EndPhaseController.getInstance();
+    private EndPhaseController endPhaseController;
 
 
     @Override
-    protected void execute() {
-
+    protected void execute(GameController gameController) {
+        endPhaseController=gameController.getEndPhaseController();
     }
 
     @Override
@@ -16,8 +17,4 @@ public class EndPhase extends Duel {
 
     }
 
-    @Override
-    protected void enterNextPhase() {
-
-    }
 }

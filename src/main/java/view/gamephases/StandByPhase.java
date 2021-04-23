@@ -1,13 +1,16 @@
 package view.gamephases;
 
+import controller.gamephasescontrollers.GameController;
 import controller.gamephasescontrollers.StandByPhaseController;
 
 public class StandByPhase extends Duel {
-    private StandByPhaseController standByPhaseController=StandByPhaseController.getInstance();
+    private StandByPhaseController standByPhaseController;
 
 
     @Override
-    protected void execute() {
+    protected void execute(GameController gameController) {
+        standByPhaseController=gameController.getStandByPhaseController();
+        standByPhaseController.activateEffects();
 
     }
 
@@ -16,8 +19,4 @@ public class StandByPhase extends Duel {
 
     }
 
-    @Override
-    protected void enterNextPhase() {
-
-    }
 }

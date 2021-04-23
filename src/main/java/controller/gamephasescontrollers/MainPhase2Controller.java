@@ -1,18 +1,9 @@
 package controller.gamephasescontrollers;
 
-public class MainPhase2Controller {
+import model.board.Game;
 
-    private static MainPhase2Controller mainPhase2Controller;
+public class MainPhase2Controller implements methods{
 
-    private MainPhase2Controller() {
 
-    }
-
-    public static MainPhase2Controller getInstance() {
-        if (mainPhase2Controller==null){
-            return new MainPhase2Controller();
-        }
-        return mainPhase2Controller;
-    }
 
 }

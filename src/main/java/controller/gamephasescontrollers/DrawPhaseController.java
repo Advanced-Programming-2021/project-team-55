@@ -1,28 +1,26 @@
 package controller.gamephasescontrollers;
 
+import exceptions.GameException;
+import model.board.Game;
 import model.cards.Card;
 import model.Player;
+import view.gamephases.DrawPhase;
 
 import java.util.ArrayList;
 
-public class DrawPhaseController {
+public class DrawPhaseController implements methods{
 
-    private static DrawPhaseController drawPhaseController;
+    public DrawPhaseController(){
 
-    public static DrawPhaseController getInstance() {
-
-        if (drawPhaseController == null) {
-            return new DrawPhaseController();
-        }
-        return drawPhaseController;
     }
 
     private void getFirstDeckCard(Player player) {
 
     }
 
-    private void removeFirstDeckCardFromDeckToPlay(Player player) {
-
+    public String removeFirstDeckCardFromDeckToPlay(Player player)throws GameException {
+        //TODO it should return new card added to the hand
+        return "";
     }
 
     private void CardFrequencyChecker(ArrayList<Card> handCards) {

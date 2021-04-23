@@ -1,22 +1,10 @@
 package controller.gamephasescontrollers;
 
+import model.board.Game;
 import model.cards.Card;
+import view.gamephases.BattlePhase;
 
-public class BattlePhaseController {
-
-    private static BattlePhaseController battlePhaseController;
-
-
-    private BattlePhaseController() {
-
-    }
-
-    public static BattlePhaseController getInstance() {
-        if (battlePhaseController==null){
-            return new BattlePhaseController();
-        }
-        return battlePhaseController;
-    }
+public class BattlePhaseController implements methods {
 
     public void startBattlePhase() {
 
