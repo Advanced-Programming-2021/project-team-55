@@ -1,30 +1,42 @@
 package model.cards;
 
-public abstract class Monster extends Card {//todo seems useless, can be deleted
+import model.cards.cardfeaturesenums.CardType;
+import model.cards.cardfeaturesenums.MonsterAttribute;
 
-    private int attackPower, defensePower, level;
+public abstract class Monster extends Card {
 
-    protected Monster(String cardName, String description, int number, int price, int attackPower, int defensePower, int level) {
-        super(cardName, description, number, price);
-        setAttackPower(attackPower);
-        setDefensePower(defensePower);
-        setLevel(level);
+    private int atk;
+    private int def;
+    private int level;
+    private MonsterAttribute attribute;
+    private String monsterType;
+    private CardType cardType;
+
+    protected Monster(String cardName, String description, int price, int atk, int def, int level,
+                      MonsterAttribute attribute, String monsterType, CardType cardType) {
+        super(cardName, description, price);
+        this.atk = atk;
+        this.def = def;
+        this.level = level;
+        this.attribute = attribute;
+        this.monsterType = monsterType;
+        this.cardType = cardType;
     }
 
-    public int getAttackPower() {
-        return attackPower;
+    public int getAtk() {
+        return atk;
     }
 
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
+    public void setAtk(int atk) {
+        this.atk = atk;
     }
 
-    public int getDefensePower() {
-        return defensePower;
+    public int getDef() {
+        return def;
     }
 
-    public void setDefensePower(int defensePower) {
-        this.defensePower = defensePower;
+    public void setDef(int def) {
+        this.def = def;
     }
 
     public int getLevel() {
@@ -33,6 +45,30 @@ public abstract class Monster extends Card {//todo seems useless, can be deleted
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public MonsterAttribute getAttribute() {
+        return attribute;
+    }
+
+    public void setAttribute(MonsterAttribute attribute) {
+        this.attribute = attribute;
+    }
+
+    public String getMonsterType() {
+        return monsterType;
+    }
+
+    public void setMonsterType(String monsterType) {
+        this.monsterType = monsterType;
+    }
+
+    public CardType getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(CardType cardType) {
+        this.cardType = cardType;
     }
 
 }

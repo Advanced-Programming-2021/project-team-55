@@ -11,15 +11,13 @@ public class Card {
     protected static ArrayList<Card> cards;
     protected String name;
     protected String description;
-    protected int number;
     protected int price;
     protected Counter counter;
 
-    public Card(String name, String description, int price, int number) {
+    public Card(String name, String description, int price) {
         setName(name);
         setDescription(description);
         setPrice(price);
-        setNumber(number);
         cards.add(this);
     }
 
@@ -92,14 +90,6 @@ public class Card {
 
     protected void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    protected void setNumber(int number) {
-        this.number = number;
     }
 
     public int getPrice() {
