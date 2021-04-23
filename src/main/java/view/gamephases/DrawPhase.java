@@ -3,7 +3,7 @@ package view.gamephases;
 import controller.gamephasescontrollers.DrawPhaseController;
 
 public class DrawPhase extends Duel {
-    private DrawPhaseController drawPhaseController=DrawPhaseController.getInstance();
+    private final DrawPhaseController drawPhaseController = DrawPhaseController.getInstance();
 
 
     @Override

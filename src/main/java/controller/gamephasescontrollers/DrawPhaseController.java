@@ -1,7 +1,7 @@
 package controller.gamephasescontrollers;
 
-import model.cards.Card;
 import model.Player;
+import model.cards.Card;
 
 import java.util.ArrayList;
 

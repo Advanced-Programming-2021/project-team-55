@@ -9,7 +9,7 @@ public class EndPhaseController {
     }
 
     public static EndPhaseController getInstance() {
-        if(endPhaseController==null){
+        if (endPhaseController == null) {
             return new EndPhaseController();
         }
         return endPhaseController;

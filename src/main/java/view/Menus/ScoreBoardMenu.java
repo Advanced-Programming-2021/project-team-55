@@ -42,9 +42,9 @@ public class ScoreBoardMenu extends Menu {
         return response;
     }
 
-    private void showScoreBoard(LinkedHashMap<Integer,HashMap<Integer,String>> scoreBoard) {
+    private void showScoreBoard(LinkedHashMap<Integer, HashMap<Integer, String>> scoreBoard) {
         for (int i = 0; i < scoreBoard.size(); i++) {
-            HashMap<Integer,String> userInfo=scoreBoard.get(i);
+            HashMap<Integer, String> userInfo = scoreBoard.get(i);
             for (int rank : userInfo.keySet()) {
                 System.out.println(rank + userInfo.get(rank));
             }

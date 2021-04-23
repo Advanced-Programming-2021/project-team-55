@@ -12,7 +12,7 @@ public class StandByPhaseController {
     }
 
     public static StandByPhaseController getInstance() {
-        if(standByPhaseController==null){
+        if (standByPhaseController == null) {
             return new StandByPhaseController();
         }
         return standByPhaseController;

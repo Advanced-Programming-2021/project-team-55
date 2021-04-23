@@ -56,10 +56,10 @@ public class LoginMenuController extends MenuController {
 
     @Override
     public void exitMenu() {
-        DataBaseController dataBaseController=DataBaseController.getInstance();
-        for (User user:User.getAllUsers()) {
+        DataBaseController dataBaseController = DataBaseController.getInstance();
+        for (User user : User.getAllUsers()) {
             try {
-                dataBaseController.saveUserInfo(user);
+                DataBaseController.saveUserInfo(user);
             } catch (IOException e) {
                 LoggerMessage.log("unable to save user data");
                 e.printStackTrace();

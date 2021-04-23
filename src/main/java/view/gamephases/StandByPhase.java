@@ -3,7 +3,7 @@ package view.gamephases;
 import controller.gamephasescontrollers.StandByPhaseController;
 
 public class StandByPhase extends Duel {
-    private StandByPhaseController standByPhaseController=StandByPhaseController.getInstance();
+    private final StandByPhaseController standByPhaseController = StandByPhaseController.getInstance();
 
 
     @Override

@@ -19,6 +19,7 @@ public class DeckMenu extends Menu {
         String response = processCommand(ViewInterface.getInput());
         ViewInterface.showResult(response);
     }
+
     //TODO: we have to check whether we should remove a card from users inventory when we add it to a deck or not
     //todo: i think we should not remove a card because we can have multiple decks having a same card!
     @Override
@@ -76,24 +77,19 @@ public class DeckMenu extends Menu {
             }
         } else if (command.matches(Regexes.SHOW_DECK_CARDS.regex)) {
             showCards(deckMenuController.getCards());
-        }
-        else if(command.matches(Regexes.ENTER_MENU.regex)){
-            Matcher matcher=ViewInterface.getCommandMatcher(command,Regexes.ENTER_MENU.regex);
+        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
+            Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
             try {
                 deckMenuController.enterMenu(matcher.group(1));
+            } catch (MenuException e) {
+                response = e.toString();
             }
-            catch (MenuException e){
-                response=e.toString();
-            }
-        }
-        else if(command.matches(Regexes.EXIT_MENU.regex)){
+        } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             deckMenuController.exitMenu();
-        }
-        else if(command.matches(Regexes.SHOW_MENU.regex)){
-            response=getCurrentMenu();
-        }
-        else{
-            response=Responses.INVALID_COMMAND.response;
+        } else if (command.matches(Regexes.SHOW_MENU.regex)) {
+            response = getCurrentMenu();
+        } else {
+            response = Responses.INVALID_COMMAND.response;
         }
         return response;
     }
@@ -110,8 +106,9 @@ public class DeckMenu extends Menu {
             System.out.printf("Decks:\nActive deck:\nOther decks:\n");
         }
     }
-    private void showCards(ArrayList<Card>cards){
-        for(Card card:cards){
+
+    private void showCards(ArrayList<Card> cards) {
+        for (Card card : cards) {
             System.out.println(card);
         }
     }

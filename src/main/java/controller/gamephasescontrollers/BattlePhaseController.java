@@ -12,7 +12,7 @@ public class BattlePhaseController {
     }
 
     public static BattlePhaseController getInstance() {
-        if (battlePhaseController==null){
+        if (battlePhaseController == null) {
             return new BattlePhaseController();
         }
         return battlePhaseController;

@@ -6,10 +6,10 @@ import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
 import model.cards.cardfeaturesenums.Status;
 
 public class DarkHole extends SpellAndTrap {
-    
+
     public DarkHole() {
         super("Dark Hole", "Destroy all monsters on the field.",
                 2500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, Status.UNLIMITED);
     }
-    
+
 }

@@ -24,10 +24,12 @@ public abstract class SpellAndTrap extends Card {
     public void setActivated() {
 
     }
-    public void deactivate (){
+
+    public void deactivate() {
 
     }
-    public boolean isActivated(){
+
+    public boolean isActivated() {
         return isActive;
     }
 
@@ -62,4 +64,5 @@ public abstract class SpellAndTrap extends Card {
     public void setStatus(Status status) {
         this.status = status;
     }
+
 }

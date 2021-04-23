@@ -6,10 +6,10 @@ import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
 import model.cards.cardfeaturesenums.Status;
 
 public class TorrentialTribute extends SpellAndTrap {
-    
+
     public TorrentialTribute() {
         super("Torrential Tribute", "When a monster(s) is Summoned: Destroy all monsters on the field.",
                 2000, false, SpellOrTrap.TRAP, SpellOrTrapAttribute.NORMAL, Status.UNLIMITED);
     }
-    
+
 }
