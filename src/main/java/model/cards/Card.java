@@ -16,6 +16,18 @@ public class Card {
     protected Counter counter;
     protected int number;
 
+    public static void setCards(ArrayList<Card> cards) {
+        Card.cards = cards;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
     public Card(String name, String description, int price) {
         setName(name);
         setDescription(description);
