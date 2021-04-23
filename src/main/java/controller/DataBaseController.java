@@ -64,39 +64,6 @@ public class DataBaseController extends MenuController {
         User.setAllUsers(dataBaseUsers);
     }
 
-    public static void main(String[] args) throws IOException {
-        List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList = DataBaseController.getInstance().importTrapAndSpellsDetails();
-        for (TrapAndSpellCardDetails trapAndSpellCardDetails : trapAndSpellCardDetailsList) {
-            String className = trapAndSpellCardDetails.getName().trim()
-                    .replaceAll(" ", "").replaceAll("-", "")
-                    .replaceAll(",", "").replaceAll("'", "");
-            String fileContent = "package model.cards.trapandspells;\n" +
-                    "\n" +
-                    "import model.cards.SpellAndTrap;\n" +
-                    "import model.cards.cardfeaturesenums.SpellOrTrap;\n" +
-                    "import model.cards.cardfeaturesenums.SpellOrTrapAttribute;\n" +
-                    "import model.cards.cardfeaturesenums.Status;\n" +
-                    "\n" +
-                    "public class " + className + " extends SpellAndTrap {\n" +
-                    "    \n" +
-                    "    public " + className + "() {\n" +
-                    "        super(\"" + trapAndSpellCardDetails.getName() + "\", \"" + trapAndSpellCardDetails.getDescription() + "\",\n" +
-                    "                " + trapAndSpellCardDetails.getPrice() + ", false, SpellOrTrap." + trapAndSpellCardDetails.getType().toUpperCase() +
-                    ", SpellOrTrapAttribute." + trapAndSpellCardDetails.getIconOrProperty().toUpperCase() + ", Status." + trapAndSpellCardDetails.getStatus().toUpperCase() +
-                    ");\n" +
-                    "    }\n" +
-                    "    \n" +
-                    "}";
-            writeFile("src\\main\\java\\model\\cards\\trapandspells\\" + className + ".java", fileContent);
-
-        }
-    }
-
-    //todo parham chera inaro static kardi? mage getInstance nazashtim??
-    //todo: bebin serfan goftam chon ma ino tu Menu seda mikonim behtare static bashe serfan ye tabe ejra
-    //      she dige khod object ro nemikhaim ama mishe ba getInstance karo jelo bord farqhi nemikone
-
-    //todo اوکی ولی از این به بعد یکدست پیش بریم بهتره
 
     public List<MonsterCardDetails> importMonstersDetails() throws FileNotFoundException {//todo save the list in model
         List<MonsterCardDetails> monsterCardsDetailsList = new CsvToBeanBuilder(
@@ -129,6 +96,23 @@ public class DataBaseController extends MenuController {
 
     public String exportCard(String cardName) {
         return null;
+    }
+
+    public String readFileContent(String address) {
+        StringBuilder output = new StringBuilder();
+        try {
+            File file = new File(address);
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String data = scanner.nextLine();
+                output.append(data);
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("read file error");
+            e.printStackTrace();
+        }
+        return output.toString();
     }
 
 //    public static void main(String[] args) throws IOException {
@@ -223,22 +207,32 @@ public class DataBaseController extends MenuController {
 //
 //        }
 //    }
-
-    public String readFileContent(String address) {
-        StringBuilder output = new StringBuilder();
-        try {
-            File file = new File(address);
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String data = scanner.nextLine();
-                output.append(data);
-            }
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("read file error");
-            e.printStackTrace();
-        }
-        return output.toString();
-    }
+//    public static void main(String[] args) throws IOException {
+//        List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList = DataBaseController.getInstance().importTrapAndSpellsDetails();
+//        for (TrapAndSpellCardDetails trapAndSpellCardDetails : trapAndSpellCardDetailsList) {
+//            String className = trapAndSpellCardDetails.getName().trim()
+//                    .replaceAll(" ", "").replaceAll("-", "")
+//                    .replaceAll(",", "").replaceAll("'", "");
+//            String fileContent = "package model.cards.trapandspells;\n" +
+//                    "\n" +
+//                    "import model.cards.SpellAndTrap;\n" +
+//                    "import model.cards.cardfeaturesenums.SpellOrTrap;\n" +
+//                    "import model.cards.cardfeaturesenums.SpellOrTrapAttribute;\n" +
+//                    "import model.cards.cardfeaturesenums.Status;\n" +
+//                    "\n" +
+//                    "public class " + className + " extends SpellAndTrap {\n" +
+//                    "    \n" +
+//                    "    public " + className + "() {\n" +
+//                    "        super(\"" + trapAndSpellCardDetails.getName() + "\", \"" + trapAndSpellCardDetails.getDescription() + "\",\n" +
+//                    "                " + trapAndSpellCardDetails.getPrice() + ", false, SpellOrTrap." + trapAndSpellCardDetails.getType().toUpperCase() +
+//                    ", SpellOrTrapAttribute." + trapAndSpellCardDetails.getIconOrProperty().toUpperCase() + ", Status." + trapAndSpellCardDetails.getStatus().toUpperCase() +
+//                    ");\n" +
+//                    "    }\n" +
+//                    "    \n" +
+//                    "}";
+//            writeFile("src\\main\\java\\model\\cards\\trapandspells\\" + className + ".java", fileContent);
+//
+//        }
+//    }
 
 }
