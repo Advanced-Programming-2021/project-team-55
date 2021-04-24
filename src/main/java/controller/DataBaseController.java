@@ -98,12 +98,12 @@ public class DataBaseController extends MenuController {
 
     }
 
-    public static void initializeCards(){
+    public static void cardsDataBaseInitialization() {
         initializeMonsterCards();
         initializeMagicCards();
     }
 
-    private static void  initializeMonsterCards() {
+    private static void initializeMonsterCards() {
         Card BattleOX = new BattleOX();
         Card AxeRaider = new AxeRaider();
         Card YomiShip = new YomiShip();

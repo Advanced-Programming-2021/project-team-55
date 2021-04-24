@@ -1,5 +1,6 @@
 package model.cards;
 
+import controller.DataBaseController;
 import model.Counter;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.Comparator;
 
 public class Card {
 
-    protected static ArrayList<Card> allCards;
+    public static ArrayList<Card> allCards;
     protected String name;
     protected String description;
     protected int price;
@@ -129,5 +130,4 @@ public class Card {
     public String toString() {
         return name + ": " + description;
     }
-
 }
