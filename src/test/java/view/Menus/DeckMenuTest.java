@@ -8,7 +8,6 @@ class DeckMenuTest {
 
     @Test
     void execute() {
-        assertEquals(2, 1);
     }
 
     @Test

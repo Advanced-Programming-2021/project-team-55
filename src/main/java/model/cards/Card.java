@@ -1,6 +1,5 @@
 package model.cards;
 
-import controller.DataBaseController;
 import model.Counter;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class Card {
         setName(name);
         setDescription(description);
         setPrice(price);
-        allCards.add(this);
+        allCards.add(this);//todo injury gozashtin age az object copy begirim ke hamintory card ezafe mishe
     }
 
     public static ArrayList<Card> getCards() {
