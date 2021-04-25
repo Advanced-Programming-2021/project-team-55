@@ -68,4 +68,5 @@ public class DuelMenu extends Menu {
         }
         return response;
     }
+
 }
