@@ -13,8 +13,8 @@ public class User {
         allUsers = new ArrayList<>();
     }
 
-    private final ArrayList<Deck> decks;
-    private final ArrayList<Card> cardsInventory;
+    private ArrayList<Deck> decks;
+    private ArrayList<Card> cardsInventory;
     private String username;
     private String password;
     private String nickname;
@@ -25,6 +25,7 @@ public class User {
     {
         decks = new ArrayList<>();
         cardsInventory = new ArrayList<>();
+        money=1000000;
     }
 
     public User(String username, String nickname, String password) {
@@ -32,6 +33,7 @@ public class User {
         setNickname(nickname);
         setPassword(password);
         allUsers.add(this);
+
     }
 
     public static User getUserByUsername(String username) {
@@ -177,8 +179,13 @@ public class User {
         this.activeDeck = activeDeck;
     }
 
-    public boolean cardExistsInInventory(Card card) {
-        return cardsInventory.contains(card);
+    public boolean cardExistsInInventory(String cardName) {
+        for(Card card:cardsInventory){
+            if(card.getName().equals(cardName)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void addCardsToInventory(ArrayList<Card> cards) {

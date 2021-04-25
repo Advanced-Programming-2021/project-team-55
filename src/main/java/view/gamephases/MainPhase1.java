@@ -2,7 +2,7 @@ package view.gamephases;
 
 import controller.gamephasescontrollers.MainPhase1Controller;
 import exceptions.GameException;
-import view.Responses;
+import view.GameRegexes;
 import view.ViewInterface;
 
 import java.util.regex.Matcher;

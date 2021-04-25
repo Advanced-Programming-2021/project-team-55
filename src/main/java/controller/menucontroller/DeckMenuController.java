@@ -29,7 +29,7 @@ public class DeckMenuController extends MenuController {
         if (Deck.deckNameExists(deckName, User.loggedInUser)) {
             throw new MenuException("deck with name " + deckName + " already exists");
         } else {
-            User.loggedInUser.addDeck(new Deck(deckName, User.loggedInUser));
+            User.loggedInUser.addDeck(new Deck(deckName));
         }
 
     }
@@ -58,7 +58,7 @@ public class DeckMenuController extends MenuController {
     public void addCardToDeck(String cardName, String deckName, boolean isSide) throws MenuException {
         Card card = Card.getCardByName(cardName);
         Deck deck = User.loggedInUser.getDeckByName(deckName);
-        if (!User.loggedInUser.cardExistsInInventory(card)) {
+        if (!User.loggedInUser.cardExistsInInventory(cardName)) {
             throw new MenuException("card with name " + cardName + " does not exist");
         } else if (deck == null) {
             throw new MenuException("deck with name " + deckName + " does not exist");
@@ -66,7 +66,7 @@ public class DeckMenuController extends MenuController {
             throw new MenuException("main deck is full");
         } else if (deck.isSideDeckFull()) {
             throw new MenuException("side deck is full");
-        } else if (deck.getCardCountInDeck(card) == 3) {
+        } else if (deck.getCardCountInDeck(cardName) == 3) {
             throw new MenuException("there are already three cards with name " + cardName + " in deck " + deckName);
         } else {
             User.loggedInUser.removeCardFromInventory(card);
@@ -122,24 +122,24 @@ public class DeckMenuController extends MenuController {
                 if (isSide) {
                     ArrayList<Card> monsters = Card.getMonstersSorted(deck.getSideDeck());
                     ArrayList<Card> spellAndTraps = Card.getMagicsSorted(deck.getSideDeck());
-                    deckInfo += "Side deck:\nMonsters:\n";
+                    deckInfo += "Side deck:\nMonsters:";
                     for (Card card : monsters) {
-                        deckInfo += card + "\n";
+                        deckInfo += "\n"+card;
                     }
-                    deckInfo += "Spell and Traps:\n";
+                    deckInfo += "\nSpell and Traps:";
                     for (Card card : spellAndTraps) {
-                        deckInfo += card + "\n";
+                        deckInfo +="\n"+card ;
                     }
                 } else {
                     ArrayList<Card> monsters = Card.getMonstersSorted(deck.getMainDeck());
                     ArrayList<Card> spellAndTraps = Card.getMagicsSorted(deck.getMainDeck());
-                    deckInfo += "Main deck:\nMonsters:\n";
+                    deckInfo += "Main deck:\nMonsters:";
                     for (Card card : monsters) {
-                        deckInfo += card + "\n";
+                        deckInfo += "\n"+card;
                     }
-                    deckInfo += "Spell and Traps:\n";
+                    deckInfo += "\nSpell and Traps:";
                     for (Card card : spellAndTraps) {
-                        deckInfo += card + "\n";
+                        deckInfo +="\n"+card ;
                     }
                 }
                 return deckInfo;

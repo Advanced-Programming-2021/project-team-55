@@ -4,8 +4,7 @@ import controller.CheatController;
 import model.board.Cell;
 import model.Player;
 import model.board.Game;
-import view.gamephases.BattlePhase;
-import view.gamephases.DrawPhase;
+import view.GameRegexes;
 
 import java.util.ArrayList;
 
@@ -160,5 +159,17 @@ public class GameController {
 
     public BattlePhaseController getBattlePhaseController() {
         return battlePhaseController;
+    }
+
+    public boolean commandIsInCurrentPhase(String command){
+        if(command.matches(GameRegexes.SUMMON.regex)||command.matches(GameRegexes.SET.regex)||
+        command.matches(GameRegexes.SET_POSITION.regex)||command.matches(GameRegexes.FLIP_SUMMON.regex)||
+        command.matches(GameRegexes.ACTIVATE_EFFECT.regex)){
+            return currentPhase==GamePhase.MAIN1||currentPhase==GamePhase.MAIN2;
+        }
+        else if(command.matches(GameRegexes.ATTACK.regex)||command.matches(GameRegexes.ATTACK_DIRECT.regex)){
+            return currentPhase==GamePhase.BATTLE;
+        }
+        return true;
     }
 }

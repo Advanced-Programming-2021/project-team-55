@@ -13,10 +13,6 @@ public class Game {
         //?
     }
 
-    private void createGameBoards() {
-
-    }
-
     private void setPlayers(Player firstPlayer, Player secondPlayer) {
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;

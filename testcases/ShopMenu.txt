@@ -1,9 +1,9 @@
-user login --username parham --password 123
+user login --username parham --password 1380
 menu enter Shop
 menu show-current
-shop buy Babydragon
+shop buy Baby dragon
 shop buy parham:)
-shop show--all
+shop show --all
 shop buy Forest
 shop buy Forest
 shop buy Forest

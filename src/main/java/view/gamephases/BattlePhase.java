@@ -1,6 +1,7 @@
 package view.gamephases;
 
 import controller.gamephasescontrollers.BattlePhaseController;
+import view.GameRegexes;
 import view.ViewInterface;
 
 public class BattlePhase extends Duel {

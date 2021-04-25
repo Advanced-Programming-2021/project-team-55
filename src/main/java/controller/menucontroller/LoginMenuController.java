@@ -60,12 +60,11 @@ public class LoginMenuController extends MenuController {
         for (User user : User.getAllUsers()) {
             try {
                 DataBaseController.saveUserInfo(user);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 LoggerMessage.log("unable to save user data");
                 e.printStackTrace();
             }
         }
-
         System.exit(0);
     }
 

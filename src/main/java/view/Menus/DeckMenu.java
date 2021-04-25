@@ -53,7 +53,7 @@ public class DeckMenu extends Menu {
         } else if (command.matches(Regexes.ADD_CARD_TO_DECK.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ADD_CARD_TO_DECK.regex);
             try {
-                deckMenuController.addCardToDeck(matcher.group(1), matcher.group(2), matcher.groupCount() == 3);
+                deckMenuController.addCardToDeck(matcher.group(1), matcher.group(2), matcher.group(3)!=null);
                 response = Responses.CARD_ADDED_TO_DECK_SUCCESSFULLY.response;
             } catch (MenuException e) {
                 response = e.toString();
@@ -61,7 +61,7 @@ public class DeckMenu extends Menu {
         } else if (command.matches(Regexes.REMOVE_CARD_FROM_CARD.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.REMOVE_CARD_FROM_CARD.regex);
             try {
-                deckMenuController.removeCardFromDeck(matcher.group(1), matcher.group(2), matcher.groupCount() == 3);
+                deckMenuController.removeCardFromDeck(matcher.group(1), matcher.group(2), matcher.group(3)!=null);
                 response = Responses.CARD_REMOVED_FROM_DECK_SUCCESSFULLY.response;
             } catch (MenuException e) {
                 response = e.toString();
@@ -71,7 +71,7 @@ public class DeckMenu extends Menu {
         } else if (command.matches(Regexes.SHOW_DECK.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.SHOW_DECK.regex);
             try {
-                response = deckMenuController.getADeck(matcher.group(1), matcher.groupCount() == 2);
+                response = deckMenuController.getADeck(matcher.group(1), matcher.group(2)!=null);
             } catch (MenuException e) {
                 response = e.toString();
             }

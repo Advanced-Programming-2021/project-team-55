@@ -49,9 +49,11 @@ abstract public class Menu {
                 }
                 case DECK: {
                     deckMenu.execute();
+                    break;
                 }
                 case DUEL: {
                     duelMenu.execute();
+                    break;
                 }
             }
         }

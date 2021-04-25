@@ -3,6 +3,8 @@ package controller.menucontroller;
 import exceptions.MenuException;
 import model.User;
 import model.cards.Card;
+import view.Menus.Menu;
+import view.Menus.MenuType;
 
 import java.util.ArrayList;
 
@@ -43,6 +45,7 @@ public class ShopMenuController extends MenuController {
 
     @Override
     public void exitMenu() {
+        Menu.setCurrentMenu(MenuType.MAIN);
 
     }
 }

@@ -1,4 +1,4 @@
-package view.gamephases;
+package view;
 
 public enum GameRegexes {
     SELECT("^select (.*)"),

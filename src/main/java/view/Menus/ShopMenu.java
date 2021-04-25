@@ -4,6 +4,7 @@ import controller.menucontroller.ShopMenuController;
 import exceptions.MenuException;
 import model.cards.Card;
 import view.Regexes;
+import view.Responses;
 import view.ViewInterface;
 
 import java.util.ArrayList;
@@ -41,6 +42,9 @@ public class ShopMenu extends Menu {
             shopMenuController.exitMenu();
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {
             response = getCurrentMenu();
+        }
+        else{
+            response= Responses.INVALID_COMMAND.response;
         }
         return response;
     }

@@ -26,7 +26,11 @@ public class GameBoard {
     }
 
     public GameBoard(Deck deck) {
-
+        for(Card card:deck.getMainDeck()){
+            Cell cell=new Cell();
+            cell.addCardToCell(card);
+            deckZone.add(cell);
+        }
     }
 
     public Cell[] getMonsterCardZone() {

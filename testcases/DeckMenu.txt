@@ -10,13 +10,13 @@ deck create MyFirstDeck
 deck create MySecondDeck
 deck set-active MyFirstDeck
 deck set-active NotExistsDeck
-deck add-card --card Babydragon --deck MyFirstDeck
+deck add-card --card Baby dragon --deck MyFirstDeck
 deck add-card --card Yami --deck MyFirstDeck --side
-deck add-card --card Babydragon --deck MyFirstDeck
-deck add-card --card Babydragon --deck MyFirstDeck
+deck add-card --card Baby dragon --deck MyFirstDeck
+deck add-card --card Baby dragon --deck MyFirstDeck
 deck add-card --card parham --deck MySecondDeck
 deck rm-card --card mammad --deck MyFirstDeck --side
-deck rm-card --card Babydragon --deck MyFirstDeck
+deck rm-card --card Baby dragon --deck MyFirstDeck
 deck rm-card --card Yami --deck alaki --side
 deck show --all
 deck show --deck-name alaki --side

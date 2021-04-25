@@ -6,14 +6,18 @@ import java.util.ArrayList;
 
 public class Deck {
     private String name;
-    private User owner;
     private ArrayList<Card> mainDeck;
     private ArrayList<Card> sideDeck;
     private boolean isActive;
 
+    {
+        mainDeck=new ArrayList<>();
+        sideDeck=new ArrayList<>();
+    }
 
-    public Deck(String name, User owner) {
 
+    public Deck(String name) {
+        setName(name);
     }
 
     public static boolean deckNameExists(String deckName, User owner) {
@@ -33,14 +37,6 @@ public class Deck {
 
     private void setName(String name) {
         this.name = name;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    private void setOwner(User owner) {
-        this.owner = owner;
     }
 
     public ArrayList<Card> getMainDeck() {
@@ -84,15 +80,15 @@ public class Deck {
         return sideDeck.size() == 15;
     }
 
-    public int getCardCountInDeck(Card cardToSearch) {
+    public int getCardCountInDeck(String cardName) {
         int count = 0;
         for (Card card : mainDeck) {
-            if (card.getName().equals(cardToSearch.getName())) {
+            if (card.getName().equals(cardName) ){
                 count++;
             }
         }
         for (Card card : sideDeck) {
-            if (card.getName().equals(cardToSearch.getName())) {
+            if (card.getName().equals(cardName)) {
                 count++;
             }
         }
@@ -105,7 +101,6 @@ public class Deck {
                 mainDeck.remove(card);
                 ArrayList<Card> cardsRemoved = new ArrayList<>();
                 cardsRemoved.add(card);
-                owner.addCardsToInventory(cardsRemoved);
                 return;
             }
         }
@@ -117,7 +112,6 @@ public class Deck {
                 sideDeck.remove(card);
                 ArrayList<Card> cardsRemoved = new ArrayList<>();
                 cardsRemoved.add(card);
-                owner.addCardsToInventory(cardsRemoved);
                 return;
             }
         }
