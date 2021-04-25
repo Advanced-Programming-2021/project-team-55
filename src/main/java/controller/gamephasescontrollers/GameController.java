@@ -1,8 +1,8 @@
 package controller.gamephasescontrollers;
 
 import controller.CheatController;
-import model.board.Cell;
 import model.Player;
+import model.board.Cell;
 import model.board.Game;
 import view.GameRegexes;
 
@@ -13,7 +13,7 @@ public class GameController {
     public static CheatController cheatController;
     public Player currentTurnPlayer;
     public Player currentTurnOpponentPlayer;
-    public GamePhase currentPhase=GamePhase.DRAW;
+    public GamePhase currentPhase = GamePhase.DRAW;
     public ArrayList<Cell> changedPositionCells;
     public ArrayList<Cell> attackerCellsThisTurn;
     protected Game game;
@@ -26,15 +26,15 @@ public class GameController {
 
 
     public GameController(Game game) {
-        this.game=game;
-        this.currentTurnPlayer= game.getFirstPlayer();
-        this.currentTurnOpponentPlayer=game.getSecondPlayer();
-        drawPhaseController=new DrawPhaseController(this);
-        standByPhaseController=new StandByPhaseController(this);
-        mainPhase1Controller=new MainPhase1Controller(this);
-        battlePhaseController=new BattlePhaseController(this);
-        mainPhase2Controller=new MainPhase2Controller(this);
-        endPhaseController=new EndPhaseController(this);
+        this.game = game;
+        this.currentTurnPlayer = game.getFirstPlayer();
+        this.currentTurnOpponentPlayer = game.getSecondPlayer();
+        drawPhaseController = new DrawPhaseController(this);
+        standByPhaseController = new StandByPhaseController(this);
+        mainPhase1Controller = new MainPhase1Controller(this);
+        battlePhaseController = new BattlePhaseController(this);
+        mainPhase2Controller = new MainPhase2Controller(this);
+        endPhaseController = new EndPhaseController(this);
 
     }
 
@@ -58,39 +58,40 @@ public class GameController {
     }
 
     public void changePhase() {
-        switch (currentPhase){
-            case DRAW:{
-                currentPhase=GamePhase.STANDBY;
+        switch (currentPhase) {
+            case DRAW: {
+                currentPhase = GamePhase.STANDBY;
                 break;
             }
-            case STANDBY:{
-                currentPhase=GamePhase.MAIN1;
+            case STANDBY: {
+                currentPhase = GamePhase.MAIN1;
                 break;
             }
-            case MAIN1:{
-                currentPhase=GamePhase.BATTLE;
+            case MAIN1: {
+                currentPhase = GamePhase.BATTLE;
                 break;
             }
-            case BATTLE:{
-                currentPhase=GamePhase.MAIN2;
+            case BATTLE: {
+                currentPhase = GamePhase.MAIN2;
                 break;
             }
-            case MAIN2:{
-                currentPhase=GamePhase.END;
+            case MAIN2: {
+                currentPhase = GamePhase.END;
                 break;
             }
-            case END:{
-                currentPhase=GamePhase.DRAW;
+            case END: {
+                currentPhase = GamePhase.DRAW;
                 changeTurn();
                 break;
             }
 
         }
     }
-    public void changeTurn(){
-        Player player=currentTurnPlayer;
-        currentTurnPlayer=currentTurnOpponentPlayer;
-        currentTurnOpponentPlayer=currentTurnPlayer;
+
+    public void changeTurn() {
+        Player player = currentTurnPlayer;
+        currentTurnPlayer = currentTurnOpponentPlayer;
+        currentTurnOpponentPlayer = currentTurnPlayer;
     }
 
     protected String showGraveyard(Player player) {
@@ -121,19 +122,19 @@ public class GameController {
 
     }
 
-    public void setCurrentPhase(GamePhase currentPhase) {
-        this.currentPhase = currentPhase;
-    }
-
     public GamePhase getCurrentPhase() {
         return currentPhase;
+    }
+
+    public void setCurrentPhase(GamePhase currentPhase) {
+        this.currentPhase = currentPhase;
     }
 
     public Player getCurrentTurnPlayer() {
         return currentTurnPlayer;
     }
 
-    public Player getCurrentTurnOpponentPlayer(){
+    public Player getCurrentTurnOpponentPlayer() {
         return currentTurnOpponentPlayer;
     }
 
@@ -161,15 +162,15 @@ public class GameController {
         return battlePhaseController;
     }
 
-    public boolean commandIsInCurrentPhase(String command){
-        if(command.matches(GameRegexes.SUMMON.regex)||command.matches(GameRegexes.SET.regex)||
-        command.matches(GameRegexes.SET_POSITION.regex)||command.matches(GameRegexes.FLIP_SUMMON.regex)||
-        command.matches(GameRegexes.ACTIVATE_EFFECT.regex)){
-            return currentPhase==GamePhase.MAIN1||currentPhase==GamePhase.MAIN2;
-        }
-        else if(command.matches(GameRegexes.ATTACK.regex)||command.matches(GameRegexes.ATTACK_DIRECT.regex)){
-            return currentPhase==GamePhase.BATTLE;
+    public boolean checkCommandIsInCurrentPhase(String command) {//todo should print: action not allowed in this phase
+        if (command.matches(GameRegexes.SUMMON.regex) || command.matches(GameRegexes.SET.regex) ||
+                command.matches(GameRegexes.SET_POSITION.regex) || command.matches(GameRegexes.FLIP_SUMMON.regex) ||
+                command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {
+            return currentPhase == GamePhase.MAIN1 || currentPhase == GamePhase.MAIN2;
+        } else if (command.matches(GameRegexes.ATTACK.regex) || command.matches(GameRegexes.ATTACK_DIRECT.regex)) {
+            return currentPhase == GamePhase.BATTLE;
         }
         return true;
     }
+
 }

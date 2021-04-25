@@ -3,7 +3,7 @@ package controller.gamephasescontrollers;
 import exceptions.GameException;
 import model.board.Game;
 
-public class MainPhase1Controller implements methods {
+public class MainPhase1Controller implements methods, MainPhasesController {
     private GameController gameController;
     public MainPhase1Controller(GameController gameController){
         this.gameController=gameController;
