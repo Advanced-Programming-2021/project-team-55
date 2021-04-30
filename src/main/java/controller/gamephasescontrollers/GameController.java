@@ -162,7 +162,7 @@ public class GameController {
         return battlePhaseController;
     }
 
-    public boolean checkCommandIsInCurrentPhase(String command) {//todo should print: action not allowed in this phase
+    public boolean checkCommandIsInCurrentPhase(String command) {
         if (command.matches(GameRegexes.SUMMON.regex) || command.matches(GameRegexes.SET.regex) ||
                 command.matches(GameRegexes.SET_POSITION.regex) || command.matches(GameRegexes.FLIP_SUMMON.regex) ||
                 command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {

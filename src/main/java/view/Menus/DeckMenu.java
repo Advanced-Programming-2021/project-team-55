@@ -20,8 +20,6 @@ public class DeckMenu extends Menu {
         ViewInterface.showResult(response);
     }
 
-    //TODO: we have to check whether we should remove a card from users inventory when we add it to a deck or not
-    //todo: i think we should not remove a card because we can have multiple decks having a same card!
     @Override
     protected String processCommand(String command) {
         String response = "";

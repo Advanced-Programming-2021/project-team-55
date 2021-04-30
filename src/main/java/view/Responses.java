@@ -7,11 +7,12 @@ public enum Responses {
     LOGOUT_SUCCESSFULLY("user logged out successfully!"),
     NICKNAME_CHANGED_SUCCESSFULLY("nickname changed successfully!"),
     PASSWORD_CHANGED_SUCCESSFULLY("password changed successfully!"),
+    CARD_BOUGHT_SUCCESSFULLY("card bought successfully!"),
     DECK_CREATED_SUCCESSFULLY("deck created successfully!"),
-    DECK_DELETED_SUCCESSFULLY("deck deleted successfully"),
-    DECK_ACTIVATED_SUCCESSFULLY("deck activated successfully"),
-    CARD_ADDED_TO_DECK_SUCCESSFULLY("card added to deck successfully"),
-    CARD_REMOVED_FROM_DECK_SUCCESSFULLY("card removed from deck successfully");
+    DECK_DELETED_SUCCESSFULLY("deck deleted successfully!"),
+    DECK_ACTIVATED_SUCCESSFULLY("deck activated successfully!"),
+    CARD_ADDED_TO_DECK_SUCCESSFULLY("card added to deck successfully!"),
+    CARD_REMOVED_FROM_DECK_SUCCESSFULLY("card removed from deck successfully!");
 
 
 

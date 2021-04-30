@@ -6,7 +6,7 @@ import model.cards.Deck;
 public class Player {
     private User user;
     private Deck playDeck;
-    private int LP = 8000;//todo is it correct?
+    private int LP = 8000;
     private GameBoard playerGameBoard;
     private boolean isAI;
 

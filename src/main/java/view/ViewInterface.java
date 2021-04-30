@@ -26,10 +26,6 @@ public class ViewInterface {
         return matcher;
     }
 
-    private static String interpreteAbreviations(String input) {
-        return "has to be handled";
-    }//todo fill
-
     private static String sortFields(String input) {
         if (input.indexOf("--") != -1) {
             input += "  ";

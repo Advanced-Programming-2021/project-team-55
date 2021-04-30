@@ -68,7 +68,7 @@ public class DataBaseController extends MenuController {
     }
 
 
-    public List<MonsterCardDetails> importMonstersDetails() throws FileNotFoundException {//todo save the list in model
+    public List<MonsterCardDetails> importMonstersDetails() throws FileNotFoundException {
         List<MonsterCardDetails> monsterCardsDetailsList = new CsvToBeanBuilder(
                 new FileReader("src/resources/cards details/Monster.csv"))
                 .withType(MonsterCardDetails.class).build().parse();
@@ -76,7 +76,7 @@ public class DataBaseController extends MenuController {
         return monsterCardsDetailsList;
     }
 
-    public List<TrapAndSpellCardDetails> importTrapAndSpellsDetails() throws FileNotFoundException {//todo save the list in model
+    public List<TrapAndSpellCardDetails> importTrapAndSpellsDetails() throws FileNotFoundException {
         List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList = new CsvToBeanBuilder(
                 new FileReader("src/resources/cards details/SpellTrap.csv"))
                 .withType(TrapAndSpellCardDetails.class).build().parse();

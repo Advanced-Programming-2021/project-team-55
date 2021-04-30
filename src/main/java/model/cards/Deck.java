@@ -21,8 +21,6 @@ public class Deck {
     }
 
     public static boolean deckNameExists(String deckName, User owner) {
-        //TODO: it only checks Deck names in owner decks.Is it correct?
-        //todo گفتن انگار قرار نیست تست کیس بدن. هرجور برامون منطقی بود بزنیم به نظرم
         for (Deck deck : owner.getDecks()) {
             if (deck.getName().equals(deckName)) {
                 return true;
@@ -96,7 +94,7 @@ public class Deck {
     }
 
     public void removeCardFromMainDeck(String cardName) {
-        for (Card card : mainDeck) {//TODO : check if we have to remove all cards with that name from deck or just one card
+        for (Card card : mainDeck) {
             if (card.getName().equals(cardName)) {
                 mainDeck.remove(card);
                 ArrayList<Card> cardsRemoved = new ArrayList<>();

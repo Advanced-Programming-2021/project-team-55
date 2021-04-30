@@ -28,7 +28,7 @@ public class User {
     {
         decks = new ArrayList<>();
         cardsInventory = new ArrayList<>();
-        money=1000000;
+        money=100000;
     }
 
     public User(String username, String nickname, String password) {
@@ -151,7 +151,7 @@ public class User {
     }
 
     public void changeMoney(int money) {
-        this.money = money;
+        this.money += money;
     }
 
     public ArrayList<Deck> getDecks() {

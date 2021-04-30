@@ -28,9 +28,9 @@ public class ShopMenuController extends MenuController {
             throw new MenuException("not enough money");
         } else {
             User.loggedInUser.changeMoney(-card.getPrice());
-            ArrayList<Card> cardsToadd = new ArrayList<>();
-            cardsToadd.add(card);
-            User.loggedInUser.addCardsToInventory(cardsToadd);
+            ArrayList<Card> cardsToAdd = new ArrayList<>();
+            cardsToAdd.add(card);
+            User.loggedInUser.addCardsToInventory(cardsToAdd);
         }
     }
 

@@ -26,6 +26,7 @@ public class ShopMenu extends Menu {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.BUY_SHOP.regex);
             try {
                 shopMenuController.buyCard(matcher.group(1));
+                response=Responses.CARD_BOUGHT_SUCCESSFULLY.response;
             } catch (MenuException e) {
                 response = e.toString();
             }
