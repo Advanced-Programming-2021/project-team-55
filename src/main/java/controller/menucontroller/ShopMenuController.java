@@ -35,7 +35,7 @@ public class ShopMenuController extends MenuController {
     }
 
     public ArrayList<Card> getAllCards() {
-        return Card.getCards();
+        return Card.sortCards(Card.getCards());
     }
 
     @Override

@@ -2,7 +2,10 @@ package model;
 
 import model.cards.Card;
 import model.cards.Deck;
+import model.cards.monsters.*;
+import model.cards.trapandspells.*;
 
+import java.awt.*;
 import java.util.*;
 
 public class User {
@@ -33,6 +36,7 @@ public class User {
         setNickname(nickname);
         setPassword(password);
         allUsers.add(this);
+        initializeCards();
 
     }
 
@@ -205,6 +209,55 @@ public class User {
         if (activeDeck == deck) {
             setActiveDeck(null);
         }
+    }
+    private void initializeCards(){
+        ArrayList<Card>initCards=new ArrayList<>();
+        //game init cards:
+        initCards.add(new AxeRaider());
+        initCards.add(new Babydragon());
+        initCards.add(new CallofTheHaunted());
+        initCards.add(new ChangeofHeart());
+        initCards.add(new Flamemanipulator());
+        initCards.add(new HarpiesFeatherDuster());
+        initCards.add(new MagicCylinder());
+        initCards.add(new MagicJamamer());
+        initCards.add(new MonsterReborn());
+        initCards.add(new Mysticalspacetyphoon());
+        initCards.add(new SlotMachine());
+        initCards.add(new TorrentialTribute());
+
+        //other cards added by me (parham)
+
+        initCards.add(new BattleOX());
+        initCards.add(new BeastKingBarbaros());
+        initCards.add(new CrabTurtle());
+        initCards.add(new DarkBlade());
+        initCards.add(new ExploderDragon());
+        initCards.add(new Haniwa());
+        initCards.add(new MirageDragon());
+        initCards.add(new Suijin());
+        initCards.add(new WarriorDaiGrepher());
+        initCards.add(new YomiShip());
+        initCards.add(new Wattaildragon());
+        initCards.add(new Texchanger());
+        initCards.add(new Forest());
+        initCards.add(new MindCrush());
+        initCards.add(new NegateAttack());
+        initCards.add(new SpellAbsorption());
+        initCards.add(new TwinTwisters());
+        initCards.add(new Yami());
+        initCards.add(new Terraforming());
+        initCards.add(new SupplySquad());
+        initCards.add(new TerratigertheEmpoweredWarrior());
+        initCards.add(new WallofRevealingLight());
+        initCards.add(new UnitedWeStand());
+        initCards.add(new Ringofdefense());
+        initCards.add(new Leotron());
+        initCards.add(new HornImp());
+        initCards.add(new Haniwa());
+        initCards.add(new CommandKnight());
+        initCards.add(new BlackPendant());
+        addCardsToInventory(initCards);
     }
 
     @Override
