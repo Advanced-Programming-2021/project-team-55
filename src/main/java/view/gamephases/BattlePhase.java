@@ -26,7 +26,9 @@ public class BattlePhase extends Duel {
 
 
 
-
+        else{
+            response=GameResponses.INVALID_COMMAND.response;
+        }
         return response;
     }
 

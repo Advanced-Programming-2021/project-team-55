@@ -67,6 +67,7 @@ public class MainPhase1 extends Duel {
                 response=e.toString();
             }
         }
+        //todo these attack methods should be moved to battle phase
         else if(command.matches(GameRegexes.ATTACK.regex)){
             Matcher matcher=ViewInterface.getCommandMatcher(command,GameRegexes.ATTACK.regex);
             try{
@@ -93,7 +94,11 @@ public class MainPhase1 extends Duel {
                 response=e.toString();
             }
         }
-        //...
+        //todo check whether we have handled all methods in this phase or not
+
+        else{
+            response=GameResponses.INVALID_COMMAND.response;
+        }
 
         return response;
     }
@@ -148,9 +153,6 @@ public class MainPhase1 extends Duel {
             catch (GameException e){
                 response=e.toString();
             }
-        }
-        else{
-            response=GameResponses.INVALID_COMMAND.response;
         }
         return response;
     }

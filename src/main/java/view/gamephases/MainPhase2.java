@@ -30,7 +30,9 @@ public class MainPhase2 extends Duel {
 
 
 
-
+        else{
+            response=GameResponses.INVALID_COMMAND.response;
+        }
         return response;
     }
 
