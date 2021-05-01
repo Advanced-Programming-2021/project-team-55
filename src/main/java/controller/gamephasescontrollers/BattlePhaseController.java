@@ -14,6 +14,7 @@ public class BattlePhaseController implements methods {
     }
 
     public String attack(Card attackerCard, Card attackedCard) {
+
         return null;
     }
 

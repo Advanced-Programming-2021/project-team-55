@@ -52,7 +52,6 @@ public class DuelMenuController extends MenuController {
             } else if (rounds != 1 && rounds != 3) {
                 throw new MenuException("number of rounds is not supported");
             } else {
-                //TODO -->>Start pvp game
                 Player player1 = new Player(User.loggedInUser, player1Deck);
                 Player player2 = new Player(rival, player2Deck);
                 return new GameController(new Game(player1, player2, rounds));

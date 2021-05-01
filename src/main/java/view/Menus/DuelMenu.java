@@ -30,9 +30,9 @@ public class DuelMenu extends Menu {
         if(command.matches(Regexes.DUEL_PLAYER.regex)){
             //todo this is for testing the game
            Matcher matcher=ViewInterface.getCommandMatcher(command,Regexes.DUEL_PLAYER.regex);
-           /* Duel.runGame(new GameController(new Game(new Player(new User("sdfd","sdf","sdfdf"),new Deck("sdfd", User.loggedInUser)),
-                    new Player(new User("eter","sdf","sdf"),new Deck("sdfdf",User.loggedInUser)),3)));*/
-           try {
+           /* Duel.runGame(new GameController(new Game(new Player(new User("sdfd","sdf","sdfdf"),new Deck("sdfd")),
+                    new Player(new User("eter","sdf","sdf"),new Deck("sdfdf")),1)));*/
+          try {
                Duel.runGame(duelMenuController.newPVPDuel(matcher.group(2),Integer.parseInt(matcher.group(1))));
            }
            catch (MenuException e){

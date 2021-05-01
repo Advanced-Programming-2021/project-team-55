@@ -17,6 +17,7 @@ public class GameBoard {
 
     {
         areasNumber = new int[5];
+        //todo areas numbering should be handled here;
         monsterCardZone = new Cell[5];
 
         cellsNumbering = new ArrayList<>();

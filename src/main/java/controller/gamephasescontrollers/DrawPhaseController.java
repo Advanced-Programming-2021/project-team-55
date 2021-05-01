@@ -22,14 +22,14 @@ public class DrawPhaseController implements methods {
     }
 
     public String removeFirstDeckCardFromDeckToPlay(Player player)throws GameException {
-        if (!checkCardFrequency(player.getGameBoard().getHandCards()))
+        if (!checkCardFrequency(player.getGameBoard().getHandCards())) {
             return "hand deck is full! no card added.";//todo check, پیام ارور رو پیدا نکردم توی داک ها هرچی گشتم
-
-        ArrayList<Card> playerDeck = player.getPlayDeck().getMainDeck();
-        Card removedCard = playerDeck.get(0);
-        playerDeck.remove(0);
-        addCardToHandDeck(player, removedCard);
-        return "new card added to the hand : " + removedCard.getName();
+        }
+       ArrayList<Card> playerDeck = player.getPlayDeck().getMainDeck();
+       Card removedCard = playerDeck.get(0);
+       playerDeck.remove(0);
+       addCardToHandDeck(player, removedCard);
+       return "new card added to the hand : " + removedCard.getName();
     }
 
     private boolean checkCardFrequency(ArrayList<Cell> handCards) {

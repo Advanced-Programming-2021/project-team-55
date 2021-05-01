@@ -45,6 +45,12 @@ public class Deck {
         mainDeck.add(card);
     }
 
+    public void addCardsToMainDeck(ArrayList<Card>cards){
+        for(Card card:cards){
+            mainDeck.add(card);
+        }
+    }
+
     public ArrayList<Card> getSideDeck() {
         return sideDeck;
     }

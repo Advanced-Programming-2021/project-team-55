@@ -258,6 +258,11 @@ public class User {
         initCards.add(new CommandKnight());
         initCards.add(new BlackPendant());
         addCardsToInventory(initCards);
+        Deck deckInit=new Deck("default deck");
+        deckInit.addCardsToMainDeck(initCards);
+        deckInit.setActive(true);
+        this.activeDeck=deckInit;
+        this.addDeck(deckInit);
     }
 
     @Override

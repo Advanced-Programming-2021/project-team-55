@@ -13,6 +13,9 @@ public class MainPhase1 extends Duel {
 
     @Override
     protected void execute() {
+        mainPhase1Controller= gameController.getMainPhase1Controller();
+        ViewInterface.showResult(mainPhase1Controller.showGameBoard(gameController.currentTurnPlayer,
+                gameController.currentTurnOpponentPlayer));
         String response = processCommand(ViewInterface.getInput());
         ViewInterface.showResult(response);
 

@@ -9,6 +9,7 @@ public class BattlePhase extends Duel {
 
     @Override
     protected void execute() {
+        battlePhaseController=gameController.getBattlePhaseController();
         String response=processCommand(ViewInterface.getInput());
         ViewInterface.showResult(response);
     }
