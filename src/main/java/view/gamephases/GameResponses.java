@@ -1,7 +1,7 @@
 package view.gamephases;
 
 public enum GameResponses {
-    INVALID_COMMAND("invalid command"),
+    INVALID_COMMAND("Error: invalid command"),
     CARD_SELECTED("card selected"),
     SUMMONED_SUCCESSFULLY("summoned successfully"),
     SET_SUCCESSFULLY("set successfully"),

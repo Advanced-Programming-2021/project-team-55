@@ -23,9 +23,9 @@ public class ShopMenuController extends MenuController {
     public void buyCard(String cardName) throws MenuException {
         Card card = Card.getCardByName(cardName);
         if (card == null) {
-            throw new MenuException("there is no card with this name");
+            throw new MenuException("Error: there is no card with this name");
         } else if (User.loggedInUser.getMoney() < card.getPrice()) {
-            throw new MenuException("not enough money");
+            throw new MenuException("Error: not enough money");
         } else {
             User.loggedInUser.changeMoney(-card.getPrice());
             ArrayList<Card> cardsToAdd = new ArrayList<>();
@@ -40,7 +40,7 @@ public class ShopMenuController extends MenuController {
 
     @Override
     public void enterMenu(String menu) throws MenuException {
-        throw new MenuException("menu navigation is not possible");
+        throw new MenuException("Error: menu navigation is not possible");
     }
 
     @Override

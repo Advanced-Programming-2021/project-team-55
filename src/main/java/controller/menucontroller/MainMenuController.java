@@ -53,7 +53,7 @@ public class MainMenuController extends MenuController {
                 break;
             }
             default: {
-                throw new MenuException("menu navigation is not possible");
+                throw new MenuException("Error: menu navigation is not possible");
             }
 
         }

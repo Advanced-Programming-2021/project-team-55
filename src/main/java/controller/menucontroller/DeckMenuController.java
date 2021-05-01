@@ -27,7 +27,7 @@ public class DeckMenuController extends MenuController {
 
     public void createDeck(String deckName) throws MenuException {
         if (Deck.deckNameExists(deckName, User.loggedInUser)) {
-            throw new MenuException("deck with name " + deckName + " already exists");
+            throw new MenuException("Error: deck with name " + deckName + " already exists");
         } else {
             User.loggedInUser.addDeck(new Deck(deckName));
         }
@@ -37,7 +37,7 @@ public class DeckMenuController extends MenuController {
     public void deleteDeck(String deckName) throws MenuException {
         Deck deck = User.loggedInUser.getDeckByName(deckName);
         if (deck == null) {
-            throw new MenuException("deck with name " + deckName + " does not exist");
+            throw new MenuException("Error: deck with name " + deckName + " does not exist");
         } else {
             User.loggedInUser.removeDeck(deck);
             User.loggedInUser.addCardsToInventory(deck.getMainDeck());
@@ -48,7 +48,7 @@ public class DeckMenuController extends MenuController {
     public void activeDeck(String deckName) throws MenuException {
         Deck deck = User.loggedInUser.getDeckByName(deckName);
         if (deck == null) {
-            throw new MenuException("deck with name " + deckName + " does not exist");
+            throw new MenuException("Error: deck with name " + deckName + " does not exist");
         } else {
             User.loggedInUser.setActiveDeck(deck);
         }
@@ -59,15 +59,15 @@ public class DeckMenuController extends MenuController {
         Card card = Card.getCardByName(cardName);
         Deck deck = User.loggedInUser.getDeckByName(deckName);
         if (!User.loggedInUser.cardExistsInInventory(cardName)) {
-            throw new MenuException("card with name " + cardName + " does not exist");
+            throw new MenuException("Error: card with name " + cardName + " does not exist");
         } else if (deck == null) {
-            throw new MenuException("deck with name " + deckName + " does not exist");
+            throw new MenuException("Error: deck with name " + deckName + " does not exist");
         } else if (deck.isMainDeckFull()) {
-            throw new MenuException("main deck is full");
+            throw new MenuException("Error: main deck is full");
         } else if (deck.isSideDeckFull()) {
-            throw new MenuException("side deck is full");
+            throw new MenuException("Error: side deck is full");
         } else if (deck.getCardCountInDeck(cardName) == 3) {
-            throw new MenuException("there are already three cards with name " + cardName + " in deck " + deckName);
+            throw new MenuException("Error: there are already three cards with name " + cardName + " in deck " + deckName);
         } else {
             User.loggedInUser.removeCardFromInventory(card);
             if (isSide) {
@@ -81,11 +81,11 @@ public class DeckMenuController extends MenuController {
     public void removeCardFromDeck(String cardName, String deckName, boolean isSide) throws MenuException {
         Deck deck = User.loggedInUser.getDeckByName(deckName);
         if (deck == null) {
-            throw new MenuException("deck with name " + deckName + " does not exist");
+            throw new MenuException("Error: deck with name " + deckName + " does not exist");
         } else if (isSide && !deck.cardExistsInSideDeck(cardName)) {
-            throw new MenuException("card with name " + cardName + " does not exist in side deck");
+            throw new MenuException("Error: card with name " + cardName + " does not exist in side deck");
         } else if (!isSide & !deck.cardExistsInMainDeck(cardName)) {
-            throw new MenuException("card with name " + cardName + " does not exist in main deck");
+            throw new MenuException("Error: card with name " + cardName + " does not exist in main deck");
         } else {
             if (isSide) {
                 deck.removeCardFromSideDeck(cardName);
@@ -145,7 +145,7 @@ public class DeckMenuController extends MenuController {
                 return deckInfo;
             }
         }
-        throw new MenuException("deck with name " + deckName + " does not exist");
+        throw new MenuException("Error: deck with name " + deckName + " does not exist");
     }
 
     public ArrayList<Card> getCards() {
@@ -154,7 +154,7 @@ public class DeckMenuController extends MenuController {
 
     @Override
     public void enterMenu(String menu) throws MenuException {
-        throw new MenuException("menu navigation is not possible");
+        throw new MenuException("Error: menu navigation is not possible");
     }
 
     @Override

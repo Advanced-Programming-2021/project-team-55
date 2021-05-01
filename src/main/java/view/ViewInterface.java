@@ -1,5 +1,9 @@
 package view;
 
+import view.Menus.Menu;
+import view.Menus.MenuType;
+import view.gamephases.Duel;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -15,7 +19,18 @@ public class ViewInterface {
 
     public static void showResult(String result) {
         if (!result.equals("")) {
-            System.out.println(result);
+            if(result.startsWith("Error: ")){
+                System.out.println(ConsoleColors.RED+result.replaceAll("Error: ","")+ConsoleColors.RESET);
+            }
+            else if(Menu.currentMenu== MenuType.DUEL){
+                System.out.println(ConsoleColors.BLUE +result+ConsoleColors.RESET);
+            }
+            else if(Responses.responseExists(result)){
+                System.out.println(ConsoleColors.GREEN+result+ConsoleColors.RESET);
+            }
+            else{
+                System.out.println(result);
+            }
         }
     }
 

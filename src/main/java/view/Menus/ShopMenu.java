@@ -52,7 +52,7 @@ public class ShopMenu extends Menu {
 
     private void showAllCards(ArrayList<Card> cards) {
         for (Card card : cards) {
-            System.out.println(card);
+            ViewInterface.showResult(card.toString());
         }
     }
 }

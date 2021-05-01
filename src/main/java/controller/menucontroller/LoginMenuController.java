@@ -28,7 +28,7 @@ public class LoginMenuController extends MenuController {
     public void loginUser(String username, String password) throws MenuException {
         User user = User.getUserByUsername(username);
         if (user == null || !user.getPassword().equals(password)) {
-            throw new MenuException("Username and password didn't match!");
+            throw new MenuException("Error: Username and password didn't match!");
         } else {
             Menu.currentMenu = MenuType.MAIN;
             User.setLoggedInUser(user);
@@ -37,9 +37,9 @@ public class LoginMenuController extends MenuController {
 
     public void createUser(String username, String password, String nickname) throws MenuException {
         if (User.usernameExists(username)) {
-            throw new MenuException("user with username " + username + " exists");
+            throw new MenuException("Error: user with username " + username + " exists");
         } else if (User.nicknameExists(nickname)) {
-            throw new MenuException("user with nickname " + nickname + " already exists");
+            throw new MenuException("Error: user with nickname " + nickname + " already exists");
         }
         new User(username, nickname, password);
     }
@@ -47,9 +47,9 @@ public class LoginMenuController extends MenuController {
     @Override
     public void enterMenu(String menu) throws MenuException {
         if (User.loggedInUser == null) {
-            throw new MenuException("please login first!");
+            throw new MenuException("Error: please login first!");
         } else if (!menu.equals("Main")) {
-            throw new MenuException("menu navigation is not possible");
+            throw new MenuException("Error: menu navigation is not possible");
         }
         Menu.setCurrentMenu(MenuType.MAIN);
     }

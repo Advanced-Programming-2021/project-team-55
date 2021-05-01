@@ -1,7 +1,7 @@
 package view;
 
 public enum Responses {
-    INVALID_COMMAND("invalid command"),
+    INVALID_COMMAND("Error: invalid command"),
     LOGIN_SUCCESSFULLY("user logged in successfully"),
     CREATE_SUCCESSFULLY("user created successfully!"),
     LOGOUT_SUCCESSFULLY("user logged out successfully!"),
@@ -21,5 +21,13 @@ public enum Responses {
 
     Responses(String label) {
         this.response = label;
+    }
+    public static boolean responseExists(String response){
+        for(Responses responses:Responses.values()){
+            if(responses.response.equals(response)&&!response.equals("invalid command")){
+                return true;
+            }
+        }
+        return false;
     }
 }

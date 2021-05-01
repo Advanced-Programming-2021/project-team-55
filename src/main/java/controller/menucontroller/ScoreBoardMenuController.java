@@ -28,7 +28,7 @@ public class ScoreBoardMenuController extends MenuController {
 
     @Override
     public void enterMenu(String menu) throws MenuException {
-        throw new MenuException("menu navigation is not possible");
+        throw new MenuException("Error: menu navigation is not possible");
     }
 
     @Override
