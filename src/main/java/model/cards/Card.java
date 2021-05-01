@@ -23,7 +23,8 @@ public class Card {
         setName(name);
         setDescription(description);
         setPrice(price);
-        allCards.add(this);//todo injury gozashtin age az object copy begirim ke hamintory card ezafe mishe
+        if (getCardByName(name) == null)
+            allCards.add(this);
     }
 
     public static ArrayList<Card> getCards() {
