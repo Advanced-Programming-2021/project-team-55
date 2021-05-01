@@ -1,32 +1,23 @@
 package controller;
 
+import model.Player;
 import model.cards.Card;
 
 public class CheatController {
 
-    private static CheatController cheatController;
+    public void increaseLPAmount(int amount, Player player) {
+        player.setLP(player.getLP() + amount);
+    }
 
-    private CheatController() {
+    public void setWinner() {//todo
 
     }
 
-    public static CheatController getInstance() {
-        return null;
+    public void increaseMoney(int amount, Player player) {
+        player.getUser().changeMoney(amount);
     }
 
-    public void increaseLPAmount(int amount) {
-
-    }
-
-    public void setWinner() {
-
-    }
-
-    public void increaseMoney() {
-
-    }
-
-    public void selectHandForce(Card card) {
+    public void selectHandForce(Card card) {//todo
 
     }
 

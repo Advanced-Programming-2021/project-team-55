@@ -10,7 +10,7 @@ public class EndPhaseController implements methods {
         this.gameController=gameController;
     }
 
-    private String changePlayerTurn() {//todo check this
+    private String changePlayerTurn() {//todo check
         Player temp = gameController.getCurrentTurnPlayer();
         gameController.setCurrentTurnPlayer(gameController.getCurrentTurnOpponentPlayer());
         gameController.setCurrentTurnOpponentPlayer(temp);

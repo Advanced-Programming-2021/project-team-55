@@ -35,7 +35,6 @@ public class GameController {
         battlePhaseController = new BattlePhaseController(this);
         mainPhase2Controller = new MainPhase2Controller(this);
         endPhaseController = new EndPhaseController(this);
-
     }
 
     public GameController() {
