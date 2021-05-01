@@ -95,10 +95,10 @@ public class GameController {
         }
     }
 
-    public void changeTurn() {
+    private void changeTurn() {
         Player player = currentTurnPlayer;
         currentTurnPlayer = currentTurnOpponentPlayer;
-        currentTurnOpponentPlayer = currentTurnPlayer;
+        currentTurnOpponentPlayer = player;
     }
 
     protected String showGraveyard(Player player) {

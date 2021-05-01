@@ -67,7 +67,7 @@ public interface MainPhasesController {
     }
 
     default String showGameBoard(Player currentPlayer, Player opponentPlayer) {
-        String response ="\t\t"+ opponentPlayer.getUser().getNickname() + ":" + opponentPlayer.getLP();
+        String response ="\t\t"+ opponentPlayer.getUser().getNickname() + ":" + opponentPlayer.getLP()+"\n";
         GameBoard playerGameBoard = currentPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = opponentPlayer.getGameBoard();
         for (int i = 0; i < 6 - opponentPlayerGameBoard.getHandCards().size(); i++) {
@@ -173,10 +173,10 @@ public interface MainPhasesController {
             }
         }
         response += "\n\t\t\t\t\t\t" + playerGameBoard.getDeckZone().size() + "\n";
-        for (int i = 0; i < opponentPlayerGameBoard.getHandCards().size(); i++) {
+        for (int i = 0; i < playerGameBoard.getHandCards().size(); i++) {
             response += "c\t";
         }
-        response += "\t\t"+currentPlayer.getUser().getNickname() + ":" + currentPlayer.getLP();
+        response += "\n\t\t"+currentPlayer.getUser().getNickname() + ":" + currentPlayer.getLP();
         return response;
     }
 
