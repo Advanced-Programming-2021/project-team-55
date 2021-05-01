@@ -67,7 +67,7 @@ public interface MainPhasesController {
     }
 
     default String showGameBoard(Player currentPlayer, Player opponentPlayer) {
-        String response = opponentPlayer.getUser().getNickname() + ":" + opponentPlayer.getLP();
+        String response ="\t\t"+ opponentPlayer.getUser().getNickname() + ":" + opponentPlayer.getLP();
         GameBoard playerGameBoard = currentPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = opponentPlayer.getGameBoard();
         for (int i = 0; i < 6 - opponentPlayerGameBoard.getHandCards().size(); i++) {
@@ -81,18 +81,19 @@ public interface MainPhasesController {
             if (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentPlayerGameBoard.getAreasNumber()[4 - i]]
                     .getCellCard() == null) {
                 response += "\tE";
-            }
-            switch (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentPlayerGameBoard.getAreasNumber()[4 - i]]
-                    .getCardPosition()) {
-                case HIDDEN: {
-                    response += "\tH";
-                    break;
-                }
-                case OCCUPIED: {
-                    response += "\tO";
-                    break;
-                }
+            } else {
+                switch (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentPlayerGameBoard.getAreasNumber()[4 - i]]
+                        .getCardPosition()) {
+                    case HIDDEN: {
+                        response += "\tH";
+                        break;
+                    }
+                    case OCCUPIED: {
+                        response += "\tO";
+                        break;
+                    }
 
+                }
             }
         }
         response += "\n";
@@ -100,19 +101,20 @@ public interface MainPhasesController {
             if (opponentPlayerGameBoard.getMonsterCardZone()[opponentPlayerGameBoard.getAreasNumber()[4 - i]]
                     .getCellCard() == null) {
                 response += "\tE";
-            }
-            switch (opponentPlayerGameBoard.getMonsterCardZone()[opponentPlayerGameBoard.getAreasNumber()[4 - i]]
-                    .getCardPosition()) {
-                case DEFENSIVE_HIDDEN: {
-                    response += "\tDH";
-                    break;
-                }
-                case DEFENSIVE_OCCUPIED: {
-                    response += "\tDO";
-                    break;
-                }
-                case OFFENSIVE_OCCUPIED: {
-                    response += "\tOO";
+            } else {
+                switch (opponentPlayerGameBoard.getMonsterCardZone()[opponentPlayerGameBoard.getAreasNumber()[4 - i]]
+                        .getCardPosition()) {
+                    case DEFENSIVE_HIDDEN: {
+                        response += "\tDH";
+                        break;
+                    }
+                    case DEFENSIVE_OCCUPIED: {
+                        response += "\tDO";
+                        break;
+                    }
+                    case OFFENSIVE_OCCUPIED: {
+                        response += "\tOO";
+                    }
                 }
             }
         }
@@ -133,19 +135,20 @@ public interface MainPhasesController {
             if (playerGameBoard.getMonsterCardZone()[playerGameBoard.getAreasNumber()[i]]
                     .getCellCard() == null) {
                 response += "\tE";
-            }
-            switch (playerGameBoard.getMonsterCardZone()[playerGameBoard.getAreasNumber()[i]]
-                    .getCardPosition()) {
-                case DEFENSIVE_HIDDEN: {
-                    response += "\tDH";
-                    break;
-                }
-                case DEFENSIVE_OCCUPIED: {
-                    response += "\tDO";
-                    break;
-                }
-                case OFFENSIVE_OCCUPIED: {
-                    response += "\tOO";
+            } else {
+                switch (playerGameBoard.getMonsterCardZone()[playerGameBoard.getAreasNumber()[i]]
+                        .getCardPosition()) {
+                    case DEFENSIVE_HIDDEN: {
+                        response += "\tDH";
+                        break;
+                    }
+                    case DEFENSIVE_OCCUPIED: {
+                        response += "\tDO";
+                        break;
+                    }
+                    case OFFENSIVE_OCCUPIED: {
+                        response += "\tOO";
+                    }
                 }
             }
         }
@@ -154,25 +157,26 @@ public interface MainPhasesController {
             if (playerGameBoard.getSpellAndTrapCardZone()[playerGameBoard.getAreasNumber()[i]]
                     .getCellCard() == null) {
                 response += "\tE";
-            }
-            switch (playerGameBoard.getSpellAndTrapCardZone()[playerGameBoard.getAreasNumber()[i]]
-                    .getCardPosition()) {
-                case HIDDEN: {
-                    response += "\tH";
-                    break;
-                }
-                case OCCUPIED: {
-                    response += "\tO";
-                    break;
-                }
+            } else {
+                switch (playerGameBoard.getSpellAndTrapCardZone()[playerGameBoard.getAreasNumber()[i]]
+                        .getCardPosition()) {
+                    case HIDDEN: {
+                        response += "\tH";
+                        break;
+                    }
+                    case OCCUPIED: {
+                        response += "\tO";
+                        break;
+                    }
 
+                }
             }
         }
         response += "\n\t\t\t\t\t\t" + playerGameBoard.getDeckZone().size() + "\n";
         for (int i = 0; i < opponentPlayerGameBoard.getHandCards().size(); i++) {
             response += "c\t";
         }
-        response += currentPlayer.getUser().getNickname() + ":" + currentPlayer.getLP();
+        response += "\t\t"+currentPlayer.getUser().getNickname() + ":" + currentPlayer.getLP();
         return response;
     }
 

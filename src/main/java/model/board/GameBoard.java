@@ -19,10 +19,13 @@ public class GameBoard {
         areasNumber = new int[5];
         //todo areas numbering should be handled here;
         monsterCardZone = new Cell[5];
-
+        spellAndTrapCardZone = new Cell[5];
+        for (int i = 0; i < 5; i++) {
+            monsterCardZone[i]=new Cell();
+            spellAndTrapCardZone[i]=new Cell();
+        }
         cellsNumbering = new ArrayList<>();
         graveyard = new ArrayList<>();
-        spellAndTrapCardZone = new Cell[5];
         deckZone = new ArrayList<>();
         handCards = new ArrayList<>();
     }
