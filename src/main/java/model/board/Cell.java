@@ -9,7 +9,7 @@ public class Cell {
 
     private Card card;
 
-    private CardPosition cardPosition;
+    private CardStatus cardPosition;
 
     public Cell() {
     }
@@ -42,14 +42,14 @@ public class Cell {
     public void setCard(Card card) {
         this.card = card;
         if(card instanceof Monster){
-            cardPosition=CardPosition.DEFENSIVE_HIDDEN;
+            cardPosition= CardStatus.DEFENSIVE_HIDDEN;
         }
         else{
-            cardPosition=CardPosition.HIDDEN;
+            cardPosition= CardStatus.HIDDEN;
         }
     }
 
-    public CardPosition getCardPosition() {
+    public CardStatus getCardPosition() {
         return cardPosition;
     }
 

@@ -1,10 +1,10 @@
 package model.board;
 
-public enum CardPosition {
+public enum CardStatus {
     DEFENSIVE_OCCUPIED,
     DEFENSIVE_HIDDEN,
     OFFENSIVE_OCCUPIED,
-    OFFENSIVE_HIDDEN,
+
     OCCUPIED,
     HIDDEN;
 }

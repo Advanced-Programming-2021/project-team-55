@@ -66,103 +66,113 @@ public interface MainPhasesController {
         return false;
     }
 
-    default String showGameBoard(Player currentPlayer,Player opponentPlayer){
-        String response=opponentPlayer.getUser().getNickname()+":"+opponentPlayer.getLP();
-        GameBoard playerGameBoard=currentPlayer.getGameBoard();
-        GameBoard opponentPlayerGameBoard=opponentPlayer.getGameBoard();
+    default String showGameBoard(Player currentPlayer, Player opponentPlayer) {
+        String response = opponentPlayer.getUser().getNickname() + ":" + opponentPlayer.getLP();
+        GameBoard playerGameBoard = currentPlayer.getGameBoard();
+        GameBoard opponentPlayerGameBoard = opponentPlayer.getGameBoard();
+        for (int i = 0; i < 6 - opponentPlayerGameBoard.getHandCards().size(); i++) {
+            response += "\t";
+        }
         for (int i = 0; i < opponentPlayerGameBoard.getHandCards().size(); i++) {
-            response+="\tc";
+            response += "\tc";
         }
-        response+="\n"+opponentPlayerGameBoard.getDeckZone().size()+"\n";
+        response += "\n" + opponentPlayerGameBoard.getDeckZone().size() + "\n";
         for (int i = 0; i < 5; i++) {
-            if(opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentPlayerGameBoard.getAreasNumber()[4-i]]
-                    .getCellCard()==null){
-                response+="\tE";
+            if (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentPlayerGameBoard.getAreasNumber()[4 - i]]
+                    .getCellCard() == null) {
+                response += "\tE";
             }
-            switch (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentPlayerGameBoard.getAreasNumber()[4-i]]
-                    .getCardPosition()){
-                case HIDDEN:{
-                    response+="\tH";
+            switch (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentPlayerGameBoard.getAreasNumber()[4 - i]]
+                    .getCardPosition()) {
+                case HIDDEN: {
+                    response += "\tH";
                     break;
                 }
-                case OCCUPIED:{
-                    response+="\tO";
+                case OCCUPIED: {
+                    response += "\tO";
                     break;
                 }
 
             }
         }
-        response+="\n";
+        response += "\n";
         for (int i = 0; i < 5; i++) {
-            if(opponentPlayerGameBoard.getMonsterCardZone()[opponentPlayerGameBoard.getAreasNumber()[4-i]]
-                    .getCellCard()==null){
-                response+="\tE";
+            if (opponentPlayerGameBoard.getMonsterCardZone()[opponentPlayerGameBoard.getAreasNumber()[4 - i]]
+                    .getCellCard() == null) {
+                response += "\tE";
             }
-            switch (opponentPlayerGameBoard.getMonsterCardZone()[opponentPlayerGameBoard.getAreasNumber()[4-i]]
-                    .getCardPosition()){
-                case DEFENSIVE_HIDDEN:{
-                    response+="\tDH";
+            switch (opponentPlayerGameBoard.getMonsterCardZone()[opponentPlayerGameBoard.getAreasNumber()[4 - i]]
+                    .getCardPosition()) {
+                case DEFENSIVE_HIDDEN: {
+                    response += "\tDH";
                     break;
                 }
-                case DEFENSIVE_OCCUPIED:{
-                    response+="\tDO";
+                case DEFENSIVE_OCCUPIED: {
+                    response += "\tDO";
                     break;
                 }
-                case OFFENSIVE_HIDDEN:{
-                    response+="\tOH";
-                    break;
-                }
-                case OFFENSIVE_OCCUPIED:{
-                    response+="\tOO";
+                case OFFENSIVE_OCCUPIED: {
+                    response += "\tOO";
                 }
             }
         }
-        response+="\n"+opponentPlayerGameBoard.getGraveyard().size()+"\t\t\t\t\t\t";
-        if(opponentPlayerGameBoard.getFieldZone()!=null){
-            response+="E";
+        response += "\n" + opponentPlayerGameBoard.getGraveyard().size() + "\t\t\t\t\t\t";
+        if (opponentPlayerGameBoard.getFieldZone() != null) {
+            response += "E";
+        } else {
+            response += "O";
         }
-        else{
-            response+="O";
+        response += "\n\n--------------------------\n\n";
+        if (playerGameBoard.getFieldZone() != null) {
+            response += "E";
+        } else {
+            response += "O";
         }
-        response+="\n\n--------------------------\n\n";
+        response += "\t\t\t\t\t\t" + playerGameBoard.getGraveyard().size() + "\n";
+        for (int i = 0; i < 5; i++) {
+            if (playerGameBoard.getMonsterCardZone()[playerGameBoard.getAreasNumber()[i]]
+                    .getCellCard() == null) {
+                response += "\tE";
+            }
+            switch (playerGameBoard.getMonsterCardZone()[playerGameBoard.getAreasNumber()[i]]
+                    .getCardPosition()) {
+                case DEFENSIVE_HIDDEN: {
+                    response += "\tDH";
+                    break;
+                }
+                case DEFENSIVE_OCCUPIED: {
+                    response += "\tDO";
+                    break;
+                }
+                case OFFENSIVE_OCCUPIED: {
+                    response += "\tOO";
+                }
+            }
+        }
+        response += "\n";
+        for (int i = 0; i < 5; i++) {
+            if (playerGameBoard.getSpellAndTrapCardZone()[playerGameBoard.getAreasNumber()[i]]
+                    .getCellCard() == null) {
+                response += "\tE";
+            }
+            switch (playerGameBoard.getSpellAndTrapCardZone()[playerGameBoard.getAreasNumber()[i]]
+                    .getCardPosition()) {
+                case HIDDEN: {
+                    response += "\tH";
+                    break;
+                }
+                case OCCUPIED: {
+                    response += "\tO";
+                    break;
+                }
 
-        //todo current player game board should be handled!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            }
+        }
+        response += "\n\t\t\t\t\t\t" + playerGameBoard.getDeckZone().size() + "\n";
+        for (int i = 0; i < opponentPlayerGameBoard.getHandCards().size(); i++) {
+            response += "c\t";
+        }
+        response += currentPlayer.getUser().getNickname() + ":" + currentPlayer.getLP();
         return response;
     }
 
