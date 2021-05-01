@@ -4,6 +4,7 @@ import model.cards.Card;
 import model.cards.Deck;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class GameBoard {
     private final int[] areasNumber;
@@ -31,8 +32,10 @@ public class GameBoard {
     }
 
     public GameBoard(Deck deck) {
-        for(Card card:deck.getMainDeck()){
-            Cell cell=new Cell();
+        ArrayList<Card> mainDeck = new ArrayList<>(deck.getMainDeck());
+        Collections.shuffle(mainDeck);
+        for (Card card : mainDeck) {
+            Cell cell = new Cell();
             cell.addCardToCell(card);
             deckZone.add(cell);
         }
