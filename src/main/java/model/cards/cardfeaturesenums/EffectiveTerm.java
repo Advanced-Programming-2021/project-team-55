@@ -1,6 +1,6 @@
 package model.cards.cardfeaturesenums;
 
-public enum Status {
+public enum EffectiveTerm {
     UNLIMITED,
     LIMITED
 }

@@ -1,24 +1,44 @@
 package controller.gamephasescontrollers;
 
+import model.Player;
 import model.board.Game;
 import model.cards.Card;
+import model.cards.Monster;
 import view.gamephases.BattlePhase;
 
 public class BattlePhaseController implements methods {
     private GameController gameController;
-    public BattlePhaseController(GameController gameController){
-        this.gameController=gameController;
+
+    public BattlePhaseController(GameController gameController) {
+        this.gameController = gameController;
     }
+
     public void startBattlePhase() {
 
     }
 
-    public String attack(Card attackerCard, Card attackedCard) {
-        return null;
+    public void attack(Monster attackerCard, Monster attackedCard) {
+        decreasePlayersDamage(attackerCard, attackedCard);
+        //todo remove players cards
     }
 
-    public String calculateDamage(Card attackerCard, Card attackedCard) {
-        return null;
+    private void decreasePlayersDamage(Monster attackerCard, Monster attackedCard) {
+        if (isAttackerStronger(attackerCard, attackedCard))
+            (gameController.getCurrentTurnPlayer()).decreaseLP(calculateDamage(attackerCard, attackedCard));
+        else
+            (gameController.getCurrentTurnOpponentPlayer()).decreaseLP(calculateDamage(attackerCard, attackedCard));
+    }
+
+    public boolean isAttackerStronger(Monster attackerCard, Monster attackedCard){
+        return attackerCard.getPower() > attackedCard.getPower();
+    }
+
+    public int calculateDamage(Monster attackerCard, Monster attackedCard) {
+        int damage = attackedCard.getPower() - attackerCard.getPower();
+        if (damage >= 0)
+            return damage;
+        else
+            return -damage;
     }
 
     public boolean canCardAttack(Card card) {
