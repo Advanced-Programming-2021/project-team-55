@@ -57,6 +57,14 @@ public class GameController {
 
     }
 
+    public void setCurrentTurnPlayer(Player currentTurnPlayer) {
+        this.currentTurnPlayer = currentTurnPlayer;
+    }
+
+    public void setCurrentTurnOpponentPlayer(Player currentTurnOpponentPlayer) {
+        this.currentTurnOpponentPlayer = currentTurnOpponentPlayer;
+    }
+
     public void changePhase() {
         switch (currentPhase) {
             case DRAW: {

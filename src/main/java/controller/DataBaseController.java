@@ -67,23 +67,6 @@ public class DataBaseController extends MenuController {
         User.setAllUsers(dataBaseUsers);
     }
 
-
-    public List<MonsterCardDetails> importMonstersDetails() throws FileNotFoundException {
-        List<MonsterCardDetails> monsterCardsDetailsList = new CsvToBeanBuilder(
-                new FileReader("src/resources/cards details/Monster.csv"))
-                .withType(MonsterCardDetails.class).build().parse();
-
-        return monsterCardsDetailsList;
-    }
-
-    public List<TrapAndSpellCardDetails> importTrapAndSpellsDetails() throws FileNotFoundException {
-        List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList = new CsvToBeanBuilder(
-                new FileReader("src/resources/cards details/SpellTrap.csv"))
-                .withType(TrapAndSpellCardDetails.class).build().parse();
-
-        return trapAndSpellCardDetailsList;
-    }
-
     @Override
     public void enterMenu(String menu) throws MenuException {
         throw new MenuException("menu navigation is not possible");
@@ -185,20 +168,6 @@ public class DataBaseController extends MenuController {
         Card AdvancedRitualArt = new AdvancedRitualArt();
     }
 
-    @Override
-    public void enterMenu(String menu) throws MenuException {
-        throw new MenuException("menu navigation is not possible");
-    }
-
-    @Override
-    public void exitMenu() {
-        Menu.setCurrentMenu(MenuType.MAIN);
-    }
-
-    public void importDeck(String cardName) {
-
-    }
-
     public String exportCard(String cardName) {
         return null;
     }
@@ -221,7 +190,7 @@ public class DataBaseController extends MenuController {
     }
 
 
-//    public List<MonsterCardDetails> importMonstersDetails() throws FileNotFoundException {//todo save the list in model
+//    public List<MonsterCardDetails> importMonstersDetails() throws FileNotFoundException {
 //        List<MonsterCardDetails> monsterCardsDetailsList = new CsvToBeanBuilder(
 //                new FileReader("src/resources/cards details/Monster.csv"))
 //                .withType(MonsterCardDetails.class).build().parse();
