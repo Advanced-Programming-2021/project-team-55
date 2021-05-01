@@ -1,5 +1,6 @@
 package model.cards;
 
+import model.board.CardStatus;
 import model.cards.cardfeaturesenums.CardType;
 import model.cards.cardfeaturesenums.MonsterAttribute;
 import model.cards.cardfeaturesenums.MonsterType;
@@ -12,7 +13,7 @@ public abstract class Monster extends Card {
     private MonsterAttribute attribute;
     private MonsterType monsterType;
     private CardType cardType;
-
+    private CardStatus cardStatus;
     protected Monster(String cardName, String description, int price, int atk, int def, int level,
                       MonsterAttribute attribute, MonsterType monsterType, CardType cardType) {
         super(cardName, description, price);
@@ -22,6 +23,18 @@ public abstract class Monster extends Card {
         this.attribute = attribute;
         this.monsterType = monsterType;
         this.cardType = cardType;
+    }
+
+    public int getPower() {
+        switch (cardStatus) {
+            case DEFENSIVE_OCCUPIED:
+                return this.def;
+            case DEFENSIVE_HIDDEN:
+                return this.def;
+            case OFFENSIVE_OCCUPIED:
+                return this.atk;
+        }
+        return 0;//todo add exception here
     }
 
     public int getAtk() {
@@ -72,4 +85,11 @@ public abstract class Monster extends Card {
         this.cardType = cardType;
     }
 
+    public CardStatus getCardStatus() {
+        return cardStatus;
+    }
+
+    public void setCardStatus(CardStatus cardStatus) {
+        this.cardStatus = cardStatus;
+    }
 }

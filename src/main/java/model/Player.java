@@ -37,6 +37,10 @@ public class Player {
         this.LP = LP;
     }
 
+    public void decreaseLP(int amount){
+        setLP(this.getLP()-amount);
+    }
+
     public GameBoard getGameBoard() {//better to rename to getPlayerGameBoard
         return playerGameBoard;
     }

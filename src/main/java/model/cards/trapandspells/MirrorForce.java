@@ -3,13 +3,13 @@ package model.cards.trapandspells;
 import model.cards.SpellAndTrap;
 import model.cards.cardfeaturesenums.SpellOrTrap;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
-import model.cards.cardfeaturesenums.Status;
+import model.cards.cardfeaturesenums.EffectiveTerm;
 
 public class MirrorForce extends SpellAndTrap {
 
     public MirrorForce() {
         super("Mirror Force", "When an opponent's monster declares an attack: Destroy all your opponent's Attack Position monsters.",
-                2000, false, SpellOrTrap.TRAP, SpellOrTrapAttribute.NORMAL, Status.UNLIMITED);
+                2000, false, SpellOrTrap.TRAP, SpellOrTrapAttribute.NORMAL, EffectiveTerm.UNLIMITED);
     }
 
 }

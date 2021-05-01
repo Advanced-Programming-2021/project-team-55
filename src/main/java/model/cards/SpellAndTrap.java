@@ -2,7 +2,7 @@ package model.cards;
 
 import model.cards.cardfeaturesenums.SpellOrTrap;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
-import model.cards.cardfeaturesenums.Status;
+import model.cards.cardfeaturesenums.EffectiveTerm;
 
 public abstract class SpellAndTrap extends Card {
 
@@ -10,10 +10,10 @@ public abstract class SpellAndTrap extends Card {
 
     private SpellOrTrap type;
     private SpellOrTrapAttribute attribute;
-    private Status status;
+    private EffectiveTerm status;
 
     public SpellAndTrap(String name, String description, int price, boolean isActive,
-                        SpellOrTrap type, SpellOrTrapAttribute attribute, Status status) {
+                        SpellOrTrap type, SpellOrTrapAttribute attribute, EffectiveTerm status) {
         super(name, description, price);
         this.isActive = isActive;
         this.type = type;
@@ -57,11 +57,11 @@ public abstract class SpellAndTrap extends Card {
         this.attribute = attribute;
     }
 
-    public Status getStatus() {
+    public EffectiveTerm getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(EffectiveTerm status) {
         this.status = status;
     }
 
