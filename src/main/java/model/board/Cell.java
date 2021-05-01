@@ -4,11 +4,20 @@ import model.cards.Card;
 import model.cards.Monster;
 
 public class Cell {
+
     private static Cell selectedCell;
 
     private Card card;
 
     private CardPosition cardPosition;
+
+    public Cell() {
+    }
+
+    public Cell(Card card) {
+        this.card = card;
+    }
+
 
     public static void deselectCell() {//better to be same as select cell or rename
         selectedCell = null;

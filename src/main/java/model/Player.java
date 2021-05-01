@@ -39,4 +39,8 @@ public class Player {
     public GameBoard getGameBoard() {//better to rename to getPlayerGameBoard
         return playerGameBoard;
     }
+
+    public Deck getPlayDeck() {
+        return playDeck;
+    }
 }

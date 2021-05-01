@@ -185,6 +185,19 @@ public class DataBaseController extends MenuController {
         Card AdvancedRitualArt = new AdvancedRitualArt();
     }
 
+    @Override
+    public void enterMenu(String menu) throws MenuException {
+        throw new MenuException("menu navigation is not possible");
+    }
+
+    @Override
+    public void exitMenu() {
+        Menu.setCurrentMenu(MenuType.MAIN);
+    }
+
+    public void importDeck(String cardName) {
+
+    }
 
     public String exportCard(String cardName) {
         return null;
@@ -207,6 +220,22 @@ public class DataBaseController extends MenuController {
         return output.toString();
     }
 
+
+//    public List<MonsterCardDetails> importMonstersDetails() throws FileNotFoundException {//todo save the list in model
+//        List<MonsterCardDetails> monsterCardsDetailsList = new CsvToBeanBuilder(
+//                new FileReader("src/resources/cards details/Monster.csv"))
+//                .withType(MonsterCardDetails.class).build().parse();
+//
+//        return monsterCardsDetailsList;
+//    }
+//
+//    public List<TrapAndSpellCardDetails> importTrapAndSpellsDetails() throws FileNotFoundException {//todo save the list in model
+//        List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList = new CsvToBeanBuilder(
+//                new FileReader("src/resources/cards details/SpellTrap.csv"))
+//                .withType(TrapAndSpellCardDetails.class).build().parse();
+//
+//        return trapAndSpellCardDetailsList;
+//    }
 //    public static void main(String[] args) throws IOException {
 //        List<MonsterCardDetails> monsters = DataBaseController.getInstance().importMonstersDetails();
 //        for (MonsterCardDetails monsterCardsDetails: monsters){
