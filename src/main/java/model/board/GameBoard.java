@@ -18,6 +18,7 @@ public class GameBoard {
     {
         areasNumber = new int[5];
         monsterCardZone = new Cell[5];
+
         cellsNumbering = new ArrayList<>();
         graveyard = new ArrayList<>();
         spellAndTrapCardZone = new Cell[5];
@@ -51,6 +52,14 @@ public class GameBoard {
 
     public ArrayList<Cell> getHandCards() {//handDeck changed to handCards
         return handCards;
+    }
+
+    public int[] getAreasNumber() {
+        return areasNumber;
+    }
+
+    public Cell getFieldZone() {
+        return fieldZone;
     }
 
     //the next methods should get Card or Cell?---------------------
