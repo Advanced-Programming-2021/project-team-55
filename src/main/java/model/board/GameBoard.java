@@ -1,7 +1,9 @@
 package model.board;
 
+import exceptions.MenuException;
 import model.cards.Card;
 import model.cards.Deck;
+import view.gamephases.Duel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,8 +72,18 @@ public class GameBoard {
     }
 
     //the next methods should get Card or Cell?---------------------
-    public void addCardToMonsterCardZone(Card card) {
+    public void addCardToMonsterCardZone(Cell cell) throws MenuException {
+        if(isMonsterCardZoneFull())
+            throw new MenuException("Error:monster card zone is full");
 
+
+    }
+
+    private boolean isMonsterCardZoneFull() {
+        for (int i = 0; i < 5; i++){
+            if (monsterCardZone[i] == null) return false;
+        }
+        return true;
     }
 
     public void addCardToGraveyard(Card card) {

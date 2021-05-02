@@ -1,8 +1,10 @@
 package controller.gamephasescontrollers;
 
+import exceptions.MenuException;
 import model.Player;
 import model.board.Cell;
 import model.board.GameBoard;
+import view.gamephases.Duel;
 
 public interface MainPhasesController {
 
@@ -14,7 +16,10 @@ public interface MainPhasesController {
 
     }
 
-    default void monsterSummon(Cell cell) {
+    default void monsterSummon(Cell cell) throws MenuException {
+        if (cell == null) throw new MenuException("Error:no card is selected yet");
+        if (!isSummonable(cell)) throw new MenuException("Error:you can’t summon this card");
+
 
     }
 
@@ -31,7 +36,7 @@ public interface MainPhasesController {
     }
 
     default boolean isSummonable(Cell cell) {
-        return false;
+        return true;
     }
 
     default boolean isRitualSummonable(Cell cell) {
@@ -67,7 +72,7 @@ public interface MainPhasesController {
     }
 
     default String showGameBoard(Player currentPlayer, Player opponentPlayer) {
-        String response ="\t\t"+ opponentPlayer.getUser().getNickname() + ":" + opponentPlayer.getLP()+"\n";
+        String response = "\t\t" + opponentPlayer.getUser().getNickname() + ":" + opponentPlayer.getLP() + "\n";
         GameBoard playerGameBoard = currentPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = opponentPlayer.getGameBoard();
         for (int i = 0; i < 6 - opponentPlayerGameBoard.getHandCards().size(); i++) {
@@ -176,7 +181,7 @@ public interface MainPhasesController {
         for (int i = 0; i < playerGameBoard.getHandCards().size(); i++) {
             response += "c\t";
         }
-        response += "\n\t\t"+currentPlayer.getUser().getNickname() + ":" + currentPlayer.getLP();
+        response += "\n\t\t" + currentPlayer.getUser().getNickname() + ":" + currentPlayer.getLP();
         return response;
     }
 
