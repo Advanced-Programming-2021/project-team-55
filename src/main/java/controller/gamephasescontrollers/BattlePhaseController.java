@@ -1,5 +1,6 @@
 package controller.gamephasescontrollers;
 
+import exceptions.GameException;
 import model.Player;
 import model.board.Game;
 import model.cards.Card;
@@ -17,8 +18,9 @@ public class BattlePhaseController implements methods {
 
     }
 
-    public void attack(Monster attackerCard, Monster attackedCard) {
+    public void attack(Monster attackerCard, Monster attackedCard) throws GameException {
         decreasePlayersDamage(attackerCard, attackedCard);
+
         //todo remove players cards
     }
 

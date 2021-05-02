@@ -30,6 +30,15 @@ public class MainPhase1 extends Duel {
         } else if (command.matches(GameRegexes.SELECT.regex)) {
             response = processSelect(command);
         }
+        else if(command.matches(GameRegexes.DESELECT.regex)) {
+            try {
+                gameController.deselect();
+                response=GameResponses.CARD_DESELECTED.response;
+            }
+            catch (GameException e){
+                response=e.toString();
+            }
+        }
         else if(command.matches(GameRegexes.SUMMON.regex)){
             try {
                 mainPhase1Controller.summon();
@@ -103,57 +112,5 @@ public class MainPhase1 extends Duel {
         return response;
     }
 
-    private String processSelect(String command) {
-        String response = "";
-        if (command.matches(GameRegexes.SELECT_MONSTER.regex)) {
-            Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_MONSTER.regex);
-            try {
-                mainPhase1Controller.selectCard("Monster", Integer.parseInt(matcher.group(1)),matcher.group(3)!=null);
-                response = GameResponses.CARD_SELECTED.response;
-            } catch (GameException e) {
-                response = e.toString();
-            }
-        }
-        else if(command.matches(GameRegexes.SELECT_SPELL.regex)){
-            Matcher matcher=ViewInterface.getCommandMatcher(command,GameRegexes.SELECT_SPELL.regex);
-            try {
-                mainPhase1Controller.selectCard("Spell",Integer.parseInt(matcher.group(1)),false);
-                response=GameResponses.CARD_SELECTED.response;
-            }
-            catch (GameException e){
-                response=e.toString();
-            }
-        }
-        else if(command.matches(GameRegexes.SELECT_OPPONENT_SPELL.regex)){
-            Matcher matcher=ViewInterface.getCommandMatcher(command,GameRegexes.SELECT_OPPONENT_SPELL.regex);
-            try {
-                mainPhase1Controller.selectCard("Spell",Integer.parseInt(matcher.group(1)),true);
-                response=GameResponses.CARD_SELECTED.response;
-            }
-            catch (GameException e){
-                response=e.toString();
-            }
-        }
-        else if(command.matches(GameRegexes.SELECT_FIELDZONE.regex)){
-            Matcher matcher=ViewInterface.getCommandMatcher(command,GameRegexes.SELECT_FIELDZONE.regex);
-            try {
-                mainPhase1Controller.selectCard("Field",0,matcher.group(1)!=null);
-                response=GameResponses.CARD_SELECTED.response;
-            }
-            catch (GameException e){
-                response=e.toString();
-            }
-        }
-        else if(command.matches(GameRegexes.SELECT_HAND.regex)){
-            Matcher matcher=ViewInterface.getCommandMatcher(command,GameRegexes.SELECT_HAND.regex);
-            try {
-                mainPhase1Controller.selectCard("Hand",Integer.parseInt(matcher.group(1)),false);
-                response=GameResponses.CARD_SELECTED.response;
-            }
-            catch (GameException e){
-                response=e.toString();
-            }
-        }
-        return response;
-    }
+
 }

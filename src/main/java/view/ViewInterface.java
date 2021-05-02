@@ -3,6 +3,7 @@ package view;
 import view.Menus.Menu;
 import view.Menus.MenuType;
 import view.gamephases.Duel;
+import view.gamephases.GameResponses;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,10 +23,7 @@ public class ViewInterface {
             if(result.startsWith("Error: ")){
                 System.out.println(ConsoleColors.RED+result.replaceAll("Error: ","")+ConsoleColors.RESET);
             }
-            else if(Menu.currentMenu== MenuType.DUEL){
-                System.out.println(ConsoleColors.BLUE +result+ConsoleColors.RESET);
-            }
-            else if(Responses.responseExists(result)){
+            else if(Responses.responseExists(result)|| GameResponses.responseExists(result)){
                 System.out.println(ConsoleColors.GREEN+result+ConsoleColors.RESET);
             }
             else{

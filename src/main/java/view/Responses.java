@@ -24,7 +24,7 @@ public enum Responses {
     }
     public static boolean responseExists(String response){
         for(Responses responses:Responses.values()){
-            if(responses.response.equals(response)&&!response.equals("invalid command")){
+            if(responses.response.equals(response)){
                 return true;
             }
         }

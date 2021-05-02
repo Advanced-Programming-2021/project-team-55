@@ -1,10 +1,13 @@
 package controller.gamephasescontrollers;
 
 import controller.CheatController;
+import exceptions.GameException;
 import model.Player;
 import model.board.Cell;
 import model.board.Game;
+import model.board.GameBoard;
 import view.GameRegexes;
+import view.gamephases.GameResponses;
 
 import java.util.ArrayList;
 
@@ -48,12 +51,67 @@ public class GameController {
         return null;
     }
 
-    protected void selectCard(String zone, int number) {
+    public void selectCard(String zone, int number, boolean opponent) throws
+            GameException {
+        GameBoard currentPlayerGameBoard = currentTurnPlayer.getGameBoard();
+        GameBoard opponentPlayerGameBoard = currentTurnOpponentPlayer.getGameBoard();
+        Cell selectedCell = null;
+        number-=1;
+        switch (zone) {
+            case "Monster": {
+                if (number > 4) {
+                    throw new GameException(GameResponses.INVALID_SELECTION.response);
+                } else {
+                    if (opponent) {
+                        selectedCell = opponentPlayerGameBoard.getMonsterCardZone()[number];
+                    } else {
+                        selectedCell = currentPlayerGameBoard.getMonsterCardZone()[number];
+                    }
+                }
+                break;
+            }
+            case "Spell": {
+                if (number > 4) {
+                    throw new GameException(GameResponses.INVALID_SELECTION.response);
+                }
+                if (opponent) {
+                    selectedCell = opponentPlayerGameBoard.getSpellAndTrapCardZone()[number];
+                } else {
+                    selectedCell = currentPlayerGameBoard.getSpellAndTrapCardZone()[number];
+                }
+                break;
+            }
+            case "Field": {
+                if (opponent) {
+                    selectedCell = opponentPlayerGameBoard.getFieldZone();
+                } else {
+                    selectedCell = currentPlayerGameBoard.getFieldZone();
+                }
+                break;
+            }
+            case "Hand": {
+                if (number >=currentPlayerGameBoard.getHandCards().size()) {
+                    throw new GameException(GameResponses.INVALID_SELECTION.response);
+
+                }
+                selectedCell = currentPlayerGameBoard.getHandCards().get(number);
+                break;
+            }
+        }
+        if (selectedCell.getCellCard() == null) {
+            throw new GameException(GameResponses.NO_CARDS_FOUND.response);
+        } else {
+            Cell.setSelectedCell(selectedCell);
+        }
 
     }
 
-    protected void deselect() {
 
+    public void deselect()throws GameException {
+        if(Cell.getSelectedCell()!=null){
+            throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
+        }
+        Cell.setSelectedCell(null);
     }
 
     public void setCurrentTurnPlayer(Player currentTurnPlayer) {

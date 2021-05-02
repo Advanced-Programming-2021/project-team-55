@@ -29,6 +29,7 @@ public class GameBoard {
         graveyard = new ArrayList<>();
         deckZone = new ArrayList<>();
         handCards = new ArrayList<>();
+        fieldZone=new Cell();
     }
 
     public GameBoard(Deck deck) {

@@ -13,7 +13,7 @@ public enum GameRegexes {
     SET("^set$"),
     SET_POSITION("^set --position (attack|defense)$"),
     FLIP_SUMMON("^flip-summon$"),
-    ATTACK("^attack (\\d)+$"),
+    ATTACK("^attack (\\d+)$"),
     ATTACK_DIRECT("^attack direct$"),
     ACTIVATE_EFFECT("^activate effect$"),
     SHOW_GRAVEYARD("^show graveyard$"),

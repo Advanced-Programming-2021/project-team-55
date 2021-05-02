@@ -1,6 +1,8 @@
 package view.gamephases;
 
 import controller.gamephasescontrollers.BattlePhaseController;
+import controller.gamephasescontrollers.GameController;
+import exceptions.GameException;
 import view.GameRegexes;
 import view.ViewInterface;
 
@@ -21,6 +23,20 @@ public class BattlePhase extends Duel {
             gameController.changePhase();
             showPhase(gameController);
         }
+        else if (command.matches(GameRegexes.SELECT.regex)) {
+            response = processSelect(command);
+        }
+        else if(command.matches(GameRegexes.DESELECT.regex)) {
+            try {
+                gameController.deselect();
+                response=GameResponses.CARD_DESELECTED.response;
+            }
+            catch (GameException e){
+                response=e.toString();
+            }
+        }
+
+
 
 
 

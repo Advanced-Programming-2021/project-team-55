@@ -3,6 +3,7 @@ package controller.gamephasescontrollers;
 import model.Player;
 import model.board.Cell;
 import model.board.GameBoard;
+import view.ConsoleColors;
 
 public interface MainPhasesController {
 
@@ -67,7 +68,7 @@ public interface MainPhasesController {
     }
 
     default String showGameBoard(Player currentPlayer, Player opponentPlayer) {
-        String response ="\t\t"+ opponentPlayer.getUser().getNickname() + ":" + opponentPlayer.getLP()+"\n";
+        String response = ConsoleColors.CYAN+ "\t\t"+ opponentPlayer.getUser().getNickname() + ":" + opponentPlayer.getLP()+"\n";
         GameBoard playerGameBoard = currentPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = opponentPlayer.getGameBoard();
         for (int i = 0; i < 6 - opponentPlayerGameBoard.getHandCards().size(); i++) {
@@ -176,7 +177,7 @@ public interface MainPhasesController {
         for (int i = 0; i < playerGameBoard.getHandCards().size(); i++) {
             response += "c\t";
         }
-        response += "\n\t\t"+currentPlayer.getUser().getNickname() + ":" + currentPlayer.getLP();
+        response += "\n\t\t"+currentPlayer.getUser().getNickname() + ":" + currentPlayer.getLP()+ConsoleColors.RESET;
         return response;
     }
 
