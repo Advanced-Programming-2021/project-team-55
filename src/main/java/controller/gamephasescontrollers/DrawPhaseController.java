@@ -13,8 +13,8 @@ public class DrawPhaseController implements methods {
 
     private GameController gameController;
 
-    public DrawPhaseController(GameController gameController){
-        this.gameController=gameController;
+    public DrawPhaseController(GameController gameController) {
+        this.gameController = gameController;
     }
 
     private void addCardToHandDeck(Player player, Card toBeAdded) {
@@ -22,13 +22,13 @@ public class DrawPhaseController implements methods {
         player.getGameBoard().getDeckZone().remove(0);
     }
 
-    public String removeFirstDeckCardFromDeckToPlay(Player player)throws GameException {
-        if (!checkCardFrequency(player.getGameBoard().getHandCards())) {
-            return "hand deck is full! no card added.";//todo check, پیام ارور رو پیدا نکردم توی داک ها هرچی گشتم
-        }
-       Card removedCard=player.getGameBoard().getDeckZone().get(0).getCellCard();
-       addCardToHandDeck(player, removedCard);
-       return "new card added to the hand : " + removedCard.getName();
+    public String removeFirstDeckCardFromDeckToPlay(Player player) throws GameException {
+        if (!checkCardFrequency(player.getGameBoard().getHandCards()))
+            return "Error: hand deck is full! no card added.";//todo check, پیام ارور رو پیدا نکردم توی داک ها هرچی گشتم
+
+        Card removedCard = player.getGameBoard().getDeckZone().get(0).getCellCard();
+        addCardToHandDeck(player, removedCard);
+        return "new card added to the hand : " + removedCard.getName();
     }
 
     private boolean checkCardFrequency(ArrayList<Cell> handCards) {
