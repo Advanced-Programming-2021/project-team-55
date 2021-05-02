@@ -1,6 +1,7 @@
 package view;
 
 public enum Regexes {
+
     LOGIN_USER("^user login --password (.*) --username (.*)$"),
     CREATE_USER("^user create --nickname (.*) --password (.*) --username (.*)$"),
     LOGOUT_USER("^user logout$"),
@@ -23,7 +24,9 @@ public enum Regexes {
     IMPORT_CARD("^import card (.*)$"),
     EXPORT_CARD("^export card (.*)$"),
     DUEL_PLAYER("^duel --new --rounds (\\d+) --second-player (\\S+)$"),
-    DUEL_AI("^duel --ai --new --rounds (\\d+)$");
+    DUEL_AI("^duel --ai --new --rounds (\\d+)$"),
+    SUMMON("^summon$");
+
     public final String regex;
 
     Regexes(String label) {

@@ -5,5 +5,5 @@ public enum CardStatus {
     DEFENSIVE_HIDDEN,
     OFFENSIVE_OCCUPIED,
     OCCUPIED,
-    HIDDEN;
+    HIDDEN
 }

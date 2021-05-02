@@ -38,6 +38,10 @@ public class Cell {
     public void addCardToCell(Card card) {
         setCard(card);
     }
+    public static void removeCardFromCell(Cell cell){
+        cell.card = null;
+        cell.cardStatus = null;
+    }
 
     public void setCard(Card card) {
         this.card = card;
@@ -57,4 +61,13 @@ public class Cell {
         selectedCell = this;
         setSelectedCell(this);
     }
+
+    public void setCardStatus(CardStatus cardStatus) {
+        this.cardStatus = cardStatus;
+    }
+
+    public boolean isEmpty() {
+        return card == null;
+    }
+
 }

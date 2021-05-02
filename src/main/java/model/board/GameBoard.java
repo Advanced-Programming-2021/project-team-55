@@ -1,7 +1,9 @@
 package model.board;
 
+import exceptions.MenuException;
 import model.cards.Card;
 import model.cards.Deck;
+import view.gamephases.Duel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,8 +24,8 @@ public class GameBoard {
         monsterCardZone = new Cell[5];
         spellAndTrapCardZone = new Cell[5];
         for (int i = 0; i < 5; i++) {
-            monsterCardZone[i]=new Cell();
-            spellAndTrapCardZone[i]=new Cell();
+            monsterCardZone[i] = new Cell();
+            spellAndTrapCardZone[i] = new Cell();
         }
         cellsNumbering = new ArrayList<>();
         graveyard = new ArrayList<>();
@@ -70,9 +72,24 @@ public class GameBoard {
         return fieldZone;
     }
 
-    //the next methods should get Card or Cell?---------------------
-    public void addCardToMonsterCardZone(Card card) {
+    public void addCardToMonsterCardZone(Card card) throws MenuException {
+        if (isMonsterCardZoneFull())
+            throw new MenuException("Error:monster card zone is full");
 
+        for (int i = 0; i < 5; i++) {
+            if (monsterCardZone[i].isEmpty()) {
+                monsterCardZone[i].setCard(card);
+                monsterCardZone[i].setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
+                return;
+            }
+        }
+    }
+
+    private boolean isMonsterCardZoneFull() {
+        for (int i = 0; i < 5; i++) {
+            if (monsterCardZone[i].isEmpty()) return false;
+        }
+        return true;
     }
 
     public void addCardToGraveyard(Card card) {
