@@ -2,6 +2,7 @@ package controller.gamephasescontrollers;
 
 import exceptions.MenuException;
 import model.Player;
+import model.board.CardStatus;
 import model.board.Cell;
 import model.board.GameBoard;
 import view.gamephases.Duel;
@@ -20,7 +21,8 @@ public interface MainPhasesController {
         if (cell == null) throw new MenuException("Error:no card is selected yet");
         if (!isSummonable(cell)) throw new MenuException("Error:you can’t summon this card");
 
-
+        Duel.gameController.getCurrentTurnPlayer().getGameBoard().addCardToMonsterCardZone(cell);
+        cell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);//todo not completed
     }
 
     default void specialSummon(Cell cell) {

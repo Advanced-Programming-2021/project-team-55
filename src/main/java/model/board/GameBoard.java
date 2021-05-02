@@ -76,7 +76,12 @@ public class GameBoard {
         if(isMonsterCardZoneFull())
             throw new MenuException("Error:monster card zone is full");
 
-
+        for (int i = 0; i < 5; i++){
+            if (monsterCardZone[i] == null) {
+                monsterCardZone[i] = cell;
+                return;//todo not completed
+            }
+        }
     }
 
     private boolean isMonsterCardZoneFull() {

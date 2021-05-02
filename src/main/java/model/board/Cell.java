@@ -61,4 +61,9 @@ public class Cell {
         selectedCell = this;
         setSelectedCell(this);
     }
+
+    public void setCardStatus(CardStatus cardStatus) {
+        this.cardStatus = cardStatus;
+    }
+
 }
