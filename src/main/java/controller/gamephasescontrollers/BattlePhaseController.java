@@ -1,10 +1,13 @@
 package controller.gamephasescontrollers;
 
 import model.Player;
+import model.board.Cell;
 import model.board.Game;
 import model.cards.Card;
 import model.cards.Monster;
 import view.gamephases.BattlePhase;
+
+import static model.board.Cell.removeCardFromCell;
 
 public class BattlePhaseController implements methods {
     private GameController gameController;
@@ -17,8 +20,16 @@ public class BattlePhaseController implements methods {
 
     }
 
-    public void attack(Monster attackerCard, Monster attackedCard) {
-        decreasePlayersDamage(attackerCard, attackedCard);
+    public void attack(Cell attackerCell, Cell attackedCell) {
+        Card attackerCard = attackerCell.getCellCard();
+        Card attackedCard = attackedCell.getCellCard();
+        decreasePlayersDamage((Monster) attackerCard, (Monster) attackedCard);
+        if (isAttackerStronger((Monster) attackerCard, (Monster) attackedCard)){
+            removeCardFromCell(attackedCell);
+        }
+        else if (isAttackerAndAttackedPowerEqual((Monster) attackerCard, (Monster) attackedCard))
+            return;
+
         //todo remove players cards
     }
 
@@ -29,10 +40,13 @@ public class BattlePhaseController implements methods {
             (gameController.getCurrentTurnOpponentPlayer()).decreaseLP(calculateDamage(attackerCard, attackedCard));
     }
 
-    public boolean isAttackerStronger(Monster attackerCard, Monster attackedCard){
+    public boolean isAttackerStronger(Monster attackerCard, Monster attackedCard) {
         return attackerCard.getPower() > attackedCard.getPower();
     }
 
+    public boolean isAttackerAndAttackedPowerEqual(Monster attackerCard, Monster attackedCard) {
+        return attackerCard.getPower() == attackedCard.getPower();
+    }
     public int calculateDamage(Monster attackerCard, Monster attackedCard) {
         int damage = attackedCard.getPower() - attackerCard.getPower();
         if (damage >= 0)
