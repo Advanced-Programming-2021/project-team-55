@@ -2,7 +2,6 @@ package controller.gamephasescontrollers;
 
 import exceptions.MenuException;
 import model.Player;
-import model.board.CardStatus;
 import model.board.Cell;
 import model.board.GameBoard;
 import view.gamephases.Duel;
@@ -18,11 +17,13 @@ public interface MainPhasesController {
     }
 
     default void monsterSummon(Cell cell) throws MenuException {
-        if (cell == null) throw new MenuException("Error:no card is selected yet");
-        if (!isSummonable(cell)) throw new MenuException("Error:you can’t summon this card");
+        if (cell == null) throw new MenuException("Error: no card is selected yet");
+        if (!isSummonable(cell)) throw new MenuException("Error: you can’t summon this card");
+        if (Duel.gameController.DoPlayerSetOrSummonedThisTurn()) throw new MenuException("Error: you already summoned/set on this turn");
 
-        Duel.gameController.getCurrentTurnPlayer().getGameBoard().addCardToMonsterCardZone(cell);
-        cell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);//todo not completed
+        Duel.gameController.getCurrentTurnPlayer().getGameBoard().addCardToMonsterCardZone(cell.getCellCard());
+        Duel.gameController.getCurrentTurnPlayer().getGameBoard().getHandCards().remove(cell);
+        Duel.gameController.setDoPlayerSetOrSummonedThisTurn(true);
     }
 
     default void specialSummon(Cell cell) {

@@ -24,8 +24,8 @@ public class GameBoard {
         monsterCardZone = new Cell[5];
         spellAndTrapCardZone = new Cell[5];
         for (int i = 0; i < 5; i++) {
-            monsterCardZone[i]=new Cell();
-            spellAndTrapCardZone[i]=new Cell();
+            monsterCardZone[i] = new Cell();
+            spellAndTrapCardZone[i] = new Cell();
         }
         cellsNumbering = new ArrayList<>();
         graveyard = new ArrayList<>();
@@ -71,22 +71,22 @@ public class GameBoard {
         return fieldZone;
     }
 
-    //the next methods should get Card or Cell?---------------------
-    public void addCardToMonsterCardZone(Cell cell) throws MenuException {
-        if(isMonsterCardZoneFull())
+    public void addCardToMonsterCardZone(Card card) throws MenuException {
+        if (isMonsterCardZoneFull())
             throw new MenuException("Error:monster card zone is full");
 
-        for (int i = 0; i < 5; i++){
-            if (monsterCardZone[i] == null) {
-                monsterCardZone[i] = cell;
-                return;//todo not completed
+        for (int i = 0; i < 5; i++) {
+            if (monsterCardZone[i].isEmpty()) {
+                monsterCardZone[i].setCard(card);
+                monsterCardZone[i].setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
+                return;
             }
         }
     }
 
     private boolean isMonsterCardZoneFull() {
-        for (int i = 0; i < 5; i++){
-            if (monsterCardZone[i] == null) return false;
+        for (int i = 0; i < 5; i++) {
+            if (monsterCardZone[i].isEmpty()) return false;
         }
         return true;
     }

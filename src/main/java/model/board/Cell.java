@@ -66,4 +66,8 @@ public class Cell {
         this.cardStatus = cardStatus;
     }
 
+    public boolean isEmpty() {
+        return card == null;
+    }
+
 }
