@@ -10,6 +10,7 @@ public class DrawPhase extends Duel {
     @Override
     protected void execute() {
         drawPhaseController=gameController.getDrawPhaseController();
+        ViewInterface.showResult("its "+gameController.getCurrentTurnPlayer().getUser().getNickname()+"'s turn");
         String response=processCommand("");
         ViewInterface.showResult(response);
     }

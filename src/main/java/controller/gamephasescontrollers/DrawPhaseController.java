@@ -24,7 +24,7 @@ public class DrawPhaseController implements methods {
 
     public String removeFirstDeckCardFromDeckToPlay(Player player)throws GameException {
         if (!checkCardFrequency(player.getGameBoard().getHandCards())) {
-            return "hand deck is full! no card added.";//todo check, پیام ارور رو پیدا نکردم توی داک ها هرچی گشتم
+            return "Error: hand deck is full! no card added.";//todo check, پیام ارور رو پیدا نکردم توی داک ها هرچی گشتم
         }
        Card removedCard=player.getGameBoard().getDeckZone().get(0).getCellCard();
        addCardToHandDeck(player, removedCard);
