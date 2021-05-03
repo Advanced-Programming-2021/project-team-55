@@ -45,7 +45,7 @@ public interface MainPhasesController {
         if(selectedCard==null){
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
-        else if(!playerGameBoard.getHandCards().contains(selectedCard)){
+        else if(!playerGameBoard.getHandCards().contains(selectedCell)){
             throw new GameException(GameResponses.CANT_SET_CARD.response);
         }
         else{
@@ -59,6 +59,7 @@ public interface MainPhasesController {
             }
             else{
                 playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard);
+                playerGameBoard.getHandCards().remove(selectedCell);
 
             }
         }
@@ -125,11 +126,11 @@ public interface MainPhasesController {
         response += "\n" + opponentPlayerGameBoard.getDeckZone().size() + "\n";
         response+="\t4\t2\t1\t3\t5\n";
         for (int i = 0; i < 5; i++) {
-            if (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentPlayerGameBoard.getAreasNumber()[4 - i]]
+            if (opponentPlayerGameBoard.getSpellAndTrapCardZone()[4 - i]
                     .getCellCard() == null) {
                 response += "\tE";
             } else {
-                switch (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentPlayerGameBoard.getAreasNumber()[4 - i]]
+                switch (opponentPlayerGameBoard.getSpellAndTrapCardZone()[4 - i]
                         .getCardPosition()) {
                     case HIDDEN: {
                         response += "\tH";
@@ -145,11 +146,11 @@ public interface MainPhasesController {
         }
         response += "\n";
         for (int i = 0; i < 5; i++) {
-            if (opponentPlayerGameBoard.getMonsterCardZone()[opponentPlayerGameBoard.getAreasNumber()[4 - i]]
+            if (opponentPlayerGameBoard.getMonsterCardZone()[4 - i]
                     .getCellCard() == null) {
                 response += "\tE";
             } else {
-                switch (opponentPlayerGameBoard.getMonsterCardZone()[opponentPlayerGameBoard.getAreasNumber()[4 - i]]
+                switch (opponentPlayerGameBoard.getMonsterCardZone()[4 - i]
                         .getCardPosition()) {
                     case DEFENSIVE_HIDDEN: {
                         response += "\tDH";
@@ -178,12 +179,13 @@ public interface MainPhasesController {
             response += "O";
         }
         response += "\t\t\t\t\t\t" + playerGameBoard.getGraveyard().size() + "\n";
-        for (int i = 0; i < 5; i++) {
-            if (playerGameBoard.getMonsterCardZone()[playerGameBoard.getAreasNumber()[i]]
+        //int[]cellNumbers={3,1,0,2,4};
+        for (int i = 0;i<5; i++) {
+            if (playerGameBoard.getMonsterCardZone()[i]
                     .getCellCard() == null) {
                 response += "\tE";
             } else {
-                switch (playerGameBoard.getMonsterCardZone()[playerGameBoard.getAreasNumber()[i]]
+                switch (playerGameBoard.getMonsterCardZone()[i]
                         .getCardPosition()) {
                     case DEFENSIVE_HIDDEN: {
                         response += "\tDH";
@@ -200,12 +202,13 @@ public interface MainPhasesController {
             }
         }
         response += "\n";
+
         for (int i = 0; i < 5; i++) {
-            if (playerGameBoard.getSpellAndTrapCardZone()[playerGameBoard.getAreasNumber()[i]]
+            if (playerGameBoard.getSpellAndTrapCardZone()[i]
                     .getCellCard() == null) {
                 response += "\tE";
             } else {
-                switch (playerGameBoard.getSpellAndTrapCardZone()[playerGameBoard.getAreasNumber()[i]]
+                switch (playerGameBoard.getSpellAndTrapCardZone()[i]
                         .getCardPosition()) {
                     case HIDDEN: {
                         response += "\tH";
