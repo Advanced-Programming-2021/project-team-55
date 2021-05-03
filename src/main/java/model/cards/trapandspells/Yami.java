@@ -1,9 +1,9 @@
 package model.cards.trapandspells;
 
 import model.cards.SpellAndTrap;
+import model.cards.cardfeaturesenums.EffectiveTerm;
 import model.cards.cardfeaturesenums.SpellOrTrap;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
-import model.cards.cardfeaturesenums.EffectiveTerm;
 
 public class Yami extends SpellAndTrap {
 

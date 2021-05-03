@@ -9,7 +9,8 @@ public enum GamePhase {
     MAIN2("main phase 2"),
     END("end phase");
     public String name;
-    private GamePhase(String name){
+
+    GamePhase(String name) {
         this.name = name;
     }
 }

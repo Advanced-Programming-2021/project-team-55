@@ -8,7 +8,7 @@ public class Player {
     private User user;
     private Deck playDeck;
     private int LP = 8000;
-    private GameBoard playerGameBoard;
+    private final GameBoard playerGameBoard;
     private boolean isAI;
 
     public Player(User user, Deck playDeck) {
@@ -37,8 +37,8 @@ public class Player {
         this.LP = LP;
     }
 
-    public void decreaseLP(int amount){
-        setLP(this.getLP()-amount);
+    public void decreaseLP(int amount) {
+        setLP(this.getLP() - amount);
     }
 
     public GameBoard getGameBoard() {//better to rename to getPlayerGameBoard

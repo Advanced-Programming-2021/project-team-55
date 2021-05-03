@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 public class Deck {
     private String name;
-    private ArrayList<Card> mainDeck;
-    private ArrayList<Card> sideDeck;
+    private final ArrayList<Card> mainDeck;
+    private final ArrayList<Card> sideDeck;
     private boolean isActive;
 
     {
-        mainDeck=new ArrayList<>();
-        sideDeck=new ArrayList<>();
+        mainDeck = new ArrayList<>();
+        sideDeck = new ArrayList<>();
     }
 
 
@@ -45,8 +45,8 @@ public class Deck {
         mainDeck.add(card);
     }
 
-    public void addCardsToMainDeck(ArrayList<Card>cards){
-        for(Card card:cards){
+    public void addCardsToMainDeck(ArrayList<Card> cards) {
+        for (Card card : cards) {
             mainDeck.add(card);
         }
     }
@@ -87,7 +87,7 @@ public class Deck {
     public int getCardCountInDeck(String cardName) {
         int count = 0;
         for (Card card : mainDeck) {
-            if (card.getName().equals(cardName) ){
+            if (card.getName().equals(cardName)) {
                 count++;
             }
         }

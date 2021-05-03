@@ -2,11 +2,8 @@ package view.Menus;
 
 
 import controller.DataBaseController;
-import model.cards.Card;
 
 import java.io.IOException;
-
-import static model.cards.Card.allCards;
 
 abstract public class Menu {
     private static final LoginMenu loginMenu = new LoginMenu();

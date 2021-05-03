@@ -57,7 +57,7 @@ public class GameController {
         GameBoard currentPlayerGameBoard = currentTurnPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = currentTurnOpponentPlayer.getGameBoard();
         Cell selectedCell = null;
-        number-=1;
+        number -= 1;
         switch (zone) {
             case "Monster": {
                 if (number > 4) {
@@ -91,7 +91,7 @@ public class GameController {
                 break;
             }
             case "Hand": {
-                if (number >=currentPlayerGameBoard.getHandCards().size()) {
+                if (number >= currentPlayerGameBoard.getHandCards().size()) {
                     throw new GameException(GameResponses.INVALID_SELECTION.response);
 
                 }
@@ -108,8 +108,8 @@ public class GameController {
     }
 
 
-    public void deselect()throws GameException {
-        if(Cell.getSelectedCell()!=null){
+    public void deselect() throws GameException {
+        if (Cell.getSelectedCell() != null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
         Cell.setSelectedCell(null);
@@ -248,7 +248,6 @@ public class GameController {
         }
         return true;
     }
-
 
 
 }

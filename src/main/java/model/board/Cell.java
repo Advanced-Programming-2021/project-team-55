@@ -38,17 +38,17 @@ public class Cell {
     public void addCardToCell(Card card) {
         setCard(card);
     }
-    public static void removeCardFromCell(Cell cell){
+
+    public static void removeCardFromCell(Cell cell) {
         cell.card = null;
         cell.cardStatus = null;
     }
 
     public void setCard(Card card) {
         this.card = card;
-        if(card instanceof Monster){
+        if (card instanceof Monster) {
             cardStatus = CardStatus.DEFENSIVE_HIDDEN;
-        }
-        else{
+        } else {
             cardStatus = CardStatus.HIDDEN;
         }
     }

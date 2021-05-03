@@ -9,15 +9,15 @@ public class DrawPhase extends Duel {
 
     @Override
     protected void execute() {
-        drawPhaseController=gameController.getDrawPhaseController();
-        ViewInterface.showResult("its "+gameController.getCurrentTurnPlayer().getUser().getNickname()+"'s turn");
-        String response=processCommand("");
+        drawPhaseController = gameController.getDrawPhaseController();
+        ViewInterface.showResult("its " + gameController.getCurrentTurnPlayer().getUser().getNickname() + "'s turn");
+        String response = processCommand("");
         ViewInterface.showResult(response);
     }
 
     @Override
     protected String processCommand(String command) {
-        String response="";
+        String response = "";
         try {
             response = drawPhaseController.removeFirstDeckCardFromDeckToPlay(gameController.getCurrentTurnPlayer());
             gameController.changePhase();

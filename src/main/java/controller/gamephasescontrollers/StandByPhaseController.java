@@ -1,15 +1,15 @@
 package controller.gamephasescontrollers;
 
-import model.board.Game;
 import model.cards.Card;
-import view.gamephases.StandByPhase;
 
-public class StandByPhaseController implements methods{
-    private GameController gameController;
-    public StandByPhaseController(GameController gameController){
-        this.gameController=gameController;
+public class StandByPhaseController implements methods {
+    private final GameController gameController;
+
+    public StandByPhaseController(GameController gameController) {
+        this.gameController = gameController;
     }
-    public void activateEffects(){
+
+    public void activateEffects() {
         //TODO some cards effects should be handled here!
     }
 

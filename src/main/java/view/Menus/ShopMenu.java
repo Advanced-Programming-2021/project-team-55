@@ -26,7 +26,7 @@ public class ShopMenu extends Menu {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.BUY_SHOP.regex);
             try {
                 shopMenuController.buyCard(matcher.group(1));
-                response=Responses.CARD_BOUGHT_SUCCESSFULLY.response;
+                response = Responses.CARD_BOUGHT_SUCCESSFULLY.response;
             } catch (MenuException e) {
                 response = e.toString();
             }
@@ -43,9 +43,8 @@ public class ShopMenu extends Menu {
             shopMenuController.exitMenu();
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {
             response = getCurrentMenu();
-        }
-        else{
-            response= Responses.INVALID_COMMAND.response;
+        } else {
+            response = Responses.INVALID_COMMAND.response;
         }
         return response;
     }

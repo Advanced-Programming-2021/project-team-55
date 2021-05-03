@@ -1,8 +1,8 @@
 package model.cards;
 
+import model.cards.cardfeaturesenums.EffectiveTerm;
 import model.cards.cardfeaturesenums.SpellOrTrap;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
-import model.cards.cardfeaturesenums.EffectiveTerm;
 
 public abstract class SpellAndTrap extends Card {
 

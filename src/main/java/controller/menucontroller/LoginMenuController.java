@@ -9,8 +9,6 @@ import view.Menus.Menu;
 import view.Menus.MenuType;
 import view.Responses;
 
-import java.io.IOException;
-
 public class LoginMenuController extends MenuController {
 
     private static LoginMenuController loginMenuController;

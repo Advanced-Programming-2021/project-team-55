@@ -1,10 +1,8 @@
 package model.board;
 
 import exceptions.GameException;
-import exceptions.MenuException;
 import model.cards.Card;
 import model.cards.Deck;
-import view.gamephases.Duel;
 import view.gamephases.GameResponses;
 
 import java.util.ArrayList;
@@ -19,7 +17,7 @@ public class GameBoard {
     private final Cell[] spellAndTrapCardZone;
     private final ArrayList<Cell> deckZone;
     private final ArrayList<Cell> handCards;
-    private Cell fieldZone;
+    private final Cell fieldZone;
 
     {
         areasNumber = new int[5];
@@ -99,6 +97,7 @@ public class GameBoard {
         }
         return true;
     }
+
     private boolean isSpellAndTrapCardZoneFull() {
         for (int i = 0; i < 5; i++) {
             if (spellAndTrapCardZone[i].isEmpty()) return false;
@@ -111,7 +110,7 @@ public class GameBoard {
 
     }
 
-    public void addCardToSpellAndTrapCardZone(Card card) throws GameException{
+    public void addCardToSpellAndTrapCardZone(Card card) throws GameException {
         if (isSpellAndTrapCardZoneFull())
             throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
 

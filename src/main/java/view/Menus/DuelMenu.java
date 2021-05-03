@@ -1,18 +1,11 @@
 package view.Menus;
 
-import controller.gamephasescontrollers.GameController;
-import controller.gamephasescontrollers.GamePhase;
 import controller.menucontroller.DuelMenuController;
 import exceptions.MenuException;
-import model.Player;
-import model.User;
-import model.board.Cell;
-import model.board.Game;
-import model.cards.Deck;
-import view.gamephases.Duel;
 import view.Regexes;
 import view.Responses;
 import view.ViewInterface;
+import view.gamephases.Duel;
 
 import java.util.regex.Matcher;
 
@@ -46,7 +39,7 @@ public class DuelMenu extends Menu {
             } catch (MenuException e) {
                 response = e.toString();
             }
-        }  else if (command.matches(Regexes.ENTER_MENU.regex)) {
+        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
             try {
                 duelMenuController.enterMenu(matcher.group(1));

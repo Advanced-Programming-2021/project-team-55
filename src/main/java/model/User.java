@@ -5,7 +5,6 @@ import model.cards.Deck;
 import model.cards.monsters.*;
 import model.cards.trapandspells.*;
 
-import java.awt.*;
 import java.util.*;
 
 public class User {
@@ -16,8 +15,8 @@ public class User {
         allUsers = new ArrayList<>();
     }
 
-    private ArrayList<Deck> decks;
-    private ArrayList<Card> cardsInventory;
+    private final ArrayList<Deck> decks;
+    private final ArrayList<Card> cardsInventory;
     private String username;
     private String password;
     private String nickname;
@@ -28,7 +27,7 @@ public class User {
     {
         decks = new ArrayList<>();
         cardsInventory = new ArrayList<>();
-        money=100000;
+        money = 100000;
     }
 
     public User(String username, String nickname, String password) {
@@ -184,8 +183,8 @@ public class User {
     }
 
     public boolean cardExistsInInventory(String cardName) {
-        for(Card card:cardsInventory){
-            if(card.getName().equals(cardName)){
+        for (Card card : cardsInventory) {
+            if (card.getName().equals(cardName)) {
                 return true;
             }
         }
@@ -210,8 +209,9 @@ public class User {
             setActiveDeck(null);
         }
     }
-    private void initializeCards(){
-        ArrayList<Card>initCards=new ArrayList<>();
+
+    private void initializeCards() {
+        ArrayList<Card> initCards = new ArrayList<>();
         //game init cards:
         initCards.add(new AxeRaider());
         initCards.add(new Babydragon());
@@ -258,10 +258,10 @@ public class User {
         initCards.add(new CommandKnight());
         initCards.add(new BlackPendant());
         addCardsToInventory(initCards);
-        Deck deckInit=new Deck("default deck");
+        Deck deckInit = new Deck("default deck");
         deckInit.addCardsToMainDeck(initCards);
         deckInit.setActive(true);
-        this.activeDeck=deckInit;
+        this.activeDeck = deckInit;
         this.addDeck(deckInit);
     }
 

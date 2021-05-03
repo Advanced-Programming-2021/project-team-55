@@ -125,22 +125,22 @@ public class DeckMenuController extends MenuController {
                     ArrayList<Card> spellAndTraps = Card.getMagicsSorted(deck.getSideDeck());
                     deckInfo += "Side deck:\nMonsters:";
                     for (Card card : monsters) {
-                        deckInfo += "\n"+card;
+                        deckInfo += "\n" + card;
                     }
                     deckInfo += "\nSpell and Traps:";
                     for (Card card : spellAndTraps) {
-                        deckInfo +="\n"+card ;
+                        deckInfo += "\n" + card;
                     }
                 } else {
                     ArrayList<Card> monsters = Card.getMonstersSorted(deck.getMainDeck());
                     ArrayList<Card> spellAndTraps = Card.getMagicsSorted(deck.getMainDeck());
                     deckInfo += "Main deck:\nMonsters:";
                     for (Card card : monsters) {
-                        deckInfo += "\n"+card;
+                        deckInfo += "\n" + card;
                     }
                     deckInfo += "\nSpell and Traps:";
                     for (Card card : spellAndTraps) {
-                        deckInfo +="\n"+card ;
+                        deckInfo += "\n" + card;
                     }
                 }
                 return deckInfo;

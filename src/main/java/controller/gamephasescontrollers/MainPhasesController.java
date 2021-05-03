@@ -35,29 +35,27 @@ public interface MainPhasesController {
         currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
     }
-    default void setCard(GameController gameController)throws GameException{
-        Cell selectedCell=Cell.getSelectedCell();
-        GameBoard playerGameBoard=gameController.getCurrentTurnPlayer().getGameBoard();
-        if(selectedCell==null){
+
+    default void setCard(GameController gameController) throws GameException {
+        Cell selectedCell = Cell.getSelectedCell();
+        GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
+        if (selectedCell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
-        Card selectedCard=selectedCell.getCellCard();
-        if(selectedCard==null){
+        Card selectedCard = selectedCell.getCellCard();
+        if (selectedCard == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
-        }
-        else if(!playerGameBoard.getHandCards().contains(selectedCell)){
+        } else if (!playerGameBoard.getHandCards().contains(selectedCell)) {
             throw new GameException(GameResponses.CANT_SET_CARD.response);
-        }
-        else{
-            if(selectedCard instanceof Monster){
-                if(gameController.DoPlayerSetOrSummonedThisTurn()){
+        } else {
+            if (selectedCard instanceof Monster) {
+                if (gameController.DoPlayerSetOrSummonedThisTurn()) {
                     throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
                 }
                 playerGameBoard.addCardToMonsterCardZone(selectedCard);
                 playerGameBoard.getHandCards().remove(selectedCell);
                 gameController.setDidPlayerSetOrSummonThisTurn(true);
-            }
-            else{
+            } else {
                 playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard);
                 playerGameBoard.getHandCards().remove(selectedCell);
 
@@ -114,7 +112,7 @@ public interface MainPhasesController {
     }
 
     default String showGameBoard(Player currentPlayer, Player opponentPlayer) {
-        String response = ConsoleColors.BLUE+ "\t\t" + opponentPlayer.getUser().getNickname() + ":" + opponentPlayer.getLP() + "\n";
+        String response = ConsoleColors.BLUE + "\t\t" + opponentPlayer.getUser().getNickname() + ":" + opponentPlayer.getLP() + "\n";
         GameBoard playerGameBoard = currentPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = opponentPlayer.getGameBoard();
         for (int i = 0; i < 6 - opponentPlayerGameBoard.getHandCards().size(); i++) {
@@ -124,7 +122,7 @@ public interface MainPhasesController {
             response += "\tc";
         }
         response += "\n" + opponentPlayerGameBoard.getDeckZone().size() + "\n";
-        response+="\t4\t2\t1\t3\t5\n";
+        response += "\t4\t2\t1\t3\t5\n";
         for (int i = 0; i < 5; i++) {
             if (opponentPlayerGameBoard.getSpellAndTrapCardZone()[4 - i]
                     .getCellCard() == null) {
@@ -180,7 +178,7 @@ public interface MainPhasesController {
         }
         response += "\t\t\t\t\t\t" + playerGameBoard.getGraveyard().size() + "\n";
         //int[]cellNumbers={3,1,0,2,4};
-        for (int i = 0;i<5; i++) {
+        for (int i = 0; i < 5; i++) {
             if (playerGameBoard.getMonsterCardZone()[i]
                     .getCellCard() == null) {
                 response += "\tE";
@@ -222,12 +220,12 @@ public interface MainPhasesController {
                 }
             }
         }
-        response+="\n\t5\t3\t1\t2\t4";
+        response += "\n\t5\t3\t1\t2\t4";
         response += "\n\t\t\t\t\t\t" + playerGameBoard.getDeckZone().size() + "\n";
         for (int i = 0; i < playerGameBoard.getHandCards().size(); i++) {
             response += "c\t";
         }
-        response += "\n\t\t" + currentPlayer.getUser().getNickname() + ":" + currentPlayer.getLP()+ConsoleColors.RESET;
+        response += "\n\t\t" + currentPlayer.getUser().getNickname() + ":" + currentPlayer.getLP() + ConsoleColors.RESET;
         return response;
     }
 

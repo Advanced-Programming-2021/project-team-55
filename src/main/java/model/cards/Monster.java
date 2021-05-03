@@ -14,6 +14,7 @@ public abstract class Monster extends Card {
     private MonsterType monsterType;
     private CardType cardType;
     private CardStatus cardStatus;
+
     protected Monster(String cardName, String description, int price, int atk, int def, int level,
                       MonsterAttribute attribute, MonsterType monsterType, CardType cardType) {
         super(cardName, description, price);

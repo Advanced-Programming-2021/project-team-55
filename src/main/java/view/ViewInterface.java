@@ -1,8 +1,5 @@
 package view;
 
-import view.Menus.Menu;
-import view.Menus.MenuType;
-import view.gamephases.Duel;
 import view.gamephases.GameResponses;
 
 import java.util.ArrayList;
@@ -20,13 +17,11 @@ public class ViewInterface {
 
     public static void showResult(String result) {
         if (!result.equals("")) {
-            if(result.startsWith("Error: ")){
-                System.out.println(ConsoleColors.RED+result.replaceAll("Error: ","")+ConsoleColors.RESET);
-            }
-            else if(Responses.responseExists(result)|| GameResponses.responseExists(result)){
-                System.out.println(ConsoleColors.GREEN+result+ConsoleColors.RESET);
-            }
-            else{
+            if (result.startsWith("Error: ")) {
+                System.out.println(ConsoleColors.RED + result.replaceAll("Error: ", "") + ConsoleColors.RESET);
+            } else if (Responses.responseExists(result) || GameResponses.responseExists(result)) {
+                System.out.println(ConsoleColors.GREEN + result + ConsoleColors.RESET);
+            } else {
                 System.out.println(result);
             }
         }

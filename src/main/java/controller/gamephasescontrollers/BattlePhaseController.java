@@ -1,16 +1,13 @@
 package controller.gamephasescontrollers;
 
-import model.Player;
 import model.board.Cell;
-import model.board.Game;
 import model.cards.Card;
 import model.cards.Monster;
-import view.gamephases.BattlePhase;
 
 import static model.board.Cell.removeCardFromCell;
 
 public class BattlePhaseController implements methods {
-    private GameController gameController;
+    private final GameController gameController;
 
     public BattlePhaseController(GameController gameController) {
         this.gameController = gameController;
@@ -24,10 +21,9 @@ public class BattlePhaseController implements methods {
         Card attackerCard = attackerCell.getCellCard();
         Card attackedCard = attackedCell.getCellCard();
         decreasePlayersDamage((Monster) attackerCard, (Monster) attackedCard);
-        if (isAttackerStronger((Monster) attackerCard, (Monster) attackedCard)){
+        if (isAttackerStronger((Monster) attackerCard, (Monster) attackedCard)) {
             removeCardFromCell(attackedCell);
-        }
-        else if (isAttackerAndAttackedPowerEqual((Monster) attackerCard, (Monster) attackedCard))
+        } else if (isAttackerAndAttackedPowerEqual((Monster) attackerCard, (Monster) attackedCard))
             return;
 
         //todo remove players cards
@@ -47,6 +43,7 @@ public class BattlePhaseController implements methods {
     public boolean isAttackerAndAttackedPowerEqual(Monster attackerCard, Monster attackedCard) {
         return attackerCard.getPower() == attackedCard.getPower();
     }
+
     public int calculateDamage(Monster attackerCard, Monster attackedCard) {
         int damage = attackedCard.getPower() - attackerCard.getPower();
         if (damage >= 0)

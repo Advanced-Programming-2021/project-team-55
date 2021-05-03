@@ -2,13 +2,10 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.opencsv.bean.CsvToBeanBuilder;
 import controller.menucontroller.MenuController;
 import exceptions.MenuException;
 import model.User;
 import model.cards.Card;
-import model.cards.MonsterCardDetails;
-import model.cards.TrapAndSpellCardDetails;
 import model.cards.monsters.*;
 import model.cards.trapandspells.*;
 import view.Menus.Menu;
@@ -17,7 +14,6 @@ import view.Responses;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class DataBaseController extends MenuController {

@@ -22,16 +22,15 @@ public enum Responses {
     CARD_REMOVED_FROM_DECK_SUCCESSFULLY("card removed from deck successfully!");
 
 
-
-
     public final String response;
 
     Responses(String label) {
         this.response = label;
     }
-    public static boolean responseExists(String response){
-        for(Responses responses:Responses.values()){
-            if(responses.response.equals(response)){
+
+    public static boolean responseExists(String response) {
+        for (Responses responses : Responses.values()) {
+            if (responses.response.equals(response)) {
                 return true;
             }
         }

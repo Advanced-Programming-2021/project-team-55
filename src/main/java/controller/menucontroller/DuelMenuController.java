@@ -40,16 +40,16 @@ public class DuelMenuController extends MenuController {
         if (rival == null) {
             throw new MenuException(Responses.NO_PLAYER_EXISTS.response);
         } else if (User.loggedInUser.getActiveDeck() == null) {
-            throw new MenuException("Error: "+User.loggedInUser.getUsername() + " has no active deck");
+            throw new MenuException("Error: " + User.loggedInUser.getUsername() + " has no active deck");
         } else if (rival.getActiveDeck() == null) {
-            throw new MenuException("Error: "+rival.getUsername() + " has no active deck");
+            throw new MenuException("Error: " + rival.getUsername() + " has no active deck");
         } else {
             Deck player1Deck = User.loggedInUser.getActiveDeck();
             Deck player2Deck = rival.getActiveDeck();
             if (!player1Deck.isDeckValid()) {
-                throw new MenuException("Error: "+User.loggedInUser.getUsername() + "’s deck is invalid");
+                throw new MenuException("Error: " + User.loggedInUser.getUsername() + "’s deck is invalid");
             } else if (!player2Deck.isDeckValid()) {
-                throw new MenuException("Error: "+rival.getUsername() + "’s deck is invalid");
+                throw new MenuException("Error: " + rival.getUsername() + "’s deck is invalid");
             } else if (rounds != 1 && rounds != 3) {
                 throw new MenuException(Responses.NUMBER_OF_ROUNDS_NOT_SUPPORTED.response);
             } else {

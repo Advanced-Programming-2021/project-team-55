@@ -13,7 +13,7 @@ public class MainPhase1 extends Duel {
 
     @Override
     protected void execute() {
-        mainPhase1Controller= gameController.getMainPhase1Controller();
+        mainPhase1Controller = gameController.getMainPhase1Controller();
         ViewInterface.showResult(mainPhase1Controller.showGameBoard(gameController.currentTurnPlayer,
                 gameController.currentTurnOpponentPlayer));
         String response = processCommand(ViewInterface.getInput());
@@ -29,84 +29,69 @@ public class MainPhase1 extends Duel {
             showPhase(gameController);
         } else if (command.matches(GameRegexes.SELECT.regex)) {
             response = processSelect(command);
-        }
-        else if(command.matches(GameRegexes.DESELECT.regex)) {
+        } else if (command.matches(GameRegexes.DESELECT.regex)) {
             try {
                 gameController.deselect();
-                response=GameResponses.CARD_DESELECTED.response;
+                response = GameResponses.CARD_DESELECTED.response;
+            } catch (GameException e) {
+                response = e.toString();
             }
-            catch (GameException e){
-                response=e.toString();
-            }
-        }
-        else if(command.matches(GameRegexes.SUMMON.regex)){
+        } else if (command.matches(GameRegexes.SUMMON.regex)) {
             try {
                 mainPhase1Controller.monsterSummon(gameController);
-                response=GameResponses.SUMMONED_SUCCESSFULLY.response;
+                response = GameResponses.SUMMONED_SUCCESSFULLY.response;
+            } catch (GameException e) {
+                response = e.toString();
             }
-            catch (GameException e){
-                response=e.toString();
-            }
-        }
-        else if(command.matches(GameRegexes.SET.regex)){
+        } else if (command.matches(GameRegexes.SET.regex)) {
             try {
                 mainPhase1Controller.setCard(gameController);
-                response=GameResponses.SET_SUCCESSFULLY.response;
+                response = GameResponses.SET_SUCCESSFULLY.response;
+            } catch (GameException e) {
+                response = e.toString();
             }
-            catch (GameException e){
-                response=e.toString();
-            }
-        }
-        else if(command.matches(GameRegexes.SET_POSITION.regex)){
-            Matcher matcher=ViewInterface.getCommandMatcher(command,GameRegexes.SET_POSITION.regex);
-            try{
+        } else if (command.matches(GameRegexes.SET_POSITION.regex)) {
+            Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SET_POSITION.regex);
+            try {
                 mainPhase1Controller.setPosition(matcher.group(1));
-                response=GameResponses.SET_POSITION_SUCCESSFULLY.response;
+                response = GameResponses.SET_POSITION_SUCCESSFULLY.response;
+            } catch (GameException e) {
+                response = e.toString();
             }
-            catch (GameException e){
-                response=e.toString();
-            }
-        }
-        else if(command.matches(GameRegexes.FLIP_SUMMON.regex)){
+        } else if (command.matches(GameRegexes.FLIP_SUMMON.regex)) {
             try {
                 mainPhase1Controller.flipSummon();
-                response=GameResponses.FLIP_SUMMONED_SUCCESSFULLY.response;
-            }
-            catch (GameException e){
-                response=e.toString();
+                response = GameResponses.FLIP_SUMMONED_SUCCESSFULLY.response;
+            } catch (GameException e) {
+                response = e.toString();
             }
         }
         //todo these attack methods should be moved to battle phase
-        else if(command.matches(GameRegexes.ATTACK.regex)){
-            Matcher matcher=ViewInterface.getCommandMatcher(command,GameRegexes.ATTACK.regex);
-            try{
-                response=mainPhase1Controller.attack(Integer.parseInt(matcher.group(1)));
-            }
-            catch (GameException e){
-                response=e.toString();
-            }
-        }
-        else if(command.matches(GameRegexes.ATTACK_DIRECT.regex)){
+        else if (command.matches(GameRegexes.ATTACK.regex)) {
+            Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.ATTACK.regex);
             try {
-                response=mainPhase1Controller.directAttack();
+                response = mainPhase1Controller.attack(Integer.parseInt(matcher.group(1)));
+            } catch (GameException e) {
+                response = e.toString();
             }
-            catch (GameException e){
-                response=e.toString();
+        } else if (command.matches(GameRegexes.ATTACK_DIRECT.regex)) {
+            try {
+                response = mainPhase1Controller.directAttack();
+            } catch (GameException e) {
+                response = e.toString();
             }
-        }
-        else if(command.matches(GameRegexes.ACTIVATE_EFFECT.regex)){
+        } else if (command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {
             try {
                 mainPhase1Controller.activateSpell();
-                response=GameResponses.SPELL_ACTIVATED.response;
-            }
-            catch (GameException e){
-                response=e.toString();
+                response = GameResponses.SPELL_ACTIVATED.response;
+            } catch (GameException e) {
+                response = e.toString();
             }
         }
         //todo check whether we have handled all methods in this phase or not
 
-        else{
-            response=GameResponses.INVALID_COMMAND.response;
+        else {
+            response = GameResponses.INVALID_COMMAND.response;
         }
 
         return response;
