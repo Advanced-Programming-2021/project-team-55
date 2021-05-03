@@ -32,6 +32,7 @@ public interface MainPhasesController {
         }
         currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard());
         currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
+        Cell.setSelectedCell(null);
         gameController.setDoPlayerSetOrSummonedThisTurn(true);
     }
 

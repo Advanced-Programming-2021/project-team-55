@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class GameBoard {
+
     private final int[] areasNumber;
     private final Cell[] monsterCardZone;
     private final ArrayList<Integer> cellsNumbering;
@@ -108,10 +109,12 @@ public class GameBoard {
     }
 
     public void addCardToHandDeck(Card card) {
-
+//todo        آدرس کارت ͳکه در  handخود بازی΋ن است )که طبق قانون حداکثر  ۶کارت نیز
+//        هستند
     }
 
     public void addCardToFieldZone(Card card) {
 
     }
+
 }
