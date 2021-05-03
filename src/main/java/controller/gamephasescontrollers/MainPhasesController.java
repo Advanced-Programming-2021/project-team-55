@@ -1,10 +1,12 @@
 package controller.gamephasescontrollers;
 
+import exceptions.GameException;
 import exceptions.MenuException;
 import model.Player;
 import model.board.Cell;
 import model.board.GameBoard;
 import view.gamephases.Duel;
+import view.gamephases.GameResponses;
 
 public interface MainPhasesController {
 
@@ -16,14 +18,21 @@ public interface MainPhasesController {
 
     }
 
-    default void monsterSummon(Cell cell) throws MenuException {
-        if (cell == null) throw new MenuException("Error: no card is selected yet");
-        if (!isSummonable(cell)) throw new MenuException("Error: you can’t summon this card");
-        if (Duel.gameController.DoPlayerSetOrSummonedThisTurn()) throw new MenuException("Error: you already summoned/set on this turn");
-
-        Duel.gameController.getCurrentTurnPlayer().getGameBoard().addCardToMonsterCardZone(cell.getCellCard());
-        Duel.gameController.getCurrentTurnPlayer().getGameBoard().getHandCards().remove(cell);
-        Duel.gameController.setDoPlayerSetOrSummonedThisTurn(true);
+    default void monsterSummon(GameController gameController) throws GameException {
+        Player currentPlayer = gameController.currentTurnPlayer;
+        Cell selectedCell = Cell.getSelectedCell();
+        if (selectedCell == null) {
+            throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
+        }
+        if (!isSummonable(selectedCell)) {
+            throw new GameException(GameResponses.CANT_SUMMON_CARD.response);
+        }
+        if (gameController.DoPlayerSetOrSummonedThisTurn()) {
+            throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
+        }
+        currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard());
+        currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
+        gameController.setDoPlayerSetOrSummonedThisTurn(true);
     }
 
     default void specialSummon(Cell cell) {

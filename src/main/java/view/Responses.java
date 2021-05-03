@@ -2,6 +2,13 @@ package view;
 
 public enum Responses {
     INVALID_COMMAND("Error: invalid command"),
+    USERNAME_AND_PASSWORD_DIDNT_MATCH("Error: Username and password didn't match!"),
+    MENU_NAVIGATION_NOT_POSSIBLE("Error: menu navigation is not possible"),
+    LOGIN_FIRST("Error: please login first!"),
+    MAIN_DECK_FULL("Error: main deck is full"),
+    SIDE_DECK_FULL("Error: side deck is full"),
+    NO_PLAYER_EXISTS("Error: there is no player with this username"),
+    NUMBER_OF_ROUNDS_NOT_SUPPORTED("Error: number of rounds is not supported"),
     LOGIN_SUCCESSFULLY("user logged in successfully"),
     CREATE_SUCCESSFULLY("user created successfully!"),
     LOGOUT_SUCCESSFULLY("user logged out successfully!"),

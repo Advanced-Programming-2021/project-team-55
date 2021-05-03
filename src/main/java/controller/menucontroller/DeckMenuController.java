@@ -6,6 +6,7 @@ import model.cards.Card;
 import model.cards.Deck;
 import view.Menus.Menu;
 import view.Menus.MenuType;
+import view.Responses;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,9 +64,9 @@ public class DeckMenuController extends MenuController {
         } else if (deck == null) {
             throw new MenuException("Error: deck with name " + deckName + " does not exist");
         } else if (deck.isMainDeckFull()) {
-            throw new MenuException("Error: main deck is full");
+            throw new MenuException(Responses.MAIN_DECK_FULL.response);
         } else if (deck.isSideDeckFull()) {
-            throw new MenuException("Error: side deck is full");
+            throw new MenuException(Responses.SIDE_DECK_FULL.response);
         } else if (deck.getCardCountInDeck(cardName) == 3) {
             throw new MenuException("Error: there are already three cards with name " + cardName + " in deck " + deckName);
         } else {
@@ -154,7 +155,7 @@ public class DeckMenuController extends MenuController {
 
     @Override
     public void enterMenu(String menu) throws MenuException {
-        throw new MenuException("Error: menu navigation is not possible");
+        throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
     }
 
     @Override

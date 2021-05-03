@@ -7,6 +7,7 @@ import model.User;
 import view.LoggerMessage;
 import view.Menus.Menu;
 import view.Menus.MenuType;
+import view.Responses;
 
 import java.io.IOException;
 
@@ -28,7 +29,7 @@ public class LoginMenuController extends MenuController {
     public void loginUser(String username, String password) throws MenuException {
         User user = User.getUserByUsername(username);
         if (user == null || !user.getPassword().equals(password)) {
-            throw new MenuException("Error: Username and password didn't match!");
+            throw new MenuException(Responses.USERNAME_AND_PASSWORD_DIDNT_MATCH.response);
         } else {
             Menu.currentMenu = MenuType.MAIN;
             User.setLoggedInUser(user);
@@ -47,16 +48,15 @@ public class LoginMenuController extends MenuController {
     @Override
     public void enterMenu(String menu) throws MenuException {
         if (User.loggedInUser == null) {
-            throw new MenuException("Error: please login first!");
+            throw new MenuException(Responses.LOGIN_FIRST.response);
         } else if (!menu.equals("Main")) {
-            throw new MenuException("Error: menu navigation is not possible");
+            throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
         }
         Menu.setCurrentMenu(MenuType.MAIN);
     }
 
     @Override
     public void exitMenu() {
-        DataBaseController dataBaseController = DataBaseController.getInstance();
         for (User user : User.getAllUsers()) {
             try {
                 DataBaseController.saveUserInfo(user);

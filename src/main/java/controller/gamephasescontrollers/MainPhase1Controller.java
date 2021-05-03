@@ -8,9 +8,6 @@ public class MainPhase1Controller implements methods, MainPhasesController {
     public MainPhase1Controller(GameController gameController){
         this.gameController=gameController;
     }
-    public void summon()throws GameException {
-
-    }
     public void set()throws GameException{
 
     }

@@ -1,9 +1,11 @@
 package model.board;
 
+import exceptions.GameException;
 import exceptions.MenuException;
 import model.cards.Card;
 import model.cards.Deck;
 import view.gamephases.Duel;
+import view.gamephases.GameResponses;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +22,11 @@ public class GameBoard {
 
     {
         areasNumber = new int[5];
+        areasNumber[0] = 2;
+        areasNumber[1] = 1;
+        areasNumber[2] = 3;
+        areasNumber[3] = 0;
+        areasNumber[4] = 4;
         //todo areas numbering should be handled here;
         monsterCardZone = new Cell[5];
         spellAndTrapCardZone = new Cell[5];
@@ -31,7 +38,7 @@ public class GameBoard {
         graveyard = new ArrayList<>();
         deckZone = new ArrayList<>();
         handCards = new ArrayList<>();
-        fieldZone=new Cell();
+        fieldZone = new Cell();
     }
 
     public GameBoard(Deck deck) {
@@ -72,14 +79,14 @@ public class GameBoard {
         return fieldZone;
     }
 
-    public void addCardToMonsterCardZone(Card card) throws MenuException {
+    public void addCardToMonsterCardZone(Card card) throws GameException {
         if (isMonsterCardZoneFull())
-            throw new MenuException("Error:monster card zone is full");
+            throw new GameException(GameResponses.MONSTER_ZONE_IS_FULL.response);
 
         for (int i = 0; i < 5; i++) {
-            if (monsterCardZone[i].isEmpty()) {
-                monsterCardZone[i].setCard(card);
-                monsterCardZone[i].setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
+            if (monsterCardZone[areasNumber[i]].isEmpty()) {
+                monsterCardZone[areasNumber[i]].setCard(card);
+                monsterCardZone[areasNumber[i]].setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
                 return;
             }
         }

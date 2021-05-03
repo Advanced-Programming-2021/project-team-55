@@ -8,6 +8,7 @@ import model.board.Game;
 import model.cards.Deck;
 import view.Menus.Menu;
 import view.Menus.MenuType;
+import view.Responses;
 
 public class DuelMenuController extends MenuController {
 
@@ -26,7 +27,7 @@ public class DuelMenuController extends MenuController {
 
     @Override
     public void enterMenu(String menu) throws MenuException {
-        throw new MenuException("Error: menu navigation is not possible");
+        throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
     }
 
     @Override
@@ -37,7 +38,7 @@ public class DuelMenuController extends MenuController {
     public GameController newPVPDuel(String secondPlayer, int rounds) throws MenuException {
         User rival = User.getUserByUsername(secondPlayer);
         if (rival == null) {
-            throw new MenuException("Error: there is no player with this username");
+            throw new MenuException(Responses.NO_PLAYER_EXISTS.response);
         } else if (User.loggedInUser.getActiveDeck() == null) {
             throw new MenuException("Error: "+User.loggedInUser.getUsername() + " has no active deck");
         } else if (rival.getActiveDeck() == null) {
@@ -50,7 +51,7 @@ public class DuelMenuController extends MenuController {
             } else if (!player2Deck.isDeckValid()) {
                 throw new MenuException("Error: "+rival.getUsername() + "’s deck is invalid");
             } else if (rounds != 1 && rounds != 3) {
-                throw new MenuException("Error: number of rounds is not supported");
+                throw new MenuException(Responses.NUMBER_OF_ROUNDS_NOT_SUPPORTED.response);
             } else {
                 Player player1 = new Player(User.loggedInUser, player1Deck);
                 Player player2 = new Player(rival, player2Deck);
@@ -62,7 +63,7 @@ public class DuelMenuController extends MenuController {
 
     public void newAIDuel(int rounds) throws MenuException {
         if (rounds != 1 && rounds != 3) {
-            throw new MenuException("Error: number of rounds is not supported");
+            throw new MenuException(Responses.NUMBER_OF_ROUNDS_NOT_SUPPORTED.response);
         } else {
             //TODO -->>Start ai game
         }

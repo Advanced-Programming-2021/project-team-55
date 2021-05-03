@@ -46,22 +46,7 @@ public class DuelMenu extends Menu {
             } catch (MenuException e) {
                 response = e.toString();
             }
-        } else if (command.matches(Regexes.SUMMON.regex)) {
-            try {
-                switch (Duel.gameController.getCurrentPhase()) {
-                    case MAIN1:
-                        Duel.gameController.getMainPhase1Controller().monsterSummon(Cell.getSelectedCell());
-                        break;
-                    case MAIN2:
-                        Duel.gameController.getMainPhase2Controller().monsterSummon(Cell.getSelectedCell());
-                        break;
-                    default:
-                        response = "Error: action not allowed in this phase";
-                }
-            } catch (MenuException e) {
-                response = e.toString();
-            }
-        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
+        }  else if (command.matches(Regexes.ENTER_MENU.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
             try {
                 duelMenuController.enterMenu(matcher.group(1));

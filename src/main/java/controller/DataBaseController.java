@@ -13,6 +13,7 @@ import model.cards.monsters.*;
 import model.cards.trapandspells.*;
 import view.Menus.Menu;
 import view.Menus.MenuType;
+import view.Responses;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class DataBaseController extends MenuController {
 
     @Override
     public void enterMenu(String menu) throws MenuException {
-        throw new MenuException("Error: menu navigation is not possible");
+        throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
     }
 
     @Override

@@ -4,6 +4,7 @@ import exceptions.MenuException;
 import model.User;
 import view.Menus.Menu;
 import view.Menus.MenuType;
+import view.Responses;
 
 public class MainMenuController extends MenuController {
 
@@ -53,7 +54,7 @@ public class MainMenuController extends MenuController {
                 break;
             }
             default: {
-                throw new MenuException("Error: menu navigation is not possible");
+                throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
             }
 
         }
