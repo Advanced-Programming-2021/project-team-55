@@ -8,6 +8,8 @@ public enum GameResponses {
     NO_CARDS_FOUND("Error: no card found in the given position"),
     NO_CARDS_SELECTED("Error: no card is selected yet"),
     MONSTER_ZONE_IS_FULL("Error: monster card zone is full"),
+    SPELL_ZONE_IS_FULL("Error: spell card zone is full"),
+    CANT_SET_CARD("Error: you can’t set this card"),
     CANT_SUMMON_CARD("Error: you can’t summon this card"),
     ALREADY_SUMMONED_SET_IN_THIS_TURN("Error: you already summoned/set on this turn"),
     CARD_SELECTED("card selected"),
