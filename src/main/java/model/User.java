@@ -258,7 +258,7 @@ public class User {
         initCards.add(new CommandKnight());
         initCards.add(new BlackPendant());
         addCardsToInventory(initCards);
-        Deck deckInit = new Deck("default deck");
+        Deck deckInit = new Deck("default");
         deckInit.addCardsToMainDeck(initCards);
         deckInit.setActive(true);
         this.activeDeck = deckInit;

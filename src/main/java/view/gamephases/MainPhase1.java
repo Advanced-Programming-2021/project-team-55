@@ -24,19 +24,23 @@ public class MainPhase1 extends Duel {
     @Override
     protected String processCommand(String command) {
         String response = "";
-        if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
+        if (!gameController.checkCommandIsInCurrentPhase(command)) {
+            response=GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
+        }
+        else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
             gameController.changePhase();
             showPhase(gameController);
-        } else if (command.matches(GameRegexes.SELECT.regex)) {
-            response = processSelect(command);
-        } else if (command.matches(GameRegexes.DESELECT.regex)) {
+        }
+        else if (command.matches(GameRegexes.DESELECT.regex)) {
             try {
                 gameController.deselect();
                 response = GameResponses.CARD_DESELECTED.response;
             } catch (GameException e) {
                 response = e.toString();
             }
-        } else if (command.matches(GameRegexes.SUMMON.regex)) {
+        }else if (command.matches(GameRegexes.SELECT.regex)) {
+            response = processSelect(command);
+        }  else if (command.matches(GameRegexes.SUMMON.regex)) {
             try {
                 mainPhase1Controller.monsterSummon(gameController);
                 response = GameResponses.SUMMONED_SUCCESSFULLY.response;
@@ -53,7 +57,7 @@ public class MainPhase1 extends Duel {
         } else if (command.matches(GameRegexes.SET_POSITION.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SET_POSITION.regex);
             try {
-                mainPhase1Controller.setPosition(matcher.group(1));
+                mainPhase1Controller.setPosition(matcher.group(1),gameController);
                 response = GameResponses.SET_POSITION_SUCCESSFULLY.response;
             } catch (GameException e) {
                 response = e.toString();
@@ -67,20 +71,7 @@ public class MainPhase1 extends Duel {
             }
         }
         //todo these attack methods should be moved to battle phase
-        else if (command.matches(GameRegexes.ATTACK.regex)) {
-            Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.ATTACK.regex);
-            try {
-                response = mainPhase1Controller.attack(Integer.parseInt(matcher.group(1)));
-            } catch (GameException e) {
-                response = e.toString();
-            }
-        } else if (command.matches(GameRegexes.ATTACK_DIRECT.regex)) {
-            try {
-                response = mainPhase1Controller.directAttack();
-            } catch (GameException e) {
-                response = e.toString();
-            }
-        } else if (command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {
+        else if (command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {
             try {
                 mainPhase1Controller.activateSpell();
                 response = GameResponses.SPELL_ACTIVATED.response;

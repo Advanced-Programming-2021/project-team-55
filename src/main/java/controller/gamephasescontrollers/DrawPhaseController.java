@@ -25,7 +25,7 @@ public class DrawPhaseController implements methods {
             return "Error: hand deck is full! no card added.";//todo check, پیام ارور رو پیدا نکردم توی داک ها هرچی گشتم
         }
         Card removedCard = player.getGameBoard().getDeckZone().get(0).getCellCard();
-        addCardToHandDeck(player, removedCard);
+        player.getGameBoard().addCardsToHandDeck(1);
         return "new card added to the hand : " + removedCard.getName();
     }
 

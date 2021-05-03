@@ -17,7 +17,7 @@ public class GameController {
     public Player currentTurnPlayer;
     public Player currentTurnOpponentPlayer;
     public GamePhase currentPhase = GamePhase.DRAW;
-    public ArrayList<Cell> changedPositionCells;
+    public ArrayList<Cell> changedPositionCells=new ArrayList<>();
     public ArrayList<Cell> attackerCellsThisTurn;
     private boolean didPlayerSetOrSummonThisTurn = false;
     protected Game game;
@@ -51,38 +51,38 @@ public class GameController {
     protected String showPhase() {
         return null;
     }
-
-    public void selectCard(String zone, int number, boolean opponent) throws
-            GameException {
+    //todo : should we deselect automatically when a command is done or not?
+    public void selectCard(String zone, int number, boolean opponent) throws GameException {
         GameBoard currentPlayerGameBoard = currentTurnPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = currentTurnOpponentPlayer.getGameBoard();
         Cell selectedCell = null;
         number -= 1;
+        int[]areasNumber=GameBoard.areasNumber;
         switch (zone) {
-            case "Monster": {
+            case "monster": {
                 if (number > 4) {
                     throw new GameException(GameResponses.INVALID_SELECTION.response);
                 } else {
                     if (opponent) {
-                        selectedCell = opponentPlayerGameBoard.getMonsterCardZone()[number];
+                        selectedCell = opponentPlayerGameBoard.getMonsterCardZone()[areasNumber[number]];
                     } else {
-                        selectedCell = currentPlayerGameBoard.getMonsterCardZone()[number];
+                        selectedCell = currentPlayerGameBoard.getMonsterCardZone()[areasNumber[number]];
                     }
                 }
                 break;
             }
-            case "Spell": {
+            case "spell": {
                 if (number > 4) {
                     throw new GameException(GameResponses.INVALID_SELECTION.response);
                 }
                 if (opponent) {
-                    selectedCell = opponentPlayerGameBoard.getSpellAndTrapCardZone()[number];
+                    selectedCell = opponentPlayerGameBoard.getSpellAndTrapCardZone()[areasNumber[number]];
                 } else {
-                    selectedCell = currentPlayerGameBoard.getSpellAndTrapCardZone()[number];
+                    selectedCell = currentPlayerGameBoard.getSpellAndTrapCardZone()[areasNumber[number]];
                 }
                 break;
             }
-            case "Field": {
+            case "field": {
                 if (opponent) {
                     selectedCell = opponentPlayerGameBoard.getFieldZone();
                 } else {
@@ -90,7 +90,7 @@ public class GameController {
                 }
                 break;
             }
-            case "Hand": {
+            case "hand": {
                 if (number >= currentPlayerGameBoard.getHandCards().size()) {
                     throw new GameException(GameResponses.INVALID_SELECTION.response);
 
@@ -109,7 +109,7 @@ public class GameController {
 
 
     public void deselect() throws GameException {
-        if (Cell.getSelectedCell() != null) {
+        if (Cell.getSelectedCell() == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
         Cell.setSelectedCell(null);
@@ -159,6 +159,7 @@ public class GameController {
         currentTurnPlayer = currentTurnOpponentPlayer;
         currentTurnOpponentPlayer = player;
         didPlayerSetOrSummonThisTurn = false;
+        changedPositionCells=new ArrayList<>();
         //todo update changedPositionCells & other fields
     }
 

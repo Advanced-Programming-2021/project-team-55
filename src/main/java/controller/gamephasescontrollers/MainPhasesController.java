@@ -2,10 +2,12 @@ package controller.gamephasescontrollers;
 
 import exceptions.GameException;
 import model.Player;
+import model.board.CardStatus;
 import model.board.Cell;
 import model.board.GameBoard;
 import model.cards.Card;
 import model.cards.Monster;
+import model.cards.SpellAndTrap;
 import view.ConsoleColors;
 import view.gamephases.GameResponses;
 
@@ -59,6 +61,34 @@ public interface MainPhasesController {
                 playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard);
                 playerGameBoard.getHandCards().remove(selectedCell);
 
+            }
+            Cell.setSelectedCell(null);
+        }
+    }
+    default void setPosition(String position,GameController gameController)throws GameException{
+        Cell cell=Cell.getSelectedCell();
+        GameBoard playerGameBoard=gameController.currentTurnPlayer.getGameBoard();
+        if(cell==null){
+            throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
+        }
+        else if(!playerGameBoard.cellIsInMonsterZone(cell)){
+            throw new GameException(GameResponses.CANT_CHANGE_CARD_POSITION.response);
+        }
+        else if(position.equals("attack")&&cell.getCardPosition()!= CardStatus.DEFENSIVE_OCCUPIED||
+        position.equals("defense")&&cell.getCardPosition()!=CardStatus.OFFENSIVE_OCCUPIED){
+            throw new GameException(GameResponses.CARD_IS_ALREADY_IN_WANTED_POSITION.response);
+        }
+        else if(gameController.changedPositionCells.contains(cell)){
+            throw new GameException(GameResponses.ALREADY_CHANGED_CARD_POSITION_IN_THIS_TURN.response);
+        }
+        else{
+            gameController.changedPositionCells.add(cell);
+            Cell.setSelectedCell(null);
+            if(position.equals("attack")){
+                cell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
+            }
+            else{
+                cell.setCardStatus(CardStatus.DEFENSIVE_OCCUPIED);
             }
         }
     }

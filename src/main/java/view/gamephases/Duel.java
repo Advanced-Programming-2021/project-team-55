@@ -63,7 +63,7 @@ abstract public class Duel {
         if (command.matches(GameRegexes.SELECT_MONSTER.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_MONSTER.regex);
             try {
-                gameController.selectCard("Monster", Integer.parseInt(matcher.group(1)),
+                gameController.selectCard("monster", Integer.parseInt(matcher.group(1)),
                         matcher.group(2) != null);
                 response = GameResponses.CARD_SELECTED.response;
             } catch (GameException e) {
@@ -72,7 +72,7 @@ abstract public class Duel {
         } else if (command.matches(GameRegexes.SELECT_SPELL.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_SPELL.regex);
             try {
-                gameController.selectCard("Spell", Integer.parseInt(matcher.group(1)), false);
+                gameController.selectCard("spell", Integer.parseInt(matcher.group(1)), false);
                 response = GameResponses.CARD_SELECTED.response;
             } catch (GameException e) {
                 response = e.toString();
@@ -80,7 +80,7 @@ abstract public class Duel {
         } else if (command.matches(GameRegexes.SELECT_OPPONENT_SPELL.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_OPPONENT_SPELL.regex);
             try {
-                gameController.selectCard("Spell", Integer.parseInt(matcher.group(1)),
+                gameController.selectCard("spell", Integer.parseInt(matcher.group(1)),
                         true);
                 response = GameResponses.CARD_SELECTED.response;
             } catch (GameException e) {
@@ -89,7 +89,7 @@ abstract public class Duel {
         } else if (command.matches(GameRegexes.SELECT_FIELDZONE.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_FIELDZONE.regex);
             try {
-                gameController.selectCard("Field", 0,
+                gameController.selectCard("field", 0,
                         matcher.group(1) != null);
                 response = GameResponses.CARD_SELECTED.response;
             } catch (GameException e) {
@@ -98,7 +98,7 @@ abstract public class Duel {
         } else if (command.matches(GameRegexes.SELECT_HAND.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_HAND.regex);
             try {
-                gameController.selectCard("Hand", Integer.parseInt(matcher.group(1)),
+                gameController.selectCard("hand", Integer.parseInt(matcher.group(1)),
                         false);
                 response = GameResponses.CARD_SELECTED.response;
             } catch (GameException e) {

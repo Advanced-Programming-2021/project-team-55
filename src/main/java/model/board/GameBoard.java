@@ -10,7 +10,7 @@ import java.util.Collections;
 
 public class GameBoard {
 
-    private final int[] areasNumber;
+    public static final int[] areasNumber;
     private final Cell[] monsterCardZone;
     private final ArrayList<Integer> cellsNumbering;
     private final ArrayList<Cell> graveyard;
@@ -18,7 +18,7 @@ public class GameBoard {
     private final ArrayList<Cell> deckZone;
     private final ArrayList<Cell> handCards;
     private final Cell fieldZone;
-
+    static
     {
         areasNumber = new int[5];
         areasNumber[0] = 2;
@@ -26,6 +26,8 @@ public class GameBoard {
         areasNumber[2] = 3;
         areasNumber[3] = 0;
         areasNumber[4] = 4;
+    }
+    {
         //todo areas numbering should be handled here;
         monsterCardZone = new Cell[5];
         spellAndTrapCardZone = new Cell[5];
@@ -48,6 +50,7 @@ public class GameBoard {
             cell.addCardToCell(card);
             deckZone.add(cell);
         }
+        addCardsToHandDeck(5);
     }
 
     public Cell[] getMonsterCardZone() {
@@ -70,14 +73,20 @@ public class GameBoard {
         return handCards;
     }
 
-    public int[] getAreasNumber() {
-        return areasNumber;
-    }
+
 
     public Cell getFieldZone() {
         return fieldZone;
     }
 
+    public boolean cellIsInMonsterZone(Cell cell){
+        for (int i = 0; i < 5; i++) {
+            if(monsterCardZone[i]==cell){
+                return true;
+            }
+        }
+        return false;
+    }
     public void addCardToMonsterCardZone(Card card) throws GameException {
         if (isMonsterCardZoneFull())
             throw new GameException(GameResponses.MONSTER_ZONE_IS_FULL.response);
@@ -123,7 +132,12 @@ public class GameBoard {
         }
     }
 
-    public void addCardToHandDeck(Card card) {
+    public void addCardsToHandDeck(int countCard) {
+        for (int i = 0; i < countCard; i++) {
+            Card card = deckZone.get(0).getCellCard();
+            handCards.add(new Cell(card));
+            deckZone.remove(0);
+        }
 //todo        آدرس کارت ͳکه در  handخود بازی΋ن است )که طبق قانون حداکثر  ۶کارت نیز
 //        هستند
     }

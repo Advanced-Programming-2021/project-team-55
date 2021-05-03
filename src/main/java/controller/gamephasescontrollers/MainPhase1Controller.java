@@ -9,9 +9,6 @@ public class MainPhase1Controller implements methods, MainPhasesController {
         this.gameController = gameController;
     }
 
-    public void setPosition(String position) throws GameException {
-
-    }
 
     public void flipSummon() throws GameException {
 

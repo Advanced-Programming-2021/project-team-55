@@ -1,4 +1,4 @@
-user login --username parham --password 1380
+user login --username parham --password 123
 menu enter Shop
 menu show-current
 shop buy Baby dragon
