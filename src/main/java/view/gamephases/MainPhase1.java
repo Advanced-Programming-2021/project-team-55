@@ -50,7 +50,7 @@ public class MainPhase1 extends Duel {
         }
         else if(command.matches(GameRegexes.SET.regex)){
             try {
-                mainPhase1Controller.set();
+                mainPhase1Controller.setCard(gameController);
                 response=GameResponses.SET_SUCCESSFULLY.response;
             }
             catch (GameException e){

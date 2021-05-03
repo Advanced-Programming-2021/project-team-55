@@ -1,11 +1,12 @@
 package controller.gamephasescontrollers;
 
 import exceptions.GameException;
-import exceptions.MenuException;
 import model.Player;
 import model.board.Cell;
 import model.board.GameBoard;
-import view.gamephases.Duel;
+import model.cards.Card;
+import model.cards.Monster;
+import view.ConsoleColors;
 import view.gamephases.GameResponses;
 
 public interface MainPhasesController {
@@ -32,8 +33,35 @@ public interface MainPhasesController {
         }
         currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard());
         currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
-        Cell.setSelectedCell(null);
-        gameController.setDoPlayerSetOrSummonedThisTurn(true);
+        gameController.setDidPlayerSetOrSummonThisTurn(true);
+    }
+    default void setCard(GameController gameController)throws GameException{
+        Cell selectedCell=Cell.getSelectedCell();
+        GameBoard playerGameBoard=gameController.getCurrentTurnPlayer().getGameBoard();
+        if(selectedCell==null){
+            throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
+        }
+        Card selectedCard=selectedCell.getCellCard();
+        if(selectedCard==null){
+            throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
+        }
+        else if(!playerGameBoard.getHandCards().contains(selectedCard)){
+            throw new GameException(GameResponses.CANT_SET_CARD.response);
+        }
+        else{
+            if(selectedCard instanceof Monster){
+                if(gameController.DoPlayerSetOrSummonedThisTurn()){
+                    throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
+                }
+                playerGameBoard.addCardToMonsterCardZone(selectedCard);
+                playerGameBoard.getHandCards().remove(selectedCell);
+                gameController.setDidPlayerSetOrSummonThisTurn(true);
+            }
+            else{
+                playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard);
+
+            }
+        }
     }
 
     default void specialSummon(Cell cell) {
@@ -85,7 +113,7 @@ public interface MainPhasesController {
     }
 
     default String showGameBoard(Player currentPlayer, Player opponentPlayer) {
-        String response = "\t\t" + opponentPlayer.getUser().getNickname() + ":" + opponentPlayer.getLP() + "\n";
+        String response = ConsoleColors.BLUE+ "\t\t" + opponentPlayer.getUser().getNickname() + ":" + opponentPlayer.getLP() + "\n";
         GameBoard playerGameBoard = currentPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = opponentPlayer.getGameBoard();
         for (int i = 0; i < 6 - opponentPlayerGameBoard.getHandCards().size(); i++) {
@@ -95,6 +123,7 @@ public interface MainPhasesController {
             response += "\tc";
         }
         response += "\n" + opponentPlayerGameBoard.getDeckZone().size() + "\n";
+        response+="\t4\t2\t1\t3\t5\n";
         for (int i = 0; i < 5; i++) {
             if (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentPlayerGameBoard.getAreasNumber()[4 - i]]
                     .getCellCard() == null) {
@@ -190,11 +219,12 @@ public interface MainPhasesController {
                 }
             }
         }
+        response+="\n\t5\t3\t1\t2\t4";
         response += "\n\t\t\t\t\t\t" + playerGameBoard.getDeckZone().size() + "\n";
         for (int i = 0; i < playerGameBoard.getHandCards().size(); i++) {
             response += "c\t";
         }
-        response += "\n\t\t" + currentPlayer.getUser().getNickname() + ":" + currentPlayer.getLP();
+        response += "\n\t\t" + currentPlayer.getUser().getNickname() + ":" + currentPlayer.getLP()+ConsoleColors.RESET;
         return response;
     }
 

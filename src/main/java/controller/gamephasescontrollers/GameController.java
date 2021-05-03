@@ -19,7 +19,7 @@ public class GameController {
     public GamePhase currentPhase = GamePhase.DRAW;
     public ArrayList<Cell> changedPositionCells;
     public ArrayList<Cell> attackerCellsThisTurn;
-    private boolean doPlayerSetOrSummonedThisTurn = false;
+    private boolean didPlayerSetOrSummonThisTurn = false;
     protected Game game;
     private DrawPhaseController drawPhaseController;
     private StandByPhaseController standByPhaseController;
@@ -158,7 +158,7 @@ public class GameController {
         Player player = currentTurnPlayer;
         currentTurnPlayer = currentTurnOpponentPlayer;
         currentTurnOpponentPlayer = player;
-        doPlayerSetOrSummonedThisTurn = false;
+        didPlayerSetOrSummonThisTurn = false;
         //todo update changedPositionCells & other fields
     }
 
@@ -179,11 +179,11 @@ public class GameController {
     }
 
     public boolean DoPlayerSetOrSummonedThisTurn() {
-        return doPlayerSetOrSummonedThisTurn;
+        return didPlayerSetOrSummonThisTurn;
     }
 
-    public void setDoPlayerSetOrSummonedThisTurn(boolean doPlayerSetOrSummonedThisTurn) {
-        this.doPlayerSetOrSummonedThisTurn = doPlayerSetOrSummonedThisTurn;
+    public void setDidPlayerSetOrSummonThisTurn(boolean didPlayerSetOrSummonThisTurn) {
+        this.didPlayerSetOrSummonThisTurn = didPlayerSetOrSummonThisTurn;
     }
 
     protected void nonMonsterActivate(Cell cell) {
