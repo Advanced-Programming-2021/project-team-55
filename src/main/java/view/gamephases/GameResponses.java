@@ -1,8 +1,7 @@
 package view.gamephases;
 
-import view.Responses;
-
 public enum GameResponses {
+
     INVALID_COMMAND("Error: invalid command"),
     INVALID_SELECTION("Error: invalid selection"),
     NO_CARDS_FOUND("Error: no card found in the given position"),
@@ -16,7 +15,8 @@ public enum GameResponses {
     SET_SUCCESSFULLY("set successfully"),
     SET_POSITION_SUCCESSFULLY("monster card position changed successfully"),
     FLIP_SUMMONED_SUCCESSFULLY("flip summoned successfully"),
-    SPELL_ACTIVATED("spell activated");
+    SPELL_ACTIVATED("spell activated"),
+    ACTION_NOT_ALLOWED_FOR_THIS_PHASE("Error: action not allowed in this phase");
 
 
     public final String response;
@@ -24,9 +24,10 @@ public enum GameResponses {
     GameResponses(String label) {
         this.response = label;
     }
-    public static boolean responseExists(String response){
-        for(GameResponses responses:GameResponses.values()){
-            if(responses.response.equals(response)){
+
+    public static boolean responseExists(String response) {
+        for (GameResponses responses : GameResponses.values()) {
+            if (responses.response.equals(response)) {
                 return true;
             }
         }

@@ -51,7 +51,7 @@ abstract public class Duel {
     }
 
     abstract protected void execute();
-    abstract protected String  processCommand(String command);
+    abstract protected String  processCommand(String command) throws GameException;
     protected static void showPhase(GameController gameController){
         ViewInterface.showResult("\nphase: "+gameController.getCurrentPhase().name);
     }
