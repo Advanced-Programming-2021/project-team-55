@@ -24,9 +24,11 @@ public enum GameResponses {
     FLIP_SUMMONED_SUCCESSFULLY("flip summoned successfully"),
     SPELL_ACTIVATED("spell activated"),
     ACTION_NOT_ALLOWED_FOR_THIS_PHASE("Error: action not allowed in this phase"),
-    CAN_NOT_ATTACK_WITH_THIS_CARD("you can’t attack with this card"),
-    CARD_ALREADY_ATTACKED("this card already attacked"),
-    CAN_NOT_DIRECT_ATTACK("you can’t attack the opponent directly");
+    CAN_NOT_ATTACK_WITH_THIS_CARD("Error: you can’t attack with this card"),
+    CARD_ALREADY_ATTACKED("Error: this card already attacked"),
+    CAN_NOT_DIRECT_ATTACK("Error: you can’t attack the opponent directly"),
+    CAN_NOT_CHANGE_CARD_POSITION("Error: you can’t change this card position"),
+    CAN_NOT_FLIP_SUMMON("Error: you can’t flip summon this card");
 
 
     public final String response;

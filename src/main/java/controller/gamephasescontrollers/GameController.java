@@ -58,6 +58,9 @@ public class GameController {
     public GameController() {
     }
 
+    public ArrayList<Cell> getChangedPositionCells() {
+        return changedPositionCells;
+    }
 
     public String showGraveyard() throws GameException {
         String response = "";

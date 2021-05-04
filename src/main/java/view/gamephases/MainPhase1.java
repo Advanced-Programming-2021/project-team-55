@@ -61,7 +61,7 @@ public class MainPhase1 extends Duel {
             }
         } else if (command.matches(GameRegexes.FLIP_SUMMON.regex)) {
             try {
-                mainPhase1Controller.flipSummon();
+                mainPhase1Controller.flipSummon(gameController);
                 response = GameResponses.FLIP_SUMMONED_SUCCESSFULLY.response;
             } catch (GameException e) {
                 response = e.toString();
