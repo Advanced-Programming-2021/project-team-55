@@ -26,6 +26,7 @@ public enum GameResponses {
     ACTION_NOT_ALLOWED_FOR_THIS_PHASE("Error: action not allowed in this phase");
 
 
+
     public final String response;
 
     GameResponses(String label) {
