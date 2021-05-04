@@ -3,10 +3,13 @@ package controller.gamephasescontrollers;
 import controller.CheatController;
 import exceptions.GameException;
 import model.Player;
+import model.User;
 import model.board.Cell;
 import model.board.Game;
 import model.board.GameBoard;
 import view.GameRegexes;
+import view.ViewInterface;
+import view.gamephases.Duel;
 import view.gamephases.GamePhase;
 import view.gamephases.GameResponses;
 
@@ -17,12 +20,13 @@ public class GameController {
     public static CheatController cheatController;
     public Player currentTurnPlayer;
     public Player currentTurnOpponentPlayer;
-    public GamePhase currentPhase = GamePhase.DRAW;
-    public ArrayList<Cell> changedPositionCells = new ArrayList<>();
-    public ArrayList<GamePhase> phases = new ArrayList<>();
+    public GamePhase currentPhase ;
+    public ArrayList<Cell> changedPositionCells ;
+    public ArrayList<GamePhase> phases ;
     public ArrayList<Cell> attackerCellsThisTurn;
-    private boolean didPlayerSetOrSummonThisTurn = false;
+    private boolean didPlayerSetOrSummonThisTurn ;
     protected Game game;
+    private int currentRound = 1;
     private DrawPhaseController drawPhaseController;
     private StandByPhaseController standByPhaseController;
     private MainPhase1Controller mainPhase1Controller;
@@ -30,9 +34,11 @@ public class GameController {
     private MainPhase2Controller mainPhase2Controller;
     private EndPhaseController endPhaseController;
 
-
-    public GameController(Game game) {
-        this.game = game;
+    private void gameControllerInitialization(){
+        currentPhase=GamePhase.DRAW;
+        changedPositionCells=new ArrayList<>();
+        phases=new ArrayList<>();
+        didPlayerSetOrSummonThisTurn=false;
         this.currentTurnPlayer = game.getFirstPlayer();
         this.currentTurnOpponentPlayer = game.getSecondPlayer();
         drawPhaseController = new DrawPhaseController(this);
@@ -41,6 +47,12 @@ public class GameController {
         battlePhaseController = new BattlePhaseController(this);
         mainPhase2Controller = new MainPhase2Controller(this);
         endPhaseController = new EndPhaseController(this);
+        currentTurnPlayer.resetGameBoard();
+        currentTurnOpponentPlayer.resetGameBoard();
+    }
+    public GameController(Game game) {
+        this.game = game;
+        gameControllerInitialization();
     }
 
     public GameController() {
@@ -215,12 +227,55 @@ public class GameController {
 
     }
 
-    protected void surrender() {
-
+    public void surrender() {
+        game.addWinner(currentTurnOpponentPlayer);
+        game.addLoser(currentTurnPlayer);
+        endGameRound();
     }
 
     protected void checkGameWinner() {
 
+    }
+
+    public void endGameRound() {
+        String response="";
+        Player winner = game.getWinners().get(currentRound - 1);
+        Player loser = game.getLosers().get(currentRound - 1);
+        response = calculateScoresAndMoney(winner, loser);
+        if (game.getRounds() == currentRound) {
+            Duel.setGameIsEnded(true);
+            ViewInterface.showResult(response);
+        }
+        else{
+            gameControllerInitialization();
+            currentRound++;
+            ViewInterface.showResult(response);
+            Duel.runGame(this);
+        }
+
+    }
+
+    private String calculateScoresAndMoney(Player winner, Player loser) {
+        User winnerUser = winner.getUser();
+        User loserUser = loser.getUser();
+        String response = winnerUser.getUsername() + " won the game and the score is: ";
+        game.increasePlayerScore(winner, 1000);
+        game.setPlayersLP(winner, winner.getLP());
+        game.setPlayersLP(loser, loser.getLP());
+        response += game.getPlayerScore(winner) + "-" + game.getPlayerScore(loser);
+        if (game.getRounds() == currentRound) {
+            winnerUser.changeScore(game.getPlayerScore(winner));
+            if (currentRound == 1) {
+                winnerUser.changeMoney(1000 + winner.getLP());
+                loserUser.changeMoney(100);
+            } else {
+                winnerUser.changeMoney(3000 + 3 * game.getPlayersMaxLP(winner));
+                loserUser.changeMoney(300);
+            }
+            response += "\n" + game.getWinner().getUser().getUsername() + " won the whole match with score: ";
+            response += game.getPlayerScore(winner) + "-" + game.getPlayerScore(loser);
+        }
+        return response;
     }
 
     public GamePhase getCurrentPhase() {

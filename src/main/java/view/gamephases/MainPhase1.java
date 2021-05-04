@@ -91,7 +91,9 @@ public class MainPhase1 extends Duel {
             }
         }
         //todo check whether we have handled all methods in this phase or not
-
+        else if(command.matches(GameRegexes.SURRENDER.regex)){
+            gameController.surrender();
+        }
         else {
             response = GameResponses.INVALID_COMMAND.response;
         }

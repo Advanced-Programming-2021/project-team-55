@@ -8,7 +8,7 @@ public class Player {
     private User user;
     private Deck playDeck;
     private int LP = 8000;
-    private final GameBoard playerGameBoard;
+    private  GameBoard playerGameBoard;
     private boolean isAI;
 
     public Player(User user, Deck playDeck) {
@@ -47,6 +47,11 @@ public class Player {
 
     public Deck getPlayDeck() {
         return playDeck;
+    }
+
+    public void resetGameBoard(){
+        //todo handle this:we can change the playDeck between rounds
+        playerGameBoard=new GameBoard(playDeck);
     }
 
 }
