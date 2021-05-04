@@ -25,7 +25,7 @@ public enum Regexes {
     EXPORT_CARD("^export card (.*)$"),
     DUEL_PLAYER("^duel --new --rounds (\\d+) --second-player (\\S+)$"),
     DUEL_AI("^duel --ai --new --rounds (\\d+)$"),
-    SUMMON("^summon$");
+    INCREASE_MONEY("^increase --money (\\d+)$");
 
     public final String regex;
 

@@ -52,6 +52,7 @@ public class Player {
     public void resetGameBoard(){
         //todo handle this:we can change the playDeck between rounds
         playerGameBoard=new GameBoard(playDeck);
+        setLP(8000);
     }
 
 }
