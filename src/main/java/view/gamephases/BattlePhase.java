@@ -8,6 +8,8 @@ import view.GameRegexes;
 import view.Regexes;
 import view.ViewInterface;
 
+import java.util.regex.Matcher;
+
 public class BattlePhase extends Duel {
     private static BattlePhaseController battlePhaseController;
 
@@ -37,29 +39,21 @@ public class BattlePhase extends Duel {
         } else if (command.matches(GameRegexes.DESELECT.regex)) {
             try {
                 gameController.deselect();
-                response=GameResponses.CARD_DESELECTED.response;
+                response = GameResponses.CARD_DESELECTED.response;
+            } catch (GameException e) {
+                response = e.toString();
             }
-            catch (GameException e){
-                response=e.toString();
-            }
-        }else if (command.matches(ATTACK.regex)) {
+        } else if (command.matches(GameRegexes.ATTACK.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.ATTACK.regex);
-            Cell attackedCell =((gameController.getCurrentTurnOpponentPlayer()).getGameBoard().getMonsterCardZone())[Integer.parseInt(matcher.group(1))];
+            Cell attackedCell = ((gameController.getCurrentTurnOpponentPlayer()).getGameBoard().getMonsterCardZone())[Integer.parseInt(matcher.group(1))];
             try {
-                response = battlePhaseController.attack(Cell.getSelectedCell(),attackedCell);
+                response = battlePhaseController.attack(Cell.getSelectedCell(), attackedCell);
 
             } catch (GameException e) {
                 response = e.toString();
             }
         } else if (command.matches(GameRegexes.SELECT.regex)) {
             response = processSelect(command);
-        } else if (command.matches(GameRegexes.ATTACK.regex)) {
-            Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.ATTACK.regex);
-           /* try {
-                response = battlePhaseController.attack(Integer.parseInt(matcher.group(1)));
-            } catch (GameException e) {
-                response = e.toString();
-            }*/
         } else if (command.matches(GameRegexes.ATTACK_DIRECT.regex)) {
            /* try {
                 response = battlePhaseController.directAttack();
@@ -80,11 +74,8 @@ public class BattlePhase extends Duel {
                 response = e.toString();
             }
 
-        }
-
-
-        else{
-            response=GameResponses.INVALID_COMMAND.response;
+        } else {
+            response = GameResponses.INVALID_COMMAND.response;
         }
         return response;
     }

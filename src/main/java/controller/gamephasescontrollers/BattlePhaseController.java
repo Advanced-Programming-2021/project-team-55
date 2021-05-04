@@ -25,7 +25,10 @@ public class BattlePhaseController implements methods {
         Card attackerCard = attackerCell.getCellCard();
         Card attackedCard = attackedCell.getCellCard();
         decreasePlayersDamage((Monster) attackerCard, (Monster) attackedCard);
-        if (isAttackerStronger((Monster) attackerCard, (Monster) attackedCard)) {
+        if (attackedCard ==null || attackerCard == null){
+
+        }
+        else if (isAttackerStronger((Monster) attackerCard, (Monster) attackedCard)) {
             removeCardFromCell(attackedCell);
             return "your opponent’s monster is destroyed and your opponent receives"
                     + calculateDamage((Monster) attackerCard, (Monster) attackedCard) + "battle damage";
