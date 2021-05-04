@@ -50,11 +50,11 @@ public class BattlePhase extends Duel {
         } else if (command.matches(GameRegexes.SELECT.regex)) {
             response = processSelect(command);
         } else if (command.matches(GameRegexes.ATTACK_DIRECT.regex)) {
-           /* try {
-                response = battlePhaseController.directAttack();
+            try {
+                response = battlePhaseController.directAttack(gameController);
             } catch (GameException e) {
                 response = e.toString();
-            }*/
+            }
         } else if (command.matches(GameRegexes.SHOW_CARD_SELECTED.regex)) {
             try {
                 response = gameController.showCard();
