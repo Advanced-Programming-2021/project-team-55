@@ -73,4 +73,8 @@ public class Cell {
         return card == null;
     }
 
+    public CardStatus getCardStatus() {
+        return cardStatus;
+    }
+
 }

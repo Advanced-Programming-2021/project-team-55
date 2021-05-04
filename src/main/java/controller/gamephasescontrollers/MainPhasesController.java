@@ -88,6 +88,21 @@ public interface MainPhasesController {
         }
     }
 
+    default void flipSummon(GameController gameController) throws GameException {
+        Player currentPlayer = gameController.currentTurnPlayer;
+        Cell selectedCell = Cell.getSelectedCell();
+        if (selectedCell == null) {
+            throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
+        }
+        if (!currentPlayer.getGameBoard().hasMonsterCardZoneCell(selectedCell)){
+            throw new GameException(GameResponses.CAN_NOT_CHANGE_CARD_POSITION.response);
+        }
+        //todo  ببینین ارور دوم رو درست هندل کردم: در همین دور تازه روی زمین گذاشته شده باشد
+        if (selectedCell.getCardStatus() != CardStatus.DEFENSIVE_HIDDEN || gameController.getChangedPositionCells().contains(selectedCell)){
+            throw new GameException(GameResponses.CAN_NOT_FLIP_SUMMON.response);
+        }
+        selectedCell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
+    }
 
     default void specialSummon(Cell cell) {
 
