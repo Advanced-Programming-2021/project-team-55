@@ -49,7 +49,10 @@ public class MainPhase2 extends Duel {
             } catch (GameException e) {
                 response = e.toString();
             }
-        } else {
+        }
+        else if(command.matches(GameRegexes.SURRENDER.regex)){
+            gameController.surrender();
+        }else {
             response = GameResponses.INVALID_COMMAND.response;
         }
         return response;

@@ -17,12 +17,14 @@ abstract public class Duel {
     private static final EndPhase endPhase = new EndPhase();
     private static final Graveyard graveyard = new Graveyard();
     public static GameController gameController;
+    private static boolean gameIsEnded;
 
     public static void runGame(GameController gameController) {
         Duel.gameController = gameController;
         gameController.phases.add(gameController.currentPhase);
         showPhase(gameController);
-        while (true) {
+        setGameIsEnded(false);
+        while (!gameIsEnded) {
             if (gameController.phases.get(gameController.phases.size() - 1) != gameController.currentPhase) {
                 gameController.phases.add(gameController.currentPhase);
             }
@@ -117,5 +119,9 @@ abstract public class Duel {
             response = GameResponses.INVALID_SELECTION.response;
         }
         return response;
+    }
+
+    public static void setGameIsEnded(boolean gameIsEnded) {
+        Duel.gameIsEnded = gameIsEnded;
     }
 }
