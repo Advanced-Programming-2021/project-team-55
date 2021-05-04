@@ -15,12 +15,17 @@ abstract public class Duel {
     private static final StandByPhase standByPhase = new StandByPhase();
     private static final MainPhase2 mainPhase2 = new MainPhase2();
     private static final EndPhase endPhase = new EndPhase();
+    private static final Graveyard graveyard = new Graveyard();
     public static GameController gameController;
 
     public static void runGame(GameController gameController) {
         Duel.gameController = gameController;
+        gameController.phases.add(gameController.currentPhase);
         showPhase(gameController);
         while (true) {
+            if (gameController.phases.get(gameController.phases.size() - 1) != gameController.currentPhase) {
+                gameController.phases.add(gameController.currentPhase);
+            }
             switch (gameController.getCurrentPhase()) {
                 case DRAW: {
                     drawPhase.execute();
@@ -46,13 +51,17 @@ abstract public class Duel {
                     endPhase.execute();
                     break;
                 }
+                case GRAVEYARD: {
+                    graveyard.execute();
+                    break;
+                }
             }
         }
     }
 
     abstract protected void execute();
 
-    abstract protected String processCommand(String command) throws GameException;
+    abstract protected String processCommand(String command);
 
     protected static void showPhase(GameController gameController) {
         ViewInterface.showResult("\nphase: " + gameController.getCurrentPhase().name);

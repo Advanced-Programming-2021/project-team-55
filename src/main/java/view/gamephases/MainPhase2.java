@@ -23,9 +23,8 @@ public class MainPhase2 extends Duel {
     protected String processCommand(String command) {
         String response = "";
         if (!gameController.checkCommandIsInCurrentPhase(command)) {
-            response=GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
-        }
-        else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
+            response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
+        } else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
             gameController.changePhase();
             showPhase(gameController);
         } else if (command.matches(GameRegexes.DESELECT.regex)) {
@@ -35,9 +34,22 @@ public class MainPhase2 extends Duel {
             } catch (GameException e) {
                 response = e.toString();
             }
-        }else if (command.matches(GameRegexes.SELECT.regex)) {
+        } else if (command.matches(GameRegexes.SELECT.regex)) {
             response = processSelect(command);
-        }  else {
+        } else if (command.matches(GameRegexes.SHOW_CARD_SELECTED.regex)) {
+            try {
+                response = gameController.showCard();
+            } catch (GameException e) {
+                response = e.toString();
+            }
+        } else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
+            try {
+                gameController.currentPhase = GamePhase.GRAVEYARD;
+                response = gameController.showGraveyard();
+            } catch (GameException e) {
+                response = e.toString();
+            }
+        } else {
             response = GameResponses.INVALID_COMMAND.response;
         }
         return response;

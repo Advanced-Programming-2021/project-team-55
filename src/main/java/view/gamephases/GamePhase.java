@@ -1,4 +1,4 @@
-package controller.gamephasescontrollers;
+package view.gamephases;
 
 public enum GamePhase {
 
@@ -7,7 +7,8 @@ public enum GamePhase {
     MAIN1("main phase 1"),
     BATTLE("battle phase"),
     MAIN2("main phase 2"),
-    END("end phase");
+    END("end phase"),
+    GRAVEYARD("graveyard");
     public String name;
 
     GamePhase(String name) {

@@ -25,22 +25,20 @@ public class MainPhase1 extends Duel {
     protected String processCommand(String command) {
         String response = "";
         if (!gameController.checkCommandIsInCurrentPhase(command)) {
-            response=GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
-        }
-        else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
+            response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
+        } else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
             gameController.changePhase();
             showPhase(gameController);
-        }
-        else if (command.matches(GameRegexes.DESELECT.regex)) {
+        } else if (command.matches(GameRegexes.DESELECT.regex)) {
             try {
                 gameController.deselect();
                 response = GameResponses.CARD_DESELECTED.response;
             } catch (GameException e) {
                 response = e.toString();
             }
-        }else if (command.matches(GameRegexes.SELECT.regex)) {
+        } else if (command.matches(GameRegexes.SELECT.regex)) {
             response = processSelect(command);
-        }  else if (command.matches(GameRegexes.SUMMON.regex)) {
+        } else if (command.matches(GameRegexes.SUMMON.regex)) {
             try {
                 mainPhase1Controller.monsterSummon(gameController);
                 response = GameResponses.SUMMONED_SUCCESSFULLY.response;
@@ -57,7 +55,7 @@ public class MainPhase1 extends Duel {
         } else if (command.matches(GameRegexes.SET_POSITION.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SET_POSITION.regex);
             try {
-                mainPhase1Controller.setPosition(matcher.group(1),gameController);
+                mainPhase1Controller.setPosition(matcher.group(1), gameController);
                 response = GameResponses.SET_POSITION_SUCCESSFULLY.response;
             } catch (GameException e) {
                 response = e.toString();
@@ -66,6 +64,19 @@ public class MainPhase1 extends Duel {
             try {
                 mainPhase1Controller.flipSummon();
                 response = GameResponses.FLIP_SUMMONED_SUCCESSFULLY.response;
+            } catch (GameException e) {
+                response = e.toString();
+            }
+        } else if (command.matches(GameRegexes.SHOW_CARD_SELECTED.regex)) {
+            try {
+                response = gameController.showCard();
+            } catch (GameException e) {
+                response = e.toString();
+            }
+        } else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
+            try {
+                gameController.currentPhase = GamePhase.GRAVEYARD;
+                response = gameController.showGraveyard();
             } catch (GameException e) {
                 response = e.toString();
             }

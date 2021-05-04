@@ -18,8 +18,8 @@ public class GameBoard {
     private final ArrayList<Cell> deckZone;
     private final ArrayList<Cell> handCards;
     private final Cell fieldZone;
-    static
-    {
+
+    static {
         areasNumber = new int[5];
         areasNumber[0] = 2;
         areasNumber[1] = 1;
@@ -27,6 +27,7 @@ public class GameBoard {
         areasNumber[3] = 0;
         areasNumber[4] = 4;
     }
+
     {
         //todo areas numbering should be handled here;
         monsterCardZone = new Cell[5];
@@ -74,19 +75,19 @@ public class GameBoard {
     }
 
 
-
     public Cell getFieldZone() {
         return fieldZone;
     }
 
-    public boolean cellIsInMonsterZone(Cell cell){
+    public boolean cellIsInMonsterZone(Cell cell) {
         for (int i = 0; i < 5; i++) {
-            if(monsterCardZone[i]==cell){
+            if (monsterCardZone[i] == cell) {
                 return true;
             }
         }
         return false;
     }
+
     public void addCardToMonsterCardZone(Card card) throws GameException {
         if (isMonsterCardZoneFull())
             throw new GameException(GameResponses.MONSTER_ZONE_IS_FULL.response);
@@ -103,6 +104,20 @@ public class GameBoard {
     private boolean isMonsterCardZoneFull() {
         for (int i = 0; i < 5; i++) {
             if (monsterCardZone[i].isEmpty()) return false;
+        }
+        return true;
+    }
+
+    public boolean isCellVisibleToOpponent(Cell cell) {
+        for (Cell cell1 : monsterCardZone) {
+            if (cell == cell1 && cell.getCardPosition() == CardStatus.DEFENSIVE_HIDDEN) {
+                return false;
+            }
+        }
+        for (Cell cell1 : spellAndTrapCardZone) {
+            if (cell == cell1 && cell.getCardPosition() == CardStatus.HIDDEN) {
+                return false;
+            }
         }
         return true;
     }

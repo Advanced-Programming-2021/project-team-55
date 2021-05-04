@@ -2,7 +2,6 @@ package controller.gamephasescontrollers;
 
 import exceptions.GameException;
 import model.board.Cell;
-import model.board.GameBoard;
 import model.cards.Card;
 import model.cards.Monster;
 
@@ -19,14 +18,13 @@ public class BattlePhaseController implements methods {
 
     }
 
-    public void attack( Cell attackerCell, Cell attackedCell)throws GameException {
+    public void attack(Cell attackerCell, Cell attackedCell) throws GameException {
         Card attackerCard = attackerCell.getCellCard();
         Card attackedCard = attackedCell.getCellCard();
         decreasePlayersDamage((Monster) attackerCard, (Monster) attackedCard);
-        if (isAttackerStronger((Monster) attackerCard, (Monster) attackedCard)){
+        if (isAttackerStronger((Monster) attackerCard, (Monster) attackedCard)) {
             removeCardFromCell(attackedCell);
-        }
-        else if (isAttackerAndAttackedPowerEqual((Monster) attackerCard, (Monster) attackedCard))
+        } else if (isAttackerAndAttackedPowerEqual((Monster) attackerCard, (Monster) attackedCard))
             return;
 
         //todo remove players cards
@@ -35,8 +33,7 @@ public class BattlePhaseController implements methods {
     private void decreasePlayersDamage(Monster attackerCard, Monster attackedCard) {
         if (isAttackerStronger(attackerCard, attackedCard)) {
             (gameController.getCurrentTurnPlayer()).decreaseLP(calculateDamage(attackerCard, attackedCard));
-        }
-        else {
+        } else {
             (gameController.getCurrentTurnOpponentPlayer()).decreaseLP(calculateDamage(attackerCard, attackedCard));
         }
     }

@@ -14,6 +14,8 @@ public enum GameResponses {
     CARD_IS_ALREADY_IN_WANTED_POSITION("Error: this card is already in the wanted position"),
     ALREADY_CHANGED_CARD_POSITION_IN_THIS_TURN("Error: you already changed this card position in this turn"),
     ALREADY_SUMMONED_SET_IN_THIS_TURN("Error: you already summoned/set on this turn"),
+    GRAVEYARD_EMPTY("Error: graveyard empty"),
+    CARD_IS_NOT_VISIBLE("Error: card is not visible"),
     CARD_SELECTED("card selected"),
     CARD_DESELECTED("card deselected"),
     SUMMONED_SUCCESSFULLY("summoned successfully"),

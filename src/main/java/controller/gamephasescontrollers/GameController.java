@@ -7,6 +7,7 @@ import model.board.Cell;
 import model.board.Game;
 import model.board.GameBoard;
 import view.GameRegexes;
+import view.gamephases.GamePhase;
 import view.gamephases.GameResponses;
 
 import java.util.ArrayList;
@@ -17,7 +18,8 @@ public class GameController {
     public Player currentTurnPlayer;
     public Player currentTurnOpponentPlayer;
     public GamePhase currentPhase = GamePhase.DRAW;
-    public ArrayList<Cell> changedPositionCells=new ArrayList<>();
+    public ArrayList<Cell> changedPositionCells = new ArrayList<>();
+    public ArrayList<GamePhase> phases = new ArrayList<>();
     public ArrayList<Cell> attackerCellsThisTurn;
     private boolean didPlayerSetOrSummonThisTurn = false;
     protected Game game;
@@ -44,20 +46,42 @@ public class GameController {
     public GameController() {
     }
 
-    protected String showGameBoards() {
-        return null;
+
+    public String showGraveyard() throws GameException {
+        String response = "";
+        GameBoard playerGameBoard = currentTurnPlayer.getGameBoard();
+        if (playerGameBoard.getGraveyard().size() == 0) {
+            throw new GameException(GameResponses.GRAVEYARD_EMPTY.response);
+        } else {
+            for (int i = 1; i <= playerGameBoard.getGraveyard().size(); i++) {
+                response += i + ". " + playerGameBoard.getGraveyard().get(i - 1).getCellCard();
+            }
+        }
+        return response;
     }
+
+    public String showCard() throws GameException {
+        if (Cell.getSelectedCell() == null) {
+            throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
+        } else if (!currentTurnOpponentPlayer.getGameBoard().isCellVisibleToOpponent(Cell.getSelectedCell())) {
+            throw new GameException(GameResponses.CARD_IS_NOT_VISIBLE.response);
+        } else {
+            return Cell.getSelectedCell().getCellCard().toString();
+        }
+    }
+
 
     protected String showPhase() {
         return null;
     }
+
     //todo : should we deselect automatically when a command is done or not?
     public void selectCard(String zone, int number, boolean opponent) throws GameException {
         GameBoard currentPlayerGameBoard = currentTurnPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = currentTurnOpponentPlayer.getGameBoard();
         Cell selectedCell = null;
         number -= 1;
-        int[]areasNumber=GameBoard.areasNumber;
+        int[] areasNumber = GameBoard.areasNumber;
         switch (zone) {
             case "monster": {
                 if (number > 4) {
@@ -159,7 +183,7 @@ public class GameController {
         currentTurnPlayer = currentTurnOpponentPlayer;
         currentTurnOpponentPlayer = player;
         didPlayerSetOrSummonThisTurn = false;
-        changedPositionCells=new ArrayList<>();
+        changedPositionCells = new ArrayList<>();
         //todo update changedPositionCells & other fields
     }
 

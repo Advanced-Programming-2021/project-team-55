@@ -7,7 +7,6 @@ import model.board.Cell;
 import model.board.GameBoard;
 import model.cards.Card;
 import model.cards.Monster;
-import model.cards.SpellAndTrap;
 import view.ConsoleColors;
 import view.gamephases.GameResponses;
 
@@ -27,7 +26,7 @@ public interface MainPhasesController {
         if (selectedCell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
-        if (!isSummonable(selectedCell)) {
+        if (!isSummonable(selectedCell.getCellCard())) {
             throw new GameException(GameResponses.CANT_SUMMON_CARD.response);
         }
         if (gameController.DoPlayerSetOrSummonedThisTurn()) {
@@ -65,33 +64,30 @@ public interface MainPhasesController {
             Cell.setSelectedCell(null);
         }
     }
-    default void setPosition(String position,GameController gameController)throws GameException{
-        Cell cell=Cell.getSelectedCell();
-        GameBoard playerGameBoard=gameController.currentTurnPlayer.getGameBoard();
-        if(cell==null){
+
+    default void setPosition(String position, GameController gameController) throws GameException {
+        Cell cell = Cell.getSelectedCell();
+        GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
+        if (cell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
-        }
-        else if(!playerGameBoard.cellIsInMonsterZone(cell)){
+        } else if (!playerGameBoard.cellIsInMonsterZone(cell)) {
             throw new GameException(GameResponses.CANT_CHANGE_CARD_POSITION.response);
-        }
-        else if(position.equals("attack")&&cell.getCardPosition()!= CardStatus.DEFENSIVE_OCCUPIED||
-        position.equals("defense")&&cell.getCardPosition()!=CardStatus.OFFENSIVE_OCCUPIED){
+        } else if (position.equals("attack") && cell.getCardPosition() != CardStatus.DEFENSIVE_OCCUPIED ||
+                position.equals("defense") && cell.getCardPosition() != CardStatus.OFFENSIVE_OCCUPIED) {
             throw new GameException(GameResponses.CARD_IS_ALREADY_IN_WANTED_POSITION.response);
-        }
-        else if(gameController.changedPositionCells.contains(cell)){
+        } else if (gameController.changedPositionCells.contains(cell)) {
             throw new GameException(GameResponses.ALREADY_CHANGED_CARD_POSITION_IN_THIS_TURN.response);
-        }
-        else{
+        } else {
             gameController.changedPositionCells.add(cell);
             Cell.setSelectedCell(null);
-            if(position.equals("attack")){
+            if (position.equals("attack")) {
                 cell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
-            }
-            else{
+            } else {
                 cell.setCardStatus(CardStatus.DEFENSIVE_OCCUPIED);
             }
         }
     }
+
 
     default void specialSummon(Cell cell) {
 
@@ -105,8 +101,8 @@ public interface MainPhasesController {
 
     }
 
-    default boolean isSummonable(Cell cell) {
-        return true;
+    default boolean isSummonable(Card card) {
+        return (card instanceof Monster);
     }
 
     default boolean isRitualSummonable(Cell cell) {
