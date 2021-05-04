@@ -15,20 +15,19 @@ public class BattlePhase extends Duel {
 
     @Override
     protected void execute() {
-        battlePhaseController = gameController.getBattlePhaseController();
+        /*battlePhaseController = gameController.getBattlePhaseController();
         String response;
         try {
             response = processCommand(ViewInterface.getInput());
         } catch (GameException e) {
             response = e.toString();
         }
-        ViewInterface.showResult(response);
+        ViewInterface.showResult(response);*/
     }
 
     @Override
-    protected String processCommand(String command) throws GameException {
-        if (!gameController.checkCommandIsInCurrentPhase(command))
-            throw new GameException(GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response);//todo add this to other phases
+    protected String processCommand(String command){
+        //todo add this to other phases
 
         String response = "";
         if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
