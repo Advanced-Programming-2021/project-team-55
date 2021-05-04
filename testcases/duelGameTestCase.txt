@@ -18,3 +18,16 @@ select --monster 5
 select --monster 1
 select --monster 2
 select --monster 3
+
+user create --username parham --nickname pari --password 123
+user create --username abolfazl --nickname abol --password 123
+user login --username parham --password 123
+menu enter Duel
+duel --new --second-player abolfazl --rounds 3
+select --hand 1
+summon
+
+next phase
+attack 1
+next phase
+next phase

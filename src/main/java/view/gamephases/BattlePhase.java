@@ -21,7 +21,7 @@ public class BattlePhase extends Duel {
     }
 
     @Override
-    protected String processCommand(String command){
+    protected String processCommand(String command) {
 
         String response = "";
         if (!gameController.checkCommandIsInCurrentPhase(command)) {

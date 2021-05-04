@@ -3,6 +3,8 @@ package model.board;
 import model.cards.Card;
 import model.cards.Monster;
 
+import static model.board.GameBoard.addCardToGraveyard;
+
 public class Cell {
 
     private static Cell selectedCell;
@@ -40,6 +42,7 @@ public class Cell {
     }
 
     public static void removeCardFromCell(Cell cell) {
+        addCardToGraveyard(cell.card);
         cell.card = null;
         cell.cardStatus = null;
     }
