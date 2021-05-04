@@ -7,6 +7,7 @@ import model.board.Game;
 import model.cards.Card;
 import model.cards.Monster;
 import view.gamephases.BattlePhase;
+import view.gamephases.GameResponses;
 
 import static model.board.Cell.removeCardFromCell;
 
@@ -62,8 +63,27 @@ public class BattlePhaseController implements methods {
     }
 
     public boolean canCardAttack(Card card) {
-        return false;
+        return true;
     }
 
+    public String directAttack(GameController gameController) throws GameException {
+        Player currentPlayer = gameController.currentTurnPlayer;
+        Cell selectedCell = Cell.getSelectedCell();
+        if (selectedCell == null) {
+            throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
+        }
+        if (!currentPlayer.getGameBoard().hasMonsterCardZoneCell(selectedCell)){
+            throw new GameException(GameResponses.CAN_NOT_ATTACK_WITH_THIS_CARD.response);
+        }
+        if (gameController.doCardAttackedThisTurn(selectedCell)){
+            throw new GameException(GameResponses.CARD_ALREADY_ATTACKED.response);
+        }
+        if (!gameController.canPlayerDirectAttack(selectedCell)){
+            throw new GameException(GameResponses.CAN_NOT_DIRECT_ATTACK.response);
+        }
+        Monster attackerMonster = (Monster) selectedCell.getCellCard();
+        gameController.getCurrentTurnOpponentPlayer().decreaseLP(attackerMonster.getAtk());
+        return "your opponent receives " + attackerMonster.getAtk() + " battle damage";
+    }
 
 }

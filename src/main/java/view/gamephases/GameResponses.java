@@ -23,8 +23,10 @@ public enum GameResponses {
     SET_POSITION_SUCCESSFULLY("monster card position changed successfully"),
     FLIP_SUMMONED_SUCCESSFULLY("flip summoned successfully"),
     SPELL_ACTIVATED("spell activated"),
-    ACTION_NOT_ALLOWED_FOR_THIS_PHASE("Error: action not allowed in this phase");
-
+    ACTION_NOT_ALLOWED_FOR_THIS_PHASE("Error: action not allowed in this phase"),
+    CAN_NOT_ATTACK_WITH_THIS_CARD("you can’t attack with this card"),
+    CARD_ALREADY_ATTACKED("this card already attacked"),
+    CAN_NOT_DIRECT_ATTACK("you can’t attack the opponent directly");
 
 
     public final String response;

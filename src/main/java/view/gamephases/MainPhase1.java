@@ -18,7 +18,6 @@ public class MainPhase1 extends Duel {
                 gameController.currentTurnOpponentPlayer));
         String response = processCommand(ViewInterface.getInput());
         ViewInterface.showResult(response);
-
     }
 
     @Override

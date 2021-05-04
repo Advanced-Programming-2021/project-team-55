@@ -21,8 +21,8 @@ public class GameController {
     public ArrayList<Cell> changedPositionCells = new ArrayList<>();
     public ArrayList<GamePhase> phases = new ArrayList<>();
     public ArrayList<Cell> attackerCellsThisTurn;
-    private boolean didPlayerSetOrSummonThisTurn = false;
     protected Game game;
+    private boolean didPlayerSetOrSummonThisTurn = false;
     private DrawPhaseController drawPhaseController;
     private StandByPhaseController standByPhaseController;
     private MainPhase1Controller mainPhase1Controller;
@@ -139,14 +139,6 @@ public class GameController {
         Cell.setSelectedCell(null);
     }
 
-    public void setCurrentTurnPlayer(Player currentTurnPlayer) {
-        this.currentTurnPlayer = currentTurnPlayer;
-    }
-
-    public void setCurrentTurnOpponentPlayer(Player currentTurnOpponentPlayer) {
-        this.currentTurnOpponentPlayer = currentTurnOpponentPlayer;
-    }
-
     public void changePhase() {
         switch (currentPhase) {
             case DRAW: {
@@ -235,8 +227,16 @@ public class GameController {
         return currentTurnPlayer;
     }
 
+    public void setCurrentTurnPlayer(Player currentTurnPlayer) {
+        this.currentTurnPlayer = currentTurnPlayer;
+    }
+
     public Player getCurrentTurnOpponentPlayer() {
         return currentTurnOpponentPlayer;
+    }
+
+    public void setCurrentTurnOpponentPlayer(Player currentTurnOpponentPlayer) {
+        this.currentTurnOpponentPlayer = currentTurnOpponentPlayer;
     }
 
     public DrawPhaseController getDrawPhaseController() {
@@ -274,5 +274,13 @@ public class GameController {
         return true;
     }
 
+    public boolean doCardAttackedThisTurn(Cell cell) {
+        return attackerCellsThisTurn.contains(cell);
+    }
+
+    public boolean canPlayerDirectAttack(Cell cell) {
+        if (currentTurnOpponentPlayer.getGameBoard().isMonsterCardZoneEmpty()) return false;
+        return true;//todo طبق داک ممکنه دلایل دیگه هم وجود داشته باشه
+    }
 
 }

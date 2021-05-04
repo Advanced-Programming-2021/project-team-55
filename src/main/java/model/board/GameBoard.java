@@ -108,6 +108,20 @@ public class GameBoard {
         return true;
     }
 
+    public boolean isMonsterCardZoneEmpty() {
+        for (int i = 0; i < 5; i++) {
+            if (!monsterCardZone[i].isEmpty()) return false;
+        }
+        return true;
+    }
+
+    public boolean hasMonsterCardZoneCell(Cell cell) {
+        for (int i = 0; i < 5; i++) {
+           if (monsterCardZone[i] == cell) return true;
+        }
+        return false;
+    }
+
     public boolean isCellVisibleToOpponent(Cell cell) {
         for (Cell cell1 : monsterCardZone) {
             if (cell == cell1 && cell.getCardPosition() == CardStatus.DEFENSIVE_HIDDEN) {

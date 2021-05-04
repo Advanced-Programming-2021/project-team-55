@@ -20,11 +20,6 @@ public class MainPhase1Controller implements methods, MainPhasesController {
 
     }
 
-    public String directAttack() throws GameException {
-        //TODO : it should return : your opponent received damage
-        return "";
-    }
-
     public void activateSpell() throws GameException {
     }
 
