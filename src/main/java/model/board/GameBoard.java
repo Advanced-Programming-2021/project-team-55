@@ -13,14 +13,14 @@ public class GameBoard {
     public static final int[] areasNumber;
     private final Cell[] monsterCardZone;
     private final ArrayList<Integer> cellsNumbering;
-    private static final ArrayList<Cell> graveyard;
+    private  final ArrayList<Cell> graveyard;
     private final Cell[] spellAndTrapCardZone;
     private final ArrayList<Cell> deckZone;
     private final ArrayList<Cell> handCards;
     private final Cell fieldZone;
 
     static {
-        graveyard = new ArrayList<>();
+
         areasNumber = new int[5];
         areasNumber[0] = 2;
         areasNumber[1] = 1;
@@ -41,6 +41,7 @@ public class GameBoard {
         deckZone = new ArrayList<>();
         handCards = new ArrayList<>();
         fieldZone = new Cell();
+        graveyard = new ArrayList<>();
     }
 
     public GameBoard(Deck deck) {
@@ -144,7 +145,7 @@ public class GameBoard {
     }
 
 
-    public static void addCardToGraveyard(Card card) {
+    public void addCardToGraveyard(Card card) {
         graveyard.add(new Cell(card));
     }
 

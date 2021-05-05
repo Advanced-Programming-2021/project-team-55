@@ -3,7 +3,6 @@ package model.board;
 import model.cards.Card;
 import model.cards.Monster;
 
-import static model.board.GameBoard.addCardToGraveyard;
 
 public class Cell {
 
@@ -41,10 +40,10 @@ public class Cell {
         setCard(card);
     }
 
-    public static void removeCardFromCell(Cell cell) {
-        addCardToGraveyard(cell.card);
-        cell.card = null;
-        cell.cardStatus = null;
+    public void removeCardFromCell(GameBoard gameBoard) {
+        gameBoard.addCardToGraveyard(this.card);
+        this.card = null;
+        this.cardStatus = null;
     }
 
     public void setCard(Card card) {
@@ -74,8 +73,6 @@ public class Cell {
     }
 
     public int getPower() {
-        Card card = this.getCellCard();
-        System.out.println(cardStatus);
         switch (cardStatus) {
             case DEFENSIVE_OCCUPIED:
             case DEFENSIVE_HIDDEN:

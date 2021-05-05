@@ -69,7 +69,12 @@ abstract public class Duel {
     abstract protected String processCommand(String command);
 
     protected static void showPhase(GameController gameController) {
-        ViewInterface.showResult("\nphase: " + gameController.getCurrentPhase().name);
+        String response="";
+        if(gameController.currentPhase==GamePhase.DRAW){
+            response+="its " + gameController.getCurrentTurnPlayer().getUser().getNickname() + "'s turn";
+        }
+        response+="\nphase: " + gameController.getCurrentPhase().name;
+        ViewInterface.showResult(response);
     }
 
     protected String processSelect(String command) {

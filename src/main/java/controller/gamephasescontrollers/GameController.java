@@ -240,7 +240,9 @@ public class GameController {
     }
     public void endDuel(){
         currentRound=game.getRounds();
-        game.setPlayerScore(currentTurnPlayer,2000);
+        if(game.getRounds()==3) {
+            game.setPlayerScore(currentTurnPlayer, 2000);
+        }
         endGameRound(currentTurnPlayer,currentTurnOpponentPlayer);
     }
     public void endGameRound(Player winner,Player loser) {
