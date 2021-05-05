@@ -79,9 +79,9 @@ public class BattlePhaseController implements methods {
 
     private void decreasePlayersDamage(Cell attackerCell, Cell attackedCell) {
         if (isAttackerStronger(attackerCell, attackedCell))
-            (gameController.getCurrentTurnPlayer()).decreaseLP(calculateDamage(attackerCell, attackedCell));
-        else
             (gameController.getCurrentTurnOpponentPlayer()).decreaseLP(calculateDamage(attackerCell, attackedCell));
+        else
+            (gameController.getCurrentTurnPlayer()).decreaseLP(calculateDamage(attackerCell, attackedCell));
     }
 
     public boolean isAttackerStronger(Cell attackerCell, Cell attackedCell) {
