@@ -25,55 +25,59 @@ public class BattlePhaseController implements methods {
 
     public String attack(Cell attackerCell, Cell attackedCell) throws GameException {
         System.out.println("in attack");
-        Card attackerCard = attackerCell.getCellCard();
-        Card attackedCard = attackedCell.getCellCard();
-        if (attackerCard == null)
+        //Card attackerCard = attackerCell.getCellCard();
+        //Card attackedCard = attackedCell.getCellCard();
+        if (attackerCell.getCellCard() == null)
             return "Error: no card is selected yet";
-        else if (attackedCard == null)
+        else if (attackedCell.getCellCard() == null)
             return "Error: there is no card to attack here";
 
-
-        if (isAttackerStronger((Monster) attackerCard, (Monster) attackedCard)) {
-            decreasePlayersDamage((Monster) attackerCard, (Monster) attackedCard);
+        System.out.println("no null");
+        if (isAttackerStronger(attackerCell, attackedCell)) {
+            System.out.println("is stronger");
+            decreasePlayersDamage(attackerCell, attackedCell);
             removeCardFromCell(attackedCell);
             return "your opponent’s monster is destroyed and your opponent receives"
-                    + calculateDamage((Monster) attackerCard, (Monster) attackedCard) + "battle damage";
-        } else if (((Monster) attackedCard).getCardStatus() == OFFENSIVE_OCCUPIED) {
-            if (isAttackerAndAttackedPowerEqual((Monster) attackerCard, (Monster) attackedCard)) {
+                    + calculateDamage(attackerCell, attackedCell) + "battle damage";
+        } else if (attackedCell.getCardPosition() == OFFENSIVE_OCCUPIED) {
+            System.out.println("not stronger");
+            if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
                 removeCardFromCell(attackedCell);
                 removeCardFromCell(attackerCell);
                 return "both you and your opponent monster cards are destroyed and no one receives damage";
             } else {
-                decreasePlayersDamage((Monster) attackerCard, (Monster) attackedCard);
+                decreasePlayersDamage(attackerCell, attackedCell);
                 removeCardFromCell(attackerCell);
                 return "Your monster card is destroyed and you received" +
-                        calculateDamage((Monster) attackerCard, (Monster) attackedCard) + "battle damage";
+                        calculateDamage(attackerCell, attackedCell) + "battle damage";
             }
 
         } else {
+            System.out.println("non of them");
 
         }
+        System.out.println("baghali");
         return null;
         //todo remove players cards
     }
 
-    private void decreasePlayersDamage(Monster attackerCard, Monster attackedCard) {
-        if (isAttackerStronger(attackerCard, attackedCard))
-            (gameController.getCurrentTurnPlayer()).decreaseLP(calculateDamage(attackerCard, attackedCard));
+    private void decreasePlayersDamage(Cell attackerCell, Cell attackedCell) {
+        if (isAttackerStronger(attackerCell, attackedCell))
+            (gameController.getCurrentTurnPlayer()).decreaseLP(calculateDamage(attackerCell, attackedCell));
         else
-            (gameController.getCurrentTurnOpponentPlayer()).decreaseLP(calculateDamage(attackerCard, attackedCard));
+            (gameController.getCurrentTurnOpponentPlayer()).decreaseLP(calculateDamage(attackerCell, attackedCell));
     }
 
-    public boolean isAttackerStronger(Monster attackerCard, Monster attackedCard) {
-        return attackerCard.getPower() > attackedCard.getPower();
+    public boolean isAttackerStronger(Cell attackerCell, Cell attackedCell) {
+        return attackerCell.getPower() > attackedCell.getPower();
     }
 
-    public boolean isAttackerAndAttackedPowerEqual(Monster attackerCard, Monster attackedCard) {
-        return attackerCard.getPower() == attackedCard.getPower();
+    public boolean isAttackerAndAttackedPowerEqual(Cell attackerCell, Cell attackedCell) {
+        return attackerCell.getPower() == attackedCell.getPower();
     }
 
-    public int calculateDamage(Monster attackerCard, Monster attackedCard) {
-        int damage = attackedCard.getPower() - attackerCard.getPower();
+    public int calculateDamage(Cell attackerCell, Cell attackedCell) {
+        int damage = attackedCell.getPower() - attackerCell.getPower();
         if (damage >= 0)
             return damage;
         else

@@ -4,6 +4,7 @@ import model.board.CardStatus;
 import model.cards.cardfeaturesenums.CardType;
 import model.cards.cardfeaturesenums.MonsterAttribute;
 import model.cards.cardfeaturesenums.MonsterType;
+import model.cards.monsters.AxeRaider;
 
 public abstract class Monster extends Card {
 
@@ -26,17 +27,6 @@ public abstract class Monster extends Card {
         this.cardType = cardType;
     }
 
-    public int getPower() {
-        switch (cardStatus) {
-            case DEFENSIVE_OCCUPIED:
-                return this.def;
-            case DEFENSIVE_HIDDEN:
-                return this.def;
-            case OFFENSIVE_OCCUPIED:
-                return this.atk;
-        }
-        return 0;//todo add exception here
-    }
 
     public int getAtk() {
         return atk;
@@ -93,4 +83,9 @@ public abstract class Monster extends Card {
     public void setCardStatus(CardStatus cardStatus) {
         this.cardStatus = cardStatus;
     }
+    public static void main(String[] args) {
+        Monster monster = new AxeRaider();
+
+    }
 }
+

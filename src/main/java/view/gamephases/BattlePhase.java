@@ -40,7 +40,7 @@ public class BattlePhase extends Duel {
             }
         } else if (command.matches(GameRegexes.ATTACK.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.ATTACK.regex);
-            Cell attackedCell = ((gameController.getCurrentTurnOpponentPlayer()).getGameBoard().getMonsterCardZone())[Integer.parseInt(matcher.group(1))];
+            Cell attackedCell = ((gameController.getCurrentTurnOpponentPlayer()).getGameBoard().getMonsterCardZone())[Integer.parseInt(matcher.group(1))-1];
             try {
                 response = battlePhaseController.attack(Cell.getSelectedCell(), attackedCell);
 

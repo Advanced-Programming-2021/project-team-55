@@ -24,7 +24,7 @@ user create --username abolfazl --nickname abol --password 123
 user login --username parham --password 123
 menu enter Duel
 duel --new --second-player abolfazl --rounds 3
-select --hand 1
+select --hand 3
 summon
 
 next phase

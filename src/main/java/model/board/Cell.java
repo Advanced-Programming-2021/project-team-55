@@ -11,7 +11,7 @@ public class Cell {
 
     private Card card;
 
-    private CardStatus cardStatus;
+    public CardStatus cardStatus;
 
     public Cell() {
     }
@@ -75,6 +75,18 @@ public class Cell {
 
     public CardStatus getCardStatus() {
         return cardStatus;
+    }
+
+    public int getPower() {
+        switch (cardStatus) {
+            case DEFENSIVE_OCCUPIED:
+                return ((Monster)this.getCellCard()).getDef();
+            case DEFENSIVE_HIDDEN:
+                return ((Monster)this.getCellCard()).getDef();
+            case OFFENSIVE_OCCUPIED:
+                return ((Monster)this.getCellCard()).getAtk();
+        }
+        return 0;//todo add exception here
     }
 
 }
