@@ -200,6 +200,7 @@ public class GameController {
         didPlayerSetOrSummonThisTurn = false;
         changedPositionCells = new ArrayList<>();
         //todo update changedPositionCells & other fields
+        //todo reset attacked arraylist
     }
 
     protected String showGraveyard(Player player) {
