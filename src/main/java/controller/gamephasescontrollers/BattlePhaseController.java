@@ -25,56 +25,58 @@ public class BattlePhaseController implements methods {
     }
 
     public String attack(Cell attackerCell, Cell attackedCell) throws GameException {
+        String response="";
         if (attackerCell.getCellCard() == null)
-            return "Error: no card is selected yet";
+            response="Error: no card is selected yet";
         else if (attackedCell.getCellCard() == null)
-            return "Error: there is no card to attack here";
+            response= "Error: there is no card to attack here";
 
         if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
             if (isAttackerStronger(attackerCell, attackedCell)) {
                 decreasePlayersDamage(attackerCell, attackedCell);
                 removeCardFromCell(attackedCell);
-                return "your opponent’s monster is destroyed and your opponent receives"
+                response= "your opponent’s monster is destroyed and your opponent receives"
                         + calculateDamage(attackerCell, attackedCell) + "battle damage";
             } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
                 removeCardFromCell(attackedCell);
                 removeCardFromCell(attackerCell);
-                return "both you and your opponent monster cards are destroyed and no one receives damage";
+                response= "both you and your opponent monster cards are destroyed and no one receives damage";
             } else {
                 decreasePlayersDamage(attackerCell, attackedCell);
                 removeCardFromCell(attackerCell);
-                return "Your monster card is destroyed and you received" +
+                response= "Your monster card is destroyed and you received" +
                         calculateDamage(attackerCell, attackedCell) + "battle damage";
             }
         } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
-            System.out.println("non of them");
+           // System.out.println("non of them");
             if (isAttackerStronger(attackerCell, attackedCell)) {
                 //decreasePlayersDamage(attackerCell, attackedCell);
                 removeCardFromCell(attackedCell);
-                return "the defense position monster is destroyed";
+                response= "the defense position monster is destroyed";
             } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell))
-                return "no card is destroyed";
+                response= "no card is destroyed";
             else {
                 decreasePlayersDamage(attackerCell, attackedCell);
-                return "no card is destroyed and you received" +
+                response= "no card is destroyed and you received" +
                         calculateDamage(attackerCell, attackedCell) + "battle damage";
             }
         } else {
             if (isAttackerStronger(attackerCell, attackedCell)) {
                 //decreasePlayersDamage(attackerCell, attackedCell);
                 removeCardFromCell(attackedCell);
-                return "opponent’s monster card was" +
+                response= "opponent’s monster card was" +
                         attackedCell.getCellCard().getName() + "the defense position monster is destroyed";
             } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell))
-                return "opponent’s monster card was" +
+                response="opponent’s monster card was" +
                         attackedCell.getCellCard().getName() + "and no card is destroyed";
             else {
                 decreasePlayersDamage(attackerCell, attackedCell);
-                return "opponent’s monster card was" + attackedCell.getCellCard().getName() +
+                response= "opponent’s monster card was" + attackedCell.getCellCard().getName() +
                         "and no card is destroyed and you received" +
                         calculateDamage(attackerCell, attackedCell) + "battle damage";
             }
         }
+        return response;
     }
 
     private void decreasePlayersDamage(Cell attackerCell, Cell attackedCell) {

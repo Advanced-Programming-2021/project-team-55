@@ -44,7 +44,22 @@ public class MainPhase2 extends Duel {
             } catch (GameException e) {
                 response = e.toString();
             }
-        } else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
+        }
+        else if (command.matches(GameRegexes.SUMMON.regex)) {
+            try {
+                mainPhase2Controller.monsterSummon(gameController);
+                response = GameResponses.SUMMONED_SUCCESSFULLY.response;
+            } catch (GameException e) {
+                response = e.toString();
+            }
+        } else if (command.matches(GameRegexes.SET.regex)) {
+            try {
+                mainPhase2Controller.setCard(gameController);
+                response = GameResponses.SET_SUCCESSFULLY.response;
+            } catch (GameException e) {
+                response = e.toString();
+            }
+        }else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
             try {
                 gameController.currentPhase = GamePhase.GRAVEYARD;
                 response = gameController.showGraveyard();
