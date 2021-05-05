@@ -9,6 +9,7 @@ import model.cards.Monster;
 import view.gamephases.BattlePhase;
 import view.gamephases.GameResponses;
 
+import static model.board.CardStatus.DEFENSIVE_OCCUPIED;
 import static model.board.CardStatus.OFFENSIVE_OCCUPIED;
 import static model.board.Cell.removeCardFromCell;
 
@@ -52,13 +53,30 @@ public class BattlePhaseController implements methods {
                         calculateDamage(attackerCell, attackedCell) + "battle damage";
             }
 
-        } else {
+        } else if (attackedCell.getCardPosition() == DEFENSIVE_OCCUPIED) {
             System.out.println("non of them");
+            if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell))
+                return "no card is destroyed";
+            else {
+                decreasePlayersDamage(attackerCell, attackedCell);
+                return "no card is destroyed and you received" +
+                        calculateDamage(attackerCell, attackedCell) + "battle damage";
 
+            }
+
+
+        } else {
+            if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell))
+                return "opponent’s monster card was" +
+                        attackedCell.getCellCard().getName() + "and no card is destroyed";
+            else {
+                decreasePlayersDamage(attackerCell, attackedCell);
+                return "opponent’s monster card was" + attackedCell.getCellCard().getName() +
+                        "and no card is destroyed and you received" +
+                        calculateDamage(attackerCell, attackedCell) + "battle damage";
+
+            }
         }
-        System.out.println("baghali");
-        return null;
-        //todo remove players cards
     }
 
     private void decreasePlayersDamage(Cell attackerCell, Cell attackedCell) {
