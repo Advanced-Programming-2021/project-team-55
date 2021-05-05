@@ -34,25 +34,24 @@ public class BattlePhaseController implements methods {
         if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
             if (isAttackerStronger(attackerCell, attackedCell)) {
                 decreasePlayersDamage(attackerCell, attackedCell);
-                removeCardFromCell(attackedCell);
                 response= "your opponent’s monster is destroyed and your opponent receives"
                         + calculateDamage(attackerCell, attackedCell) + "battle damage";
+                removeCardFromCell(attackedCell);
             } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
+                response= "both you and your opponent monster cards are destroyed and no one receives damage";
                 removeCardFromCell(attackedCell);
                 removeCardFromCell(attackerCell);
-                response= "both you and your opponent monster cards are destroyed and no one receives damage";
             } else {
                 decreasePlayersDamage(attackerCell, attackedCell);
-                removeCardFromCell(attackerCell);
                 response= "Your monster card is destroyed and you received" +
                         calculateDamage(attackerCell, attackedCell) + "battle damage";
+                removeCardFromCell(attackerCell);
             }
         } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
-           // System.out.println("non of them");
             if (isAttackerStronger(attackerCell, attackedCell)) {
                 //decreasePlayersDamage(attackerCell, attackedCell);
-                removeCardFromCell(attackedCell);
                 response= "the defense position monster is destroyed";
+                removeCardFromCell(attackedCell);
             } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell))
                 response= "no card is destroyed";
             else {
@@ -62,10 +61,9 @@ public class BattlePhaseController implements methods {
             }
         } else {
             if (isAttackerStronger(attackerCell, attackedCell)) {
-                //decreasePlayersDamage(attackerCell, attackedCell);
-                removeCardFromCell(attackedCell);
                 response= "opponent’s monster card was" +
                         attackedCell.getCellCard().getName() + "the defense position monster is destroyed";
+                removeCardFromCell(attackedCell);
             } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell))
                 response="opponent’s monster card was" +
                         attackedCell.getCellCard().getName() + "and no card is destroyed";
