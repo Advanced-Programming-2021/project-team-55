@@ -47,7 +47,6 @@ public class BattlePhaseController implements methods {
                         calculateDamage(attackerCell, attackedCell) + "battle damage";
             }
         } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
-            System.out.println("non of them");
             if (isAttackerStronger(attackerCell, attackedCell)) {
                 //decreasePlayersDamage(attackerCell, attackedCell);
                 removeCardFromCell(attackedCell);
