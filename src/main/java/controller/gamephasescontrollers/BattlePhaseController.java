@@ -26,12 +26,12 @@ public class BattlePhaseController implements methods {
 
     public String attack(Cell attackerCell, Cell attackedCell) throws GameException {
         String response="";
-        if (attackerCell.getCellCard() == null)
+        if (attackerCell == null)
             response="Error: no card is selected yet";
-        else if (attackedCell.getCellCard() == null)
+        else if (attackedCell== null)
             response= "Error: there is no card to attack here";
 
-        if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
+        else if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
             if (isAttackerStronger(attackerCell, attackedCell)) {
                 decreasePlayersDamage(attackerCell, attackedCell);
                 response= "your opponent’s monster is destroyed and your opponent receives"
