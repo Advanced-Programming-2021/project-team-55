@@ -28,7 +28,7 @@ public class BattlePhaseController implements methods {
         String response="";
         if (attackerCell == null)
             response="Error: no card is selected yet";
-        else if (attackedCell== null)
+        else if (attackedCell.getCellCard()== null)
             response= "Error: there is no card to attack here";
 
         else if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
