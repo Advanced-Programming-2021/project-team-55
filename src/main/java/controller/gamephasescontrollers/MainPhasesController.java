@@ -7,6 +7,7 @@ import model.board.Cell;
 import model.board.GameBoard;
 import model.cards.Card;
 import model.cards.Monster;
+import model.cards.SpellAndTrap;
 import view.ConsoleColors;
 import view.gamephases.GameResponses;
 
@@ -26,10 +27,10 @@ public interface MainPhasesController {
         if (selectedCell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
-        if (!isSummonable(selectedCell.getCellCard())) {
+        else if (!isSummonable(selectedCell.getCellCard())) {
             throw new GameException(GameResponses.CANT_SUMMON_CARD.response);
         }
-        if (gameController.DoPlayerSetOrSummonedThisTurn()) {
+        else if (gameController.DoPlayerSetOrSummonedThisTurn()) {
             throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
         }
         currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard());
@@ -117,7 +118,7 @@ public interface MainPhasesController {
     }
 
     default boolean isSummonable(Card card) {
-        return (card instanceof Monster);
+        return card.isMonster();
     }
 
     default boolean isRitualSummonable(Cell cell) {
