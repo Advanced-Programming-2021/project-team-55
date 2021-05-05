@@ -25,24 +25,18 @@ public class BattlePhaseController implements methods {
     }
 
     public String attack(Cell attackerCell, Cell attackedCell) throws GameException {
-        System.out.println("in attack");
-        //Card attackerCard = attackerCell.getCellCard();
-        //Card attackedCard = attackedCell.getCellCard();
         if (attackerCell.getCellCard() == null)
             return "Error: no card is selected yet";
         else if (attackedCell.getCellCard() == null)
             return "Error: there is no card to attack here";
 
-        System.out.println("no null");
-        if (isAttackerStronger(attackerCell, attackedCell)) {
-            System.out.println("is stronger");
-            decreasePlayersDamage(attackerCell, attackedCell);
-            removeCardFromCell(attackedCell);
-            return "your opponent’s monster is destroyed and your opponent receives"
-                    + calculateDamage(attackerCell, attackedCell) + "battle damage";
-        } else if (attackedCell.getCardPosition() == OFFENSIVE_OCCUPIED) {
-            System.out.println("not stronger");
-            if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
+        if (attackedCell.getCardPosition() == OFFENSIVE_OCCUPIED) {
+            if (isAttackerStronger(attackerCell, attackedCell)) {
+                decreasePlayersDamage(attackerCell, attackedCell);
+                removeCardFromCell(attackedCell);
+                return "your opponent’s monster is destroyed and your opponent receives"
+                        + calculateDamage(attackerCell, attackedCell) + "battle damage";
+            } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
                 removeCardFromCell(attackedCell);
                 removeCardFromCell(attackerCell);
                 return "both you and your opponent monster cards are destroyed and no one receives damage";
@@ -52,21 +46,26 @@ public class BattlePhaseController implements methods {
                 return "Your monster card is destroyed and you received" +
                         calculateDamage(attackerCell, attackedCell) + "battle damage";
             }
-
         } else if (attackedCell.getCardPosition() == DEFENSIVE_OCCUPIED) {
             System.out.println("non of them");
-            if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell))
+            if (isAttackerStronger(attackerCell, attackedCell)) {
+                //decreasePlayersDamage(attackerCell, attackedCell);
+                removeCardFromCell(attackedCell);
+                return "the defense position monster is destroyed";
+            } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell))
                 return "no card is destroyed";
             else {
                 decreasePlayersDamage(attackerCell, attackedCell);
                 return "no card is destroyed and you received" +
                         calculateDamage(attackerCell, attackedCell) + "battle damage";
-
             }
-
-
         } else {
-            if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell))
+            if (isAttackerStronger(attackerCell, attackedCell)) {
+                //decreasePlayersDamage(attackerCell, attackedCell);
+                removeCardFromCell(attackedCell);
+                return "opponent’s monster card was" +
+                        attackedCell.getCellCard().getName() + "the defense position monster is destroyed";
+            } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell))
                 return "opponent’s monster card was" +
                         attackedCell.getCellCard().getName() + "and no card is destroyed";
             else {
@@ -74,7 +73,6 @@ public class BattlePhaseController implements methods {
                 return "opponent’s monster card was" + attackedCell.getCellCard().getName() +
                         "and no card is destroyed and you received" +
                         calculateDamage(attackerCell, attackedCell) + "battle damage";
-
             }
         }
     }
