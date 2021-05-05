@@ -72,8 +72,8 @@ public interface MainPhasesController {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         } else if (!playerGameBoard.cellIsInMonsterZone(cell)) {
             throw new GameException(GameResponses.CANT_CHANGE_CARD_POSITION.response);
-        } else if (position.equals("attack") && cell.getCardPosition() != CardStatus.DEFENSIVE_OCCUPIED ||
-                position.equals("defense") && cell.getCardPosition() != CardStatus.OFFENSIVE_OCCUPIED) {
+        } else if (position.equals("attack") && cell.getCardStatus() != CardStatus.DEFENSIVE_OCCUPIED ||
+                position.equals("defense") && cell.getCardStatus() != CardStatus.OFFENSIVE_OCCUPIED) {
             throw new GameException(GameResponses.CARD_IS_ALREADY_IN_WANTED_POSITION.response);
         } else if (gameController.changedPositionCells.contains(cell)) {
             throw new GameException(GameResponses.ALREADY_CHANGED_CARD_POSITION_IN_THIS_TURN.response);
@@ -170,7 +170,7 @@ public interface MainPhasesController {
                 response += "\tE";
             } else {
                 switch (opponentPlayerGameBoard.getSpellAndTrapCardZone()[4 - i]
-                        .getCardPosition()) {
+                        .getCardStatus()) {
                     case HIDDEN: {
                         response += "\tH";
                         break;
@@ -190,7 +190,7 @@ public interface MainPhasesController {
                 response += "\tE";
             } else {
                 switch (opponentPlayerGameBoard.getMonsterCardZone()[4 - i]
-                        .getCardPosition()) {
+                        .getCardStatus()) {
                     case DEFENSIVE_HIDDEN: {
                         response += "\tDH";
                         break;
@@ -225,7 +225,7 @@ public interface MainPhasesController {
                 response += "\tE";
             } else {
                 switch (playerGameBoard.getMonsterCardZone()[i]
-                        .getCardPosition()) {
+                        .getCardStatus()) {
                     case DEFENSIVE_HIDDEN: {
                         response += "\tDH";
                         break;
@@ -248,7 +248,7 @@ public interface MainPhasesController {
                 response += "\tE";
             } else {
                 switch (playerGameBoard.getSpellAndTrapCardZone()[i]
-                        .getCardPosition()) {
+                        .getCardStatus()) {
                     case HIDDEN: {
                         response += "\tH";
                         break;

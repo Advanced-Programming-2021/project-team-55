@@ -334,7 +334,7 @@ public class GameController {
         return true;
     }
 
-    public boolean doCardAttackedThisTurn(Cell cell) {
+    public boolean didCardAttackedThisTurn(Cell cell) {
         return attackerCellsThisTurn.contains(cell);
     }
 

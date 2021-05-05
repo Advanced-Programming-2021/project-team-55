@@ -56,10 +56,6 @@ public class Cell {
         }
     }
 
-    public CardStatus getCardPosition() {
-        return cardStatus;
-    }
-
     public void selectCell() {//select cell either needs entry or must be nonstatic
         selectedCell = this;
         setSelectedCell(this);
@@ -78,15 +74,14 @@ public class Cell {
     }
 
     public int getPower() {
-        switch (cardStatus) {
+        switch (getCardStatus()) {
             case DEFENSIVE_OCCUPIED:
-                return ((Monster)this.getCellCard()).getDef();
             case DEFENSIVE_HIDDEN:
                 return ((Monster)this.getCellCard()).getDef();
             case OFFENSIVE_OCCUPIED:
                 return ((Monster)this.getCellCard()).getAtk();
         }
-        return 0;//todo add exception here
+        return 0;
     }
 
 }

@@ -30,7 +30,7 @@ public class BattlePhaseController implements methods {
         else if (attackedCell.getCellCard() == null)
             return "Error: there is no card to attack here";
 
-        if (attackedCell.getCardPosition() == OFFENSIVE_OCCUPIED) {
+        if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
             if (isAttackerStronger(attackerCell, attackedCell)) {
                 decreasePlayersDamage(attackerCell, attackedCell);
                 removeCardFromCell(attackedCell);
@@ -46,7 +46,7 @@ public class BattlePhaseController implements methods {
                 return "Your monster card is destroyed and you received" +
                         calculateDamage(attackerCell, attackedCell) + "battle damage";
             }
-        } else if (attackedCell.getCardPosition() == DEFENSIVE_OCCUPIED) {
+        } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
             System.out.println("non of them");
             if (isAttackerStronger(attackerCell, attackedCell)) {
                 //decreasePlayersDamage(attackerCell, attackedCell);
@@ -113,7 +113,7 @@ public class BattlePhaseController implements methods {
         if (!currentPlayer.getGameBoard().hasMonsterCardZoneCell(selectedCell)) {
             throw new GameException(GameResponses.CAN_NOT_ATTACK_WITH_THIS_CARD.response);
         }
-        if (gameController.doCardAttackedThisTurn(selectedCell)) {
+        if (gameController.didCardAttackedThisTurn(selectedCell)) {
             throw new GameException(GameResponses.CARD_ALREADY_ATTACKED.response);
         }
         if (!gameController.canPlayerDirectAttack(selectedCell)) {

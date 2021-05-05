@@ -124,12 +124,12 @@ public class GameBoard {
 
     public boolean isCellVisibleToOpponent(Cell cell) {
         for (Cell cell1 : monsterCardZone) {
-            if (cell == cell1 && cell.getCardPosition() == CardStatus.DEFENSIVE_HIDDEN) {
+            if (cell == cell1 && cell.getCardStatus() == CardStatus.DEFENSIVE_HIDDEN) {
                 return false;
             }
         }
         for (Cell cell1 : spellAndTrapCardZone) {
-            if (cell == cell1 && cell.getCardPosition() == CardStatus.HIDDEN) {
+            if (cell == cell1 && cell.getCardStatus() == CardStatus.HIDDEN) {
                 return false;
             }
         }
