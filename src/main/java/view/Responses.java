@@ -15,6 +15,7 @@ public enum Responses {
     NICKNAME_CHANGED_SUCCESSFULLY("nickname changed successfully!"),
     PASSWORD_CHANGED_SUCCESSFULLY("password changed successfully!"),
     CARD_BOUGHT_SUCCESSFULLY("card bought successfully!"),
+    CHEAT_ACTIVATED_MONEY_INCREASED("cheat activated: money increased!"),
     DECK_CREATED_SUCCESSFULLY("deck created successfully!"),
     DECK_DELETED_SUCCESSFULLY("deck deleted successfully!"),
     DECK_ACTIVATED_SUCCESSFULLY("deck activated successfully!"),

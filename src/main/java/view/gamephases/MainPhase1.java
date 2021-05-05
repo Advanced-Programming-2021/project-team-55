@@ -93,6 +93,15 @@ public class MainPhase1 extends Duel {
         else if(command.matches(GameRegexes.SURRENDER.regex)){
             gameController.surrender();
         }
+        else if(command.matches(GameRegexes.INCREASE_LP.regex)){
+            Matcher matcher=ViewInterface.getCommandMatcher(command,GameRegexes.INCREASE_LP.regex);
+            cheatController.increaseLPAmount(Integer.parseInt(matcher.group(1)),gameController.currentTurnPlayer);
+            response=GameResponses.CHEAT_ACTIVATED_LP_INCREASED.response;
+        }
+        else if(command.matches(GameRegexes.SET_WINNER.regex)){
+            gameController.endDuel();
+            response=GameResponses.CHEAT_ACTIVATED_WINNER_SET.response;
+        }
         else {
             response = GameResponses.INVALID_COMMAND.response;
         }

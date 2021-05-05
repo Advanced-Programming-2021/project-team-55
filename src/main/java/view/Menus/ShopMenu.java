@@ -1,7 +1,9 @@
 package view.Menus;
 
+import controller.CheatController;
 import controller.menucontroller.ShopMenuController;
 import exceptions.MenuException;
+import model.User;
 import model.cards.Card;
 import view.Regexes;
 import view.Responses;
@@ -12,7 +14,7 @@ import java.util.regex.Matcher;
 
 public class ShopMenu extends Menu {
     private static final ShopMenuController shopMenuController = ShopMenuController.getInstance();
-
+    private static final CheatController cheatController=CheatController.getInstance();
     @Override
     protected void execute() {
         String response = processCommand(ViewInterface.getInput());
@@ -39,7 +41,13 @@ public class ShopMenu extends Menu {
             } catch (MenuException e) {
                 response = e.toString();
             }
-        } else if (command.matches(Regexes.EXIT_MENU.regex)) {
+        }
+        else if(command.matches(Regexes.INCREASE_MONEY.regex)){
+            Matcher matcher=ViewInterface.getCommandMatcher(command,Regexes.INCREASE_MONEY.regex);
+            cheatController.increaseMoney(Integer.parseInt(matcher.group(1)), User.loggedInUser);
+            response=Responses.CHEAT_ACTIVATED_MONEY_INCREASED.response;
+        }
+        else if (command.matches(Regexes.EXIT_MENU.regex)) {
             shopMenuController.exitMenu();
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {
             response = getCurrentMenu();

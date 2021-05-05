@@ -231,19 +231,21 @@ public class GameController {
     }
 
     public void surrender() {
-        game.addWinner(currentTurnOpponentPlayer);
-        game.addLoser(currentTurnPlayer);
-        endGameRound();
+        endGameRound(currentTurnOpponentPlayer,currentTurnPlayer);
     }
 
     protected void checkGameWinner() {
 
     }
-
-    public void endGameRound() {
+    public void endDuel(){
+        currentRound=game.getRounds();
+        game.setPlayerScore(currentTurnPlayer,2000);
+        endGameRound(currentTurnPlayer,currentTurnOpponentPlayer);
+    }
+    public void endGameRound(Player winner,Player loser) {
+        game.addWinner(winner);
+        game.addLoser(loser);
         String response="";
-        Player winner = game.getWinners().get(currentRound - 1);
-        Player loser = game.getLosers().get(currentRound - 1);
         response = calculateScoresAndMoney(winner, loser);
         if (game.getRounds() == currentRound) {
             Duel.setGameIsEnded(true);

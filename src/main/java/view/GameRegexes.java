@@ -19,9 +19,8 @@ public enum GameRegexes {
     SHOW_GRAVEYARD("^show graveyard$"),
     SHOW_CARD_SELECTED("^card show --selected$"),
     SURRENDER("^surrender$"),
-    INCREASE_MONEY("^increase --money (\\d+)$"),
     INCREASE_LP("^increase --LP (\\d+)$"),
-    SET_WINNER("^duel set-winner (\\S+)$"),
+    SET_WINNER("^duel set-winner$"),
     SELECT_CARD_FORCE("^select --force --hand (\\d+)$");
 
 

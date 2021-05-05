@@ -16,6 +16,8 @@ public enum GameResponses {
     ALREADY_SUMMONED_SET_IN_THIS_TURN("Error: you already summoned/set on this turn"),
     GRAVEYARD_EMPTY("Error: graveyard empty"),
     CARD_IS_NOT_VISIBLE("Error: card is not visible"),
+    CHEAT_ACTIVATED_LP_INCREASED("cheat activated: LP increased!"),
+    CHEAT_ACTIVATED_WINNER_SET("cheat activated: winner set!"),
     CARD_SELECTED("card selected"),
     CARD_DESELECTED("card deselected"),
     SUMMONED_SUCCESSFULLY("summoned successfully"),

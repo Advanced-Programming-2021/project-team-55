@@ -1,5 +1,6 @@
 package view.gamephases;
 
+import controller.CheatController;
 import controller.gamephasescontrollers.GameController;
 import exceptions.GameException;
 import view.GameRegexes;
@@ -16,7 +17,9 @@ abstract public class Duel {
     private static final MainPhase2 mainPhase2 = new MainPhase2();
     private static final EndPhase endPhase = new EndPhase();
     private static final Graveyard graveyard = new Graveyard();
-    public static GameController gameController;
+
+    protected static GameController gameController;
+    protected static final CheatController cheatController=CheatController.getInstance();
     private static boolean gameIsEnded;
 
     public static void runGame(GameController gameController) {

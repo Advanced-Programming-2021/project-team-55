@@ -51,6 +51,15 @@ public class Game {
             secondPlayerLPs.add(LP);
         }
     }
+    public void setPlayerScore(Player player,int score) {
+        if(player==firstPlayer) {
+            this.firstPlayerScore = score;
+        }
+        else{
+            this.secondPlayerScore=score;
+        }
+    }
+
     public int getPlayersMaxLP(Player player){
         if(player==firstPlayer){
             return Collections.max(firstPlayerLPs);
