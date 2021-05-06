@@ -33,7 +33,7 @@ public class BattlePhaseController implements methods {
         }
         if (attackerCell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
-        } else if (!playerGameBoard.cellIsInMonsterZone(attackerCell)) {
+        } else if (!playerGameBoard.isCellInMonsterZone(attackerCell)) {
             throw new GameException(GameResponses.CANT_ATTACK_CARD.response);
         } else if (gameController.didCardAttackThisTurn(attackerCell)) {
             throw new GameException(GameResponses.ALREADY_ATTACKED_CARD.response);
@@ -118,7 +118,7 @@ public class BattlePhaseController implements methods {
         if (selectedCell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
-        if (!currentPlayer.getGameBoard().hasMonsterCardZoneCell(selectedCell)) {
+        if (!currentPlayer.getGameBoard().isCellInMonsterZone(selectedCell)) {
             throw new GameException(GameResponses.CAN_NOT_ATTACK_WITH_THIS_CARD.response);
         }
         if (gameController.didCardAttackThisTurn(selectedCell)) {

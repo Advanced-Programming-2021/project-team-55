@@ -69,7 +69,7 @@ public interface MainPhasesController {
         GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
         if (cell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
-        } else if (!playerGameBoard.cellIsInMonsterZone(cell)) {
+        } else if (!playerGameBoard.isCellInMonsterZone(cell)) {
             throw new GameException(GameResponses.CANT_CHANGE_CARD_POSITION.response);
         } else if (position.equals("attack") && cell.getCardStatus() != CardStatus.DEFENSIVE_OCCUPIED ||
                 position.equals("defense") && cell.getCardStatus() != CardStatus.OFFENSIVE_OCCUPIED) {
@@ -93,7 +93,7 @@ public interface MainPhasesController {
         if (selectedCell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
-        if (!currentPlayer.getGameBoard().hasMonsterCardZoneCell(selectedCell)) {
+        if (!currentPlayer.getGameBoard().isCellInMonsterZone(selectedCell)) {
             throw new GameException(GameResponses.CAN_NOT_CHANGE_CARD_POSITION.response);
         }
         //todo  ببینین ارور دوم رو درست هندل کردم: در همین دور تازه روی زمین گذاشته شده باشد
@@ -163,12 +163,13 @@ public interface MainPhasesController {
         }
         response += "\n" + opponentPlayerGameBoard.getDeckZone().size() + "\n";
         response += "\t4\t2\t1\t3\t5\n";
+        int[]opponentCellNumbering={3,1,0,2,4};
         for (int i = 0; i < 5; i++) {
-            if (opponentPlayerGameBoard.getSpellAndTrapCardZone()[4 - i]
+            if (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentCellNumbering[i]]
                     .getCellCard() == null) {
                 response += "\tE";
             } else {
-                switch (opponentPlayerGameBoard.getSpellAndTrapCardZone()[4 - i]
+                switch (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentCellNumbering[i]]
                         .getCardStatus()) {
                     case HIDDEN: {
                         response += "\tH";
@@ -184,11 +185,11 @@ public interface MainPhasesController {
         }
         response += "\n";
         for (int i = 0; i < 5; i++) {
-            if (opponentPlayerGameBoard.getMonsterCardZone()[4 - i]
+            if (opponentPlayerGameBoard.getMonsterCardZone()[opponentCellNumbering[i]]
                     .getCellCard() == null) {
                 response += "\tE";
             } else {
-                switch (opponentPlayerGameBoard.getMonsterCardZone()[4 - i]
+                switch (opponentPlayerGameBoard.getMonsterCardZone()[opponentCellNumbering[i]]
                         .getCardStatus()) {
                     case DEFENSIVE_HIDDEN: {
                         response += "\tDH";
@@ -217,13 +218,13 @@ public interface MainPhasesController {
             response += "O";
         }
         response += "\t\t\t\t\t\t" + playerGameBoard.getGraveyard().size() + "\n";
-        //int[]cellNumbers={3,1,0,2,4};
+        int[]playerCellNumbering={4,2,0,1,3};
         for (int i = 0; i < 5; i++) {
-            if (playerGameBoard.getMonsterCardZone()[i]
+            if (playerGameBoard.getMonsterCardZone()[playerCellNumbering[i]]
                     .getCellCard() == null) {
                 response += "\tE";
             } else {
-                switch (playerGameBoard.getMonsterCardZone()[i]
+                switch (playerGameBoard.getMonsterCardZone()[playerCellNumbering[i]]
                         .getCardStatus()) {
                     case DEFENSIVE_HIDDEN: {
                         response += "\tDH";
@@ -242,11 +243,11 @@ public interface MainPhasesController {
         response += "\n";
 
         for (int i = 0; i < 5; i++) {
-            if (playerGameBoard.getSpellAndTrapCardZone()[i]
+            if (playerGameBoard.getSpellAndTrapCardZone()[playerCellNumbering[i]]
                     .getCellCard() == null) {
                 response += "\tE";
             } else {
-                switch (playerGameBoard.getSpellAndTrapCardZone()[i]
+                switch (playerGameBoard.getSpellAndTrapCardZone()[playerCellNumbering[i]]
                         .getCardStatus()) {
                     case HIDDEN: {
                         response += "\tH";

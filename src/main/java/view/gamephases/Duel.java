@@ -20,14 +20,12 @@ abstract public class Duel {
 
     protected static GameController gameController;
     protected static final CheatController cheatController = CheatController.getInstance();
-    private static boolean gameIsEnded;
 
     public static void runGame(GameController gameController) {
         Duel.gameController = gameController;
         gameController.phases.add(gameController.currentPhase);
         showPhase(gameController);
-        setGameIsEnded(false);
-        while (!gameIsEnded) {
+        while (!gameController.isGameEnded()) {
             if (gameController.phases.get(gameController.phases.size() - 1) != gameController.currentPhase) {
                 gameController.phases.add(gameController.currentPhase);
             }
@@ -62,6 +60,7 @@ abstract public class Duel {
                 }
             }
         }
+        gameController.endGameRound();
     }
 
     abstract protected void execute();
@@ -129,7 +128,4 @@ abstract public class Duel {
         return response;
     }
 
-    public static void setGameIsEnded(boolean gameIsEnded) {
-        Duel.gameIsEnded = gameIsEnded;
-    }
 }

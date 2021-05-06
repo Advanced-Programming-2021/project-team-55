@@ -105,9 +105,9 @@ public class GameController {
                     throw new GameException(GameResponses.INVALID_SELECTION.response);
                 } else {
                     if (opponent) {
-                        selectedCell = opponentPlayerGameBoard.getMonsterCardZone()[areasNumber[number]];
+                        selectedCell = opponentPlayerGameBoard.getMonsterCardZone()[number];
                     } else {
-                        selectedCell = currentPlayerGameBoard.getMonsterCardZone()[areasNumber[number]];
+                        selectedCell = currentPlayerGameBoard.getMonsterCardZone()[number];
                     }
                 }
                 break;
@@ -117,9 +117,9 @@ public class GameController {
                     throw new GameException(GameResponses.INVALID_SELECTION.response);
                 }
                 if (opponent) {
-                    selectedCell = opponentPlayerGameBoard.getSpellAndTrapCardZone()[areasNumber[number]];
+                    selectedCell = opponentPlayerGameBoard.getSpellAndTrapCardZone()[number];
                 } else {
-                    selectedCell = currentPlayerGameBoard.getSpellAndTrapCardZone()[areasNumber[number]];
+                    selectedCell = currentPlayerGameBoard.getSpellAndTrapCardZone()[number];
                 }
                 break;
             }
@@ -234,7 +234,9 @@ public class GameController {
     }
 
     public void surrender() {
-        endGameRound(currentTurnOpponentPlayer, currentTurnPlayer);
+        game.addWinner(currentTurnOpponentPlayer);
+        game.addLoser(currentTurnPlayer);
+        endGameRound();
     }
 
     protected void checkGameWinner() {
@@ -246,16 +248,28 @@ public class GameController {
         if (game.getRounds() == 3) {
             game.setPlayerScore(currentTurnPlayer, 2000);
         }
-        endGameRound(currentTurnPlayer, currentTurnOpponentPlayer);
+        game.addWinner(currentTurnPlayer);
+        game.addLoser(currentTurnOpponentPlayer);
+        endGameRound();
+    }
+    public boolean isGameEnded(){
+        if(currentTurnPlayer.getLP()<=0){
+            game.addWinner(currentTurnOpponentPlayer);
+            game.addLoser(currentTurnPlayer);
+            return true;
+        }
+        else if(currentTurnOpponentPlayer.getLP()<=0){
+            game.addWinner(currentTurnPlayer);
+            game.addLoser(currentTurnOpponentPlayer);
+        }
+        return false;
     }
 
-    public void endGameRound(Player winner, Player loser) {
-        game.addWinner(winner);
-        game.addLoser(loser);
-        String response = "";
-        response = calculateScoresAndMoney(winner, loser);
+    public void endGameRound() {
+        Player winner=game.getWinners().get(game.getWinners().size()-1);
+        Player loser=game.getLosers().get(game.getLosers().size()-1);
+        String response = calculateScoresAndMoney(winner, loser);
         if (game.getRounds() == currentRound) {
-            Duel.setGameIsEnded(true);
             ViewInterface.showResult(response);
         } else {
             gameControllerInitialization();

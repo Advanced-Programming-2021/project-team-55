@@ -80,7 +80,7 @@ public class GameBoard {
         return fieldZone;
     }
 
-    public boolean cellIsInMonsterZone(Cell cell) {
+    public boolean isCellInMonsterZone(Cell cell) {
         for (int i = 0; i < 5; i++) {
             if (monsterCardZone[i] == cell) {
                 return true;
@@ -94,9 +94,9 @@ public class GameBoard {
             throw new GameException(GameResponses.MONSTER_ZONE_IS_FULL.response);
 
         for (int i = 0; i < 5; i++) {
-            if (monsterCardZone[areasNumber[i]].isEmpty()) {
-                monsterCardZone[areasNumber[i]].addCardToCell(card);
-                monsterCardZone[areasNumber[i]].setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
+            if (monsterCardZone[i].isEmpty()) {
+                monsterCardZone[i].addCardToCell(card);
+                monsterCardZone[i].setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
                 return;
             }
         }
@@ -114,13 +114,6 @@ public class GameBoard {
             if (!monsterCardZone[i].isEmpty()) return false;
         }
         return true;
-    }
-
-    public boolean hasMonsterCardZoneCell(Cell cell) {
-        for (int i = 0; i < 5; i++) {
-            if (monsterCardZone[i] == cell) return true;
-        }
-        return false;
     }
 
     public boolean isCellVisibleToOpponent(Cell cell) {
@@ -154,9 +147,9 @@ public class GameBoard {
             throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
 
         for (int i = 0; i < 5; i++) {
-            if (spellAndTrapCardZone[areasNumber[i]].isEmpty()) {
-                spellAndTrapCardZone[areasNumber[i]].addCardToCell(card);
-                spellAndTrapCardZone[areasNumber[i]].setCardStatus(CardStatus.HIDDEN);
+            if (spellAndTrapCardZone[i].isEmpty()) {
+                spellAndTrapCardZone[i].addCardToCell(card);
+                spellAndTrapCardZone[i].setCardStatus(CardStatus.HIDDEN);
                 return;
             }
         }

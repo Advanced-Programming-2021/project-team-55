@@ -25,7 +25,8 @@ public class MainPhase1 extends Duel {
         String response = "";
         if (!gameController.checkCommandIsInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
-        } else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
+        }
+        else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
             gameController.changePhase();
             showPhase(gameController);
         } else if (command.matches(GameRegexes.DESELECT.regex)) {
