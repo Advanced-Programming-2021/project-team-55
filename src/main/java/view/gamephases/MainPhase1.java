@@ -107,6 +107,13 @@ public class MainPhase1 extends Duel {
             } catch (GameException e) {
                 response = e.toString();
             }
+        } else if (command.matches(GameRegexes.CHEAT_ADD_OPTIONAL_CARD.regex)) {
+            Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.CHEAT_ADD_OPTIONAL_CARD.regex);
+            try {
+                response = cheatController.addOptionalCardAndSelect(matcher.group(1), gameController);
+            } catch (GameException e) {
+                response = e.toString();
+            }
         } else {
             response = GameResponses.INVALID_COMMAND.response;
         }
