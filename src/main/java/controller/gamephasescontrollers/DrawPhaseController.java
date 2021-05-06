@@ -16,9 +16,11 @@ public class DrawPhaseController implements methods {
         this.gameController = gameController;
     }
 
-    private void addCardToHandDeck(Player player, Card toBeAdded) {
-        player.getGameBoard().getHandCards().add(new Cell(toBeAdded));
+    public Cell addCardToHandDeck(Player player, Card toBeAdded) {
+        Cell toBeAddedCell = new Cell(toBeAdded);
+        player.getGameBoard().getHandCards().add(toBeAddedCell);
         player.getGameBoard().getDeckZone().remove(0);
+        return toBeAddedCell;
     }
 
     public String removeFirstDeckCardFromDeckToPlay(Player player) throws GameException {

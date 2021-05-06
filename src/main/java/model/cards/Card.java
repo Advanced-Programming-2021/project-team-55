@@ -151,7 +151,7 @@ public class Card {
         return Card.getNewCardObjectByName(this.getName());
     }
 
-    public static Card getNewCardObjectByName(String name) {
+    public static Card getNewCardObjectByName(String name) {//todo use this to start game, not references
 
         switch(name){
             //monsters:

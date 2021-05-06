@@ -21,8 +21,8 @@ public enum GameRegexes {
     SURRENDER("^surrender$"),
     INCREASE_LP("^increase --LP (\\d+)$"),
     SET_WINNER("^duel set-winner$"),
-    SELECT_CARD_FORCE("^select --force --hand (\\d+)$");
-
+    SELECT_CARD_FORCE("^select --force --hand (\\d+)$"),
+    CHEAT_ADD_OPTIONAL_CARD("^add --force (.+)$");
 
     public final String regex;
 

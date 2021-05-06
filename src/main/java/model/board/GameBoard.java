@@ -114,6 +114,14 @@ public class GameBoard {
         return true;
     }
 
+    public int getNumberOfMonstersOnMonsterCardZone(){
+        int counter = 0;
+        for (int i = 0; i < 5; i++) {
+            if (!monsterCardZone[i].isEmpty()) counter++;
+        }
+        return counter;
+    }
+
     public boolean isCellVisibleToOpponent(Cell cell) {
         for (Cell cell1 : monsterCardZone) {
             if (cell == cell1 && cell.getCardStatus() == CardStatus.DEFENSIVE_HIDDEN) {

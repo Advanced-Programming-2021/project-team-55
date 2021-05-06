@@ -1,5 +1,6 @@
 package controller.gamephasescontrollers;
 
+import controller.CheatController;
 import exceptions.GameException;
 import model.CoinDice;
 import model.Player;
@@ -260,9 +261,8 @@ public class GameController {
         game.addLoser(currentTurnOpponentPlayer);
         isGameEnded=true;
     }
-
-    public boolean isGameEnded() {
-        if (currentTurnPlayer.getLP() <= 0) {
+    public boolean isGameEnded(){
+        if(currentTurnPlayer.getLP()<=0){
             game.addWinner(currentTurnOpponentPlayer);
             game.addLoser(currentTurnPlayer);
             return true;

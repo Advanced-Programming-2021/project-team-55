@@ -4,6 +4,7 @@ import exceptions.MenuException;
 import model.User;
 import model.cards.Card;
 import model.cards.Deck;
+import model.cards.SpellAndTrap;
 import view.Menus.Menu;
 import view.Menus.MenuType;
 import view.Responses;
@@ -11,6 +12,8 @@ import view.Responses;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+import static model.cards.cardfeaturesenums.EffectiveTerm.LIMITED;
 
 public class DeckMenuController extends MenuController {
     private static DeckMenuController deckMenuController;
@@ -69,6 +72,11 @@ public class DeckMenuController extends MenuController {
             throw new MenuException(Responses.SIDE_DECK_FULL.response);
         } else if (deck.getCardCountInDeck(cardName) == 3) {
             throw new MenuException("Error: there are already three cards with name " + cardName + " in deck " + deckName);
+        } else if (card.isSpellAndTrap() &&
+                ((SpellAndTrap) card).getStatus() == LIMITED &&
+                deck.isCardInDeck(cardName)) {
+            throw new MenuException("Error: card " + cardName +
+                    " frequency is limited by one and there is already a card with this name in deck " + deckName);
         } else {
             User.loggedInUser.removeCardFromInventory(card);
             if (isSide) {

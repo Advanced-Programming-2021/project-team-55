@@ -7,21 +7,21 @@ import java.util.List;
 
 public class JustForScore {
 
-    public static List<MonsterCardDetails> importMonstersDetails() throws FileNotFoundException {
-        List<MonsterCardDetails> monsterCardsDetailsList = new CsvToBeanBuilder(
-                new FileReader("src/resources/cards details/Monster.csv"))
-                .withType(MonsterCardDetails.class).build().parse();
-
-        return monsterCardsDetailsList;
-    }
-
-    public static List<TrapAndSpellCardDetails> importTrapAndSpellsDetails() throws FileNotFoundException {//todo save the list in model
-        List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList = new CsvToBeanBuilder(
-                new FileReader("src/resources/cards details/SpellTrap.csv"))
-                .withType(TrapAndSpellCardDetails.class).build().parse();
-
-        return trapAndSpellCardDetailsList;
-    }
+//    public static List<MonsterCardDetails> importMonstersDetails() throws FileNotFoundException {
+//        List<MonsterCardDetails> monsterCardsDetailsList = new CsvToBeanBuilder(
+//                new FileReader("src/resources/cards details/Monster.csv"))
+//                .withType(MonsterCardDetails.class).build().parse();
+//
+//        return monsterCardsDetailsList;
+//    }
+//
+//    public static List<TrapAndSpellCardDetails> importTrapAndSpellsDetails() throws FileNotFoundException {//todo save the list in model
+//        List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList = new CsvToBeanBuilder(
+//                new FileReader("src/resources/cards details/SpellTrap.csv"))
+//                .withType(TrapAndSpellCardDetails.class).build().parse();
+//
+//        return trapAndSpellCardDetailsList;
+//    }
 
 //    public static void main(String[] args) throws IOException {
 //        List<MonsterCardDetails> monsters = importMonstersDetails();
@@ -82,15 +82,15 @@ public class JustForScore {
 //        }
 //    }
 
-    public static void main(String[] args) throws FileNotFoundException {
-        List<MonsterCardDetails> monsters = importMonstersDetails();
-        for (MonsterCardDetails monsterCardsDetails: monsters) {
-            String className = monsterCardsDetails.getName().trim()
-                    .replaceAll(" ","").replaceAll("-", "")
-                    .replaceAll(",","").replaceAll("'", "");
-            System.out.println("case \"" + monsterCardsDetails.getName() + "\":\nreturn new " + className + "();\n");
-        }
-    }
+//    public static void main(String[] args) throws FileNotFoundException {
+//        List<MonsterCardDetails> monsters = importMonstersDetails();
+//        for (MonsterCardDetails monsterCardsDetails: monsters) {
+//            String className = monsterCardsDetails.getName().trim()
+//                    .replaceAll(" ","").replaceAll("-", "")
+//                    .replaceAll(",","").replaceAll("'", "");
+//            System.out.println("case \"" + monsterCardsDetails.getName() + "\":\nreturn new " + className + "();\n");
+//        }
+//    }
 
 //        public static void main(String[] args) throws FileNotFoundException {
 //        List<TrapAndSpellCardDetails> traps = importTrapAndSpellsDetails();

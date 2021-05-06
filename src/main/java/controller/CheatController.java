@@ -4,6 +4,7 @@ import controller.gamephasescontrollers.GameController;
 import exceptions.GameException;
 import model.Player;
 import model.User;
+import model.board.Cell;
 import model.cards.Card;
 import view.Responses;
 import view.gamephases.GameResponses;
@@ -13,6 +14,14 @@ public class CheatController {
 
     private CheatController() {
 
+    }
+
+    public static CheatController getInstance() {
+        if (cheatController == null) {
+            return new CheatController();
+        } else {
+            return cheatController;
+        }
     }
 
     public void increaseLPAmount(int amount, Player player) {
@@ -39,12 +48,13 @@ public class CheatController {
         return response;
     }
 
-    public static CheatController getInstance() {
-        if (cheatController == null) {
-            return new CheatController();
-        } else {
-            return cheatController;
-        }
+    public String addOptionalCardAndSelect(String cardName, GameController gameController) throws GameException {
+        Card toBeAdded = Card.getNewCardObjectByName(cardName);
+        if (toBeAdded == null)
+            throw new GameException(Responses.NO_CARD_EXISTS.response);
+        Cell addedCell = gameController.getDrawPhaseController().addCardToHandDeck(gameController.getCurrentTurnPlayer(), toBeAdded);
+        Cell.setSelectedCell(addedCell);
+        return "new card added to the hand and selected: " + cardName;
     }
 
 }

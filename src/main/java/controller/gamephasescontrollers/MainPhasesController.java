@@ -8,11 +8,16 @@ import model.board.GameBoard;
 import model.cards.Card;
 import model.cards.Monster;
 import view.ConsoleColors;
+import view.ViewInterface;
+import view.gamephases.Duel;
 import view.gamephases.GameResponses;
+import view.gamephases.MainPhase1;
+
+import java.util.ArrayList;
 
 public interface MainPhasesController {
 
-    default void monsterInsert(Cell cell) {//todo summon, copy constructor, clone.
+    default void monsterInsert(Cell cell) {//todo summon
 
     }
 
@@ -29,6 +34,35 @@ public interface MainPhasesController {
             throw new GameException(GameResponses.CANT_SUMMON_CARD.response);
         } else if (gameController.DoPlayerSetOrSummonedThisTurn()) {
             throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
+        }//todo handle tribute
+        int monsterLevel = ((Monster)selectedCell.getCellCard()).getLevel();
+        if (monsterLevel > 4){
+            int numberOfTributes;
+            if (monsterLevel < 7) {
+                if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 1)
+                    throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
+                numberOfTributes = 1;
+            }else {
+                if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 2)
+                    throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
+                numberOfTributes = 2;
+            }
+            ArrayList<Cell> tributes = new ArrayList<>();
+            Cell oldSelectedCell = selectedCell;
+            Cell newSelectedCell;
+            for (int i = 0; i < numberOfTributes; i++) {
+                ViewInterface.showResult("select cell to tribute:");
+                Duel.getMainPhase1().processSelect(ViewInterface.getInput());
+                newSelectedCell = Cell.getSelectedCell();
+                if (!currentPlayer.getGameBoard().isCellInMonsterZone(newSelectedCell))
+                    throw new GameException(GameResponses.NO_MONSTER_ON_CELL.response);
+                tributes.add(newSelectedCell);
+                ViewInterface.showResult("cell taken");
+            }
+            for (Cell tribute : tributes) {
+                tribute.makeEmpty();
+            }
+            selectedCell = oldSelectedCell;
         }
         currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard());
         currentPlayer.getGameBoard().getHandCards().remove(selectedCell);

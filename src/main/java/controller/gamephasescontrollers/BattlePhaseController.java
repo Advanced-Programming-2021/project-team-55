@@ -12,6 +12,7 @@ import static model.board.CardStatus.DEFENSIVE_OCCUPIED;
 import static model.board.CardStatus.OFFENSIVE_OCCUPIED;
 
 public class BattlePhaseController implements methods {
+
     private final GameController gameController;
 
     public BattlePhaseController(GameController gameController) {

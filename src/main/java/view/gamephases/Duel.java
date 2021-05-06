@@ -211,4 +211,5 @@ abstract public class Duel {
         response+=gameController.getSideDeckCards(gameController.getCurrentTurnOpponentPlayer());
         ViewInterface.showResult(response);
     }
+
 }

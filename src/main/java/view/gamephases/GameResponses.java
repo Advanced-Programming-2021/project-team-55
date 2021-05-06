@@ -35,7 +35,9 @@ public enum GameResponses {
     CARD_ALREADY_ATTACKED("Error: this card already attacked"),
     CAN_NOT_DIRECT_ATTACK("Error: you can’t attack the opponent directly"),
     CAN_NOT_CHANGE_CARD_POSITION("Error: you can’t change this card position"),
-    CAN_NOT_FLIP_SUMMON("Error: you can’t flip summon this card");
+    CAN_NOT_FLIP_SUMMON("Error: you can’t flip summon this card"),
+    NOT_ENOUGH_CARDS_FOR_TRIBUTE("Error: there are not enough cards for tribute"),
+    NO_MONSTER_ON_CELL("Error: there no monsters one this address");
 
 
     public final String response;
