@@ -1,8 +1,8 @@
-package model.cards;
+package model.cards.justforscore;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class MonsterCardDetails {//todo can be deleted, just needed for "tahvil be TA"
+public class MonsterCardDetails {
 
     @CsvBindByName
     private String Name;
