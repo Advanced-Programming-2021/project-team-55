@@ -53,7 +53,7 @@ public class DuelMenuController extends MenuController {
             } else if (rounds != 1 && rounds != 3) {
                 throw new MenuException(Responses.NUMBER_OF_ROUNDS_NOT_SUPPORTED.response);
             } else {
-                Player player1 = new Player(User.loggedInUser, player1Deck.clone());//todo tribute, cheat card
+                Player player1 = new Player(User.loggedInUser, player1Deck.clone());//todo tribute
                 Player player2 = new Player(rival, player2Deck.clone());
                 return new GameController(new Game(player1, player2, rounds));
             }

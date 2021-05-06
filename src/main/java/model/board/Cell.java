@@ -83,4 +83,8 @@ public class Cell {
         return 0;
     }
 
+    public void makeEmpty() {
+        card = null;
+        cardStatus = null;
+    }
 }
