@@ -1,13 +1,15 @@
 package model;
 
+import java.util.Random;
+
 public class CoinDice {
 
     public static int rollDice() {
-        return (int) Math.floor(Math.random() * (6) + 1);
+        return (int)Math.random() % 6 + 1;
     }
 
     public static int tossCoin() {
-        return (int) Math.floor(Math.random() * (2) + 0);
+        return (int)Math.random() % 2 + 1;
     }
 
 }

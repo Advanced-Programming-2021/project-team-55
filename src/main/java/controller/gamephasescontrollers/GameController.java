@@ -2,6 +2,7 @@ package controller.gamephasescontrollers;
 
 import controller.CheatController;
 import exceptions.GameException;
+import model.CoinDice;
 import model.Player;
 import model.User;
 import model.board.Cell;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 
 public class GameController {
 
-    public static CheatController cheatController;
     public Player currentTurnPlayer;
     public Player currentTurnOpponentPlayer;
     public GamePhase currentPhase;
@@ -25,8 +25,8 @@ public class GameController {
     public ArrayList<GamePhase> phases;
     public ArrayList<Cell> attackerCellsThisTurn;
     protected Game game;
-    private int currentRound = 1;
-    private boolean didPlayerSetOrSummonThisTurn = false;
+    private int currentRound=1 ;
+    private boolean didPlayerSetOrSummonThisTurn ;
     private DrawPhaseController drawPhaseController;
     private StandByPhaseController standByPhaseController;
     private MainPhase1Controller mainPhase1Controller;
@@ -40,16 +40,17 @@ public class GameController {
         attackerCellsThisTurn = new ArrayList<>();
         phases = new ArrayList<>();
         didPlayerSetOrSummonThisTurn = false;
-        this.currentTurnPlayer = game.getFirstPlayer();
-        this.currentTurnOpponentPlayer = game.getSecondPlayer();
         drawPhaseController = new DrawPhaseController(this);
         standByPhaseController = new StandByPhaseController(this);
         mainPhase1Controller = new MainPhase1Controller(this);
         battlePhaseController = new BattlePhaseController(this);
         mainPhase2Controller = new MainPhase2Controller(this);
         endPhaseController = new EndPhaseController(this);
-        currentTurnPlayer.resetGameBoard();
-        currentTurnOpponentPlayer.resetGameBoard();
+
+    }
+
+    public int tossCoin(){
+        return CoinDice.tossCoin();
     }
 
     public GameController(Game game) {
@@ -62,6 +63,10 @@ public class GameController {
 
     public ArrayList<Cell> getChangedPositionCells() {
         return changedPositionCells;
+    }
+
+    public int getCurrentRound() {
+        return currentRound;
     }
 
     public String showGraveyard() throws GameException {
@@ -269,6 +274,8 @@ public class GameController {
         Player winner=game.getWinners().get(game.getWinners().size()-1);
         Player loser=game.getLosers().get(game.getLosers().size()-1);
         String response = calculateScoresAndMoney(winner, loser);
+        currentTurnPlayer.resetGameBoard();
+        currentTurnOpponentPlayer.resetGameBoard();
         if (game.getRounds() == currentRound) {
             ViewInterface.showResult(response);
         } else {
@@ -305,6 +312,10 @@ public class GameController {
 
     public GamePhase getCurrentPhase() {
         return currentPhase;
+    }
+
+    public Game getGame() {
+        return game;
     }
 
     public void setCurrentPhase(GamePhase currentPhase) {

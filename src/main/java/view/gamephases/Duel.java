@@ -23,6 +23,7 @@ abstract public class Duel {
 
     public static void runGame(GameController gameController) {
         Duel.gameController = gameController;
+        assignTurn(gameController);
         gameController.phases.add(gameController.currentPhase);
         showPhase(gameController);
         while (!gameController.isGameEnded()) {
@@ -128,4 +129,78 @@ abstract public class Duel {
         return response;
     }
 
+    private static void assignTurn(GameController gameController) {
+        String currentPlayerName = gameController.getGame().getFirstPlayer().getUser().getNickname();
+        String opponentPlayerName = gameController.getGame().getSecondPlayer().getUser().getNickname();
+        if (gameController.getCurrentRound() == 1) {
+            String request = currentPlayerName + " choose a side: 1-head 2-tale";
+            ViewInterface.showResult(request);
+            String choice=ViewInterface.getInput();
+            while(!choice.equals("1")&&!choice.equals("2")){
+                ViewInterface.showResult("invalid choice!");
+                choice=ViewInterface.getInput();
+            }
+            if (Integer.parseInt(choice) == gameController.tossCoin()) {
+                ViewInterface.showResult(currentPlayerName + " do you want to be the first player? yes/no");
+                String input=ViewInterface.getInput();
+                while(!input.equals("no")&&!input.equals("yes")){
+                    ViewInterface.showResult("invalid choice!");
+                    input=ViewInterface.getInput();
+                }
+                switch (input){
+                    case "yes":{
+                        gameController.setCurrentTurnPlayer(gameController.getGame().getFirstPlayer());
+                        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getSecondPlayer());
+                        break;
+                    }
+                    case "no":{
+                        gameController.setCurrentTurnPlayer(gameController.getGame().getSecondPlayer());
+                        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getFirstPlayer());
+                        break;
+                    }
+                }
+            } else {
+                ViewInterface.showResult(opponentPlayerName + " do you want to be the first player? yes/no");
+                String input=ViewInterface.getInput();
+                while(!input.equals("no")&&!input.equals("yes")){
+                    ViewInterface.showResult("invalid choice!");
+                    input=ViewInterface.getInput();
+                }
+                switch (input){
+                    case "yes":{
+                        gameController.setCurrentTurnPlayer(gameController.getGame().getSecondPlayer());
+                        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getFirstPlayer());
+                        break;
+                    }
+                    case "no":{
+                        gameController.setCurrentTurnPlayer(gameController.getGame().getFirstPlayer());
+                        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getSecondPlayer());
+                        break;
+                    }
+                }
+            }
+
+        } else {
+            String playerName = gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1).getUser().getNickname();
+            ViewInterface.showResult(playerName + " do you want to be the first player? yes/no");
+            String input=ViewInterface.getInput();
+            while(!input.equals("no")&&!input.equals("yes")){
+                ViewInterface.showResult("invalid choice!");
+                input=ViewInterface.getInput();
+            }
+            switch (input){
+                case "yes":{
+                    gameController.setCurrentTurnPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
+                    gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
+                    break;
+                }
+                case "no":{
+                    gameController.setCurrentTurnPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
+                    gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
+                    break;
+                }
+            }
+        }
+
+    }
 }

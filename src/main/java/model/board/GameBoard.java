@@ -12,7 +12,6 @@ public class GameBoard {
 
     public static final int[] areasNumber;
     private final Cell[] monsterCardZone;
-    private final ArrayList<Integer> cellsNumbering;
     private final ArrayList<Cell> graveyard;
     private final Cell[] spellAndTrapCardZone;
     private final ArrayList<Cell> deckZone;
@@ -37,7 +36,6 @@ public class GameBoard {
             monsterCardZone[i] = new Cell();
             spellAndTrapCardZone[i] = new Cell();
         }
-        cellsNumbering = new ArrayList<>();
         deckZone = new ArrayList<>();
         handCards = new ArrayList<>();
         fieldZone = new Cell();
