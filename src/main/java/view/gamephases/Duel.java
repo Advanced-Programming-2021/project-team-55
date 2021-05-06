@@ -78,7 +78,7 @@ abstract public class Duel {
         ViewInterface.showResult(response);
     }
 
-    protected String processSelect(String command) {
+    public String processSelect(String command) {
         String response = "";
         if (command.matches(GameRegexes.SELECT_MONSTER.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_MONSTER.regex);
@@ -212,4 +212,7 @@ abstract public class Duel {
         ViewInterface.showResult(response);
     }
 
+    public static MainPhase1 getMainPhase1() {
+        return mainPhase1;
+    }
 }
