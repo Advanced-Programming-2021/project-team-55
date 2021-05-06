@@ -23,7 +23,12 @@ public class DrawPhaseController implements methods {
 
     public String removeFirstDeckCardFromDeckToPlay(Player player) throws GameException {
         if (!checkCardFrequency(player.getGameBoard().getHandCards())) {
-            return GameResponses.HAND_DECK_IS_FULL.response;
+            throw new GameException(GameResponses.HAND_DECK_IS_FULL.response);
+        }
+        else if(player.getGameBoard().getDeckZone().size()==0&&player.getGameBoard().getHandCards().size()==0){
+            gameController.game.addWinner(gameController.currentTurnOpponentPlayer);
+            gameController.game.addLoser(gameController.currentTurnPlayer);
+            gameController.endGameRound();
         }
         Card removedCard = player.getGameBoard().getDeckZone().get(0).getCellCard();
         player.getGameBoard().addCardsToHandDeck(1);

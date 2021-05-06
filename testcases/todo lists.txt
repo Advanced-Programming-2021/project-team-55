@@ -1,7 +1,6 @@
 in the draw phase end the game if we cant pick a card!
 check if attack method works properly
 handle copy constructor for cards in the beginning of the game
-handle coin or dice in the beginning of the game
 players should be able to change their deck between rounds
 end the game in a proper condition
 handle summon kinds

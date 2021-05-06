@@ -130,7 +130,9 @@ public class GameBoard {
 
     private boolean isSpellAndTrapCardZoneFull() {
         for (int i = 0; i < 5; i++) {
-            if (spellAndTrapCardZone[i].isEmpty()) return false;
+            if (spellAndTrapCardZone[i].isEmpty()){
+                return false;
+            }
         }
         return true;
     }

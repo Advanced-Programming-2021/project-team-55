@@ -23,9 +23,10 @@ abstract public class Duel {
 
     public static void runGame(GameController gameController) {
         Duel.gameController = gameController;
-        assignTurn(gameController);
+        assignTurn();
+        showSideDeckCards();
         gameController.phases.add(gameController.currentPhase);
-        showPhase(gameController);
+        showPhase();
         while (!gameController.isGameEnded()) {
             if (gameController.phases.get(gameController.phases.size() - 1) != gameController.currentPhase) {
                 gameController.phases.add(gameController.currentPhase);
@@ -68,10 +69,10 @@ abstract public class Duel {
 
     abstract protected String processCommand(String command);
 
-    protected static void showPhase(GameController gameController) {
+    protected static void showPhase() {
         String response = "";
         if (gameController.currentPhase == GamePhase.DRAW) {
-            response += "its " + gameController.getCurrentTurnPlayer().getUser().getNickname() + "'s turn";
+            response += "its " + gameController.getCurrentTurnPlayer().getUser().getNickname() + "'s turn\n";
         }
         response += "\nphase: " + gameController.getCurrentPhase().name;
         ViewInterface.showResult(response);
@@ -129,7 +130,7 @@ abstract public class Duel {
         return response;
     }
 
-    private static void assignTurn(GameController gameController) {
+    private static void assignTurn() {
         String currentPlayerName = gameController.getGame().getFirstPlayer().getUser().getNickname();
         String opponentPlayerName = gameController.getGame().getSecondPlayer().getUser().getNickname();
         if (gameController.getCurrentRound() == 1) {
@@ -137,14 +138,14 @@ abstract public class Duel {
             ViewInterface.showResult(request);
             String choice=ViewInterface.getInput();
             while(!choice.equals("1")&&!choice.equals("2")){
-                ViewInterface.showResult("invalid choice!");
+                ViewInterface.showResult("Error: invalid choice!");
                 choice=ViewInterface.getInput();
             }
             if (Integer.parseInt(choice) == gameController.tossCoin()) {
                 ViewInterface.showResult(currentPlayerName + " do you want to be the first player? yes/no");
                 String input=ViewInterface.getInput();
                 while(!input.equals("no")&&!input.equals("yes")){
-                    ViewInterface.showResult("invalid choice!");
+                    ViewInterface.showResult("Error: invalid choice!");
                     input=ViewInterface.getInput();
                 }
                 switch (input){
@@ -163,7 +164,7 @@ abstract public class Duel {
                 ViewInterface.showResult(opponentPlayerName + " do you want to be the first player? yes/no");
                 String input=ViewInterface.getInput();
                 while(!input.equals("no")&&!input.equals("yes")){
-                    ViewInterface.showResult("invalid choice!");
+                    ViewInterface.showResult("Error: invalid choice!");
                     input=ViewInterface.getInput();
                 }
                 switch (input){
@@ -185,7 +186,7 @@ abstract public class Duel {
             ViewInterface.showResult(playerName + " do you want to be the first player? yes/no");
             String input=ViewInterface.getInput();
             while(!input.equals("no")&&!input.equals("yes")){
-                ViewInterface.showResult("invalid choice!");
+                ViewInterface.showResult("Error: invalid choice!");
                 input=ViewInterface.getInput();
             }
             switch (input){
@@ -202,5 +203,12 @@ abstract public class Duel {
             }
         }
 
+    }
+
+    private static void showSideDeckCards(){
+        String response="";
+        response+=gameController.getSideDeckCards(gameController.getCurrentTurnPlayer());
+        response+=gameController.getSideDeckCards(gameController.getCurrentTurnOpponentPlayer());
+        ViewInterface.showResult(response);
     }
 }

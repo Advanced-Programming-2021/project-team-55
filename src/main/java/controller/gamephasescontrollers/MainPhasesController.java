@@ -48,7 +48,7 @@ public interface MainPhasesController {
         } else if (!playerGameBoard.getHandCards().contains(selectedCell)) {
             throw new GameException(GameResponses.CANT_SET_CARD.response);
         } else {
-            if (selectedCard instanceof Monster) {
+            if (selectedCard.isMonster()) {
                 if (gameController.DoPlayerSetOrSummonedThisTurn()) {
                     throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
                 }

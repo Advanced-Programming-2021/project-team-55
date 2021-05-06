@@ -12,13 +12,12 @@ public class EndPhase extends Duel {
         endPhaseController = gameController.getEndPhaseController();
         String response = processCommand("");
         ViewInterface.showResult(response);
-        showPhase(gameController);
+        showPhase();
     }
 
     @Override
     protected String processCommand(String command) {
         String response = "";
-        // String response = "its " + gameController.getCurrentTurnOpponentPlayer().getUser().getNickname() + "’s turn";
         gameController.changePhase();
         return response;
     }

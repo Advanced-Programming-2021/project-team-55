@@ -14,6 +14,7 @@ public class MainPhase1 extends Duel {
     @Override
     protected void execute() {
         mainPhase1Controller = gameController.getMainPhase1Controller();
+
         ViewInterface.showResult(mainPhase1Controller.showGameBoard(gameController.currentTurnPlayer,
                 gameController.currentTurnOpponentPlayer));
         String response = processCommand(ViewInterface.getInput());
@@ -28,7 +29,7 @@ public class MainPhase1 extends Duel {
         }
         else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
             gameController.changePhase();
-            showPhase(gameController);
+            showPhase();
         } else if (command.matches(GameRegexes.DESELECT.regex)) {
             try {
                 gameController.deselect();

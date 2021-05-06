@@ -260,6 +260,8 @@ public class User {
         addCardsToInventory(initCards);
         Deck deckInit = new Deck("default");
         deckInit.addCardsToMainDeck(initCards);
+        deckInit.addCardToSideDeck(new Crawlingdragon());
+        deckInit.addCardToSideDeck(new ClosedForest());
         deckInit.setActive(true);
         this.activeDeck = deckInit;
         this.addDeck(deckInit);

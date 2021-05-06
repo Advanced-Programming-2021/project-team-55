@@ -24,7 +24,7 @@ public class BattlePhase extends Duel {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
         } else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
             gameController.changePhase();
-            showPhase(gameController);
+            showPhase();
         } else if (command.matches(GameRegexes.DESELECT.regex)) {
             try {
                 gameController.deselect();
