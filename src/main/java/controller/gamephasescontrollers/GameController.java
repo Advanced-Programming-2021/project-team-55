@@ -257,6 +257,7 @@ public class GameController {
         game.addLoser(currentTurnOpponentPlayer);
         endGameRound();
     }
+
     public boolean isGameEnded(){
         if(currentTurnPlayer.getLP()<=0){
             game.addWinner(currentTurnOpponentPlayer);
@@ -370,7 +371,7 @@ public class GameController {
     }
 
     public boolean canPlayerDirectAttack(Cell cell) {
-        return !currentTurnOpponentPlayer.getGameBoard().isMonsterCardZoneEmpty();//todo طبق داک ممکنه دلایل دیگه هم وجود داشته باشه
+        return currentTurnOpponentPlayer.getGameBoard().isMonsterCardZoneEmpty();//todo طبق داک ممکنه دلایل دیگه هم وجود داشته باشه
     }
 
 }

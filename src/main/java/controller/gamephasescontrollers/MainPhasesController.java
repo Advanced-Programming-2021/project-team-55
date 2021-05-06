@@ -57,6 +57,7 @@ public interface MainPhasesController {
                 if (!currentPlayer.getGameBoard().isCellInMonsterZone(newSelectedCell))
                     throw new GameException(GameResponses.NO_MONSTER_ON_CELL.response);
                 tributes.add(newSelectedCell);
+                ViewInterface.showResult("cell taken");
             }
             for (Cell tribute : tributes) {
                 tribute.makeEmpty();
