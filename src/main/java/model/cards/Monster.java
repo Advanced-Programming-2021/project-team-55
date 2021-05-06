@@ -18,7 +18,7 @@ public abstract class Monster extends Card {
 
     protected Monster(String cardName, String description, int price, int atk, int def, int level,
                       MonsterAttribute attribute, MonsterType monsterType, CardType cardType) {
-        super(cardName, description, price,Kind.MONSTER);
+        super(cardName, description, price, Kind.MONSTER);
         this.atk = atk;
         this.def = def;
         this.level = level;
@@ -83,6 +83,7 @@ public abstract class Monster extends Card {
     public void setCardStatus(CardStatus cardStatus) {
         this.cardStatus = cardStatus;
     }
+
     public static void main(String[] args) {
         Monster monster = new AxeRaider();
 

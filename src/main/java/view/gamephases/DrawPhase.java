@@ -22,7 +22,7 @@ public class DrawPhase extends Duel {
             gameController.changePhase();
             showPhase(gameController);
         } catch (GameException e) {
-            //TODO end game
+            response = e.toString();
         }
 
         return response;

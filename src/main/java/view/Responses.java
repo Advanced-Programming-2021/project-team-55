@@ -8,6 +8,8 @@ public enum Responses {
     MAIN_DECK_FULL("Error: main deck is full"),
     SIDE_DECK_FULL("Error: side deck is full"),
     NO_PLAYER_EXISTS("Error: there is no player with this username"),
+    NO_CARD_EXISTS("Error: there is no card with this name"),
+    NOT_ENOUGH_MONEY("Error: not enough money"),
     NUMBER_OF_ROUNDS_NOT_SUPPORTED("Error: number of rounds is not supported"),
     LOGIN_SUCCESSFULLY("user logged in successfully"),
     CREATE_SUCCESSFULLY("user created successfully!"),

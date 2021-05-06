@@ -13,7 +13,7 @@ public class GameBoard {
     public static final int[] areasNumber;
     private final Cell[] monsterCardZone;
     private final ArrayList<Integer> cellsNumbering;
-    private  final ArrayList<Cell> graveyard;
+    private final ArrayList<Cell> graveyard;
     private final Cell[] spellAndTrapCardZone;
     private final ArrayList<Cell> deckZone;
     private final ArrayList<Cell> handCards;
@@ -118,7 +118,7 @@ public class GameBoard {
 
     public boolean hasMonsterCardZoneCell(Cell cell) {
         for (int i = 0; i < 5; i++) {
-           if (monsterCardZone[i] == cell) return true;
+            if (monsterCardZone[i] == cell) return true;
         }
         return false;
     }
@@ -170,6 +170,15 @@ public class GameBoard {
         }
 //todo        آدرس کارت ͳکه در  handخود بازی΋ن است )که طبق قانون حداکثر  ۶کارت نیز
 //        هستند
+    }
+
+    public void addCardToHandDeck(String cardName) {
+        for (int i = 0; i < deckZone.size(); i++) {
+            if (deckZone.get(i).getCellCard().getName().equals(cardName)) {
+                handCards.add(new Cell(deckZone.get(i).getCellCard()));
+                deckZone.remove(i);
+            }
+        }
     }
 
     public void addCardToFieldZone(Card card) {

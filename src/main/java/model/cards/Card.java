@@ -14,18 +14,20 @@ public class Card {
     protected int price;
     protected Counter counter;
     protected int number;
-    protected enum Kind{MONSTER,SPELLANDTRAP}
+
+    protected enum Kind {MONSTER, SPELLANDTRAP}
+
     protected Kind cardKind;
 
     static {
         allCards = new ArrayList<>();
     }
 
-    public Card(String name, String description, int price,Kind cardKind) {
+    public Card(String name, String description, int price, Kind cardKind) {
         setName(name);
         setDescription(description);
         setPrice(price);
-        this.cardKind=cardKind;
+        this.cardKind = cardKind;
         if (getCardByName(name) == null) {
             allCards.add(this);
         }
@@ -135,16 +137,11 @@ public class Card {
         return name + ": " + description;
     }
 
-    public boolean isMonster(){
-        if(cardKind==Kind.MONSTER){
-            return true;
-        }
-        return false;
+    public boolean isMonster() {
+        return cardKind == Kind.MONSTER;
     }
-    public boolean isSpellAndTrap(){
-        if(cardKind==Kind.SPELLANDTRAP){
-            return true;
-        }
-        return false;
+
+    public boolean isSpellAndTrap() {
+        return cardKind == Kind.SPELLANDTRAP;
     }
 }

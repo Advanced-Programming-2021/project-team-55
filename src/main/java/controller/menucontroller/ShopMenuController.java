@@ -24,9 +24,9 @@ public class ShopMenuController extends MenuController {
     public void buyCard(String cardName) throws MenuException {
         Card card = Card.getCardByName(cardName);
         if (card == null) {
-            throw new MenuException("Error: there is no card with this name");
+            throw new MenuException(Responses.NO_CARD_EXISTS.response);
         } else if (User.loggedInUser.getMoney() < card.getPrice()) {
-            throw new MenuException("Error: not enough money");
+            throw new MenuException(Responses.NOT_ENOUGH_MONEY.response);
         } else {
             User.loggedInUser.changeMoney(-card.getPrice());
             ArrayList<Card> cardsToAdd = new ArrayList<>();

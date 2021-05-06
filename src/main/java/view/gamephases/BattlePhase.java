@@ -1,11 +1,8 @@
 package view.gamephases;
 
 import controller.gamephasescontrollers.BattlePhaseController;
-import controller.gamephasescontrollers.GameController;
 import exceptions.GameException;
-import model.board.Cell;
 import view.GameRegexes;
-import view.Regexes;
 import view.ViewInterface;
 
 import java.util.regex.Matcher;
@@ -22,15 +19,12 @@ public class BattlePhase extends Duel {
 
     @Override
     protected String processCommand(String command) {
-
         String response = "";
         if (!gameController.checkCommandIsInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
         } else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
             gameController.changePhase();
             showPhase(gameController);
-        } else if (command.matches(GameRegexes.SELECT.regex)) {
-            response = processSelect(command);
         } else if (command.matches(GameRegexes.DESELECT.regex)) {
             try {
                 gameController.deselect();
@@ -38,6 +32,8 @@ public class BattlePhase extends Duel {
             } catch (GameException e) {
                 response = e.toString();
             }
+        } else if (command.matches(GameRegexes.SELECT.regex)) {
+            response = processSelect(command);
         } else if (command.matches(GameRegexes.ATTACK.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.ATTACK.regex);
             try {
@@ -46,8 +42,6 @@ public class BattlePhase extends Duel {
             } catch (GameException e) {
                 response = e.toString();
             }
-        } else if (command.matches(GameRegexes.SELECT.regex)) {
-            response = processSelect(command);
         } else if (command.matches(GameRegexes.ATTACK_DIRECT.regex)) {
             try {
                 response = battlePhaseController.directAttack(gameController);
@@ -68,25 +62,19 @@ public class BattlePhase extends Duel {
                 response = e.toString();
             }
 
-        }
-        else if(command.matches(GameRegexes.SURRENDER.regex)){
+        } else if (command.matches(GameRegexes.SURRENDER.regex)) {
             gameController.surrender();
-        }
-        else if(command.matches(GameRegexes.INCREASE_LP.regex)){
-            Matcher matcher=ViewInterface.getCommandMatcher(command,GameRegexes.INCREASE_LP.regex);
-            cheatController.increaseLPAmount(Integer.parseInt(matcher.group(1)),gameController.currentTurnPlayer);
-            response=GameResponses.CHEAT_ACTIVATED_LP_INCREASED.response;
-        }
-        else if(command.matches(GameRegexes.SET_WINNER.regex)){
-            gameController.endDuel();
-            response=GameResponses.CHEAT_ACTIVATED_WINNER_SET.response;
-        }else {
+        } else if (command.matches(GameRegexes.INCREASE_LP.regex)) {
+            Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.INCREASE_LP.regex);
+            cheatController.increaseLPAmount(Integer.parseInt(matcher.group(1)), gameController.currentTurnPlayer);
+            response = GameResponses.CHEAT_ACTIVATED_LP_INCREASED.response;
+        } else if (command.matches(GameRegexes.SET_WINNER.regex)) {
+            cheatController.setWinner(gameController);
+            response = GameResponses.CHEAT_ACTIVATED_WINNER_SET.response;
+        } else {
             response = GameResponses.INVALID_COMMAND.response;
         }
         return response;
     }
 
-    /*public static void main(String[] args) {
-
-    }*/
 }

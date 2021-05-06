@@ -44,8 +44,7 @@ public class MainPhase2 extends Duel {
             } catch (GameException e) {
                 response = e.toString();
             }
-        }
-        else if (command.matches(GameRegexes.SUMMON.regex)) {
+        } else if (command.matches(GameRegexes.SUMMON.regex)) {
             try {
                 mainPhase2Controller.monsterSummon(gameController);
                 response = GameResponses.SUMMONED_SUCCESSFULLY.response;
@@ -59,26 +58,30 @@ public class MainPhase2 extends Duel {
             } catch (GameException e) {
                 response = e.toString();
             }
-        }else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
+        } else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
             try {
                 gameController.currentPhase = GamePhase.GRAVEYARD;
                 response = gameController.showGraveyard();
             } catch (GameException e) {
                 response = e.toString();
             }
-        }
-        else if(command.matches(GameRegexes.SURRENDER.regex)){
+        } else if (command.matches(GameRegexes.SURRENDER.regex)) {
             gameController.surrender();
-        }
-        else if(command.matches(GameRegexes.INCREASE_LP.regex)){
-            Matcher matcher=ViewInterface.getCommandMatcher(command,GameRegexes.INCREASE_LP.regex);
-            cheatController.increaseLPAmount(Integer.parseInt(matcher.group(1)),gameController.currentTurnPlayer);
-            response=GameResponses.CHEAT_ACTIVATED_LP_INCREASED.response;
-        }
-        else if(command.matches(GameRegexes.SET_WINNER.regex)){
-            gameController.endDuel();
-            response=GameResponses.CHEAT_ACTIVATED_WINNER_SET.response;
-        }else {
+        } else if (command.matches(GameRegexes.INCREASE_LP.regex)) {
+            Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.INCREASE_LP.regex);
+            cheatController.increaseLPAmount(Integer.parseInt(matcher.group(1)), gameController.currentTurnPlayer);
+            response = GameResponses.CHEAT_ACTIVATED_LP_INCREASED.response;
+        } else if (command.matches(GameRegexes.SET_WINNER.regex)) {
+            cheatController.setWinner(gameController);
+            response = GameResponses.CHEAT_ACTIVATED_WINNER_SET.response;
+        } else if (command.matches(GameRegexes.SELECT_CARD_FORCE.regex)) {
+            Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_CARD_FORCE.regex);
+            try {
+                response = cheatController.selectHandForce(matcher.group(1), gameController);
+            } catch (GameException e) {
+                response = e.toString();
+            }
+        } else {
             response = GameResponses.INVALID_COMMAND.response;
         }
         return response;

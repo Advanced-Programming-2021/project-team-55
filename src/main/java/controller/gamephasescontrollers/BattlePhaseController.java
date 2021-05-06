@@ -3,18 +3,16 @@ package controller.gamephasescontrollers;
 import exceptions.GameException;
 import model.Player;
 import model.board.Cell;
-import model.board.Game;
 import model.board.GameBoard;
 import model.cards.Card;
 import model.cards.Monster;
-import view.gamephases.BattlePhase;
 import view.gamephases.GameResponses;
 
 import static model.board.CardStatus.DEFENSIVE_OCCUPIED;
 import static model.board.CardStatus.OFFENSIVE_OCCUPIED;
 
 public class BattlePhaseController implements methods {
-    private GameController gameController;
+    private final GameController gameController;
 
     public BattlePhaseController(GameController gameController) {
         this.gameController = gameController;
@@ -25,58 +23,61 @@ public class BattlePhaseController implements methods {
     }
 
     public String attack(int attackedCellNumber) throws GameException {
-        String response="";
-        Cell attackerCell=Cell.getSelectedCell();
-        Cell attackedCell=null;
-        GameBoard opponentGameBoard=gameController.currentTurnOpponentPlayer.getGameBoard();
-        GameBoard playerGameBoard=gameController.currentTurnPlayer.getGameBoard();
-        if(attackedCellNumber<=5&&attackedCellNumber>=1){
-            attackedCell= (gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone())[attackedCellNumber-1];
+        String response = "";
+        Cell attackerCell = Cell.getSelectedCell();
+        Cell attackedCell = null;
+        GameBoard opponentGameBoard = gameController.currentTurnOpponentPlayer.getGameBoard();
+        GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
+        if (attackedCellNumber <= 5 && attackedCellNumber >= 1) {
+            attackedCell = (gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone())[attackedCellNumber - 1];
         }
-        if (attackerCell == null)
-            response="Error: no card is selected yet";
-        else if (attackedCell==null||attackedCell.getCellCard()== null)
-            response= "Error: there is no card to attack here";
-
-        else if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
+        if (attackerCell == null) {
+            throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
+        } else if (!playerGameBoard.cellIsInMonsterZone(attackerCell)) {
+            throw new GameException(GameResponses.CANT_ATTACK_CARD.response);
+        } else if (gameController.didCardAttackThisTurn(attackerCell)) {
+            throw new GameException(GameResponses.ALREADY_ATTACKED_CARD.response);
+        } else if (attackedCell == null || attackedCell.getCellCard() == null) {
+            throw new GameException(GameResponses.NO_CARD_TO_ATTACK.response);
+        } else if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
             if (isAttackerStronger(attackerCell, attackedCell)) {
                 decreasePlayersDamage(attackerCell, attackedCell);
-                response= "your opponent’s monster is destroyed and your opponent receives "
+                response = "your opponent’s monster is destroyed and your opponent receives "
                         + calculateDamage(attackerCell, attackedCell) + " battle damage";
                 attackedCell.removeCardFromCell(opponentGameBoard);
             } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
-                response= "both you and your opponent monster cards are destroyed and no one receives damage";
+                response = "both you and your opponent monster cards are destroyed and no one receives damage";
                 attackerCell.removeCardFromCell(playerGameBoard);
                 attackedCell.removeCardFromCell(opponentGameBoard);
             } else {
                 decreasePlayersDamage(attackerCell, attackedCell);
-                response= "Your monster card is destroyed and you received " +
+                response = "Your monster card is destroyed and you received " +
                         calculateDamage(attackerCell, attackedCell) + " battle damage";
                 attackerCell.removeCardFromCell(playerGameBoard);
             }
         } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
             if (isAttackerStronger(attackerCell, attackedCell)) {
                 //decreasePlayersDamage(attackerCell, attackedCell);
-                response= "the defense position monster is destroyed";
+                response = "the defense position monster is destroyed";
                 attackedCell.removeCardFromCell(playerGameBoard);
             } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell))
-                response= "no card is destroyed";
+                response = "no card is destroyed";
             else {
                 decreasePlayersDamage(attackerCell, attackedCell);
-                response= "no card is destroyed and you received " +
+                response = "no card is destroyed and you received " +
                         calculateDamage(attackerCell, attackedCell) + " battle damage";
             }
         } else {
             if (isAttackerStronger(attackerCell, attackedCell)) {
-                response= "opponent’s monster card was " +
+                response = "opponent’s monster card was " +
                         attackedCell.getCellCard().getName() + " the defense position monster is destroyed";
                 attackedCell.removeCardFromCell(opponentGameBoard);
             } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell))
-                response="opponent’s monster card was " +
+                response = "opponent’s monster card was " +
                         attackedCell.getCellCard().getName() + " and no card is destroyed";
             else {
                 decreasePlayersDamage(attackerCell, attackedCell);
-                response= "opponent’s monster card was " + attackedCell.getCellCard().getName() +
+                response = "opponent’s monster card was " + attackedCell.getCellCard().getName() +
                         " and no card is destroyed and you received " +
                         calculateDamage(attackerCell, attackedCell) + " battle damage";
             }
@@ -120,7 +121,7 @@ public class BattlePhaseController implements methods {
         if (!currentPlayer.getGameBoard().hasMonsterCardZoneCell(selectedCell)) {
             throw new GameException(GameResponses.CAN_NOT_ATTACK_WITH_THIS_CARD.response);
         }
-        if (gameController.didCardAttackedThisTurn(selectedCell)) {
+        if (gameController.didCardAttackThisTurn(selectedCell)) {
             throw new GameException(GameResponses.CARD_ALREADY_ATTACKED.response);
         }
         if (!gameController.canPlayerDirectAttack(selectedCell)) {

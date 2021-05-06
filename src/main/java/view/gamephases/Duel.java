@@ -19,7 +19,7 @@ abstract public class Duel {
     private static final Graveyard graveyard = new Graveyard();
 
     protected static GameController gameController;
-    protected static final CheatController cheatController=CheatController.getInstance();
+    protected static final CheatController cheatController = CheatController.getInstance();
     private static boolean gameIsEnded;
 
     public static void runGame(GameController gameController) {
@@ -69,11 +69,11 @@ abstract public class Duel {
     abstract protected String processCommand(String command);
 
     protected static void showPhase(GameController gameController) {
-        String response="";
-        if(gameController.currentPhase==GamePhase.DRAW){
-            response+="its " + gameController.getCurrentTurnPlayer().getUser().getNickname() + "'s turn";
+        String response = "";
+        if (gameController.currentPhase == GamePhase.DRAW) {
+            response += "its " + gameController.getCurrentTurnPlayer().getUser().getNickname() + "'s turn";
         }
-        response+="\nphase: " + gameController.getCurrentPhase().name;
+        response += "\nphase: " + gameController.getCurrentPhase().name;
         ViewInterface.showResult(response);
     }
 

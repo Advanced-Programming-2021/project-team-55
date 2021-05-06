@@ -1,33 +1,48 @@
 package controller;
 
+import controller.gamephasescontrollers.GameController;
+import exceptions.GameException;
 import model.Player;
 import model.User;
 import model.cards.Card;
+import view.Responses;
+import view.gamephases.GameResponses;
 
 public class CheatController {
     private static CheatController cheatController;
 
-    private CheatController(){
+    private CheatController() {
 
     }
+
     public void increaseLPAmount(int amount, Player player) {
         player.setLP(player.getLP() + amount);
     }
 
-    public void setWinner() {//todo
-
+    public void setWinner(GameController gameController) {
+        gameController.endDuel();
     }
-    public void increaseMoney(int amount,User user){
+
+    public void increaseMoney(int amount, User user) {
         user.changeMoney(amount);
     }
-    public void selectHandForce(Card card) {//todo
 
-    }
-    public static CheatController getInstance(){
-        if(cheatController==null){
-            return new CheatController();
+    public String selectHandForce(String cardName, GameController gameController) throws GameException {
+        String response = "";
+        Card card = Card.getCardByName(cardName);
+        if (card == null) {
+            throw new GameException(Responses.NO_CARD_EXISTS.response);
+        } else {
+            gameController.currentTurnPlayer.getGameBoard().addCardToHandDeck(cardName);
+            response += GameResponses.CHEAT_ACTIVATED_SELECT_FORCE + "\nnew card added to the hand : " + cardName;
         }
-        else{
+        return response;
+    }
+
+    public static CheatController getInstance() {
+        if (cheatController == null) {
+            return new CheatController();
+        } else {
             return cheatController;
         }
     }

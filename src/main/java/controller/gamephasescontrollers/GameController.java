@@ -20,9 +20,9 @@ public class GameController {
     public static CheatController cheatController;
     public Player currentTurnPlayer;
     public Player currentTurnOpponentPlayer;
-    public GamePhase currentPhase ;
-    public ArrayList<Cell> changedPositionCells ;
-    public ArrayList<GamePhase> phases ;
+    public GamePhase currentPhase;
+    public ArrayList<Cell> changedPositionCells;
+    public ArrayList<GamePhase> phases;
     public ArrayList<Cell> attackerCellsThisTurn;
     protected Game game;
     private int currentRound = 1;
@@ -34,11 +34,12 @@ public class GameController {
     private MainPhase2Controller mainPhase2Controller;
     private EndPhaseController endPhaseController;
 
-    private void gameControllerInitialization(){
-        currentPhase=GamePhase.DRAW;
-        changedPositionCells=new ArrayList<>();
-        phases=new ArrayList<>();
-        didPlayerSetOrSummonThisTurn=false;
+    private void gameControllerInitialization() {
+        currentPhase = GamePhase.DRAW;
+        changedPositionCells = new ArrayList<>();
+        attackerCellsThisTurn = new ArrayList<>();
+        phases = new ArrayList<>();
+        didPlayerSetOrSummonThisTurn = false;
         this.currentTurnPlayer = game.getFirstPlayer();
         this.currentTurnOpponentPlayer = game.getSecondPlayer();
         drawPhaseController = new DrawPhaseController(this);
@@ -50,6 +51,7 @@ public class GameController {
         currentTurnPlayer.resetGameBoard();
         currentTurnOpponentPlayer.resetGameBoard();
     }
+
     public GameController(Game game) {
         this.game = game;
         gameControllerInitialization();
@@ -232,29 +234,30 @@ public class GameController {
     }
 
     public void surrender() {
-        endGameRound(currentTurnOpponentPlayer,currentTurnPlayer);
+        endGameRound(currentTurnOpponentPlayer, currentTurnPlayer);
     }
 
     protected void checkGameWinner() {
 
     }
-    public void endDuel(){
-        currentRound=game.getRounds();
-        if(game.getRounds()==3) {
+
+    public void endDuel() {
+        currentRound = game.getRounds();
+        if (game.getRounds() == 3) {
             game.setPlayerScore(currentTurnPlayer, 2000);
         }
-        endGameRound(currentTurnPlayer,currentTurnOpponentPlayer);
+        endGameRound(currentTurnPlayer, currentTurnOpponentPlayer);
     }
-    public void endGameRound(Player winner,Player loser) {
+
+    public void endGameRound(Player winner, Player loser) {
         game.addWinner(winner);
         game.addLoser(loser);
-        String response="";
+        String response = "";
         response = calculateScoresAndMoney(winner, loser);
         if (game.getRounds() == currentRound) {
             Duel.setGameIsEnded(true);
             ViewInterface.showResult(response);
-        }
-        else{
+        } else {
             gameControllerInitialization();
             currentRound++;
             ViewInterface.showResult(response);
@@ -337,13 +340,12 @@ public class GameController {
         return true;
     }
 
-    public boolean didCardAttackedThisTurn(Cell cell) {
+    public boolean didCardAttackThisTurn(Cell cell) {
         return attackerCellsThisTurn.contains(cell);
     }
 
     public boolean canPlayerDirectAttack(Cell cell) {
-        if (currentTurnOpponentPlayer.getGameBoard().isMonsterCardZoneEmpty()) return false;
-        return true;//todo طبق داک ممکنه دلایل دیگه هم وجود داشته باشه
+        return !currentTurnOpponentPlayer.getGameBoard().isMonsterCardZoneEmpty();//todo طبق داک ممکنه دلایل دیگه هم وجود داشته باشه
     }
 
 }

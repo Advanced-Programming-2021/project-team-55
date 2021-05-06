@@ -4,6 +4,7 @@ import exceptions.GameException;
 import model.Player;
 import model.board.Cell;
 import model.cards.Card;
+import view.gamephases.GameResponses;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ public class DrawPhaseController implements methods {
 
     public String removeFirstDeckCardFromDeckToPlay(Player player) throws GameException {
         if (!checkCardFrequency(player.getGameBoard().getHandCards())) {
-            return "Error: hand deck is full! no card added.";//todo check, پیام ارور رو پیدا نکردم توی داک ها هرچی گشتم
+            return GameResponses.HAND_DECK_IS_FULL.response;
         }
         Card removedCard = player.getGameBoard().getDeckZone().get(0).getCellCard();
         player.getGameBoard().addCardsToHandDeck(1);
@@ -30,7 +31,7 @@ public class DrawPhaseController implements methods {
     }
 
     private boolean checkCardFrequency(ArrayList<Cell> handCards) {
-        return handCards.size() < 7;
+        return handCards.size() < 6;
     }
 
 }

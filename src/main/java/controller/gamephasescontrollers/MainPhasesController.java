@@ -7,7 +7,6 @@ import model.board.Cell;
 import model.board.GameBoard;
 import model.cards.Card;
 import model.cards.Monster;
-import model.cards.SpellAndTrap;
 import view.ConsoleColors;
 import view.gamephases.GameResponses;
 
@@ -26,11 +25,9 @@ public interface MainPhasesController {
         Cell selectedCell = Cell.getSelectedCell();
         if (selectedCell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
-        }
-        else if (!isSummonable(selectedCell.getCellCard())) {
+        } else if (!isSummonable(selectedCell.getCellCard())) {
             throw new GameException(GameResponses.CANT_SUMMON_CARD.response);
-        }
-        else if (gameController.DoPlayerSetOrSummonedThisTurn()) {
+        } else if (gameController.DoPlayerSetOrSummonedThisTurn()) {
             throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
         }
         currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard());
@@ -96,11 +93,11 @@ public interface MainPhasesController {
         if (selectedCell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
-        if (!currentPlayer.getGameBoard().hasMonsterCardZoneCell(selectedCell)){
+        if (!currentPlayer.getGameBoard().hasMonsterCardZoneCell(selectedCell)) {
             throw new GameException(GameResponses.CAN_NOT_CHANGE_CARD_POSITION.response);
         }
         //todo  ببینین ارور دوم رو درست هندل کردم: در همین دور تازه روی زمین گذاشته شده باشد
-        if (selectedCell.getCardStatus() != CardStatus.DEFENSIVE_HIDDEN || gameController.getChangedPositionCells().contains(selectedCell)){
+        if (selectedCell.getCardStatus() != CardStatus.DEFENSIVE_HIDDEN || gameController.getChangedPositionCells().contains(selectedCell)) {
             throw new GameException(GameResponses.CAN_NOT_FLIP_SUMMON.response);
         }
         selectedCell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);

@@ -76,9 +76,9 @@ public class Cell {
         switch (cardStatus) {
             case DEFENSIVE_OCCUPIED:
             case DEFENSIVE_HIDDEN:
-                return ((Monster)(this.getCellCard())).getDef();
+                return ((Monster) (this.getCellCard())).getDef();
             case OFFENSIVE_OCCUPIED:
-                return ((Monster)(this.getCellCard())).getAtk();
+                return ((Monster) (this.getCellCard())).getAtk();
         }
         return 0;
     }
