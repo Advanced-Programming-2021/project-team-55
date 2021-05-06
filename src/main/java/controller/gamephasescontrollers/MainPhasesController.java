@@ -12,7 +12,7 @@ import view.gamephases.GameResponses;
 
 public interface MainPhasesController {
 
-    default void monsterInsert(Cell cell) {//todo summon, copy constructor, clone.
+    default void monsterInsert(Cell cell) {//todo summon
 
     }
 
@@ -29,7 +29,7 @@ public interface MainPhasesController {
             throw new GameException(GameResponses.CANT_SUMMON_CARD.response);
         } else if (gameController.DoPlayerSetOrSummonedThisTurn()) {
             throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
-        }
+        }//todo handle tribute
         currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard());
         currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);

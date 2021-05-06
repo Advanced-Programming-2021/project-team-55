@@ -5,6 +5,7 @@ import model.User;
 import java.util.ArrayList;
 
 public class Deck {
+
     private String name;
     private final ArrayList<Card> mainDeck;
     private final ArrayList<Card> sideDeck;
@@ -139,7 +140,6 @@ public class Deck {
         return false;
     }
 
-
     @Override
     public String toString() {
         String information = name + ": main deck " + mainDeck.size() + ", side deck " + sideDeck.size() + ", ";
@@ -149,4 +149,17 @@ public class Deck {
             return information + "invalid";
         }
     }
+
+    public Deck clone(){//todo use this except reference
+        Deck copiedDeck = new Deck(this.getName());
+        for (Card card : mainDeck) {
+            copiedDeck.addCardToMainDeck(card.clone());
+        }
+        for (Card card : sideDeck) {
+            copiedDeck.addCardToSideDeck(card.clone());
+        }
+        copiedDeck.setActive(isActive());
+        return copiedDeck;
+    }
+
 }
