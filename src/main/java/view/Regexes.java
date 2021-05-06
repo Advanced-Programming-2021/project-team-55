@@ -26,7 +26,6 @@ public enum Regexes {
     DUEL_PLAYER("^duel --new --rounds (\\d+) --second-player (\\S+)$"),
     DUEL_AI("^duel --ai --new --rounds (\\d+)$"),
     INCREASE_MONEY("^increase --money (\\d+)$");
-
     public final String regex;
 
     Regexes(String label) {
