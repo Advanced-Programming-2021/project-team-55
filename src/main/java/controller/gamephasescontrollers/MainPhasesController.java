@@ -12,7 +12,7 @@ import view.gamephases.GameResponses;
 
 public interface MainPhasesController {
 
-    default void monsterInsert(Cell cell) {
+    default void monsterInsert(Cell cell) {//todo summon, copy constructor, clone.
 
     }
 

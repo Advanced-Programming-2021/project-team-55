@@ -2,10 +2,13 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.opencsv.bean.CsvToBeanBuilder;
 import controller.menucontroller.MenuController;
 import exceptions.MenuException;
 import model.User;
 import model.cards.Card;
+import model.cards.MonsterCardDetails;
+import model.cards.TrapAndSpellCardDetails;
 import model.cards.monsters.*;
 import model.cards.trapandspells.*;
 import view.Menus.Menu;
@@ -14,6 +17,7 @@ import view.Responses;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class DataBaseController extends MenuController {
@@ -264,10 +268,23 @@ public class DataBaseController extends MenuController {
 //    public static void main(String[] args) throws FileNotFoundException {
 //        List<MonsterCardDetails> monsters = DataBaseController.getInstance().importMonstersDetails();
 //        for (MonsterCardDetails monsterCardsDetails: monsters) {
-//            System.out.println(monsterCardsDetails.getMonsterType().toUpperCase() + ",");
+//            String className = monsterCardsDetails.getName().trim()
+//                    .replaceAll(" ","").replaceAll("-", "")
+//                    .replaceAll(",","").replaceAll("'", "");
+//            System.out.println("case \"" + monsterCardsDetails.getName() + "\":\nreturn new " + className + "();\n");
 //        }
 //    }
-
+//
+//        public static void main(String[] args) throws FileNotFoundException {
+//        List<TrapAndSpellCardDetails> traps = DataBaseController.getInstance().importTrapAndSpellsDetails();
+//        for (TrapAndSpellCardDetails trapAndSpellCardDetails: traps) {
+//            String className = trapAndSpellCardDetails.getName().trim()
+//                    .replaceAll(" ","").replaceAll("-", "")
+//                    .replaceAll(",","").replaceAll("'", "");
+//            System.out.println("case \"" + trapAndSpellCardDetails.getName() + "\":\nreturn new " + className + "();\n");
+//        }
+//    }
+//
 
 //    public static void main(String[] args) throws IOException {
 //        List<MonsterCardDetails> monsters = DataBaseController.getInstance().importMonstersDetails();

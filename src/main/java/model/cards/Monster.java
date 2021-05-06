@@ -4,7 +4,8 @@ import model.board.CardStatus;
 import model.cards.cardfeaturesenums.CardType;
 import model.cards.cardfeaturesenums.MonsterAttribute;
 import model.cards.cardfeaturesenums.MonsterType;
-import model.cards.monsters.AxeRaider;
+import model.cards.monsters.*;
+
 
 public abstract class Monster extends Card {
 
@@ -86,7 +87,6 @@ public abstract class Monster extends Card {
 
     public static void main(String[] args) {
         Monster monster = new AxeRaider();
-
     }
 }
 
