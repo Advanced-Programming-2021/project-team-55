@@ -30,6 +30,9 @@ public interface MainPhasesController {
         } else if (gameController.DoPlayerSetOrSummonedThisTurn()) {
             throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
         }//todo handle tribute
+        if (((Monster)selectedCell.getCellCard()).getLevel() > 4){//todo tribute
+
+        }
         currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard());
         currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
