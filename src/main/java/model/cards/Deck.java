@@ -100,6 +100,20 @@ public class Deck {
         return count;
     }
 
+    public boolean isCardInDeck(String cardName) {
+        for (Card card : mainDeck) {
+            if (card.getName().equals(cardName)) {
+                return true;
+            }
+        }
+        for (Card card : sideDeck) {
+            if (card.getName().equals(cardName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void removeCardFromMainDeck(String cardName) {
         for (Card card : mainDeck) {
             if (card.getName().equals(cardName)) {
@@ -150,7 +164,7 @@ public class Deck {
         }
     }
 
-    public Deck clone(){//todo use this except reference
+    public Deck clone() {//todo use this except reference
         Deck copiedDeck = new Deck(this.getName());
         for (Card card : mainDeck) {
             copiedDeck.addCardToMainDeck(card.clone());
