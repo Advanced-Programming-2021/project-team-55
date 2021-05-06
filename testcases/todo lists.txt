@@ -8,3 +8,13 @@ handle summon kinds
 handle cards effects
 check effects possibility in game regularly
 handle ai
+
+------------------------
+easy cards:
+-Yomi ship
+-crab turtle
+-skull guardian
+-man eater bug
+-Marshmallon
+-the calculator
+-TerratigertheEmpoweredWarrior
