@@ -1,7 +1,7 @@
 package view.Menus;
 
 import controller.menucontroller.ProfileMenuController;
-import exceptions.MenuException;
+import model.exceptions.MenuException;
 import view.Regexes;
 import view.Responses;
 import view.ViewInterface;

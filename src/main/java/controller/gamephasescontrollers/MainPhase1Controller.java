@@ -1,7 +1,5 @@
 package controller.gamephasescontrollers;
 
-import exceptions.GameException;
-
 public class MainPhase1Controller implements methods, MainPhasesController {
     private final GameController gameController;
 

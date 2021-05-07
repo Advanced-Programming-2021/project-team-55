@@ -2,7 +2,7 @@ package controller.menucontroller;
 
 
 import controller.DataBaseController;
-import exceptions.MenuException;
+import model.exceptions.MenuException;
 import model.User;
 import view.LoggerMessage;
 import view.Menus.Menu;

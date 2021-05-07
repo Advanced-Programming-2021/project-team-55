@@ -1,7 +1,7 @@
 package view.Menus;
 
 import controller.menucontroller.DeckMenuController;
-import exceptions.MenuException;
+import model.exceptions.MenuException;
 import model.cards.Card;
 import model.cards.Deck;
 import view.Regexes;

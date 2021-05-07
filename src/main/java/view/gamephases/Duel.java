@@ -2,7 +2,7 @@ package view.gamephases;
 
 import controller.CheatController;
 import controller.gamephasescontrollers.GameController;
-import exceptions.GameException;
+import model.exceptions.GameException;
 import view.GameRegexes;
 import view.ViewInterface;
 

@@ -1,7 +1,6 @@
 package controller.gamephasescontrollers;
 
-import controller.CheatController;
-import exceptions.GameException;
+import model.exceptions.GameException;
 import model.CoinDice;
 import model.Player;
 import model.User;

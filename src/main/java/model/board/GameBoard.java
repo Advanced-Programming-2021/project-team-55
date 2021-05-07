@@ -1,6 +1,6 @@
 package model.board;
 
-import exceptions.GameException;
+import model.exceptions.GameException;
 import model.cards.Card;
 import model.cards.Deck;
 import view.gamephases.GameResponses;

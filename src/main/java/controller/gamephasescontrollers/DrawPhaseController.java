@@ -1,6 +1,6 @@
 package controller.gamephasescontrollers;
 
-import exceptions.GameException;
+import model.exceptions.GameException;
 import model.Player;
 import model.board.Cell;
 import model.cards.Card;

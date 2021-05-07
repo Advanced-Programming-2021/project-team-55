@@ -1,7 +1,7 @@
 package view.gamephases;
 
 import controller.gamephasescontrollers.MainPhase1Controller;
-import exceptions.GameException;
+import model.exceptions.GameException;
 import view.GameRegexes;
 import view.ViewInterface;
 

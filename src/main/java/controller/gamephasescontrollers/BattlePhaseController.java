@@ -1,6 +1,6 @@
 package controller.gamephasescontrollers;
 
-import exceptions.GameException;
+import model.exceptions.GameException;
 import model.Player;
 import model.board.Cell;
 import model.board.GameBoard;
@@ -8,8 +8,6 @@ import model.cards.Card;
 import model.cards.Monster;
 import model.cards.monsters.YomiShip;
 import view.gamephases.GameResponses;
-
-import java.util.ArrayList;
 
 import static model.board.CardStatus.DEFENSIVE_OCCUPIED;
 import static model.board.CardStatus.OFFENSIVE_OCCUPIED;

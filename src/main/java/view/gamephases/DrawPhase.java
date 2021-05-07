@@ -1,7 +1,7 @@
 package view.gamephases;
 
 import controller.gamephasescontrollers.DrawPhaseController;
-import exceptions.GameException;
+import model.exceptions.GameException;
 import view.ViewInterface;
 
 public class DrawPhase extends Duel {
