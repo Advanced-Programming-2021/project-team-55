@@ -1,6 +1,6 @@
 package controller.menucontroller;
 
-import exceptions.MenuException;
+import model.exceptions.MenuException;
 import model.User;
 import model.cards.Card;
 import view.Menus.Menu;

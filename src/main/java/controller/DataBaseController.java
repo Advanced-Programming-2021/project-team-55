@@ -3,7 +3,7 @@ package controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controller.menucontroller.MenuController;
-import exceptions.MenuException;
+import model.exceptions.MenuException;
 import model.User;
 import model.cards.Card;
 

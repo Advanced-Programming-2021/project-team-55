@@ -1,7 +1,7 @@
 package controller.menucontroller;
 
 import controller.gamephasescontrollers.GameController;
-import exceptions.MenuException;
+import model.exceptions.MenuException;
 import model.Player;
 import model.User;
 import model.board.Game;

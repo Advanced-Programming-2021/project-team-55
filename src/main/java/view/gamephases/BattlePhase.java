@@ -1,7 +1,7 @@
 package view.gamephases;
 
 import controller.gamephasescontrollers.BattlePhaseController;
-import exceptions.GameException;
+import model.exceptions.GameException;
 import view.GameRegexes;
 import view.ViewInterface;
 

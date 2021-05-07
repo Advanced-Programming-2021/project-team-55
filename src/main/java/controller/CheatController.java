@@ -1,7 +1,7 @@
 package controller;
 
 import controller.gamephasescontrollers.GameController;
-import exceptions.GameException;
+import model.exceptions.GameException;
 import model.Player;
 import model.User;
 import model.board.Cell;

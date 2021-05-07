@@ -10,7 +10,6 @@ handle ai
 
 ------------------------
 easy cards:
--Yomi ship
 -crab turtle
 -skull guardian
 -man eater bug

@@ -1,6 +1,6 @@
 package controller.gamephasescontrollers;
 
-import exceptions.GameException;
+import model.exceptions.GameException;
 import model.Player;
 import model.board.CardStatus;
 import model.board.Cell;
@@ -12,7 +12,6 @@ import view.ConsoleColors;
 import view.ViewInterface;
 import view.gamephases.Duel;
 import view.gamephases.GameResponses;
-import view.gamephases.MainPhase1;
 
 import java.util.ArrayList;
 
@@ -61,7 +60,7 @@ public interface MainPhasesController {
                 ViewInterface.showResult("cell taken");
             }
             for (Cell tribute : tributes) {
-                tribute.makeEmpty();
+                tribute.removeCardFromCell(currentPlayer.getGameBoard());
             }
             selectedCell = oldSelectedCell;
         }

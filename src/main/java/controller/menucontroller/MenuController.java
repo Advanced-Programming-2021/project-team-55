@@ -1,6 +1,6 @@
 package controller.menucontroller;
 
-import exceptions.MenuException;
+import model.exceptions.MenuException;
 
 abstract public class MenuController {
 
