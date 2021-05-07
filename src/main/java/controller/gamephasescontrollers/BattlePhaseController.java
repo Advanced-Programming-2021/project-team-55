@@ -36,78 +36,11 @@ public class BattlePhaseController implements methods {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         } else if (!playerGameBoard.isCellInMonsterZone(attackerCell)) {
             throw new GameException(GameResponses.CANT_ATTACK_CARD.response);
-        } else if (gameController.didCardAttackThisTurn(attackerCell)) {
-            throw new GameException(GameResponses.ALREADY_ATTACKED_CARD.response);
-        } else if (attackedCell == null || attackedCell.getCellCard() == null) {
-            throw new GameException(GameResponses.NO_CARD_TO_ATTACK.response);
-        } else if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
-            if (isAttackerStronger(attackerCell, attackedCell)) {
-                decreasePlayersDamage(attackerCell, attackedCell);
-                response = "your opponent’s monster is destroyed and your opponent receives "
-                        + calculateDamage(attackerCell, attackedCell) + " battle damage";
-                attackedCell.removeCardFromCell(opponentGameBoard);
-            } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
-                response = "both you and your opponent monster cards are destroyed and no one receives damage";
-                attackerCell.removeCardFromCell(playerGameBoard);
-                attackedCell.removeCardFromCell(opponentGameBoard);
-            } else {
-                decreasePlayersDamage(attackerCell, attackedCell);
-                response = "Your monster card is destroyed and you received " +
-                        calculateDamage(attackerCell, attackedCell) + " battle damage";
-                attackerCell.removeCardFromCell(playerGameBoard);
-            }
-        } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
-            if (isAttackerStronger(attackerCell, attackedCell)) {
-                //decreasePlayersDamage(attackerCell, attackedCell);
-                response = "the defense position monster is destroyed";
-                attackedCell.removeCardFromCell(playerGameBoard);
-            } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell))
-                response = "no card is destroyed";
-            else {
-                decreasePlayersDamage(attackerCell, attackedCell);
-                response = "no card is destroyed and you received " +
-                        calculateDamage(attackerCell, attackedCell) + " battle damage";
-            }
-        } else {
-            if (isAttackerStronger(attackerCell, attackedCell)) {
-                response = "opponent’s monster card was " +
-                        attackedCell.getCellCard().getName() + " the defense position monster is destroyed";
-                attackedCell.removeCardFromCell(opponentGameBoard);
-            } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell))
-                response = "opponent’s monster card was " +
-                        attackedCell.getCellCard().getName() + " and no card is destroyed";
-            else {
-                decreasePlayersDamage(attackerCell, attackedCell);
-                response = "opponent’s monster card was " + attackedCell.getCellCard().getName() +
-                        " and no card is destroyed and you received " +
-                        calculateDamage(attackerCell, attackedCell) + " battle damage";
-            }
-        }
+        } else
+            response = ((Monster) attackerCell.getCellCard()).handleMonsterAttack(attackerCell, attackedCell, opponentGameBoard, playerGameBoard, gameController);
         return response;
     }
 
-    private void decreasePlayersDamage(Cell attackerCell, Cell attackedCell) {
-        if (isAttackerStronger(attackerCell, attackedCell))
-            (gameController.getCurrentTurnOpponentPlayer()).decreaseLP(calculateDamage(attackerCell, attackedCell));
-        else
-            (gameController.getCurrentTurnPlayer()).decreaseLP(calculateDamage(attackerCell, attackedCell));
-    }
-
-    public boolean isAttackerStronger(Cell attackerCell, Cell attackedCell) {
-        return attackerCell.getPower() > attackedCell.getPower();
-    }
-
-    public boolean isAttackerAndAttackedPowerEqual(Cell attackerCell, Cell attackedCell) {
-        return attackerCell.getPower() == attackedCell.getPower();
-    }
-
-    public int calculateDamage(Cell attackerCell, Cell attackedCell) {
-        int damage = attackedCell.getPower() - attackerCell.getPower();
-        if (damage >= 0)
-            return damage;
-        else
-            return -damage;
-    }
 
     public boolean canCardAttack(Card card) {
         return true;
