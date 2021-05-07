@@ -120,6 +120,13 @@ public interface MainPhasesController {
             }
         }
     }
+    default public void activateSpell() throws GameException {
+        Cell cell=Cell.getSelectedCell();
+        if(cell==null){
+            throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
+        }
+       // else if(cell.getCellCard().isSpellAndTrap())
+    }
 
     default void flipSummon(GameController gameController) throws GameException {
         Player currentPlayer = gameController.currentTurnPlayer;

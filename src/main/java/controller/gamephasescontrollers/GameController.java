@@ -385,7 +385,7 @@ public class GameController {
 
     public String getSideDeckCards(Player player) {
         String response = player.getUser().getNickname() + "'s side deck cards:\n";
-        for (Card card : game.getFirstPlayer().getPlayDeck().getSideDeck()) {
+        for (Card card : player.getPlayDeck().getSideDeck()) {
             response += card.getName() + "\n";
         }
         return response+"\n";
@@ -453,6 +453,7 @@ public class GameController {
                         deck.removeCardFromSideDeck(sideDeck.get(Integer.parseInt(input2)-1).getName());
                         deck.addCardToMainDeck(sideDeck.get(Integer.parseInt(input2)-1));
                         ViewInterface.showResult(mainDeck.get(Integer.parseInt(input)-1).getName()+" replaced with "+sideDeck.get(Integer.parseInt(input2)-1).getName());
+                        player.setPlayDeck(deck);
                         break;
                     }
                 }

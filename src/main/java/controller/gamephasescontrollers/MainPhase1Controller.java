@@ -10,7 +10,6 @@ public class MainPhase1Controller implements methods, MainPhasesController {
     }
 
 
-    public void activateSpell() throws GameException {
-    }
+
 
 }

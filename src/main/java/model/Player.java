@@ -37,6 +37,10 @@ public class Player {
         this.LP = LP;
     }
 
+    public void setPlayDeck(Deck playDeck) {
+        this.playDeck = playDeck;
+    }
+
     public void decreaseLP(int amount) {
         setLP(this.getLP() - amount);
     }
