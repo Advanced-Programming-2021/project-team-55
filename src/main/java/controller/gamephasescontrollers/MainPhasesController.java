@@ -1,5 +1,8 @@
 package controller.gamephasescontrollers;
 
+import model.cards.monsters.ManEaterBug;
+import model.cards.monsters.TerratigertheEmpoweredWarrior;
+import model.exceptions.GameException;
 import model.Player;
 import model.board.CardStatus;
 import model.board.Cell;
@@ -36,14 +39,14 @@ public interface MainPhasesController {
         } else if (gameController.DoPlayerSetOrSummonedThisTurn()) {
             throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
         }
-        int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
-        if (monsterLevel > 4) {
+        int monsterLevel = ((Monster)selectedCell.getCellCard()).getLevel();
+        if (monsterLevel > 4){
             int numberOfTributes;
             if (monsterLevel < 7) {
                 if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 1)
                     throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
                 numberOfTributes = 1;
-            } else {
+            }else {
                 if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 2)
                     throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
                 numberOfTributes = 2;
@@ -51,8 +54,8 @@ public interface MainPhasesController {
             ArrayList<Cell> tributes = new ArrayList<>();
             Cell oldSelectedCell = selectedCell;
             Cell newSelectedCell;
-            for (int i = 0; i < numberOfTributes; i++) {//todo
-                ViewInterface.showResult("select card to tribute:");
+            for (int i = 0; i < numberOfTributes; i++) {
+                ViewInterface.showResult("select cell to tribute:");
                 Duel.getMainPhase1().processSelect(ViewInterface.getInput());
                 newSelectedCell = Cell.getSelectedCell();
                 if (!currentPlayer.getGameBoard().isCellInMonsterZone(newSelectedCell))
@@ -67,6 +70,7 @@ public interface MainPhasesController {
         }
         currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED);
         currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
+        TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
         Cell.deselectCell();
     }
@@ -123,19 +127,23 @@ public interface MainPhasesController {
     }
 
     default void activateSpell(GameController gameController) throws GameException {
-        Cell cell = Cell.getSelectedCell();
-        GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
-        if (cell == null) {
+        Cell cell=Cell.getSelectedCell();
+        GameBoard playerGameBoard=gameController.getCurrentTurnPlayer().getGameBoard();
+        if(cell==null){
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
-        } else {
-            Card card = cell.getCellCard();
-            if (!card.isSpell()) {
+        }
+        else {
+            Card card=cell.getCellCard();
+            if(!card.isSpell()){
                 throw new GameException(GameResponses.ACTIVATION_ONLY_FOR_SPELL.response);
-            } else if (cell.getCardStatus() == CardStatus.OCCUPIED) {
+            }
+            else if(cell.getCardStatus()==CardStatus.OCCUPIED){
                 throw new GameException(GameResponses.ALREADY_ACTIVATED.response);
-            } else if (playerGameBoard.isSpellAndTrapCardZoneFull()) {
+            }
+            else if(playerGameBoard.isSpellAndTrapCardZoneFull()){
                 throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
-            } else {
+            }
+            else{
                 //todo activate spell and add to zone
             }
         }
@@ -273,7 +281,7 @@ public interface MainPhasesController {
         }
         response += "\n" + opponentPlayerGameBoard.getDeckZone().size() + "\n";
         response += "\t4\t2\t1\t3\t5\n";
-        int[] opponentCellNumbering = {3, 1, 0, 2, 4};
+        int[]opponentCellNumbering={3,1,0,2,4};
         for (int i = 0; i < 5; i++) {
             if (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentCellNumbering[i]]
                     .getCellCard() == null) {
@@ -328,7 +336,7 @@ public interface MainPhasesController {
             response += "O";
         }
         response += "\t\t\t\t\t\t" + playerGameBoard.getGraveyard().size() + "\n";
-        int[] playerCellNumbering = {4, 2, 0, 1, 3};
+        int[]playerCellNumbering={4,2,0,1,3};
         for (int i = 0; i < 5; i++) {
             if (playerGameBoard.getMonsterCardZone()[playerCellNumbering[i]]
                     .getCellCard() == null) {
