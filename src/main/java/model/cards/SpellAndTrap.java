@@ -14,7 +14,7 @@ public abstract class SpellAndTrap extends Card {
 
     public SpellAndTrap(String name, String description, int price, boolean isActive,
                         SpellOrTrap type, SpellOrTrapAttribute attribute, EffectiveTerm status) {
-        super(name, description, price, Kind.MAGIC,type);
+        super(name, description, price, Kind.MAGIC, type);
         this.isActive = isActive;
         this.type = type;
         this.attribute = attribute;

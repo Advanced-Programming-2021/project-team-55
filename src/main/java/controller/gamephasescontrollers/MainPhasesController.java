@@ -1,5 +1,6 @@
 package controller.gamephasescontrollers;
 
+import model.cards.monsters.ManEaterBug;
 import model.exceptions.GameException;
 import model.Player;
 import model.board.CardStatus;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 public interface MainPhasesController {
 
-    default void monsterInsert(Cell cell) {//todo summon
+    default void monsterInsert(Cell cell) {
 
     }
 
@@ -34,7 +35,7 @@ public interface MainPhasesController {
             throw new GameException(GameResponses.CANT_SUMMON_CARD.response);
         } else if (gameController.DoPlayerSetOrSummonedThisTurn()) {
             throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
-        }//todo handle tribute
+        }
         int monsterLevel = ((Monster)selectedCell.getCellCard()).getLevel();
         if (monsterLevel > 4){
             int numberOfTributes;
@@ -64,13 +65,13 @@ public interface MainPhasesController {
             }
             selectedCell = oldSelectedCell;
         }
-        currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard());
+        currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED);
         currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
         Cell.deselectCell();
     }
 
-    default void setCard(GameController gameController) throws GameException {
+    default void setCard(GameController gameController) throws GameException {//todo, the method can insert 6 spells
         Cell selectedCell = Cell.getSelectedCell();
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         if (selectedCell == null) {
@@ -86,7 +87,7 @@ public interface MainPhasesController {
                 if (gameController.DoPlayerSetOrSummonedThisTurn()) {
                     throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
                 }
-                playerGameBoard.addCardToMonsterCardZone(selectedCard);
+                playerGameBoard.addCardToMonsterCardZone(selectedCard, CardStatus.DEFENSIVE_HIDDEN);
                 playerGameBoard.getHandCards().remove(selectedCell);
                 gameController.setDidPlayerSetOrSummonThisTurn(true);
             } else {
@@ -120,6 +121,7 @@ public interface MainPhasesController {
             }
         }
     }
+
     default void activateSpell(GameController gameController) throws GameException {
         Cell cell=Cell.getSelectedCell();
         GameBoard playerGameBoard=gameController.getCurrentTurnPlayer().getGameBoard();
@@ -157,6 +159,7 @@ public interface MainPhasesController {
             throw new GameException(GameResponses.CAN_NOT_FLIP_SUMMON.response);
         }
         selectedCell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
+        ManEaterBug.handleEffect(gameController, selectedCell);
     }
 
     default void specialSummon(Cell cell) {

@@ -57,6 +57,13 @@ public class GameBoard {
         return monsterCardZone;
     }
 
+    public Cell getFirstNotEmptyCell() {
+        for (int i = 0; i < 5; i++) {
+            if (!monsterCardZone[i].isEmpty()) return monsterCardZone[i];
+        }
+        return null;
+    }
+
     public ArrayList<Cell> getGraveyard() {
         return graveyard;
     }
@@ -87,14 +94,14 @@ public class GameBoard {
         return false;
     }
 
-    public void addCardToMonsterCardZone(Card card) throws GameException {
+    public void addCardToMonsterCardZone(Card card, CardStatus cardStatus) throws GameException {
         if (isMonsterCardZoneFull())
             throw new GameException(GameResponses.MONSTER_ZONE_IS_FULL.response);
 
         for (int i = 0; i < 5; i++) {
             if (monsterCardZone[i].isEmpty()) {
                 monsterCardZone[i].addCardToCell(card);
-                monsterCardZone[i].setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
+                monsterCardZone[i].setCardStatus(cardStatus);
                 return;
             }
         }
