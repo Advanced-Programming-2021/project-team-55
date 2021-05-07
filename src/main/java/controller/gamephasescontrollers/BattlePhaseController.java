@@ -6,7 +6,10 @@ import model.board.Cell;
 import model.board.GameBoard;
 import model.cards.Card;
 import model.cards.Monster;
+import model.cards.monsters.YomiShip;
 import view.gamephases.GameResponses;
+
+import java.util.ArrayList;
 
 import static model.board.CardStatus.DEFENSIVE_OCCUPIED;
 import static model.board.CardStatus.OFFENSIVE_OCCUPIED;
@@ -45,6 +48,7 @@ public class BattlePhaseController implements methods {
                 decreasePlayersDamage(attackerCell, attackedCell);
                 response = "your opponent’s monster is destroyed and your opponent receives "
                         + calculateDamage(attackerCell, attackedCell) + " battle damage";
+                YomiShip.handleEffect(gameController, attackerCell, attackedCell);
                 attackedCell.removeCardFromCell(opponentGameBoard);
             } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
                 response = "both you and your opponent monster cards are destroyed and no one receives damage";
@@ -58,8 +62,9 @@ public class BattlePhaseController implements methods {
             }
         } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
             if (isAttackerStronger(attackerCell, attackedCell)) {
-                //decreasePlayersDamage(attackerCell, attackedCell);
+                decreasePlayersDamage(attackerCell, attackedCell);
                 response = "the defense position monster is destroyed";
+                YomiShip.handleEffect(gameController, attackerCell, attackedCell);
                 attackedCell.removeCardFromCell(playerGameBoard);
             } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell))
                 response = "no card is destroyed";

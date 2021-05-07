@@ -1,10 +1,11 @@
 package model.cards;
 
+import controller.gamephasescontrollers.GameController;
 import model.board.CardStatus;
+import model.board.Cell;
 import model.cards.cardfeaturesenums.CardType;
 import model.cards.cardfeaturesenums.MonsterAttribute;
 import model.cards.cardfeaturesenums.MonsterType;
-import model.cards.monsters.*;
 
 
 public abstract class Monster extends Card {
@@ -85,8 +86,5 @@ public abstract class Monster extends Card {
         this.cardStatus = cardStatus;
     }
 
-    public static void main(String[] args) {
-        Monster monster = new AxeRaider();
-    }
 }
 
