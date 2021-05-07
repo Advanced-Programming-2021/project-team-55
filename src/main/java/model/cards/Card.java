@@ -19,7 +19,6 @@ public class Card {
     protected int number;
 
     enum Kind {MONSTER, MAGIC}
-    private enum SpellOrTrap{SPELL,TRAP}
     protected SpellOrTrap magicType;
 
 
