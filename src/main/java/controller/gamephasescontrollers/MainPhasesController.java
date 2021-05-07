@@ -1,14 +1,14 @@
 package controller.gamephasescontrollers;
 
-import model.cards.monsters.ManEaterBug;
-import model.exceptions.GameException;
 import model.Player;
 import model.board.CardStatus;
 import model.board.Cell;
 import model.board.GameBoard;
 import model.cards.Card;
 import model.cards.Monster;
-import model.cards.SpellAndTrap;
+import model.cards.cardfeaturesenums.CardType;
+import model.cards.monsters.ManEaterBug;
+import model.exceptions.GameException;
 import view.ConsoleColors;
 import view.ViewInterface;
 import view.gamephases.Duel;
@@ -36,14 +36,14 @@ public interface MainPhasesController {
         } else if (gameController.DoPlayerSetOrSummonedThisTurn()) {
             throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
         }
-        int monsterLevel = ((Monster)selectedCell.getCellCard()).getLevel();
-        if (monsterLevel > 4){
+        int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
+        if (monsterLevel > 4) {
             int numberOfTributes;
             if (monsterLevel < 7) {
                 if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 1)
                     throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
                 numberOfTributes = 1;
-            }else {
+            } else {
                 if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 2)
                     throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
                 numberOfTributes = 2;
@@ -51,8 +51,8 @@ public interface MainPhasesController {
             ArrayList<Cell> tributes = new ArrayList<>();
             Cell oldSelectedCell = selectedCell;
             Cell newSelectedCell;
-            for (int i = 0; i < numberOfTributes; i++) {
-                ViewInterface.showResult("select cell to tribute:");
+            for (int i = 0; i < numberOfTributes; i++) {//todo
+                ViewInterface.showResult("select card to tribute:");
                 Duel.getMainPhase1().processSelect(ViewInterface.getInput());
                 newSelectedCell = Cell.getSelectedCell();
                 if (!currentPlayer.getGameBoard().isCellInMonsterZone(newSelectedCell))
@@ -123,23 +123,19 @@ public interface MainPhasesController {
     }
 
     default void activateSpell(GameController gameController) throws GameException {
-        Cell cell=Cell.getSelectedCell();
-        GameBoard playerGameBoard=gameController.getCurrentTurnPlayer().getGameBoard();
-        if(cell==null){
+        Cell cell = Cell.getSelectedCell();
+        GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
+        if (cell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
-        }
-        else {
-            Card card=cell.getCellCard();
-            if(!card.isSpell()){
+        } else {
+            Card card = cell.getCellCard();
+            if (!card.isSpell()) {
                 throw new GameException(GameResponses.ACTIVATION_ONLY_FOR_SPELL.response);
-            }
-            else if(cell.getCardStatus()==CardStatus.OCCUPIED){
+            } else if (cell.getCardStatus() == CardStatus.OCCUPIED) {
                 throw new GameException(GameResponses.ALREADY_ACTIVATED.response);
-            }
-            else if(playerGameBoard.isSpellAndTrapCardZoneFull()){
+            } else if (playerGameBoard.isSpellAndTrapCardZoneFull()) {
                 throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
-            }
-            else{
+            } else {
                 //todo activate spell and add to zone
             }
         }
@@ -166,7 +162,62 @@ public interface MainPhasesController {
 
     }
 
-    default void ritualSummon(Cell cell) {
+    default void ritualSummon(GameController gameController) throws GameException {
+        //todo handle cancel
+        Monster monsterToSummon;
+        GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
+        if (Cell.getSelectedCell().getCellCard().isMonster()) {
+            monsterToSummon = (Monster) Cell.getSelectedCell().getCellCard();
+            if (monsterToSummon.getCardType() != CardType.RITUAL) {
+                throw new GameException(GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response);
+            } else {
+                while (true) {
+                    ViewInterface.showResult("select cards to tribute:");
+                    if (monsterToSummon.getLevel()<7) {
+                        String input = ViewInterface.getInput();
+                        if (!input.matches("\\d") || Integer.parseInt(input) > 5 || Integer.parseInt(input) < 1) {
+                            ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
+                            continue;
+                        }
+                        int cellNumber = Integer.parseInt(input);
+                        cellNumber -= 1;
+                        if (playerGameBoard.getMonsterCardZone()[cellNumber].isEmpty()) {
+                            ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
+                        } else if (((Monster) playerGameBoard.getMonsterCardZone()[cellNumber].getCellCard()).getLevel() != monsterToSummon.getLevel()) {
+                            ViewInterface.showResult(GameResponses.SELECTED_MONSTERS_DONT_MATCH.response);
+                        } else {
+                            //todo get the status and summon
+
+                        }
+                    }
+                    else if (7 <= monsterToSummon.getLevel()) {
+                        String input2 = ViewInterface.getInput();
+                        if (!input2.matches("\\d \\d") || Integer.parseInt(input2.substring(0,1)) > 5 ||
+                                Integer.parseInt(input2.substring(2,3)) >5) {
+                            ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
+                            continue;
+                        }
+                        int cellNumber = Integer.parseInt(input2.substring(0,1));
+                        int cellNumber2=Integer.parseInt(input2.substring(2,3));
+                        cellNumber--;
+                        cellNumber2--;
+                        if (playerGameBoard.getMonsterCardZone()[cellNumber].isEmpty()||playerGameBoard.getMonsterCardZone()[cellNumber2].isEmpty()) {
+                            ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
+                        } else if (!(((Monster) playerGameBoard.getMonsterCardZone()[cellNumber].getCellCard()).getLevel()+
+                                ((Monster) playerGameBoard.getMonsterCardZone()[cellNumber].getCellCard()).getLevel()==monsterToSummon.getLevel())) {
+                            ViewInterface.showResult(GameResponses.SELECTED_MONSTERS_DONT_MATCH.response);
+                        } else {
+                            //todo get the status and summon
+
+                        }
+                    }
+
+
+                }
+            }
+        } else {
+            throw new GameException(GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response);
+        }
 
     }
 
@@ -222,7 +273,7 @@ public interface MainPhasesController {
         }
         response += "\n" + opponentPlayerGameBoard.getDeckZone().size() + "\n";
         response += "\t4\t2\t1\t3\t5\n";
-        int[]opponentCellNumbering={3,1,0,2,4};
+        int[] opponentCellNumbering = {3, 1, 0, 2, 4};
         for (int i = 0; i < 5; i++) {
             if (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentCellNumbering[i]]
                     .getCellCard() == null) {
@@ -277,7 +328,7 @@ public interface MainPhasesController {
             response += "O";
         }
         response += "\t\t\t\t\t\t" + playerGameBoard.getGraveyard().size() + "\n";
-        int[]playerCellNumbering={4,2,0,1,3};
+        int[] playerCellNumbering = {4, 2, 0, 1, 3};
         for (int i = 0; i < 5; i++) {
             if (playerGameBoard.getMonsterCardZone()[playerCellNumbering[i]]
                     .getCellCard() == null) {

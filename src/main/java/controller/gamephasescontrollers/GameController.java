@@ -28,6 +28,7 @@ public class GameController {
     protected Game game;
     private int currentRound = 1;
     private boolean didPlayerSetOrSummonThisTurn;
+    public boolean shouldRitualSummonNow;
     private boolean isGameEnded;
     private DrawPhaseController drawPhaseController;
     private StandByPhaseController standByPhaseController;
@@ -43,6 +44,7 @@ public class GameController {
         phases = new ArrayList<>();
         didPlayerSetOrSummonThisTurn = false;
         isGameEnded=false;
+        shouldRitualSummonNow=false;
         drawPhaseController = new DrawPhaseController(this);
         standByPhaseController = new StandByPhaseController(this);
         mainPhase1Controller = new MainPhase1Controller(this);
@@ -459,6 +461,14 @@ public class GameController {
             }
 
         }
+    }
+    public void activateRitualSpellEffect(){
+        GameBoard playerGameBoard=currentTurnPlayer.getGameBoard();
+        if(!playerGameBoard.canTribute()){
+            ViewInterface.showResult("Error: there is no way you could ritual summon a monster");
+        }
+
+
     }
 
 }
