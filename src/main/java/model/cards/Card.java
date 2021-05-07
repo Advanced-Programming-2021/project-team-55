@@ -20,8 +20,6 @@ public class Card {
 
     enum Kind {MONSTER, MAGIC}
     protected SpellOrTrap magicType;
-
-
     protected Kind cardKind;
 
     static {
