@@ -18,7 +18,7 @@ public class Card {
     protected Counter counter;
     protected int number;
 
-    enum Kind {MONSTER, MAGIC}
+    public enum Kind {MONSTER, MAGIC}
     protected SpellOrTrap magicType;
     protected Kind cardKind;
 
@@ -405,4 +405,7 @@ public class Card {
 
     }
 
+    public Kind getCardKind() {
+        return cardKind;
+    }
 }

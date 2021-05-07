@@ -1,6 +1,7 @@
 package controller.gamephasescontrollers;
 
 import model.cards.monsters.ManEaterBug;
+import model.cards.monsters.TerratigertheEmpoweredWarrior;
 import model.exceptions.GameException;
 import model.Player;
 import model.board.CardStatus;
@@ -67,6 +68,7 @@ public interface MainPhasesController {
         }
         currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED);
         currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
+        TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
         Cell.deselectCell();
     }

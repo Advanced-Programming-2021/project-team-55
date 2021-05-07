@@ -19,6 +19,8 @@ import java.util.ArrayList;
 
 public class GameController {
 
+    private static GameController gameController;
+
     public Player currentTurnPlayer;
     public Player currentTurnOpponentPlayer;
     public GamePhase currentPhase;
@@ -49,7 +51,7 @@ public class GameController {
         battlePhaseController = new BattlePhaseController(this);
         mainPhase2Controller = new MainPhase2Controller(this);
         endPhaseController = new EndPhaseController(this);
-
+        gameController = this;
     }
 
     public int tossCoin() {
@@ -461,5 +463,8 @@ public class GameController {
         }
     }
 
+    public static GameController getGameController() {
+        return gameController;
+    }
 }
 

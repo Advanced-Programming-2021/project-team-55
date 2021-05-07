@@ -1,5 +1,7 @@
 package model.board;
 
+import model.cards.Monster;
+import model.cards.cardfeaturesenums.CardType;
 import model.exceptions.GameException;
 import model.cards.Card;
 import model.cards.Deck;
@@ -193,4 +195,12 @@ public class GameBoard {
 
     }
 
+    public boolean doHandDeckHaveCard(int maxLevel, CardType cardType){
+        for (int i = 0; i < 5; i++) {
+            if (handCards.get(i).isEmpty() || handCards.get(i).getCellCard().getCardKind() != Card.Kind.MONSTER) continue;
+            Monster monster = (Monster) handCards.get(i).getCellCard();
+            if (monster.getLevel() <= maxLevel && monster.getCardType() == cardType) return true;
+        }
+        return false;
+    }
 }
