@@ -1,6 +1,7 @@
 package model.cards;
 
 import model.Counter;
+import model.cards.cardfeaturesenums.SpellOrTrap;
 import model.cards.monsters.*;
 import model.cards.trapandspells.*;
 
@@ -17,7 +18,10 @@ public class Card {
     protected Counter counter;
     protected int number;
 
-    protected enum Kind {MONSTER, SPELLANDTRAP}
+    enum Kind {MONSTER, MAGIC}
+    enum SpellOrTrap{SPELL,TRAP}
+    protected SpellOrTrap magicType;
+
 
     protected Kind cardKind;
 
@@ -25,11 +29,13 @@ public class Card {
         allCards = new ArrayList<>();
     }
 
-    public Card(String name, String description, int price, Kind cardKind) {
+    public Card(String name, String description, int price, Kind cardKind, SpellOrTrap magicType) {
         setName(name);
         setDescription(description);
         setPrice(price);
         this.cardKind = cardKind;
+        this.magicType=magicType;
+
         if (getCardByName(name) == null) {
             allCards.add(this);
         }
@@ -143,9 +149,15 @@ public class Card {
         return cardKind == Kind.MONSTER;
     }
 
-    public boolean isSpellAndTrap() {
-        return cardKind == Kind.SPELLANDTRAP;
+    public boolean isSpell(){
+        if(cardKind==Kind.MONSTER){
+            return false;
+        }
+        else {
+            return magicType == SpellOrTrap.SPELL;
+        }
     }
+
 
     public Card clone(){
         return Card.getNewCardObjectByName(this.getName());

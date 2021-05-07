@@ -8,13 +8,13 @@ public abstract class SpellAndTrap extends Card {
 
     private boolean isActive;
 
-    private SpellOrTrap type;
+    protected SpellOrTrap type;
     private SpellOrTrapAttribute attribute;
     private EffectiveTerm status;
 
     public SpellAndTrap(String name, String description, int price, boolean isActive,
                         SpellOrTrap type, SpellOrTrapAttribute attribute, EffectiveTerm status) {
-        super(name, description, price, Kind.SPELLANDTRAP);
+        super(name, description, price, Kind.MAGIC,type);
         this.isActive = isActive;
         this.type = type;
         this.attribute = attribute;
@@ -33,9 +33,6 @@ public abstract class SpellAndTrap extends Card {
         return isActive;
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
 
     public void setActive(boolean active) {
         isActive = active;

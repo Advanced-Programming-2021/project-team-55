@@ -20,6 +20,8 @@ public enum GameResponses {
     ALREADY_ATTACKED_CARD("Error: this card already attacked"),
     GRAVEYARD_EMPTY("Error: graveyard empty"),
     CARD_IS_NOT_VISIBLE("Error: card is not visible"),
+    ACTIVATION_ONLY_FOR_SPELL("Error: activate effect is only for spell cards"),
+    ALREADY_ACTIVATED("Error: you have already activated this card"),
     CHEAT_ACTIVATED_LP_INCREASED("cheat activated: LP increased!"),
     CHEAT_ACTIVATED_WINNER_SET("cheat activated: winner set!"),
     CHEAT_ACTIVATED_SELECT_FORCE("cheat activated: card force selected!"),

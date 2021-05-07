@@ -7,6 +7,7 @@ import model.board.Cell;
 import model.board.GameBoard;
 import model.cards.Card;
 import model.cards.Monster;
+import model.cards.SpellAndTrap;
 import view.ConsoleColors;
 import view.ViewInterface;
 import view.gamephases.Duel;
@@ -120,12 +121,27 @@ public interface MainPhasesController {
             }
         }
     }
-    default public void activateSpell() throws GameException {
+    default void activateSpell(GameController gameController) throws GameException {
         Cell cell=Cell.getSelectedCell();
+        GameBoard playerGameBoard=gameController.getCurrentTurnPlayer().getGameBoard();
         if(cell==null){
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
-       // else if(cell.getCellCard().isSpellAndTrap())
+        else {
+            Card card=cell.getCellCard();
+            if(!card.isSpell()){
+                throw new GameException(GameResponses.ACTIVATION_ONLY_FOR_SPELL.response);
+            }
+            else if(cell.getCardStatus()==CardStatus.OCCUPIED){
+                throw new GameException(GameResponses.ALREADY_ACTIVATED.response);
+            }
+            else if(playerGameBoard.isSpellAndTrapCardZoneFull()){
+                throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
+            }
+            else{
+                //todo activate spell and add to zone
+            }
+        }
     }
 
     default void flipSummon(GameController gameController) throws GameException {

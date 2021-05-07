@@ -20,7 +20,6 @@ class DeckMenuControllerTest {
     {
         User.setLoggedInUser(user);
     }
-
     @Test
     void getADeck() {
         Deck deck = new Deck("first deck");
