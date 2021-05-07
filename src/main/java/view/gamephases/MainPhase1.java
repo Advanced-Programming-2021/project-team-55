@@ -85,7 +85,7 @@ public class MainPhase1 extends Duel {
         //todo these attack methods should be moved to battle phase
         else if (command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {
             try {
-                mainPhase1Controller.activateSpell();
+                mainPhase1Controller.activateSpell(gameController);
                 response = GameResponses.SPELL_ACTIVATED.response;
             } catch (GameException e) {
                 response = e.toString();

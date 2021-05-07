@@ -1,5 +1,6 @@
 package controller.gamephasescontrollers;
 
+import model.cards.monsters.Marshmallon;
 import model.exceptions.GameException;
 import model.Player;
 import model.board.Cell;
@@ -72,7 +73,7 @@ public class BattlePhaseController implements methods {
                         calculateDamage(attackerCell, attackedCell) + " battle damage";
             }
         } else {
-            if (isAttackerStronger(attackerCell, attackedCell)) {
+            if (isAttackerStronger(attackerCell, attackedCell)&&!attackedCell.getCellCard().getName().equals("Marshmallon")) {
                 response = "opponent’s monster card was " +
                         attackedCell.getCellCard().getName() + " the defense position monster is destroyed";
                 attackedCell.removeCardFromCell(opponentGameBoard);
@@ -85,6 +86,7 @@ public class BattlePhaseController implements methods {
                         " and no card is destroyed and you received " +
                         calculateDamage(attackerCell, attackedCell) + " battle damage";
             }
+            response+=Marshmallon.handleEffect(gameController,attackerCell,attackedCell);
         }
         return response;
     }

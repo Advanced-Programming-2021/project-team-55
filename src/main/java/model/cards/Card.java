@@ -19,7 +19,7 @@ public class Card {
     protected int number;
 
     enum Kind {MONSTER, MAGIC}
-    enum SpellOrTrap{SPELL,TRAP}
+    private enum SpellOrTrap{SPELL,TRAP}
     protected SpellOrTrap magicType;
 
 
@@ -156,6 +156,12 @@ public class Card {
         else {
             return magicType == SpellOrTrap.SPELL;
         }
+    }
+    public boolean isSpellAndTrap(){
+        if(cardKind==Kind.MONSTER){
+            return false;
+        }
+        return true;
     }
 
 
