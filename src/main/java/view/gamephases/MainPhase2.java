@@ -37,9 +37,25 @@ public class MainPhase2 extends Duel {
     @Override
     protected String processCommand(String command) {
         String response = "";
-        if (!gameController.checkCommandIsInCurrentPhase(command)) {
+        if (gameController.shouldRitualSummonNow) {
+            if (command.matches(GameRegexes.SELECT.regex)) {
+                response = processSelect(command);
+            } else if (command.matches(GameRegexes.SUMMON.regex)) {
+                try {
+                    mainPhase2Controller.ritualSummon(gameController);
+                    response=GameResponses.SUMMONED_SUCCESSFULLY.response;
+
+                }catch (GameException e){
+                    response=e.toString();
+                }
+            } else {
+                response = GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response;
+            }
+        }
+        else if (!gameController.checkCommandIsInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
-        } else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
+        }
+        else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
             gameController.changePhase();
             showPhase();
         } else if (command.matches(GameRegexes.DESELECT.regex)) {
@@ -51,12 +67,6 @@ public class MainPhase2 extends Duel {
             }
         } else if (command.matches(GameRegexes.SELECT.regex)) {
             response = processSelect(command);
-        } else if (command.matches(GameRegexes.SHOW_CARD_SELECTED.regex)) {
-            try {
-                response = gameController.showCard();
-            } catch (GameException e) {
-                response = e.toString();
-            }
         } else if (command.matches(GameRegexes.SUMMON.regex)) {
             try {
                 mainPhase2Controller.monsterSummon(gameController);
@@ -71,6 +81,27 @@ public class MainPhase2 extends Duel {
             } catch (GameException e) {
                 response = e.toString();
             }
+        } else if (command.matches(GameRegexes.SET_POSITION.regex)) {
+            Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SET_POSITION.regex);
+            try {
+                mainPhase2Controller.setPosition(matcher.group(1), gameController);
+                response = GameResponses.SET_POSITION_SUCCESSFULLY.response;
+            } catch (GameException e) {
+                response = e.toString();
+            }
+        } else if (command.matches(GameRegexes.FLIP_SUMMON.regex)) {
+            try {
+                mainPhase2Controller.flipSummon(gameController);
+                response = GameResponses.FLIP_SUMMONED_SUCCESSFULLY.response;
+            } catch (GameException e) {
+                response = e.toString();
+            }
+        } else if (command.matches(GameRegexes.SHOW_CARD_SELECTED.regex)) {
+            try {
+                response = gameController.showCard();
+            } catch (GameException e) {
+                response = e.toString();
+            }
         } else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
             try {
                 gameController.currentPhase = GamePhase.GRAVEYARD;
@@ -78,7 +109,17 @@ public class MainPhase2 extends Duel {
             } catch (GameException e) {
                 response = e.toString();
             }
-        } else if (command.matches(GameRegexes.SURRENDER.regex)) {
+        }
+        else if (command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {
+            try {
+                mainPhase2Controller.activateSpell(gameController);
+                response = GameResponses.SPELL_ACTIVATED.response;
+            } catch (GameException e) {
+                response = e.toString();
+            }
+        }
+        //todo check whether we have handled all methods in this phase or not
+        else if (command.matches(GameRegexes.SURRENDER.regex)) {
             gameController.surrender();
         } else if (command.matches(GameRegexes.INCREASE_LP.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.INCREASE_LP.regex);
@@ -104,6 +145,7 @@ public class MainPhase2 extends Duel {
         } else {
             response = GameResponses.INVALID_COMMAND.response;
         }
+
         return response;
     }
 

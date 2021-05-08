@@ -21,7 +21,7 @@ public class TerratigertheEmpoweredWarrior extends Monster {
         if (!summonedCell.getCellCard().getName().equals("Terratiger, the Empowered Warrior")) return;
 
         ViewInterface.showResult("\"Terratiger, the Empowered Warrior\" effect activated:");
-        if (gameController.getCurrentTurnPlayer().getGameBoard().doHandDeckHaveCard(4, CardType.NORMAL)) {
+        if (gameController.getCurrentTurnPlayer().getGameBoard().doesHandDeckHaveCard(4, CardType.NORMAL)) {
             ViewInterface.showResult("select a normal monster with at most level 4 to set:");
             while (true) {
                 String selectionCommand = ViewInterface.getInput();
