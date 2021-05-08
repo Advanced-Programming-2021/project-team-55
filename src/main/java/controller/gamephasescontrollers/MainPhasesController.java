@@ -174,7 +174,7 @@ public interface MainPhasesController {
 
     }
 
-    private boolean canSpecialSummon(GameController gameController){
+    default boolean canSpecialSummon(GameController gameController){
         GameBoard playerGameBoard=gameController.currentTurnPlayer.getGameBoard();
         for(Cell cell:playerGameBoard.getHandCards()){
             if(cell.getCellCard().isMonster()){
