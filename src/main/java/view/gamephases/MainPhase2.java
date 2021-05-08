@@ -32,10 +32,10 @@ public class MainPhase2 extends Duel {
                 AICommand =  aiPlayerController.getMainCommandForMainPhases();
                 response = processCommand(AICommand);
             }
-        } else{
+        } else {
             response = processCommand(ViewInterface.getInput());
-            ViewInterface.showResult(response);
         }
+            ViewInterface.showResult(response);
     }
 
     @Override

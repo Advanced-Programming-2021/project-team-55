@@ -163,7 +163,6 @@ public interface MainPhasesController {
                             gameController.currentTurnOpponentPlayer.getGameBoard().addCardToFieldZone(card);
                         } else {
                             playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED);
-
                         }
                         Cell.deselectCell();
                     }

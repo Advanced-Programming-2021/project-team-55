@@ -58,6 +58,7 @@ public class BattlePhaseController implements methods {
             if (response.equals(""))
                 response = attackToDefensiveHiddenCell(attackerCell, attackedCell, opponentGameBoard);
         }
+        Cell.deselectCell();
         return response;
     }
 
@@ -168,6 +169,7 @@ public class BattlePhaseController implements methods {
         Monster attackerMonster = (Monster) selectedCell.getCellCard();
         gameController.getCurrentTurnOpponentPlayer().decreaseLP(attackerMonster.getAtk());
         gameController.getAttackerCellsThisTurn().add(selectedCell);
+        Cell.deselectCell();
         return "your opponent receives " + attackerMonster.getAtk() + " battle damage";
     }
 
