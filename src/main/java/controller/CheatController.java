@@ -57,4 +57,9 @@ public class CheatController {
         return "new card added to the hand and selected: " + cardName;
     }
 
+    public String makeMeAI(GameController gameController){
+        gameController.getCurrentTurnPlayer().setAI(true);
+        return "you're now ai :D";
+    }
+
 }

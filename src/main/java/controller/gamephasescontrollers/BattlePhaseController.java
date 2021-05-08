@@ -97,6 +97,7 @@ public class BattlePhaseController implements methods {
                     calculateDamage(attackerCell, attackedCell) + " battle damage";
             Marshmallon.handleEffect(gameController, attackerCell, attackedCell);//todo marshmallo
         }
+        gameController.getAttackerCellsThisTurn().add(attackedCell);
         return response;
     }
 
@@ -166,6 +167,7 @@ public class BattlePhaseController implements methods {
         }
         Monster attackerMonster = (Monster) selectedCell.getCellCard();
         gameController.getCurrentTurnOpponentPlayer().decreaseLP(attackerMonster.getAtk());
+        gameController.getAttackerCellsThisTurn().add(selectedCell);
         return "your opponent receives " + attackerMonster.getAtk() + " battle damage";
     }
 

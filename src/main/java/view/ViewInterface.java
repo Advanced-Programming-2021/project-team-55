@@ -16,8 +16,9 @@ public class ViewInterface {
     public static String getInput() {
         String command;
         try{
-            if (Duel.getGameController().getCurrentTurnPlayer().isAI()) command = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
-                    AIPlayerController.orderKind.RANDOM)).getAICommand();
+            if (Duel.getGameController().getCurrentTurnPlayer().isAI() && AIPlayerController.isIsAllowedToCommand())
+                command = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
+                    AIPlayerController.orderKind.RANDOM)).getSpecialCommand();
             else command = input.nextLine();
         }catch(Exception e){
             command = input.nextLine();
@@ -28,11 +29,16 @@ public class ViewInterface {
     public static void showResult(String result) {
         if (!result.equals("")) {
             if (result.startsWith("Error: ")) {
+                AIPlayerController.setLastResponse(result);
                 System.out.println(ConsoleColors.RED + result.replaceAll("Error: ", "") + ConsoleColors.RESET);
             } else {
-                try {
-                    if (Duel.getGameController().getCurrentTurnPlayer().isAI()) return;
-                }catch (Exception e){}
+//                try {
+//                    if (Duel.getGameController().getCurrentTurnPlayer().isAI()){
+                        AIPlayerController.setLastResponse(result);
+////                        return;
+//                    }
+//                }catch (Exception ignored){}
+
                 if (Responses.responseExists(result) || GameResponses.responseExists(result)) {
                     System.out.println(ConsoleColors.GREEN + result + ConsoleColors.RESET);
                 } else {

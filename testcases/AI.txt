@@ -4,3 +4,7 @@ user login --username parham --password 123
 menu enter Duel
 duel --new --ai --rounds 1
 next phase
+next phase
+next phase
+next phase
+next phase
