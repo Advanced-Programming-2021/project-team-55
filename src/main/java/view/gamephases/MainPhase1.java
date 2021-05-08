@@ -93,7 +93,8 @@ public class MainPhase1 extends Duel {
         } else if (command.matches(GameRegexes.SUMMON.regex)) {
             try {
                 mainPhase1Controller.monsterSummon(gameController);
-                response = GameResponses.SUMMONED_SUCCESSFULLY.response;
+                if (!gameController.shouldSpecialSummonNow)
+                     response = GameResponses.SUMMONED_SUCCESSFULLY.response;
             } catch (GameException e) {
                 response = e.toString();
             }

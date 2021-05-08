@@ -1,0 +1,13 @@
+user create --username parham --nickname pari --password 123
+user create --username abolfazl --nickname abol --password 123
+user login --username parham --password 123
+menu enter Duel
+duel --new --second-player abolfazl --rounds 1
+1
+yes
+add --force The Tricky
+summon
+yes
+select --hand 7
+select --hand 6
+next phase
