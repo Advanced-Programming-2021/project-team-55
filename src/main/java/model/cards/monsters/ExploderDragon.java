@@ -8,6 +8,9 @@ import model.cards.cardfeaturesenums.CardType;
 import model.cards.cardfeaturesenums.MonsterAttribute;
 import model.cards.cardfeaturesenums.MonsterType;
 
+import static model.board.CardStatus.DEFENSIVE_OCCUPIED;
+import static model.board.CardStatus.OFFENSIVE_OCCUPIED;
+
 public class ExploderDragon extends Monster {
 
     public ExploderDragon() {
@@ -16,15 +19,25 @@ public class ExploderDragon extends Monster {
     }
 
     public static String handleEffect(GameController gameController, Cell attackerCell, Cell attackedCell) {
+        String response="";
         if (isNotExploderDragon(attackerCell, attackedCell)) return "";
-        if (exploderDragonDiesDuringBeingAttacked(gameController, attackerCell, attackedCell)) {
+        else if (exploderDragonDiesDuringBeingAttacked(gameController, attackerCell, attackedCell)) {
+                if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
+                    response = "your opponent’s monster is destroyed";
+                } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
+                    response = "the defense position monster is destroyed";
+                } else {
+
+                }
+
+            response += "Exploder Dragon effect activated:  monster card: \"" + attackerCell.getCellCard().getName() + "\" is also removed and no one loses LP. ";
             removePlayers(gameController, attackerCell, attackedCell);
-            return "Exploder Dragon effect activated:  monster card: \\\"" + attackerCell.getCellCard().getName() + "\\\" removed and no one loses LP. ";
         } else if (exploderDragonDiesDuringAttack(gameController, attackerCell, attackedCell)) {
+            response = "Exploder Dragon effect activated:  monster card: \"" + attackedCell.getCellCard().getName() + "\" is also removed and no one loses LP. ";
             removePlayers(gameController, attackerCell, attackedCell);
-            return "Exploder Dragon effect activated:  monster card: \\\"" + attackedCell.getCellCard().getName() + "\\\" removed and no one loses LP. ";
-        }
-        return "";
+        } else
+            return "";
+        return response;
     }
 
     private static boolean exploderDragonDiesDuringBeingAttacked(GameController gameController, Cell attackerCell, Cell attackedCell) {
@@ -36,7 +49,7 @@ public class ExploderDragon extends Monster {
         return attackerCell.getCellCard().getName().equals("Exploder Dragon") &&
                 !gameController.getBattlePhaseController().isAttackerStronger(attackerCell, attackedCell) &&
                 !gameController.getBattlePhaseController().isAttackerAndAttackedPowerEqual(attackerCell, attackedCell) &&
-                attackedCell.getCardStatus()== CardStatus.OFFENSIVE_OCCUPIED;
+                attackedCell.getCardStatus() == CardStatus.OFFENSIVE_OCCUPIED;
     }
 
     private static void removePlayers(GameController gameController, Cell attackerCell, Cell attackedCell) {

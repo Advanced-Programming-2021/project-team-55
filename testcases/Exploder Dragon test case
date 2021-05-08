@@ -1,0 +1,32 @@
+user create --username parham --nickname pari --password 123
+user create --username abolfazl --nickname abol --password 123
+user login --username parham --password 123
+menu enter Duel
+duel --new --second-player abolfazl --rounds 3
+1
+yes
+add --force Exploder Dragon
+summon
+next phase
+next phase
+next phase
+add --force Wattkid
+summon
+next phase
+select --monster 1
+attack 1
+//---ex => due to equal power
+next phase
+next phase
+add --force Exploder Dragon
+summon
+next phase
+next phase
+next phase
+add --force Axe Raider
+summon
+next phase
+select --monster 1
+attack 1
+next phase
+//---ex => due to effect

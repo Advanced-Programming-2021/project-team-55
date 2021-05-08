@@ -45,20 +45,18 @@ public class BattlePhaseController implements methods {
         } else if (attackedCell == null || attackedCell.getCellCard() == null) {
             throw new GameException(GameResponses.NO_CARD_TO_ATTACK.response);
         } else if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
-            if (ExploderDragon.isNotExploderDragon(attackerCell, attackedCell))
+            response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
+            if (response.equals(""))
                 response = attackToOffensiveCell(attackerCell, attackedCell, opponentGameBoard, playerGameBoard);
-            else
-                response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
+
         } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
-            if (ExploderDragon.isNotExploderDragon(attackerCell, attackedCell))
+            response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
+            if (response.equals(""))
                 response = attackToDefensiveOccupiedCell(attackerCell, attackedCell, playerGameBoard);
-            else
-                response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
         } else {
-            if (ExploderDragon.isNotExploderDragon(attackerCell, attackedCell))
+            response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
+            if (response.equals(""))
                 response = attackToDefensiveHiddenCell(attackerCell, attackedCell, opponentGameBoard);
-            else
-                response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
         }
         return response;
     }
