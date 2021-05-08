@@ -173,9 +173,10 @@ public interface MainPhasesController {
     default void ritualSummon(GameController gameController) throws GameException {
         //todo handle cancel
         Monster monsterToSummon;
+        Cell selectedCell=Cell.getSelectedCell();
         GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
-        if (Cell.getSelectedCell().getCellCard().isMonster()) {
-            monsterToSummon = (Monster) Cell.getSelectedCell().getCellCard();
+        if (selectedCell!=null&&selectedCell.getCellCard().isMonster()) {
+            monsterToSummon = (Monster) selectedCell.getCellCard();
             if (monsterToSummon.getCardType() != CardType.RITUAL) {
                 throw new GameException(GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response);
             } else {
@@ -194,8 +195,22 @@ public interface MainPhasesController {
                         } else if (((Monster) playerGameBoard.getMonsterCardZone()[cellNumber].getCellCard()).getLevel() != monsterToSummon.getLevel()) {
                             ViewInterface.showResult(GameResponses.SELECTED_MONSTERS_DONT_MATCH.response);
                         } else {
-                            //todo get the status and summon
-
+                            String cardStatus="";
+                            while(!cardStatus.equals("attacking")&&!cardStatus.equals("defensive")) {
+                                ViewInterface.showResult("choose card position: attacking/defensive");
+                                cardStatus = ViewInterface.getInput();
+                            }
+                            playerGameBoard.getMonsterCardZone()[cellNumber].removeCardFromCell(playerGameBoard);
+                            playerGameBoard.getHandCards().remove(selectedCell);
+                            Cell.deselectCell();
+                            if(cardStatus.equals("defensive")){
+                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon,CardStatus.DEFENSIVE_OCCUPIED);
+                                break;
+                            }
+                            else{
+                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon,CardStatus.OFFENSIVE_OCCUPIED);
+                                break;
+                            }
                         }
                     }
                     else if (7 <= monsterToSummon.getLevel()) {
@@ -211,11 +226,28 @@ public interface MainPhasesController {
                         cellNumber2--;
                         if (playerGameBoard.getMonsterCardZone()[cellNumber].isEmpty()||playerGameBoard.getMonsterCardZone()[cellNumber2].isEmpty()) {
                             ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
-                        } else if (!(((Monster) playerGameBoard.getMonsterCardZone()[cellNumber].getCellCard()).getLevel()+
-                                ((Monster) playerGameBoard.getMonsterCardZone()[cellNumber].getCellCard()).getLevel()==monsterToSummon.getLevel())) {
+                        }
+                        else if ((((Monster) playerGameBoard.getMonsterCardZone()[cellNumber].getCellCard()).getLevel()+
+                                ((Monster) playerGameBoard.getMonsterCardZone()[cellNumber2].getCellCard()).getLevel()!=monsterToSummon.getLevel())) {
                             ViewInterface.showResult(GameResponses.SELECTED_MONSTERS_DONT_MATCH.response);
                         } else {
-                            //todo get the status and summon
+                            String cardStatus="";
+                            while(!cardStatus.equals("attacking")&&!cardStatus.equals("defensive")) {
+                                ViewInterface.showResult("choose card position: attacking/defensive");
+                                cardStatus = ViewInterface.getInput();
+                            }
+                            playerGameBoard.getMonsterCardZone()[cellNumber].removeCardFromCell(playerGameBoard);
+                            playerGameBoard.getMonsterCardZone()[cellNumber2].removeCardFromCell(playerGameBoard);
+                            playerGameBoard.getHandCards().remove(selectedCell);
+                            Cell.deselectCell();
+                            if(cardStatus.equals("defensive")){
+                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon,CardStatus.DEFENSIVE_OCCUPIED);
+                                break;
+                            }
+                            else{
+                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon,CardStatus.OFFENSIVE_OCCUPIED);
+                                break;
+                            }
 
                         }
                     }
