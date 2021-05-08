@@ -24,6 +24,21 @@ public class MainPhase1 extends Duel {
     @Override
     protected String processCommand(String command) {
         String response = "";
+        if(gameController.shouldRitualSummonNow){
+            if(command.matches(GameRegexes.SELECT.regex)){
+                response=processSelect(command);
+            }
+            else if(command.matches(GameRegexes.SUMMON.regex)){
+                try {
+                    mainPhase1Controller.ritualSummon();
+                }catch (GameException e){
+                    response=e.toString();
+                }
+            }
+            else{
+                response=GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response;
+            }
+        }
         if (!gameController.checkCommandIsInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
         }

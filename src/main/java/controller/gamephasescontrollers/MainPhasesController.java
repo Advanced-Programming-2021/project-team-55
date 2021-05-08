@@ -9,7 +9,9 @@ import model.board.Cell;
 import model.board.GameBoard;
 import model.cards.Card;
 import model.cards.Monster;
-import model.cards.SpellAndTrap;
+import model.cards.cardfeaturesenums.CardType;
+import model.cards.monsters.ManEaterBug;
+import model.exceptions.GameException;
 import view.ConsoleColors;
 import view.ViewInterface;
 import view.gamephases.Duel;
@@ -168,7 +170,62 @@ public interface MainPhasesController {
 
     }
 
-    default void ritualSummon(Cell cell) {
+    default void ritualSummon(GameController gameController) throws GameException {
+        //todo handle cancel
+        Monster monsterToSummon;
+        GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
+        if (Cell.getSelectedCell().getCellCard().isMonster()) {
+            monsterToSummon = (Monster) Cell.getSelectedCell().getCellCard();
+            if (monsterToSummon.getCardType() != CardType.RITUAL) {
+                throw new GameException(GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response);
+            } else {
+                while (true) {
+                    ViewInterface.showResult("select cards to tribute:");
+                    if (monsterToSummon.getLevel()<7) {
+                        String input = ViewInterface.getInput();
+                        if (!input.matches("\\d") || Integer.parseInt(input) > 5 || Integer.parseInt(input) < 1) {
+                            ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
+                            continue;
+                        }
+                        int cellNumber = Integer.parseInt(input);
+                        cellNumber -= 1;
+                        if (playerGameBoard.getMonsterCardZone()[cellNumber].isEmpty()) {
+                            ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
+                        } else if (((Monster) playerGameBoard.getMonsterCardZone()[cellNumber].getCellCard()).getLevel() != monsterToSummon.getLevel()) {
+                            ViewInterface.showResult(GameResponses.SELECTED_MONSTERS_DONT_MATCH.response);
+                        } else {
+                            //todo get the status and summon
+
+                        }
+                    }
+                    else if (7 <= monsterToSummon.getLevel()) {
+                        String input2 = ViewInterface.getInput();
+                        if (!input2.matches("\\d \\d") || Integer.parseInt(input2.substring(0,1)) > 5 ||
+                                Integer.parseInt(input2.substring(2,3)) >5) {
+                            ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
+                            continue;
+                        }
+                        int cellNumber = Integer.parseInt(input2.substring(0,1));
+                        int cellNumber2=Integer.parseInt(input2.substring(2,3));
+                        cellNumber--;
+                        cellNumber2--;
+                        if (playerGameBoard.getMonsterCardZone()[cellNumber].isEmpty()||playerGameBoard.getMonsterCardZone()[cellNumber2].isEmpty()) {
+                            ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
+                        } else if (!(((Monster) playerGameBoard.getMonsterCardZone()[cellNumber].getCellCard()).getLevel()+
+                                ((Monster) playerGameBoard.getMonsterCardZone()[cellNumber].getCellCard()).getLevel()==monsterToSummon.getLevel())) {
+                            ViewInterface.showResult(GameResponses.SELECTED_MONSTERS_DONT_MATCH.response);
+                        } else {
+                            //todo get the status and summon
+
+                        }
+                    }
+
+
+                }
+            }
+        } else {
+            throw new GameException(GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response);
+        }
 
     }
 

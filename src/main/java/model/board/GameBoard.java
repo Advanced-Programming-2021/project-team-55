@@ -154,6 +154,41 @@ public class GameBoard {
         return true;
     }
 
+    public boolean canTribute(){
+        ArrayList<Monster>monsters=new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            if(!monsterCardZone[i].isEmpty()){
+                monsters.add((Monster) monsterCardZone[i].getCellCard());
+            }
+        }
+        for (int i = 0; i < handCards.size(); i++) {
+            if(handCards.get(i).getCellCard().isMonster()){
+                Monster monster=(Monster) handCards.get(i).getCellCard();
+                if(monster.getCardType()== CardType.RITUAL){
+                    int monsterLevel=monster.getLevel();
+                    if(monsterLevel>=7){
+                        for(int j=0;i<monsters.size();j++){
+                            for(int k=j+1;k<monsters.size();k++){
+                                if(monsters.get(j).getLevel()+monsters.get(k).getLevel()==monsterLevel){
+                                    return true;
+                                }
+                            }
+                        }
+
+                    }
+                    else{
+                        for (int j = 0; j < monsters.size(); j++) {
+                            if(monsters.get(j).getLevel()==monsterLevel){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+
+    }
 
     public void addCardToGraveyard(Card card) {
         graveyard.add(new Cell(card));
