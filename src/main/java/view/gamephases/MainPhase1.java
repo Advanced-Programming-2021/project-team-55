@@ -48,16 +48,13 @@ public class MainPhase1 extends Duel {
                 try {
                     mainPhase1Controller.ritualSummon(gameController);
                     response=GameResponses.SUMMONED_SUCCESSFULLY.response;
-                    gameController.shouldRitualSummonNow=false;
+
                 }catch (GameException e){
                     response=e.toString();
                 }
             } else {
                 response = GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response;
             }
-        }
-        else if(command.matches("ritual summon")){
-            gameController.shouldRitualSummonNow=true;
         }
         else if (!gameController.checkCommandIsInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
@@ -119,7 +116,6 @@ public class MainPhase1 extends Duel {
                 response = e.toString();
             }
         }
-        //todo these attack methods should be moved to battle phase
         else if (command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {
             try {
                 mainPhase1Controller.activateSpell(gameController);

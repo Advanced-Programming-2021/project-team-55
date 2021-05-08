@@ -1,16 +1,16 @@
 package controller.gamephasescontrollers;
 
-import model.cards.monsters.ManEaterBug;
-import model.cards.monsters.TerratigertheEmpoweredWarrior;
-import model.exceptions.GameException;
 import model.Player;
 import model.board.CardStatus;
 import model.board.Cell;
 import model.board.GameBoard;
 import model.cards.Card;
 import model.cards.Monster;
+import model.cards.SpellAndTrap;
 import model.cards.cardfeaturesenums.CardType;
+import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
 import model.cards.monsters.ManEaterBug;
+import model.cards.monsters.TerratigertheEmpoweredWarrior;
 import model.exceptions.GameException;
 import view.ConsoleColors;
 import view.ViewInterface;
@@ -39,14 +39,14 @@ public interface MainPhasesController {
         } else if (gameController.DoPlayerSetOrSummonedThisTurn()) {
             throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
         }
-        int monsterLevel = ((Monster)selectedCell.getCellCard()).getLevel();
-        if (monsterLevel > 4){
+        int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
+        if (monsterLevel > 4) {
             int numberOfTributes;
             if (monsterLevel < 7) {
                 if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 1)
                     throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
                 numberOfTributes = 1;
-            }else {
+            } else {
                 if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 2)
                     throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
                 numberOfTributes = 2;
@@ -95,11 +95,11 @@ public interface MainPhasesController {
                 playerGameBoard.getHandCards().remove(selectedCell);
                 gameController.setDidPlayerSetOrSummonThisTurn(true);
             } else {
-                playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard);
+                playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard, CardStatus.HIDDEN);
                 playerGameBoard.getHandCards().remove(selectedCell);
 
             }
-            Cell.setSelectedCell(null);
+            Cell.deselectCell();
         }
     }
 
@@ -117,7 +117,7 @@ public interface MainPhasesController {
             throw new GameException(GameResponses.ALREADY_CHANGED_CARD_POSITION_IN_THIS_TURN.response);
         } else {
             gameController.changedPositionCells.add(cell);
-            Cell.setSelectedCell(null);
+            Cell.deselectCell();
             if (position.equals("attack")) {
                 cell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
             } else {
@@ -126,27 +126,57 @@ public interface MainPhasesController {
         }
     }
 
+    default boolean canActivateRitualSpellEffect(GameController gameController) {
+        GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
+        if (!playerGameBoard.canTribute()) {
+            ViewInterface.showResult(GameResponses.NO_WAY_TO_RITUAL_SUMMON.response);
+            return false;
+        } else {
+            gameController.shouldRitualSummonNow = true;
+            return true;
+        }
+    }
+
     default void activateSpell(GameController gameController) throws GameException {
-        Cell cell=Cell.getSelectedCell();
-        GameBoard playerGameBoard=gameController.getCurrentTurnPlayer().getGameBoard();
-        if(cell==null){
+        Cell selectedCell = Cell.getSelectedCell();
+        GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
+        if (selectedCell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
-        }
-        else {
-            Card card=cell.getCellCard();
-            if(!card.isSpell()){
+        } else {
+            Card card = selectedCell.getCellCard();
+            if (!card.isSpell()) {
                 throw new GameException(GameResponses.ACTIVATION_ONLY_FOR_SPELL.response);
-            }
-            else if(cell.getCardStatus()==CardStatus.OCCUPIED){
-                throw new GameException(GameResponses.ALREADY_ACTIVATED.response);
-            }
-            else if(playerGameBoard.isSpellAndTrapCardZoneFull()){
-                throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
-            }
-            else{
-                //todo activate spell and add to zone
+            } else {
+                SpellAndTrap spell = (SpellAndTrap) card;
+                if (selectedCell.getCardStatus() == CardStatus.OCCUPIED) {
+                    throw new GameException(GameResponses.ALREADY_ACTIVATED.response);
+                } else if (playerGameBoard.isSpellAndTrapCardZoneFull() && spell.getAttribute() != SpellOrTrapAttribute.FIELD) {
+                    throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
+                } else {
+                    if (!isPreparationDone(spell, gameController)) {
+                        throw new GameException(GameResponses.PREPARATION_NOT_DONE.response);
+                    } else {
+                        //todo activate spell
+                        playerGameBoard.getHandCards().remove(selectedCell);
+                        if (spell.getAttribute() == SpellOrTrapAttribute.FIELD) {
+                            playerGameBoard.addCardToFieldZone(card);
+                            gameController.currentTurnOpponentPlayer.getGameBoard().addCardToFieldZone(card);
+                        } else {
+                            playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED);
+
+                        }
+                        Cell.deselectCell();
+                    }
+                }
             }
         }
+    }
+
+    private boolean isPreparationDone(SpellAndTrap spell, GameController gameController) {
+        if (spell.getAttribute() == SpellOrTrapAttribute.RITUAL) {
+            return canActivateRitualSpellEffect(gameController);
+        }
+        return true;
     }
 
     default void flipSummon(GameController gameController) throws GameException {
@@ -164,6 +194,7 @@ public interface MainPhasesController {
         }
         selectedCell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
         ManEaterBug.handleEffect(gameController, selectedCell);
+        Cell.deselectCell();
     }
 
     default void specialSummon(Cell cell) {
@@ -173,16 +204,16 @@ public interface MainPhasesController {
     default void ritualSummon(GameController gameController) throws GameException {
         //todo handle cancel
         Monster monsterToSummon;
-        Cell selectedCell=Cell.getSelectedCell();
+        Cell selectedCell = Cell.getSelectedCell();
         GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
-        if (selectedCell!=null&&selectedCell.getCellCard().isMonster()) {
+        if (selectedCell != null && selectedCell.getCellCard().isMonster()) {
             monsterToSummon = (Monster) selectedCell.getCellCard();
             if (monsterToSummon.getCardType() != CardType.RITUAL) {
                 throw new GameException(GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response);
             } else {
                 while (true) {
                     ViewInterface.showResult("select cards to tribute:");
-                    if (monsterToSummon.getLevel()<7) {
+                    if (monsterToSummon.getLevel() < 7) {
                         String input = ViewInterface.getInput();
                         if (!input.matches("\\d") || Integer.parseInt(input) > 5 || Integer.parseInt(input) < 1) {
                             ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
@@ -195,44 +226,42 @@ public interface MainPhasesController {
                         } else if (((Monster) playerGameBoard.getMonsterCardZone()[cellNumber].getCellCard()).getLevel() != monsterToSummon.getLevel()) {
                             ViewInterface.showResult(GameResponses.SELECTED_MONSTERS_DONT_MATCH.response);
                         } else {
-                            String cardStatus="";
-                            while(!cardStatus.equals("attacking")&&!cardStatus.equals("defensive")) {
+                            String cardStatus = "";
+                            while (!cardStatus.equals("attacking") && !cardStatus.equals("defensive")) {
                                 ViewInterface.showResult("choose card position: attacking/defensive");
                                 cardStatus = ViewInterface.getInput();
                             }
                             playerGameBoard.getMonsterCardZone()[cellNumber].removeCardFromCell(playerGameBoard);
                             playerGameBoard.getHandCards().remove(selectedCell);
                             Cell.deselectCell();
-                            if(cardStatus.equals("defensive")){
-                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon,CardStatus.DEFENSIVE_OCCUPIED);
+                            gameController.shouldRitualSummonNow = false;
+                            if (cardStatus.equals("defensive")) {
+                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon, CardStatus.DEFENSIVE_OCCUPIED);
                                 break;
-                            }
-                            else{
-                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon,CardStatus.OFFENSIVE_OCCUPIED);
+                            } else {
+                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon, CardStatus.OFFENSIVE_OCCUPIED);
                                 break;
                             }
                         }
-                    }
-                    else if (7 <= monsterToSummon.getLevel()) {
+                    } else if (7 <= monsterToSummon.getLevel()) {
                         String input2 = ViewInterface.getInput();
-                        if (!input2.matches("\\d \\d") || Integer.parseInt(input2.substring(0,1)) > 5 ||
-                                Integer.parseInt(input2.substring(2,3)) >5) {
+                        if (!input2.matches("\\d \\d") || Integer.parseInt(input2.substring(0, 1)) > 5 ||
+                                Integer.parseInt(input2.substring(2, 3)) > 5) {
                             ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
                             continue;
                         }
-                        int cellNumber = Integer.parseInt(input2.substring(0,1));
-                        int cellNumber2=Integer.parseInt(input2.substring(2,3));
+                        int cellNumber = Integer.parseInt(input2.substring(0, 1));
+                        int cellNumber2 = Integer.parseInt(input2.substring(2, 3));
                         cellNumber--;
                         cellNumber2--;
-                        if (playerGameBoard.getMonsterCardZone()[cellNumber].isEmpty()||playerGameBoard.getMonsterCardZone()[cellNumber2].isEmpty()) {
+                        if (playerGameBoard.getMonsterCardZone()[cellNumber].isEmpty() || playerGameBoard.getMonsterCardZone()[cellNumber2].isEmpty()) {
                             ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
-                        }
-                        else if ((((Monster) playerGameBoard.getMonsterCardZone()[cellNumber].getCellCard()).getLevel()+
-                                ((Monster) playerGameBoard.getMonsterCardZone()[cellNumber2].getCellCard()).getLevel()!=monsterToSummon.getLevel())) {
+                        } else if ((((Monster) playerGameBoard.getMonsterCardZone()[cellNumber].getCellCard()).getLevel() +
+                                ((Monster) playerGameBoard.getMonsterCardZone()[cellNumber2].getCellCard()).getLevel() != monsterToSummon.getLevel())) {
                             ViewInterface.showResult(GameResponses.SELECTED_MONSTERS_DONT_MATCH.response);
                         } else {
-                            String cardStatus="";
-                            while(!cardStatus.equals("attacking")&&!cardStatus.equals("defensive")) {
+                            String cardStatus = "";
+                            while (!cardStatus.equals("attacking") && !cardStatus.equals("defensive")) {
                                 ViewInterface.showResult("choose card position: attacking/defensive");
                                 cardStatus = ViewInterface.getInput();
                             }
@@ -240,12 +269,12 @@ public interface MainPhasesController {
                             playerGameBoard.getMonsterCardZone()[cellNumber2].removeCardFromCell(playerGameBoard);
                             playerGameBoard.getHandCards().remove(selectedCell);
                             Cell.deselectCell();
-                            if(cardStatus.equals("defensive")){
-                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon,CardStatus.DEFENSIVE_OCCUPIED);
+                            gameController.shouldRitualSummonNow = false;
+                            if (cardStatus.equals("defensive")) {
+                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon, CardStatus.DEFENSIVE_OCCUPIED);
                                 break;
-                            }
-                            else{
-                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon,CardStatus.OFFENSIVE_OCCUPIED);
+                            } else {
+                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon, CardStatus.OFFENSIVE_OCCUPIED);
                                 break;
                             }
 
@@ -313,7 +342,7 @@ public interface MainPhasesController {
         }
         response += "\n" + opponentPlayerGameBoard.getDeckZone().size() + "\n";
         response += "\t4\t2\t1\t3\t5\n";
-        int[]opponentCellNumbering={3,1,0,2,4};
+        int[] opponentCellNumbering = {3, 1, 0, 2, 4};
         for (int i = 0; i < 5; i++) {
             if (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentCellNumbering[i]]
                     .getCellCard() == null) {
@@ -356,19 +385,19 @@ public interface MainPhasesController {
             }
         }
         response += "\n" + opponentPlayerGameBoard.getGraveyard().size() + "\t\t\t\t\t\t";
-        if (opponentPlayerGameBoard.getFieldZone() != null) {
+        if (opponentPlayerGameBoard.getFieldZone().isEmpty()) {
             response += "E";
         } else {
             response += "O";
         }
         response += "\n\n--------------------------\n\n";
-        if (playerGameBoard.getFieldZone() != null) {
+        if (playerGameBoard.getFieldZone().isEmpty()) {
             response += "E";
         } else {
             response += "O";
         }
         response += "\t\t\t\t\t\t" + playerGameBoard.getGraveyard().size() + "\n";
-        int[]playerCellNumbering={4,2,0,1,3};
+        int[] playerCellNumbering = {4, 2, 0, 1, 3};
         for (int i = 0; i < 5; i++) {
             if (playerGameBoard.getMonsterCardZone()[playerCellNumbering[i]]
                     .getCellCard() == null) {

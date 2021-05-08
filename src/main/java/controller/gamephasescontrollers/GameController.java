@@ -461,14 +461,7 @@ public class GameController {
 
         }
     }
-    public void activateRitualSpellEffect(){
-        GameBoard playerGameBoard=currentTurnPlayer.getGameBoard();
-        if(!playerGameBoard.canTribute()){
-            ViewInterface.showResult("Error: there is no way you could ritual summon a monster");
-        }
 
-
-    }
 
     public ArrayList<Cell> getAttackerCellsThisTurn() {
         return attackerCellsThisTurn;

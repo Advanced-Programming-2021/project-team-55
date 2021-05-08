@@ -41,6 +41,7 @@ public class GameBoard {
         deckZone = new ArrayList<>();
         handCards = new ArrayList<>();
         fieldZone = new Cell();
+        fieldZone.setCardStatus(CardStatus.OCCUPIED);
         graveyard = new ArrayList<>();
     }
 
@@ -194,14 +195,14 @@ public class GameBoard {
         graveyard.add(new Cell(card));
     }
 
-    public void addCardToSpellAndTrapCardZone(Card card) throws GameException {
+    public void addCardToSpellAndTrapCardZone(Card card,CardStatus cardStatus) throws GameException {
         if (isSpellAndTrapCardZoneFull())
             throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
 
         for (int i = 0; i < 5; i++) {
             if (spellAndTrapCardZone[i].isEmpty()) {
                 spellAndTrapCardZone[i].addCardToCell(card);
-                spellAndTrapCardZone[i].setCardStatus(CardStatus.HIDDEN);
+                spellAndTrapCardZone[i].setCardStatus(cardStatus);
                 return;
             }
         }
@@ -213,8 +214,6 @@ public class GameBoard {
             handCards.add(new Cell(card));
             deckZone.remove(0);
         }
-//todo        آدرس کارت ͳکه در  handخود بازی΋ن است )که طبق قانون حداکثر  ۶کارت نیز
-//        هستند
     }
 
     public void addCardToHandDeck(String cardName) {
@@ -227,10 +226,14 @@ public class GameBoard {
     }
 
     public void addCardToFieldZone(Card card) {
+        if(!fieldZone.isEmpty()){
+            addCardToGraveyard(fieldZone.getCellCard());
+        }
+        fieldZone.addCardToCell(card);
 
     }
 
-    public boolean doHandDeckHaveCard(int maxLevel, CardType cardType){
+    public boolean doesHandDeckHaveCard(int maxLevel, CardType cardType){
         for (int i = 0; i < 5; i++) {
             if (handCards.get(i).isEmpty() || handCards.get(i).getCellCard().getCardKind() != Card.Kind.MONSTER) continue;
             Monster monster = (Monster) handCards.get(i).getCellCard();
