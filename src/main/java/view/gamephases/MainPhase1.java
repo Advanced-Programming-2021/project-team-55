@@ -1,6 +1,7 @@
 package view.gamephases;
 
 import controller.AIPlayerController;
+import controller.CheatController;
 import controller.gamephasescontrollers.MainPhase1Controller;
 import model.exceptions.GameException;
 import view.GameRegexes;
@@ -19,16 +20,19 @@ public class MainPhase1 extends Duel {
 
         ViewInterface.showResult(mainPhase1Controller.showGameBoard(gameController.currentTurnPlayer,
                 gameController.currentTurnOpponentPlayer));
+
         String response;
         if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
             AIPlayerController aiPlayerController = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
                     AIPlayerController.orderKind.RANDOM));
-            String AICommand = aiPlayerController.getAICommand();
+            String AICommand = "";
             response = processCommand(AICommand);
             while (response.startsWith("Error: ") && !AICommand.equals("next phase")) {
-                AICommand = aiPlayerController.getAICommand();
+                AICommand =  aiPlayerController.getSelectCommandForMainPhases();
                 response = processCommand(AICommand);
-                LoggerMessage.log(response);
+                if (AICommand.equals("next phase")) break;
+                AICommand =  aiPlayerController.getMainCommandForMainPhases();
+                response = processCommand(AICommand);
             }
         } else response = processCommand(ViewInterface.getInput());
         ViewInterface.showResult(response);
@@ -67,6 +71,8 @@ public class MainPhase1 extends Duel {
             }
         } else if (command.matches(GameRegexes.SELECT.regex)) {
             response = processSelect(command);
+        } else if (command.matches(GameRegexes.MAKE_ME_AI.regex)) {
+            response = CheatController.getInstance().makeMeAI(gameController);
         } else if (command.matches(GameRegexes.SUMMON.regex)) {
             try {
                 mainPhase1Controller.monsterSummon(gameController);

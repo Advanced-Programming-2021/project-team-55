@@ -380,7 +380,7 @@ public class GameController {
     }
 
     public boolean canPlayerDirectAttack(Cell cell) {
-        return !currentTurnOpponentPlayer.getGameBoard().isMonsterCardZoneEmpty();//todo طبق داک ممکنه دلایل دیگه هم وجود داشته باشه
+        return currentTurnOpponentPlayer.getGameBoard().isMonsterCardZoneEmpty();//todo طبق داک ممکنه دلایل دیگه هم وجود داشته باشه
     }
 
     public String getSideDeckCards(Player player) {
@@ -463,5 +463,12 @@ public class GameController {
     }
 
 
+    public ArrayList<Cell> getAttackerCellsThisTurn() {
+        return attackerCellsThisTurn;
+    }
+
+    public void setAttackerCellsThisTurn(ArrayList<Cell> attackerCellsThisTurn) {
+        this.attackerCellsThisTurn = attackerCellsThisTurn;
+    }
 }
 

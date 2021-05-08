@@ -1,5 +1,6 @@
 package controller.gamephasescontrollers;
 
+import model.cards.monsters.ExploderDragon;
 import model.cards.monsters.Marshmallon;
 import model.cards.monsters.TheCalculator;
 import model.exceptions.GameException;
@@ -44,54 +45,80 @@ public class BattlePhaseController implements methods {
         } else if (attackedCell == null || attackedCell.getCellCard() == null) {
             throw new GameException(GameResponses.NO_CARD_TO_ATTACK.response);
         } else if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
-            if (isAttackerStronger(attackerCell, attackedCell)) {
-                decreasePlayersDamage(attackerCell, attackedCell);
-                response = "your opponent’s monster is destroyed and your opponent receives "
-                        + calculateDamage(attackerCell, attackedCell) + " battle damage";
-                YomiShip.handleEffect(gameController, attackerCell, attackedCell);
-                attackedCell.removeCardFromCell(opponentGameBoard);
-            } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {//todo marshmaloo :|||||||||||||||||||
-                response = "both you and your opponent monster cards are destroyed and no one receives damage";
-                attackerCell.removeCardFromCell(playerGameBoard);
-                attackedCell.removeCardFromCell(opponentGameBoard);
-            } else {
-                decreasePlayersDamage(attackerCell, attackedCell);
-                response = "Your monster card is destroyed and you received " +
-                        calculateDamage(attackerCell, attackedCell) + " battle damage";
-                attackerCell.removeCardFromCell(playerGameBoard);
-                Marshmallon.handleEffect(gameController, attackerCell, attackedCell);//todo marshmallo
-            }
+            response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
+            if (response.equals(""))
+                response = attackToOffensiveCell(attackerCell, attackedCell, opponentGameBoard, playerGameBoard);
+
         } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
-            if (isAttackerStronger(attackerCell, attackedCell)) {
-                decreasePlayersDamage(attackerCell, attackedCell);
-                response = "the defense position monster is destroyed";
-                YomiShip.handleEffect(gameController, attackerCell, attackedCell);
-                attackedCell.removeCardFromCell(playerGameBoard);
-            } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
-                response = "no card is destroyed";
-                Marshmallon.handleEffect(gameController, attackerCell, attackedCell);//todo marshmallo
-            } else {
-                decreasePlayersDamage(attackerCell, attackedCell);
-                response = "no card is destroyed and you received " +
-                        calculateDamage(attackerCell, attackedCell) + " battle damage";
-                Marshmallon.handleEffect(gameController, attackerCell, attackedCell);//todo marshmallo
-            }
+            response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
+            if (response.equals(""))
+                response = attackToDefensiveOccupiedCell(attackerCell, attackedCell, playerGameBoard);
         } else {
-            if (isAttackerStronger(attackerCell, attackedCell)) {
-                response = "opponent’s monster card was " +
-                        attackedCell.getCellCard().getName() + " the defense position monster is destroyed";
-                attackedCell.removeCardFromCell(opponentGameBoard);
-            } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
-                response = "opponent’s monster card was " +
-                        attackedCell.getCellCard().getName() + " and no card is destroyed";
-                Marshmallon.handleEffect(gameController, attackerCell, attackedCell);//todo marshmallo
-            } else {
-                decreasePlayersDamage(attackerCell, attackedCell);
-                response = "opponent’s monster card was " + attackedCell.getCellCard().getName() +
-                        " and no card is destroyed and you received " +
-                        calculateDamage(attackerCell, attackedCell) + " battle damage";
-                Marshmallon.handleEffect(gameController, attackerCell, attackedCell);//todo marshmallo
-            }
+            response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
+            if (response.equals(""))
+                response = attackToDefensiveHiddenCell(attackerCell, attackedCell, opponentGameBoard);
+        }
+        return response;
+    }
+
+    private String attackToDefensiveHiddenCell(Cell attackerCell, Cell attackedCell, GameBoard opponentGameBoard) {
+        String response;
+        if (isAttackerStronger(attackerCell, attackedCell)) {
+            response = "opponent’s monster card was " +
+                    attackedCell.getCellCard().getName() + " the defense position monster is destroyed";
+            attackedCell.removeCardFromCell(opponentGameBoard);
+        } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
+            response = "opponent’s monster card was " +
+                    attackedCell.getCellCard().getName() + " and no card is destroyed";
+            Marshmallon.handleEffect(gameController, attackerCell, attackedCell);//todo marshmallo
+        } else {
+            decreasePlayersDamage(attackerCell, attackedCell);
+            response = "opponent’s monster card was " + attackedCell.getCellCard().getName() +
+                    " and no card is destroyed and you received " +
+                    calculateDamage(attackerCell, attackedCell) + " battle damage";
+            Marshmallon.handleEffect(gameController, attackerCell, attackedCell);//todo marshmallo
+        }
+        return response;
+    }
+
+    private String attackToDefensiveOccupiedCell(Cell attackerCell, Cell attackedCell, GameBoard playerGameBoard) {
+        String response;
+        if (isAttackerStronger(attackerCell, attackedCell)) {
+            decreasePlayersDamage(attackerCell, attackedCell);
+            response = "the defense position monster is destroyed";
+            YomiShip.handleEffect(gameController, attackerCell, attackedCell);
+            attackedCell.removeCardFromCell(playerGameBoard);
+        } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
+            response = "no card is destroyed";
+            Marshmallon.handleEffect(gameController, attackerCell, attackedCell);//todo marshmallo
+        } else {
+            decreasePlayersDamage(attackerCell, attackedCell);
+            response = "no card is destroyed and you received " +
+                    calculateDamage(attackerCell, attackedCell) + " battle damage";
+            Marshmallon.handleEffect(gameController, attackerCell, attackedCell);//todo marshmallo
+        }
+        gameController.getAttackerCellsThisTurn().add(attackedCell);
+        return response;
+    }
+
+    private String attackToOffensiveCell(Cell attackerCell, Cell attackedCell, GameBoard opponentGameBoard, GameBoard playerGameBoard) {
+        String response;
+        if (isAttackerStronger(attackerCell, attackedCell)) {
+            decreasePlayersDamage(attackerCell, attackedCell);
+            response = "your opponent’s monster is destroyed and your opponent receives "
+                    + calculateDamage(attackerCell, attackedCell) + " battle damage";
+            YomiShip.handleEffect(gameController, attackerCell, attackedCell);
+            attackedCell.removeCardFromCell(opponentGameBoard);
+        } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {//todo marshmaloo :|||||||||||||||||||
+            response = "both you and your opponent monster cards are destroyed and no one receives damage";
+            attackerCell.removeCardFromCell(playerGameBoard);
+            attackedCell.removeCardFromCell(opponentGameBoard);
+        } else {
+            decreasePlayersDamage(attackerCell, attackedCell);
+            response = "Your monster card is destroyed and you received " +
+                    calculateDamage(attackerCell, attackedCell) + " battle damage";
+            attackerCell.removeCardFromCell(playerGameBoard);
+            Marshmallon.handleEffect(gameController, attackerCell, attackedCell);//todo marshmallo
         }
         return response;
     }
@@ -140,6 +167,7 @@ public class BattlePhaseController implements methods {
         }
         Monster attackerMonster = (Monster) selectedCell.getCellCard();
         gameController.getCurrentTurnOpponentPlayer().decreaseLP(attackerMonster.getAtk());
+        gameController.getAttackerCellsThisTurn().add(selectedCell);
         return "your opponent receives " + attackerMonster.getAtk() + " battle damage";
     }
 
@@ -147,7 +175,7 @@ public class BattlePhaseController implements methods {
         return gameController;
     }
 
-    public int getPower(Cell cell, Cell attackerCell, Cell attackedCell) {
+    public int getPower(Cell cell, Cell attackerCell, Cell attackedCell) {//todo null pointer exception
         switch (cell.getCardStatus()) {
             case DEFENSIVE_OCCUPIED:
             case DEFENSIVE_HIDDEN:
