@@ -175,7 +175,7 @@ public class BattlePhaseController implements methods {
         return gameController;
     }
 
-    public int getPower(Cell cell, Cell attackerCell, Cell attackedCell) {
+    public int getPower(Cell cell, Cell attackerCell, Cell attackedCell) {//todo null pointer exception
         switch (cell.getCardStatus()) {
             case DEFENSIVE_OCCUPIED:
             case DEFENSIVE_HIDDEN:
