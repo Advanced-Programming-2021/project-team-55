@@ -31,8 +31,8 @@ public class BattlePhase extends Duel {
             }
         } else {
             response = processCommand(ViewInterface.getInput());
-            ViewInterface.showResult(response);
         }
+            ViewInterface.showResult(response);
     }
 
     @Override

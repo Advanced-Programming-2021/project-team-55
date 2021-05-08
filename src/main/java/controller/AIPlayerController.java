@@ -7,7 +7,7 @@ public class AIPlayerController {
 
     private static String lastResponse = "";
 
-    private static boolean isAllowedToCommand = true;
+    private static boolean isGameEnded = false;
 
    public enum orderKind {ORDINARY, RANDOM }
 
@@ -17,7 +17,7 @@ public class AIPlayerController {
     ArrayList<String> mainPhaseSelectionCommands = new ArrayList<>();
 
     public AIPlayerController(orderKind selectionOrder, orderKind commandsOrder) {
-        isAllowedToCommand = true;
+        isGameEnded = false;
         for (int i = 1; i <= 5; i++) {
             mainPhaseSelectionCommands.add("select --hand " + i);
         }
@@ -73,6 +73,14 @@ public class AIPlayerController {
        return string;
     }
 
+    public static boolean isIsGameEnded() {
+        return isGameEnded;
+    }
+
+    public static void setIsGameEnded(boolean isGameEnded) {
+        AIPlayerController.isGameEnded = isGameEnded;
+    }
+
     public String getSelectCommandForBattlePhase() {
         String string;
         try{
@@ -108,7 +116,6 @@ public class AIPlayerController {
 
 
     public String getSpecialCommand() {
-        if (lastResponse.equals("Error: invalid command")) isAllowedToCommand = false;
         return getSelectCommandForMainPhases();
     }
 
@@ -120,13 +127,6 @@ public class AIPlayerController {
         AIPlayerController.lastResponse = lastResponse;
     }
 
-    public static boolean isIsAllowedToCommand() {
-        return isAllowedToCommand;
-    }
-
-    public static void setIsAllowedToCommand(boolean isAllowedToCommand) {
-        AIPlayerController.isAllowedToCommand = isAllowedToCommand;
-    }
 
     //    private static AIPlayerController aiPlayerController;
 //
