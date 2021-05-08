@@ -25,6 +25,7 @@ public class BattlePhase extends Duel {
             while (response.startsWith("Error: ") && !AICommand.equals("next phase")) {
                 AICommand =  aiPlayerController.getSelectCommandForBattlePhase();
                 response = processCommand(AICommand);
+                if (AICommand.equals("next phase")) break;
                 AICommand =  aiPlayerController.getMainCommandForBattlePhase();
                 response = processCommand(AICommand);
             }
