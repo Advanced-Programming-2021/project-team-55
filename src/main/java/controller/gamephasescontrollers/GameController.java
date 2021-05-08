@@ -29,6 +29,7 @@ public class GameController {
     private int currentRound = 1;
     private boolean didPlayerSetOrSummonThisTurn;
     public boolean shouldRitualSummonNow;
+    public boolean shouldSpecialSummonNow;
     private boolean isGameEnded;
     private DrawPhaseController drawPhaseController;
     private StandByPhaseController standByPhaseController;
@@ -45,6 +46,7 @@ public class GameController {
         didPlayerSetOrSummonThisTurn = false;
         isGameEnded=false;
         shouldRitualSummonNow=false;
+        shouldSpecialSummonNow=false;
         drawPhaseController = new DrawPhaseController(this);
         standByPhaseController = new StandByPhaseController(this);
         mainPhase1Controller = new MainPhase1Controller(this);

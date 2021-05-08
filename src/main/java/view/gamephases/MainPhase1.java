@@ -56,6 +56,23 @@ public class MainPhase1 extends Duel {
                 response = GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response;
             }
         }
+        else if(gameController.shouldSpecialSummonNow){
+            if(command.matches(GameRegexes.SELECT.regex)){
+                response=processSelect(command);
+            }
+            else if(command.matches(GameRegexes.SUMMON.regex)){
+                try {
+                    mainPhase1Controller.specialSummon(gameController);
+                    response=GameResponses.SUMMONED_SUCCESSFULLY.response;
+                }
+                catch (GameException e){
+                    response=e.toString();
+                }
+            }
+            else {
+                response = GameResponses.YOU_SHOULD_SPECIAL_SUMMON_NOW.response;
+            }
+        }
         else if (!gameController.checkCommandIsInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
         }

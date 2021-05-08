@@ -23,6 +23,7 @@ public enum GameResponses {
     ACTIVATION_ONLY_FOR_SPELL("Error: activate effect is only for spell cards"),
     ALREADY_ACTIVATED("Error: you have already activated this card"),
     YOU_SHOULD_RITUAL_SUMMON_NOW("Error: you should ritual summon right now"),
+    YOU_SHOULD_SPECIAL_SUMMON_NOW("Error: you should special summon right now"),
     SELECTED_MONSTERS_DONT_MATCH("Error: selected monsters levels don’t match with ritual monster"),
     NO_WAY_TO_RITUAL_SUMMON("Error: there is no way you could ritual summon a monster"),
     PREPARATION_NOT_DONE("Error: preparations of this spell are not done yet"),

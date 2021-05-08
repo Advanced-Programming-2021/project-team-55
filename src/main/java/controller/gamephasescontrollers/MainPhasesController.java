@@ -128,13 +128,60 @@ public interface MainPhasesController {
 
     default boolean canActivateRitualSpellEffect(GameController gameController) {
         GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
-        if (!playerGameBoard.canTribute()) {
+        if (!canRitualSummon(gameController)) {
             ViewInterface.showResult(GameResponses.NO_WAY_TO_RITUAL_SUMMON.response);
             return false;
         } else {
             gameController.shouldRitualSummonNow = true;
             return true;
         }
+    }
+    private boolean canRitualSummon(GameController gameController){
+        Cell[]monsterCardZone=gameController.currentTurnPlayer.getGameBoard().getMonsterCardZone();
+        ArrayList<Cell>handCards=gameController.currentTurnPlayer.getGameBoard().getHandCards();
+        ArrayList<Monster>monsters=new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            if(!monsterCardZone[i].isEmpty()){
+                monsters.add((Monster) monsterCardZone[i].getCellCard());
+            }
+        }
+        for (int i = 0; i < handCards.size(); i++) {
+            if(handCards.get(i).getCellCard().isMonster()){
+                Monster monster=(Monster) handCards.get(i).getCellCard();
+                if(monster.getCardType()== CardType.RITUAL){
+                    int monsterLevel=monster.getLevel();
+                    if(monsterLevel>=7){
+                        for(int j=0;i<monsters.size();j++){
+                            for(int k=j+1;k<monsters.size();k++){
+                                if(monsters.get(j).getLevel()+monsters.get(k).getLevel()==monsterLevel){
+                                    return true;
+                                }
+                            }
+                        }
+
+                    }
+                    else{
+                        for (int j = 0; j < monsters.size(); j++) {
+                            if(monsters.get(j).getLevel()==monsterLevel){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+
+    }
+
+    private boolean canSpecialSummon(GameController gameController){
+        GameBoard playerGameBoard=gameController.currentTurnPlayer.getGameBoard();
+        for(Cell cell:playerGameBoard.getHandCards()){
+            if(cell.getCellCard().isMonster()){
+                return true;
+            }
+        }
+        return false;
     }
 
     default void activateSpell(GameController gameController) throws GameException {
@@ -196,8 +243,48 @@ public interface MainPhasesController {
         Cell.deselectCell();
     }
 
-    default void specialSummon(Cell cell) {
-
+    default void specialSummon(GameController gameController) throws GameException{
+        Player currentPlayer = gameController.currentTurnPlayer;
+        Cell selectedCell = Cell.getSelectedCell();
+        if (selectedCell == null) {
+            throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
+        } else if (!isSummonable(selectedCell.getCellCard())) {
+            throw new GameException(GameResponses.CANT_SUMMON_CARD.response);
+        }
+        int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
+        if (monsterLevel > 4) {
+            int numberOfTributes;
+            if (monsterLevel < 7) {
+                if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 1)
+                    throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
+                numberOfTributes = 1;
+            } else {
+                if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 2)
+                    throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
+                numberOfTributes = 2;
+            }
+            ArrayList<Cell> tributes = new ArrayList<>();
+            Cell oldSelectedCell = selectedCell;
+            Cell newSelectedCell;
+            for (int i = 0; i < numberOfTributes; i++) {
+                ViewInterface.showResult("select cell to tribute:");
+                Duel.getMainPhase1().processSelect(ViewInterface.getInput());
+                newSelectedCell = Cell.getSelectedCell();
+                if (!currentPlayer.getGameBoard().isCellInMonsterZone(newSelectedCell))
+                    throw new GameException(GameResponses.NO_MONSTER_ON_CELL.response);
+                tributes.add(newSelectedCell);
+                ViewInterface.showResult("cell taken");
+            }
+            for (Cell tribute : tributes) {
+                tribute.removeCardFromCell(currentPlayer.getGameBoard());
+            }
+            selectedCell = oldSelectedCell;
+        }
+        currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED);
+        currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
+        TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
+        gameController.setDidPlayerSetOrSummonThisTurn(true);
+        Cell.deselectCell();
     }
 
     default void ritualSummon(GameController gameController) throws GameException {
