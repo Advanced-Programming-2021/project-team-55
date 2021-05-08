@@ -19,16 +19,18 @@ public class MainPhase1 extends Duel {
 
         ViewInterface.showResult(mainPhase1Controller.showGameBoard(gameController.currentTurnPlayer,
                 gameController.currentTurnOpponentPlayer));
+
         String response;
         if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
             AIPlayerController aiPlayerController = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
                     AIPlayerController.orderKind.RANDOM));
-            String AICommand = aiPlayerController.getAICommand();
+            String AICommand = "";
             response = processCommand(AICommand);
             while (response.startsWith("Error: ") && !AICommand.equals("next phase")) {
-                AICommand = aiPlayerController.getAICommand();
+                AICommand =  aiPlayerController.getSelectCommandForMainPhases();
                 response = processCommand(AICommand);
-                LoggerMessage.log(response);
+                AICommand =  aiPlayerController.getMainCommandForMainPhases();
+                response = processCommand(AICommand);
             }
         } else response = processCommand(ViewInterface.getInput());
         ViewInterface.showResult(response);

@@ -5,86 +5,127 @@ import java.util.Collections;
 
 public class AIPlayerController {
 
-   private static boolean hadSelectedBefore = false;
+    private static String lastResponse = "";
+
+    private static boolean isAllowedToCommand = true;
 
    public enum orderKind {ORDINARY, RANDOM }
 
-    ArrayList<String> selectionCommands = new ArrayList<>();
-    ArrayList<String> mainCommands = new ArrayList<>();
-
-    boolean shouldSelect = true;
+    ArrayList<String> battleSelectionCommands = new ArrayList<>();
+    ArrayList<String> battlePhaseCommands = new ArrayList<>();
+    ArrayList<String> mainPhaseCommands = new ArrayList<>();
+    ArrayList<String> mainPhaseSelectionCommands = new ArrayList<>();
 
     public AIPlayerController(orderKind selectionOrder, orderKind commandsOrder) {
+        isAllowedToCommand = true;
         for (int i = 1; i <= 5; i++) {
-            selectionCommands.add("select --hand " + i);
+            mainPhaseSelectionCommands.add("select --hand " + i);
         }
         for (int i = 1; i <= 5; i++) {
-            selectionCommands.add("select --field " + i);
+            mainPhaseSelectionCommands.add("select --monster " + i);
         }
         for (int i = 1; i <= 5; i++) {
-            selectionCommands.add("select --monster " + i);
+            mainPhaseSelectionCommands.add("select --spell " + i);
         }
+
         for (int i = 1; i <= 5; i++) {
-            selectionCommands.add("select --spell " + i);
+            battleSelectionCommands.add("select --monster " + i);
         }
-        mainCommands.add("summon");
-        mainCommands.add("set");
-        mainCommands.add("set --position attack");
-        mainCommands.add("set --position defense");
-        mainCommands.add("flip-summon");
-        mainCommands.add("attack direct");
-        mainCommands.add("activate effect");
+
+        mainPhaseCommands.add("activate effect");
+        mainPhaseCommands.add("summon");
+        mainPhaseCommands.add("set");
+        mainPhaseCommands.add("set --position attack");
+        mainPhaseCommands.add("set --position defense");
+        mainPhaseCommands.add("flip-summon");
+
+        battlePhaseCommands.add("attack direct");
+        battlePhaseCommands.add("attack direct");
+        battlePhaseCommands.add("attack direct");
+        battlePhaseCommands.add("attack direct");
+        battlePhaseCommands.add("attack direct");
         for (int i = 1; i <= 5; i++) {
-            mainCommands.add("attack " + i);
+            battlePhaseCommands.add("attack " + i);
         }
-        if (selectionOrder == orderKind.RANDOM) Collections.shuffle(selectionCommands);
-        if (commandsOrder == orderKind.RANDOM) Collections.shuffle(mainCommands);
+
+        if (selectionOrder == orderKind.RANDOM) Collections.shuffle(battleSelectionCommands);
+        if (selectionOrder == orderKind.RANDOM) Collections.shuffle(mainPhaseSelectionCommands);
+        if (commandsOrder == orderKind.RANDOM) Collections.shuffle(battlePhaseCommands);
+        if (commandsOrder == orderKind.RANDOM) Collections.shuffle(mainPhaseCommands);
+
 //next phase
+//        for (int i = 1; i <= 5; i++) {
+//            selectionCommands.add("select --field " + i);
+//        }
 //        for (int i = 1; i <= 5; i++) {
 //            selectionCommands.add("select --monster " + i + " --opponent");
 //        }
     }
 
-    public String getSelectCommand() {
+    public String getSelectCommandForMainPhases() {
        String string;
        try{
-           string = selectionCommands.get(0);
-           selectionCommands.remove(0);
+           string = mainPhaseSelectionCommands.get(0);
+           mainPhaseSelectionCommands.remove(0);
        }catch(Exception e){
            string = "next phase";
        }
        return string;
     }
 
-    public String getMainCommand() {
+    public String getSelectCommandForBattlePhase() {
         String string;
         try{
-            string = mainCommands.get(0);
-            mainCommands.remove(0);
+            string = battleSelectionCommands.get(0);
+            battleSelectionCommands.remove(0);
         }catch(Exception e){
             string = "next phase";
         }
         return string;
     }
 
-    public String getAICommand(){
-        if (shouldSelect && !hadSelectedBefore) {
-            shouldSelect = false;
-            hadSelectedBefore = true;
-            return getMainCommand();
-        }else{
-            hadSelectedBefore = false;
-            shouldSelect = true;
-            return getSelectCommand();
+    public String getMainCommandForBattlePhase() {
+        String string;
+        try{
+            string = battlePhaseCommands.get(0);
+            battlePhaseCommands.remove(0);
+        }catch(Exception e){
+            string = "next phase";
         }
+        return string;
     }
 
-    public boolean isShouldSelect() {
-        return shouldSelect;
+    public String getMainCommandForMainPhases() {
+        String string;
+        try{
+            string = mainPhaseCommands.get(0);
+            mainPhaseCommands.remove(0);
+        }catch(Exception e){
+            string = "next phase";
+        }
+        return string;
     }
 
-    public void setShouldSelect(boolean shouldSelect) {
-        this.shouldSelect = shouldSelect;
+
+    public String getSpecialCommand() {
+        if (lastResponse.equals("Error: invalid command")) isAllowedToCommand = false;
+        return getSelectCommandForMainPhases();
+    }
+
+    public static String getLastResponse() {
+        return lastResponse;
+    }
+
+    public static void setLastResponse(String lastResponse) {
+        AIPlayerController.lastResponse = lastResponse;
+    }
+
+    public static boolean isIsAllowedToCommand() {
+        return isAllowedToCommand;
+    }
+
+    public static void setIsAllowedToCommand(boolean isAllowedToCommand) {
+        AIPlayerController.isAllowedToCommand = isAllowedToCommand;
     }
 
     //    private static AIPlayerController aiPlayerController;
