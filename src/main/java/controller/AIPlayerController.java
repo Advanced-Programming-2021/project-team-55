@@ -5,7 +5,9 @@ import java.util.Collections;
 
 public class AIPlayerController {
 
-    enum orderKind {ORDINARY, RANDOM }
+   private static boolean hadSelectedBefore = false;
+
+   public enum orderKind {ORDINARY, RANDOM }
 
     ArrayList<String> selectionCommands = new ArrayList<>();
     ArrayList<String> mainCommands = new ArrayList<>();
@@ -66,13 +68,23 @@ public class AIPlayerController {
     }
 
     public String getAICommand(){
-        if (shouldSelect) {
+        if (shouldSelect && !hadSelectedBefore) {
             shouldSelect = false;
+            hadSelectedBefore = true;
             return getMainCommand();
         }else{
+            hadSelectedBefore = false;
             shouldSelect = true;
             return getSelectCommand();
         }
+    }
+
+    public boolean isShouldSelect() {
+        return shouldSelect;
+    }
+
+    public void setShouldSelect(boolean shouldSelect) {
+        this.shouldSelect = shouldSelect;
     }
 
     //    private static AIPlayerController aiPlayerController;

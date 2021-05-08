@@ -1,8 +1,10 @@
 package view.gamephases;
 
+import controller.AIPlayerController;
 import controller.gamephasescontrollers.BattlePhaseController;
 import model.exceptions.GameException;
 import view.GameRegexes;
+import view.LoggerMessage;
 import view.ViewInterface;
 
 import java.util.regex.Matcher;
@@ -13,7 +15,19 @@ public class BattlePhase extends Duel {
     @Override
     protected void execute() {
         battlePhaseController = gameController.getBattlePhaseController();
-        String response = processCommand(ViewInterface.getInput());
+
+        String response;
+        if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
+            AIPlayerController aiPlayerController = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
+                    AIPlayerController.orderKind.RANDOM));
+            String AICommand = aiPlayerController.getAICommand();
+            response = processCommand(AICommand);
+            while (response.startsWith("Error: ") && !AICommand.equals("next phase")) {
+                AICommand = aiPlayerController.getAICommand();
+                response = processCommand(AICommand);
+                LoggerMessage.log(response);
+            }
+        } else response = processCommand(ViewInterface.getInput());
         ViewInterface.showResult(response);
     }
 
