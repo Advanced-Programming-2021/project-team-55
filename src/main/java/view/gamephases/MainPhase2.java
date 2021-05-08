@@ -28,6 +28,7 @@ public class MainPhase2 extends Duel {
             while (response.startsWith("Error: ") && !AICommand.equals("next phase")) {
                 AICommand =  aiPlayerController.getSelectCommandForMainPhases();
                 response = processCommand(AICommand);
+                if (AICommand.equals("next phase")) break;
                 AICommand =  aiPlayerController.getMainCommandForMainPhases();
                 response = processCommand(AICommand);
             }

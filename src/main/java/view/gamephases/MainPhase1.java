@@ -1,6 +1,7 @@
 package view.gamephases;
 
 import controller.AIPlayerController;
+import controller.CheatController;
 import controller.gamephasescontrollers.MainPhase1Controller;
 import model.exceptions.GameException;
 import view.GameRegexes;
@@ -29,6 +30,7 @@ public class MainPhase1 extends Duel {
             while (response.startsWith("Error: ") && !AICommand.equals("next phase")) {
                 AICommand =  aiPlayerController.getSelectCommandForMainPhases();
                 response = processCommand(AICommand);
+                if (AICommand.equals("next phase")) break;
                 AICommand =  aiPlayerController.getMainCommandForMainPhases();
                 response = processCommand(AICommand);
             }
@@ -72,6 +74,8 @@ public class MainPhase1 extends Duel {
             }
         } else if (command.matches(GameRegexes.SELECT.regex)) {
             response = processSelect(command);
+        } else if (command.matches(GameRegexes.MAKE_ME_AI.regex)) {
+            response = CheatController.getInstance().makeMeAI(gameController);
         } else if (command.matches(GameRegexes.SUMMON.regex)) {
             try {
                 mainPhase1Controller.monsterSummon(gameController);
