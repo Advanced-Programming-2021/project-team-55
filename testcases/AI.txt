@@ -3,8 +3,14 @@ user create --username abolfazl --nickname abol --password 123
 user login --username parham --password 123
 menu enter Duel
 duel --new --ai --rounds 1
+1
+yes
+-----------------------------------------
+make me ai
+-----------------------------------------
 next phase
 next phase
 next phase
 next phase
 next phase
+-----------------------------------------

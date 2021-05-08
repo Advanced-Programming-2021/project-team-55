@@ -1,5 +1,6 @@
 package view.Menus;
 
+import controller.AIPlayerController;
 import controller.menucontroller.DuelMenuController;
 import model.exceptions.MenuException;
 import view.Regexes;
@@ -15,6 +16,7 @@ public class DuelMenu extends Menu {
 
     @Override
     protected void execute() {
+        AIPlayerController.setIsGameEnded(true);
         String response = processCommand(ViewInterface.getInput());
         ViewInterface.showResult(response);
     }
