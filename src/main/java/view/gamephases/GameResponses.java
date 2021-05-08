@@ -22,6 +22,8 @@ public enum GameResponses {
     CARD_IS_NOT_VISIBLE("Error: card is not visible"),
     ACTIVATION_ONLY_FOR_SPELL("Error: activate effect is only for spell cards"),
     ALREADY_ACTIVATED("Error: you have already activated this card"),
+    YOU_SHOULD_RITUAL_SUMMON_NOW("Error: you should ritual summon right now"),
+    SELECTED_MONSTERS_DONT_MATCH("Error: selected monsters levels don’t match with ritual monster"),
     CHEAT_ACTIVATED_LP_INCREASED("cheat activated: LP increased!"),
     CHEAT_ACTIVATED_WINNER_SET("cheat activated: winner set!"),
     CHEAT_ACTIVATED_SELECT_FORCE("cheat activated: card force selected!"),

@@ -11,9 +11,10 @@ public class Player {
     private GameBoard playerGameBoard;
     private boolean isAI;
 
-    public Player(User user, Deck playDeck) {
+    public Player(User user, Deck playDeck, boolean isAI) {
         this.user = user;
         this.playDeck = playDeck;
+        this.isAI = isAI;
         this.playerGameBoard = new GameBoard(playDeck);
     }
 
@@ -57,6 +58,14 @@ public class Player {
         //todo handle this:we can change the playDeck between rounds
         playerGameBoard = new GameBoard(playDeck);
         setLP(8000);
+    }
+
+    public boolean isAI() {
+        return isAI;
+    }
+
+    public void setAI(boolean AI) {
+        isAI = AI;
     }
 
 }
