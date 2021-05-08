@@ -215,4 +215,8 @@ abstract public class Duel {
     public static MainPhase1 getMainPhase1() {
         return mainPhase1;
     }
+
+    public static GameController getGameController() {
+        return gameController;
+    }
 }

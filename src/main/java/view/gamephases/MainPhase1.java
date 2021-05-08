@@ -1,8 +1,10 @@
 package view.gamephases;
 
+import controller.AIPlayerController;
 import controller.gamephasescontrollers.MainPhase1Controller;
 import model.exceptions.GameException;
 import view.GameRegexes;
+import view.LoggerMessage;
 import view.ViewInterface;
 
 import java.util.regex.Matcher;
@@ -17,18 +19,28 @@ public class MainPhase1 extends Duel {
 
         ViewInterface.showResult(mainPhase1Controller.showGameBoard(gameController.currentTurnPlayer,
                 gameController.currentTurnOpponentPlayer));
-        String response = processCommand(ViewInterface.getInput());
+        String response;
+        if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
+            AIPlayerController aiPlayerController = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
+                    AIPlayerController.orderKind.RANDOM));
+            String AICommand = aiPlayerController.getAICommand();
+            response = processCommand(AICommand);
+            while (response.startsWith("Error: ") && !AICommand.equals("next phase")) {
+                AICommand = aiPlayerController.getAICommand();
+                response = processCommand(AICommand);
+                LoggerMessage.log(response);
+            }
+        } else response = processCommand(ViewInterface.getInput());
         ViewInterface.showResult(response);
     }
 
     @Override
     protected String processCommand(String command) {
         String response = "";
-        if(gameController.shouldRitualSummonNow){
-            if(command.matches(GameRegexes.SELECT.regex)){
-                response=processSelect(command);
-            }
-            else if(command.matches(GameRegexes.SUMMON.regex)){
+        if (gameController.shouldRitualSummonNow) {
+            if (command.matches(GameRegexes.SELECT.regex)) {
+                response = processSelect(command);
+            } else if (command.matches(GameRegexes.SUMMON.regex)) {
                 try {
                     mainPhase1Controller.ritualSummon(gameController);
                     response=GameResponses.SUMMONED_SUCCESSFULLY.response;
@@ -36,9 +48,8 @@ public class MainPhase1 extends Duel {
                 }catch (GameException e){
                     response=e.toString();
                 }
-            }
-            else{
-                response=GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response;
+            } else {
+                response = GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response;
             }
         }
         else if(command.matches("ritual summon")){

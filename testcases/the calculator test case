@@ -4,17 +4,20 @@ user login --username parham --password 123
 menu enter Duel
 duel --new --second-player abolfazl --rounds 3
 1
-add --force Yomi Ship
-add --force Man-Eater Bug
-set
-next phase
-next phase
-next phase
-add --force Bitron
-summon
-add --force Bitron
+yes
+add --force The Calculator
 summon
 next phase
 next phase
-select --monster 1
-flip-summon
+next phase
+add --force Battle warrior
+summon
+next phase
+next phase
+next phase
+add --force Axe Raider
+summon
+next phase
+select --hand 1
+attack 1
+next phase

@@ -1,5 +1,7 @@
 package view;
 
+import controller.AIPlayerController;
+import view.gamephases.Duel;
 import view.gamephases.GameResponses;
 
 import java.util.ArrayList;
@@ -12,17 +14,30 @@ public class ViewInterface {
     private static final Scanner input = new Scanner(System.in);
 
     public static String getInput() {
-        return sortFields(input.nextLine());
+        String command;
+        try{
+            if (Duel.getGameController().getCurrentTurnPlayer().isAI()) command = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
+                    AIPlayerController.orderKind.RANDOM)).getAICommand();
+            else command = input.nextLine();
+        }catch(Exception e){
+            command = input.nextLine();
+        }
+        return sortFields(command);
     }
 
     public static void showResult(String result) {
         if (!result.equals("")) {
             if (result.startsWith("Error: ")) {
                 System.out.println(ConsoleColors.RED + result.replaceAll("Error: ", "") + ConsoleColors.RESET);
-            } else if (Responses.responseExists(result) || GameResponses.responseExists(result)) {
-                System.out.println(ConsoleColors.GREEN + result + ConsoleColors.RESET);
             } else {
-                System.out.println(result);
+                try {
+                    if (Duel.getGameController().getCurrentTurnPlayer().isAI()) return;
+                }catch (Exception e){}
+                if (Responses.responseExists(result) || GameResponses.responseExists(result)) {
+                    System.out.println(ConsoleColors.GREEN + result + ConsoleColors.RESET);
+                } else {
+                    System.out.println(result);
+                }
             }
         }
     }

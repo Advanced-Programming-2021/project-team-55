@@ -18,6 +18,7 @@ public class EndPhase extends Duel {
     @Override
     protected String processCommand(String command) {
         String response = "";
+        if (Duel.getGameController().getCurrentTurnPlayer().isAI()) response = "AI turn completed";
         gameController.changePhase();
         return response;
     }

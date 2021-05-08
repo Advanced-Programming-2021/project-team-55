@@ -53,19 +53,30 @@ public class DuelMenuController extends MenuController {
             } else if (rounds != 1 && rounds != 3) {
                 throw new MenuException(Responses.NUMBER_OF_ROUNDS_NOT_SUPPORTED.response);
             } else {
-                Player player1 = new Player(User.loggedInUser, player1Deck.clone());
-                Player player2 = new Player(rival, player2Deck.clone());
+                Player player1 = new Player(User.loggedInUser, player1Deck.clone(), false);
+                Player player2 = new Player(rival, player2Deck.clone(), false);
                 return new GameController(new Game(player1, player2, rounds));
             }
         }
 
     }
 
-    public void newAIDuel(int rounds) throws MenuException {
+    public GameController newAIDuel(int rounds) throws MenuException {
         if (rounds != 1 && rounds != 3) {
             throw new MenuException(Responses.NUMBER_OF_ROUNDS_NOT_SUPPORTED.response);
         } else {
-            //TODO -->>Start ai game
+             if (User.loggedInUser.getActiveDeck() == null) {
+                throw new MenuException("Error: " + User.loggedInUser.getUsername() + " has no active deck");
+            } else {
+                Deck player1Deck = User.loggedInUser.getActiveDeck();
+                if (!player1Deck.isDeckValid()) {
+                    throw new MenuException("Error: " + User.loggedInUser.getUsername() + "’s deck is invalid");
+                } else {
+                    Player player1 = new Player(User.loggedInUser, player1Deck.clone(), false);
+                    Player player2 = new Player(new User("ai", "ai", "ai"), player1Deck.clone(), true);
+                    return new GameController(new Game(player1, player2, rounds));
+                }
+            }
         }
     }
 

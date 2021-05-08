@@ -35,7 +35,7 @@ public class DuelMenu extends Menu {
         } else if (command.matches(Regexes.DUEL_AI.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.DUEL_AI.regex);
             try {
-                duelMenuController.newAIDuel(Integer.parseInt(matcher.group(1)));
+                Duel.runGame(duelMenuController.newAIDuel(Integer.parseInt(matcher.group(1))));
             } catch (MenuException e) {
                 response = e.toString();
             }

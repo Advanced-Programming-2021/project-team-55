@@ -12,7 +12,4 @@ handle ai
 easy cards:
 -crab turtle
 -skull guardian
--man eater bug+
 -Marshmallon
--the calculator
--TerratigertheEmpoweredWarrior
