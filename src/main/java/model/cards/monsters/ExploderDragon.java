@@ -19,21 +19,21 @@ public class ExploderDragon extends Monster {
     }
 
     public static String handleEffect(GameController gameController, Cell attackerCell, Cell attackedCell) {
-        String response="";
+        String response = "";
         if (isNotExploderDragon(attackerCell, attackedCell)) return "";
         else if (exploderDragonDiesDuringBeingAttacked(gameController, attackerCell, attackedCell)) {
-                if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
-                    response = "your opponent’s monster is destroyed";
-                } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
-                    response = "the defense position monster is destroyed";
-                } else {
-
-                }
-
+            if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED)
+                response = "your opponent’s monster is destroyed \n";
+            else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED)
+                response = "the defense position monster is destroyed \n";
+            else
+                response = "opponent’s monster card was " +
+                        attackedCell.getCellCard().getName() + " the defense position monster is destroyed \n";
             response += "Exploder Dragon effect activated:  monster card: \"" + attackerCell.getCellCard().getName() + "\" is also removed and no one loses LP. ";
             removePlayers(gameController, attackerCell, attackedCell);
         } else if (exploderDragonDiesDuringAttack(gameController, attackerCell, attackedCell)) {
-            response = "Exploder Dragon effect activated:  monster card: \"" + attackedCell.getCellCard().getName() + "\" is also removed and no one loses LP. ";
+
+            response = "Your monster card is destroyed \nExploder Dragon effect activated:  monster card: \"" + attackedCell.getCellCard().getName() + "\" is also removed and no one loses LP. ";
             removePlayers(gameController, attackerCell, attackedCell);
         } else
             return "";

@@ -30,3 +30,13 @@ select --monster 1
 attack 1
 next phase
 //---ex => due to effect
+add --force Exploder Dragon
+set
+next phase
+next phase
+next phase
+add --force Wattkid
+summon
+next phase
+select --monster 1
+attack 1
