@@ -42,17 +42,23 @@ public class MainPhase1 extends Duel {
                 response = processSelect(command);
             } else if (command.matches(GameRegexes.SUMMON.regex)) {
                 try {
-                    mainPhase1Controller.ritualSummon(Duel.getGameController());
-                } catch (GameException e) {
-                    response = e.toString();
+                    mainPhase1Controller.ritualSummon(gameController);
+                    response=GameResponses.SUMMONED_SUCCESSFULLY.response;
+                    gameController.shouldRitualSummonNow=false;
+                }catch (GameException e){
+                    response=e.toString();
                 }
             } else {
                 response = GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response;
             }
         }
-        if (!gameController.checkCommandIsInCurrentPhase(command)) {
+        else if(command.matches("ritual summon")){
+            gameController.shouldRitualSummonNow=true;
+        }
+        else if (!gameController.checkCommandIsInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
-        } else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
+        }
+        else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
             gameController.changePhase();
             showPhase();
         } else if (command.matches(GameRegexes.DESELECT.regex)) {

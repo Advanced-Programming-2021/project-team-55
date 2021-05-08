@@ -2,4 +2,4 @@ user create --username parham --nickname pari --password 123
 user create --username abolfazl --nickname abol --password 123
 user login --username parham --password 123
 menu enter Duel
-duel --new --second-player abolfazl --rounds 3
+duel --new --second-player abolfazl --rounds 1
