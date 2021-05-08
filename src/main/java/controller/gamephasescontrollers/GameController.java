@@ -273,7 +273,7 @@ public class GameController {
             game.addLoser(currentTurnOpponentPlayer);
             return true;
         }
-        else if(isGameEnded==true){
+        else if(isGameEnded){
             return true;
         }
         return false;
@@ -285,6 +285,7 @@ public class GameController {
         String response = calculateScoresAndMoney(winner, loser);
         currentTurnPlayer.resetGameBoard();
         currentTurnOpponentPlayer.resetGameBoard();
+        undoMakeAICheatCommand();
         if (game.getRounds() == currentRound) {
             ViewInterface.showResult(response);
             isGameEnded=true;
@@ -297,6 +298,13 @@ public class GameController {
             Duel.runGame(this);
         }
 
+    }
+
+    private void undoMakeAICheatCommand() {
+        if (!currentTurnPlayer.getUser().getNickname().equals("ai") && currentTurnPlayer.isAI())
+            currentTurnPlayer.setAI(false);
+        if (!currentTurnOpponentPlayer.getUser().getNickname().equals("ai") && currentTurnOpponentPlayer.isAI())
+            currentTurnOpponentPlayer.setAI(false);
     }
 
     private String calculateScoresAndMoney(Player winner, Player loser) {

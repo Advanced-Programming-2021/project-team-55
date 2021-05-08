@@ -16,7 +16,7 @@ public class ViewInterface {
     public static String getInput() {
         String command;
         try{
-            if (Duel.getGameController().getCurrentTurnPlayer().isAI() && AIPlayerController.isIsAllowedToCommand())
+            if (Duel.getGameController().getCurrentTurnPlayer().isAI() && !AIPlayerController.isIsGameEnded())
                 command = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
                     AIPlayerController.orderKind.RANDOM)).getSpecialCommand();
             else command = input.nextLine();
