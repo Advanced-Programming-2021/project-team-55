@@ -111,7 +111,7 @@ public class BattlePhaseController implements methods {
                     + calculateDamage(attackerCell, attackedCell) + " battle damage";
             YomiShip.handleEffect(gameController, attackerCell, attackedCell);
             attackedCell.removeCardFromCell(opponentGameBoard);
-        } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {//todo marshmaloo :|||||||||||||||||||
+        } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
             response = "both you and your opponent monster cards are destroyed and no one receives damage";
             attackerCell.removeCardFromCell(playerGameBoard);
             attackedCell.removeCardFromCell(opponentGameBoard);
@@ -120,7 +120,6 @@ public class BattlePhaseController implements methods {
             response = "Your monster card is destroyed and you received " +
                     calculateDamage(attackerCell, attackedCell) + " battle damage";
             attackerCell.removeCardFromCell(playerGameBoard);
-            Marshmallon.handleEffect(gameController, attackerCell, attackedCell);//todo marshmallo
         }
         gameController.getAttackerCellsThisTurn().add(attackedCell);
         return response;
