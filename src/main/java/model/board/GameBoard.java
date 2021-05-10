@@ -96,6 +96,14 @@ public class GameBoard {
         }
         return false;
     }
+    public boolean isCellInSpellAndTrapZone(Cell cell) {
+        for (int i = 0; i < 5; i++) {
+            if (spellAndTrapCardZone[i] == cell) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void addCardToMonsterCardZone(Card card, CardStatus cardStatus) throws GameException {
         if (isMonsterCardZoneFull())

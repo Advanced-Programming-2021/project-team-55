@@ -209,19 +209,29 @@ public interface MainPhasesController {
                 SpellAndTrap spell = (SpellAndTrap) card;
                 if (selectedCell.getCardStatus() == CardStatus.OCCUPIED) {
                     throw new GameException(GameResponses.ALREADY_ACTIVATED.response);
-                } else if (playerGameBoard.isSpellAndTrapCardZoneFull() && spell.getAttribute() != SpellOrTrapAttribute.FIELD) {
+                }
+                else if(gameController.setSpellsAndTraps.contains(selectedCell)){
+                   //throw new GameException(GameResponses.)
+                }
+                else if (playerGameBoard.isSpellAndTrapCardZoneFull() && spell.getAttribute() != SpellOrTrapAttribute.FIELD) {
                     throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
                 } else {
                     if (!isPreparationDone(spell, gameController)) {
                         throw new GameException(GameResponses.PREPARATION_NOT_DONE.response);
-                    } else {
+                    }
+                    else {
                         //todo activate spell
-                        playerGameBoard.getHandCards().remove(selectedCell);
-                        if (spell.getAttribute() == SpellOrTrapAttribute.FIELD) {
-                            playerGameBoard.addCardToFieldZone(card);
-                            gameController.currentTurnOpponentPlayer.getGameBoard().addCardToFieldZone(card);
-                        } else {
-                            playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED);
+                        if(!playerGameBoard.isCellInSpellAndTrapZone(selectedCell)) {
+                            playerGameBoard.getHandCards().remove(selectedCell);
+                            if (spell.getAttribute() == SpellOrTrapAttribute.FIELD) {
+                                playerGameBoard.addCardToFieldZone(card);
+                                gameController.currentTurnOpponentPlayer.getGameBoard().addCardToFieldZone(card);
+                            } else {
+                                playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED);
+                            }
+                        }
+                        else{
+                            selectedCell.setCardStatus(CardStatus.OCCUPIED);
                         }
                         Cell.deselectCell();
                     }

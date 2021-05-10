@@ -23,6 +23,7 @@ public class GameController {
     public Player currentTurnOpponentPlayer;
     public GamePhase currentPhase;
     public ArrayList<Cell> changedPositionCells;
+    public ArrayList<Cell> setSpellsAndTraps;
     public ArrayList<GamePhase> phases;
     public ArrayList<Cell> attackerCellsThisTurn;
     protected Game game;
@@ -42,6 +43,7 @@ public class GameController {
         currentPhase = GamePhase.DRAW;
         changedPositionCells = new ArrayList<>();
         attackerCellsThisTurn = new ArrayList<>();
+        setSpellsAndTraps=new ArrayList<>();
         phases = new ArrayList<>();
         didPlayerSetOrSummonThisTurn = false;
         isGameEnded=false;
@@ -212,6 +214,7 @@ public class GameController {
         currentTurnOpponentPlayer = player;
         didPlayerSetOrSummonThisTurn = false;
         changedPositionCells = new ArrayList<>();
+        attackerCellsThisTurn=new ArrayList<>();
         //todo update changedPositionCells & other fields
         //todo reset attacked arraylist
     }
