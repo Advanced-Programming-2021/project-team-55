@@ -22,14 +22,13 @@ public class GateGuardian extends Monster {
                 , 20000, 3750, 3400, 11, MonsterAttribute.DARK, MonsterType.WARRIOR, CardType.EFFECTIVE);
     }
 
-    public static void handleEffect(GameController gameController) {
+    public static boolean handleEffect(GameController gameController) throws GameException {
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         Cell selectedCell = Cell.getSelectedCell();
-        if (!selectedCell.getCellCard().getName().equals("Gate Guardian")) return;
-
-        if (!playerGameBoard.doesMonsterZoneHave3Monsters() || !gameController.getMainPhase1Controller().canSpecialSummon(gameController)) {
-            ViewInterface.showResult("Error: you can’t set/summon this card");
-            return;
+        if (!selectedCell.getCellCard().getName().equals("Gate Guardian")) return false;
+//todo پنج تا مانستر برا یه هیولا D:
+        if (!playerGameBoard.doesMonsterZoneHaveNMonsters(5) || !gameController.getMainPhase1Controller().canSpecialSummon(gameController)) {
+            throw new GameException(GameResponses.CAN_NOT_SET_OR_SUMMON.response);
         }
         ArrayList<Cell>tributes=new ArrayList<>();
         ViewInterface.showResult("Gate Guardian effect activated:");
@@ -38,8 +37,8 @@ public class GateGuardian extends Monster {
             while (true) {
                 ViewInterface.showResult("select cell to tribute:");
                 String input=ViewInterface.getInput();
-                Duel.getMainPhase1().processSelect(input);
-                if (!input.equals("card selected")) {
+                String result = Duel.getMainPhase1().processSelect(input);
+                if (!result.equals("card selected")) {
                     ViewInterface.showResult("Error: try again!");
                     continue;
                 }
@@ -64,7 +63,7 @@ public class GateGuardian extends Monster {
         catch (GameException e){
             e.printStackTrace();
         }
-
+        return true;
     }
 
 }

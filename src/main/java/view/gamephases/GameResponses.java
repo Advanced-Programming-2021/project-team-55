@@ -44,7 +44,8 @@ public enum GameResponses {
     CAN_NOT_CHANGE_CARD_POSITION("Error: you can’t change this card position"),
     CAN_NOT_FLIP_SUMMON("Error: you can’t flip summon this card"),
     NOT_ENOUGH_CARDS_FOR_TRIBUTE("Error: there are not enough cards for tribute"),
-    NO_MONSTER_ON_CELL("Error: there no monsters one this address");
+    NO_MONSTER_ON_CELL("Error: there no monsters one this address"),
+    CAN_NOT_SET_OR_SUMMON("Error: you can’t set/summon this card");
 
 
     public final String response;

@@ -198,14 +198,15 @@ public class GameBoard {
         fieldZone.addCardToCell(card);
 
     }
-    public boolean doesMonsterZoneHave3Monsters(){
+
+    public boolean doesMonsterZoneHaveNMonsters(int number){
         int countMonsters=0;
         for(Cell cell:monsterCardZone){
             if(!cell.isEmpty()){
                 countMonsters++;
             }
         }
-        return countMonsters>=3;
+        return countMonsters>=number;
     }
 
     public boolean doesHandDeckHaveCard(int maxLevel, CardType cardType){
