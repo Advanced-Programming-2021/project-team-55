@@ -11,6 +11,7 @@ import model.cards.cardfeaturesenums.CardType;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
 import model.cards.monsters.ManEaterBug;
 import model.cards.monsters.TerratigertheEmpoweredWarrior;
+import model.cards.monsters.TheTricky;
 import model.exceptions.GameException;
 import view.ConsoleColors;
 import view.ViewInterface;
@@ -40,6 +41,7 @@ public interface MainPhasesController {
             throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
         }
         int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
+        if (TheTricky.handleEffect(gameController, selectedCell)) return;
         if (monsterLevel > 4) {
             int numberOfTributes;
             if (monsterLevel < 7) {
@@ -136,6 +138,7 @@ public interface MainPhasesController {
             return true;
         }
     }
+
     private boolean canRitualSummon(GameController gameController){
         Cell[]monsterCardZone=gameController.currentTurnPlayer.getGameBoard().getMonsterCardZone();
         ArrayList<Cell>handCards=gameController.currentTurnPlayer.getGameBoard().getHandCards();
