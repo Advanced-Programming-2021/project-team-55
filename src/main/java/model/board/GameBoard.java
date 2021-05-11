@@ -263,4 +263,12 @@ public class GameBoard {
         return graveyardMonstersCell;
     }
 
+    public void addAllMonstersATK(int amount){
+        for (int i = 0; i < 5; i++) {
+            try {
+                ((Monster) monsterCardZone[i].getCellCard()).addATK(amount);
+            }catch (Exception ignored){}
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package controller.gamephasescontrollers;
 
+import model.cards.monsters.*;
 import model.board.CardStatus;
 import model.cards.monsters.ExploderDragon;
 import model.cards.monsters.Marshmallon;
@@ -39,27 +40,29 @@ public class BattlePhaseController implements methods {
         }
         if (attackerCell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
-        } else if (!playerGameBoard.isCellInMonsterZone(attackerCell)||attackerCell.getCardStatus()!= OFFENSIVE_OCCUPIED) {
+        } else if (!playerGameBoard.isCellInMonsterZone(attackerCell)) {
             throw new GameException(GameResponses.CANT_ATTACK_CARD.response);
         } else if (gameController.didCardAttackThisTurn(attackerCell)) {
             throw new GameException(GameResponses.ALREADY_ATTACKED_CARD.response);
         } else if (attackedCell == null || attackedCell.getCellCard() == null) {
             throw new GameException(GameResponses.NO_CARD_TO_ATTACK.response);
-        } else if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
-            response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
-            if (response.equals(""))
-                response = attackToOffensiveCell(attackerCell, attackedCell, opponentGameBoard, playerGameBoard);
-
-        } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
-            response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
-            if (response.equals(""))
-                response = attackToDefensiveOccupiedCell(attackerCell, attackedCell, playerGameBoard);
         } else {
+            if (CommandKnight.handleEffect(gameController, attackedCell))
+                throw new GameException("Command Knight effect activated: you should first destroy other opponent monsters");
+            Suijin.handleEffect(attackerCell, attackedCell);
             response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
-            if (response.equals(""))
-                response = attackToDefensiveHiddenCell(attackerCell, attackedCell, opponentGameBoard);
+            if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
+                if (response.equals(""))
+                    response = attackToOffensiveCell(attackerCell, attackedCell, opponentGameBoard, playerGameBoard);
+
+            } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
+                if (response.equals(""))
+                    response = attackToDefensiveOccupiedCell(attackerCell, attackedCell, playerGameBoard);
+            } else {
+                if (response.equals(""))
+                    response = attackToDefensiveHiddenCell(attackerCell, attackedCell, opponentGameBoard);
+            }
         }
-        gameController.changedPositionCells.add(attackerCell);
         Cell.deselectCell();
         return response;
     }
