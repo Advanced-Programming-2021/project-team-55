@@ -1,15 +1,12 @@
 package controller.gamephasescontrollers;
 
-import model.cards.monsters.ExploderDragon;
-import model.cards.monsters.Marshmallon;
-import model.cards.monsters.TheCalculator;
+import model.cards.monsters.*;
 import model.exceptions.GameException;
 import model.Player;
 import model.board.Cell;
 import model.board.GameBoard;
 import model.cards.Card;
 import model.cards.Monster;
-import model.cards.monsters.YomiShip;
 import view.gamephases.GameResponses;
 
 import static model.board.CardStatus.DEFENSIVE_OCCUPIED;
@@ -44,19 +41,23 @@ public class BattlePhaseController implements methods {
             throw new GameException(GameResponses.ALREADY_ATTACKED_CARD.response);
         } else if (attackedCell == null || attackedCell.getCellCard() == null) {
             throw new GameException(GameResponses.NO_CARD_TO_ATTACK.response);
-        } else if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
-            response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
-            if (response.equals(""))
-                response = attackToOffensiveCell(attackerCell, attackedCell, opponentGameBoard, playerGameBoard);
-
-        } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
-            response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
-            if (response.equals(""))
-                response = attackToDefensiveOccupiedCell(attackerCell, attackedCell, playerGameBoard);
         } else {
-            response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
-            if (response.equals(""))
-                response = attackToDefensiveHiddenCell(attackerCell, attackedCell, opponentGameBoard);
+            if (CommandKnight.handleEffect(gameController, attackedCell))
+                throw new GameException("Command Knight effect activated: you should first destroy other opponent monsters");
+            if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
+                response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
+                if (response.equals(""))
+                    response = attackToOffensiveCell(attackerCell, attackedCell, opponentGameBoard, playerGameBoard);
+
+            } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
+                response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
+                if (response.equals(""))
+                    response = attackToDefensiveOccupiedCell(attackerCell, attackedCell, playerGameBoard);
+            } else {
+                response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
+                if (response.equals(""))
+                    response = attackToDefensiveHiddenCell(attackerCell, attackedCell, opponentGameBoard);
+            }
         }
         Cell.deselectCell();
         return response;

@@ -86,5 +86,10 @@ public abstract class Monster extends Card {
         this.cardStatus = cardStatus;
     }
 
+    public void addATK(int amount) {
+        atk += amount;
+        if (atk < 0) atk = 0;
+    }
+
 }
 
