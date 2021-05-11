@@ -255,5 +255,12 @@ public class GameBoard {
         }
         return graveyardMonsters;
     }
+    public ArrayList<Cell> getGraveyardMonstersCell() {
+        ArrayList<Cell> graveyardMonstersCell = new ArrayList<>();
+        for (Cell cell : graveyard){
+            if (cell.getCellCard().isMonster()) graveyardMonstersCell.add(cell);
+        }
+        return graveyardMonstersCell;
+    }
 
 }

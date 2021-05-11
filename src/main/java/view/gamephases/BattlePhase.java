@@ -79,13 +79,8 @@ public class BattlePhase extends Duel {
                 response = e.toString();
             }
         } else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
-            try {
                 gameController.currentPhase = GamePhase.GRAVEYARD;
                 response = gameController.showGraveyard(gameController.currentTurnPlayer);
-            } catch (GameException e) {
-                response = e.toString();
-            }
-
         } else if (command.matches(GameRegexes.SURRENDER.regex)) {
             gameController.surrender();
         } else if (command.matches(GameRegexes.INCREASE_LP.regex)) {

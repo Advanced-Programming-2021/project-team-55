@@ -18,7 +18,7 @@ public class Marshmallon extends Monster {
     }
 
     public static String handleEffect(GameController gameController, Cell attackerCell, Cell attackedCell) {
-        if (isMarshmallon(attackedCell)) return "";
+        if (!isMarshmallon(attackedCell)) return "";
         if (attackedCell.getCardStatus() == CardStatus.DEFENSIVE_HIDDEN) {
             gameController.getCurrentTurnPlayer().decreaseLP(1000);
             return (" \nMarshmallon effect activated: attacking player takes 1000 damage.");
@@ -27,7 +27,7 @@ public class Marshmallon extends Monster {
     }
 
     public static boolean isMarshmallon(Cell attackedCell) {
-        return !attackedCell.getCellCard().getName().equals("Marshmallon");
+        return attackedCell.getCellCard().getName().equals("Marshmallon");
     }
 
 }

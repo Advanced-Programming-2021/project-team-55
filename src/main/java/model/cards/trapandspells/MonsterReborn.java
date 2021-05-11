@@ -2,14 +2,14 @@ package model.cards.trapandspells;
 
 import controller.gamephasescontrollers.GameController;
 import model.board.Cell;
-import model.board.Game;
-import model.board.GameBoard;
+import model.cards.Card;
 import model.cards.SpellAndTrap;
 import model.cards.cardfeaturesenums.EffectiveTerm;
 import model.cards.cardfeaturesenums.SpellOrTrap;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
+import model.exceptions.GameException;
 import view.ViewInterface;
-import view.gamephases.Duel;
+import view.gamephases.GameResponses;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -20,34 +20,75 @@ public class MonsterReborn extends SpellAndTrap {
         super("Monster Reborn", "Target 1 monster in either GY; Special Summon it.",
                 2500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
     }
-    public static void handleEffect(GameController gameController){
-        ViewInterface.showResult("your graveyard:");
-        ArrayList<Cell>playerGraveyard=gameController.currentTurnPlayer.getGameBoard().getGraveyard();
-        ArrayList<Cell>opponentGraveyard =gameController.currentTurnOpponentPlayer.getGameBoard().getGraveyard();
-        ViewInterface.showResult(gameController.showGraveyard(gameController.currentTurnPlayer));
-        ViewInterface.showResult("your opponent graveyard:");
-        ViewInterface.showResult(gameController.showGraveyard(gameController.currentTurnOpponentPlayer));
-        ViewInterface.showResult("choose a monster from your or your opponents graveyard: (me (number)/opponent (number))\n");
-        String input=ViewInterface.getInput();
-        boolean isInputCorrect=false;
-        while(!isInputCorrect||(!input.matches("me (\\d+)")&&!input.matches("opponent (\\d+)"))){
-            ViewInterface.showResult("invalid format! try again:");
-            input=ViewInterface.getInput();
-        }
-        Matcher matcher;
-        if(input.matches("me (\\d+)")) {
-            matcher=ViewInterface.getCommandMatcher(input, "me (\\d+)");
-            int choice=Integer.parseInt(matcher.group(1));
-            if(playerGraveyard.size()>=choice){
-                if(!playerGraveyard.get(choice-1).getCellCard().isMonster()){
 
+    public static void setActivated(GameController gameController) {
+        ArrayList<Cell> playerGraveyardMonstersCell = gameController.currentTurnPlayer.getGameBoard().getGraveyardMonstersCell();
+        ArrayList<Cell> opponentGraveyardMonstersCell = gameController.currentTurnOpponentPlayer.getGameBoard().getGraveyardMonstersCell();
+        if (opponentGraveyardMonstersCell.size() == 0 && playerGraveyardMonstersCell.size() == 0) {
+            ViewInterface.showResult(GameResponses.PREPARATION_NOT_DONE.response);
+            return;
+        }
+        if(!gameController.getMainPhase1Controller().canSpecialSummon(gameController)){
+            ViewInterface.showResult(GameResponses.NO_WAY_TO_SPECIAL_SUMMON.response);
+            return;
+        }
+        ViewInterface.showResult("Monster Reborn activated.");
+        ViewInterface.showResult("your graveyard monsters:");
+        int counterPlayer = 0;
+        for (Cell cell : playerGraveyardMonstersCell) {
+            counterPlayer++;
+            System.out.println(counterPlayer + ". " + cell.getCellCard());
+        }
+
+        ViewInterface.showResult("your opponent graveyard:");
+        int counterOpponent = 0;
+        for (Cell cell: opponentGraveyardMonstersCell) {
+            counterOpponent++;
+            System.out.println(counterOpponent + ". " + cell.getCellCard());
+        }
+        ViewInterface.showResult("choose a monster from your or your opponents graveyard: (me (number)/opponent (number))");
+        String input ;
+        while (true) {
+            input = ViewInterface.getInput();
+            Matcher matcher;
+            if (input.equals("cancel")) {
+                ViewInterface.showResult("you cancelled the effect of your card!");
+                return;
+            }
+            if (input.matches("opponent (\\d+)")) {
+                matcher = ViewInterface.getCommandMatcher(input, "opponent (\\d+)");
+                int choice = Integer.parseInt(matcher.group(1));
+                if (counterOpponent< choice||choice<1) {
+                    ViewInterface.showResult("Error: there is no monster with this number!");
+                    continue;
                 }
+                updateSpellInGameBoard(gameController);
+                Cell.setSelectedCell(opponentGraveyardMonstersCell.get(choice-1));
+                opponentGraveyardMonstersCell.remove(choice-1);
+                try {
+                    gameController.getMainPhase1Controller().specialSummon(gameController);
+                }catch (GameException e){}
+
+
+            }
+            else if(input.matches("me (\\d+)")){
+                matcher = ViewInterface.getCommandMatcher(input, "me (\\d+)");
+                int choice = Integer.parseInt(matcher.group(1));
+                if (counterPlayer< choice||choice<1) {
+                    ViewInterface.showResult("Error: there is no monster with this number!");
+                    continue;
+                }
+                updateSpellInGameBoard(gameController);
+                Cell.setSelectedCell(playerGraveyardMonstersCell.get(choice-1));
+                playerGraveyardMonstersCell.remove(choice-1);
+                try {
+                    gameController.getMainPhase1Controller().specialSummon(gameController);
+                }catch (GameException e){}
+                return;
+            }
+            else{
+                ViewInterface.showResult("Error: invalid format! try again:");
             }
         }
-        else{
-            matcher=ViewInterface.getCommandMatcher(input,"opponent (\\d+)");
-        }
-        if(Integer.parseInt(matcher.group(1))>)
     }
-
 }

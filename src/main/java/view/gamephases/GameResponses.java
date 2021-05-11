@@ -26,6 +26,7 @@ public enum GameResponses {
     YOU_SHOULD_SPECIAL_SUMMON_NOW("Error: you should special summon right now"),
     SELECTED_MONSTERS_DONT_MATCH("Error: selected monsters levels don’t match with ritual monster"),
     NO_WAY_TO_RITUAL_SUMMON("Error: there is no way you could ritual summon a monster"),
+    NO_WAY_TO_SPECIAL_SUMMON("Error: there is no way you could special summon a monster"),
     PREPARATION_NOT_DONE("Error: preparations of this spell are not done yet"),
     SPELL_CANT_BE_ACTIVATED_THIS_TURN("Error: spell can’t be activated this turn"),
     CHEAT_ACTIVATED_LP_INCREASED("cheat activated: LP increased!"),

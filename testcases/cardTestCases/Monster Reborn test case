@@ -1,0 +1,27 @@
+user create --username parham --nickname pari --password 123
+user create --username abolfazl --nickname abol --password 123
+user login --username parham --password 123
+menu enter Duel
+duel --new --second-player abolfazl --rounds 3
+1
+yes
+add --force Monster Reborn
+add --force Axe Raider
+set
+next phase
+next phase
+add --force Baby dragon
+summon
+next phase
+select --monster 1
+attack 1
+next phase
+next phase
+select --hand 6
+add --force Baby dragon
+set
+select --hand 6
+activate effect
+me 1
+summon
+select --monster 1
