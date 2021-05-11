@@ -9,6 +9,7 @@ import model.cards.Monster;
 import model.cards.SpellAndTrap;
 import model.cards.cardfeaturesenums.CardType;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
+import model.cards.monsters.GateGuardian;
 import model.cards.monsters.ManEaterBug;
 import model.cards.monsters.TerratigertheEmpoweredWarrior;
 import model.cards.monsters.TheTricky;
@@ -42,6 +43,18 @@ public interface MainPhasesController {
         }
         int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
         if (TheTricky.handleEffect(gameController, selectedCell)) return;
+        if (GateGuardian.handleEffect(gameController)) return;
+
+        selectedCell = handleTributeForNormalSummon(currentPlayer, selectedCell, monsterLevel);
+
+        currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED);
+        currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
+        TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
+        gameController.setDidPlayerSetOrSummonThisTurn(true);
+        Cell.deselectCell();
+    }
+
+    private Cell handleTributeForNormalSummon(Player currentPlayer, Cell selectedCell, int monsterLevel) throws GameException {
         if (monsterLevel > 4) {
             int numberOfTributes;
             if (monsterLevel < 7) {
@@ -99,6 +112,7 @@ public interface MainPhasesController {
             } else {
                 playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard, CardStatus.HIDDEN,gameController);
                 playerGameBoard.getHandCards().remove(selectedCell);
+
             }
             Cell.deselectCell();
         }
@@ -264,35 +278,10 @@ public interface MainPhasesController {
             throw new GameException(GameResponses.CANT_SUMMON_CARD.response);
         }
         int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
-        if (monsterLevel > 4) {
-            int numberOfTributes;
-            if (monsterLevel < 7) {
-                if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 1)
-                    throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
-                numberOfTributes = 1;
-            } else {
-                if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 2)
-                    throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
-                numberOfTributes = 2;
-            }
-            ArrayList<Cell> tributes = new ArrayList<>();
-            Cell oldSelectedCell = selectedCell;
-            Cell newSelectedCell;
-            for (int i = 0; i < numberOfTributes; i++) {
-                ViewInterface.showResult("select cell to tribute:");
-                Duel.getMainPhase1().processSelect(ViewInterface.getInput());
-                newSelectedCell = Cell.getSelectedCell();
-                if (!currentPlayer.getGameBoard().isCellInMonsterZone(newSelectedCell))
-                    throw new GameException(GameResponses.NO_MONSTER_ON_CELL.response);
-                tributes.add(newSelectedCell);
-                ViewInterface.showResult("cell taken");
-            }
-            for (Cell tribute : tributes) {
-                tribute.removeCardFromCell(currentPlayer.getGameBoard());
-            }
-            selectedCell = oldSelectedCell;
-        }
-        currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED,gameController);
+
+        selectedCell = handleTributeForNormalSummon(currentPlayer, selectedCell, monsterLevel);
+
+        currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED);
         currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
         TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);

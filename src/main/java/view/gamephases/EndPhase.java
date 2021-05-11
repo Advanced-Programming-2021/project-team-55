@@ -1,6 +1,7 @@
 package view.gamephases;
 
 import controller.gamephasescontrollers.EndPhaseController;
+import model.cards.monsters.Scanner;
 import view.ViewInterface;
 
 public class EndPhase extends Duel {
@@ -19,6 +20,7 @@ public class EndPhase extends Duel {
     protected String processCommand(String command) {
         String response = "";
         if (Duel.getGameController().getCurrentTurnPlayer().isAI()) response = "AI turn completed";
+        Scanner.deActivateEffect();
         gameController.changePhase();
         return response;
     }
