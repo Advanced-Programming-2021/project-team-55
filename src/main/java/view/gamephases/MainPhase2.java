@@ -124,7 +124,7 @@ public class MainPhase2 extends Duel {
         } else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
             try {
                 gameController.currentPhase = GamePhase.GRAVEYARD;
-                response = gameController.showGraveyard();
+                response = gameController.showGraveyard(gameController.currentTurnPlayer);
             } catch (GameException e) {
                 response = e.toString();
             }

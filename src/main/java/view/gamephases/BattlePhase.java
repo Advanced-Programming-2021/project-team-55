@@ -15,29 +15,35 @@ public class BattlePhase extends Duel {
     @Override
     protected void execute() {
         battlePhaseController = gameController.getBattlePhaseController();
-
-        String response;
-        if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
-            AIPlayerController aiPlayerController = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
-                    AIPlayerController.orderKind.RANDOM));
-            String AICommand = "";
-            response = processCommand(AICommand);
-            while (response.startsWith("Error: ") && !AICommand.equals("next phase")) {
-                AICommand =  aiPlayerController.getSelectCommandForBattlePhase();
-                response = processCommand(AICommand);
-                if (AICommand.equals("next phase")) break;
-                AICommand =  aiPlayerController.getMainCommandForBattlePhase();
-                response = processCommand(AICommand);
-            }
-        } else {
-            response = processCommand(ViewInterface.getInput());
+        if(gameController.turnCount==1){
+            gameController.changePhase();
+            showPhase();
         }
+        else {
+            String response;
+            if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
+                AIPlayerController aiPlayerController = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
+                        AIPlayerController.orderKind.RANDOM));
+                String AICommand = "";
+                response = processCommand(AICommand);
+                while (response.startsWith("Error: ") && !AICommand.equals("next phase")) {
+                    AICommand = aiPlayerController.getSelectCommandForBattlePhase();
+                    response = processCommand(AICommand);
+                    if (AICommand.equals("next phase")) break;
+                    AICommand = aiPlayerController.getMainCommandForBattlePhase();
+                    response = processCommand(AICommand);
+                }
+            } else {
+                response = processCommand(ViewInterface.getInput());
+            }
             ViewInterface.showResult(response);
+        }
     }
 
     @Override
     protected String processCommand(String command) {
         String response = "";
+
         if (!gameController.checkCommandIsInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
         } else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
@@ -75,7 +81,7 @@ public class BattlePhase extends Duel {
         } else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
             try {
                 gameController.currentPhase = GamePhase.GRAVEYARD;
-                response = gameController.showGraveyard();
+                response = gameController.showGraveyard(gameController.currentTurnPlayer);
             } catch (GameException e) {
                 response = e.toString();
             }

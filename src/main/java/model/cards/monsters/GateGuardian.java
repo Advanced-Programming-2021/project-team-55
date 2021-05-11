@@ -58,7 +58,7 @@ public class GateGuardian extends Monster {
         }
         selectedCell.removeCardFromCell(playerGameBoard);
         try {
-            playerGameBoard.addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED);
+            playerGameBoard.addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED,gameController);
             gameController.shouldSpecialSummonNow=true;
         }
         catch (GameException e){

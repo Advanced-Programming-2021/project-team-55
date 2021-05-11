@@ -1,5 +1,6 @@
 package controller.gamephasescontrollers;
 
+import model.board.CardStatus;
 import model.cards.monsters.ExploderDragon;
 import model.cards.monsters.Marshmallon;
 import model.cards.monsters.TheCalculator;
@@ -38,7 +39,7 @@ public class BattlePhaseController implements methods {
         }
         if (attackerCell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
-        } else if (!playerGameBoard.isCellInMonsterZone(attackerCell)) {
+        } else if (!playerGameBoard.isCellInMonsterZone(attackerCell)||attackerCell.getCardStatus()!= OFFENSIVE_OCCUPIED) {
             throw new GameException(GameResponses.CANT_ATTACK_CARD.response);
         } else if (gameController.didCardAttackThisTurn(attackerCell)) {
             throw new GameException(GameResponses.ALREADY_ATTACKED_CARD.response);
@@ -58,6 +59,7 @@ public class BattlePhaseController implements methods {
             if (response.equals(""))
                 response = attackToDefensiveHiddenCell(attackerCell, attackedCell, opponentGameBoard);
         }
+        gameController.changedPositionCells.add(attackerCell);
         Cell.deselectCell();
         return response;
     }
@@ -158,7 +160,7 @@ public class BattlePhaseController implements methods {
         if (selectedCell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
-        if (!currentPlayer.getGameBoard().isCellInMonsterZone(selectedCell)) {
+        if (!currentPlayer.getGameBoard().isCellInMonsterZone(selectedCell)||selectedCell.getCardStatus()!= OFFENSIVE_OCCUPIED) {
             throw new GameException(GameResponses.CAN_NOT_ATTACK_WITH_THIS_CARD.response);
         }
         if (gameController.didCardAttackThisTurn(selectedCell)) {

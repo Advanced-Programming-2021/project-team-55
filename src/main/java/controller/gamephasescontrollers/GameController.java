@@ -23,7 +23,6 @@ public class GameController {
     public Player currentTurnOpponentPlayer;
     public GamePhase currentPhase;
     public ArrayList<Cell> changedPositionCells;
-    public ArrayList<Cell> setSpellsAndTraps;
     public ArrayList<GamePhase> phases;
     public ArrayList<Cell> attackerCellsThisTurn;
     protected Game game;
@@ -31,6 +30,7 @@ public class GameController {
     private boolean didPlayerSetOrSummonThisTurn;
     public boolean shouldRitualSummonNow;
     public boolean shouldSpecialSummonNow;
+    public int turnCount;
     private boolean isGameEnded;
     private DrawPhaseController drawPhaseController;
     private StandByPhaseController standByPhaseController;
@@ -43,12 +43,12 @@ public class GameController {
         currentPhase = GamePhase.DRAW;
         changedPositionCells = new ArrayList<>();
         attackerCellsThisTurn = new ArrayList<>();
-        setSpellsAndTraps=new ArrayList<>();
         phases = new ArrayList<>();
         didPlayerSetOrSummonThisTurn = false;
         isGameEnded=false;
         shouldRitualSummonNow=false;
         shouldSpecialSummonNow=false;
+        turnCount=1;
         drawPhaseController = new DrawPhaseController(this);
         standByPhaseController = new StandByPhaseController(this);
         mainPhase1Controller = new MainPhase1Controller(this);
@@ -77,11 +77,11 @@ public class GameController {
         return currentRound;
     }
 
-    public String showGraveyard() throws GameException {
+    public String showGraveyard(Player player){
         String response = "";
         GameBoard playerGameBoard = currentTurnPlayer.getGameBoard();
         if (playerGameBoard.getGraveyard().size() == 0) {
-            throw new GameException(GameResponses.GRAVEYARD_EMPTY.response);
+            response=GameResponses.GRAVEYARD_EMPTY.response;
         } else {
             for (int i = 1; i <= playerGameBoard.getGraveyard().size(); i++) {
                 response += i + ". " + playerGameBoard.getGraveyard().get(i - 1).getCellCard();
@@ -215,12 +215,9 @@ public class GameController {
         didPlayerSetOrSummonThisTurn = false;
         changedPositionCells = new ArrayList<>();
         attackerCellsThisTurn=new ArrayList<>();
+        turnCount++;
         //todo update changedPositionCells & other fields
         //todo reset attacked arraylist
-    }
-
-    protected String showGraveyard(Player player) {
-        return null;
     }
 
     protected void handleCardSideEffects() {

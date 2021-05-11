@@ -1,5 +1,6 @@
 package model.board;
 
+import controller.gamephasescontrollers.GameController;
 import model.cards.Monster;
 import model.cards.cardfeaturesenums.CardType;
 import model.exceptions.GameException;
@@ -105,7 +106,7 @@ public class GameBoard {
         return false;
     }
 
-    public void addCardToMonsterCardZone(Card card, CardStatus cardStatus) throws GameException {
+    public void addCardToMonsterCardZone(Card card, CardStatus cardStatus,GameController gameController) throws GameException {
         if (isMonsterCardZoneFull())
             throw new GameException(GameResponses.MONSTER_ZONE_IS_FULL.response);
 
@@ -113,6 +114,7 @@ public class GameBoard {
             if (monsterCardZone[i].isEmpty()) {
                 monsterCardZone[i].addCardToCell(card);
                 monsterCardZone[i].setCardStatus(cardStatus);
+                gameController.changedPositionCells.add(monsterCardZone[i]);
                 return;
             }
         }
@@ -169,7 +171,7 @@ public class GameBoard {
         graveyard.add(new Cell(card));
     }
 
-    public void addCardToSpellAndTrapCardZone(Card card,CardStatus cardStatus) throws GameException {
+    public void addCardToSpellAndTrapCardZone(Card card, CardStatus cardStatus, GameController gameController) throws GameException {
         if (isSpellAndTrapCardZoneFull())
             throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
 
@@ -177,6 +179,8 @@ public class GameBoard {
             if (spellAndTrapCardZone[i].isEmpty()) {
                 spellAndTrapCardZone[i].addCardToCell(card);
                 spellAndTrapCardZone[i].setCardStatus(cardStatus);
+                gameController.changedPositionCells.add(spellAndTrapCardZone[i]);
+
                 return;
             }
         }

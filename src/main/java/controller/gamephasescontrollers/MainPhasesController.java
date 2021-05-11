@@ -70,7 +70,7 @@ public interface MainPhasesController {
             }
             selectedCell = oldSelectedCell;
         }
-        currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED);
+        currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED,gameController);
         currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
         TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
@@ -93,13 +93,12 @@ public interface MainPhasesController {
                 if (gameController.DoPlayerSetOrSummonedThisTurn()) {
                     throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
                 }
-                playerGameBoard.addCardToMonsterCardZone(selectedCard, CardStatus.DEFENSIVE_HIDDEN);
+                playerGameBoard.addCardToMonsterCardZone(selectedCard, CardStatus.DEFENSIVE_HIDDEN,gameController);
                 playerGameBoard.getHandCards().remove(selectedCell);
                 gameController.setDidPlayerSetOrSummonThisTurn(true);
             } else {
-                playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard, CardStatus.HIDDEN);
+                playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard, CardStatus.HIDDEN,gameController);
                 playerGameBoard.getHandCards().remove(selectedCell);
-
             }
             Cell.deselectCell();
         }
@@ -201,8 +200,8 @@ public interface MainPhasesController {
                 if (selectedCell.getCardStatus() == CardStatus.OCCUPIED) {
                     throw new GameException(GameResponses.ALREADY_ACTIVATED.response);
                 }
-                else if(gameController.setSpellsAndTraps.contains(selectedCell)){
-                   //throw new GameException(GameResponses.)
+                else if(gameController.changedPositionCells.contains(selectedCell)){
+                   throw new GameException(GameResponses.SPELL_CANT_BE_ACTIVATED_THIS_TURN.response);
                 }
                 else if (playerGameBoard.isSpellAndTrapCardZoneFull() && spell.getAttribute() != SpellOrTrapAttribute.FIELD) {
                     throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
@@ -218,7 +217,7 @@ public interface MainPhasesController {
                                 playerGameBoard.addCardToFieldZone(card);
                                 gameController.currentTurnOpponentPlayer.getGameBoard().addCardToFieldZone(card);
                             } else {
-                                playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED);
+                                playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED,gameController);
                             }
                         }
                         else{
@@ -293,7 +292,7 @@ public interface MainPhasesController {
             }
             selectedCell = oldSelectedCell;
         }
-        currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED);
+        currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED,gameController);
         currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
         TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
@@ -335,10 +334,10 @@ public interface MainPhasesController {
                             Cell.deselectCell();
                             gameController.shouldRitualSummonNow = false;
                             if (cardStatus.equals("defensive")) {
-                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon, CardStatus.DEFENSIVE_OCCUPIED);
+                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon, CardStatus.DEFENSIVE_OCCUPIED,gameController);
                                 break;
                             } else {
-                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon, CardStatus.OFFENSIVE_OCCUPIED);
+                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon, CardStatus.OFFENSIVE_OCCUPIED,gameController);
                                 break;
                             }
                         }
@@ -370,10 +369,10 @@ public interface MainPhasesController {
                             Cell.deselectCell();
                             gameController.shouldRitualSummonNow = false;
                             if (cardStatus.equals("defensive")) {
-                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon, CardStatus.DEFENSIVE_OCCUPIED);
+                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon, CardStatus.DEFENSIVE_OCCUPIED,gameController);
                                 break;
                             } else {
-                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon, CardStatus.OFFENSIVE_OCCUPIED);
+                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon, CardStatus.OFFENSIVE_OCCUPIED,gameController);
                                 break;
                             }
 

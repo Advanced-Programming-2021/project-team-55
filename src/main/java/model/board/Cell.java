@@ -2,6 +2,7 @@ package model.board;
 
 import model.cards.Card;
 import model.cards.Monster;
+import view.gamephases.Duel;
 
 
 public class Cell {
@@ -44,6 +45,7 @@ public class Cell {
         gameBoard.addCardToGraveyard(this.card);
         this.card = null;
         this.cardStatus = null;
+        Duel.getGameController().changedPositionCells.remove(this);
     }
 
     public void setCard(Card card) {
