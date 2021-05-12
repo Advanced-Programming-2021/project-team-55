@@ -245,13 +245,13 @@ public class GameBoard {
 
     public Cell getMonsterZoneCardByMonsterName(String cardName) {
         for (int i = 0; i < 5; i++) {
-            try {
-                monsterCardZone[i].getCellCard();
-            }catch (Exception e){
-                continue;
-            }
-            if (monsterCardZone[i].isEmpty() || monsterCardZone[i].getCellCard().getCardKind() != Card.Kind.MONSTER) continue;
-            if (monsterCardZone[i].getCellCard().getName().equals(cardName)) return monsterCardZone[i];
+            if (!monsterCardZone[i].isEmpty() &&monsterCardZone[i].getCellCard().getName().equals(cardName)) return monsterCardZone[i];
+        }
+        return null;
+    }
+    public Cell getSpellZoneCardByName(String cardName){
+        for (int i = 0; i < 5; i++) {
+            if (!spellAndTrapCardZone[i].isEmpty() &&spellAndTrapCardZone[i].getCellCard().getName().equals(cardName)) return spellAndTrapCardZone[i];
         }
         return null;
     }
