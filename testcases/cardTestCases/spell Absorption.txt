@@ -1,0 +1,24 @@
+user create --username parham --nickname pari --password 123
+user create --username abolfazl --nickname abol --password 123
+user login --username parham --password 123
+menu enter Duel
+duel --new --second-player abolfazl --rounds 1
+1
+yes
+add --force Spell Absorption
+summon
+set
+select --spell 1
+activate effect
+next phase
+next phase
+next phase
+select --spell 1
+activate effect
+add --force Dark Hole
+set
+next phase
+next phase
+next phase
+select --spell 1
+activate effect

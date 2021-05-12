@@ -27,14 +27,19 @@ public abstract class SpellAndTrap extends Card {
         this.status = status;
     }
     public static void activateSpellEffects(GameController gameController,SpellAndTrap spellAndTrap){
+
         if(spellAndTrap.name.equals("Monster Reborn"))MonsterReborn.setActivated(gameController);
         else if(spellAndTrap.name.equals("Terraforming")) Terraforming.setActivated(gameController);
         else if(spellAndTrap.name.equals("Pot of Greed")) PotofGreed.setActivated(gameController);
         else if (spellAndTrap.name.equals("Dark Hole")) DarkHole.setActivated(gameController);
+        else if (spellAndTrap.name.equals("Spell Absorption")) SpellAbsorption.setActivated(gameController);
         else if(spellAndTrap.name.equals("Harpie's Feather Duster")) HarpiesFeatherDuster.setActivated(gameController);
+        else if(spellAndTrap.name.equals("Swords of Revealing Light"))SwordsofRevealingLight.setActivated(gameController);
         else if (spellAndTrap.name.equals("Twin Twisters")) TwinTwisters.setActivated(gameController);
 
         //...
+
+        SpellAbsorption.handleEffect();
     }
 
     public static void setActivated(GameController gameController){
