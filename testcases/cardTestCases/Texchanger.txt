@@ -1,0 +1,23 @@
+user create --username parham --nickname pari --password 123
+user create --username abolfazl --nickname abol --password 123
+user login --username parham --password 123
+menu enter Duel
+duel --new --second-player abolfazl --rounds 3
+1
+yes
+add --force Texchanger
+summon
+next phase
+next phase
+add --force Bitron
+summon
+next phase
+select --monster 1
+attack 1
+1
+next phase
+select --monster 1
+summon
+select --monster 1
+next phase
+next phase

@@ -201,17 +201,18 @@ public class GameController {
             }
             case END: {
                 currentPhase = GamePhase.DRAW;
-                changeTurn();
+                changeTurn(false);
                 break;
             }
 
         }
     }
 
-    private void changeTurn() {
+    public void changeTurn(boolean isTemporary) {
         Player player = currentTurnPlayer;
         currentTurnPlayer = currentTurnOpponentPlayer;
         currentTurnOpponentPlayer = player;
+        if (isTemporary) return;
         didPlayerSetOrSummonThisTurn = false;
         changedPositionCells = new ArrayList<>();
         attackerCellsThisTurn=new ArrayList<>();
