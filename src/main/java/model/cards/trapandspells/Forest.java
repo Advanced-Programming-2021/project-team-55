@@ -40,7 +40,7 @@ public class Forest extends SpellAndTrap {
         ) {
             if (isForForest(monster)) {
                 ((Monster) monster.getCellCard()).addATK(200);
-                ((Monster) monster.getCellCard()).addATK(200);
+                ((Monster) monster.getCellCard()).addDEF(200);
                 effectedMonsters.add((Monster) monster.getCellCard());
             }
 
@@ -50,7 +50,7 @@ public class Forest extends SpellAndTrap {
     private static void decreaseOpponentPlayerMonstersAttack(Cell[] monsterCardZone) {
         for (Monster monster : effectedMonsters
         ) {
-            monster.addDEF(-200);
+            monster.addATK(-200);
             monster.addDEF(-200);
         }
     }

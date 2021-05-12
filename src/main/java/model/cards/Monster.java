@@ -20,7 +20,7 @@ public abstract class Monster extends Card {
 
     protected Monster(String cardName, String description, int price, int atk, int def, int level,
                       MonsterAttribute attribute, MonsterType monsterType, CardType cardType) {
-        super(cardName, description, price, Kind.MONSTER,null);
+        super(cardName, description, price, Kind.MONSTER, null);
         this.atk = atk;
         this.def = def;
         this.level = level;
@@ -87,18 +87,13 @@ public abstract class Monster extends Card {
     }
 
     public void addATK(int amount) {
-        atk += amount;
-        if (atk < 0) atk = 0;
-    }
-    public void addDEF(int amount) {
-        def += amount;
-        if (def < 0) def = 0;
+        this.atk += amount;
+        if (this.atk < 0) this.atk = 0;
     }
 
     public void addDEF(int amount) {
-        def += amount;
-        if (def < 0) def = 0;
+        this.def += amount;
+        if (this.def < 0) this.def = 0;
     }
-
 }
 
