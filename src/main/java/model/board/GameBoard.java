@@ -3,6 +3,7 @@ package model.board;
 import controller.gamephasescontrollers.GameController;
 import model.cards.Monster;
 import model.cards.cardfeaturesenums.CardType;
+import model.cards.cardfeaturesenums.MonsterType;
 import model.exceptions.GameException;
 import model.cards.Card;
 import model.cards.Deck;
@@ -269,6 +270,29 @@ public class GameBoard {
                 ((Monster) monsterCardZone[i].getCellCard()).addATK(amount);
             }catch (Exception ignored){}
         }
+    }
+
+    public ArrayList<Card> getAllMonstersFromAllFieldsWithType(MonsterType monsterType) {
+        ArrayList<Card> result = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            try {
+                Monster monster = (Monster) monsterCardZone[i].getCellCard();
+                if (monster.getMonsterType() == monsterType) result.add(monster);
+            }catch (Exception ignored){}
+        }
+        for (Cell cell : handCards) {
+            try {
+                Monster monster = (Monster) cell.getCellCard();
+                if (monster.getMonsterType() == monsterType) result.add(monster);
+            }catch (Exception ignored){}
+        }
+        for (Cell cell : graveyard) {
+            try {
+                Monster monster = (Monster) cell.getCellCard();
+                if (monster.getMonsterType() == monsterType) result.add(monster);
+            }catch (Exception ignored){}
+        }
+        return result;
     }
 
 }

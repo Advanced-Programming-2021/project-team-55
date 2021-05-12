@@ -50,6 +50,7 @@ public class BattlePhaseController implements methods {
             if (CommandKnight.handleEffect(gameController, attackedCell))
                 throw new GameException("Command Knight effect activated: you should first destroy other opponent monsters");
             Suijin.handleEffect(attackerCell, attackedCell);
+            if (Texchanger.handleEffect(gameController, attackedCell)) throw new GameException("your attack canceled.");
             response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
             if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
                 if (response.equals(""))
