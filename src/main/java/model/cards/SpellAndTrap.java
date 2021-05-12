@@ -32,6 +32,8 @@ public abstract class SpellAndTrap extends Card {
         else if(spellAndTrap.name.equals("Pot of Greed")) PotofGreed.setActivated(gameController);
         else if (spellAndTrap.name.equals("Dark Hole")) DarkHole.setActivated(gameController);
         else if(spellAndTrap.name.equals("Harpie's Feather Duster")) HarpiesFeatherDuster.setActivated(gameController);
+        else if (spellAndTrap.name.equals("Twin Twisters")) TwinTwisters.setActivated(gameController);
+
         //...
     }
 

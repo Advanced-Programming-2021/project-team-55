@@ -78,7 +78,7 @@ abstract public class Duel {
         ViewInterface.showResult(response);
     }
 
-    public String processSelect(String command) {
+    public static String processSelect(String command) {
         String response = "";
         if (command.matches(GameRegexes.SELECT_MONSTER.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_MONSTER.regex);
@@ -136,25 +136,25 @@ abstract public class Duel {
         if (gameController.getCurrentRound() == 1) {
             String request = currentPlayerName + " choose a side: 1-head 2-tale";
             ViewInterface.showResult(request);
-            String choice=ViewInterface.getInput();
-            while(!choice.equals("1")&&!choice.equals("2")){
+            String choice = ViewInterface.getInput();
+            while (!choice.equals("1") && !choice.equals("2")) {
                 ViewInterface.showResult("Error: invalid choice!");
-                choice=ViewInterface.getInput();
+                choice = ViewInterface.getInput();
             }
             if (Integer.parseInt(choice) == gameController.tossCoin()) {
                 ViewInterface.showResult(currentPlayerName + " do you want to be the first player? yes/no");
-                String input=ViewInterface.getInput();
-                while(!input.equals("no")&&!input.equals("yes")){
+                String input = ViewInterface.getInput();
+                while (!input.equals("no") && !input.equals("yes")) {
                     ViewInterface.showResult("Error: invalid choice!");
-                    input=ViewInterface.getInput();
+                    input = ViewInterface.getInput();
                 }
-                switch (input){
-                    case "yes":{
+                switch (input) {
+                    case "yes": {
                         gameController.setCurrentTurnPlayer(gameController.getGame().getFirstPlayer());
                         gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getSecondPlayer());
                         break;
                     }
-                    case "no":{
+                    case "no": {
                         gameController.setCurrentTurnPlayer(gameController.getGame().getSecondPlayer());
                         gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getFirstPlayer());
                         break;
@@ -162,18 +162,18 @@ abstract public class Duel {
                 }
             } else {
                 ViewInterface.showResult(opponentPlayerName + " do you want to be the first player? yes/no");
-                String input=ViewInterface.getInput();
-                while(!input.equals("no")&&!input.equals("yes")){
+                String input = ViewInterface.getInput();
+                while (!input.equals("no") && !input.equals("yes")) {
                     ViewInterface.showResult("Error: invalid choice!");
-                    input=ViewInterface.getInput();
+                    input = ViewInterface.getInput();
                 }
-                switch (input){
-                    case "yes":{
+                switch (input) {
+                    case "yes": {
                         gameController.setCurrentTurnPlayer(gameController.getGame().getSecondPlayer());
                         gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getFirstPlayer());
                         break;
                     }
-                    case "no":{
+                    case "no": {
                         gameController.setCurrentTurnPlayer(gameController.getGame().getFirstPlayer());
                         gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getSecondPlayer());
                         break;
@@ -184,18 +184,18 @@ abstract public class Duel {
         } else {
             String playerName = gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1).getUser().getNickname();
             ViewInterface.showResult(playerName + " do you want to be the first player? yes/no");
-            String input=ViewInterface.getInput();
-            while(!input.equals("no")&&!input.equals("yes")){
+            String input = ViewInterface.getInput();
+            while (!input.equals("no") && !input.equals("yes")) {
                 ViewInterface.showResult("Error: invalid choice!");
-                input=ViewInterface.getInput();
+                input = ViewInterface.getInput();
             }
-            switch (input){
-                case "yes":{
+            switch (input) {
+                case "yes": {
                     gameController.setCurrentTurnPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
                     gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
                     break;
                 }
-                case "no":{
+                case "no": {
                     gameController.setCurrentTurnPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
                     gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
                     break;
@@ -205,10 +205,10 @@ abstract public class Duel {
 
     }
 
-    private static void showSideDeckCards(){
-        String response="";
-        response+=gameController.getSideDeckCards(gameController.getCurrentTurnPlayer());
-        response+=gameController.getSideDeckCards(gameController.getCurrentTurnOpponentPlayer());
+    private static void showSideDeckCards() {
+        String response = "";
+        response += gameController.getSideDeckCards(gameController.getCurrentTurnPlayer());
+        response += gameController.getSideDeckCards(gameController.getCurrentTurnOpponentPlayer());
         ViewInterface.showResult(response);
     }
 
