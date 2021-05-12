@@ -5,3 +5,4 @@ menu enter Duel
 duel --new --second-player abolfazl --rounds 1
 1
 yes
+add --force Pot of Greed
