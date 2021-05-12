@@ -90,6 +90,10 @@ public abstract class Monster extends Card {
         atk += amount;
         if (atk < 0) atk = 0;
     }
+    public void addDEF(int amount) {
+        def += amount;
+        if (def < 0) def = 0;
+    }
 
 }
 
