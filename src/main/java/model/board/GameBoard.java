@@ -211,7 +211,7 @@ public class GameBoard {
 
     }
 
-    public boolean doesMonsterZoneHaveNMonsters(int number){
+    public boolean doesMonsterZoneHaveMonsters(int number){
         int countMonsters=0;
         for(Cell cell:monsterCardZone){
             if(!cell.isEmpty()){
