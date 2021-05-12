@@ -165,6 +165,13 @@ public class GameBoard {
         }
         return true;
     }
+    public boolean isSpellAndTrapCardZoneEmpty() {
+        for (int i = 0; i < 5; i++) {
+            if (!spellAndTrapCardZone[i].isEmpty()) return false;
+        }
+        return true;
+    }
+
 
 
 

@@ -31,7 +31,7 @@ public class Terraforming extends SpellAndTrap {
             return;
         }
         else{
-            ViewInterface.showResult("Monster Reborn activated. "+fieldSpell.getCellCard().getName()+" added to hand");
+            ViewInterface.showResult("Monster Reborn activated : "+fieldSpell.getCellCard().getName()+" added to hand.");
             updateSpellInGameBoard(gameController);
         }
     }

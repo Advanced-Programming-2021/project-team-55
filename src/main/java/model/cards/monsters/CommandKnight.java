@@ -45,7 +45,9 @@ public class CommandKnight extends Monster {
                 cell.getCardStatus() == CardStatus.OFFENSIVE_OCCUPIED) return;
 
         ViewInterface.showResult("Command Knight effect deActivated: all monsters atk will decrease 400");
-        ((CommandKnight)cell.getCellCard()).owner.getGameBoard().addAllMonstersATK(-400);
+        try {
+            ((CommandKnight) cell.getCellCard()).owner.getGameBoard().addAllMonstersATK(-400);
+        }catch (Exception e){}
     }
 
 }

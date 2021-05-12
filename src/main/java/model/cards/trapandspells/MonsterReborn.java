@@ -32,7 +32,7 @@ public class MonsterReborn extends SpellAndTrap {
             ViewInterface.showResult(GameResponses.NO_WAY_TO_SPECIAL_SUMMON.response);
             return;
         }
-        ViewInterface.showResult("Monster Reborn activated.");
+        ViewInterface.showResult("Monster Reborn activated : target 1 monster in either GY; Special Summon it.");
         ViewInterface.showResult("your graveyard monsters:");
         int counterPlayer = 0;
         for (Cell cell : playerGraveyardMonstersCell) {
