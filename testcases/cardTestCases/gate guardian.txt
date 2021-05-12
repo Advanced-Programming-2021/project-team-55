@@ -1,0 +1,50 @@
+user create --username parham --nickname pari --password 123
+user create --username abolfazl --nickname abol --password 123
+user login --username parham --password 123
+menu enter Duel
+duel --new --ai --rounds 1
+1
+yes
+add --force Gate Guardian
+summon
+add --force Bitron
+summon
+next phase
+attack direct
+select --monster 1
+attack direct
+next phase
+add --force Bitron
+summon
+next phase
+add --force Bitron
+summon
+next phase
+select --monster 1
+attack direct
+select --monster 2
+attack direct
+attack 1
+next phase
+add --force Bitron
+summon
+next phase
+add --force Bitron
+summon
+next phase
+next phase
+next phase
+select --hand 7
+summon
+select --hand 8
+summon
+next phase
+next phase
+next phase
+next phase
+next phase
+add --force Gate Guardian
+summon
+select --monster 1
+select --monster 2
+select --monster 3

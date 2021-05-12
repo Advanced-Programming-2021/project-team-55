@@ -76,7 +76,8 @@ public class MainPhase1 extends Duel {
         } else if (command.matches(GameRegexes.SUMMON.regex)) {
             try {
                 mainPhase1Controller.monsterSummon(gameController);
-                response = GameResponses.SUMMONED_SUCCESSFULLY.response;
+                if (!gameController.shouldSpecialSummonNow)
+                     response = GameResponses.SUMMONED_SUCCESSFULLY.response;
             } catch (GameException e) {
                 response = e.toString();
             }
@@ -109,17 +110,13 @@ public class MainPhase1 extends Duel {
                 response = e.toString();
             }
         } else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
-            try {
                 gameController.currentPhase = GamePhase.GRAVEYARD;
-                response = gameController.showGraveyard();
-            } catch (GameException e) {
-                response = e.toString();
-            }
+                response = gameController.showGraveyard(gameController.currentTurnPlayer);
+
         }
         else if (command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {
             try {
                 mainPhase1Controller.activateSpell(gameController);
-                response = GameResponses.SPELL_ACTIVATED.response;
             } catch (GameException e) {
                 response = e.toString();
             }

@@ -23,9 +23,12 @@ public enum GameResponses {
     ACTIVATION_ONLY_FOR_SPELL("Error: activate effect is only for spell cards"),
     ALREADY_ACTIVATED("Error: you have already activated this card"),
     YOU_SHOULD_RITUAL_SUMMON_NOW("Error: you should ritual summon right now"),
+    YOU_SHOULD_SPECIAL_SUMMON_NOW("Error: you should special summon right now"),
     SELECTED_MONSTERS_DONT_MATCH("Error: selected monsters levels don’t match with ritual monster"),
     NO_WAY_TO_RITUAL_SUMMON("Error: there is no way you could ritual summon a monster"),
+    NO_WAY_TO_SPECIAL_SUMMON("Error: there is no way you could special summon a monster"),
     PREPARATION_NOT_DONE("Error: preparations of this spell are not done yet"),
+    SPELL_CANT_BE_ACTIVATED_THIS_TURN("Error: spell can’t be activated this turn"),
     CHEAT_ACTIVATED_LP_INCREASED("cheat activated: LP increased!"),
     CHEAT_ACTIVATED_WINNER_SET("cheat activated: winner set!"),
     CHEAT_ACTIVATED_SELECT_FORCE("cheat activated: card force selected!"),
@@ -43,7 +46,8 @@ public enum GameResponses {
     CAN_NOT_CHANGE_CARD_POSITION("Error: you can’t change this card position"),
     CAN_NOT_FLIP_SUMMON("Error: you can’t flip summon this card"),
     NOT_ENOUGH_CARDS_FOR_TRIBUTE("Error: there are not enough cards for tribute"),
-    NO_MONSTER_ON_CELL("Error: there no monsters one this address");
+    NO_MONSTER_ON_CELL("Error: there no monsters one this address"),
+    CAN_NOT_SET_OR_SUMMON("Error: you can’t set/summon this card");
 
 
     public final String response;

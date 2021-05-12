@@ -2,6 +2,8 @@ package model.board;
 
 import model.cards.Card;
 import model.cards.Monster;
+import view.gamephases.Duel;
+import model.cards.monsters.CommandKnight;
 
 
 public class Cell {
@@ -42,8 +44,10 @@ public class Cell {
 
     public void removeCardFromCell(GameBoard gameBoard) {
         gameBoard.addCardToGraveyard(this.card);
+        CommandKnight.deActivateEffect(this);
         this.card = null;
         this.cardStatus = null;
+        Duel.getGameController().changedPositionCells.remove(this);
     }
 
     public void setCard(Card card) {
@@ -61,7 +65,9 @@ public class Cell {
     }
 
     public void setCardStatus(CardStatus cardStatus) {
+        CommandKnight.handleEffect(cardStatus, this);
         this.cardStatus = cardStatus;
+        CommandKnight.deActivateEffect(this);
     }
 
     public boolean isEmpty() {

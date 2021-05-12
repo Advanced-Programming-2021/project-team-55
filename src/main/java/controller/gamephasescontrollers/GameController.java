@@ -29,6 +29,8 @@ public class GameController {
     private int currentRound = 1;
     private boolean didPlayerSetOrSummonThisTurn;
     public boolean shouldRitualSummonNow;
+    public boolean shouldSpecialSummonNow;
+    public int turnCount;
     private boolean isGameEnded;
     private DrawPhaseController drawPhaseController;
     private StandByPhaseController standByPhaseController;
@@ -45,6 +47,8 @@ public class GameController {
         didPlayerSetOrSummonThisTurn = false;
         isGameEnded=false;
         shouldRitualSummonNow=false;
+        shouldSpecialSummonNow=false;
+        turnCount=1;
         drawPhaseController = new DrawPhaseController(this);
         standByPhaseController = new StandByPhaseController(this);
         mainPhase1Controller = new MainPhase1Controller(this);
@@ -73,11 +77,11 @@ public class GameController {
         return currentRound;
     }
 
-    public String showGraveyard() throws GameException {
+    public String showGraveyard(Player player){
         String response = "";
         GameBoard playerGameBoard = currentTurnPlayer.getGameBoard();
         if (playerGameBoard.getGraveyard().size() == 0) {
-            throw new GameException(GameResponses.GRAVEYARD_EMPTY.response);
+            response=GameResponses.GRAVEYARD_EMPTY.response;
         } else {
             for (int i = 1; i <= playerGameBoard.getGraveyard().size(); i++) {
                 response += i + ". " + playerGameBoard.getGraveyard().get(i - 1).getCellCard();
@@ -210,12 +214,10 @@ public class GameController {
         currentTurnOpponentPlayer = player;
         didPlayerSetOrSummonThisTurn = false;
         changedPositionCells = new ArrayList<>();
+        attackerCellsThisTurn=new ArrayList<>();
+        turnCount++;
         //todo update changedPositionCells & other fields
         //todo reset attacked arraylist
-    }
-
-    protected String showGraveyard(Player player) {
-        return null;
     }
 
     protected void handleCardSideEffects() {

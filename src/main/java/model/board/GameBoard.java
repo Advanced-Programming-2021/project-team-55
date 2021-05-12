@@ -1,5 +1,6 @@
 package model.board;
 
+import controller.gamephasescontrollers.GameController;
 import model.cards.Monster;
 import model.cards.cardfeaturesenums.CardType;
 import model.exceptions.GameException;
@@ -96,8 +97,16 @@ public class GameBoard {
         }
         return false;
     }
+    public boolean isCellInSpellAndTrapZone(Cell cell) {
+        for (int i = 0; i < 5; i++) {
+            if (spellAndTrapCardZone[i] == cell) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-    public void addCardToMonsterCardZone(Card card, CardStatus cardStatus) throws GameException {
+    public void addCardToMonsterCardZone(Card card, CardStatus cardStatus,GameController gameController) throws GameException {
         if (isMonsterCardZoneFull())
             throw new GameException(GameResponses.MONSTER_ZONE_IS_FULL.response);
 
@@ -105,6 +114,7 @@ public class GameBoard {
             if (monsterCardZone[i].isEmpty()) {
                 monsterCardZone[i].addCardToCell(card);
                 monsterCardZone[i].setCardStatus(cardStatus);
+                gameController.changedPositionCells.add(monsterCardZone[i]);
                 return;
             }
         }
@@ -155,47 +165,13 @@ public class GameBoard {
         return true;
     }
 
-    public boolean canTribute(){
-        ArrayList<Monster>monsters=new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            if(!monsterCardZone[i].isEmpty()){
-                monsters.add((Monster) monsterCardZone[i].getCellCard());
-            }
-        }
-        for (int i = 0; i < handCards.size(); i++) {
-            if(handCards.get(i).getCellCard().isMonster()){
-                Monster monster=(Monster) handCards.get(i).getCellCard();
-                if(monster.getCardType()== CardType.RITUAL){
-                    int monsterLevel=monster.getLevel();
-                    if(monsterLevel>=7){
-                        for(int j=0;i<monsters.size();j++){
-                            for(int k=j+1;k<monsters.size();k++){
-                                if(monsters.get(j).getLevel()+monsters.get(k).getLevel()==monsterLevel){
-                                    return true;
-                                }
-                            }
-                        }
 
-                    }
-                    else{
-                        for (int j = 0; j < monsters.size(); j++) {
-                            if(monsters.get(j).getLevel()==monsterLevel){
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-
-    }
 
     public void addCardToGraveyard(Card card) {
         graveyard.add(new Cell(card));
     }
 
-    public void addCardToSpellAndTrapCardZone(Card card,CardStatus cardStatus) throws GameException {
+    public void addCardToSpellAndTrapCardZone(Card card, CardStatus cardStatus, GameController gameController) throws GameException {
         if (isSpellAndTrapCardZoneFull())
             throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
 
@@ -203,6 +179,8 @@ public class GameBoard {
             if (spellAndTrapCardZone[i].isEmpty()) {
                 spellAndTrapCardZone[i].addCardToCell(card);
                 spellAndTrapCardZone[i].setCardStatus(cardStatus);
+                gameController.changedPositionCells.add(spellAndTrapCardZone[i]);
+
                 return;
             }
         }
@@ -233,12 +211,64 @@ public class GameBoard {
 
     }
 
+    public boolean doesMonsterZoneHaveNMonsters(int number){
+        int countMonsters=0;
+        for(Cell cell:monsterCardZone){
+            if(!cell.isEmpty()){
+                countMonsters++;
+            }
+        }
+        return countMonsters>=number;
+    }
+
     public boolean doesHandDeckHaveCard(int maxLevel, CardType cardType){
         for (int i = 0; i < 5; i++) {
+            try {
+                handCards.get(i).getCellCard();
+            }catch (Exception e){
+                continue;
+            }
             if (handCards.get(i).isEmpty() || handCards.get(i).getCellCard().getCardKind() != Card.Kind.MONSTER) continue;
             Monster monster = (Monster) handCards.get(i).getCellCard();
             if (monster.getLevel() <= maxLevel && monster.getCardType() == cardType) return true;
         }
         return false;
     }
+
+    public Cell getMonsterZoneCardByMonsterName(String cardName) {
+        for (int i = 0; i < 5; i++) {
+            try {
+                monsterCardZone[i].getCellCard();
+            }catch (Exception e){
+                continue;
+            }
+            if (monsterCardZone[i].isEmpty() || monsterCardZone[i].getCellCard().getCardKind() != Card.Kind.MONSTER) continue;
+            if (monsterCardZone[i].getCellCard().getName().equals(cardName)) return monsterCardZone[i];
+        }
+        return null;
+    }
+
+    public ArrayList<Card> getGraveyardMonsters() {
+        ArrayList<Card> graveyardMonsters = new ArrayList<>();
+        for (Cell cell : graveyard){
+            if (cell.getCellCard().isMonster()) graveyardMonsters.add(cell.getCellCard());
+        }
+        return graveyardMonsters;
+    }
+    public ArrayList<Cell> getGraveyardMonstersCell() {
+        ArrayList<Cell> graveyardMonstersCell = new ArrayList<>();
+        for (Cell cell : graveyard){
+            if (cell.getCellCard().isMonster()) graveyardMonstersCell.add(cell);
+        }
+        return graveyardMonstersCell;
+    }
+
+    public void addAllMonstersATK(int amount){
+        for (int i = 0; i < 5; i++) {
+            try {
+                ((Monster) monsterCardZone[i].getCellCard()).addATK(amount);
+            }catch (Exception ignored){}
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 package controller.gamephasescontrollers;
 
 import model.cards.Card;
+import model.cards.monsters.Scanner;
 
 public class StandByPhaseController implements methods {
     private final GameController gameController;
@@ -11,6 +12,7 @@ public class StandByPhaseController implements methods {
 
     public void activateEffects() {
         //TODO some cards effects should be handled here!
+        Scanner.handleEffect(gameController);
     }
 
     private void handleEffectsOfCards(Card card) {
