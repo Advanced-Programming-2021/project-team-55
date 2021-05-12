@@ -136,6 +136,7 @@ public class GameBoard {
         }
         return true;
     }
+
     public boolean isHandCardEmpty() {
         for (int i = 0; i < 5; i++) {
             if (!handCards.get(i).isEmpty()) return false;
@@ -150,7 +151,8 @@ public class GameBoard {
         }
         return counter;
     }
-    public int getNumberOfCardsOnHandCardZone(){
+
+    public int getNumberOfCardsOnHandCardZone() {
         int counter = 0;
         for (int i = 0; i < 5; i++) {
             if (!handCards.get(i).isEmpty()) counter++;

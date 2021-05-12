@@ -43,7 +43,6 @@ public class Forest extends SpellAndTrap {
                 ((Monster) monster.getCellCard()).addDEF(200);
                 effectedMonsters.add((Monster) monster.getCellCard());
             }
-
         }
     }
 
