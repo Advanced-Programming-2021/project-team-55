@@ -28,7 +28,7 @@ public class Raigeki extends SpellAndTrap {
             }
         }
         updateSpellInGameBoard(gameController);
-        ViewInterface.showResult("Raigeki activated. all opponents monsters destroyed");
+        ViewInterface.showResult("Raigeki activated : all opponents monsters destroyed.");
 
     }
 

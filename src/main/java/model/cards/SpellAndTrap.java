@@ -7,11 +7,7 @@ import model.board.GameBoard;
 import model.cards.cardfeaturesenums.EffectiveTerm;
 import model.cards.cardfeaturesenums.SpellOrTrap;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
-import model.cards.trapandspells.DarkHole;
-import model.cards.trapandspells.MonsterReborn;
-import model.cards.trapandspells.PotofGreed;
-import model.cards.trapandspells.Raigeki;
-import model.cards.trapandspells.Terraforming;
+import model.cards.trapandspells.*;
 import model.exceptions.GameException;
 
 public abstract class SpellAndTrap extends Card {
@@ -35,6 +31,7 @@ public abstract class SpellAndTrap extends Card {
         else if(spellAndTrap.name.equals("Terraforming")) Terraforming.setActivated(gameController);
         else if(spellAndTrap.name.equals("Pot of Greed")) PotofGreed.setActivated(gameController);
         else if (spellAndTrap.name.equals("Dark Hole")) DarkHole.setActivated(gameController);
+        else if(spellAndTrap.name.equals("Harpie's Feather Duster")) HarpiesFeatherDuster.setActivated(gameController);
         //...
     }
 
