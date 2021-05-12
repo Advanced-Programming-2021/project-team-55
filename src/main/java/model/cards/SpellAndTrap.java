@@ -26,6 +26,7 @@ public abstract class SpellAndTrap extends Card {
         this.attribute = attribute;
         this.status = status;
     }
+
     public static void activateSpellEffects(GameController gameController,SpellAndTrap spellAndTrap){
 
         if(spellAndTrap.name.equals("Monster Reborn"))MonsterReborn.setActivated(gameController);
@@ -34,9 +35,12 @@ public abstract class SpellAndTrap extends Card {
         else if (spellAndTrap.name.equals("Dark Hole")) DarkHole.setActivated(gameController);
         else if (spellAndTrap.name.equals("Spell Absorption")) SpellAbsorption.setActivated(gameController);
         else if(spellAndTrap.name.equals("Harpie's Feather Duster")) HarpiesFeatherDuster.setActivated(gameController);
+        else if(spellAndTrap.name.equals("Yami")) Yami.setActivated(gameController);
+        else if(spellAndTrap.name.equals("Closed Forest")) ClosedForest.setActivated(gameController);
         else if(spellAndTrap.name.equals("Swords of Revealing Light"))SwordsofRevealingLight.setActivated(gameController);
         else if (spellAndTrap.name.equals("Twin Twisters")) TwinTwisters.setActivated(gameController);
 
+        else if(spellAndTrap.name.equals("Mystical space typhoon"))Mysticalspacetyphoon.setActivated(gameController);
         //...
 
         SpellAbsorption.handleEffect();
@@ -63,7 +67,7 @@ public abstract class SpellAndTrap extends Card {
             } else {
                 try {
                     playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED, gameController);
-                }catch (GameException e){}
+                }catch (GameException ignored){}
             }
         } else {
             selectedCell.setCardStatus(CardStatus.OCCUPIED);
