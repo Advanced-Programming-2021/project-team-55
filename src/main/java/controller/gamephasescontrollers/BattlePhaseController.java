@@ -5,6 +5,7 @@ import model.board.CardStatus;
 import model.cards.monsters.ExploderDragon;
 import model.cards.monsters.Marshmallon;
 import model.cards.monsters.TheCalculator;
+import model.cards.trapandspells.SwordsofRevealingLight;
 import model.exceptions.GameException;
 import model.Player;
 import model.board.Cell;
@@ -47,6 +48,9 @@ public class BattlePhaseController implements methods {
         } else if (attackedCell == null || attackedCell.getCellCard() == null) {
             throw new GameException(GameResponses.NO_CARD_TO_ATTACK.response);
         } else {
+            if(SwordsofRevealingLight.handleEffect(gameController)){
+                throw new GameException("you can't attack because of your opponent's Swords of Revealing Light effect");
+            }
             if (CommandKnight.handleEffect(gameController, attackedCell))
                 throw new GameException("Command Knight effect activated: you should first destroy other opponent monsters");
             Suijin.handleEffect(attackerCell, attackedCell);

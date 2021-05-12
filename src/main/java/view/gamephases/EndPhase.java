@@ -2,6 +2,7 @@ package view.gamephases;
 
 import controller.gamephasescontrollers.EndPhaseController;
 import model.cards.monsters.Scanner;
+import model.cards.trapandspells.SwordsofRevealingLight;
 import view.ViewInterface;
 
 public class EndPhase extends Duel {
@@ -21,6 +22,7 @@ public class EndPhase extends Duel {
         String response = "";
         if (Duel.getGameController().getCurrentTurnPlayer().isAI()) response = "AI turn completed";
         Scanner.deActivateEffect();
+        SwordsofRevealingLight.updateCounter(gameController);
         gameController.changePhase();
         return response;
     }
