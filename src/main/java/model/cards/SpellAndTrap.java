@@ -7,6 +7,7 @@ import model.board.GameBoard;
 import model.cards.cardfeaturesenums.EffectiveTerm;
 import model.cards.cardfeaturesenums.SpellOrTrap;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
+import model.cards.trapandspells.DarkHole;
 import model.cards.trapandspells.MonsterReborn;
 import model.cards.trapandspells.Terraforming;
 import model.exceptions.GameException;
@@ -27,13 +28,15 @@ public abstract class SpellAndTrap extends Card {
         this.attribute = attribute;
         this.status = status;
     }
-    public static void activateSpellEffects(GameController gameController,SpellAndTrap spellAndTrap){
-        if(spellAndTrap.name.equals("Monster Reborn"))MonsterReborn.setActivated(gameController);
-        else if(spellAndTrap.name.equals("Terraforming")) Terraforming.setActivated(gameController);
+
+    public static void activateSpellEffects(GameController gameController, SpellAndTrap spellAndTrap) {
+        if (spellAndTrap.name.equals("Monster Reborn")) MonsterReborn.setActivated(gameController);
+        else if (spellAndTrap.name.equals("Terraforming")) Terraforming.setActivated(gameController);
+        else if (spellAndTrap.name.equals("Dark Hole")) DarkHole.setActivated(gameController);
         //...
     }
 
-    public static void setActivated(GameController gameController){
+    public static void setActivated(GameController gameController) {
 
     }
 
@@ -42,10 +45,10 @@ public abstract class SpellAndTrap extends Card {
     }
 
     public static void updateSpellInGameBoard(GameController gameController) {
-        Cell selectedCell= Cell.getSelectedCell();
+        Cell selectedCell = Cell.getSelectedCell();
         Card card = selectedCell.getCellCard();
         SpellAndTrap spell = (SpellAndTrap) card;
-        GameBoard playerGameBoard=gameController.getCurrentTurnPlayer().getGameBoard();
+        GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         if (!playerGameBoard.isCellInSpellAndTrapZone(selectedCell)) {
             playerGameBoard.getHandCards().remove(selectedCell);
             if (spell.getAttribute() == SpellOrTrapAttribute.FIELD) {
@@ -54,7 +57,8 @@ public abstract class SpellAndTrap extends Card {
             } else {
                 try {
                     playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED, gameController);
-                }catch (GameException e){}
+                } catch (GameException e) {
+                }
             }
         } else {
             selectedCell.setCardStatus(CardStatus.OCCUPIED);

@@ -23,20 +23,22 @@ public class Marshmallon extends Monster {
         String response = "";
         if (!isMarshmallon(attackerCell, attackedCell)) return "";
         if (marshmallonDiesDuringBeingAttacked(gameController, attackerCell, attackedCell))
-         if (attackedCell.getCardStatus() == DEFENSIVE_HIDDEN ) {
-            gameController.getCurrentTurnPlayer().decreaseLP(1000);
-            response = "opponent’s monster card was " +
-                    attackedCell.getCellCard().getName() +
-                    " \nMarshmallon effect activated: " +
-                    "Marshmallon is not destroyed and attacking player takes 1000 damage.";
-        } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
-            response = "Marshmallon effect activated: Marshmallon is not destroyed";
+            if (attackedCell.getCardStatus() == DEFENSIVE_HIDDEN) {
+                if (!isMarshmallon(attackedCell)) return "";
+                if (attackedCell.getCardStatus() == CardStatus.DEFENSIVE_HIDDEN) {
+                    gameController.getCurrentTurnPlayer().decreaseLP(1000);
+                    response = "opponent’s monster card was " +
+                            attackedCell.getCellCard().getName() +
+                            " \nMarshmallon effect activated: " +
+                            "Marshmallon is not destroyed and attacking player takes 1000 damage.";
+                } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
+                    response = "Marshmallon effect activated: Marshmallon is not destroyed";
 
-        } else if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
+                } else if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
 
-        } else {
+                } else {
 
-        }
+                }
 
         /*else if (marshmallonDiesDuringBeingAttacked(gameController, attackerCell, attackedCell)) {
                 response = "Marshmallon effect activated: Marshmallon is not destroyed. ";
@@ -51,12 +53,16 @@ public class Marshmallon extends Monster {
                 return "";
         }
         return response;*/
+            }
         return "";
-    }
 
-    private static boolean isMarshmallon(Cell attackerCell, Cell attackedCell) {
-        return attackedCell.getCellCard().getName().equals("Marshmallon") ||
-                attackerCell.getCellCard().getName().equals("Marshmallon");
+    }
+    private static boolean isMarshmallon (Cell attackerCell, Cell attackedCell){
+            return attackedCell.getCellCard().getName().equals("Marshmallon") ||
+                    attackerCell.getCellCard().getName().equals("Marshmallon");
+        }
+    public static boolean isMarshmallon(Cell attackedCell) {
+        return attackedCell.getCellCard().getName().equals("Marshmallon");
     }
 
     private static boolean marshmallonDiesDuringBeingAttacked(GameController gameController, Cell attackerCell, Cell attackedCell) {
