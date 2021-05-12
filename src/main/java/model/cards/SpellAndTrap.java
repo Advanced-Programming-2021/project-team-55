@@ -7,6 +7,7 @@ import model.board.GameBoard;
 import model.cards.cardfeaturesenums.EffectiveTerm;
 import model.cards.cardfeaturesenums.SpellOrTrap;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
+import model.cards.trapandspells.DarkHole;
 import model.cards.trapandspells.MonsterReborn;
 import model.cards.trapandspells.PotofGreed;
 import model.cards.trapandspells.Raigeki;
@@ -33,7 +34,7 @@ public abstract class SpellAndTrap extends Card {
         if(spellAndTrap.name.equals("Monster Reborn"))MonsterReborn.setActivated(gameController);
         else if(spellAndTrap.name.equals("Terraforming")) Terraforming.setActivated(gameController);
         else if(spellAndTrap.name.equals("Pot of Greed")) PotofGreed.setActivated(gameController);
-        else if(spellAndTrap.name.equals("Raigeki")) Raigeki.setActivated(gameController);
+        else if (spellAndTrap.name.equals("Dark Hole")) DarkHole.setActivated(gameController);
         //...
     }
 
