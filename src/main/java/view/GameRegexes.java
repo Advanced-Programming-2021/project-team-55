@@ -4,7 +4,7 @@ public enum GameRegexes {
     SELECT("^select (.*)"),
     SELECT_MONSTER("^select --monster (\\d+)( --opponent)?$"),
     SELECT_SPELL("^select --spell (\\d+)$"),
-    SELECT_OPPONENT_SPELL("^select --opponent (\\d+) --spell$"),
+    SELECT_OPPONENT_SPELL("^select --opponent --spell (\\d+)$"),
     SELECT_FIELDZONE("^select --field( --opponent)?$"),
     SELECT_HAND("^select --hand (\\d+)$"),
     DESELECT("^select -d$"),

@@ -33,6 +33,7 @@ public abstract class SpellAndTrap extends Card {
         else if (spellAndTrap.name.equals("Dark Hole")) DarkHole.setActivated(gameController);
         else if(spellAndTrap.name.equals("Harpie's Feather Duster")) HarpiesFeatherDuster.setActivated(gameController);
         else if(spellAndTrap.name.equals("Swords of Revealing Light"))SwordsofRevealingLight.setActivated(gameController);
+        else if(spellAndTrap.name.equals("Mystical space typhoon"))Mysticalspacetyphoon.setActivated(gameController);
         //...
     }
 
