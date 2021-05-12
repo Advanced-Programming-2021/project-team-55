@@ -67,19 +67,15 @@ public class BattlePhaseController implements methods {
         if (isAttackerStronger(attackerCell, attackedCell)) {
             response = "opponent’s monster card was " +
                     attackedCell.getCellCard().getName() + " the defense position monster is destroyed";
-            response += Marshmallon.handleEffect(gameController, attackerCell, attackedCell);
-            if (!Marshmallon.isMarshmallon(attackedCell))
                 attackedCell.removeCardFromCell(opponentGameBoard);
         } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
             response = "opponent’s monster card was " +
                     attackedCell.getCellCard().getName() + " and no card is destroyed";
-            response += Marshmallon.handleEffect(gameController, attackerCell, attackedCell);
         } else {
             decreasePlayersDamage(attackerCell, attackedCell);
             response = "opponent’s monster card was " + attackedCell.getCellCard().getName() +
                     " and no card is destroyed and you received " +
                     calculateDamage(attackerCell, attackedCell) + " battle damage";
-            response += Marshmallon.handleEffect(gameController, attackerCell, attackedCell);
         }
         gameController.getAttackerCellsThisTurn().add(attackedCell);
         return response;

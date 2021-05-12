@@ -10,6 +10,8 @@ import model.cards.cardfeaturesenums.MonsterType;
 import model.exceptions.GameException;
 import view.ViewInterface;
 
+import static model.board.CardStatus.*;
+
 public class Marshmallon extends Monster {
 
     public Marshmallon() {
@@ -18,16 +20,49 @@ public class Marshmallon extends Monster {
     }
 
     public static String handleEffect(GameController gameController, Cell attackerCell, Cell attackedCell) {
-        if (isMarshmallon(attackedCell)) return "";
-        if (attackedCell.getCardStatus() == CardStatus.DEFENSIVE_HIDDEN) {
+        String response = "";
+        if (!isMarshmallon(attackerCell, attackedCell)) return "";
+        if (marshmallonDiesDuringBeingAttacked(gameController, attackerCell, attackedCell))
+         if (attackedCell.getCardStatus() == DEFENSIVE_HIDDEN ) {
             gameController.getCurrentTurnPlayer().decreaseLP(1000);
-            return (" \nMarshmallon effect activated: attacking player takes 1000 damage.");
-        } else
-            return "";
+            response = "opponent’s monster card was " +
+                    attackedCell.getCellCard().getName() +
+                    " \nMarshmallon effect activated: " +
+                    "Marshmallon is not destroyed and attacking player takes 1000 damage.";
+        } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
+            response = "Marshmallon effect activated: Marshmallon is not destroyed";
+
+        } else if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
+
+        } else {
+
+        }
+
+        /*else if (marshmallonDiesDuringBeingAttacked(gameController, attackerCell, attackedCell)) {
+                response = "Marshmallon effect activated: Marshmallon is not destroyed. ";
+
+        } else if (attackerCell.getCardStatus() == OFFENSIVE_OCCUPIED &&
+                !marshmallonDiesDuringBeingAttacked(gameController, attackerCell, attackedCell)) {
+
+            if (attackedCell.getCardStatus() == CardStatus.DEFENSIVE_HIDDEN) {
+
+                return (" \nMarshmallon effect activated: attacking player takes 1000 damage.");
+            } else
+                return "";
+        }
+        return response;*/
+        return "";
     }
 
-    public static boolean isMarshmallon(Cell attackedCell) {
-        return !attackedCell.getCellCard().getName().equals("Marshmallon");
+    private static boolean isMarshmallon(Cell attackerCell, Cell attackedCell) {
+        return attackedCell.getCellCard().getName().equals("Marshmallon") ||
+                attackerCell.getCellCard().getName().equals("Marshmallon");
     }
+
+    private static boolean marshmallonDiesDuringBeingAttacked(GameController gameController, Cell attackerCell, Cell attackedCell) {
+        return gameController.getBattlePhaseController().isAttackerStronger(attackerCell, attackedCell)&&
+                attackedCell.getCellCard().getName().equals("Marshmallon");
+    }
+
 
 }
