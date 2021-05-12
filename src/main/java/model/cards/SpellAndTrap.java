@@ -8,6 +8,7 @@ import model.cards.cardfeaturesenums.EffectiveTerm;
 import model.cards.cardfeaturesenums.SpellOrTrap;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
 import model.cards.trapandspells.MonsterReborn;
+import model.cards.trapandspells.Terraforming;
 import model.exceptions.GameException;
 
 public abstract class SpellAndTrap extends Card {
@@ -28,6 +29,7 @@ public abstract class SpellAndTrap extends Card {
     }
     public static void activateSpellEffects(GameController gameController,SpellAndTrap spellAndTrap){
         if(spellAndTrap.name.equals("Monster Reborn"))MonsterReborn.setActivated(gameController);
+        else if(spellAndTrap.name.equals("Terraforming")) Terraforming.setActivated(gameController);
         //...
     }
 
