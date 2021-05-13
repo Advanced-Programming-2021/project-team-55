@@ -209,7 +209,7 @@ public interface MainPhasesController {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         } else {
             Card card = selectedCell.getCellCard();
-            if (!card.isSpell()) {
+            if (card.isMonster()) {
                 throw new GameException(GameResponses.ACTIVATION_ONLY_FOR_SPELL.response);
             } else {
                 SpellAndTrap spell = (SpellAndTrap) card;
