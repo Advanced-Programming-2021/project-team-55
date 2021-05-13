@@ -268,6 +268,16 @@ public class GameBoard {
         }
             return false;
     }
+    public int getCountOccupiedMonstersInMonsterZone(){
+        int count=0;
+        for (int i = 0; i < 5; i++) {
+            if (!monsterCardZone[i].isEmpty() && monsterCardZone[i].getCardStatus()==CardStatus.DEFENSIVE_OCCUPIED||
+                    monsterCardZone[i].getCardStatus()==CardStatus.OFFENSIVE_OCCUPIED) {
+                count++;
+            }
+        }
+        return count;
+    }
 
     public Cell getMonsterZoneCardByMonsterName(String cardName) {
         for (int i = 0; i < 5; i++) {

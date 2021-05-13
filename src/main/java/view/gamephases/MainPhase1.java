@@ -61,6 +61,8 @@ public class MainPhase1 extends Duel {
         else if(command.equals("show attack")){
             System.out.println(((Monster)Cell.getSelectedCell().getCellCard()).getAtk());
         }
+        else if(command.equals("remove card"))
+            Cell.getSelectedCell().removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
         else if (!gameController.checkCommandIsInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
         }

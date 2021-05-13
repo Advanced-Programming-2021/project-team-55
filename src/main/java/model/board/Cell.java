@@ -3,6 +3,7 @@ package model.board;
 import model.cards.Card;
 import model.cards.Monster;
 import model.cards.trapandspells.BlackPendant;
+import model.cards.trapandspells.UnitedWeStand;
 import view.gamephases.Duel;
 import model.cards.monsters.CommandKnight;
 
@@ -47,6 +48,7 @@ public class Cell {
         gameBoard.addCardToGraveyard(this.card);
         CommandKnight.deActivateEffect(this);
         BlackPendant.deActivateEffect(this);
+        UnitedWeStand.deActivateEffect(this);
         this.card = null;
         this.cardStatus = null;
         Duel.getGameController().changedPositionCells.remove(this);

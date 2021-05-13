@@ -9,8 +9,12 @@ add --force Baby dragon
 summon
 select --monster 1
 show attack
-add --force Black Pendant
+add --force United We Stand
 activate effect
 select --monster 1
+select --monster 1
+show attack
+select --spell 1
+remove card
 select --monster 1
 show attack

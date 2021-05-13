@@ -43,6 +43,7 @@ public abstract class SpellAndTrap extends Card {
         else if (spellAndTrap.name.equals("Twin Twisters")) TwinTwisters.setActivated(gameController);
         else if(spellAndTrap.name.equals("Mystical space typhoon"))Mysticalspacetyphoon.setActivated(gameController);
         else if(spellAndTrap.name.equals("Black Pendant"))BlackPendant.setActivated(gameController);
+        else if(spellAndTrap.name.equals("United We Stand"))UnitedWeStand.setActivated(gameController);
         else{
             ViewInterface.showResult(GameResponses.ACTIVATION_ONLY_FOR_SPELL.response);
         }
