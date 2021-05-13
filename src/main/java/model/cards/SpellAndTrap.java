@@ -29,7 +29,7 @@ public abstract class SpellAndTrap extends Card {
         this.status = status;
     }
 
-    public static void activateSpellEffects(GameController gameController,SpellAndTrap spellAndTrap){
+    public static void activateSpellOrTrapEffects(GameController gameController, SpellAndTrap spellAndTrap){
 
         if(spellAndTrap.name.equals("Monster Reborn"))MonsterReborn.setActivated(gameController);
         else if(spellAndTrap.name.equals("Terraforming")) Terraforming.setActivated(gameController);
@@ -48,7 +48,6 @@ public abstract class SpellAndTrap extends Card {
             ViewInterface.showResult(GameResponses.ACTIVATION_ONLY_FOR_SPELL.response);
         }
         //...
-
         SpellAbsorption.handleEffect();
     }
 

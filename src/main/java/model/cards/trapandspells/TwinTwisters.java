@@ -2,17 +2,13 @@ package model.cards.trapandspells;
 
 import controller.gamephasescontrollers.GameController;
 import model.board.Cell;
-import model.cards.Monster;
 import model.cards.SpellAndTrap;
-import model.cards.cardfeaturesenums.CardType;
 import model.cards.cardfeaturesenums.EffectiveTerm;
 import model.cards.cardfeaturesenums.SpellOrTrap;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
-import model.exceptions.GameException;
 import view.ViewInterface;
 import view.gamephases.Duel;
 import view.gamephases.GameResponses;
-import view.gamephases.MainPhase1;
 
 
 public class TwinTwisters extends SpellAndTrap {

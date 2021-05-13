@@ -13,6 +13,7 @@ import model.cards.monsters.GateGuardian;
 import model.cards.monsters.ManEaterBug;
 import model.cards.monsters.TerratigertheEmpoweredWarrior;
 import model.cards.monsters.TheTricky;
+import model.cards.trapandspells.TimeSeal;
 import model.exceptions.GameException;
 import view.ConsoleColors;
 import view.ViewInterface;
@@ -114,7 +115,7 @@ public interface MainPhasesController {
             } else {
                 playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard, CardStatus.HIDDEN,gameController);
                 playerGameBoard.getHandCards().remove(selectedCell);
-
+                TimeSeal.setActivated(gameController);
             }
             Cell.deselectCell();
         }
@@ -227,7 +228,7 @@ public interface MainPhasesController {
                     }
                     else {
                         //todo activate spell
-                        SpellAndTrap.activateSpellEffects(gameController,spell);
+                        SpellAndTrap.activateSpellOrTrapEffects(gameController,spell);
 //                        if(!playerGameBoard.isCellInSpellAndTrapZone(selectedCell)) {
 //                            playerGameBoard.getHandCards().remove(selectedCell);
 //                            if (spell.getAttribute() == SpellOrTrapAttribute.FIELD) {
