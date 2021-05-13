@@ -29,6 +29,7 @@ public enum GameResponses {
     NO_WAY_TO_SPECIAL_SUMMON("Error: there is no way you could special summon a monster"),
     PREPARATION_NOT_DONE("Error: preparations of this spell are not done yet"),
     SPELL_CANT_BE_ACTIVATED_THIS_TURN("Error: spell can’t be activated this turn"),
+    CANT_EQUIP_CARD_FOR_SPELL("Error: you can't equip this card for this spell"),
     CHEAT_ACTIVATED_LP_INCREASED("cheat activated: LP increased!"),
     CHEAT_ACTIVATED_WINNER_SET("cheat activated: winner set!"),
     CHEAT_ACTIVATED_SELECT_FORCE("cheat activated: card force selected!"),

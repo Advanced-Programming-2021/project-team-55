@@ -9,6 +9,8 @@ import model.cards.cardfeaturesenums.SpellOrTrap;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
 import model.cards.trapandspells.*;
 import model.exceptions.GameException;
+import view.ViewInterface;
+import view.gamephases.GameResponses;
 
 public abstract class SpellAndTrap extends Card {
 
@@ -40,6 +42,10 @@ public abstract class SpellAndTrap extends Card {
         else if(spellAndTrap.name.equals("Swords of Revealing Light"))SwordsofRevealingLight.setActivated(gameController);
         else if (spellAndTrap.name.equals("Twin Twisters")) TwinTwisters.setActivated(gameController);
         else if(spellAndTrap.name.equals("Mystical space typhoon"))Mysticalspacetyphoon.setActivated(gameController);
+        else if(spellAndTrap.name.equals("Black Pendant"))BlackPendant.setActivated(gameController);
+        else{
+            ViewInterface.showResult(GameResponses.ACTIVATION_ONLY_FOR_SPELL.response);
+        }
         //...
         SpellAbsorption.handleEffect();
     }

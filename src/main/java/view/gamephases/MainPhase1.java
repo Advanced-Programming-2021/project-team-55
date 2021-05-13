@@ -3,6 +3,8 @@ package view.gamephases;
 import controller.AIPlayerController;
 import controller.CheatController;
 import controller.gamephasescontrollers.MainPhase1Controller;
+import model.board.Cell;
+import model.cards.Monster;
 import model.exceptions.GameException;
 import view.GameRegexes;
 import view.LoggerMessage;
@@ -55,6 +57,9 @@ public class MainPhase1 extends Duel {
             } else {
                 response = GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response;
             }
+        }
+        else if(command.equals("show attack")){
+            System.out.println(((Monster)Cell.getSelectedCell().getCellCard()).getAtk());
         }
         else if (!gameController.checkCommandIsInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
