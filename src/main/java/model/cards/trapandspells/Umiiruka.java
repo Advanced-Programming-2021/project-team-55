@@ -13,28 +13,30 @@ import java.util.ArrayList;
 import static model.cards.cardfeaturesenums.MonsterType.*;
 
 public class Umiiruka extends SpellAndTrap {
-    private static ArrayList<Monster> effectedMonsters = new ArrayList();
+    private static ArrayList<Monster> effectedMonsters;
+
+    static {
+        effectedMonsters = new ArrayList<>();
+    }
 
     public Umiiruka() {
         super("Umiiruka", "Increase the ATK of all WATER monsters by 500 points and decrease their DEF by 400 points.",
                 4300, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.FIELD, EffectiveTerm.UNLIMITED);
     }
+
     public static void setActivated(GameController gameController) {
         Cell[] currentTurnPlayerMonsterCardZone = gameController.getCurrentTurnPlayer().getGameBoard().getMonsterCardZone();
         Cell[] currentTurnOpponentPlayerMonsterCardZone = gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone();
-        activateForPlayerMonsters(currentTurnPlayerMonsterCardZone);
-        activateForPlayerMonsters(currentTurnOpponentPlayerMonsterCardZone);
+        activateForPlayersMonsters(currentTurnPlayerMonsterCardZone);
+        activateForPlayersMonsters(currentTurnOpponentPlayerMonsterCardZone);
         updateSpellInGameBoard(gameController);
     }
 
-    public static void deActivateEffect(GameController gameController) {
-        Cell[] currentTurnPlayerMonsterCardZone = gameController.getCurrentTurnPlayer().getGameBoard().getMonsterCardZone();
-        Cell[] currentTurnOpponentPlayerMonsterCardZone = gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone();
-        decreaseOpponentPlayerMonstersAttack(currentTurnPlayerMonsterCardZone);
-        decreaseOpponentPlayerMonstersAttack(currentTurnOpponentPlayerMonsterCardZone);
+    public static void deActivateEffect() {
+        deactivateForPlayersMonsters();
     }
 
-    private static void activateForPlayerMonsters(Cell[] monsterCardZone) {
+    private static void activateForPlayersMonsters(Cell[] monsterCardZone) {
         for (Cell monster : monsterCardZone
         ) {
             if (isForUmiiruka(monster)) {
@@ -45,7 +47,7 @@ public class Umiiruka extends SpellAndTrap {
         }
     }
 
-    private static void decreaseOpponentPlayerMonstersAttack(Cell[] monsterCardZone) {
+    private static void deactivateForPlayersMonsters() {
         for (Monster monster : effectedMonsters
         ) {
             monster.addATK(-500);
