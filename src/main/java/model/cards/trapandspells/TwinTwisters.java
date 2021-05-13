@@ -28,6 +28,7 @@ public class TwinTwisters extends SpellAndTrap {
             return;
         }
 
+        Cell oldSelectedCell = Cell.getSelectedCell();
         ViewInterface.showResult("Twin Twisters activated: choose a card from your hand.");
         while (true) {
             String selectionCommand = ViewInterface.getInput();
@@ -71,6 +72,8 @@ public class TwinTwisters extends SpellAndTrap {
             if (counter == 1) ViewInterface.showResult("select second spell or trap, or cancel the process");
         }
 
+        Cell.setSelectedCell(oldSelectedCell);
+        updateSpellInGameBoard(gameController);
     }
 
     private static boolean canActivate(GameController gameController) {
