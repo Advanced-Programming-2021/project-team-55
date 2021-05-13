@@ -11,6 +11,8 @@ import view.ViewInterface;
 
 public class DarkHole extends SpellAndTrap {
 
+
+
     public DarkHole() {
         super("Dark Hole", "Destroy all monsters on the field.",
                 2500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.UNLIMITED);
@@ -19,6 +21,7 @@ public class DarkHole extends SpellAndTrap {
     public static void setActivated(GameController gameController) {
         handleEffect(gameController);
         ViewInterface.showResult("Dark Hole activated : all game monsters are destroyed.");
+        updateSpellInGameBoard(gameController);
     }
 
     private static void handleEffect(GameController gameController) {

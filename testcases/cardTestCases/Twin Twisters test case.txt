@@ -1,0 +1,46 @@
+user create --username parham --nickname pari --password 123
+user create --username abolfazl --nickname abol --password 123
+user login --username parham --password 123
+menu enter Duel
+duel --new --second-player abolfazl --rounds 3
+1
+yes
+add --force Twin Twisters
+set
+next phase
+next phase
+add --force Wattkid
+summon
+add --force Dark Hole
+activate effect
+next phase
+next phase
+next phase
+add --force Axe Raider
+summon
+add --force Terraforming
+set
+next phase
+next phase
+next phase
+add --force Axe Raider
+summon
+add --force Dark Hole
+set
+next phase
+select --spell 1
+activate effect
+next phase
+next phase
+add --force Exploder Dragon
+summon
+next phase
+next phase
+next phase
+add --force Axe Raider
+summon
+next phase
+next phase
+select --spell 1
+activate effect
+
