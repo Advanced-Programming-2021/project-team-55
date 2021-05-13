@@ -26,6 +26,7 @@ public class Forest extends SpellAndTrap {
         Cell[] currentTurnOpponentPlayerMonsterCardZone = gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone();
         increaseOpponentPlayerMonstersAttack(currentTurnPlayerMonsterCardZone);
         increaseOpponentPlayerMonstersAttack(currentTurnOpponentPlayerMonsterCardZone);
+        updateSpellInGameBoard(gameController);
     }
 
     public static void deActivateEffect(GameController gameController) {
