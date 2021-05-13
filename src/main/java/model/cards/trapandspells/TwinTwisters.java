@@ -2,16 +2,18 @@ package model.cards.trapandspells;
 
 import controller.gamephasescontrollers.GameController;
 import model.board.Cell;
-import model.board.GameBoard;
+import model.cards.Monster;
 import model.cards.SpellAndTrap;
+import model.cards.cardfeaturesenums.CardType;
 import model.cards.cardfeaturesenums.EffectiveTerm;
 import model.cards.cardfeaturesenums.SpellOrTrap;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
+import model.exceptions.GameException;
 import view.ViewInterface;
 import view.gamephases.Duel;
 import view.gamephases.GameResponses;
+import view.gamephases.MainPhase1;
 
-import java.util.regex.Matcher;
 
 public class TwinTwisters extends SpellAndTrap {
 
@@ -20,28 +22,59 @@ public class TwinTwisters extends SpellAndTrap {
                 3500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.QUICK_PLAY, EffectiveTerm.UNLIMITED);
     }
 
-    public static void setActivated(GameController gameController){
-        if (!canActivate(gameController)){
+    public static void setActivated(GameController gameController) {
+        if (!canActivate(gameController)) {
             ViewInterface.showResult(GameResponses.PREPARATION_NOT_DONE.response);
             return;
         }
-        else {
-            ViewInterface.showResult("choose a monster from your hand to remove it");
-            String input ;
-            while (true) {
-                input = ViewInterface.getInput();
-                Duel.processSelect(input);
-                if (gameController.getCurrentTurnOpponentPlayer().getGameBoard().isCellInSpellAndTrapZone(Cell.getSelectedCell())){
-                    Cell.getSelectedCell().removeCardFromCell(gameController.getCurrentTurnPlayer().getGameBoard());
-                    break;
-                }
 
+        ViewInterface.showResult("Twin Twisters activated: choose a card from your hand.");
+        while (true) {
+            String selectionCommand = ViewInterface.getInput();
+            if (!selectionCommand.startsWith("select --hand")) {
+                if (selectionCommand.equals("cancel")) {
+                    ViewInterface.showResult("you cancelled the effect of your card!");
+                    return;
+                }
+                ViewInterface.showResult("Error: you should select a card from hand!");
+                continue;
             }
+            String result = Duel.processSelect(selectionCommand);
+            if (!result.equals("card selected")) {
+                ViewInterface.showResult("Error: try again!");
+                continue;
+            }
+            Cell.getSelectedCell().removeCardFromCell(gameController.getCurrentTurnPlayer().getGameBoard());
+            ViewInterface.showResult("hand card removed from your hand.\nnow choose at most 2 opponent spell or traps to be removed:");
+            break;
         }
+
+        int counter = 0;
+        while (counter < 2) {
+            String selectionCommand = ViewInterface.getInput();
+            if (!selectionCommand.matches("select --spell \\d+ --opponent") && !selectionCommand.matches("select --opponent --spell \\d+")) {
+                if (selectionCommand.equals("cancel")) {
+                    ViewInterface.showResult("you cancelled the effect of your card!");
+                    return;
+                }
+                ViewInterface.showResult("Error: you should select a spell or trap card from your opponent gameBoard!");
+                continue;
+            }
+            String result = Duel.processSelect(selectionCommand);
+            if (!result.equals("card selected")) {
+                ViewInterface.showResult("Error: try again!");
+                continue;
+            }
+            counter++;
+            Cell.getSelectedCell().removeCardFromCell(gameController.getCurrentTurnOpponentPlayer().getGameBoard());
+            ViewInterface.showResult("spell or trap " + counter + " destroyed");
+            if (counter == 1) ViewInterface.showResult("select second spell or trap, or cancel the process");
+        }
+
     }
 
     private static boolean canActivate(GameController gameController) {
-        return !gameController.getCurrentTurnPlayer().getGameBoard().isHandCardEmpty();//todo which player?
+        return !gameController.getCurrentTurnPlayer().getGameBoard().isHandCardEmpty();
     }
 
 }
