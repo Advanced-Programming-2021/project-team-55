@@ -28,13 +28,12 @@ public class ViewInterface {
 
     public static void showResult(String result) {
         if (!result.equals("")) {
+            AIPlayerController.setLastResponse(result);
             if (result.startsWith("Error: ")) {
-                AIPlayerController.setLastResponse(result);
                 System.out.println(ConsoleColors.RED + result.replaceAll("Error: ", "") + ConsoleColors.RESET);
             } else {
 //                try {
 //                    if (Duel.getGameController().getCurrentTurnPlayer().isAI()){
-                        AIPlayerController.setLastResponse(result);
 ////                        return;
 //                    }
 //                }catch (Exception ignored){}

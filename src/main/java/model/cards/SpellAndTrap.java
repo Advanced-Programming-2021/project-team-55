@@ -40,6 +40,7 @@ public abstract class SpellAndTrap extends Card {
         else if(spellAndTrap.name.equals("Yami")) Yami.setActivated(gameController);
         else if(spellAndTrap.name.equals("Closed Forest")) ClosedForest.setActivated(gameController);
         else if(spellAndTrap.name.equals("Swords of Revealing Light"))SwordsofRevealingLight.setActivated(gameController);
+        else if (spellAndTrap.name.equals("Twin Twisters")) TwinTwisters.setActivated(gameController);
         else if(spellAndTrap.name.equals("Mystical space typhoon"))Mysticalspacetyphoon.setActivated(gameController);
         else if(spellAndTrap.name.equals("Black Pendant"))BlackPendant.setActivated(gameController);
         else{
