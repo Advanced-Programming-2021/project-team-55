@@ -1,5 +1,7 @@
 package controller;
 
+import model.CoinDice;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -116,7 +118,27 @@ public class AIPlayerController {
 
 
     public String getSpecialCommand() {
+        if (lastResponse.contains("yes/no")){
+            lastResponse = "";
+            return randomYesNo();
+        }
+        if (lastResponse.contains("number")){
+            lastResponse = "";
+            return (CoinDice.rollDice() + CoinDice.rollDice() - 1) + "";
+        }
+        if (lastResponse.contains("you should special summon right now")){
+            lastResponse = "";
+            return "summon";
+        }
+
         return getSelectCommandForMainPhases();
+    }
+
+    private String randomYesNo() {
+        if (CoinDice.tossCoin() == 1) {
+            return "yes";
+        }
+        return "no";
     }
 
     public static String getLastResponse() {
