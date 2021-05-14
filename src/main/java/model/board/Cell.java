@@ -3,6 +3,7 @@ package model.board;
 import model.cards.Card;
 import model.cards.Monster;
 import model.cards.trapandspells.BlackPendant;
+import model.cards.trapandspells.MagnumShield;
 import model.cards.trapandspells.Swordofdarkdestruction;
 import model.cards.trapandspells.UnitedWeStand;
 import view.gamephases.Duel;
@@ -51,6 +52,7 @@ public class Cell {
         BlackPendant.deActivateEffect(this);
         UnitedWeStand.deActivateEffect(this);
         Swordofdarkdestruction.deActivateEffect(this);
+        MagnumShield.deActivateEffect(this);
         this.card = null;
         this.cardStatus = null;
         Duel.getGameController().changedPositionCells.remove(this);

@@ -45,10 +45,12 @@ public abstract class SpellAndTrap extends Card {
         else if(spellAndTrap.name.equals("Black Pendant"))BlackPendant.setActivated(gameController);
         else if(spellAndTrap.name.equals("United We Stand"))UnitedWeStand.setActivated(gameController);
         else if(spellAndTrap.name.equals("Sword of dark destruction"))Swordofdarkdestruction.setActivated(gameController);
+        else if(spellAndTrap.name.equals("Magnum Shield"))MagnumShield.setActivated(gameController);
         else{
             ViewInterface.showResult(GameResponses.ACTIVATION_ONLY_FOR_SPELL.response);
         }
         //...
+        //todo : in be nazaram qhalate (parham)
         SpellAbsorption.handleEffect();
     }
 
