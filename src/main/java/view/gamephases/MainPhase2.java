@@ -41,7 +41,8 @@ public class MainPhase2 extends Duel {
     @Override
     protected String processCommand(String command) {
         String response = "";
-        if (gameController.shouldRitualSummonNow) {
+        //todo injaro badan azam beporsin tozih bedam bahaton check konam
+       /* if (gameController.shouldRitualSummonNow) {
             if (command.matches(GameRegexes.SELECT.regex)) {
                 response = processSelect(command);
             } else if (command.matches(GameRegexes.SUMMON.regex)) {
@@ -55,8 +56,8 @@ public class MainPhase2 extends Duel {
             } else {
                 response = GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response;
             }
-        }
-        else if (!gameController.checkCommandIsInCurrentPhase(command)) {
+        }*/
+        if (!gameController.checkCommandIsInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
         }
         else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {

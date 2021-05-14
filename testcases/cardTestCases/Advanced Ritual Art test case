@@ -1,0 +1,24 @@
+user create --username parham --nickname pari --password 123
+user create --username abolfazl --nickname abol --password 123
+user login --username parham --password 123
+menu enter Duel
+duel --new --second-player abolfazl --rounds 1
+1
+yes
+add --force Flame manipulator
+set
+add --force Advanced Ritual Art
+set
+next phase
+next phase
+next phase
+next phase
+next phase
+add --force Feral Imp
+summon
+add --force Skull Guardian
+select --spell 1
+activate effect
+select --hand 7
+select --monster 1
+

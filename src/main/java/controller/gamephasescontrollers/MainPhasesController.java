@@ -144,54 +144,8 @@ public interface MainPhasesController {
         }
     }
 
-    default boolean canActivateRitualSpellEffect(GameController gameController) {
-        GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
-        if (!canRitualSummon(gameController)) {
-            ViewInterface.showResult(GameResponses.NO_WAY_TO_RITUAL_SUMMON.response);
-            return false;
-        } else {
-            gameController.shouldRitualSummonNow = true;
-            return true;
-        }
-    }
 
-    private boolean canRitualSummon(GameController gameController){
-        Cell[]monsterCardZone=gameController.currentTurnPlayer.getGameBoard().getMonsterCardZone();
-        ArrayList<Cell>handCards=gameController.currentTurnPlayer.getGameBoard().getHandCards();
-        ArrayList<Monster>monsters=new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            if(!monsterCardZone[i].isEmpty()){
-                monsters.add((Monster) monsterCardZone[i].getCellCard());
-            }
-        }
-        for (int i = 0; i < handCards.size(); i++) {
-            if(handCards.get(i).getCellCard().isMonster()){
-                Monster monster=(Monster) handCards.get(i).getCellCard();
-                if(monster.getCardType()== CardType.RITUAL){
-                    int monsterLevel=monster.getLevel();
-                    if(monsterLevel>=7){
-                        for(int j=0;i<monsters.size();j++){
-                            for(int k=j+1;k<monsters.size();k++){
-                                if(monsters.get(j).getLevel()+monsters.get(k).getLevel()==monsterLevel){
-                                    return true;
-                                }
-                            }
-                        }
 
-                    }
-                    else{
-                        for (int j = 0; j < monsters.size(); j++) {
-                            if(monsters.get(j).getLevel()==monsterLevel){
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-
-    }
 
     default boolean canSpecialSummon(GameController gameController){
         GameBoard playerGameBoard=gameController.currentTurnPlayer.getGameBoard();
@@ -223,10 +177,6 @@ public interface MainPhasesController {
                 else if (playerGameBoard.isSpellAndTrapCardZoneFull() && spell.getAttribute() != SpellOrTrapAttribute.FIELD) {
                     throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
                 } else {
-                    if (!isPreparationDone(spell, gameController)) {
-                        throw new GameException(GameResponses.PREPARATION_NOT_DONE.response);
-                    }
-                    else {
                         //todo activate spell
                         SpellAndTrap.activateSpellOrTrapEffects(gameController,spell);
 //                        if(!playerGameBoard.isCellInSpellAndTrapZone(selectedCell)) {
@@ -242,17 +192,9 @@ public interface MainPhasesController {
 //                            selectedCell.setCardStatus(CardStatus.OCCUPIED);
 //                        }
 //                        Cell.deselectCell();
-                    }
                 }
             }
         }
-    }
-
-    private boolean isPreparationDone(SpellAndTrap spell, GameController gameController) {
-        if (spell.getAttribute() == SpellOrTrapAttribute.RITUAL) {
-            return canActivateRitualSpellEffect(gameController);
-        }
-        return true;
     }
 
     default void flipSummon(GameController gameController) throws GameException {
@@ -301,101 +243,16 @@ public interface MainPhasesController {
         }
     }
 
-    default void ritualSummon(GameController gameController) throws GameException {
-        //todo handle cancel
-        Monster monsterToSummon;
-        Cell selectedCell = Cell.getSelectedCell();
-        GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
-        if (selectedCell != null && selectedCell.getCellCard().isMonster()) {
-            monsterToSummon = (Monster) selectedCell.getCellCard();
-            if (monsterToSummon.getCardType() != CardType.RITUAL) {
-                throw new GameException(GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response);
-            } else {
-                while (true) {
-                    ViewInterface.showResult("select cards to tribute:");
-                    if (monsterToSummon.getLevel() < 7) {
-                        String input = ViewInterface.getInput();
-                        if (!input.matches("\\d") || Integer.parseInt(input) > 5 || Integer.parseInt(input) < 1) {
-                            ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
-                            continue;
-                        }
-                        int cellNumber = Integer.parseInt(input);
-                        cellNumber -= 1;
-                        if (playerGameBoard.getMonsterCardZone()[cellNumber].isEmpty()) {
-                            ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
-                        } else if (((Monster) playerGameBoard.getMonsterCardZone()[cellNumber].getCellCard()).getLevel() != monsterToSummon.getLevel()) {
-                            ViewInterface.showResult(GameResponses.SELECTED_MONSTERS_DONT_MATCH.response);
-                        } else {
-                            String cardStatus = "";
-                            while (!cardStatus.equals("attacking") && !cardStatus.equals("defensive")) {
-                                ViewInterface.showResult("choose card position: attacking/defensive");
-                                cardStatus = ViewInterface.getInput();
-                            }
-                            playerGameBoard.getMonsterCardZone()[cellNumber].removeCardFromCell(playerGameBoard);
-                            playerGameBoard.getHandCards().remove(selectedCell);
-                            Cell.deselectCell();
-                            gameController.shouldRitualSummonNow = false;
-                            if (cardStatus.equals("defensive")) {
-                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon, CardStatus.DEFENSIVE_OCCUPIED,gameController);
-                                break;
-                            } else {
-                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon, CardStatus.OFFENSIVE_OCCUPIED,gameController);
-                                break;
-                            }
-                        }
-                    } else if (7 <= monsterToSummon.getLevel()) {
-                        String input2 = ViewInterface.getInput();
-                        if (!input2.matches("\\d \\d") || Integer.parseInt(input2.substring(0, 1)) > 5 ||
-                                Integer.parseInt(input2.substring(2, 3)) > 5) {
-                            ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
-                            continue;
-                        }
-                        int cellNumber = Integer.parseInt(input2.substring(0, 1));
-                        int cellNumber2 = Integer.parseInt(input2.substring(2, 3));
-                        cellNumber--;
-                        cellNumber2--;
-                        if (playerGameBoard.getMonsterCardZone()[cellNumber].isEmpty() || playerGameBoard.getMonsterCardZone()[cellNumber2].isEmpty()) {
-                            ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
-                        } else if ((((Monster) playerGameBoard.getMonsterCardZone()[cellNumber].getCellCard()).getLevel() +
-                                ((Monster) playerGameBoard.getMonsterCardZone()[cellNumber2].getCellCard()).getLevel() != monsterToSummon.getLevel())) {
-                            ViewInterface.showResult(GameResponses.SELECTED_MONSTERS_DONT_MATCH.response);
-                        } else {
-                            String cardStatus = "";
-                            while (!cardStatus.equals("attacking") && !cardStatus.equals("defensive")) {
-                                ViewInterface.showResult("choose card position: attacking/defensive");
-                                cardStatus = ViewInterface.getInput();
-                            }
-                            playerGameBoard.getMonsterCardZone()[cellNumber].removeCardFromCell(playerGameBoard);
-                            playerGameBoard.getMonsterCardZone()[cellNumber2].removeCardFromCell(playerGameBoard);
-                            playerGameBoard.getHandCards().remove(selectedCell);
-                            Cell.deselectCell();
-                            gameController.shouldRitualSummonNow = false;
-                            if (cardStatus.equals("defensive")) {
-                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon, CardStatus.DEFENSIVE_OCCUPIED,gameController);
-                                break;
-                            } else {
-                                playerGameBoard.addCardToMonsterCardZone(monsterToSummon, CardStatus.OFFENSIVE_OCCUPIED,gameController);
-                                break;
-                            }
-
-                        }
-                    }
-
-
-                }
-            }
-        } else {
-            throw new GameException(GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response);
-        }
-
-    }
 
     default void changeMonsterMode(Cell cell) {
 
     }
 
     default boolean isSummonable(Card card) {
-        return card.isMonster();
+        if(card.isMonster()){
+            return ((Monster)card).getCardType()!=CardType.RITUAL;
+        }
+        return false;
     }
 
     default boolean isRitualSummonable(Cell cell) {
