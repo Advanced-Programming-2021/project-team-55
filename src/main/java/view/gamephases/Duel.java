@@ -1,5 +1,6 @@
 package view.gamephases;
 
+import controller.AIPlayerController;
 import controller.CheatController;
 import controller.gamephasescontrollers.GameController;
 import model.exceptions.GameException;
@@ -61,6 +62,7 @@ abstract public class Duel {
                     break;
                 }
             }
+            AIPlayerController.recordGameLogs();
         }
         gameController.endGameRound();
     }

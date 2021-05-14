@@ -1,18 +1,20 @@
 package controller;
 
+import com.opencsv.CSVWriter;
 import model.CoinDice;
+import view.gamephases.Duel;
 
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+
 
 public class AIPlayerController {
 
     private static String lastResponse = "";
+    private static String lastAICommand = "";
 
     private static boolean isGameEnded = false;
-
-   public enum orderKind {ORDINARY, RANDOM }
-
     ArrayList<String> battleSelectionCommands = new ArrayList<>();
     ArrayList<String> battlePhaseCommands = new ArrayList<>();
     ArrayList<String> mainPhaseCommands = new ArrayList<>();
@@ -64,17 +66,6 @@ public class AIPlayerController {
 //        }
     }
 
-    public String getSelectCommandForMainPhases() {
-       String string;
-       try{
-           string = mainPhaseSelectionCommands.get(0);
-           mainPhaseSelectionCommands.remove(0);
-       }catch(Exception e){
-           string = "next phase";
-       }
-       return string;
-    }
-
     public static boolean isIsGameEnded() {
         return isGameEnded;
     }
@@ -83,52 +74,98 @@ public class AIPlayerController {
         AIPlayerController.isGameEnded = isGameEnded;
     }
 
-    public String getSelectCommandForBattlePhase() {
+    public static String getLastResponse() {
+        return lastResponse;
+    }
+
+    public static void setLastResponse(String lastResponse) {
+        AIPlayerController.lastResponse = lastResponse;
+    }
+
+    public static void recordGameLogs() {
+        try {
+            String csv = "src\\resources\\gameLog\\data.csv";
+            CSVWriter writer = new CSVWriter(new FileWriter(csv, true));
+
+            String[] record = new String[4];
+            record[0] = Duel.getGameController().getCurrentTurnPlayer().getGameBoard().toString();
+            record[1] = Duel.getGameController().getCurrentTurnOpponentPlayer().getGameBoard().toString();
+            record[2] = lastResponse;
+            record[3] = lastAICommand;
+
+            writer.writeNext(record);
+
+            writer.close();
+        } catch (Exception ignored) {
+        }
+    }
+
+    public String getSelectCommandForMainPhases() {
         String string;
-        try{
-            string = battleSelectionCommands.get(0);
-            battleSelectionCommands.remove(0);
-        }catch(Exception e){
+        try {
+            string = mainPhaseSelectionCommands.get(0);
+            mainPhaseSelectionCommands.remove(0);
+        } catch (Exception e) {
             string = "next phase";
         }
+        lastAICommand = string;
+        return string;
+    }
+
+    public String getSelectCommandForBattlePhase() {
+        String string;
+        try {
+            string = battleSelectionCommands.get(0);
+            battleSelectionCommands.remove(0);
+        } catch (Exception e) {
+            string = "next phase";
+        }
+        lastAICommand = string;
         return string;
     }
 
     public String getMainCommandForBattlePhase() {
         String string;
-        try{
+        try {
             string = battlePhaseCommands.get(0);
             battlePhaseCommands.remove(0);
-        }catch(Exception e){
+        } catch (Exception e) {
             string = "next phase";
         }
+        lastAICommand = string;
         return string;
     }
 
     public String getMainCommandForMainPhases() {
         String string;
-        try{
+        try {
             string = mainPhaseCommands.get(0);
             mainPhaseCommands.remove(0);
-        }catch(Exception e){
+        } catch (Exception e) {
             string = "next phase";
         }
+        lastAICommand = string;
         return string;
     }
 
-
     public String getSpecialCommand() {
-        if (lastResponse.contains("yes/no")){
+        if (lastResponse.contains("yes/no")) {
             lastResponse = "";
-            return randomYesNo();
+            String command = randomYesNo();
+            lastAICommand = command;
+            return command;
         }
-        if (lastResponse.contains("number")){
+        if (lastResponse.contains("number")) {
             lastResponse = "";
-            return (CoinDice.rollDice() + CoinDice.rollDice() - 1) + "";
+            String command = (CoinDice.rollDice() + CoinDice.rollDice() - 1) + "";
+            lastAICommand = command;
+            return command;
         }
-        if (lastResponse.contains("you should special summon right now")){
+        if (lastResponse.contains("you should special summon right now")) {
             lastResponse = "";
-            return "summon";
+            String command = "summon";
+            lastAICommand = command;
+            return command;
         }
 
         return getSelectCommandForMainPhases();
@@ -141,14 +178,7 @@ public class AIPlayerController {
         return "no";
     }
 
-    public static String getLastResponse() {
-        return lastResponse;
-    }
-
-    public static void setLastResponse(String lastResponse) {
-        AIPlayerController.lastResponse = lastResponse;
-    }
-
+    public enum orderKind {ORDINARY, RANDOM}
 
     //    private static AIPlayerController aiPlayerController;
 //
