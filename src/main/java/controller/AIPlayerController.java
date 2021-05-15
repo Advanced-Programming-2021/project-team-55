@@ -69,10 +69,6 @@ public class AIPlayerController {
         AIPlayerController.isGameEnded = isGameEnded;
     }
 
-    public static String getLastResponse() {
-        return lastResponse;
-    }
-
     public static void setLastResponse(String lastResponse) {
         secondLastResponse = AIPlayerController.lastResponse;
         AIPlayerController.lastResponse = lastResponse;
@@ -84,10 +80,14 @@ public class AIPlayerController {
             CSVWriter writer = new CSVWriter(new FileWriter(csv, true));
 
             String[] record = new String[4];
-            record[0] = gameController.getMainPhase1Controller().showGameBoard(gameController.getCurrentTurnPlayer(), gameController.getCurrentTurnOpponentPlayer());
-            record[1] = secondLastResponse;
-            record[2] = lastAISelectionCommand;
-            record[3] = lastAICommand;
+            record[0] = (gameController.getMainPhase1Controller().showGameBoard(gameController.getCurrentTurnPlayer(), gameController.getCurrentTurnOpponentPlayer()));
+            record[1] = (secondLastResponse);
+            record[2] = (lastAISelectionCommand);
+            record[3] = (lastAICommand);
+//            record[0] = "" + saveStringAndReturnCode(gameController.getMainPhase1Controller().showGameBoard(gameController.getCurrentTurnPlayer(), gameController.getCurrentTurnOpponentPlayer()));
+//            record[1] = "" + saveStringAndReturnCode(secondLastResponse);
+//            record[2] = "" + saveStringAndReturnCode(lastAISelectionCommand);
+//            record[3] = "" + saveStringAndReturnCode(lastAICommand);
 
             writer.writeNext(record);
 
@@ -95,6 +95,24 @@ public class AIPlayerController {
         } catch (Exception ignored) {
         }
     }
+//
+//    private static int saveStringAndReturnCode(String str){
+//        int code = 0;
+//        while (true){
+//            try{
+//                String content = DataBaseController.getInstance().readFileContent("src\\resources\\gameLog\\commands\\" + code + ".txt");
+//                if (content == null) throw new Exception();
+//                if (content.equals(str)) return code;
+//            }catch (Exception e) {
+//                try{
+//                    DataBaseController.writeFile("src\\resources\\gameLog\\commands\\" + code + ".txt", str);
+//                    return code;
+//                }catch (Exception ignored){
+//                }
+//            }
+//            code++;
+//        }
+//    }
 
     public String getSelectCommandForMainPhases() {
         String string;
@@ -160,6 +178,19 @@ public class AIPlayerController {
             lastAICommand = command;
             return command;
         }
+        if (lastResponse.contains("United We Stand") || lastResponse.contains("Sword of dark destruction")) {
+            String command = "select --monster " + CoinDice.rollDice();
+            lastAICommand = command;
+            return command;
+        }
+        if (lastResponse.contains("now choose at most 2 opponent spell or traps") ||
+                lastResponse.contains("select second spell or trap") ||
+                lastResponse.contains("select a spell or trap card from your opponent")) {
+            String command = "select --spell " + CoinDice.rollDice() + " --opponent";
+            if (CoinDice.rollDice() == 6) command = "cancel";
+            lastAICommand = command;
+            return command;
+        }
 
         return getSelectCommandForMainPhases();
     }
@@ -172,7 +203,5 @@ public class AIPlayerController {
     }
 
     public enum orderKind {ORDINARY, RANDOM}
-
-
 
 }

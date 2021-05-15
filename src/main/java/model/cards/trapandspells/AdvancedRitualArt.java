@@ -79,7 +79,7 @@ public class AdvancedRitualArt extends SpellAndTrap {
         while (true) {
             ViewInterface.showResult("Advanced Ritual Art effect activated : select a card from hand to ritual summon:");
             String input = ViewInterface.getInput();
-            String response = Duel.getMainPhase1().processSelect(input);
+            String response = Duel.processSelect(input);
             if (input.equals("cancel")) {
                 ViewInterface.showResult("you cancelled the activation of Advanced Ritual Art");
                 return;

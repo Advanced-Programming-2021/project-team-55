@@ -31,7 +31,7 @@ public class UnitedWeStand extends SpellAndTrap {
         ViewInterface.showResult("United We Stand effect activated : select a face-up card to equip");
         String input=ViewInterface.getInput();
         while(true){
-            String response = Duel.getMainPhase1().processSelect(input);
+            String response = Duel.processSelect(input);
             if (input.equals("cancel")) {
                 ViewInterface.showResult("you cancelled the activation of United We Stand");
                 return;

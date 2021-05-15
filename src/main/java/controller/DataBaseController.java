@@ -181,8 +181,7 @@ public class DataBaseController extends MenuController {
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("read file error");
-            e.printStackTrace();
+            return null;
         }
         return output.toString();
     }
