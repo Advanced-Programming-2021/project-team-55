@@ -47,7 +47,6 @@ public class Cell {
     }
 
     public void removeCardFromCell(GameBoard gameBoard) {
-        gameBoard.addCardToGraveyard(this.card);
         CommandKnight.deActivateEffect(this);
         BlackPendant.deActivateEffect(this);
         UnitedWeStand.deActivateEffect(this);
@@ -56,6 +55,7 @@ public class Cell {
         this.card = null;
         this.cardStatus = null;
         Duel.getGameController().changedPositionCells.remove(this);
+        gameBoard.addCardToGraveyard(this.card);
     }
 
     public void setCard(Card card) {

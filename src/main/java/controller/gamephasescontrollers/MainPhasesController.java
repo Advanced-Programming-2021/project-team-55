@@ -74,6 +74,7 @@ public interface MainPhasesController {
                 if(card.getName().equals("Torrential Tribute")/*||//todo we have to add other traps here...*/){
                     gameController.changeTurn(true);
                     gameController.activateTrapEffect(summonEffectSpellAndTrap);
+                    gameController.changeTurn(true);
                     break;
                 }
             }
