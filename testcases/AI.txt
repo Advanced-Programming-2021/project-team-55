@@ -5,6 +5,7 @@ menu enter Duel
 duel --new --ai --rounds 1
 1
 yes
+make me ai
 -----------------------------------------
 make me ai
 -----------------------------------------

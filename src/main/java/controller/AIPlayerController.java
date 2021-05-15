@@ -1,8 +1,8 @@
 package controller;
 
 import com.opencsv.CSVWriter;
+import controller.gamephasescontrollers.GameController;
 import model.CoinDice;
-import view.gamephases.Duel;
 
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -12,7 +12,9 @@ import java.util.Collections;
 public class AIPlayerController {
 
     private static String lastResponse = "";
+    private static String secondLastResponse = "";
     private static String lastAICommand = "";
+    private static String lastAISelectionCommand = "";
 
     private static boolean isGameEnded = false;
     ArrayList<String> battleSelectionCommands = new ArrayList<>();
@@ -57,13 +59,6 @@ public class AIPlayerController {
         if (commandsOrder == orderKind.RANDOM) Collections.shuffle(battlePhaseCommands);
         if (commandsOrder == orderKind.RANDOM) Collections.shuffle(mainPhaseCommands);
 
-//next phase
-//        for (int i = 1; i <= 5; i++) {
-//            selectionCommands.add("select --field " + i);
-//        }
-//        for (int i = 1; i <= 5; i++) {
-//            selectionCommands.add("select --monster " + i + " --opponent");
-//        }
     }
 
     public static boolean isIsGameEnded() {
@@ -79,18 +74,19 @@ public class AIPlayerController {
     }
 
     public static void setLastResponse(String lastResponse) {
+        secondLastResponse = AIPlayerController.lastResponse;
         AIPlayerController.lastResponse = lastResponse;
     }
 
-    public static void recordGameLogs() {
+    public static void recordGameLogs(GameController gameController) {
         try {
             String csv = "src\\resources\\gameLog\\data.csv";
             CSVWriter writer = new CSVWriter(new FileWriter(csv, true));
 
             String[] record = new String[4];
-            record[0] = Duel.getGameController().getCurrentTurnPlayer().getGameBoard().toString();
-            record[1] = Duel.getGameController().getCurrentTurnOpponentPlayer().getGameBoard().toString();
-            record[2] = lastResponse;
+            record[0] = gameController.getMainPhase1Controller().showGameBoard(gameController.getCurrentTurnPlayer(), gameController.getCurrentTurnOpponentPlayer());
+            record[1] = secondLastResponse;
+            record[2] = lastAISelectionCommand;
             record[3] = lastAICommand;
 
             writer.writeNext(record);
@@ -108,7 +104,7 @@ public class AIPlayerController {
         } catch (Exception e) {
             string = "next phase";
         }
-        lastAICommand = string;
+        lastAISelectionCommand = string;
         return string;
     }
 
@@ -120,7 +116,7 @@ public class AIPlayerController {
         } catch (Exception e) {
             string = "next phase";
         }
-        lastAICommand = string;
+        lastAISelectionCommand = string;
         return string;
     }
 
@@ -150,19 +146,16 @@ public class AIPlayerController {
 
     public String getSpecialCommand() {
         if (lastResponse.contains("yes/no")) {
-            lastResponse = "";
             String command = randomYesNo();
             lastAICommand = command;
             return command;
         }
         if (lastResponse.contains("number")) {
-            lastResponse = "";
             String command = (CoinDice.rollDice() + CoinDice.rollDice() - 1) + "";
             lastAICommand = command;
             return command;
         }
         if (lastResponse.contains("you should special summon right now")) {
-            lastResponse = "";
             String command = "summon";
             lastAICommand = command;
             return command;
@@ -180,26 +173,6 @@ public class AIPlayerController {
 
     public enum orderKind {ORDINARY, RANDOM}
 
-    //    private static AIPlayerController aiPlayerController;
-//
-//    public static AIPlayerController getInstance() {
-//        return null;
-//    }
-//
-//    public boolean isMovementBeneficial(Card selectedCard) {
-//        return false;
-//    }
-//
-//    public boolean setSpell() {
-//        return false;
-//    }
-//
-//    public boolean setTrap() {
-//        return false;
-//    }
-//
-//    public boolean setMonster() {
-//        return false;
-//    }
+
 
 }

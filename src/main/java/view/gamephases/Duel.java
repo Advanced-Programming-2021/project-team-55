@@ -62,7 +62,7 @@ abstract public class Duel {
                     break;
                 }
             }
-            AIPlayerController.recordGameLogs();
+            AIPlayerController.recordGameLogs(gameController);
         }
         gameController.endGameRound();
     }
