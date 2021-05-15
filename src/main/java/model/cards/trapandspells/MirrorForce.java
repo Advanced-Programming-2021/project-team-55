@@ -24,6 +24,7 @@ public class MirrorForce extends SpellAndTrap {
             }
         }
         ViewInterface.showResult("Mirror Force effect activated : all your opponent's Attack Position monsters destroyed");
+        gameController.getBattlePhaseController().setAttackDisabled();
         updateSpellInGameBoard(gameController);
     }
 

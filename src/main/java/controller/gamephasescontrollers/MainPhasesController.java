@@ -56,9 +56,29 @@ public interface MainPhasesController {
         TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
         Cell.deselectCell();
-        gameController.changeTurnToActivateTrapEffect(summonEffectSpellAndTrap);
+        activateTrapIfCanBeActivated(gameController);
     }
-
+    private void activateTrapIfCanBeActivated(GameController gameController){
+        for(Cell cell:gameController.currentTurnPlayer.getGameBoard().getSpellAndTrapCardZone()){
+            if(!cell.isEmpty()&&cell.getCardStatus()==CardStatus.HIDDEN){
+                Card card=cell.getCellCard();
+                if(card.getName().equals("Torrential Tribute")/*||//todo we have to add other traps here...*/){
+                    gameController.activateTrapEffect(summonEffectSpellAndTrap);
+                    break;
+                }
+            }
+        }
+        for(Cell cell:gameController.currentTurnOpponentPlayer.getGameBoard().getSpellAndTrapCardZone()){
+            if(!cell.isEmpty()&&cell.getCardStatus()==CardStatus.HIDDEN){
+                Card card=cell.getCellCard();
+                if(card.getName().equals("Torrential Tribute")/*||//todo we have to add other traps here...*/){
+                    gameController.changeTurn(true);
+                    gameController.activateTrapEffect(summonEffectSpellAndTrap);
+                    break;
+                }
+            }
+        }
+    }
     private void addMonstersToSummonEffectSpellAndTrap() {
         summonEffectSpellAndTrap.add(new TorrentialTribute());
         //todo add the rest of summon monsters thing
@@ -223,7 +243,7 @@ public interface MainPhasesController {
         selectedCell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
         ManEaterBug.handleEffect(gameController, selectedCell);
         Cell.deselectCell();
-        gameController.changeTurnToActivateTrapEffect(summonEffectSpellAndTrap);
+        activateTrapIfCanBeActivated(gameController);
     }
 
     default void specialSummon(GameController gameController) throws GameException{
@@ -253,7 +273,7 @@ public interface MainPhasesController {
             Cell.deselectCell();
             break;
         }
-        gameController.changeTurnToActivateTrapEffect(summonEffectSpellAndTrap);
+        activateTrapIfCanBeActivated(gameController);
     }
 
 
