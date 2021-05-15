@@ -229,9 +229,8 @@ public class GameController {
     }
     public void changeTurnToActivateTrapEffect(ArrayList<SpellAndTrap>trapsCanBeActivated){
         changeTurn(true);
+        ViewInterface.showResult("do you want to activate your trap and spell?");
         while(true) {
-            ViewInterface.showResult(mainPhase1Controller.showGameBoard(currentTurnPlayer, currentTurnOpponentPlayer));
-            ViewInterface.showResult("do you want to activate your trap and spell?");
             String response=ViewInterface.getInput();
             if(response.equals("no")){
                 changeTurn(true);
