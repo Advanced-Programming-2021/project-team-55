@@ -1,11 +1,15 @@
 package controller.gamephasescontrollers;
 
+import model.cards.SpellAndTrap;
 import model.cards.monsters.*;
 import model.board.CardStatus;
 import model.cards.monsters.ExploderDragon;
 import model.cards.monsters.Marshmallon;
 import model.cards.monsters.TheCalculator;
+import model.cards.trapandspells.MirrorForce;
+import model.cards.trapandspells.NegateAttack;
 import model.cards.trapandspells.SwordsofRevealingLight;
+import model.cards.trapandspells.TorrentialTribute;
 import model.exceptions.GameException;
 import model.Player;
 import model.board.Cell;
@@ -15,19 +19,30 @@ import model.cards.Monster;
 import model.cards.monsters.YomiShip;
 import view.gamephases.GameResponses;
 
+import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import static model.board.CardStatus.DEFENSIVE_OCCUPIED;
 import static model.board.CardStatus.OFFENSIVE_OCCUPIED;
 
 public class BattlePhaseController implements methods {
 
     private final GameController gameController;
+    private boolean attackDisabled=false;
+    private static ArrayList<SpellAndTrap>attackEffectSpellAndTraps;
+    static {
+        attackEffectSpellAndTraps=new ArrayList<>();
+        attackEffectSpellAndTraps.add(new MirrorForce());
+        attackEffectSpellAndTraps.add(new NegateAttack());
+    }
 
     public BattlePhaseController(GameController gameController) {
         this.gameController = gameController;
     }
 
-    public void startBattlePhase() {
-
+    public void setAttackDisabled(){
+        attackDisabled=true;
     }
 
     public String attack(int attackedCellNumber) throws GameException {
@@ -48,6 +63,11 @@ public class BattlePhaseController implements methods {
         } else if (attackedCell == null || attackedCell.getCellCard() == null) {
             throw new GameException(GameResponses.NO_CARD_TO_ATTACK.response);
         } else {
+            activateTrapIfCanBeActivated(gameController);
+            if(attackDisabled){
+                attackDisabled=false;
+                return response;
+            }
             if(SwordsofRevealingLight.handleEffect(gameController)){
                 throw new GameException("you can't attack because of your opponent's Swords of Revealing Light effect");
             }
@@ -70,6 +90,28 @@ public class BattlePhaseController implements methods {
         }
         Cell.deselectCell();
         return response;
+    }
+    private void activateTrapIfCanBeActivated(GameController gameController){
+        for(Cell cell:gameController.currentTurnPlayer.getGameBoard().getSpellAndTrapCardZone()){
+            if(!cell.isEmpty()&&cell.getCardStatus()==CardStatus.HIDDEN){
+                Card card=cell.getCellCard();
+                if(card.getName().equals("Mirror Force")/*||//todo we have to add other traps here...*/){
+                    gameController.activateTrapEffect(attackEffectSpellAndTraps);
+                    break;
+                }
+            }
+        }
+        for(Cell cell:gameController.currentTurnOpponentPlayer.getGameBoard().getSpellAndTrapCardZone()){
+            if(!cell.isEmpty()&&cell.getCardStatus()==CardStatus.HIDDEN){
+                Card card=cell.getCellCard();
+                if(card.getName().equals("Mirror Force")||card.getName().equals("Negate Attack")){
+                    gameController.changeTurn(true);
+                    gameController.activateTrapEffect(attackEffectSpellAndTraps);
+                    gameController.changeTurn(true);
+                    break;
+                }
+            }
+        }
     }
 
     private String attackToDefensiveHiddenCell(Cell attackerCell, Cell attackedCell, GameBoard opponentGameBoard) {
@@ -94,7 +136,6 @@ public class BattlePhaseController implements methods {
         gameController.getAttackerCellsThisTurn().add(attackedCell);
         return response;
     }
-
     private String attackToDefensiveOccupiedCell(Cell attackerCell, Cell attackedCell, GameBoard playerGameBoard) {
         String response;
         if (isAttackerStronger(attackerCell, attackedCell)) {

@@ -30,7 +30,6 @@ public abstract class SpellAndTrap extends Card {
     }
 
     public static void activateSpellOrTrapEffects(GameController gameController, SpellAndTrap spellAndTrap){
-
         if(spellAndTrap.name.equals("Monster Reborn"))MonsterReborn.setActivated(gameController);
         else if(spellAndTrap.name.equals("Terraforming")) Terraforming.setActivated(gameController);
         else if(spellAndTrap.name.equals("Pot of Greed")) PotofGreed.setActivated(gameController);
@@ -47,6 +46,8 @@ public abstract class SpellAndTrap extends Card {
         else if(spellAndTrap.name.equals("Sword of dark destruction"))Swordofdarkdestruction.setActivated(gameController);
         else if(spellAndTrap.name.equals("Magnum Shield"))MagnumShield.setActivated(gameController);
         else if(spellAndTrap.name.equals("Advanced Ritual Art"))AdvancedRitualArt.setActivated(gameController);
+        else if (spellAndTrap.name.equals("Torrential Tribute"))TorrentialTribute.setActivated(gameController);
+        else if(spellAndTrap.name.equals("Mirror Force"))MirrorForce.setActivated(gameController);
         else{
             ViewInterface.showResult(GameResponses.ACTIVATION_ONLY_FOR_SPELL.response);
         }
@@ -62,6 +63,7 @@ public abstract class SpellAndTrap extends Card {
     public void deactivate() {
 
     }
+
 
     public static void updateSpellInGameBoard(GameController gameController) {
         Cell selectedCell= Cell.getSelectedCell();

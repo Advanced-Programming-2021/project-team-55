@@ -70,7 +70,7 @@ public class MagnumShield extends SpellAndTrap {
         }
     }
     public static void deActivateEffect(Cell cell){
-        if(cell.getCellCard().getName().equals("Magnum Shield")){
+        if(!cell.isEmpty()&&cell.getCellCard().getName().equals("Magnum Shield")){
             Monster equippedMonster=((MagnumShield)cell.getCellCard()).equippedMonster;
             int equipEffect=((MagnumShield)cell.getCellCard()).equipEffect;
             if(equippedMonster.getMonsterType()==MonsterType.WARRIOR) {

@@ -14,6 +14,7 @@ import model.cards.monsters.ManEaterBug;
 import model.cards.monsters.TerratigertheEmpoweredWarrior;
 import model.cards.monsters.TheTricky;
 import model.cards.trapandspells.TimeSeal;
+import model.cards.trapandspells.TorrentialTribute;
 import model.exceptions.GameException;
 import view.ConsoleColors;
 import view.ViewInterface;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 
 public interface MainPhasesController {
 
+    ArrayList<SpellAndTrap>summonEffectSpellAndTrap=new ArrayList<>();
     default void monsterInsert(Cell cell) {
 
     }
@@ -33,6 +35,7 @@ public interface MainPhasesController {
     }
 
     default void monsterSummon(GameController gameController) throws GameException {
+        addMonstersToSummonEffectSpellAndTrap();
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         if (selectedCell == null) {
@@ -53,6 +56,32 @@ public interface MainPhasesController {
         TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
         Cell.deselectCell();
+        activateTrapIfCanBeActivated(gameController);
+    }
+    private void activateTrapIfCanBeActivated(GameController gameController){
+        for(Cell cell:gameController.currentTurnPlayer.getGameBoard().getSpellAndTrapCardZone()){
+            if(!cell.isEmpty()&&cell.getCardStatus()==CardStatus.HIDDEN){
+                Card card=cell.getCellCard();
+                if(card.getName().equals("Torrential Tribute")/*||//todo we have to add other traps here...*/){
+                    gameController.activateTrapEffect(summonEffectSpellAndTrap);
+                    break;
+                }
+            }
+        }
+        for(Cell cell:gameController.currentTurnOpponentPlayer.getGameBoard().getSpellAndTrapCardZone()){
+            if(!cell.isEmpty()&&cell.getCardStatus()==CardStatus.HIDDEN){
+                Card card=cell.getCellCard();
+                if(card.getName().equals("Torrential Tribute")/*||//todo we have to add other traps here...*/){
+                    gameController.changeTurn(true);
+                    gameController.activateTrapEffect(summonEffectSpellAndTrap);
+                    break;
+                }
+            }
+        }
+    }
+    private void addMonstersToSummonEffectSpellAndTrap() {
+        summonEffectSpellAndTrap.add(new TorrentialTribute());
+        //todo add the rest of summon monsters thing
     }
 
     private Cell handleTributeForNormalSummon(Player currentPlayer, Cell selectedCell, int monsterLevel,boolean isSpecialSummon) throws GameException {
@@ -198,6 +227,7 @@ public interface MainPhasesController {
     }
 
     default void flipSummon(GameController gameController) throws GameException {
+        addMonstersToSummonEffectSpellAndTrap();
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         if (selectedCell == null) {
@@ -213,9 +243,11 @@ public interface MainPhasesController {
         selectedCell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
         ManEaterBug.handleEffect(gameController, selectedCell);
         Cell.deselectCell();
+        activateTrapIfCanBeActivated(gameController);
     }
 
     default void specialSummon(GameController gameController) throws GameException{
+        addMonstersToSummonEffectSpellAndTrap();
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         while(true) {
@@ -241,6 +273,7 @@ public interface MainPhasesController {
             Cell.deselectCell();
             break;
         }
+        activateTrapIfCanBeActivated(gameController);
     }
 
 

@@ -1,6 +1,5 @@
 package controller.gamephasescontrollers;
 
-import model.exceptions.GameException;
 import model.CoinDice;
 import model.Player;
 import model.User;
@@ -9,6 +8,8 @@ import model.board.Game;
 import model.board.GameBoard;
 import model.cards.Card;
 import model.cards.Deck;
+import model.cards.SpellAndTrap;
+import model.exceptions.GameException;
 import view.GameRegexes;
 import view.ViewInterface;
 import view.gamephases.Duel;
@@ -45,10 +46,10 @@ public class GameController {
         attackerCellsThisTurn = new ArrayList<>();
         phases = new ArrayList<>();
         didPlayerSetOrSummonThisTurn = false;
-        isGameEnded=false;
-        shouldRitualSummonNow=false;
-        shouldSpecialSummonNow=false;
-        turnCount=1;
+        isGameEnded = false;
+        shouldRitualSummonNow = false;
+        shouldSpecialSummonNow = false;
+        turnCount = 1;
         drawPhaseController = new DrawPhaseController(this);
         standByPhaseController = new StandByPhaseController(this);
         mainPhase1Controller = new MainPhase1Controller(this);
@@ -77,11 +78,11 @@ public class GameController {
         return currentRound;
     }
 
-    public String showGraveyard(Player player){
+    public String showGraveyard(Player player) {
         String response = "";
         GameBoard playerGameBoard = currentTurnPlayer.getGameBoard();
         if (playerGameBoard.getGraveyard().size() == 0) {
-            response=GameResponses.GRAVEYARD_EMPTY.response;
+            response = GameResponses.GRAVEYARD_EMPTY.response;
         } else {
             for (int i = 1; i <= playerGameBoard.getGraveyard().size(); i++) {
                 response += i + ". " + playerGameBoard.getGraveyard().get(i - 1).getCellCard();
@@ -212,13 +213,64 @@ public class GameController {
         Player player = currentTurnPlayer;
         currentTurnPlayer = currentTurnOpponentPlayer;
         currentTurnOpponentPlayer = player;
-        if (isTemporary) return;
+        if (isTemporary) {
+            ViewInterface.showResult("now it will be " + currentTurnPlayer.getUser().getNickname() + "’s turn");
+            ViewInterface.showResult(mainPhase1Controller.showGameBoard(currentTurnPlayer, currentTurnOpponentPlayer));
+            return;
+        }
+        ;
         didPlayerSetOrSummonThisTurn = false;
         changedPositionCells = new ArrayList<>();
-        attackerCellsThisTurn=new ArrayList<>();
+        attackerCellsThisTurn = new ArrayList<>();
         turnCount++;
         //todo update changedPositionCells & other fields
         //todo reset attacked arraylist
+    }
+
+    public void activateTrapEffect(ArrayList<SpellAndTrap> trapsCanBeActivated) {
+        ViewInterface.showResult("do you want to activate your trap and spell?");
+        while (true) {
+            String response = ViewInterface.getInput();
+            if (response.equals("no")) {
+                changeTurn(true);
+                break;
+            } else if (response.equals("yes")) {
+                while (true) {
+                    String input = ViewInterface.getInput();
+                    if (input.equals("cancel")) {
+                        changeTurn(true);
+                        return;
+                    } else if (input.matches(GameRegexes.SELECT.regex)) {
+                        String responseSelect = Duel.getMainPhase1().processSelect(input);
+                        ViewInterface.showResult(responseSelect);
+                        continue;
+                    } else if (input.matches("activate effect")) {
+                        if (Cell.getSelectedCell() == null) {
+                            ViewInterface.showResult(GameResponses.NO_CARDS_SELECTED.response);
+                            continue;
+                        }
+                        else {
+                            Cell selectedCell = Cell.getSelectedCell();
+                            for (SpellAndTrap spellAndTrap : trapsCanBeActivated) {
+                                if (selectedCell.getCellCard().getName().equals(spellAndTrap.getName())) {
+                                    SpellAndTrap.activateSpellOrTrapEffects(this, spellAndTrap);
+                                    return;
+                                }
+                            }
+                            ViewInterface.showResult("Error: you can’t activate this card");
+                            continue;
+                        }
+                    } else {
+                        ViewInterface.showResult("Error: it’s not your turn to play this kind of moves");
+                    }
+                }
+            } else {
+                ViewInterface.showResult("Error: try again!");
+                continue;
+            }
+
+        }
+
     }
 
     protected void handleCardSideEffects() {
@@ -248,7 +300,7 @@ public class GameController {
     public void surrender() {
         game.addWinner(currentTurnOpponentPlayer);
         game.addLoser(currentTurnPlayer);
-        isGameEnded=true;
+        isGameEnded = true;
     }
 
     protected void checkGameWinner() {
@@ -262,10 +314,11 @@ public class GameController {
         }
         game.addWinner(currentTurnPlayer);
         game.addLoser(currentTurnOpponentPlayer);
-        isGameEnded=true;
+        isGameEnded = true;
     }
-    public boolean isGameEnded(){
-        if(currentTurnPlayer.getLP()<=0){
+
+    public boolean isGameEnded() {
+        if (currentTurnPlayer.getLP() <= 0) {
             game.addWinner(currentTurnOpponentPlayer);
             game.addLoser(currentTurnPlayer);
             return true;
@@ -273,8 +326,7 @@ public class GameController {
             game.addWinner(currentTurnPlayer);
             game.addLoser(currentTurnOpponentPlayer);
             return true;
-        }
-        else if(isGameEnded){
+        } else if (isGameEnded) {
             return true;
         }
         return false;
@@ -289,7 +341,7 @@ public class GameController {
         undoMakeAICheatCommand();
         if (game.getRounds() == currentRound) {
             ViewInterface.showResult(response);
-            isGameEnded=true;
+            isGameEnded = true;
         } else {
             gameControllerInitialization();
             currentRound++;
@@ -399,7 +451,7 @@ public class GameController {
         for (Card card : player.getPlayDeck().getSideDeck()) {
             response += card.getName() + "\n";
         }
-        return response+"\n";
+        return response + "\n";
     }
 
     private void changeCards(Player player) {
@@ -438,14 +490,14 @@ public class GameController {
             sideDeck.add(card);
         }
         ViewInterface.showResult(deckInfo);
-        sideDeckCounter-=1;
-        mainDeckCounter-=1;
+        sideDeckCounter -= 1;
+        mainDeckCounter -= 1;
         while (true) {
             ViewInterface.showResult("select a card from main deck to remove or enter continue:");
             String input = ViewInterface.getInput();
             if (input.equals("continue")) {
                 break;
-            } else if (!input.matches("\\d+") || Integer.parseInt(input) > mainDeckCounter||Integer.parseInt(input)<=0) {
+            } else if (!input.matches("\\d+") || Integer.parseInt(input) > mainDeckCounter || Integer.parseInt(input) <= 0) {
                 ViewInterface.showResult("Error: invalid selection");
                 continue;
             } else {
@@ -454,16 +506,16 @@ public class GameController {
                     String input2 = ViewInterface.getInput();
                     if (input2.equals("back")) {
                         break;
-                    } else if (!input2.matches("\\d+") || Integer.parseInt(input2) > sideDeckCounter||Integer.parseInt(input2)<=0) {
+                    } else if (!input2.matches("\\d+") || Integer.parseInt(input2) > sideDeckCounter || Integer.parseInt(input2) <= 0) {
                         ViewInterface.showResult("Error: invalid selection");
                         continue;
                     } else {
                         mainDeckCounter -= 1;
-                        deck.removeCardFromMainDeck(mainDeck.get(Integer.parseInt(input)-1).getName());
-                        deck.addCardToSideDeck(mainDeck.get(Integer.parseInt(input)-1));
-                        deck.removeCardFromSideDeck(sideDeck.get(Integer.parseInt(input2)-1).getName());
-                        deck.addCardToMainDeck(sideDeck.get(Integer.parseInt(input2)-1));
-                        ViewInterface.showResult(mainDeck.get(Integer.parseInt(input)-1).getName()+" replaced with "+sideDeck.get(Integer.parseInt(input2)-1).getName());
+                        deck.removeCardFromMainDeck(mainDeck.get(Integer.parseInt(input) - 1).getName());
+                        deck.addCardToSideDeck(mainDeck.get(Integer.parseInt(input) - 1));
+                        deck.removeCardFromSideDeck(sideDeck.get(Integer.parseInt(input2) - 1).getName());
+                        deck.addCardToMainDeck(sideDeck.get(Integer.parseInt(input2) - 1));
+                        ViewInterface.showResult(mainDeck.get(Integer.parseInt(input) - 1).getName() + " replaced with " + sideDeck.get(Integer.parseInt(input2) - 1).getName());
                         player.setPlayDeck(deck);
                         break;
                     }
