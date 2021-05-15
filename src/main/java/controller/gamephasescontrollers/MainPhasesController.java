@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 public interface MainPhasesController {
 
+    ArrayList<SpellAndTrap>summonEffectSpellAndTrap=new ArrayList<>();
     default void monsterInsert(Cell cell) {
 
     }
@@ -34,6 +35,7 @@ public interface MainPhasesController {
     }
 
     default void monsterSummon(GameController gameController) throws GameException {
+        addMonstersToSummonEffectSpellAndTrap();
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         if (selectedCell == null) {
@@ -54,6 +56,12 @@ public interface MainPhasesController {
         TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
         Cell.deselectCell();
+        gameController.changeTurnToActivateTrapEffect(summonEffectSpellAndTrap);
+    }
+
+    private void addMonstersToSummonEffectSpellAndTrap() {
+        summonEffectSpellAndTrap.add(new TorrentialTribute());
+        //todo add the rest of summon monsters thing
     }
 
     private Cell handleTributeForNormalSummon(Player currentPlayer, Cell selectedCell, int monsterLevel,boolean isSpecialSummon) throws GameException {
@@ -199,6 +207,7 @@ public interface MainPhasesController {
     }
 
     default void flipSummon(GameController gameController) throws GameException {
+        addMonstersToSummonEffectSpellAndTrap();
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         if (selectedCell == null) {
@@ -214,9 +223,11 @@ public interface MainPhasesController {
         selectedCell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
         ManEaterBug.handleEffect(gameController, selectedCell);
         Cell.deselectCell();
+        gameController.changeTurnToActivateTrapEffect(summonEffectSpellAndTrap);
     }
 
     default void specialSummon(GameController gameController) throws GameException{
+        addMonstersToSummonEffectSpellAndTrap();
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         while(true) {
@@ -242,6 +253,7 @@ public interface MainPhasesController {
             Cell.deselectCell();
             break;
         }
+        gameController.changeTurnToActivateTrapEffect(summonEffectSpellAndTrap);
     }
 
 
