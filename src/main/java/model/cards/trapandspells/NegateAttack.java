@@ -18,8 +18,9 @@ public class NegateAttack extends SpellAndTrap {
     }
     public static void setActivated(GameController gameController){
         GameBoard opponentPlayerGameBoard=gameController.getCurrentTurnOpponentPlayer().getGameBoard();
-        ViewInterface.showResult("Negate Attack effect activated : attack is negated and opponent Battle Phase ended");
         gameController.getBattlePhaseController().setAttackDisabled();
+        ViewInterface.showResult("Negate Attack effect activated : attack is negated and opponent Battle Phase ended");
+        gameController.changePhase();
         updateSpellInGameBoard(gameController);
     }
 

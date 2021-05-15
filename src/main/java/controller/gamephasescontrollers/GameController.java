@@ -102,10 +102,6 @@ public class GameController {
     }
 
 
-    protected String showPhase() {
-        return null;
-    }
-
     //todo : should we deselect automatically when a command is done or not?
     public void selectCard(String zone, int number, boolean opponent) throws GameException {
         GameBoard currentPlayerGameBoard = currentTurnPlayer.getGameBoard();
@@ -202,18 +198,18 @@ public class GameController {
             }
             case END: {
                 currentPhase = GamePhase.DRAW;
-                changeTurn(false);
+                changeTurn(false,false);
                 break;
             }
-
         }
+        Duel.showPhase();
     }
 
-    public void changeTurn(boolean isTemporary) {
+    public void changeTurn(boolean isTemporary,boolean backToPlayer) {
         Player player = currentTurnPlayer;
         currentTurnPlayer = currentTurnOpponentPlayer;
         currentTurnOpponentPlayer = player;
-        if (isTemporary) {
+        if (isTemporary &&!backToPlayer) {
             ViewInterface.showResult("now it will be " + currentTurnPlayer.getUser().getNickname() + "’s turn");
             ViewInterface.showResult(mainPhase1Controller.showGameBoard(currentTurnPlayer, currentTurnOpponentPlayer));
             return;
@@ -228,18 +224,16 @@ public class GameController {
     }
 
     public void activateTrapEffect(ArrayList<SpellAndTrap> trapsCanBeActivated) {
-        ViewInterface.showResult("do you want to activate your trap and spell?");
         while (true) {
+            ViewInterface.showResult("do you want to activate your trap and spell?");
             String response = ViewInterface.getInput();
             if (response.equals("no")) {
-                changeTurn(true);
                 break;
             } else if (response.equals("yes")) {
                 while (true) {
                     String input = ViewInterface.getInput();
                     if (input.equals("cancel")) {
-                        changeTurn(true);
-                        return;
+                        break;
                     } else if (input.matches(GameRegexes.SELECT.regex)) {
                         String responseSelect = Duel.getMainPhase1().processSelect(input);
                         ViewInterface.showResult(responseSelect);

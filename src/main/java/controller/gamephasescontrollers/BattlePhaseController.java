@@ -65,6 +65,7 @@ public class BattlePhaseController implements methods {
         } else {
             activateTrapIfCanBeActivated(gameController);
             if(attackDisabled){
+                gameController.getAttackerCellsThisTurn().add(attackedCell);
                 attackDisabled=false;
                 return response;
             }
@@ -96,9 +97,9 @@ public class BattlePhaseController implements methods {
             if(!cell.isEmpty()&&cell.getCardStatus()==CardStatus.HIDDEN){
                 Card card=cell.getCellCard();
                 if(card.getName().equals("Mirror Force")||card.getName().equals("Negate Attack")){
-                    gameController.changeTurn(true);
+                    gameController.changeTurn(true,false);
                     gameController.activateTrapEffect(attackEffectSpellAndTraps);
-                    gameController.changeTurn(true);
+                    gameController.changeTurn(true,true);
                     break;
                 }
             }

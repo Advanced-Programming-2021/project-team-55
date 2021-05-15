@@ -62,7 +62,6 @@ public class MainPhase2 extends Duel {
         }
         else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
             gameController.changePhase();
-            showPhase();
         } else if (command.matches(GameRegexes.DESELECT.regex)) {
             try {
                 gameController.deselect();

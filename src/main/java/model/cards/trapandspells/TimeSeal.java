@@ -28,13 +28,13 @@ public class TimeSeal extends SpellAndTrap {
 
     public static boolean handleEffect(GameController gameController, Player currentPlayer){
         if (bannedPlayersForOneTurn.contains(currentPlayer)){
-            gameController.changeTurn(true);
+            gameController.changeTurn(true,false);
             ViewInterface.showResult(gameController.getCurrentTurnPlayer().getUser().getNickname() + " do you want to activate your Time Seal effect? yes/no");
             if (!ViewInterface.getInput().equals("yes")){
-                gameController.changeTurn(true);
+                gameController.changeTurn(true,true);
                 return false;
             }
-            gameController.changeTurn(true);
+            gameController.changeTurn(true,true);
             bannedPlayersForOneTurn.remove(currentPlayer);
             ViewInterface.showResult("you didn't get any hand cards due to Time Seal effect.");
             return true;

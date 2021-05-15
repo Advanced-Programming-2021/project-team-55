@@ -20,7 +20,6 @@ public class StandByPhase extends Duel {
         String response = "";
         standByPhaseController.activateEffects();
         gameController.changePhase();
-        showPhase();
 
 
         return response;
