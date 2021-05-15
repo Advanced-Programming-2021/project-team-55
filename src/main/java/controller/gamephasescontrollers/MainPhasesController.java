@@ -14,6 +14,7 @@ import model.cards.monsters.ManEaterBug;
 import model.cards.monsters.TerratigertheEmpoweredWarrior;
 import model.cards.monsters.TheTricky;
 import model.cards.trapandspells.TimeSeal;
+import model.cards.trapandspells.TorrentialTribute;
 import model.exceptions.GameException;
 import view.ConsoleColors;
 import view.ViewInterface;

@@ -63,6 +63,7 @@ public abstract class SpellAndTrap extends Card {
 
     }
 
+
     public static void updateSpellInGameBoard(GameController gameController) {
         Cell selectedCell= Cell.getSelectedCell();
         Card card = selectedCell.getCellCard();

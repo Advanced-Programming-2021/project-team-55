@@ -1,5 +1,6 @@
 package controller.gamephasescontrollers;
 
+import model.cards.SpellAndTrap;
 import model.exceptions.GameException;
 import model.CoinDice;
 import model.Player;
@@ -15,7 +16,9 @@ import view.gamephases.Duel;
 import view.gamephases.GamePhase;
 import view.gamephases.GameResponses;
 
+import javax.swing.text.View;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class GameController {
 
@@ -212,13 +215,71 @@ public class GameController {
         Player player = currentTurnPlayer;
         currentTurnPlayer = currentTurnOpponentPlayer;
         currentTurnOpponentPlayer = player;
-        if (isTemporary) return;
+        if (isTemporary) {
+            ViewInterface.showResult("now it will be "+currentTurnPlayer+"’s turn");
+            ViewInterface.showResult(mainPhase1Controller.showGameBoard(currentTurnPlayer,currentTurnOpponentPlayer));
+           return;
+        };
         didPlayerSetOrSummonThisTurn = false;
         changedPositionCells = new ArrayList<>();
         attackerCellsThisTurn=new ArrayList<>();
         turnCount++;
         //todo update changedPositionCells & other fields
         //todo reset attacked arraylist
+    }
+    public void changeTurnToActivateTrapEffect(ArrayList<SpellAndTrap>trapsCanBeActivated){
+        changeTurn(true);
+        while(true) {
+            ViewInterface.showResult(mainPhase1Controller.showGameBoard(currentTurnPlayer, currentTurnOpponentPlayer));
+            ViewInterface.showResult("do you want to activate your trap and spell?");
+            String response=ViewInterface.getInput();
+            if(response.equals("no")){
+                changeTurn(true);
+                break;
+            }
+            else if(response.equals("yes")){
+                while(true){
+                    String input=ViewInterface.getInput();
+                    if(input.equals("cancel")){
+                        changeTurn(true);
+                        return;
+                    }
+                    else if(input.matches(GameRegexes.SELECT.regex)){
+                        if(!input.matches(GameRegexes.SELECT_SPELL.regex)){
+                            ViewInterface.showResult(GameResponses.INVALID_SELECTION.response);
+                            continue;
+                        }
+                        else{
+                            String responseSelect=Duel.getMainPhase1().processSelect(input);
+                            if(!responseSelect.equals(GameResponses.CARD_SELECTED)){
+                                ViewInterface.showResult(responseSelect);
+                                continue;
+                            }
+                        }
+                    }
+                    else if(input.matches("activate effect")){
+                        if(Cell.getSelectedCell()==null){
+                            ViewInterface.showResult(GameResponses.NO_CARDS_SELECTED.response);
+                            continue;
+                        }
+                        else{
+                            Cell selectedCell=Cell.getSelectedCell();
+                            for(SpellAndTrap spellAndTrap:trapsCanBeActivated) {
+                                if (selectedCell.getCellCard().getName().equals(spellAndTrap.getName())){
+                                    SpellAndTrap.activateSpellOrTrapEffects(this,spellAndTrap);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else{
+                ViewInterface.showResult("Error: try again!");
+                continue;
+            }
+
+        }
     }
 
     protected void handleCardSideEffects() {

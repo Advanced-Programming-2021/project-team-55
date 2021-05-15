@@ -1,10 +1,12 @@
 package controller.gamephasescontrollers;
 
+import model.cards.SpellAndTrap;
 import model.cards.monsters.*;
 import model.board.CardStatus;
 import model.cards.monsters.ExploderDragon;
 import model.cards.monsters.Marshmallon;
 import model.cards.monsters.TheCalculator;
+import model.cards.trapandspells.MirrorForce;
 import model.cards.trapandspells.SwordsofRevealingLight;
 import model.exceptions.GameException;
 import model.Player;
@@ -14,6 +16,9 @@ import model.cards.Card;
 import model.cards.Monster;
 import model.cards.monsters.YomiShip;
 import view.gamephases.GameResponses;
+
+import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
 
 import static model.board.CardStatus.DEFENSIVE_OCCUPIED;
 import static model.board.CardStatus.OFFENSIVE_OCCUPIED;
@@ -48,6 +53,9 @@ public class BattlePhaseController implements methods {
         } else if (attackedCell == null || attackedCell.getCellCard() == null) {
             throw new GameException(GameResponses.NO_CARD_TO_ATTACK.response);
         } else {
+            ArrayList<SpellAndTrap>trapsToBeActivated=new ArrayList<>();
+            trapsToBeActivated.add(new MirrorForce());
+            gameController.changeTurnToActivateTrapEffect(trapsToBeActivated);
             if(SwordsofRevealingLight.handleEffect(gameController)){
                 throw new GameException("you can't attack because of your opponent's Swords of Revealing Light effect");
             }

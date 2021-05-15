@@ -15,3 +15,5 @@ easy cards:
 -Marshmallon
 
 ye soal carti ke to ye dast vared zamin mishe mitone hamle kone? (soal parham)
+activate shodan spellha dar gameBoard
+spellAbsorption
