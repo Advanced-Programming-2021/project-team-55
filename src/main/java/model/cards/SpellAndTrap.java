@@ -30,7 +30,6 @@ public abstract class SpellAndTrap extends Card {
     }
 
     public static void activateSpellOrTrapEffects(GameController gameController, SpellAndTrap spellAndTrap){
-
         if(spellAndTrap.name.equals("Monster Reborn"))MonsterReborn.setActivated(gameController);
         else if(spellAndTrap.name.equals("Terraforming")) Terraforming.setActivated(gameController);
         else if(spellAndTrap.name.equals("Pot of Greed")) PotofGreed.setActivated(gameController);

@@ -61,7 +61,7 @@ public class UnitedWeStand extends SpellAndTrap {
         }
     }
     public static void deActivateEffect(Cell cell){
-        if(cell.getCellCard().getName().equals("United We Stand")){
+        if(!cell.isEmpty()&&cell.getCellCard().getName().equals("United We Stand")){
             ((Monster)((UnitedWeStand)cell.getCellCard()).equippedCard).addATK
                     (-((UnitedWeStand)cell.getCellCard()).equipEffect);
         }

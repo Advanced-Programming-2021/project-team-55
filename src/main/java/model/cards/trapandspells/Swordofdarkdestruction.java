@@ -60,7 +60,7 @@ public class Swordofdarkdestruction extends SpellAndTrap {
         }
     }
     public static void deActivateEffect(Cell cell){
-        if(cell.getCellCard().getName().equals("Sword of dark destruction")){
+        if(!cell.isEmpty()&&cell.getCellCard().getName().equals("Sword of dark destruction")){
             Monster equipedMonster=(Monster) ((Swordofdarkdestruction) cell.getCellCard()).equippedCard;
             if(equipedMonster.getMonsterType()==MonsterType.FIEND||equipedMonster.getMonsterType()==MonsterType.SPELLCASTER) {
                 equipedMonster.addATK(-400);

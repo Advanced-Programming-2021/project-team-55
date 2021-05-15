@@ -58,7 +58,7 @@ public class BlackPendant extends SpellAndTrap {
         }
     }
     public static void deActivateEffect(Cell cell){
-            if(cell.getCellCard().getName().equals("Black Pendant")){
+            if(!cell.isEmpty()&&cell.getCellCard().getName().equals("Black Pendant")){
                 ((Monster)((BlackPendant)cell.getCellCard()).equippedCard).addATK(-500);
             }
     }

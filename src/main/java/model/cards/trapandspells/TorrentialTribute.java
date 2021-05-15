@@ -28,7 +28,9 @@ public class TorrentialTribute extends SpellAndTrap {
     private static void destroyAPlayerMonsters(Cell[] monsterCardZone, GameBoard gameBoard) {
         for (Cell monster : monsterCardZone
         ) {
-            monster.removeCardFromCell(gameBoard);
+            if(!monster.isEmpty()) {
+                monster.removeCardFromCell(gameBoard);
+            }
         }
     }
 
