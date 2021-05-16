@@ -224,19 +224,20 @@ public class GameController {
     }
 
     public void activateTrapEffect(ArrayList<SpellAndTrap> trapsCanBeActivated) {
-        ViewInterface.showResult("do you want to activate your trap and spell? yes/no");
         while (true) {
-            ViewInterface.showResult("do you want to activate your trap and spell?");
+            ViewInterface.showResult("do you want to activate your trap and spell? yes/no");
             String response = ViewInterface.getInput();
             if (response.equals("no")) {
                 break;
             } else if (response.equals("yes")) {
+                ViewInterface.showResult("select the trap you want to be activated");
                 while (true) {
                     String input = ViewInterface.getInput();
                     if (input.equals("cancel")) {
                         break;
                     } else if (input.matches(GameRegexes.SELECT.regex)) {
-                        String responseSelect = Duel.getMainPhase1().processSelect(input);
+                        String responseSelect = Duel.processSelect(input);
+                        if (responseSelect.contains("selected")) responseSelect = "trap " + responseSelect;
                         ViewInterface.showResult(responseSelect);
                         continue;
                     } else if (input.matches("activate effect")) {
