@@ -15,12 +15,12 @@ public class ViewInterface {
 
     public static String getInput() {
         String command;
-        try{
+        try {
             if (Duel.getGameController().getCurrentTurnPlayer().isAI() && !AIPlayerController.isIsGameEnded())
                 command = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
-                    AIPlayerController.orderKind.RANDOM)).getSpecialCommand();
+                        AIPlayerController.orderKind.RANDOM)).getSpecialCommand();
             else command = input.nextLine();
-        }catch(Exception e){
+        } catch (Exception e) {
             command = input.nextLine();
         }
         return sortFields(command);
@@ -30,11 +30,12 @@ public class ViewInterface {
         if (!result.equals("")) {
             AIPlayerController.setLastResponse(result);
             if (result.startsWith("Error: ")) {
-                //                try {
-//                    if (Duel.getGameController().getCurrentTurnPlayer().isAI()){
-////                        return;
+//                try {
+//                    if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
+//                        return;
 //                    }
-//                }catch (Exception ignored){}
+//                } catch (Exception ignored) {
+//                }
                 System.out.println(ConsoleColors.RED + result.replaceAll("Error: ", "") + ConsoleColors.RESET);
             } else {
                 if (Responses.responseExists(result) || GameResponses.responseExists(result)) {
