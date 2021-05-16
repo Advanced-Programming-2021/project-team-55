@@ -228,7 +228,7 @@ public class GameController {
     }
 
     public void activateTrapEffect(ArrayList<SpellAndTrap> trapsCanBeActivated) {
-        ViewInterface.showResult("do you want to activate your trap and spell?");
+        ViewInterface.showResult("do you want to activate your trap and spell? yes/no");
         while (true) {
             String response = ViewInterface.getInput();
             if (response.equals("no")) {

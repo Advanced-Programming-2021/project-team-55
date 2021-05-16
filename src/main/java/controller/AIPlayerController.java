@@ -183,15 +183,44 @@ public class AIPlayerController {
             lastAICommand = command;
             return command;
         }
+        if (lastResponse.contains("invalid format! try again:")) {
+            String command = "me " + CoinDice.rollDice();
+            lastAICommand = command;
+            return command;
+        }
         if (lastResponse.contains("now choose at most 2 opponent spell or traps") ||
                 lastResponse.contains("select second spell or trap") ||
                 lastResponse.contains("select a spell or trap card from your opponent")) {
-            String command = "select --spell " + CoinDice.rollDice() + " --opponent";
+            int randomNumber = CoinDice.rollDice();
+            String command = "select --spell " + randomNumber + " --opponent";
+            if (randomNumber == 6) command = "cancel";
+            lastAICommand = command;
+            return command;
+        }
+        if (lastResponse.contains("you should select a card from hand!")) {
+            String command = "select --hand " + CoinDice.rollDice();
             if (CoinDice.rollDice() == 6) command = "cancel";
             lastAICommand = command;
             return command;
         }
+        if (lastResponse.contains("select a spell or trap on the field to destroy") ||
+                lastResponse.contains("select a spell or trap card from your opponent gameBoard")) {
+            String command = "select --opponent --spell " + CoinDice.rollDice();
+            if (CoinDice.rollDice() == 6) command = "cancel";
+            lastAICommand = command;
+            return command;
+        }
+        if (lastResponse.equals("Error: try again") || lastResponse.equals("Error: no card found in the given position")) {
+            if (CoinDice.tossCoin() == 1) {
+                lastAICommand = "cancel";
+                return lastAICommand;
+            }
+        }
 
+        if (CoinDice.rollDice() == 6) {
+            lastAICommand = "cancel";
+            return lastAICommand;
+        }
         return getSelectCommandForMainPhases();
     }
 
