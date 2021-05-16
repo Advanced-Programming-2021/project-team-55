@@ -1,6 +1,7 @@
 package model.cards.trapandspells;
 
 import controller.gamephasescontrollers.GameController;
+import controller.gamephasescontrollers.MainPhasesController;
 import model.board.CardStatus;
 import model.board.Cell;
 import model.board.GameBoard;
@@ -211,5 +212,6 @@ public class AdvancedRitualArt extends SpellAndTrap {
                 }
             }
         }
+
     }
 }

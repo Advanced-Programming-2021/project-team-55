@@ -18,13 +18,13 @@ public class TrapHole extends SpellAndTrap {
     }
 
     public static void setActivated(GameController gameController) {
-        if (!summonedMonsterATKIsMoreThan1000(gameController)) return;
+        if (!isSummonedMonsterATKMoreThan1000(gameController)) return;
         destroySummonedMonster(gameController.getLastSummonedMonster(), gameController.getCurrentTurnOpponentPlayer().getGameBoard());
         updateSpellInGameBoard(gameController);
         ViewInterface.showResult("Trap Hole effect activated : summoned monster is destroyed");
     }
 
-    private static boolean summonedMonsterATKIsMoreThan1000(GameController gameController) {
+    public static boolean isSummonedMonsterATKMoreThan1000(GameController gameController) {
         return ((Monster) gameController.getLastSummonedMonster().getCellCard()).getAtk() >= 1000;
     }
 

@@ -9,12 +9,14 @@ import model.cards.Monster;
 import model.cards.SpellAndTrap;
 import model.cards.cardfeaturesenums.CardType;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
+import model.cards.cardfeaturesenums.SummonTypes;
 import model.cards.monsters.GateGuardian;
 import model.cards.monsters.ManEaterBug;
 import model.cards.monsters.TerratigertheEmpoweredWarrior;
 import model.cards.monsters.TheTricky;
 import model.cards.trapandspells.TimeSeal;
 import model.cards.trapandspells.TorrentialTribute;
+import model.cards.trapandspells.TrapHole;
 import model.exceptions.GameException;
 import view.ConsoleColors;
 import view.ViewInterface;
@@ -24,10 +26,11 @@ import view.gamephases.GameResponses;
 import java.util.ArrayList;
 
 public interface MainPhasesController {
-    ArrayList<SpellAndTrap>summonEffectSpellAndTrap=new ArrayList<>();
-    ArrayList<SpellAndTrap>flipSummonEffectSpellAndTrap=new ArrayList<>();
-    ArrayList<SpellAndTrap>SpecialSummonEffectSpellAndTrap=new ArrayList<>();
-    ArrayList<SpellAndTrap>ritualSummonEffectSpellAndTrap=new ArrayList<>();
+    ArrayList<SpellAndTrap> summonEffectSpellAndTrap = new ArrayList<>();
+    ArrayList<SpellAndTrap> flipSummonEffectSpellAndTrap = new ArrayList<>();
+    ArrayList<SpellAndTrap> SpecialSummonEffectSpellAndTrap = new ArrayList<>();
+    ArrayList<SpellAndTrap> ritualSummonEffectSpellAndTrap = new ArrayList<>();
+
     default void monsterInsert(Cell cell) {
 
     }
@@ -50,49 +53,91 @@ public interface MainPhasesController {
         int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
         if (TheTricky.handleEffect(gameController, selectedCell)) return;
         if (GateGuardian.handleEffect(gameController)) return;
-        selectedCell = handleTributeForNormalSummon(currentPlayer, selectedCell, monsterLevel,false);
-        currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED,gameController);
+        selectedCell = handleTributeForNormalSummon(currentPlayer, selectedCell, monsterLevel, false);
+        currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED, gameController);
         currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
         TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
         gameController.setLastSummonedMonster(selectedCell);
         Cell.deselectCell();
-        activateTrapIfCanBeActivated(gameController);
+        activateTrapIfCanBeActivated(gameController ,SummonTypes.NormalSummon);
     }
-    private void activateTrapIfCanBeActivated(GameController gameController){
-        for(Cell cell:gameController.currentTurnPlayer.getGameBoard().getSpellAndTrapCardZone()){
-            if(!cell.isEmpty()&&cell.getCardStatus()==CardStatus.HIDDEN){
-                Card card=cell.getCellCard();
-                if(card.getName().equals("Torrential Tribute") /*||//todo we have to add other traps here...*/){
+
+    private void activateTrapIfCanBeActivated(GameController gameController, SummonTypes summonType) {
+        for (Cell cell : gameController.currentTurnPlayer.getGameBoard().getSpellAndTrapCardZone()) {
+            if (!cell.isEmpty() && cell.getCardStatus() == CardStatus.HIDDEN) {
+                if (summonType == SummonTypes.NormalSummon) {
                     gameController.activateTrapEffect(summonEffectSpellAndTrap);
+                    break;
+                } else if (summonType == SummonTypes.FlipSummon) {
+                    gameController.activateTrapEffect(flipSummonEffectSpellAndTrap);
+                    break;
+                } else if (summonType == SummonTypes.SpecialSummon) {
+                    gameController.activateTrapEffect(SpecialSummonEffectSpellAndTrap);
+                    break;
+                } else if (summonType == SummonTypes.RitualSummon) {
+                    gameController.activateTrapEffect(ritualSummonEffectSpellAndTrap);
                     break;
                 }
             }
         }
-        for(Cell cell:gameController.currentTurnOpponentPlayer.getGameBoard().getSpellAndTrapCardZone()){
-            if(!cell.isEmpty()&&cell.getCardStatus()==CardStatus.HIDDEN){
-                Card card=cell.getCellCard();
-                if(card.getName().equals("Torrential Tribute")||card.getName().equals("Trap Hole")/*||//todo we have to add other traps here...*/){
-                    gameController.changeTurn(true,false);
+        for (Cell cell : gameController.currentTurnOpponentPlayer.getGameBoard().getSpellAndTrapCardZone()) {
+            if (!cell.isEmpty() && cell.getCardStatus() == CardStatus.HIDDEN) {
+                Card card = cell.getCellCard();
+                if (summonType == SummonTypes.NormalSummon) {
+                    gameController.changeTurn(true, false);
                     gameController.activateTrapEffect(summonEffectSpellAndTrap);
-                    gameController.changeTurn(true,true);
+                    gameController.changeTurn(true, true);
+                    break;
+                } else if (summonType == SummonTypes.FlipSummon) {
+                    gameController.changeTurn(true, false);
+                    gameController.activateTrapEffect(flipSummonEffectSpellAndTrap);
+                    gameController.changeTurn(true, true);
+                    break;
+                } else if (summonType == SummonTypes.SpecialSummon) {
+                    gameController.changeTurn(true, false);
+                    gameController.activateTrapEffect(SpecialSummonEffectSpellAndTrap);
+                    gameController.changeTurn(true, true);
+                    break;
+                } else if (summonType == SummonTypes.RitualSummon) {
+                    gameController.changeTurn(true, false);
+                    gameController.activateTrapEffect(ritualSummonEffectSpellAndTrap);
+                    gameController.changeTurn(true, true);
                     break;
                 }
             }
         }
     }
+
     private void addMonstersToSummonEffectSpellAndTrap() {
         summonEffectSpellAndTrap.add(new TorrentialTribute());
+        if (TrapHole.isSummonedMonsterATKMoreThan1000(Duel.getGameController()))
+            flipSummonEffectSpellAndTrap.add(new TorrentialTribute());
         //todo add the rest of summon monsters thing
     }
 
-    private Cell handleTributeForNormalSummon(Player currentPlayer, Cell selectedCell, int monsterLevel,boolean isSpecialSummon) throws GameException {
-        if (monsterLevel > 4||isSpecialSummon) {
+    private void addMonstersToFlipSummonEffectSpellAndTrap() {
+        if (TrapHole.isSummonedMonsterATKMoreThan1000(Duel.getGameController()))
+            flipSummonEffectSpellAndTrap.add(new TorrentialTribute());
+        //todo add the rest of summon monsters thing
+    }
+
+    private void addMonstersToSpecialSummonEffectSpellAndTrap() {
+        SpecialSummonEffectSpellAndTrap.add(new TorrentialTribute());
+        //todo add the rest of summon monsters thing
+    }
+
+    public static void addMonstersToRitualSummonEffectSpellAndTrap() {
+        ritualSummonEffectSpellAndTrap.add(new TorrentialTribute());
+        //todo add the rest of summon monsters thing
+    }
+
+    private Cell handleTributeForNormalSummon(Player currentPlayer, Cell selectedCell, int monsterLevel, boolean isSpecialSummon) throws GameException {
+        if (monsterLevel > 4 || isSpecialSummon) {
             int numberOfTributes;
-            if(isSpecialSummon){
-                numberOfTributes=1;
-            }
-            else {
+            if (isSpecialSummon) {
+                numberOfTributes = 1;
+            } else {
                 if (monsterLevel < 7) {
                     if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 1)
                         throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
@@ -140,11 +185,11 @@ public interface MainPhasesController {
                 if (gameController.DoPlayerSetOrSummonedThisTurn()) {
                     throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
                 }
-                playerGameBoard.addCardToMonsterCardZone(selectedCard, CardStatus.DEFENSIVE_HIDDEN,gameController);
+                playerGameBoard.addCardToMonsterCardZone(selectedCard, CardStatus.DEFENSIVE_HIDDEN, gameController);
                 playerGameBoard.getHandCards().remove(selectedCell);
                 gameController.setDidPlayerSetOrSummonThisTurn(true);
             } else {
-                playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard, CardStatus.HIDDEN,gameController);
+                playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard, CardStatus.HIDDEN, gameController);
                 playerGameBoard.getHandCards().remove(selectedCell);
                 TimeSeal.setActivated(gameController);
             }
@@ -176,12 +221,10 @@ public interface MainPhasesController {
     }
 
 
-
-
-    default boolean canSpecialSummon(GameController gameController){
-        GameBoard playerGameBoard=gameController.currentTurnPlayer.getGameBoard();
-        for(Cell cell:playerGameBoard.getMonsterCardZone()){
-            if(!cell.isEmpty()) {
+    default boolean canSpecialSummon(GameController gameController) {
+        GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
+        for (Cell cell : playerGameBoard.getMonsterCardZone()) {
+            if (!cell.isEmpty()) {
                 return true;
             }
         }
@@ -201,15 +244,13 @@ public interface MainPhasesController {
                 SpellAndTrap spell = (SpellAndTrap) card;
                 if (selectedCell.getCardStatus() == CardStatus.OCCUPIED) {
                     throw new GameException(GameResponses.ALREADY_ACTIVATED.response);
-                }
-                else if(gameController.changedPositionCells.contains(selectedCell)){
-                   throw new GameException(GameResponses.SPELL_CANT_BE_ACTIVATED_THIS_TURN.response);
-                }
-                else if (playerGameBoard.isSpellAndTrapCardZoneFull() && spell.getAttribute() != SpellOrTrapAttribute.FIELD) {
+                } else if (gameController.changedPositionCells.contains(selectedCell)) {
+                    throw new GameException(GameResponses.SPELL_CANT_BE_ACTIVATED_THIS_TURN.response);
+                } else if (playerGameBoard.isSpellAndTrapCardZoneFull() && spell.getAttribute() != SpellOrTrapAttribute.FIELD) {
                     throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
                 } else {
-                        //todo activate spell
-                        SpellAndTrap.activateSpellOrTrapEffects(gameController,spell);
+                    //todo activate spell
+                    SpellAndTrap.activateSpellOrTrapEffects(gameController, spell);
 //                        if(!playerGameBoard.isCellInSpellAndTrapZone(selectedCell)) {
 //                            playerGameBoard.getHandCards().remove(selectedCell);
 //                            if (spell.getAttribute() == SpellOrTrapAttribute.FIELD) {
@@ -229,7 +270,7 @@ public interface MainPhasesController {
     }
 
     default void flipSummon(GameController gameController) throws GameException {
-        addMonstersToSummonEffectSpellAndTrap();
+        addMonstersToFlipSummonEffectSpellAndTrap();
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         if (selectedCell == null) {
@@ -245,37 +286,37 @@ public interface MainPhasesController {
         selectedCell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
         ManEaterBug.handleEffect(gameController, selectedCell);
         Cell.deselectCell();
-        activateTrapIfCanBeActivated(gameController);
+        activateTrapIfCanBeActivated(gameController,SummonTypes.FlipSummon);
     }
 
-    default void specialSummon(GameController gameController) throws GameException{
-        addMonstersToSummonEffectSpellAndTrap();
+    default void specialSummon(GameController gameController) throws GameException {
+        addMonstersToSpecialSummonEffectSpellAndTrap();
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
-        while(true) {
+        while (true) {
 //            if (selectedCell == null) {
 //                throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
 //            } else if (!isSummonable(selectedCell.getCellCard())) {
 //                throw new GameException(GameResponses.CANT_SUMMON_CARD.response);
 //            }
-            String input=ViewInterface.getInput();
-            if(!input.equals("summon")){
+            String input = ViewInterface.getInput();
+            if (!input.equals("summon")) {
                 ViewInterface.showResult(GameResponses.YOU_SHOULD_SPECIAL_SUMMON_NOW.response);
                 continue;
             }
             int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
 
-            selectedCell = handleTributeForNormalSummon(currentPlayer, selectedCell, monsterLevel,true);
+            selectedCell = handleTributeForNormalSummon(currentPlayer, selectedCell, monsterLevel, true);
 
             currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED, gameController);
             currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
             TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
             gameController.setDidPlayerSetOrSummonThisTurn(true);
             gameController.shouldSpecialSummonNow = false;
+            activateTrapIfCanBeActivated(gameController,SummonTypes.FlipSummon);
             Cell.deselectCell();
             break;
         }
-        activateTrapIfCanBeActivated(gameController);
     }
 
 
@@ -284,8 +325,8 @@ public interface MainPhasesController {
     }
 
     default boolean isSummonable(Card card) {
-        if(card.isMonster()){
-            return ((Monster)card).getCardType()!=CardType.RITUAL;
+        if (card.isMonster()) {
+            return ((Monster) card).getCardType() != CardType.RITUAL;
         }
         return false;
     }
