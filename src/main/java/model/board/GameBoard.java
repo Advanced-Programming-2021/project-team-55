@@ -1,12 +1,12 @@
 package model.board;
 
 import controller.gamephasescontrollers.GameController;
+import model.cards.Card;
+import model.cards.Deck;
 import model.cards.Monster;
 import model.cards.cardfeaturesenums.CardType;
 import model.cards.cardfeaturesenums.MonsterType;
 import model.exceptions.GameException;
-import model.cards.Card;
-import model.cards.Deck;
 import view.gamephases.GameResponses;
 
 import java.util.ArrayList;
@@ -138,10 +138,7 @@ public class GameBoard {
     }
 
     public boolean isHandCardEmpty() {
-        for (int i = 0; i < 5; i++) {
-            if (!handCards.get(i).isEmpty()) return false;
-        }
-        return true;
+        return handCards.size() == 0;
     }
 
     public int getNumberOfMonstersOnMonsterCardZone() {
@@ -263,20 +260,22 @@ public class GameBoard {
         }
         return false;
     }
-    public boolean doesMonsterZoneHaveOccupiedMonsters(){
+
+    public boolean doesMonsterZoneHaveOccupiedMonsters() {
         for (int i = 0; i < 5; i++) {
-            if (!monsterCardZone[i].isEmpty() && monsterCardZone[i].getCardStatus()==CardStatus.DEFENSIVE_OCCUPIED||
-                    monsterCardZone[i].getCardStatus()==CardStatus.OFFENSIVE_OCCUPIED) {
+            if (!monsterCardZone[i].isEmpty() && monsterCardZone[i].getCardStatus() == CardStatus.DEFENSIVE_OCCUPIED ||
+                    monsterCardZone[i].getCardStatus() == CardStatus.OFFENSIVE_OCCUPIED) {
                 return true;
             }
         }
-            return false;
+        return false;
     }
-    public int getCountOccupiedMonstersInMonsterZone(){
-        int count=0;
+
+    public int getCountOccupiedMonstersInMonsterZone() {
+        int count = 0;
         for (int i = 0; i < 5; i++) {
-            if (!monsterCardZone[i].isEmpty() && monsterCardZone[i].getCardStatus()==CardStatus.DEFENSIVE_OCCUPIED||
-                    monsterCardZone[i].getCardStatus()==CardStatus.OFFENSIVE_OCCUPIED) {
+            if (!monsterCardZone[i].isEmpty() && monsterCardZone[i].getCardStatus() == CardStatus.DEFENSIVE_OCCUPIED ||
+                    monsterCardZone[i].getCardStatus() == CardStatus.OFFENSIVE_OCCUPIED) {
                 count++;
             }
         }

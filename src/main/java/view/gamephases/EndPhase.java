@@ -2,8 +2,8 @@ package view.gamephases;
 
 import controller.gamephasescontrollers.EndPhaseController;
 import model.cards.monsters.Scanner;
-import model.cards.trapandspells.SwordsofRevealingLight;
 import model.cards.monsters.Texchanger;
+import model.cards.trapandspells.SwordsofRevealingLight;
 import view.ViewInterface;
 
 public class EndPhase extends Duel {

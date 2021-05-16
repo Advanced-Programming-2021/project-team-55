@@ -17,8 +17,9 @@ public class Suijin extends Monster {
                 , 8700, 2500, 2400, 7, MonsterAttribute.WATER, MonsterType.AQUA, CardType.EFFECTIVE);
     }
 
-    public static void handleEffect(Cell attackerCell, Cell attackedCell){
-        if (attackedCell.getCardStatus() != CardStatus.OFFENSIVE_OCCUPIED || !attackedCell.getCellCard().getName().equals("Suijin")) return;
+    public static void handleEffect(Cell attackerCell, Cell attackedCell) {
+        if (attackedCell.getCardStatus() != CardStatus.OFFENSIVE_OCCUPIED || !attackedCell.getCellCard().getName().equals("Suijin"))
+            return;
 
         Suijin attackedMonster = ((Suijin) attackedCell.getCellCard());
         if (attackedMonster.isEffectUsed) return;

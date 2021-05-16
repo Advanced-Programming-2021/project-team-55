@@ -87,7 +87,7 @@ public class MonsterReborn extends SpellAndTrap {
                 return;
             }
             else{
-                ViewInterface.showResult("Error: invalid format! try again:");
+                ViewInterface.showResult("Error: invalid format! try again: choose a monster from your or your opponents graveyard");
             }
         }
     }

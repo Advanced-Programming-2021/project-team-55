@@ -8,9 +8,7 @@ import model.cards.Monster;
 import model.cards.cardfeaturesenums.CardType;
 import model.cards.cardfeaturesenums.MonsterAttribute;
 import model.cards.cardfeaturesenums.MonsterType;
-import model.exceptions.GameException;
 import view.ViewInterface;
-import view.gamephases.Duel;
 
 import java.util.ArrayList;
 

@@ -2,12 +2,12 @@ package model.board;
 
 import model.cards.Card;
 import model.cards.Monster;
+import model.cards.monsters.CommandKnight;
 import model.cards.trapandspells.BlackPendant;
 import model.cards.trapandspells.MagnumShield;
 import model.cards.trapandspells.Swordofdarkdestruction;
 import model.cards.trapandspells.UnitedWeStand;
 import view.gamephases.Duel;
-import model.cards.monsters.CommandKnight;
 
 
 public class Cell {
@@ -52,6 +52,7 @@ public class Cell {
         UnitedWeStand.deActivateEffect(this);
         Swordofdarkdestruction.deActivateEffect(this);
         MagnumShield.deActivateEffect(this);
+        if(Cell.getSelectedCell() == this) selectedCell = null;
         gameBoard.addCardToGraveyard(this.card);
         this.card = null;
         this.cardStatus = null;

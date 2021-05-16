@@ -79,25 +79,25 @@ public class AIPlayerController {
     }
 
     public static void recordGameLogs(GameController gameController) {
-        try {
-            String csv = "src\\resources\\gameLog\\data.csv";
-            CSVWriter writer = new CSVWriter(new FileWriter(csv, true));
-
-            String[] record = new String[4];
-            record[0] = (gameController.getMainPhase1Controller().showGameBoard(gameController.getCurrentTurnPlayer(), gameController.getCurrentTurnOpponentPlayer()));
-            record[1] = (secondLastResponse);
-            record[2] = (lastAISelectionCommand);
-            record[3] = (lastAICommand);
-//            record[0] = "" + saveStringAndReturnCode(gameController.getMainPhase1Controller().showGameBoard(gameController.getCurrentTurnPlayer(), gameController.getCurrentTurnOpponentPlayer()));
-//            record[1] = "" + saveStringAndReturnCode(secondLastResponse);
-//            record[2] = "" + saveStringAndReturnCode(lastAISelectionCommand);
-//            record[3] = "" + saveStringAndReturnCode(lastAICommand);
-
-            writer.writeNext(record);
-
-            writer.close();
-        } catch (Exception ignored) {
-        }
+//        try {
+//            String csv = "src\\resources\\gameLog\\data.csv";
+//            CSVWriter writer = new CSVWriter(new FileWriter(csv, true));
+//
+//            String[] record = new String[4];
+//            record[0] = (gameController.getMainPhase1Controller().showGameBoard(gameController.getCurrentTurnPlayer(), gameController.getCurrentTurnOpponentPlayer()));
+//            record[1] = (secondLastResponse);
+//            record[2] = (lastAISelectionCommand);
+//            record[3] = (lastAICommand);
+////            record[0] = "" + saveStringAndReturnCode(gameController.getMainPhase1Controller().showGameBoard(gameController.getCurrentTurnPlayer(), gameController.getCurrentTurnOpponentPlayer()));
+////            record[1] = "" + saveStringAndReturnCode(secondLastResponse);
+////            record[2] = "" + saveStringAndReturnCode(lastAISelectionCommand);
+////            record[3] = "" + saveStringAndReturnCode(lastAICommand);
+//
+//            writer.writeNext(record);
+//
+//            writer.close();
+//        } catch (Exception ignored) {
+//        }
     }
 //
 //    private static int saveStringAndReturnCode(String str){
@@ -250,6 +250,13 @@ public class AIPlayerController {
                 lastAICommand = "cancel";
                 return lastAICommand;
             }
+        }
+        if (lastResponse.contains("choose a monster from your or your opponents graveyard")) {
+            String command;
+            if (CoinDice.tossCoin() == 1) command = "me " + CoinDice.rollDice();
+            else command = "opponent " + CoinDice.rollDice();
+            lastAICommand = command;
+            return command;
         }
 
         if (CoinDice.rollDice() == 6) {

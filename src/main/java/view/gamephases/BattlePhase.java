@@ -14,10 +14,9 @@ public class BattlePhase extends Duel {
     @Override
     protected void execute() {
         battlePhaseController = gameController.getBattlePhaseController();
-        if(gameController.turnCount==1){
+        if (gameController.turnCount == 1) {
             gameController.changePhase();
-        }
-        else {
+        } else {
             String response;
             if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
                 AIPlayerController aiPlayerController = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
@@ -76,8 +75,8 @@ public class BattlePhase extends Duel {
                 response = e.toString();
             }
         } else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
-                gameController.currentPhase = GamePhase.GRAVEYARD;
-                response = gameController.showGraveyard(gameController.currentTurnPlayer);
+            gameController.currentPhase = GamePhase.GRAVEYARD;
+            response = gameController.showGraveyard(gameController.currentTurnPlayer);
         } else if (command.matches(GameRegexes.SURRENDER.regex)) {
             gameController.surrender();
         } else if (command.matches(GameRegexes.INCREASE_LP.regex)) {

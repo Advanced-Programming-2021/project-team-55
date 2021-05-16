@@ -4,7 +4,6 @@ import controller.AIPlayerController;
 import controller.gamephasescontrollers.MainPhase2Controller;
 import model.exceptions.GameException;
 import view.GameRegexes;
-import view.LoggerMessage;
 import view.ViewInterface;
 
 import java.util.regex.Matcher;
@@ -26,16 +25,16 @@ public class MainPhase2 extends Duel {
             String AICommand = "";
             response = processCommand(AICommand);
             while (response.startsWith("Error: ") && !AICommand.equals("next phase")) {
-                AICommand =  aiPlayerController.getSelectCommandForMainPhases();
+                AICommand = aiPlayerController.getSelectCommandForMainPhases();
                 response = processCommand(AICommand);
                 if (AICommand.equals("next phase")) break;
-                AICommand =  aiPlayerController.getMainCommandForMainPhases();
+                AICommand = aiPlayerController.getMainCommandForMainPhases();
                 response = processCommand(AICommand);
             }
         } else {
             response = processCommand(ViewInterface.getInput());
         }
-            ViewInterface.showResult(response);
+        ViewInterface.showResult(response);
     }
 
     @Override
@@ -59,8 +58,7 @@ public class MainPhase2 extends Duel {
         }*/
         if (!gameController.checkCommandIsInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
-        }
-        else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
+        } else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
             gameController.changePhase();
         } else if (command.matches(GameRegexes.DESELECT.regex)) {
             try {
@@ -108,11 +106,10 @@ public class MainPhase2 extends Duel {
                 response = e.toString();
             }
         } else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
-                gameController.currentPhase = GamePhase.GRAVEYARD;
-                response = gameController.showGraveyard(gameController.currentTurnPlayer);
+            gameController.currentPhase = GamePhase.GRAVEYARD;
+            response = gameController.showGraveyard(gameController.currentTurnPlayer);
 
-        }
-        else if (command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {
+        } else if (command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {
             try {
                 mainPhase2Controller.activateSpell(gameController);
                 response = GameResponses.SPELL_ACTIVATED.response;

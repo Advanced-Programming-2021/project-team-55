@@ -26,11 +26,7 @@ import view.gamephases.GameResponses;
 import java.util.ArrayList;
 
 public interface MainPhasesController {
-    ArrayList<SpellAndTrap> summonEffectSpellAndTrap = new ArrayList<>();
-    ArrayList<SpellAndTrap> flipSummonEffectSpellAndTrap = new ArrayList<>();
-    ArrayList<SpellAndTrap> SpecialSummonEffectSpellAndTrap = new ArrayList<>();
-    ArrayList<SpellAndTrap> ritualSummonEffectSpellAndTrap = new ArrayList<>();
-
+    ArrayList<SpellAndTrap>summonEffectSpellAndTrap=new ArrayList<>();
     default void monsterInsert(Cell cell) {
 
     }
@@ -313,10 +309,10 @@ public interface MainPhasesController {
             TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
             gameController.setDidPlayerSetOrSummonThisTurn(true);
             gameController.shouldSpecialSummonNow = false;
-            activateTrapIfCanBeActivated(gameController,SummonTypes.FlipSummon);
             Cell.deselectCell();
             break;
         }
+        activateTrapIfCanBeActivated(gameController);
     }
 
 
@@ -328,6 +324,11 @@ public interface MainPhasesController {
         if (card.isMonster()) {
             return ((Monster) card).getCardType() != CardType.RITUAL;
         }
+        try {
+            if(card.isMonster()){
+                return ((Monster)card).getCardType()!=CardType.RITUAL;
+            }
+        }catch (Exception ignored){}
         return false;
     }
 

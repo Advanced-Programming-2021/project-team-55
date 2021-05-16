@@ -18,7 +18,11 @@ public class TerratigertheEmpoweredWarrior extends Monster {
     }
 
     public static void handleEffect(GameController gameController, Cell summonedCell) {
-        if (!summonedCell.getCellCard().getName().equals("Terratiger, the Empowered Warrior")) return;
+        try {
+            if (!summonedCell.getCellCard().getName().equals("Terratiger, the Empowered Warrior")) return;
+        }catch (Exception e) {
+            return;
+        }
 
         ViewInterface.showResult("\"Terratiger, the Empowered Warrior\" effect activated:");
         if (gameController.getCurrentTurnPlayer().getGameBoard().doesHandDeckHaveCard(4, CardType.NORMAL)) {
@@ -50,7 +54,7 @@ public class TerratigertheEmpoweredWarrior extends Monster {
                     gameController.getMainPhase1Controller().setCard(gameController);
                     break;
                 } catch (GameException e) {
-                    e.printStackTrace();
+                    ViewInterface.showResult(e.getMessage());
                 }
             }
         } else {
