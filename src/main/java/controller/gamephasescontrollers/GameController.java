@@ -19,6 +19,15 @@ import view.gamephases.GameResponses;
 import java.util.ArrayList;
 
 public class GameController {
+    Cell lastSummonedMonster = new Cell();
+
+    public Cell getLastSummonedMonster() {
+        return lastSummonedMonster;
+    }
+
+    public void setLastSummonedMonster(Cell lastSummonedMonster) {
+        this.lastSummonedMonster = lastSummonedMonster;
+    }
 
     public Player currentTurnPlayer;
     public Player currentTurnOpponentPlayer;

@@ -26,6 +26,9 @@ import java.util.ArrayList;
 public interface MainPhasesController {
 
     ArrayList<SpellAndTrap>summonEffectSpellAndTrap=new ArrayList<>();
+    ArrayList<SpellAndTrap>flipSummonEffectSpellAndTrap=new ArrayList<>();
+    ArrayList<SpellAndTrap>SpecialSummonEffectSpellAndTrap=new ArrayList<>();
+    ArrayList<SpellAndTrap>ritualSummonEffectSpellAndTrap=new ArrayList<>();
     default void monsterInsert(Cell cell) {
 
     }
@@ -48,13 +51,12 @@ public interface MainPhasesController {
         int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
         if (TheTricky.handleEffect(gameController, selectedCell)) return;
         if (GateGuardian.handleEffect(gameController)) return;
-
         selectedCell = handleTributeForNormalSummon(currentPlayer, selectedCell, monsterLevel,false);
-
         currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED,gameController);
         currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
         TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
+        gameController.setLastSummonedMonster(selectedCell);
         Cell.deselectCell();
         activateTrapIfCanBeActivated(gameController);
     }
@@ -62,7 +64,7 @@ public interface MainPhasesController {
         for(Cell cell:gameController.currentTurnPlayer.getGameBoard().getSpellAndTrapCardZone()){
             if(!cell.isEmpty()&&cell.getCardStatus()==CardStatus.HIDDEN){
                 Card card=cell.getCellCard();
-                if(card.getName().equals("Torrential Tribute")/*||//todo we have to add other traps here...*/){
+                if(card.getName().equals("Torrential Tribute") /*||//todo we have to add other traps here...*/){
                     gameController.activateTrapEffect(summonEffectSpellAndTrap);
                     break;
                 }
@@ -71,7 +73,7 @@ public interface MainPhasesController {
         for(Cell cell:gameController.currentTurnOpponentPlayer.getGameBoard().getSpellAndTrapCardZone()){
             if(!cell.isEmpty()&&cell.getCardStatus()==CardStatus.HIDDEN){
                 Card card=cell.getCellCard();
-                if(card.getName().equals("Torrential Tribute")/*||//todo we have to add other traps here...*/){
+                if(card.getName().equals("Torrential Tribute")||card.getName().equals("Trap Hole")/*||//todo we have to add other traps here...*/){
                     gameController.changeTurn(true,false);
                     gameController.activateTrapEffect(summonEffectSpellAndTrap);
                     gameController.changeTurn(true,true);

@@ -4,7 +4,6 @@ import controller.AIPlayerController;
 import controller.gamephasescontrollers.BattlePhaseController;
 import model.exceptions.GameException;
 import view.GameRegexes;
-import view.LoggerMessage;
 import view.ViewInterface;
 
 import java.util.regex.Matcher;
