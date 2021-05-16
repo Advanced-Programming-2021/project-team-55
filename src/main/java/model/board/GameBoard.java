@@ -160,6 +160,10 @@ public class GameBoard {
         return counter;
     }
 
+    public Cell getMonsterByIndex(int number){
+        return monsterCardZone[number - 1];
+    }
+
     public boolean isCellVisibleToOpponent(Cell cell) {
         for (Cell cell1 : monsterCardZone) {
             if (cell == cell1 && cell.getCardStatus() == CardStatus.DEFENSIVE_HIDDEN) {
@@ -306,7 +310,9 @@ public class GameBoard {
     public ArrayList<Cell> getGraveyardMonstersCell() {
         ArrayList<Cell> graveyardMonstersCell = new ArrayList<>();
         for (Cell cell : graveyard) {
-            if (cell.getCellCard().isMonster()) graveyardMonstersCell.add(cell);
+            try {
+                if (cell.getCellCard().isMonster()) graveyardMonstersCell.add(cell);
+            }catch(Exception ignored) {}
         }
         return graveyardMonstersCell;
     }

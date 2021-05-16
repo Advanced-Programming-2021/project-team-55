@@ -35,7 +35,7 @@ public class TerratigertheEmpoweredWarrior extends Monster {
                 }
                 String result = Duel.getMainPhase1().processSelect(selectionCommand);
                 if (!result.equals("card selected")) {
-                    ViewInterface.showResult("Error: try again!");
+                    ViewInterface.showResult("Error: try again");
                     continue;
                 }
                 if (Cell.getSelectedCell().getCellCard().getCardKind() != Kind.MONSTER){

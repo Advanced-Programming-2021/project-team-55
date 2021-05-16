@@ -46,7 +46,7 @@ public class Mysticalspacetyphoon extends SpellAndTrap {
                     break;
                 }
             }
-            ViewInterface.showResult("Error: try again!");
+            ViewInterface.showResult("Error: try again. you should select a spell or trap on the field to destroy");
             input = ViewInterface.getInput();
         }
         Cell.setSelectedCell(selectedCell);

@@ -3,6 +3,10 @@ package controller;
 import com.opencsv.CSVWriter;
 import controller.gamephasescontrollers.GameController;
 import model.CoinDice;
+import model.board.CardStatus;
+import model.board.Cell;
+import model.cards.Monster;
+import view.gamephases.Duel;
 
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -146,6 +150,25 @@ public class AIPlayerController {
         } catch (Exception e) {
             string = "next phase";
         }
+        if (string.matches("attack \\d+")) {
+            try {
+                int num = Integer.parseInt(string.substring(7));
+                Cell opponentMonster = Duel.getGameController().getCurrentTurnOpponentPlayer().getGameBoard().getMonsterByIndex(num);
+                Cell aiMonster = Cell.getSelectedCell();
+                if (opponentMonster.getCardStatus() == CardStatus.OFFENSIVE_OCCUPIED) {
+                    if (((Monster) opponentMonster.getCellCard()).getAtk() > ((Monster) aiMonster.getCellCard()).getAtk()) {
+                        this.getMainCommandForBattlePhase();
+                    }
+                }
+                if (opponentMonster.getCardStatus() == CardStatus.DEFENSIVE_HIDDEN) {
+                    if (((Monster) opponentMonster.getCellCard()).getDef() > ((Monster) aiMonster.getCellCard()).getAtk()) {
+                        this.getMainCommandForBattlePhase();
+                    }
+                }
+            } catch (Exception ignored) {
+                this.getMainCommandForBattlePhase();
+            }
+        }
         lastAICommand = string;
         return string;
     }
@@ -183,15 +206,56 @@ public class AIPlayerController {
             lastAICommand = command;
             return command;
         }
+        if (lastResponse.contains("invalid format! try again:")) {
+            String command = "me " + CoinDice.rollDice();
+            lastAICommand = command;
+            return command;
+        }
+        if (lastResponse.contains("trap card selected")) {
+            String command = "activate effect";
+            lastAICommand = command;
+            return command;
+        }
+        if (lastResponse.contains("select the trap you want to be activated")) {
+            int randomNumber = CoinDice.rollDice();
+            String command = "select --spell " + randomNumber;
+            if (randomNumber == 6) command = "cancel";
+            lastAICommand = command;
+            return command;
+        }
         if (lastResponse.contains("now choose at most 2 opponent spell or traps") ||
                 lastResponse.contains("select second spell or trap") ||
                 lastResponse.contains("select a spell or trap card from your opponent")) {
-            String command = "select --spell " + CoinDice.rollDice() + " --opponent";
+            int randomNumber = CoinDice.rollDice();
+            String command = "select --spell " + randomNumber + " --opponent";
+            if (randomNumber == 6) command = "cancel";
+            lastAICommand = command;
+            return command;
+        }
+        if (lastResponse.contains("you should select a card from hand!")) {
+            String command = "select --hand " + CoinDice.rollDice();
             if (CoinDice.rollDice() == 6) command = "cancel";
             lastAICommand = command;
             return command;
         }
+        if (lastResponse.contains("select a spell or trap on the field to destroy") ||
+                lastResponse.contains("select a spell or trap card from your opponent gameBoard")) {
+            String command = "select --opponent --spell " + CoinDice.rollDice();
+            if (CoinDice.rollDice() == 6) command = "cancel";
+            lastAICommand = command;
+            return command;
+        }
+        if (lastResponse.equals("Error: try again") || lastResponse.equals("Error: no card found in the given position")) {
+            if (CoinDice.tossCoin() == 1) {
+                lastAICommand = "cancel";
+                return lastAICommand;
+            }
+        }
 
+        if (CoinDice.rollDice() == 6) {
+            lastAICommand = "cancel";
+            return lastAICommand;
+        }
         return getSelectCommandForMainPhases();
     }
 

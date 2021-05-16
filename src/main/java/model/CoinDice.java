@@ -1,15 +1,15 @@
 package model;
+import model.cards.trapandspells.MagicCylinder;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class CoinDice {
 
     public static int rollDice() {
-        return (int)Math.random() % 6 + 1;
+        return Math.abs(ThreadLocalRandom.current().nextInt())%6+1;
     }
-
     public static int tossCoin() {
-        return (int)Math.random() % 2 + 1;
+        return Math.abs(ThreadLocalRandom.current().nextInt())%2+1;
     }
 
 }

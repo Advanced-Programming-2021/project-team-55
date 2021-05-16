@@ -60,11 +60,14 @@ public class UnitedWeStand extends SpellAndTrap {
             input = ViewInterface.getInput();
         }
     }
-    public static void deActivateEffect(Cell cell){
-        if(!cell.isEmpty()&&cell.getCellCard().getName().equals("United We Stand")){
-            ((Monster)((UnitedWeStand)cell.getCellCard()).equippedCard).addATK
-                    (-((UnitedWeStand)cell.getCellCard()).equipEffect);
+    public static void deActivateEffect(Cell cell) {
+        if (!cell.isEmpty() && cell.getCellCard().getName().equals("United We Stand")) {
+            try {
+                ((Monster) ((UnitedWeStand) cell.getCellCard()).equippedCard).addATK
+                        (-((UnitedWeStand) cell.getCellCard()).equipEffect);
+            }catch(Exception ignored){}
         }
     }
+
 
 }
