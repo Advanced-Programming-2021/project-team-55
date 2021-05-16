@@ -6,10 +6,7 @@ import model.board.CardStatus;
 import model.cards.monsters.ExploderDragon;
 import model.cards.monsters.Marshmallon;
 import model.cards.monsters.TheCalculator;
-import model.cards.trapandspells.MirrorForce;
-import model.cards.trapandspells.NegateAttack;
-import model.cards.trapandspells.SwordsofRevealingLight;
-import model.cards.trapandspells.TorrentialTribute;
+import model.cards.trapandspells.*;
 import model.exceptions.GameException;
 import model.Player;
 import model.board.Cell;
@@ -30,11 +27,13 @@ public class BattlePhaseController implements methods {
 
     private final GameController gameController;
     private boolean attackDisabled=false;
+    private Cell attacker=Cell.getSelectedCell();
     private static ArrayList<SpellAndTrap>attackEffectSpellAndTraps;
     static {
         attackEffectSpellAndTraps=new ArrayList<>();
         attackEffectSpellAndTraps.add(new MirrorForce());
         attackEffectSpellAndTraps.add(new NegateAttack());
+        attackEffectSpellAndTraps.add(new MagicCylinder());
     }
 
     public BattlePhaseController(GameController gameController) {
@@ -45,9 +44,19 @@ public class BattlePhaseController implements methods {
         attackDisabled=true;
     }
 
+    private void setAttacker(Cell attacker){
+        if(attacker!=null) {
+            this.attacker = attacker;
+        }
+    }
+    public Cell getAttacker() {
+        return attacker;
+    }
+
     public String attack(int attackedCellNumber) throws GameException {
         String response = "";
         Cell attackerCell = Cell.getSelectedCell();
+        setAttacker(attackerCell);
         Cell attackedCell = null;
         GameBoard opponentGameBoard = gameController.currentTurnOpponentPlayer.getGameBoard();
         GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
@@ -65,7 +74,7 @@ public class BattlePhaseController implements methods {
         } else {
             activateTrapIfCanBeActivated(gameController);
             if(attackDisabled){
-                gameController.getAttackerCellsThisTurn().add(attackedCell);
+                gameController.getAttackerCellsThisTurn().add(attackerCell);
                 attackDisabled=false;
                 return response;
             }
@@ -76,6 +85,7 @@ public class BattlePhaseController implements methods {
                 throw new GameException("Command Knight effect activated: you should first destroy other opponent monsters");
             Suijin.handleEffect(attackerCell, attackedCell);
             if (Texchanger.handleEffect(gameController, attackedCell)) throw new GameException("your attack canceled.");
+            gameController.getAttackerCellsThisTurn().add(attackerCell);
             response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
             if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
                 if (response.equals(""))
@@ -96,7 +106,8 @@ public class BattlePhaseController implements methods {
         for(Cell cell:gameController.currentTurnOpponentPlayer.getGameBoard().getSpellAndTrapCardZone()){
             if(!cell.isEmpty()&&cell.getCardStatus()==CardStatus.HIDDEN){
                 Card card=cell.getCellCard();
-                if(card.getName().equals("Mirror Force")||card.getName().equals("Negate Attack")){
+                if(card.getName().equals("Mirror Force")||card.getName().equals("Negate Attack")
+                ||card.getName().equals("Magic Cylinder")){
                     gameController.changeTurn(true,false);
                     gameController.activateTrapEffect(attackEffectSpellAndTraps);
                     gameController.changeTurn(true,true);
@@ -125,7 +136,7 @@ public class BattlePhaseController implements methods {
                     calculateDamage(attackerCell, attackedCell) + " battle damage";
             response += Marshmallon.handleEffect(gameController, attackerCell, attackedCell);
         }
-        gameController.getAttackerCellsThisTurn().add(attackedCell);
+        gameController.getAttackerCellsThisTurn().add(attackerCell);
         return response;
     }
     private String attackToDefensiveOccupiedCell(Cell attackerCell, Cell attackedCell, GameBoard playerGameBoard) {
@@ -142,7 +153,7 @@ public class BattlePhaseController implements methods {
             response = "no card is destroyed and you received " +
                     calculateDamage(attackerCell, attackedCell) + " battle damage";
         }
-        gameController.getAttackerCellsThisTurn().add(attackedCell);
+        gameController.getAttackerCellsThisTurn().add(attackerCell);
         return response;
     }
 
@@ -164,7 +175,7 @@ public class BattlePhaseController implements methods {
                     calculateDamage(attackerCell, attackedCell) + " battle damage";
             attackerCell.removeCardFromCell(playerGameBoard);
         }
-        gameController.getAttackerCellsThisTurn().add(attackedCell);
+        gameController.getAttackerCellsThisTurn().add(attackerCell);
         return response;
     }
 

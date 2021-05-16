@@ -1,7 +1,7 @@
 package view;
 
 public enum GameRegexes {
-    SELECT("^select (.*)"),
+    SELECT("^select (.*)$"),
     SELECT_MONSTER("^select --monster (\\d+)( --opponent)?$"),
     SELECT_SPELL("^select --spell (\\d+)$"),
     SELECT_OPPONENT_SPELL("^select --opponent --spell (\\d+)$"),

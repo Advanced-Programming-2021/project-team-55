@@ -24,7 +24,6 @@ import view.gamephases.GameResponses;
 import java.util.ArrayList;
 
 public interface MainPhasesController {
-
     ArrayList<SpellAndTrap>summonEffectSpellAndTrap=new ArrayList<>();
     default void monsterInsert(Cell cell) {
 

@@ -49,6 +49,7 @@ public abstract class SpellAndTrap extends Card {
         else if (spellAndTrap.name.equals("Torrential Tribute"))TorrentialTribute.setActivated(gameController);
         else if(spellAndTrap.name.equals("Mirror Force"))MirrorForce.setActivated(gameController);
         else if(spellAndTrap.name.equals("Negate Attack"))NegateAttack.setActivated(gameController);
+        else if(spellAndTrap.name.equals("Magic Cylinder"))MagicCylinder.setActivated(gameController);
         else{
             ViewInterface.showResult(GameResponses.ACTIVATION_ONLY_FOR_SPELL.response);
         }
