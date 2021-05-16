@@ -2,9 +2,9 @@ package view.Menus;
 
 import controller.CheatController;
 import controller.menucontroller.ShopMenuController;
-import model.exceptions.MenuException;
 import model.User;
 import model.cards.Card;
+import model.exceptions.MenuException;
 import view.Regexes;
 import view.Responses;
 import view.ViewInterface;

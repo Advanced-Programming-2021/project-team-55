@@ -7,7 +7,6 @@ import model.board.Cell;
 import model.cards.Monster;
 import model.exceptions.GameException;
 import view.GameRegexes;
-import view.LoggerMessage;
 import view.ViewInterface;
 
 import java.util.regex.Matcher;
@@ -30,10 +29,10 @@ public class MainPhase1 extends Duel {
             String AICommand = "";
             response = processCommand(AICommand);
             while (response.startsWith("Error: ") && !AICommand.equals("next phase")) {
-                AICommand =  aiPlayerController.getSelectCommandForMainPhases();
+                AICommand = aiPlayerController.getSelectCommandForMainPhases();
                 response = processCommand(AICommand);
                 if (AICommand.equals("next phase")) break;
-                AICommand =  aiPlayerController.getMainCommandForMainPhases();
+                AICommand = aiPlayerController.getMainCommandForMainPhases();
                 response = processCommand(AICommand);
             }
         } else response = processCommand(ViewInterface.getInput());
@@ -59,15 +58,13 @@ public class MainPhase1 extends Duel {
                 response = GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response;
             }
         }*/
-        if(command.equals("show attack")){
-            System.out.println(((Monster)Cell.getSelectedCell().getCellCard()).getAtk());
-        }
-        else if(command.equals("remove card"))
+        if (command.equals("show attack")) {
+            System.out.println(((Monster) Cell.getSelectedCell().getCellCard()).getAtk());
+        } else if (command.equals("remove card"))
             Cell.getSelectedCell().removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
         else if (!gameController.checkCommandIsInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
-        }
-        else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
+        } else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
             gameController.changePhase();
         } else if (command.matches(GameRegexes.DESELECT.regex)) {
             try {
@@ -84,7 +81,7 @@ public class MainPhase1 extends Duel {
             try {
                 mainPhase1Controller.monsterSummon(gameController);
                 if (!gameController.shouldSpecialSummonNow)
-                     response = GameResponses.SUMMONED_SUCCESSFULLY.response;
+                    response = GameResponses.SUMMONED_SUCCESSFULLY.response;
             } catch (GameException e) {
                 response = e.toString();
             }
@@ -117,11 +114,10 @@ public class MainPhase1 extends Duel {
                 response = e.toString();
             }
         } else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
-                gameController.currentPhase = GamePhase.GRAVEYARD;
-                response = gameController.showGraveyard(gameController.currentTurnPlayer);
+            gameController.currentPhase = GamePhase.GRAVEYARD;
+            response = gameController.showGraveyard(gameController.currentTurnPlayer);
 
-        }
-        else if (command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {
+        } else if (command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {
             try {
                 mainPhase1Controller.activateSpell(gameController);
             } catch (GameException e) {

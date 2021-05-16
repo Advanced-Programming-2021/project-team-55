@@ -1,5 +1,4 @@
 package model;
-import model.cards.trapandspells.MagicCylinder;
 
 import java.util.concurrent.ThreadLocalRandom;
 
