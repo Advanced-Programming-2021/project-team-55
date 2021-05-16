@@ -72,8 +72,9 @@ public interface MainPhasesController {
             if(!cell.isEmpty()&&cell.getCardStatus()==CardStatus.HIDDEN){
                 Card card=cell.getCellCard();
                 if(card.getName().equals("Torrential Tribute")/*||//todo we have to add other traps here...*/){
-                    gameController.changeTurn(true);
+                    gameController.changeTurn(true,false);
                     gameController.activateTrapEffect(summonEffectSpellAndTrap);
+                    gameController.changeTurn(true,true);
                     break;
                 }
             }

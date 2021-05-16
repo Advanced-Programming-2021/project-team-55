@@ -65,6 +65,7 @@ public class BattlePhaseController implements methods {
         } else {
             activateTrapIfCanBeActivated(gameController);
             if(attackDisabled){
+                gameController.getAttackerCellsThisTurn().add(attackedCell);
                 attackDisabled=false;
                 return response;
             }
@@ -92,22 +93,13 @@ public class BattlePhaseController implements methods {
         return response;
     }
     private void activateTrapIfCanBeActivated(GameController gameController){
-        for(Cell cell:gameController.currentTurnPlayer.getGameBoard().getSpellAndTrapCardZone()){
-            if(!cell.isEmpty()&&cell.getCardStatus()==CardStatus.HIDDEN){
-                Card card=cell.getCellCard();
-                if(card.getName().equals("Mirror Force")/*||//todo we have to add other traps here...*/){
-                    gameController.activateTrapEffect(attackEffectSpellAndTraps);
-                    break;
-                }
-            }
-        }
         for(Cell cell:gameController.currentTurnOpponentPlayer.getGameBoard().getSpellAndTrapCardZone()){
             if(!cell.isEmpty()&&cell.getCardStatus()==CardStatus.HIDDEN){
                 Card card=cell.getCellCard();
                 if(card.getName().equals("Mirror Force")||card.getName().equals("Negate Attack")){
-                    gameController.changeTurn(true);
+                    gameController.changeTurn(true,false);
                     gameController.activateTrapEffect(attackEffectSpellAndTraps);
-                    gameController.changeTurn(true);
+                    gameController.changeTurn(true,true);
                     break;
                 }
             }

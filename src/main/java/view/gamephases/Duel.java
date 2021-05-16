@@ -32,6 +32,7 @@ abstract public class Duel {
             if (gameController.phases.get(gameController.phases.size() - 1) != gameController.currentPhase) {
                 gameController.phases.add(gameController.currentPhase);
             }
+            gameController.phases.add(gameController.currentPhase);
             switch (gameController.getCurrentPhase()) {
                 case DRAW: {
                     drawPhase.execute();
@@ -62,6 +63,7 @@ abstract public class Duel {
                     break;
                 }
             }
+           // showPhase();
             AIPlayerController.recordGameLogs(gameController);
         }
         gameController.endGameRound();
@@ -71,12 +73,12 @@ abstract public class Duel {
 
     abstract protected String processCommand(String command);
 
-    protected static void showPhase() {
+    public static void showPhase() {
         String response = "";
         if (gameController.currentPhase == GamePhase.DRAW) {
             response += "its " + gameController.getCurrentTurnPlayer().getUser().getNickname() + "'s turn\n";
         }
-        response += "\nphase: " + gameController.getCurrentPhase().name;
+        response += "\nphase: " + gameController.currentPhase.name;
         ViewInterface.showResult(response);
     }
 
