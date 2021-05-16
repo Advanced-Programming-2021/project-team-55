@@ -52,10 +52,10 @@ public class Cell {
         UnitedWeStand.deActivateEffect(this);
         Swordofdarkdestruction.deActivateEffect(this);
         MagnumShield.deActivateEffect(this);
+        gameBoard.addCardToGraveyard(this.card);
         this.card = null;
         this.cardStatus = null;
         Duel.getGameController().changedPositionCells.remove(this);
-        gameBoard.addCardToGraveyard(this.card);
     }
 
     public void setCard(Card card) {
