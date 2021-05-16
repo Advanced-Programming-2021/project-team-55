@@ -138,10 +138,7 @@ public class GameBoard {
     }
 
     public boolean isHandCardEmpty() {
-        for (int i = 0; i < 5; i++) {
-            if (!handCards.get(i).isEmpty()) return false;
-        }
-        return true;
+        return handCards.size() == 0;
     }
 
     public int getNumberOfMonstersOnMonsterCardZone() {

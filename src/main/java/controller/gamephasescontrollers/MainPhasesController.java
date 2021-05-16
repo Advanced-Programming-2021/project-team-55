@@ -251,11 +251,11 @@ public interface MainPhasesController {
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         while(true) {
-//            if (selectedCell == null) {
-//                throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
-//            } else if (!isSummonable(selectedCell.getCellCard())) {
-//                throw new GameException(GameResponses.CANT_SUMMON_CARD.response);
-//            }
+            if (selectedCell == null) {
+                throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
+            } else if (!isSummonable(selectedCell.getCellCard())) {
+                throw new GameException(GameResponses.CANT_SUMMON_CARD.response);
+            }
             String input=ViewInterface.getInput();
             if(!input.equals("summon")){
                 ViewInterface.showResult(GameResponses.YOU_SHOULD_SPECIAL_SUMMON_NOW.response);
@@ -282,9 +282,11 @@ public interface MainPhasesController {
     }
 
     default boolean isSummonable(Card card) {
-        if(card.isMonster()){
-            return ((Monster)card).getCardType()!=CardType.RITUAL;
-        }
+        try {
+            if(card.isMonster()){
+                return ((Monster)card).getCardType()!=CardType.RITUAL;
+            }
+        }catch (Exception ignored){}
         return false;
     }
 
