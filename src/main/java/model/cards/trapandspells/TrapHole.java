@@ -25,7 +25,7 @@ public class TrapHole extends SpellAndTrap {
     }
 
     public static boolean isSummonedMonsterATKMoreThan1000(GameController gameController) {
-        return ((Monster) gameController.getLastSummonedMonster().getCellCard()).getAtk() >= 1000;
+       return ((Monster) gameController.getLastSummonedMonster().getCellCard()).getAtk() >= 1000;
     }
 
     private static void destroySummonedMonster(Cell summonedMonster, GameBoard gameBoard) {
