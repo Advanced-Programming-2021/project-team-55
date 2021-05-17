@@ -10,18 +10,16 @@ import view.Responses;
 import view.gamephases.GameResponses;
 
 public class CheatController {
+
     private static CheatController cheatController;
 
-    private CheatController() {
-
-    }
+    private CheatController() {}
 
     public static CheatController getInstance() {
         if (cheatController == null) {
-            return new CheatController();
-        } else {
-            return cheatController;
+            cheatController = new CheatController();
         }
+        return cheatController;
     }
 
     public void increaseLPAmount(int amount, Player player) {
@@ -57,7 +55,7 @@ public class CheatController {
         return "new card added to the hand and selected: " + cardName;
     }
 
-    public String makeMeAI(GameController gameController){
+    public String makeMeAI(GameController gameController) {
         gameController.getCurrentTurnPlayer().setAI(true);
         return "you're now ai :D";
     }

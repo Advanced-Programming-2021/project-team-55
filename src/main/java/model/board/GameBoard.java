@@ -14,18 +14,6 @@ import java.util.Collections;
 
 public class GameBoard {
 
-    public static final int[] areasNumber;
-
-    static {
-
-        areasNumber = new int[5];
-        areasNumber[0] = 2;
-        areasNumber[1] = 1;
-        areasNumber[2] = 3;
-        areasNumber[3] = 0;
-        areasNumber[4] = 4;
-    }
-
     private final Cell[] monsterCardZone;
     private final ArrayList<Cell> graveyard;
     private final Cell[] spellAndTrapCardZone;
@@ -34,7 +22,6 @@ public class GameBoard {
     private final Cell fieldZone;
 
     {
-        //todo areas numbering should be handled here;
         monsterCardZone = new Cell[5];
         spellAndTrapCardZone = new Cell[5];
         for (int i = 0; i < 5; i++) {
@@ -82,7 +69,7 @@ public class GameBoard {
         return deckZone;
     }
 
-    public ArrayList<Cell> getHandCards() {//handDeck changed to handCards
+    public ArrayList<Cell> getHandCards() {
         return handCards;
     }
 
@@ -157,7 +144,7 @@ public class GameBoard {
         return counter;
     }
 
-    public Cell getMonsterByIndex(int number){
+    public Cell getMonsterByIndex(int number) {
         return monsterCardZone[number - 1];
     }
 
@@ -311,7 +298,8 @@ public class GameBoard {
         for (Cell cell : graveyard) {
             try {
                 if (cell.getCellCard().isMonster()) graveyardMonstersCell.add(cell);
-            }catch(Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
         return graveyardMonstersCell;
     }

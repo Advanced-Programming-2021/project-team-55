@@ -15,7 +15,7 @@ public class YomiShip extends Monster {
                 , 1700, 800, 1400, 3, MonsterAttribute.WATER, MonsterType.AQUA, CardType.EFFECTIVE);
     }
 
-    public static void handleEffect(GameController gameController, Cell attackerCell, Cell attackedCell){
+    public static void handleEffect(GameController gameController, Cell attackerCell, Cell attackedCell) {
         if (!attackedCell.getCellCard().getName().equals("Yomi Ship")) return;
 
         ViewInterface.showResult("Yomi Ship effect activated:  monster card: \"" + attackerCell.getCellCard().getName() + "\" removed.");

@@ -8,7 +8,7 @@ import view.gamephases.GameResponses;
 
 import java.util.ArrayList;
 
-public class DrawPhaseController implements methods {
+public class DrawPhaseController {
 
     private final GameController gameController;
 
@@ -27,10 +27,9 @@ public class DrawPhaseController implements methods {
         if (!checkCardFrequency(player.getGameBoard().getHandCards())) {
             throw new GameException(GameResponses.HAND_DECK_IS_FULL.response);
         }
-        if(gameController.turnCount<=2){
+        if (gameController.turnCount <= 2) {
             return "";
-        }
-        else if(player.getGameBoard().getDeckZone().size()==0&&player.getGameBoard().getHandCards().size()==0){
+        } else if (player.getGameBoard().getDeckZone().size() == 0 && player.getGameBoard().getHandCards().size() == 0) {
             gameController.game.addWinner(gameController.currentTurnOpponentPlayer);
             gameController.game.addLoser(gameController.currentTurnPlayer);
             gameController.endGameRound();

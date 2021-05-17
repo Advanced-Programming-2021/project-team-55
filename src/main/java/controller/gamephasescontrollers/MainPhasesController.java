@@ -26,18 +26,11 @@ import view.gamephases.GameResponses;
 import java.util.ArrayList;
 
 public interface MainPhasesController {
+
     ArrayList<SpellAndTrap> summonEffectSpellAndTrap = new ArrayList<>();
     ArrayList<SpellAndTrap> flipSummonEffectSpellAndTrap = new ArrayList<>();
     ArrayList<SpellAndTrap> SpecialSummonEffectSpellAndTrap = new ArrayList<>();
     ArrayList<SpellAndTrap> ritualSummonEffectSpellAndTrap = new ArrayList<>();
-
-    default void monsterInsert(Cell cell) {
-
-    }
-
-    default void monsterSet(Cell cell) {
-
-    }
 
     default void monsterSummon(GameController gameController) throws GameException {
         Player currentPlayer = gameController.currentTurnPlayer;
@@ -60,7 +53,7 @@ public interface MainPhasesController {
         gameController.setLastSummonedMonster(selectedCell);
         addMonstersToSummonEffectSpellAndTrap();
         Cell.deselectCell();
-        activateTrapIfCanBeActivated(gameController ,SummonTypes.NormalSummon);
+        activateTrapIfCanBeActivated(gameController, SummonTypes.NormalSummon);
     }
 
     private void activateTrapIfCanBeActivated(GameController gameController, SummonTypes summonType) {
@@ -127,11 +120,6 @@ public interface MainPhasesController {
         //todo add the rest of summon monsters thing
     }
 
-    public static void addMonstersToRitualSummonEffectSpellAndTrap() {
-        ritualSummonEffectSpellAndTrap.add(new TorrentialTribute());
-        //todo add the rest of summon monsters thing
-    }
-
     private Cell handleTributeForNormalSummon(Player currentPlayer, Cell selectedCell, int monsterLevel, boolean isSpecialSummon) throws GameException {
         if (monsterLevel > 4 || isSpecialSummon) {
             int numberOfTributes;
@@ -153,7 +141,7 @@ public interface MainPhasesController {
             Cell newSelectedCell;
             for (int i = 0; i < numberOfTributes; i++) {
                 ViewInterface.showResult("select cell to tribute:");
-                Duel.getMainPhase1().processSelect(ViewInterface.getInput());
+                Duel.processSelect(ViewInterface.getInput());
                 newSelectedCell = Cell.getSelectedCell();
                 if (!currentPlayer.getGameBoard().isCellInMonsterZone(newSelectedCell))
                     throw new GameException(GameResponses.NO_MONSTER_ON_CELL.response);
@@ -220,7 +208,6 @@ public interface MainPhasesController {
         }
     }
 
-
     default boolean canSpecialSummon(GameController gameController) {
         GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
         for (Cell cell : playerGameBoard.getMonsterCardZone()) {
@@ -286,7 +273,7 @@ public interface MainPhasesController {
         selectedCell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
         ManEaterBug.handleEffect(gameController, selectedCell);
         Cell.deselectCell();
-        activateTrapIfCanBeActivated(gameController,SummonTypes.FlipSummon);
+        activateTrapIfCanBeActivated(gameController, SummonTypes.FlipSummon);
     }
 
     default void specialSummon(GameController gameController) throws GameException {
@@ -319,47 +306,10 @@ public interface MainPhasesController {
         activateTrapIfCanBeActivated(gameController, SummonTypes.SpecialSummon);
     }
 
-
-    default void changeMonsterMode(Cell cell) {
-
-    }
-
     default boolean isSummonable(Card card) {
         if (card.isMonster()) {
             return ((Monster) card).getCardType() != CardType.RITUAL;
         }
-        return false;
-    }
-
-    default boolean isRitualSummonable(Cell cell) {
-        return false;
-    }
-
-    default boolean isSpecialSummonable(Cell cell) {
-        return false;
-    }
-
-    default boolean isSettable(Cell cell) {
-        return false;
-    }
-
-    default void nonMonsterInsert(Cell cell) {
-
-    }
-
-    default boolean isFieldZoneFull() {
-        return false;
-    }
-
-    default boolean hasEnoughTribute(int cardLevel) {
-        return false;
-    }
-
-    default boolean isInFieldZone(Cell cell) {
-        return false;
-    }
-
-    default boolean isTributesAddressesValid(int[] addresses) {
         return false;
     }
 

@@ -22,7 +22,7 @@ public class AdvancedRitualArt extends SpellAndTrap {
 
     public AdvancedRitualArt() {
         super("Advanced Ritual Art", "This card can be used to Ritual Summon any 1 Ritual Monster. You must also send Normal Monsters from your Deck to the Graveyard whose total Levels equal the Level of that Ritual Monster.",
-                3000, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.RITUAL, EffectiveTerm.UNLIMITED);
+                3000, SpellOrTrap.SPELL, SpellOrTrapAttribute.RITUAL, EffectiveTerm.UNLIMITED);
     }
 
     public static void setActivated(GameController gameController) {
@@ -100,7 +100,7 @@ public class AdvancedRitualArt extends SpellAndTrap {
                         ViewInterface.showResult("select cards to tribute:");
                         if (ritualMonster.getLevel() < 7) {
                             String input2 = ViewInterface.getInput();
-                            String response2 = Duel.getMainPhase1().processSelect(input2);
+                            String response2 = Duel.processSelect(input2);
                             if (input2.equals("cancel")) {
                                 ViewInterface.showResult("you cancelled the activation of Advanced Ritual Art");
                                 return;
@@ -150,7 +150,7 @@ public class AdvancedRitualArt extends SpellAndTrap {
                             }
                         } else {
                             String input2 = ViewInterface.getInput();
-                            String response2 = Duel.getMainPhase1().processSelect(input2);
+                            String response2 = Duel.processSelect(input2);
                             if (input2.equals("cancel")) {
                                 ViewInterface.showResult("you cancelled the activation of Advanced Ritual Art");
                                 return;
@@ -161,9 +161,8 @@ public class AdvancedRitualArt extends SpellAndTrap {
                                         ViewInterface.showResult("first card selected!");
                                         tributeCell1 = Cell.getSelectedCell();
                                         continue;
-                                    }
-                                    else {
-                                        tributeCell2=Cell.getSelectedCell();
+                                    } else {
+                                        tributeCell2 = Cell.getSelectedCell();
                                         if (tributeCell1 == tributeCell2) {
                                             ViewInterface.showResult("Error: select another card!");
                                             ViewInterface.showResult("Error: try again");

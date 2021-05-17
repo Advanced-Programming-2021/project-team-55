@@ -19,7 +19,35 @@ import view.gamephases.GameResponses;
 import java.util.ArrayList;
 
 public class GameController {
+
+    public Player currentTurnPlayer;
+    public Player currentTurnOpponentPlayer;
+    public GamePhase currentPhase;
+    public ArrayList<Cell> changedPositionCells;
+    public ArrayList<GamePhase> phases;
+    public ArrayList<Cell> attackerCellsThisTurn;
+    public boolean shouldRitualSummonNow;
+    public boolean shouldSpecialSummonNow;
+    public int turnCount;
+    protected Game game;
     Cell lastSummonedMonster = new Cell();
+    private int currentRound = 1;
+    private boolean didPlayerSetOrSummonThisTurn;
+    private boolean isGameEnded;
+    private DrawPhaseController drawPhaseController;
+    private StandByPhaseController standByPhaseController;
+    private MainPhase1Controller mainPhase1Controller;
+    private BattlePhaseController battlePhaseController;
+    private MainPhase2Controller mainPhase2Controller;
+    private EndPhaseController endPhaseController;
+
+    public GameController(Game game) {
+        this.game = game;
+        gameControllerInitialization();
+    }
+
+    public GameController() {
+    }
 
     public Cell getLastSummonedMonster() {
         return lastSummonedMonster;
@@ -28,26 +56,6 @@ public class GameController {
     public void setLastSummonedMonster(Cell lastSummonedMonster) {
         this.lastSummonedMonster = lastSummonedMonster;
     }
-
-    public Player currentTurnPlayer;
-    public Player currentTurnOpponentPlayer;
-    public GamePhase currentPhase;
-    public ArrayList<Cell> changedPositionCells;
-    public ArrayList<GamePhase> phases;
-    public ArrayList<Cell> attackerCellsThisTurn;
-    protected Game game;
-    private int currentRound = 1;
-    private boolean didPlayerSetOrSummonThisTurn;
-    public boolean shouldRitualSummonNow;
-    public boolean shouldSpecialSummonNow;
-    public int turnCount;
-    private boolean isGameEnded;
-    private DrawPhaseController drawPhaseController;
-    private StandByPhaseController standByPhaseController;
-    private MainPhase1Controller mainPhase1Controller;
-    private BattlePhaseController battlePhaseController;
-    private MainPhase2Controller mainPhase2Controller;
-    private EndPhaseController endPhaseController;
 
     private void gameControllerInitialization() {
         currentPhase = GamePhase.DRAW;
@@ -61,22 +69,14 @@ public class GameController {
         turnCount = 1;
         drawPhaseController = new DrawPhaseController(this);
         standByPhaseController = new StandByPhaseController(this);
-        mainPhase1Controller = new MainPhase1Controller(this);
+        mainPhase1Controller = MainPhase1Controller.getInstance();
         battlePhaseController = new BattlePhaseController(this);
-        mainPhase2Controller = new MainPhase2Controller(this);
-        endPhaseController = new EndPhaseController(this);
+        mainPhase2Controller = MainPhase2Controller.getInstance();
+        endPhaseController = EndPhaseController.getInstance(this);
     }
 
     public int tossCoin() {
         return CoinDice.tossCoin();
-    }
-
-    public GameController(Game game) {
-        this.game = game;
-        gameControllerInitialization();
-    }
-
-    public GameController() {
     }
 
     public ArrayList<Cell> getChangedPositionCells() {
@@ -87,7 +87,7 @@ public class GameController {
         return currentRound;
     }
 
-    public String showGraveyard(Player player) {
+    public String showGraveyard() {
         String response = "";
         GameBoard playerGameBoard = currentTurnPlayer.getGameBoard();
         if (playerGameBoard.getGraveyard().size() == 0) {
@@ -110,14 +110,11 @@ public class GameController {
         }
     }
 
-
-    //todo : should we deselect automatically when a command is done or not?
     public void selectCard(String zone, int number, boolean opponent) throws GameException {
         GameBoard currentPlayerGameBoard = currentTurnPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = currentTurnOpponentPlayer.getGameBoard();
         Cell selectedCell = null;
         number -= 1;
-        int[] areasNumber = GameBoard.areasNumber;
         switch (zone) {
             case "monster": {
                 if (number > 4) {
@@ -164,23 +161,13 @@ public class GameController {
         } else {
             Cell.setSelectedCell(selectedCell);
         }
-
     }
-
 
     public void deselect() throws GameException {
         if (Cell.getSelectedCell() == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
         Cell.setSelectedCell(null);
-    }
-
-    public void setCurrentTurnPlayer(Player currentTurnPlayer) {
-        this.currentTurnPlayer = currentTurnPlayer;
-    }
-
-    public void setCurrentTurnOpponentPlayer(Player currentTurnOpponentPlayer) {
-        this.currentTurnOpponentPlayer = currentTurnOpponentPlayer;
     }
 
     public void changePhase() {
@@ -207,23 +194,22 @@ public class GameController {
             }
             case END: {
                 currentPhase = GamePhase.DRAW;
-                changeTurn(false,false);
+                changeTurn(false, false);
                 break;
             }
         }
         Duel.showPhase();
     }
 
-    public void changeTurn(boolean isTemporary,boolean backToPlayer) {
+    public void changeTurn(boolean isTemporary, boolean backToPlayer) {
         Player player = currentTurnPlayer;
         currentTurnPlayer = currentTurnOpponentPlayer;
         currentTurnOpponentPlayer = player;
-        if (isTemporary &&!backToPlayer) {
+        if (isTemporary && !backToPlayer) {
             ViewInterface.showResult("now it will be " + currentTurnPlayer.getUser().getNickname() + "’s turn");
             ViewInterface.showResult(mainPhase1Controller.showGameBoard(currentTurnPlayer, currentTurnOpponentPlayer));
             return;
         }
-        ;
         didPlayerSetOrSummonThisTurn = false;
         changedPositionCells = new ArrayList<>();
         attackerCellsThisTurn = new ArrayList<>();
@@ -253,8 +239,7 @@ public class GameController {
                         if (Cell.getSelectedCell() == null) {
                             ViewInterface.showResult(GameResponses.NO_CARDS_SELECTED.response);
                             continue;
-                        }
-                        else {
+                        } else {
                             Cell selectedCell = Cell.getSelectedCell();
                             for (SpellAndTrap spellAndTrap : trapsCanBeActivated) {
                                 if (selectedCell.getCellCard().getName().equals(spellAndTrap.getName())) {
@@ -278,18 +263,6 @@ public class GameController {
 
     }
 
-    protected void handleCardSideEffects() {
-
-    }
-
-    protected boolean isCellSelected(Cell cell) {
-        return false;
-    }
-
-    protected boolean canCardBeActivated(Cell cell) {
-        return false;
-    }
-
     public boolean DoPlayerSetOrSummonedThisTurn() {
         return didPlayerSetOrSummonThisTurn;
     }
@@ -298,18 +271,10 @@ public class GameController {
         this.didPlayerSetOrSummonThisTurn = didPlayerSetOrSummonThisTurn;
     }
 
-    protected void nonMonsterActivate(Cell cell) {
-
-    }
-
     public void surrender() {
         game.addWinner(currentTurnOpponentPlayer);
         game.addLoser(currentTurnPlayer);
         isGameEnded = true;
-    }
-
-    protected void checkGameWinner() {
-
     }
 
     public void endDuel() {
@@ -331,10 +296,7 @@ public class GameController {
             game.addWinner(currentTurnPlayer);
             game.addLoser(currentTurnOpponentPlayer);
             return true;
-        } else if (isGameEnded) {
-            return true;
-        }
-        return false;
+        } else return isGameEnded;
     }
 
     public void endGameRound() {
@@ -396,16 +358,20 @@ public class GameController {
         return game;
     }
 
-    public void setCurrentPhase(GamePhase currentPhase) {
-        this.currentPhase = currentPhase;
-    }
-
     public Player getCurrentTurnPlayer() {
         return currentTurnPlayer;
     }
 
+    public void setCurrentTurnPlayer(Player currentTurnPlayer) {
+        this.currentTurnPlayer = currentTurnPlayer;
+    }
+
     public Player getCurrentTurnOpponentPlayer() {
         return currentTurnOpponentPlayer;
+    }
+
+    public void setCurrentTurnOpponentPlayer(Player currentTurnOpponentPlayer) {
+        this.currentTurnOpponentPlayer = currentTurnOpponentPlayer;
     }
 
     public DrawPhaseController getDrawPhaseController() {
@@ -432,29 +398,29 @@ public class GameController {
         return battlePhaseController;
     }
 
-    public boolean checkCommandIsInCurrentPhase(String command) {
+    public boolean checkCommandIsNotInCurrentPhase(String command) {
         if (command.matches(GameRegexes.SUMMON.regex) || command.matches(GameRegexes.SET.regex) ||
                 command.matches(GameRegexes.SET_POSITION.regex) || command.matches(GameRegexes.FLIP_SUMMON.regex) ||
                 command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {
-            return currentPhase == GamePhase.MAIN1 || currentPhase == GamePhase.MAIN2;
+            return currentPhase != GamePhase.MAIN1 && currentPhase != GamePhase.MAIN2;
         } else if (command.matches(GameRegexes.ATTACK.regex) || command.matches(GameRegexes.ATTACK_DIRECT.regex)) {
-            return currentPhase == GamePhase.BATTLE;
+            return currentPhase != GamePhase.BATTLE;
         }
-        return true;
+        return false;
     }
 
     public boolean didCardAttackThisTurn(Cell cell) {
         return attackerCellsThisTurn.contains(cell);
     }
 
-    public boolean canPlayerDirectAttack(Cell cell) {
-        return currentTurnOpponentPlayer.getGameBoard().isMonsterCardZoneEmpty();//todo طبق داک ممکنه دلایل دیگه هم وجود داشته باشه
+    public boolean canPlayerDirectAttack() {
+        return currentTurnOpponentPlayer.getGameBoard().isMonsterCardZoneEmpty();
     }
 
     public String getSideDeckCards(Player player) {
-        String response = player.getUser().getNickname() + "'s side deck cards:\n";
+        StringBuilder response = new StringBuilder(player.getUser().getNickname() + "'s side deck cards:\n");
         for (Card card : player.getPlayDeck().getSideDeck()) {
-            response += card.getName() + "\n";
+            response.append(card.getName()).append("\n");
         }
         return response + "\n";
     }
@@ -530,13 +496,9 @@ public class GameController {
         }
     }
 
-
     public ArrayList<Cell> getAttackerCellsThisTurn() {
         return attackerCellsThisTurn;
     }
 
-    public void setAttackerCellsThisTurn(ArrayList<Cell> attackerCellsThisTurn) {
-        this.attackerCellsThisTurn = attackerCellsThisTurn;
-    }
 }
 

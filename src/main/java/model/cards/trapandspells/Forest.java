@@ -14,11 +14,11 @@ import static model.cards.cardfeaturesenums.MonsterType.*;
 
 public class Forest extends SpellAndTrap {
 
-    private static ArrayList<Monster> effectedMonsters = new ArrayList();
+    private static final ArrayList<Monster> effectedMonsters = new ArrayList();
 
     public Forest() {
         super("Forest", "All Insect, Beast, Plant, and Beast-Warrior monsters on the field gain 200 ATK/DEF.",
-                4300, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.FIELD, EffectiveTerm.UNLIMITED);
+                4300, SpellOrTrap.SPELL, SpellOrTrapAttribute.FIELD, EffectiveTerm.UNLIMITED);
     }
 
     public static void setActivated(GameController gameController) {

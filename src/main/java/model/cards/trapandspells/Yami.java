@@ -15,7 +15,7 @@ public class Yami extends SpellAndTrap {
 
     public Yami() {
         super("Yami", "All Fiend and Spellcaster monsters on the field gain 200 ATK/DEF, also all Fairy monsters on the field lose 200 ATK/DEF.",
-                4300, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.FIELD, EffectiveTerm.UNLIMITED);
+                4300, SpellOrTrap.SPELL, SpellOrTrapAttribute.FIELD, EffectiveTerm.UNLIMITED);
     }
 
     public static void setActivated(GameController gameController) {
@@ -23,22 +23,23 @@ public class Yami extends SpellAndTrap {
         allMonsters.addAll(gameController.getCurrentTurnPlayer().getGameBoard().getMonsterZoneCells());
         allMonsters.addAll(gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterZoneCells());
         for (Cell cell : allMonsters) {
-            try{
+            try {
                 Monster monster = (Monster) cell.getCellCard();
-                switch(monster.getMonsterType()){
+                switch (monster.getMonsterType()) {
                     case FIEND:
                     case SPELLCASTER: {
                         monster.addATK(200);
                         monster.addDEF(200);
                         break;
                     }
-                    case FAIRY:{
+                    case FAIRY: {
                         monster.addATK(-200);
                         monster.addDEF(-200);
                         break;
                     }
                 }
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         }
         ViewInterface.showResult("Yami activated.");
         updateSpellInGameBoard(gameController);

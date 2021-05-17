@@ -1,6 +1,7 @@
 package model.cards.justforscore;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;

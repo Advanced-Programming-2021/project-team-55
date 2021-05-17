@@ -13,7 +13,7 @@ public class TorrentialTribute extends SpellAndTrap {
 
     public TorrentialTribute() {
         super("Torrential Tribute", "When a monster(s) is Summoned: Destroy all monsters on the field.",
-                2000, false, SpellOrTrap.TRAP, SpellOrTrapAttribute.NORMAL, EffectiveTerm.UNLIMITED);
+                2000, SpellOrTrap.TRAP, SpellOrTrapAttribute.NORMAL, EffectiveTerm.UNLIMITED);
     }
 
     public static void setActivated(GameController gameController) {

@@ -16,7 +16,7 @@ public class ClosedForest extends SpellAndTrap {
 
     public ClosedForest() {
         super("Closed Forest", "All Beast-Type monsters you control gain 100 ATK for each monster in your Graveyard. Field Spell Cards cannot be activated. Field Spell Cards cannot be activated during the turn this card is destroyed.",
-                4300, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.FIELD, EffectiveTerm.UNLIMITED);
+                4300, SpellOrTrap.SPELL, SpellOrTrapAttribute.FIELD, EffectiveTerm.UNLIMITED);
     }
 
     public static void setActivated(GameController gameController) {
@@ -24,12 +24,13 @@ public class ClosedForest extends SpellAndTrap {
         allMonsters.addAll(gameController.getCurrentTurnPlayer().getGameBoard().getMonsterZoneCells());
         int toBeAddedATK = gameController.getCurrentTurnPlayer().getGameBoard().getGraveyard().size() * 100;
         for (Cell cell : allMonsters) {
-            try{
+            try {
                 Monster monster = (Monster) cell.getCellCard();
                 if (monster.getMonsterType() == MonsterType.BEAST) {
                     monster.addATK(toBeAddedATK);
                 }
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         }
         ViewInterface.showResult("Closed Forest activated.");
         updateSpellInGameBoard(gameController);

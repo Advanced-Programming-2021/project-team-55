@@ -49,9 +49,6 @@ public class DataBaseController extends MenuController {
     public static void usersDataBaseInitialization() throws FileNotFoundException {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-       /* BufferedReader bufferedReader = new BufferedReader(
-                new FileReader("resources\\users\\"+username+".json"));
-        User user= gson.fromJson(bufferedReader, User.class);*/
         File directoryPath = new File("src\\resources\\users");
         File[] filesList = directoryPath.listFiles();
         ArrayList<User> dataBaseUsers = new ArrayList<>();
@@ -63,20 +60,6 @@ public class DataBaseController extends MenuController {
             dataBaseUsers.add(user);
         }
         User.setAllUsers(dataBaseUsers);
-    }
-
-    @Override
-    public void enterMenu(String menu) throws MenuException {
-        throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
-    }
-
-    @Override
-    public void exitMenu() {
-        Menu.setCurrentMenu(MenuType.MAIN);
-    }
-
-    public void importDeck(String cardName) {
-
     }
 
     public static void cardsDataBaseInitialization() {
@@ -164,6 +147,20 @@ public class DataBaseController extends MenuController {
         Card UnitedWeStand = new UnitedWeStand();
         Card MagnumShield = new MagnumShield();
         Card AdvancedRitualArt = new AdvancedRitualArt();
+    }
+
+    @Override
+    public void enterMenu(String menu) throws MenuException {
+        throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
+    }
+
+    @Override
+    public void exitMenu() {
+        Menu.setCurrentMenu(MenuType.MAIN);
+    }
+
+    public void importDeck(String cardName) {
+
     }
 
     public String exportCard(String cardName) {

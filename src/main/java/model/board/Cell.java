@@ -13,10 +13,8 @@ import view.gamephases.Duel;
 public class Cell {
 
     private static Cell selectedCell;
-
-    private Card card;
-
     public CardStatus cardStatus;
+    private Card card;
 
     public Cell() {
     }
@@ -52,7 +50,7 @@ public class Cell {
         UnitedWeStand.deActivateEffect(this);
         Swordofdarkdestruction.deActivateEffect(this);
         MagnumShield.deActivateEffect(this);
-        if(Cell.getSelectedCell() == this) selectedCell = null;
+        if (Cell.getSelectedCell() == this) selectedCell = null;
         gameBoard.addCardToGraveyard(this.card);
         this.card = null;
         this.cardStatus = null;
@@ -68,23 +66,18 @@ public class Cell {
         }
     }
 
-    public void selectCell() {//select cell either needs entry or must be nonstatic
-        selectedCell = this;
-        setSelectedCell(this);
-    }
-
-    public void setCardStatus(CardStatus cardStatus) {
-        CommandKnight.handleEffect(cardStatus, this);
-        this.cardStatus = cardStatus;
-        CommandKnight.deActivateEffect(this);
-    }
-
     public boolean isEmpty() {
         return card == null;
     }
 
     public CardStatus getCardStatus() {
         return cardStatus;
+    }
+
+    public void setCardStatus(CardStatus cardStatus) {
+        CommandKnight.handleEffect(cardStatus, this);
+        this.cardStatus = cardStatus;
+        CommandKnight.deActivateEffect(this);
     }
 
 

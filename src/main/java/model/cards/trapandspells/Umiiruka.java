@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static model.cards.cardfeaturesenums.MonsterType.*;
 
 public class Umiiruka extends SpellAndTrap {
-    private static ArrayList<Monster> effectedMonsters;
+    private static final ArrayList<Monster> effectedMonsters;
 
     static {
         effectedMonsters = new ArrayList<>();
@@ -21,7 +21,7 @@ public class Umiiruka extends SpellAndTrap {
 
     public Umiiruka() {
         super("Umiiruka", "Increase the ATK of all WATER monsters by 500 points and decrease their DEF by 400 points.",
-                4300, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.FIELD, EffectiveTerm.UNLIMITED);
+                4300, SpellOrTrap.SPELL, SpellOrTrapAttribute.FIELD, EffectiveTerm.UNLIMITED);
     }
 
     public static void setActivated(GameController gameController) {

@@ -41,7 +41,7 @@ public class BattlePhase extends Duel {
     protected String processCommand(String command) {
         String response = "";
 
-        if (!gameController.checkCommandIsInCurrentPhase(command)) {
+        if (gameController.checkCommandIsNotInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
         } else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
             gameController.changePhase();
@@ -76,7 +76,7 @@ public class BattlePhase extends Duel {
             }
         } else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
             gameController.currentPhase = GamePhase.GRAVEYARD;
-            response = gameController.showGraveyard(gameController.currentTurnPlayer);
+            response = gameController.showGraveyard();
         } else if (command.matches(GameRegexes.SURRENDER.regex)) {
             gameController.surrender();
         } else if (command.matches(GameRegexes.INCREASE_LP.regex)) {

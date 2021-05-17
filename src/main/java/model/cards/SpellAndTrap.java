@@ -14,16 +14,13 @@ import view.gamephases.GameResponses;
 
 public abstract class SpellAndTrap extends Card {
 
-    private boolean isActive;
-
     protected SpellOrTrap type;
     private SpellOrTrapAttribute attribute;
     private EffectiveTerm status;
 
-    public SpellAndTrap(String name, String description, int price, boolean isActive,
+    public SpellAndTrap(String name, String description, int price,
                         SpellOrTrap type, SpellOrTrapAttribute attribute, EffectiveTerm status) {
         super(name, description, price, Kind.MAGIC, type);
-        this.isActive = isActive;
         this.type = type;
         this.attribute = attribute;
         this.status = status;
@@ -51,23 +48,14 @@ public abstract class SpellAndTrap extends Card {
         else if (spellAndTrap.name.equals("Torrential Tribute")) TorrentialTribute.setActivated(gameController);
         else if (spellAndTrap.name.equals("Trap Hole")) TrapHole.setActivated(gameController);
         else if (spellAndTrap.name.equals("Mirror Force")) MirrorForce.setActivated(gameController);
-        else if(spellAndTrap.name.equals("Negate Attack"))NegateAttack.setActivated(gameController);
-        else if(spellAndTrap.name.equals("Magic Cylinder"))MagicCylinder.setActivated(gameController);
-        else{
+        else if (spellAndTrap.name.equals("Negate Attack")) NegateAttack.setActivated(gameController);
+        else if (spellAndTrap.name.equals("Magic Cylinder")) MagicCylinder.setActivated(gameController);
+        else {
             ViewInterface.showResult(GameResponses.ACTIVATION_ONLY_FOR_SPELL.response);
         }
         //todo : in be nazaram qhalate (parham)
         SpellAbsorption.handleEffect();
     }
-
-    public static void setActivated(GameController gameController) {
-        return;
-    }
-
-    public void deactivate() {
-
-    }
-
 
     public static void updateSpellInGameBoard(GameController gameController) {
         Cell selectedCell = Cell.getSelectedCell();
@@ -91,37 +79,16 @@ public abstract class SpellAndTrap extends Card {
         Cell.deselectCell();
     }
 
-    public boolean isActivated() {
-        return isActive;
-    }
-
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
     public SpellOrTrap getType() {
         return type;
-    }
-
-    public void setType(SpellOrTrap type) {
-        this.type = type;
     }
 
     public SpellOrTrapAttribute getAttribute() {
         return attribute;
     }
 
-    public void setAttribute(SpellOrTrapAttribute attribute) {
-        this.attribute = attribute;
-    }
-
     public EffectiveTerm getStatus() {
         return status;
-    }
-
-    public void setStatus(EffectiveTerm status) {
-        this.status = status;
     }
 
 }

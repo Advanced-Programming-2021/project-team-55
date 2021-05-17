@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class Deck {
 
-    private String name;
     private final ArrayList<Card> mainDeck;
     private final ArrayList<Card> sideDeck;
+    private String name;
     private boolean isActive;
 
     {
@@ -66,10 +66,6 @@ public class Deck {
 
     public void setActive(boolean active) {
         isActive = active;
-    }
-
-    public void deleteDeck() {
-        //TODO deck has to be deleted from user
     }
 
     public boolean isDeckValid() {

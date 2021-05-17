@@ -16,41 +16,42 @@ import model.cards.Monster;
 import model.cards.monsters.YomiShip;
 import view.gamephases.GameResponses;
 
-import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static model.board.CardStatus.DEFENSIVE_OCCUPIED;
 import static model.board.CardStatus.OFFENSIVE_OCCUPIED;
 
-public class BattlePhaseController implements methods {
+public class BattlePhaseController {
 
-    private final GameController gameController;
-    private boolean attackDisabled=false;
-    private Cell attacker=Cell.getSelectedCell();
-    private static ArrayList<SpellAndTrap>attackEffectSpellAndTraps;
+    private static final ArrayList<SpellAndTrap> attackEffectSpellAndTraps;
+
     static {
-        attackEffectSpellAndTraps=new ArrayList<>();
+        attackEffectSpellAndTraps = new ArrayList<>();
         attackEffectSpellAndTraps.add(new MirrorForce());
         attackEffectSpellAndTraps.add(new NegateAttack());
         attackEffectSpellAndTraps.add(new MagicCylinder());
     }
 
+    private final GameController gameController;
+    private boolean attackDisabled = false;
+    private Cell attacker = Cell.getSelectedCell();
+
     public BattlePhaseController(GameController gameController) {
         this.gameController = gameController;
     }
 
-    public void setAttackDisabled(){
-        attackDisabled=true;
+    public void setAttackDisabled() {
+        attackDisabled = true;
     }
 
-    private void setAttacker(Cell attacker){
-        if(attacker!=null) {
-            this.attacker = attacker;
-        }
-    }
     public Cell getAttacker() {
         return attacker;
+    }
+
+    private void setAttacker(Cell attacker) {
+        if (attacker != null) {
+            this.attacker = attacker;
+        }
     }
 
     public String attack(int attackedCellNumber) throws GameException {
@@ -73,12 +74,12 @@ public class BattlePhaseController implements methods {
             throw new GameException(GameResponses.NO_CARD_TO_ATTACK.response);
         } else {
             activateTrapIfCanBeActivated(gameController);
-            if(attackDisabled){
+            if (attackDisabled) {
                 gameController.getAttackerCellsThisTurn().add(attackerCell);
-                attackDisabled=false;
+                attackDisabled = false;
                 return response;
             }
-            if(SwordsofRevealingLight.handleEffect(gameController)){
+            if (SwordsofRevealingLight.handleEffect(gameController)) {
                 throw new GameException("you can't attack because of your opponent's Swords of Revealing Light effect");
             }
             if (CommandKnight.handleEffect(gameController, attackedCell))
@@ -102,15 +103,16 @@ public class BattlePhaseController implements methods {
         Cell.deselectCell();
         return response;
     }
-    private void activateTrapIfCanBeActivated(GameController gameController){
-        for(Cell cell:gameController.currentTurnOpponentPlayer.getGameBoard().getSpellAndTrapCardZone()){
-            if(!cell.isEmpty()&&cell.getCardStatus()==CardStatus.HIDDEN){
-                Card card=cell.getCellCard();
-                if(card.getName().equals("Mirror Force")||card.getName().equals("Negate Attack")
-                ||card.getName().equals("Magic Cylinder")){
-                    gameController.changeTurn(true,false);
+
+    private void activateTrapIfCanBeActivated(GameController gameController) {
+        for (Cell cell : gameController.currentTurnOpponentPlayer.getGameBoard().getSpellAndTrapCardZone()) {
+            if (!cell.isEmpty() && cell.getCardStatus() == CardStatus.HIDDEN) {
+                Card card = cell.getCellCard();
+                if (card.getName().equals("Mirror Force") || card.getName().equals("Negate Attack")
+                        || card.getName().equals("Magic Cylinder")) {
+                    gameController.changeTurn(true, false);
                     gameController.activateTrapEffect(attackEffectSpellAndTraps);
-                    gameController.changeTurn(true,true);
+                    gameController.changeTurn(true, true);
                     break;
                 }
             }
@@ -139,6 +141,7 @@ public class BattlePhaseController implements methods {
         gameController.getAttackerCellsThisTurn().add(attackerCell);
         return response;
     }
+
     private String attackToDefensiveOccupiedCell(Cell attackerCell, Cell attackedCell, GameBoard playerGameBoard) {
         String response;
         if (isAttackerStronger(attackerCell, attackedCell)) {
@@ -202,23 +205,19 @@ public class BattlePhaseController implements methods {
             return -damage;
     }
 
-    public boolean canCardAttack(Card card) {
-        return true;
-    }
-
     public String directAttack(GameController gameController) throws GameException {
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         if (selectedCell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
-        if (!currentPlayer.getGameBoard().isCellInMonsterZone(selectedCell)||selectedCell.getCardStatus()!= OFFENSIVE_OCCUPIED) {
+        if (!currentPlayer.getGameBoard().isCellInMonsterZone(selectedCell) || selectedCell.getCardStatus() != OFFENSIVE_OCCUPIED) {
             throw new GameException(GameResponses.CAN_NOT_ATTACK_WITH_THIS_CARD.response);
         }
         if (gameController.didCardAttackThisTurn(selectedCell)) {
             throw new GameException(GameResponses.CARD_ALREADY_ATTACKED.response);
         }
-        if (!gameController.canPlayerDirectAttack(selectedCell)) {
+        if (!gameController.canPlayerDirectAttack()) {
             throw new GameException(GameResponses.CAN_NOT_DIRECT_ATTACK.response);
         }
         Monster attackerMonster = (Monster) selectedCell.getCellCard();
@@ -244,4 +243,5 @@ public class BattlePhaseController implements methods {
         }
         return 0;
     }
+
 }

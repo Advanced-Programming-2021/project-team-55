@@ -30,14 +30,14 @@ public class GateGuardian extends Monster {
         if (!playerGameBoard.doesMonsterZoneHaveMonsters(5) || !gameController.getMainPhase1Controller().canSpecialSummon(gameController)) {
             throw new GameException(GameResponses.CAN_NOT_SET_OR_SUMMON.response);
         }
-        ArrayList<Cell>tributes=new ArrayList<>();
+        ArrayList<Cell> tributes = new ArrayList<>();
         ViewInterface.showResult("Gate Guardian effect activated:");
         ViewInterface.showResult("you have to select 3 cards to tribute");
         for (int i = 0; i < 3; i++) {
             while (true) {
                 ViewInterface.showResult("select cell to tribute:");
-                String input=ViewInterface.getInput();
-                String result = Duel.getMainPhase1().processSelect(input);
+                String input = ViewInterface.getInput();
+                String result = Duel.processSelect(input);
                 if (!result.equals("card selected")) {
                     ViewInterface.showResult("Error: try again!");
                     continue;
@@ -57,10 +57,9 @@ public class GateGuardian extends Monster {
         }
         selectedCell.removeCardFromCell(playerGameBoard);
         try {
-            playerGameBoard.addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED,gameController);
-            gameController.shouldSpecialSummonNow=true;
-        }
-        catch (GameException e){
+            playerGameBoard.addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED, gameController);
+            gameController.shouldSpecialSummonNow = true;
+        } catch (GameException e) {
             e.printStackTrace();
         }
         return true;

@@ -18,16 +18,12 @@ public class Player {
         this.playerGameBoard = new GameBoard(playDeck);
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public User getUser() {
         return user;
     }
 
-    public void setDeckToPlay(Deck deckToPlay) {
-        this.playDeck = deckToPlay;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getLP() {
@@ -36,10 +32,6 @@ public class Player {
 
     public void setLP(int LP) {
         this.LP = LP;
-    }
-
-    public void setPlayDeck(Deck playDeck) {
-        this.playDeck = playDeck;
     }
 
     public void decreaseLP(int amount) {
@@ -58,8 +50,11 @@ public class Player {
         return playDeck;
     }
 
+    public void setPlayDeck(Deck playDeck) {
+        this.playDeck = playDeck;
+    }
+
     public void resetGameBoard() {
-        //todo handle this:we can change the playDeck between rounds
         playerGameBoard = new GameBoard(playDeck);
         setLP(8000);
     }

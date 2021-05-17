@@ -19,23 +19,26 @@ public class SpellAbsorption extends SpellAndTrap {
 
     public SpellAbsorption() {
         super("Spell Absorption", "Each time a Spell Card is activated, gain 500 Life Points immediately after it resolves.",
-                4000, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.CONTINUOUS, EffectiveTerm.UNLIMITED);
+                4000, SpellOrTrap.SPELL, SpellOrTrapAttribute.CONTINUOUS, EffectiveTerm.UNLIMITED);
     }
 
     public static void setActivated(GameController gameController) {
         try {
             ((SpellAbsorption) Cell.getSelectedCell().getCellCard()).owner = gameController.getCurrentTurnPlayer();
             spellAbsorptions.add(Cell.getSelectedCell());
-        }catch (Exception e) {return;}
+        } catch (Exception e) {
+            return;
+        }
         ViewInterface.showResult("Spell Absorption activated.");
         updateSpellInGameBoard(gameController);
     }
 
-    public static void handleEffect(){
-        for (Cell cell: spellAbsorptions){
-            try{
+    public static void handleEffect() {
+        for (Cell cell : spellAbsorptions) {
+            try {
                 ((SpellAbsorption) cell.getCellCard()).owner.increaseLP(500);
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         }
     }
 

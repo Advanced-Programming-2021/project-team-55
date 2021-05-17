@@ -1,13 +1,14 @@
 package controller.gamephasescontrollers;
 
-public class MainPhase1Controller implements methods, MainPhasesController {
-    private final GameController gameController;
+public class MainPhase1Controller implements MainPhasesController {
 
-    public MainPhase1Controller(GameController gameController) {
-        this.gameController = gameController;
+    private static MainPhase1Controller mainPhase1Controller;
+
+    private MainPhase1Controller() {}
+
+    public static MainPhase1Controller getInstance() {
+        if (mainPhase1Controller == null) mainPhase1Controller = new MainPhase1Controller();
+        return mainPhase1Controller;
     }
-
-
-
 
 }

@@ -14,17 +14,17 @@ public class HarpiesFeatherDuster extends SpellAndTrap {
 
     public HarpiesFeatherDuster() {
         super("Harpie's Feather Duster", "Destroy all Spells and Traps your opponent controls.",
-                2500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
+                2500, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
     }
 
-    public static void setActivated(GameController gameController){
-        GameBoard opponentPlayerGameBoard=gameController.getCurrentTurnOpponentPlayer().getGameBoard();
-        if(opponentPlayerGameBoard.isSpellAndTrapCardZoneEmpty()){
+    public static void setActivated(GameController gameController) {
+        GameBoard opponentPlayerGameBoard = gameController.getCurrentTurnOpponentPlayer().getGameBoard();
+        if (opponentPlayerGameBoard.isSpellAndTrapCardZoneEmpty()) {
             ViewInterface.showResult(GameResponses.PREPARATION_NOT_DONE.response);
             return;
         }
-        for(Cell cell:opponentPlayerGameBoard.getSpellAndTrapCardZone()){
-            if(!cell.isEmpty()){
+        for (Cell cell : opponentPlayerGameBoard.getSpellAndTrapCardZone()) {
+            if (!cell.isEmpty()) {
                 cell.removeCardFromCell(opponentPlayerGameBoard);
             }
         }

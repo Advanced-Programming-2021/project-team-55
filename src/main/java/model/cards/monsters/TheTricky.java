@@ -17,15 +17,15 @@ public class TheTricky extends Monster {
                 , 4300, 2000, 1200, 5, MonsterAttribute.WIND, MonsterType.SPELLCASTER, CardType.EFFECTIVE);
     }
 
-    public static boolean handleEffect(GameController gameController, Cell selectedCell){
+    public static boolean handleEffect(GameController gameController, Cell selectedCell) {
         if (!selectedCell.getCellCard().getName().equals("The Tricky")) return false;
 
-        if (!gameController.getMainPhase1Controller().canSpecialSummon(gameController)){
+        if (!gameController.getMainPhase1Controller().canSpecialSummon(gameController)) {
             ViewInterface.showResult("Error: The Tricky card effect activated but you can't special summon right now!");
             return false;
         }
         ViewInterface.showResult("you can special summon your \"The Tricky\" card by giving one of your hand cards. do you want? yes/no");
-        while (true){
+        while (true) {
             String userInput = ViewInterface.getInput();
             if (userInput.equals("no") || userInput.equals("cancel")) return false;
             else if (userInput.equals("yes")) break;
@@ -35,15 +35,15 @@ public class TheTricky extends Monster {
         while (true) {
             String selectionCommand = ViewInterface.getInput();
             if (!selectionCommand.startsWith("select --hand")) {
-                if (selectionCommand.equals("cancel")){
+                if (selectionCommand.equals("cancel")) {
                     ViewInterface.showResult("you cancelled the effect of your card!");
                     return false;
                 }
                 ViewInterface.showResult("Error: you should select a card from your hand!");
                 continue;
             }
-            String result = Duel.getMainPhase1().processSelect(selectionCommand);
-            if (selectedCell.equals(Cell.getSelectedCell())){
+            String result = Duel.processSelect(selectionCommand);
+            if (selectedCell.equals(Cell.getSelectedCell())) {
                 ViewInterface.showResult("Error: select another card to tribute!");
                 continue;
             }

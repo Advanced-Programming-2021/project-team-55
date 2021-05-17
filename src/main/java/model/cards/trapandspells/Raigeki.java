@@ -14,16 +14,17 @@ public class Raigeki extends SpellAndTrap {
 
     public Raigeki() {
         super("Raigeki", "Destroy all monsters your opponent controls.",
-                2500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
+                2500, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
     }
-    public static void setActivated(GameController gameController){
-        GameBoard opponentPlayerGameBoard=gameController.getCurrentTurnOpponentPlayer().getGameBoard();
-        if(!opponentPlayerGameBoard.doesMonsterZoneHaveMonsters(1)){
+
+    public static void setActivated(GameController gameController) {
+        GameBoard opponentPlayerGameBoard = gameController.getCurrentTurnOpponentPlayer().getGameBoard();
+        if (!opponentPlayerGameBoard.doesMonsterZoneHaveMonsters(1)) {
             ViewInterface.showResult(GameResponses.PREPARATION_NOT_DONE.response);
             return;
         }
-        for(Cell cell:opponentPlayerGameBoard.getMonsterCardZone()){
-            if(!cell.isEmpty()){
+        for (Cell cell : opponentPlayerGameBoard.getMonsterCardZone()) {
+            if (!cell.isEmpty()) {
                 cell.removeCardFromCell(opponentPlayerGameBoard);
             }
         }

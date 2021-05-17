@@ -23,7 +23,7 @@ public class ManEaterBug extends Monster {
             ViewInterface.showResult("Man-Eater Bug effect activated, but opponent doesn't have any monster");
             return;
         }
-        ViewInterface.showResult("Man-Eater Bug effect activated: opponent monster card: \"" + toBeRemovedCell.getCellCard().getName() +"\" removed.");
+        ViewInterface.showResult("Man-Eater Bug effect activated: opponent monster card: \"" + toBeRemovedCell.getCellCard().getName() + "\" removed.");
         toBeRemovedCell.removeCardFromCell(gameController.getCurrentTurnPlayer().getGameBoard());
     }
 
