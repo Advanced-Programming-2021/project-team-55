@@ -1,14 +1,11 @@
 package view.gamephases;
 
 import controller.gamephasescontrollers.EndPhaseController;
-import model.cards.monsters.Scanner;
-import model.cards.monsters.Texchanger;
-import model.cards.trapandspells.SwordsofRevealingLight;
 import view.ViewInterface;
 
 public class EndPhase extends Duel {
-    private EndPhaseController endPhaseController;
 
+    private EndPhaseController endPhaseController;
 
     @Override
     protected void execute() {
@@ -21,9 +18,7 @@ public class EndPhase extends Duel {
     protected String processCommand(String command) {
         String response = "";
         if (Duel.getGameController().getCurrentTurnPlayer().isAI()) response = "AI turn completed";
-        Scanner.deActivateEffect();
-        SwordsofRevealingLight.updateCounter(gameController);
-        Texchanger.makeArrayEmpty();
+        endPhaseController.handleCardsSideEffectsForThisPhase();
         gameController.changePhase();
         return response;
     }

@@ -56,7 +56,7 @@ public class MainPhase2 extends Duel {
                 response = GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response;
             }
         }*/
-        if (!gameController.checkCommandIsInCurrentPhase(command)) {
+        if (gameController.checkCommandIsNotInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
         } else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
             gameController.changePhase();
@@ -107,7 +107,7 @@ public class MainPhase2 extends Duel {
             }
         } else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
             gameController.currentPhase = GamePhase.GRAVEYARD;
-            response = gameController.showGraveyard(gameController.currentTurnPlayer);
+            response = gameController.showGraveyard();
 
         } else if (command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {
             try {

@@ -16,14 +16,12 @@ import model.cards.Monster;
 import model.cards.monsters.YomiShip;
 import view.gamephases.GameResponses;
 
-import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static model.board.CardStatus.DEFENSIVE_OCCUPIED;
 import static model.board.CardStatus.OFFENSIVE_OCCUPIED;
 
-public class BattlePhaseController implements methods {
+public class BattlePhaseController {
 
     private static final ArrayList<SpellAndTrap> attackEffectSpellAndTraps;
 
@@ -207,10 +205,6 @@ public class BattlePhaseController implements methods {
             return -damage;
     }
 
-    public boolean canCardAttack(Card card) {
-        return true;
-    }
-
     public String directAttack(GameController gameController) throws GameException {
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
@@ -223,7 +217,7 @@ public class BattlePhaseController implements methods {
         if (gameController.didCardAttackThisTurn(selectedCell)) {
             throw new GameException(GameResponses.CARD_ALREADY_ATTACKED.response);
         }
-        if (!gameController.canPlayerDirectAttack(selectedCell)) {
+        if (!gameController.canPlayerDirectAttack()) {
             throw new GameException(GameResponses.CAN_NOT_DIRECT_ATTACK.response);
         }
         Monster attackerMonster = (Monster) selectedCell.getCellCard();
@@ -249,4 +243,5 @@ public class BattlePhaseController implements methods {
         }
         return 0;
     }
+
 }

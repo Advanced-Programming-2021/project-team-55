@@ -8,7 +8,7 @@ import view.gamephases.GameResponses;
 
 import java.util.ArrayList;
 
-public class DrawPhaseController implements methods {
+public class DrawPhaseController {
 
     private final GameController gameController;
 

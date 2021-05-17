@@ -49,9 +49,6 @@ public class DataBaseController extends MenuController {
     public static void usersDataBaseInitialization() throws FileNotFoundException {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-       /* BufferedReader bufferedReader = new BufferedReader(
-                new FileReader("resources\\users\\"+username+".json"));
-        User user= gson.fromJson(bufferedReader, User.class);*/
         File directoryPath = new File("src\\resources\\users");
         File[] filesList = directoryPath.listFiles();
         ArrayList<User> dataBaseUsers = new ArrayList<>();

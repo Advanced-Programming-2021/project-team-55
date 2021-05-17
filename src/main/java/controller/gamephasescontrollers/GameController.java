@@ -19,6 +19,7 @@ import view.gamephases.GameResponses;
 import java.util.ArrayList;
 
 public class GameController {
+
     public Player currentTurnPlayer;
     public Player currentTurnOpponentPlayer;
     public GamePhase currentPhase;
@@ -39,10 +40,12 @@ public class GameController {
     private BattlePhaseController battlePhaseController;
     private MainPhase2Controller mainPhase2Controller;
     private EndPhaseController endPhaseController;
+
     public GameController(Game game) {
         this.game = game;
         gameControllerInitialization();
     }
+
     public GameController() {
     }
 
@@ -66,10 +69,10 @@ public class GameController {
         turnCount = 1;
         drawPhaseController = new DrawPhaseController(this);
         standByPhaseController = new StandByPhaseController(this);
-        mainPhase1Controller = new MainPhase1Controller(this);
+        mainPhase1Controller = MainPhase1Controller.getInstance();
         battlePhaseController = new BattlePhaseController(this);
-        mainPhase2Controller = new MainPhase2Controller(this);
-        endPhaseController = new EndPhaseController(this);
+        mainPhase2Controller = MainPhase2Controller.getInstance();
+        endPhaseController = EndPhaseController.getInstance(this);
     }
 
     public int tossCoin() {
@@ -84,7 +87,7 @@ public class GameController {
         return currentRound;
     }
 
-    public String showGraveyard(Player player) {
+    public String showGraveyard() {
         String response = "";
         GameBoard playerGameBoard = currentTurnPlayer.getGameBoard();
         if (playerGameBoard.getGraveyard().size() == 0) {
@@ -107,8 +110,6 @@ public class GameController {
         }
     }
 
-
-    //todo : should we deselect automatically when a command is done or not?
     public void selectCard(String zone, int number, boolean opponent) throws GameException {
         GameBoard currentPlayerGameBoard = currentTurnPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = currentTurnOpponentPlayer.getGameBoard();
@@ -160,9 +161,7 @@ public class GameController {
         } else {
             Cell.setSelectedCell(selectedCell);
         }
-
     }
-
 
     public void deselect() throws GameException {
         if (Cell.getSelectedCell() == null) {
@@ -264,18 +263,6 @@ public class GameController {
 
     }
 
-    protected void handleCardSideEffects() {
-
-    }
-
-    protected boolean isCellSelected(Cell cell) {
-        return false;
-    }
-
-    protected boolean canCardBeActivated(Cell cell) {
-        return false;
-    }
-
     public boolean DoPlayerSetOrSummonedThisTurn() {
         return didPlayerSetOrSummonThisTurn;
     }
@@ -284,18 +271,10 @@ public class GameController {
         this.didPlayerSetOrSummonThisTurn = didPlayerSetOrSummonThisTurn;
     }
 
-    protected void nonMonsterActivate(Cell cell) {
-
-    }
-
     public void surrender() {
         game.addWinner(currentTurnOpponentPlayer);
         game.addLoser(currentTurnPlayer);
         isGameEnded = true;
-    }
-
-    protected void checkGameWinner() {
-
     }
 
     public void endDuel() {
@@ -375,10 +354,6 @@ public class GameController {
         return currentPhase;
     }
 
-    public void setCurrentPhase(GamePhase currentPhase) {
-        this.currentPhase = currentPhase;
-    }
-
     public Game getGame() {
         return game;
     }
@@ -423,29 +398,29 @@ public class GameController {
         return battlePhaseController;
     }
 
-    public boolean checkCommandIsInCurrentPhase(String command) {
+    public boolean checkCommandIsNotInCurrentPhase(String command) {
         if (command.matches(GameRegexes.SUMMON.regex) || command.matches(GameRegexes.SET.regex) ||
                 command.matches(GameRegexes.SET_POSITION.regex) || command.matches(GameRegexes.FLIP_SUMMON.regex) ||
                 command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {
-            return currentPhase == GamePhase.MAIN1 || currentPhase == GamePhase.MAIN2;
+            return currentPhase != GamePhase.MAIN1 && currentPhase != GamePhase.MAIN2;
         } else if (command.matches(GameRegexes.ATTACK.regex) || command.matches(GameRegexes.ATTACK_DIRECT.regex)) {
-            return currentPhase == GamePhase.BATTLE;
+            return currentPhase != GamePhase.BATTLE;
         }
-        return true;
+        return false;
     }
 
     public boolean didCardAttackThisTurn(Cell cell) {
         return attackerCellsThisTurn.contains(cell);
     }
 
-    public boolean canPlayerDirectAttack(Cell cell) {
-        return currentTurnOpponentPlayer.getGameBoard().isMonsterCardZoneEmpty();//todo طبق داک ممکنه دلایل دیگه هم وجود داشته باشه
+    public boolean canPlayerDirectAttack() {
+        return currentTurnOpponentPlayer.getGameBoard().isMonsterCardZoneEmpty();
     }
 
     public String getSideDeckCards(Player player) {
-        String response = player.getUser().getNickname() + "'s side deck cards:\n";
+        StringBuilder response = new StringBuilder(player.getUser().getNickname() + "'s side deck cards:\n");
         for (Card card : player.getPlayDeck().getSideDeck()) {
-            response += card.getName() + "\n";
+            response.append(card.getName()).append("\n");
         }
         return response + "\n";
     }
@@ -521,13 +496,9 @@ public class GameController {
         }
     }
 
-
     public ArrayList<Cell> getAttackerCellsThisTurn() {
         return attackerCellsThisTurn;
     }
 
-    public void setAttackerCellsThisTurn(ArrayList<Cell> attackerCellsThisTurn) {
-        this.attackerCellsThisTurn = attackerCellsThisTurn;
-    }
 }
 
