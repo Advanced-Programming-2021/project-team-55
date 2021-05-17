@@ -21,7 +21,7 @@ public class CommandKnight extends Monster {
                 , 2100, 1000, 1000, 4, MonsterAttribute.FIRE, MonsterType.WARRIOR, CardType.EFFECTIVE);
     }
 
-    public static void handleEffect(CardStatus cardStatus, Cell cell){//todo deactivate
+    public static void handleEffect(CardStatus cardStatus, Cell cell) {//todo deactivate
         if (cell == null || cell.isEmpty() || cardStatus != CardStatus.OFFENSIVE_OCCUPIED ||
                 !cell.getCellCard().getName().equals("Command Knight")) return;
 
@@ -29,25 +29,26 @@ public class CommandKnight extends Monster {
 
         ViewInterface.showResult("Command Knight effect activated: all monsters atk will increase 400");
         Duel.getGameController().getCurrentTurnPlayer().getGameBoard().addAllMonstersATK(400);
-        ((CommandKnight)cell.getCellCard()).isActive = true;
-        ((CommandKnight)cell.getCellCard()).owner = Duel.getGameController().getCurrentTurnPlayer();
+        ((CommandKnight) cell.getCellCard()).isActive = true;
+        ((CommandKnight) cell.getCellCard()).owner = Duel.getGameController().getCurrentTurnPlayer();
     }
 
-    public static boolean handleEffect(GameController gameController, Cell cell){
+    public static boolean handleEffect(GameController gameController, Cell cell) {
         if (cell == null || cell.isEmpty() || cell.cardStatus != CardStatus.OFFENSIVE_OCCUPIED ||
                 !cell.getCellCard().getName().equals("Command Knight")) return false;
 
         return gameController.getCurrentTurnOpponentPlayer().getGameBoard().getNumberOfMonstersOnMonsterCardZone() >= 2;
     }
 
-    public static void deActivateEffect(Cell cell){
+    public static void deActivateEffect(Cell cell) {
         if (cell == null || cell.isEmpty() || !cell.getCellCard().getName().equals("Command Knight") ||
                 cell.getCardStatus() == CardStatus.OFFENSIVE_OCCUPIED) return;
 
         ViewInterface.showResult("Command Knight effect deActivated: all monsters atk will decrease 400");
         try {
             ((CommandKnight) cell.getCellCard()).owner.getGameBoard().addAllMonstersATK(-400);
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
 }

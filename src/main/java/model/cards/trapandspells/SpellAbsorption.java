@@ -26,16 +26,19 @@ public class SpellAbsorption extends SpellAndTrap {
         try {
             ((SpellAbsorption) Cell.getSelectedCell().getCellCard()).owner = gameController.getCurrentTurnPlayer();
             spellAbsorptions.add(Cell.getSelectedCell());
-        }catch (Exception e) {return;}
+        } catch (Exception e) {
+            return;
+        }
         ViewInterface.showResult("Spell Absorption activated.");
         updateSpellInGameBoard(gameController);
     }
 
-    public static void handleEffect(){
-        for (Cell cell: spellAbsorptions){
-            try{
+    public static void handleEffect() {
+        for (Cell cell : spellAbsorptions) {
+            try {
                 ((SpellAbsorption) cell.getCellCard()).owner.increaseLP(500);
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         }
     }
 

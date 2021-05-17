@@ -65,20 +65,6 @@ public class DataBaseController extends MenuController {
         User.setAllUsers(dataBaseUsers);
     }
 
-    @Override
-    public void enterMenu(String menu) throws MenuException {
-        throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
-    }
-
-    @Override
-    public void exitMenu() {
-        Menu.setCurrentMenu(MenuType.MAIN);
-    }
-
-    public void importDeck(String cardName) {
-
-    }
-
     public static void cardsDataBaseInitialization() {
         initializeMonsterCards();
         initializeMagicCards();
@@ -164,6 +150,20 @@ public class DataBaseController extends MenuController {
         Card UnitedWeStand = new UnitedWeStand();
         Card MagnumShield = new MagnumShield();
         Card AdvancedRitualArt = new AdvancedRitualArt();
+    }
+
+    @Override
+    public void enterMenu(String menu) throws MenuException {
+        throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
+    }
+
+    @Override
+    public void exitMenu() {
+        Menu.setCurrentMenu(MenuType.MAIN);
+    }
+
+    public void importDeck(String cardName) {
+
     }
 
     public String exportCard(String cardName) {

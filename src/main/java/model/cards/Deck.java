@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class Deck {
 
-    private String name;
     private final ArrayList<Card> mainDeck;
     private final ArrayList<Card> sideDeck;
+    private String name;
     private boolean isActive;
 
     {

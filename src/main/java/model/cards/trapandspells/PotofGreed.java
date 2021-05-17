@@ -16,14 +16,14 @@ public class PotofGreed extends SpellAndTrap {
                 2500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
     }
 
-    public static void setActivated(GameController gameController){
-        GameBoard playerGameBoard=gameController.getCurrentTurnPlayer().getGameBoard();
-        if(playerGameBoard.getDeckZone().size()<2||playerGameBoard.getHandCards().size()>4){
+    public static void setActivated(GameController gameController) {
+        GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
+        if (playerGameBoard.getDeckZone().size() < 2 || playerGameBoard.getHandCards().size() > 4) {
             ViewInterface.showResult(GameResponses.PREPARATION_NOT_DONE.response);
             return;
         }
-        ViewInterface.showResult("Pot of Greed activated : "+playerGameBoard.getDeckZone().get(0).getCellCard().getName()+
-                " and "+playerGameBoard.getDeckZone().get(1).getCellCard().getName()+" added to the hand");
+        ViewInterface.showResult("Pot of Greed activated : " + playerGameBoard.getDeckZone().get(0).getCellCard().getName() +
+                " and " + playerGameBoard.getDeckZone().get(1).getCellCard().getName() + " added to the hand");
         playerGameBoard.addCardsToHandDeck(2);
         updateSpellInGameBoard(gameController);
     }

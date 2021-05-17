@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 
 abstract public class Duel {
 
+    protected static final CheatController cheatController = CheatController.getInstance();
     private static final DrawPhase drawPhase = new DrawPhase();
     private static final MainPhase1 mainPhase1 = new MainPhase1();
     private static final BattlePhase battlePhase = new BattlePhase();
@@ -18,9 +19,7 @@ abstract public class Duel {
     private static final MainPhase2 mainPhase2 = new MainPhase2();
     private static final EndPhase endPhase = new EndPhase();
     private static final Graveyard graveyard = new Graveyard();
-
     protected static GameController gameController;
-    protected static final CheatController cheatController = CheatController.getInstance();
 
     public static void runGame(GameController gameController) {
         Duel.gameController = gameController;
@@ -68,10 +67,6 @@ abstract public class Duel {
         }
         gameController.endGameRound();
     }
-
-    abstract protected void execute();
-
-    abstract protected String processCommand(String command);
 
     public static void showPhase() {
         String response = "";
@@ -223,4 +218,8 @@ abstract public class Duel {
     public static GameController getGameController() {
         return gameController;
     }
+
+    abstract protected void execute();
+
+    abstract protected String processCommand(String command);
 }

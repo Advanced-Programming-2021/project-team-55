@@ -31,6 +31,11 @@ public interface MainPhasesController {
     ArrayList<SpellAndTrap> SpecialSummonEffectSpellAndTrap = new ArrayList<>();
     ArrayList<SpellAndTrap> ritualSummonEffectSpellAndTrap = new ArrayList<>();
 
+    static void addMonstersToRitualSummonEffectSpellAndTrap() {
+        ritualSummonEffectSpellAndTrap.add(new TorrentialTribute());
+        //todo add the rest of summon monsters thing
+    }
+
     default void monsterInsert(Cell cell) {
 
     }
@@ -60,7 +65,7 @@ public interface MainPhasesController {
         gameController.setDidPlayerSetOrSummonThisTurn(true);
         gameController.setLastSummonedMonster(selectedCell);
         Cell.deselectCell();
-        activateTrapIfCanBeActivated(gameController ,SummonTypes.NormalSummon);
+        activateTrapIfCanBeActivated(gameController, SummonTypes.NormalSummon);
     }
 
     private void activateTrapIfCanBeActivated(GameController gameController, SummonTypes summonType) {
@@ -127,11 +132,6 @@ public interface MainPhasesController {
         //todo add the rest of summon monsters thing
     }
 
-    public static void addMonstersToRitualSummonEffectSpellAndTrap() {
-        ritualSummonEffectSpellAndTrap.add(new TorrentialTribute());
-        //todo add the rest of summon monsters thing
-    }
-
     private Cell handleTributeForNormalSummon(Player currentPlayer, Cell selectedCell, int monsterLevel, boolean isSpecialSummon) throws GameException {
         if (monsterLevel > 4 || isSpecialSummon) {
             int numberOfTributes;
@@ -153,7 +153,7 @@ public interface MainPhasesController {
             Cell newSelectedCell;
             for (int i = 0; i < numberOfTributes; i++) {
                 ViewInterface.showResult("select cell to tribute:");
-                Duel.getMainPhase1().processSelect(ViewInterface.getInput());
+                Duel.processSelect(ViewInterface.getInput());
                 newSelectedCell = Cell.getSelectedCell();
                 if (!currentPlayer.getGameBoard().isCellInMonsterZone(newSelectedCell))
                     throw new GameException(GameResponses.NO_MONSTER_ON_CELL.response);
@@ -286,7 +286,7 @@ public interface MainPhasesController {
         selectedCell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
         ManEaterBug.handleEffect(gameController, selectedCell);
         Cell.deselectCell();
-        activateTrapIfCanBeActivated(gameController,SummonTypes.FlipSummon);
+        activateTrapIfCanBeActivated(gameController, SummonTypes.FlipSummon);
     }
 
     default void specialSummon(GameController gameController) throws GameException {

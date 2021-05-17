@@ -12,7 +12,6 @@ import view.ViewInterface;
 public class DarkHole extends SpellAndTrap {
 
 
-
     public DarkHole() {
         super("Dark Hole", "Destroy all monsters on the field.",
                 2500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.UNLIMITED);
@@ -25,14 +24,14 @@ public class DarkHole extends SpellAndTrap {
     }
 
     private static void handleEffect(GameController gameController) {
-        GameBoard currentTurnPlayerGameBoard= gameController.getCurrentTurnPlayer().getGameBoard();
-        GameBoard currentTurnOpponentPlayerGameBoard= gameController.getCurrentTurnOpponentPlayer().getGameBoard();
+        GameBoard currentTurnPlayerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
+        GameBoard currentTurnOpponentPlayerGameBoard = gameController.getCurrentTurnOpponentPlayer().getGameBoard();
         removeOnePlayerMonsters(currentTurnPlayerGameBoard);
         removeOnePlayerMonsters(currentTurnOpponentPlayerGameBoard);
     }
 
     private static void removeOnePlayerMonsters(GameBoard currentTurnPlayerGameBoard) {
-        for (Cell monster: currentTurnPlayerGameBoard.getMonsterCardZone()) {
+        for (Cell monster : currentTurnPlayerGameBoard.getMonsterCardZone()) {
             if (!monster.isEmpty())
                 monster.removeCardFromCell(currentTurnPlayerGameBoard);
         }

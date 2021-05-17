@@ -23,22 +23,23 @@ public class Yami extends SpellAndTrap {
         allMonsters.addAll(gameController.getCurrentTurnPlayer().getGameBoard().getMonsterZoneCells());
         allMonsters.addAll(gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterZoneCells());
         for (Cell cell : allMonsters) {
-            try{
+            try {
                 Monster monster = (Monster) cell.getCellCard();
-                switch(monster.getMonsterType()){
+                switch (monster.getMonsterType()) {
                     case FIEND:
                     case SPELLCASTER: {
                         monster.addATK(200);
                         monster.addDEF(200);
                         break;
                     }
-                    case FAIRY:{
+                    case FAIRY: {
                         monster.addATK(-200);
                         monster.addDEF(-200);
                         break;
                     }
                 }
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         }
         ViewInterface.showResult("Yami activated.");
         updateSpellInGameBoard(gameController);

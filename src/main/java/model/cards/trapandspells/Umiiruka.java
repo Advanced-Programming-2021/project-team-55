@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static model.cards.cardfeaturesenums.MonsterType.*;
 
 public class Umiiruka extends SpellAndTrap {
-    private static ArrayList<Monster> effectedMonsters;
+    private static final ArrayList<Monster> effectedMonsters;
 
     static {
         effectedMonsters = new ArrayList<>();

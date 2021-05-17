@@ -57,16 +57,18 @@ public class Marshmallon extends Monster {
         return "";
 
     }
-    private static boolean isMarshmallon (Cell attackerCell, Cell attackedCell){
-            return attackedCell.getCellCard().getName().equals("Marshmallon") ||
-                    attackerCell.getCellCard().getName().equals("Marshmallon");
-        }
+
+    private static boolean isMarshmallon(Cell attackerCell, Cell attackedCell) {
+        return attackedCell.getCellCard().getName().equals("Marshmallon") ||
+                attackerCell.getCellCard().getName().equals("Marshmallon");
+    }
+
     public static boolean isMarshmallon(Cell attackedCell) {
         return attackedCell.getCellCard().getName().equals("Marshmallon");
     }
 
     private static boolean marshmallonDiesDuringBeingAttacked(GameController gameController, Cell attackerCell, Cell attackedCell) {
-        return gameController.getBattlePhaseController().isAttackerStronger(attackerCell, attackedCell)&&
+        return gameController.getBattlePhaseController().isAttackerStronger(attackerCell, attackedCell) &&
                 attackedCell.getCellCard().getName().equals("Marshmallon");
     }
 

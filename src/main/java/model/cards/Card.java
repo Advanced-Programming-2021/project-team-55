@@ -12,26 +12,25 @@ import java.util.Comparator;
 public class Card {
 
     public static ArrayList<Card> allCards;
+
+    static {
+        allCards = new ArrayList<>();
+    }
+
     protected String name;
     protected String description;
     protected int price;
     protected Counter counter;
     protected int number;
-
-    public enum Kind {MONSTER, MAGIC}
     protected SpellOrTrap magicType;
     protected Kind cardKind;
-
-    static {
-        allCards = new ArrayList<>();
-    }
 
     public Card(String name, String description, int price, Kind cardKind, SpellOrTrap magicType) {
         setName(name);
         setDescription(description);
         setPrice(price);
         this.cardKind = cardKind;
-        this.magicType=magicType;
+        this.magicType = magicType;
 
         if (getCardByName(name) == null) {
             allCards.add(this);
@@ -97,78 +96,9 @@ public class Card {
         return spellAndTraps;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    protected void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    protected void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    protected void setPrice(int price) {
-        this.price = price;
-    }
-
-    public Counter getCounter() {
-        return counter;
-    }
-
-    protected void setCounter(Counter counter) {
-        this.counter = counter;
-    }
-
-    @Override
-    public String toString() {
-        return name + ": " + description;
-    }
-
-    public boolean isMonster() {
-        return cardKind == Kind.MONSTER;
-    }
-
-    public boolean isSpell(){
-        if(cardKind==Kind.MONSTER){
-            return false;
-        }
-        else {
-            return magicType == SpellOrTrap.SPELL;
-        }
-    }
-    public boolean isSpellAndTrap(){
-        if(cardKind==Kind.MONSTER){
-            return false;
-        }
-        return true;
-    }
-
-
-    public Card clone(){
-        return Card.getNewCardObjectByName(this.getName());
-    }
-
     public static Card getNewCardObjectByName(String name) {//todo use this to start game, not references
 
-        switch(name){
+        switch (name) {
             //monsters:
             case "Battle OX":
                 return new BattleOX();
@@ -405,7 +335,75 @@ public class Card {
 
     }
 
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    protected void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    protected void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    protected void setPrice(int price) {
+        this.price = price;
+    }
+
+    public Counter getCounter() {
+        return counter;
+    }
+
+    protected void setCounter(Counter counter) {
+        this.counter = counter;
+    }
+
+    @Override
+    public String toString() {
+        return name + ": " + description;
+    }
+
+    public boolean isMonster() {
+        return cardKind == Kind.MONSTER;
+    }
+
+    public boolean isSpell() {
+        if (cardKind == Kind.MONSTER) {
+            return false;
+        } else {
+            return magicType == SpellOrTrap.SPELL;
+        }
+    }
+
+    public boolean isSpellAndTrap() {
+        return cardKind != Kind.MONSTER;
+    }
+
+
+    public Card clone() {
+        return Card.getNewCardObjectByName(this.getName());
+    }
+
     public Kind getCardKind() {
         return cardKind;
     }
+
+    public enum Kind {MONSTER, MAGIC}
 }

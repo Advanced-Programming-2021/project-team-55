@@ -157,7 +157,7 @@ public class GameBoard {
         return counter;
     }
 
-    public Cell getMonsterByIndex(int number){
+    public Cell getMonsterByIndex(int number) {
         return monsterCardZone[number - 1];
     }
 
@@ -311,7 +311,8 @@ public class GameBoard {
         for (Cell cell : graveyard) {
             try {
                 if (cell.getCellCard().isMonster()) graveyardMonstersCell.add(cell);
-            }catch(Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
         return graveyardMonstersCell;
     }

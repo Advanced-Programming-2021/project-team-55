@@ -16,7 +16,8 @@ public class NegateAttack extends SpellAndTrap {
         super("Negate Attack", "When an opponent's monster declares an attack: Target the attacking monster; negate the attack, then end the Battle Phase.",
                 3000, false, SpellOrTrap.TRAP, SpellOrTrapAttribute.COUNTER, EffectiveTerm.UNLIMITED);
     }
-    public static void setActivated(GameController gameController){
+
+    public static void setActivated(GameController gameController) {
         gameController.getBattlePhaseController().setAttackDisabled();
         ViewInterface.showResult("Negate Attack effect activated : attack is negated and opponent Battle Phase ended");
         gameController.changePhase();

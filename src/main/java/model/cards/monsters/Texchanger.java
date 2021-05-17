@@ -36,7 +36,7 @@ public class Texchanger extends Monster {
 
         ViewInterface.showResult("Texchanger effect activated:");
         ViewInterface.showResult("Turn changed temporary.");
-        gameController.changeTurn(true,false);
+        gameController.changeTurn(true, false);
 
         int counter = 0;
         for (Card card : monsters) {
@@ -49,7 +49,7 @@ public class Texchanger extends Monster {
             if (!selectionCommand.matches("\\d+")) {
                 if (selectionCommand.equals("cancel")) {
                     ViewInterface.showResult("you cancelled the effect of your card!");
-                    gameController.changeTurn(true,true);
+                    gameController.changeTurn(true, true);
                     return true;
                 }
                 ViewInterface.showResult("Error: you should enter a number!");
@@ -85,13 +85,13 @@ public class Texchanger extends Monster {
         }
 
         ViewInterface.showResult("now turn changed to main player!");
-        gameController.changeTurn(true,true);
+        gameController.changeTurn(true, true);
         Cell.setSelectedCell(oldSelectedCell);
         usedTexChangerCellsThisTurn.add(attackedCell);
         return true;
     }
 
-    public static void makeArrayEmpty(){
+    public static void makeArrayEmpty() {
         usedTexChangerCellsThisTurn = new ArrayList<>();
     }
 

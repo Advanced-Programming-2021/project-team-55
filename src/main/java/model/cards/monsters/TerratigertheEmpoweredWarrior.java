@@ -20,7 +20,7 @@ public class TerratigertheEmpoweredWarrior extends Monster {
     public static void handleEffect(GameController gameController, Cell summonedCell) {
         try {
             if (!summonedCell.getCellCard().getName().equals("Terratiger, the Empowered Warrior")) return;
-        }catch (Exception e) {
+        } catch (Exception e) {
             return;
         }
 
@@ -30,19 +30,19 @@ public class TerratigertheEmpoweredWarrior extends Monster {
             while (true) {
                 String selectionCommand = ViewInterface.getInput();
                 if (!selectionCommand.startsWith("select --hand")) {
-                    if (selectionCommand.equals("cancel")){
+                    if (selectionCommand.equals("cancel")) {
                         ViewInterface.showResult("you cancelled the effect of your card!");
                         return;
                     }
                     ViewInterface.showResult("Error: you should select a card from hand!");
                     continue;
                 }
-                String result = Duel.getMainPhase1().processSelect(selectionCommand);
+                String result = Duel.processSelect(selectionCommand);
                 if (!result.equals("card selected")) {
                     ViewInterface.showResult("Error: try again");
                     continue;
                 }
-                if (Cell.getSelectedCell().getCellCard().getCardKind() != Kind.MONSTER){
+                if (Cell.getSelectedCell().getCellCard().getCardKind() != Kind.MONSTER) {
                     ViewInterface.showResult("Error: you should select a monster!");
                     continue;
                 }

@@ -24,12 +24,13 @@ public class ClosedForest extends SpellAndTrap {
         allMonsters.addAll(gameController.getCurrentTurnPlayer().getGameBoard().getMonsterZoneCells());
         int toBeAddedATK = gameController.getCurrentTurnPlayer().getGameBoard().getGraveyard().size() * 100;
         for (Cell cell : allMonsters) {
-            try{
+            try {
                 Monster monster = (Monster) cell.getCellCard();
                 if (monster.getMonsterType() == MonsterType.BEAST) {
                     monster.addATK(toBeAddedATK);
                 }
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         }
         ViewInterface.showResult("Closed Forest activated.");
         updateSpellInGameBoard(gameController);

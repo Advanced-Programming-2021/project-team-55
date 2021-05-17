@@ -19,7 +19,32 @@ import view.gamephases.GameResponses;
 import java.util.ArrayList;
 
 public class GameController {
+    public Player currentTurnPlayer;
+    public Player currentTurnOpponentPlayer;
+    public GamePhase currentPhase;
+    public ArrayList<Cell> changedPositionCells;
+    public ArrayList<GamePhase> phases;
+    public ArrayList<Cell> attackerCellsThisTurn;
+    public boolean shouldRitualSummonNow;
+    public boolean shouldSpecialSummonNow;
+    public int turnCount;
+    protected Game game;
     Cell lastSummonedMonster = new Cell();
+    private int currentRound = 1;
+    private boolean didPlayerSetOrSummonThisTurn;
+    private boolean isGameEnded;
+    private DrawPhaseController drawPhaseController;
+    private StandByPhaseController standByPhaseController;
+    private MainPhase1Controller mainPhase1Controller;
+    private BattlePhaseController battlePhaseController;
+    private MainPhase2Controller mainPhase2Controller;
+    private EndPhaseController endPhaseController;
+    public GameController(Game game) {
+        this.game = game;
+        gameControllerInitialization();
+    }
+    public GameController() {
+    }
 
     public Cell getLastSummonedMonster() {
         return lastSummonedMonster;
@@ -28,26 +53,6 @@ public class GameController {
     public void setLastSummonedMonster(Cell lastSummonedMonster) {
         this.lastSummonedMonster = lastSummonedMonster;
     }
-
-    public Player currentTurnPlayer;
-    public Player currentTurnOpponentPlayer;
-    public GamePhase currentPhase;
-    public ArrayList<Cell> changedPositionCells;
-    public ArrayList<GamePhase> phases;
-    public ArrayList<Cell> attackerCellsThisTurn;
-    protected Game game;
-    private int currentRound = 1;
-    private boolean didPlayerSetOrSummonThisTurn;
-    public boolean shouldRitualSummonNow;
-    public boolean shouldSpecialSummonNow;
-    public int turnCount;
-    private boolean isGameEnded;
-    private DrawPhaseController drawPhaseController;
-    private StandByPhaseController standByPhaseController;
-    private MainPhase1Controller mainPhase1Controller;
-    private BattlePhaseController battlePhaseController;
-    private MainPhase2Controller mainPhase2Controller;
-    private EndPhaseController endPhaseController;
 
     private void gameControllerInitialization() {
         currentPhase = GamePhase.DRAW;
@@ -69,14 +74,6 @@ public class GameController {
 
     public int tossCoin() {
         return CoinDice.tossCoin();
-    }
-
-    public GameController(Game game) {
-        this.game = game;
-        gameControllerInitialization();
-    }
-
-    public GameController() {
     }
 
     public ArrayList<Cell> getChangedPositionCells() {
@@ -175,14 +172,6 @@ public class GameController {
         Cell.setSelectedCell(null);
     }
 
-    public void setCurrentTurnPlayer(Player currentTurnPlayer) {
-        this.currentTurnPlayer = currentTurnPlayer;
-    }
-
-    public void setCurrentTurnOpponentPlayer(Player currentTurnOpponentPlayer) {
-        this.currentTurnOpponentPlayer = currentTurnOpponentPlayer;
-    }
-
     public void changePhase() {
         switch (currentPhase) {
             case DRAW: {
@@ -207,23 +196,22 @@ public class GameController {
             }
             case END: {
                 currentPhase = GamePhase.DRAW;
-                changeTurn(false,false);
+                changeTurn(false, false);
                 break;
             }
         }
         Duel.showPhase();
     }
 
-    public void changeTurn(boolean isTemporary,boolean backToPlayer) {
+    public void changeTurn(boolean isTemporary, boolean backToPlayer) {
         Player player = currentTurnPlayer;
         currentTurnPlayer = currentTurnOpponentPlayer;
         currentTurnOpponentPlayer = player;
-        if (isTemporary &&!backToPlayer) {
+        if (isTemporary && !backToPlayer) {
             ViewInterface.showResult("now it will be " + currentTurnPlayer.getUser().getNickname() + "’s turn");
             ViewInterface.showResult(mainPhase1Controller.showGameBoard(currentTurnPlayer, currentTurnOpponentPlayer));
             return;
         }
-        ;
         didPlayerSetOrSummonThisTurn = false;
         changedPositionCells = new ArrayList<>();
         attackerCellsThisTurn = new ArrayList<>();
@@ -253,8 +241,7 @@ public class GameController {
                         if (Cell.getSelectedCell() == null) {
                             ViewInterface.showResult(GameResponses.NO_CARDS_SELECTED.response);
                             continue;
-                        }
-                        else {
+                        } else {
                             Cell selectedCell = Cell.getSelectedCell();
                             for (SpellAndTrap spellAndTrap : trapsCanBeActivated) {
                                 if (selectedCell.getCellCard().getName().equals(spellAndTrap.getName())) {
@@ -331,10 +318,7 @@ public class GameController {
             game.addWinner(currentTurnPlayer);
             game.addLoser(currentTurnOpponentPlayer);
             return true;
-        } else if (isGameEnded) {
-            return true;
-        }
-        return false;
+        } else return isGameEnded;
     }
 
     public void endGameRound() {
@@ -392,20 +376,28 @@ public class GameController {
         return currentPhase;
     }
 
-    public Game getGame() {
-        return game;
-    }
-
     public void setCurrentPhase(GamePhase currentPhase) {
         this.currentPhase = currentPhase;
+    }
+
+    public Game getGame() {
+        return game;
     }
 
     public Player getCurrentTurnPlayer() {
         return currentTurnPlayer;
     }
 
+    public void setCurrentTurnPlayer(Player currentTurnPlayer) {
+        this.currentTurnPlayer = currentTurnPlayer;
+    }
+
     public Player getCurrentTurnOpponentPlayer() {
         return currentTurnOpponentPlayer;
+    }
+
+    public void setCurrentTurnOpponentPlayer(Player currentTurnOpponentPlayer) {
+        this.currentTurnOpponentPlayer = currentTurnOpponentPlayer;
     }
 
     public DrawPhaseController getDrawPhaseController() {

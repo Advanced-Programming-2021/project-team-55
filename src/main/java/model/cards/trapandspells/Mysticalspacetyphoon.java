@@ -28,20 +28,20 @@ public class Mysticalspacetyphoon extends SpellAndTrap {
         ViewInterface.showResult("Mystical space typhoon activated : select a spell or trap on the field to destroy:");
         String input = ViewInterface.getInput();
         while (true) {
-            String response = Duel.getMainPhase1().processSelect(input);
+            String response = Duel.processSelect(input);
             if (input.equals("cancel")) {
                 ViewInterface.showResult("you cancelled the activation of Mystical space typhoon!");
                 return;
             }
             if (input.matches("^select --spell (\\d+)$")) {
                 if (response.equals(GameResponses.CARD_SELECTED.response)) {
-                    ViewInterface.showResult("your card "+Cell.getSelectedCell().getCellCard().getName()+" destroyed.");
+                    ViewInterface.showResult("your card " + Cell.getSelectedCell().getCellCard().getName() + " destroyed.");
                     Cell.getSelectedCell().removeCardFromCell(playerGameBoard);
                     break;
                 }
             } else if (input.matches("^select --opponent --spell (\\d+)$")) {
                 if (response.equals(GameResponses.CARD_SELECTED.response)) {
-                    ViewInterface.showResult("your opponent card "+Cell.getSelectedCell().getCellCard().getName()+" destroyed.");
+                    ViewInterface.showResult("your opponent card " + Cell.getSelectedCell().getCellCard().getName() + " destroyed.");
                     Cell.getSelectedCell().removeCardFromCell(playerGameBoard);
                     break;
                 }

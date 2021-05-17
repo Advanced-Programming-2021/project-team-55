@@ -16,10 +16,11 @@ public class MirrorForce extends SpellAndTrap {
         super("Mirror Force", "When an opponent's monster declares an attack: Destroy all your opponent's Attack Position monsters.",
                 2000, false, SpellOrTrap.TRAP, SpellOrTrapAttribute.NORMAL, EffectiveTerm.UNLIMITED);
     }
-    public static void setActivated(GameController gameController){
-        GameBoard opponentPlayerGameBoard=gameController.getCurrentTurnOpponentPlayer().getGameBoard();
-        for(Cell cell: opponentPlayerGameBoard.getMonsterCardZone()){
-            if(!cell.isEmpty()&&cell.getCardStatus()== CardStatus.OFFENSIVE_OCCUPIED){
+
+    public static void setActivated(GameController gameController) {
+        GameBoard opponentPlayerGameBoard = gameController.getCurrentTurnOpponentPlayer().getGameBoard();
+        for (Cell cell : opponentPlayerGameBoard.getMonsterCardZone()) {
+            if (!cell.isEmpty() && cell.getCardStatus() == CardStatus.OFFENSIVE_OCCUPIED) {
                 cell.removeCardFromCell(opponentPlayerGameBoard);
             }
         }

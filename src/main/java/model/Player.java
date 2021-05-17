@@ -18,12 +18,12 @@ public class Player {
         this.playerGameBoard = new GameBoard(playDeck);
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public User getUser() {
         return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setDeckToPlay(Deck deckToPlay) {
@@ -36,10 +36,6 @@ public class Player {
 
     public void setLP(int LP) {
         this.LP = LP;
-    }
-
-    public void setPlayDeck(Deck playDeck) {
-        this.playDeck = playDeck;
     }
 
     public void decreaseLP(int amount) {
@@ -56,6 +52,10 @@ public class Player {
 
     public Deck getPlayDeck() {
         return playDeck;
+    }
+
+    public void setPlayDeck(Deck playDeck) {
+        this.playDeck = playDeck;
     }
 
     public void resetGameBoard() {

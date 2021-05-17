@@ -14,9 +14,8 @@ import view.gamephases.GameResponses;
 
 public abstract class SpellAndTrap extends Card {
 
-    private boolean isActive;
-
     protected SpellOrTrap type;
+    private boolean isActive;
     private SpellOrTrapAttribute attribute;
     private EffectiveTerm status;
 
@@ -51,23 +50,14 @@ public abstract class SpellAndTrap extends Card {
         else if (spellAndTrap.name.equals("Torrential Tribute")) TorrentialTribute.setActivated(gameController);
         else if (spellAndTrap.name.equals("Trap Hole")) TrapHole.setActivated(gameController);
         else if (spellAndTrap.name.equals("Mirror Force")) MirrorForce.setActivated(gameController);
-        else if(spellAndTrap.name.equals("Negate Attack"))NegateAttack.setActivated(gameController);
-        else if(spellAndTrap.name.equals("Magic Cylinder"))MagicCylinder.setActivated(gameController);
-        else{
+        else if (spellAndTrap.name.equals("Negate Attack")) NegateAttack.setActivated(gameController);
+        else if (spellAndTrap.name.equals("Magic Cylinder")) MagicCylinder.setActivated(gameController);
+        else {
             ViewInterface.showResult(GameResponses.ACTIVATION_ONLY_FOR_SPELL.response);
         }
         //todo : in be nazaram qhalate (parham)
         SpellAbsorption.handleEffect();
     }
-
-    public static void setActivated(GameController gameController) {
-        return;
-    }
-
-    public void deactivate() {
-
-    }
-
 
     public static void updateSpellInGameBoard(GameController gameController) {
         Cell selectedCell = Cell.getSelectedCell();
@@ -91,10 +81,17 @@ public abstract class SpellAndTrap extends Card {
         Cell.deselectCell();
     }
 
+    public void deactivate() {
+
+    }
+
     public boolean isActivated() {
         return isActive;
     }
 
+    public static void setActivated(GameController gameController) {
+        return;
+    }
 
     public void setActive(boolean active) {
         isActive = active;
