@@ -27,12 +27,27 @@ public class GateGuardian extends Monster {
         Cell selectedCell = Cell.getSelectedCell();
         if (!selectedCell.getCellCard().getName().equals("Gate Guardian")) return false;
 //todo پنج تا مانستر برا یه هیولا D:
-        if (!playerGameBoard.doesMonsterZoneHaveMonsters(5) || !gameController.getMainPhase1Controller().canSpecialSummon(gameController)) {
+        if (!playerGameBoard.doesMonsterZoneHaveMonsters(5) || !gameController.getMainPhase1Controller().canSpecialSummon(gameController))
             throw new GameException(GameResponses.CAN_NOT_SET_OR_SUMMON.response);
-        }
         ArrayList<Cell> tributes = new ArrayList<>();
         ViewInterface.showResult("Gate Guardian effect activated:");
         ViewInterface.showResult("you have to select 3 cards to tribute");
+        selectTributes(playerGameBoard, tributes);
+        removeCards(playerGameBoard, selectedCell, tributes);
+        specialSummon(gameController, playerGameBoard, selectedCell);
+        return true;
+    }
+
+    private static void specialSummon(GameController gameController, GameBoard playerGameBoard, Cell selectedCell) {
+        try {
+            playerGameBoard.addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED, gameController);
+            gameController.shouldSpecialSummonNow = true;
+        } catch (GameException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void selectTributes(GameBoard playerGameBoard, ArrayList<Cell> tributes) {
         for (int i = 0; i < 3; i++) {
             while (true) {
                 ViewInterface.showResult("select cell to tribute:");
@@ -52,17 +67,13 @@ public class GateGuardian extends Monster {
                 break;
             }
         }
+    }
+
+    private static void removeCards(GameBoard playerGameBoard, Cell selectedCell, ArrayList<Cell> tributes) {
         for (Cell tribute : tributes) {
             tribute.removeCardFromCell(playerGameBoard);
         }
         selectedCell.removeCardFromCell(playerGameBoard);
-        try {
-            playerGameBoard.addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED, gameController);
-            gameController.shouldSpecialSummonNow = true;
-        } catch (GameException e) {
-            e.printStackTrace();
-        }
-        return true;
     }
 
 }
