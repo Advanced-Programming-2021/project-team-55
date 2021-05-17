@@ -99,6 +99,7 @@ public class AIPlayerController {
 //        } catch (Exception ignored) {
 //        }
     }
+
 //
 //    private static int saveStringAndReturnCode(String str){
 //        int code = 0;
@@ -186,6 +187,7 @@ public class AIPlayerController {
     }
 
     public String getSpecialCommand() {
+
         if (lastResponse.contains("yes/no")) {
             String command = randomYesNo();
             lastAICommand = command;
@@ -263,6 +265,7 @@ public class AIPlayerController {
             lastAICommand = "cancel";
             return lastAICommand;
         }
+
         return getSelectCommandForMainPhases();
     }
 
