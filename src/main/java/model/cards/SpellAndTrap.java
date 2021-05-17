@@ -15,14 +15,12 @@ import view.gamephases.GameResponses;
 public abstract class SpellAndTrap extends Card {
 
     protected SpellOrTrap type;
-    private boolean isActive;
     private SpellOrTrapAttribute attribute;
     private EffectiveTerm status;
 
-    public SpellAndTrap(String name, String description, int price, boolean isActive,
+    public SpellAndTrap(String name, String description, int price,
                         SpellOrTrap type, SpellOrTrapAttribute attribute, EffectiveTerm status) {
         super(name, description, price, Kind.MAGIC, type);
-        this.isActive = isActive;
         this.type = type;
         this.attribute = attribute;
         this.status = status;
@@ -81,44 +79,16 @@ public abstract class SpellAndTrap extends Card {
         Cell.deselectCell();
     }
 
-    public void deactivate() {
-
-    }
-
-    public boolean isActivated() {
-        return isActive;
-    }
-
-    public static void setActivated(GameController gameController) {
-        return;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
     public SpellOrTrap getType() {
         return type;
-    }
-
-    public void setType(SpellOrTrap type) {
-        this.type = type;
     }
 
     public SpellOrTrapAttribute getAttribute() {
         return attribute;
     }
 
-    public void setAttribute(SpellOrTrapAttribute attribute) {
-        this.attribute = attribute;
-    }
-
     public EffectiveTerm getStatus() {
         return status;
-    }
-
-    public void setStatus(EffectiveTerm status) {
-        this.status = status;
     }
 
 }

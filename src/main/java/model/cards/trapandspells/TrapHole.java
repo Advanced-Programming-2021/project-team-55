@@ -14,7 +14,7 @@ public class TrapHole extends SpellAndTrap {
 
     public TrapHole() {
         super("Trap Hole", "When your opponent Normal or Flip Summons 1 monster with 1000 or more ATK: Target that monster; destroy that target.",
-                2000, false, SpellOrTrap.TRAP, SpellOrTrapAttribute.NORMAL, EffectiveTerm.UNLIMITED);
+                2000, SpellOrTrap.TRAP, SpellOrTrapAttribute.NORMAL, EffectiveTerm.UNLIMITED);
     }
 
     public static void setActivated(GameController gameController) {

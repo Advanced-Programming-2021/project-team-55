@@ -19,7 +19,7 @@ public class SpellAbsorption extends SpellAndTrap {
 
     public SpellAbsorption() {
         super("Spell Absorption", "Each time a Spell Card is activated, gain 500 Life Points immediately after it resolves.",
-                4000, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.CONTINUOUS, EffectiveTerm.UNLIMITED);
+                4000, SpellOrTrap.SPELL, SpellOrTrapAttribute.CONTINUOUS, EffectiveTerm.UNLIMITED);
     }
 
     public static void setActivated(GameController gameController) {

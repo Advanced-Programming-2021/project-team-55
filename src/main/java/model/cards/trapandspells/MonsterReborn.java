@@ -2,7 +2,6 @@ package model.cards.trapandspells;
 
 import controller.gamephasescontrollers.GameController;
 import model.board.Cell;
-import model.cards.Card;
 import model.cards.SpellAndTrap;
 import model.cards.cardfeaturesenums.EffectiveTerm;
 import model.cards.cardfeaturesenums.SpellOrTrap;
@@ -18,7 +17,7 @@ public class MonsterReborn extends SpellAndTrap {
 
     public MonsterReborn() {
         super("Monster Reborn", "Target 1 monster in either GY; Special Summon it.",
-                2500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
+                2500, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
     }
 
     public static void setActivated(GameController gameController) {

@@ -66,11 +66,6 @@ public class Cell {
         }
     }
 
-    public void selectCell() {//select cell either needs entry or must be nonstatic
-        selectedCell = this;
-        setSelectedCell(this);
-    }
-
     public boolean isEmpty() {
         return card == null;
     }

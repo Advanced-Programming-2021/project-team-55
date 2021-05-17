@@ -20,7 +20,7 @@ public class UnitedWeStand extends SpellAndTrap {
 
     public UnitedWeStand() {
         super("United We Stand", "The equipped monster gains 800 ATK/DEF for each face-up monster you control.",
-                4300, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.EQUIP, EffectiveTerm.UNLIMITED);
+                4300, SpellOrTrap.SPELL, SpellOrTrapAttribute.EQUIP, EffectiveTerm.UNLIMITED);
     }
 
     public static void setActivated(GameController gameController) {

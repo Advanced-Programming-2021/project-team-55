@@ -114,7 +114,6 @@ public class GameController {
         GameBoard opponentPlayerGameBoard = currentTurnOpponentPlayer.getGameBoard();
         Cell selectedCell = null;
         number -= 1;
-        int[] areasNumber = GameBoard.areasNumber;
         switch (zone) {
             case "monster": {
                 if (number > 4) {

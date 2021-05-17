@@ -1,6 +1,5 @@
 package model.cards;
 
-import model.Counter;
 import model.cards.cardfeaturesenums.SpellOrTrap;
 import model.cards.monsters.*;
 import model.cards.trapandspells.*;
@@ -20,8 +19,6 @@ public class Card {
     protected String name;
     protected String description;
     protected int price;
-    protected Counter counter;
-    protected int number;
     protected SpellOrTrap magicType;
     protected Kind cardKind;
 
@@ -96,7 +93,7 @@ public class Card {
         return spellAndTraps;
     }
 
-    public static Card getNewCardObjectByName(String name) {//todo use this to start game, not references
+    public static Card getNewCardObjectByName(String name) {
 
         switch (name) {
             //monsters:
@@ -335,24 +332,12 @@ public class Card {
 
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
     public String getName() {
         return name;
     }
 
     protected void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     protected void setDescription(String description) {
@@ -365,14 +350,6 @@ public class Card {
 
     protected void setPrice(int price) {
         this.price = price;
-    }
-
-    public Counter getCounter() {
-        return counter;
-    }
-
-    protected void setCounter(Counter counter) {
-        this.counter = counter;
     }
 
     @Override

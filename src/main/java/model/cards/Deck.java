@@ -68,10 +68,6 @@ public class Deck {
         isActive = active;
     }
 
-    public void deleteDeck() {
-        //TODO deck has to be deleted from user
-    }
-
     public boolean isDeckValid() {
         //TODO checkForEachCardFrequency
         return true;

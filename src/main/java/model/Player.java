@@ -26,10 +26,6 @@ public class Player {
         this.user = user;
     }
 
-    public void setDeckToPlay(Deck deckToPlay) {
-        this.playDeck = deckToPlay;
-    }
-
     public int getLP() {
         return LP;
     }
@@ -59,7 +55,6 @@ public class Player {
     }
 
     public void resetGameBoard() {
-        //todo handle this:we can change the playDeck between rounds
         playerGameBoard = new GameBoard(playDeck);
         setLP(8000);
     }
