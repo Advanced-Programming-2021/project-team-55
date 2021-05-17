@@ -30,7 +30,7 @@ public class GameController {
     public boolean shouldSpecialSummonNow;
     public int turnCount;
     protected Game game;
-    Cell lastSummonedMonster = new Cell();
+    Cell lastSummonedMonster ;
     private int currentRound = 1;
     private boolean didPlayerSetOrSummonThisTurn;
     private boolean isGameEnded;

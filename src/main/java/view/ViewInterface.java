@@ -30,13 +30,13 @@ public class ViewInterface {
         if (!result.equals("")) {
             AIPlayerController.setLastResponse(result);
             if (result.startsWith("Error: ")) {
-//                try {
-//                    if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
-//                        return;
-//                    }
-//                } catch (Exception ignored) {
-//                }
-                System.out.println(ConsoleColors.RED + result.replaceAll("Error: ", "") + ConsoleColors.RESET);
+               try {
+                   if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
+                       return;
+                   }
+               } catch (Exception ignored) {
+               }
+             System.out.println(ConsoleColors.RED + result.replaceAll("Error: ", "") + ConsoleColors.RESET);
             } else {
                 if (Responses.responseExists(result) || GameResponses.responseExists(result)) {
                     System.out.println(ConsoleColors.GREEN + result + ConsoleColors.RESET);

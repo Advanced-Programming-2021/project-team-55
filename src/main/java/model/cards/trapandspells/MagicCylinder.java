@@ -7,6 +7,7 @@ import model.cards.cardfeaturesenums.EffectiveTerm;
 import model.cards.cardfeaturesenums.SpellOrTrap;
 import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
 import view.ViewInterface;
+import view.gamephases.GameResponses;
 
 public class MagicCylinder extends SpellAndTrap {
 
@@ -16,6 +17,10 @@ public class MagicCylinder extends SpellAndTrap {
     }
 
     public static void setActivated(GameController gameController) {
+        if (gameController.getBattlePhaseController().getAttacker()==null) {
+            ViewInterface.showResult(GameResponses.PREPARATION_NOT_DONE.response);
+            return;
+        }
         gameController.getBattlePhaseController().setAttackDisabled();
         int attackDamage = ((Monster) (gameController.getBattlePhaseController().getAttacker().getCellCard())).getAtk();
         gameController.getCurrentTurnOpponentPlayer().decreaseLP(attackDamage);

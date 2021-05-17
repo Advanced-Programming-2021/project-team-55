@@ -18,14 +18,9 @@ public class TrapHole extends SpellAndTrap {
     }
 
     public static void setActivated(GameController gameController) {
-        if (!isSummonedMonsterATKMoreThan1000(gameController)) return;
         destroySummonedMonster(gameController.getLastSummonedMonster(), gameController.getCurrentTurnOpponentPlayer().getGameBoard());
         updateSpellInGameBoard(gameController);
         ViewInterface.showResult("Trap Hole effect activated : summoned monster is destroyed");
-    }
-
-    public static boolean isSummonedMonsterATKMoreThan1000(GameController gameController) {//todo check null pointer exception
-        return ((Monster) gameController.getLastSummonedMonster().getCellCard()).getAtk() >= 1000;
     }
 
     private static void destroySummonedMonster(Cell summonedMonster, GameBoard gameBoard) {

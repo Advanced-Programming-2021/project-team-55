@@ -87,6 +87,15 @@ public class GameBoard {
         return false;
     }
 
+    public boolean isCellInHandZone(Cell cell) {
+        for (int i = 0; i < handCards.size(); i++) {
+            if (handCards.get(i) == cell) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isCellInSpellAndTrapZone(Cell cell) {
         for (int i = 0; i < 5; i++) {
             if (spellAndTrapCardZone[i] == cell) {
@@ -346,5 +355,6 @@ public class GameBoard {
         }
         return result;
     }
+
 
 }

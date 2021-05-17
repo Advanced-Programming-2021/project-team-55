@@ -34,7 +34,7 @@ public class BattlePhaseController {
 
     private final GameController gameController;
     private boolean attackDisabled = false;
-    private Cell attacker = Cell.getSelectedCell();
+    private Cell attacker ;
 
     public BattlePhaseController(GameController gameController) {
         this.gameController = gameController;
@@ -49,15 +49,14 @@ public class BattlePhaseController {
     }
 
     private void setAttacker(Cell attacker) {
-        if (attacker != null) {
-            this.attacker = attacker;
+        if(attacker!=null) {
+            this.attacker = new Cell(attacker.getCellCard());
         }
     }
 
     public String attack(int attackedCellNumber) throws GameException {
         String response = "";
         Cell attackerCell = Cell.getSelectedCell();
-        setAttacker(attackerCell);
         Cell attackedCell = null;
         GameBoard opponentGameBoard = gameController.currentTurnOpponentPlayer.getGameBoard();
         GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
@@ -73,6 +72,7 @@ public class BattlePhaseController {
         } else if (attackedCell == null || attackedCell.getCellCard() == null) {
             throw new GameException(GameResponses.NO_CARD_TO_ATTACK.response);
         } else {
+            setAttacker(attackerCell);
             activateTrapIfCanBeActivated(gameController);
             if (attackDisabled) {
                 gameController.getAttackerCellsThisTurn().add(attackerCell);
@@ -100,6 +100,7 @@ public class BattlePhaseController {
                     response = attackToDefensiveHiddenCell(attackerCell, attackedCell, opponentGameBoard);
             }
         }
+        setAttacker(null);
         Cell.deselectCell();
         return response;
     }
@@ -206,6 +207,7 @@ public class BattlePhaseController {
     }
 
     public String directAttack(GameController gameController) throws GameException {
+        String response="" ;
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         if (selectedCell == null) {
@@ -219,6 +221,13 @@ public class BattlePhaseController {
         }
         if (!gameController.canPlayerDirectAttack()) {
             throw new GameException(GameResponses.CAN_NOT_DIRECT_ATTACK.response);
+        }
+        setAttacker(selectedCell);
+        activateTrapIfCanBeActivated(gameController);
+        if (attackDisabled) {
+            gameController.getAttackerCellsThisTurn().add(selectedCell);
+            attackDisabled = false;
+            return response;
         }
         Monster attackerMonster = (Monster) selectedCell.getCellCard();
         gameController.getCurrentTurnOpponentPlayer().decreaseLP(attackerMonster.getAtk());
