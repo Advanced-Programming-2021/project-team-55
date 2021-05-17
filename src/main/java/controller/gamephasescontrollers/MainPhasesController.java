@@ -40,7 +40,6 @@ public interface MainPhasesController {
     }
 
     default void monsterSummon(GameController gameController) throws GameException {
-        addMonstersToSummonEffectSpellAndTrap();
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         if (selectedCell == null) {
@@ -59,6 +58,7 @@ public interface MainPhasesController {
         TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
         gameController.setLastSummonedMonster(selectedCell);
+        addMonstersToSummonEffectSpellAndTrap();
         Cell.deselectCell();
         activateTrapIfCanBeActivated(gameController ,SummonTypes.NormalSummon);
     }
@@ -112,13 +112,13 @@ public interface MainPhasesController {
     private void addMonstersToSummonEffectSpellAndTrap() {
         summonEffectSpellAndTrap.add(new TorrentialTribute());
         if (TrapHole.isSummonedMonsterATKMoreThan1000(Duel.getGameController()))
-            flipSummonEffectSpellAndTrap.add(new TorrentialTribute());
+            flipSummonEffectSpellAndTrap.add(new TrapHole());
         //todo add the rest of summon monsters thing
     }
 
     private void addMonstersToFlipSummonEffectSpellAndTrap() {
         if (TrapHole.isSummonedMonsterATKMoreThan1000(Duel.getGameController()))
-            flipSummonEffectSpellAndTrap.add(new TorrentialTribute());
+            flipSummonEffectSpellAndTrap.add(new TrapHole());
         //todo add the rest of summon monsters thing
     }
 
