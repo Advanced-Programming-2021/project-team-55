@@ -14,7 +14,7 @@ public class DarkHole extends SpellAndTrap {
 
     public DarkHole() {
         super("Dark Hole", "Destroy all monsters on the field.",
-                2500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.UNLIMITED);
+                2500, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.UNLIMITED);
     }
 
     public static void setActivated(GameController gameController) {

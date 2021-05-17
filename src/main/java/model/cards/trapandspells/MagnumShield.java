@@ -4,7 +4,6 @@ import controller.gamephasescontrollers.GameController;
 import model.board.CardStatus;
 import model.board.Cell;
 import model.board.GameBoard;
-import model.cards.Card;
 import model.cards.Monster;
 import model.cards.SpellAndTrap;
 import model.cards.cardfeaturesenums.EffectiveTerm;
@@ -21,7 +20,7 @@ public class MagnumShield extends SpellAndTrap {
 
     public MagnumShield() {
         super("Magnum Shield", "Equip only to a Warrior-Type monster. Apply this effect, depending on its battle position.\n● Attack Position: It gains ATK equal to its original DEF.\n● Defense Position: It gains DEF equal to its original ATK.",
-                4300, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.EQUIP, EffectiveTerm.UNLIMITED);
+                4300, SpellOrTrap.SPELL, SpellOrTrapAttribute.EQUIP, EffectiveTerm.UNLIMITED);
     }
 
     public static void setActivated(GameController gameController) {

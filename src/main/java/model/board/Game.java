@@ -19,7 +19,6 @@ public class Game {
     public Game(Player firstPlayer, Player secondPlayer, int rounds) {
         setPlayers(firstPlayer, secondPlayer);
         setRounds(rounds);
-        //?
     }
 
     private void setPlayers(Player firstPlayer, Player secondPlayer) {

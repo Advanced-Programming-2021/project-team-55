@@ -14,7 +14,7 @@ public class HarpiesFeatherDuster extends SpellAndTrap {
 
     public HarpiesFeatherDuster() {
         super("Harpie's Feather Duster", "Destroy all Spells and Traps your opponent controls.",
-                2500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
+                2500, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
     }
 
     public static void setActivated(GameController gameController) {

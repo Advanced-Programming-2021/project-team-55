@@ -15,7 +15,7 @@ public class Mysticalspacetyphoon extends SpellAndTrap {
 
     public Mysticalspacetyphoon() {
         super("Mystical space typhoon", "Target 1 Spell/Trap on the field; destroy that target.",
-                3500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.QUICK_PLAY, EffectiveTerm.UNLIMITED);
+                3500, SpellOrTrap.SPELL, SpellOrTrapAttribute.QUICK_PLAY, EffectiveTerm.UNLIMITED);
     }
 
     public static void setActivated(GameController gameController) {

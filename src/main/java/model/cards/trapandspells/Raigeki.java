@@ -14,7 +14,7 @@ public class Raigeki extends SpellAndTrap {
 
     public Raigeki() {
         super("Raigeki", "Destroy all monsters your opponent controls.",
-                2500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
+                2500, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
     }
 
     public static void setActivated(GameController gameController) {

@@ -9,7 +9,7 @@ public class ChangeofHeart extends SpellAndTrap {
 
     public ChangeofHeart() {
         super("Change of Heart", "Target 1 monster your opponent controls; take control of it until the End Phase.",
-                2500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
+                2500, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
     }
 
 }

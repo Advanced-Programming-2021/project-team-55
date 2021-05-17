@@ -13,7 +13,7 @@ public class PotofGreed extends SpellAndTrap {
 
     public PotofGreed() {
         super("Pot of Greed", "Draw 2 cards.",
-                2500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
+                2500, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
     }
 
     public static void setActivated(GameController gameController) {

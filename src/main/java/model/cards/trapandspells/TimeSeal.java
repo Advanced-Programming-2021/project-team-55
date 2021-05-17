@@ -17,7 +17,7 @@ public class TimeSeal extends SpellAndTrap {
 
     public TimeSeal() {
         super("Time Seal", "Skip the Draw Phase of your opponent's next turn.",
-                2000, false, SpellOrTrap.TRAP, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
+                2000, SpellOrTrap.TRAP, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
     }
 
     public static void setActivated(GameController gameController) {

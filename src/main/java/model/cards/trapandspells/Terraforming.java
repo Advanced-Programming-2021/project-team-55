@@ -14,7 +14,7 @@ public class Terraforming extends SpellAndTrap {
 
     public Terraforming() {
         super("Terraforming", "Add 1 Field Spell from your Deck to your hand.",
-                2500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
+                2500, SpellOrTrap.SPELL, SpellOrTrapAttribute.NORMAL, EffectiveTerm.LIMITED);
     }
 
     public static void setActivated(GameController gameController) {

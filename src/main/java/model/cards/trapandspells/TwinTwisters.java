@@ -15,7 +15,7 @@ public class TwinTwisters extends SpellAndTrap {
 
     public TwinTwisters() {
         super("Twin Twisters", "Discard 1 card, then target up to 2 Spells/Traps on the field; destroy them.",
-                3500, false, SpellOrTrap.SPELL, SpellOrTrapAttribute.QUICK_PLAY, EffectiveTerm.UNLIMITED);
+                3500, SpellOrTrap.SPELL, SpellOrTrapAttribute.QUICK_PLAY, EffectiveTerm.UNLIMITED);
     }
 
     public static void setActivated(GameController gameController) {

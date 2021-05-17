@@ -48,15 +48,6 @@ public class User {
         return null;
     }
 
-    public static User getUserbyNickname(String nickname) {
-        for (User user : allUsers) {
-            if (user.getNickname().equals(nickname)) {
-                return user;
-            }
-        }
-        return null;
-    }
-
     public static boolean usernameExists(String username) {
         for (User user : allUsers) {
             if (user.getUsername().equals(username)) {
@@ -139,10 +130,6 @@ public class User {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
-    }
-
-    public int getScore() {
-        return score;
     }
 
     public int getMoney() {
