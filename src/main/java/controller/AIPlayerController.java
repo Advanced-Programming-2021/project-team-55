@@ -193,11 +193,6 @@ public class AIPlayerController {
             lastAICommand = command;
             return command;
         }
-        if (lastResponse.contains("number")) {
-            String command = (CoinDice.rollDice() + CoinDice.rollDice() - 1) + "";
-            lastAICommand = command;
-            return command;
-        }
         if (lastResponse.contains("you should special summon right now")) {
             String command = "summon";
             lastAICommand = command;
@@ -253,10 +248,16 @@ public class AIPlayerController {
                 return lastAICommand;
             }
         }
-        if (lastResponse.contains("choose a monster from your or your opponents graveyard")) {
+        if (lastResponse.contains("choose a monster from your or your opponents graveyard") ||
+                lastResponse.contains("(me (number)/opponent (number))")) {
             String command;
             if (CoinDice.tossCoin() == 1) command = "me " + CoinDice.rollDice();
             else command = "opponent " + CoinDice.rollDice();
+            lastAICommand = command;
+            return command;
+        }
+        if (lastResponse.contains("number")) {
+            String command = (CoinDice.rollDice() + CoinDice.rollDice() - 1) + "";
             lastAICommand = command;
             return command;
         }

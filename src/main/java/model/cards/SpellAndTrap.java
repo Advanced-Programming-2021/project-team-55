@@ -57,8 +57,10 @@ public abstract class SpellAndTrap extends Card {
 
     public static void updateSpellInGameBoard(GameController gameController) {
         Cell selectedCell = Cell.getSelectedCell();
+        if (selectedCell == null) return;
         Card card = selectedCell.getCellCard();
         SpellAndTrap spell = (SpellAndTrap) card;
+        if (spell == null) return;
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         if (!playerGameBoard.isCellInSpellAndTrapZone(selectedCell)) {
             playerGameBoard.getHandCards().remove(selectedCell);

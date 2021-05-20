@@ -255,6 +255,7 @@ public interface MainPhasesController {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         } else {
             Card card = selectedCell.getCellCard();
+            if (card == null) return;
             if (card.isMonster()) {
                 throw new GameException(GameResponses.ACTIVATION_ONLY_FOR_SPELL.response);
             } else {
@@ -341,6 +342,7 @@ public interface MainPhasesController {
     }
 
     default boolean isSummonable(Cell cell,GameController gameController) {
+        if (cell.isEmpty()) return false;
         Card card=cell.getCellCard();
         if (card.isMonster()&&gameController.currentTurnPlayer.getGameBoard().isCellInHandZone(cell)) {
             return ((Monster) card).getCardType() != CardType.RITUAL;
