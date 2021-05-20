@@ -243,7 +243,7 @@ public class GameController {
                             Cell selectedCell = Cell.getSelectedCell();
                             for (SpellAndTrap spellAndTrap : trapsCanBeActivated) {
                                 if (selectedCell.getCellCard().getName().equals(spellAndTrap.getName())) {
-                                    SpellAndTrap.activateSpellOrTrapEffects(this, spellAndTrap);
+                                    SpellAndTrap.activateSpellEffects(this, spellAndTrap);
                                     return;
                                 }
                             }

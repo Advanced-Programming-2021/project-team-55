@@ -16,7 +16,6 @@ import model.cards.monsters.TerratigertheEmpoweredWarrior;
 import model.cards.monsters.TheTricky;
 import model.cards.trapandspells.TimeSeal;
 import model.cards.trapandspells.TorrentialTribute;
-import model.cards.trapandspells.TrapHole;
 import model.exceptions.GameException;
 import view.ConsoleColors;
 import view.ViewInterface;
@@ -271,7 +270,7 @@ public interface MainPhasesController {
                     if(Cell.getSelectedCell().isEmpty()||Cell.getSelectedCell()==null){
                         System.out.println("error in activate effect");
                     }
-                    SpellAndTrap.activateSpellOrTrapEffects(gameController, spell);
+                    SpellAndTrap.activateSpellEffects(gameController, spell);
 //                        if(!playerGameBoard.isCellInSpellAndTrapZone(selectedCell)) {
 //                            playerGameBoard.getHandCards().remove(selectedCell);
 //                            if (spell.getAttribute() == SpellOrTrapAttribute.FIELD) {
