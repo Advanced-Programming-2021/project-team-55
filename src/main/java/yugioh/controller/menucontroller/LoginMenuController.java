@@ -1,19 +1,25 @@
 package yugioh.controller.menucontroller;
 
 
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import yugioh.controller.DataBaseController;
 import yugioh.model.exceptions.MenuException;
 import yugioh.model.User;
 import yugioh.view.LoggerMessage;
-import yugioh.view.Menus.Menu;
+import yugioh.view.Menus.PopUpWindow;
+import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Menus.MenuType;
 import yugioh.view.Responses;
 
 public class LoginMenuController extends MenuController {
+    public TextField usernameField;
+    public PasswordField passwordField;
 
-    private static LoginMenuController loginMenuController;
+    public static LoginMenuController loginMenuController;
 
-    private LoginMenuController() {
+    public LoginMenuController() {
 
     }
 
@@ -29,31 +35,13 @@ public class LoginMenuController extends MenuController {
         if (user == null || !user.getPassword().equals(password)) {
             throw new MenuException(Responses.USERNAME_AND_PASSWORD_DIDNT_MATCH.response);
         } else {
-            Menu.currentMenu = MenuType.MAIN;
+            WelcomeMenu.currentMenu = MenuType.MAIN;
             User.setLoggedInUser(user);
         }
     }
 
-    public void createUser(String username, String password, String nickname) throws MenuException {
-        if (User.usernameExists(username)) {
-            throw new MenuException("Error: user with username " + username + " exists");
-        } else if (User.nicknameExists(nickname)) {
-            throw new MenuException("Error: user with nickname " + nickname + " already exists");
-        }
-        new User(username, nickname, password);
-    }
 
-    @Override
-    public void enterMenu(String menu) throws MenuException {
-        if (User.loggedInUser == null) {
-            throw new MenuException(Responses.LOGIN_FIRST.response);
-        } else if (!menu.equals("yugioh.Main")) {
-            throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
-        }
-        Menu.setCurrentMenu(MenuType.MAIN);
-    }
 
-    @Override
     public void exitMenu() {
         for (User user : User.getAllUsers()) {
             try {
@@ -66,4 +54,26 @@ public class LoginMenuController extends MenuController {
         System.exit(0);
     }
 
+    public void loginClicked(MouseEvent mouseEvent) throws Exception{
+        String username=usernameField.getText();
+        String password=passwordField.getText();
+        if(username.equals("")||password.equals("")){
+            new PopUpWindow(Responses.FILL_ALL_FIELDS.response).start(WelcomeMenu.stage);
+        }
+        else{
+            String response="";
+            try {
+                loginUser(username,password);
+                response=Responses.LOGIN_SUCCESSFULLY.response;
+                //todo enter MainMenu
+            }catch (MenuException e){
+                response=e.getMessage();
+            }
+            new PopUpWindow(response).start(WelcomeMenu.stage);
+        }
+    }
+
+    public void backClicked(MouseEvent mouseEvent) throws Exception{
+        welcomeMenu.execute();
+    }
 }

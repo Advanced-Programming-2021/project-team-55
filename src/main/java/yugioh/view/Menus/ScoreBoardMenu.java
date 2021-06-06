@@ -11,12 +11,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
 
-public class ScoreBoardMenu extends Menu {
+public class ScoreBoardMenu extends WelcomeMenu {
     private static final ScoreBoardMenuController scoreBoardMenuController = ScoreBoardMenuController.getInstance();
 
 
     @Override
-    protected void execute() {
+    public void execute() {
         String response = processCommand(ViewInterface.getInput());
         ViewInterface.showResult(response);
     }
@@ -26,15 +26,15 @@ public class ScoreBoardMenu extends Menu {
         String response = "";
         if (command.matches(Regexes.SHOW_SCOREBOARD.regex)) {
             showScoreBoard(scoreBoardMenuController.getScoreBoard());
-        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
-            try {
-                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
-                scoreBoardMenuController.enterMenu(matcher.group(1));
-            } catch (MenuException e) {
-                response = e.toString();
-            }
-        } else if (command.matches(Regexes.EXIT_MENU.regex)) {
-            scoreBoardMenuController.exitMenu();
+//        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
+//            try {
+//                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
+//                scoreBoardMenuController.enterMenu(matcher.group(1));
+//            } catch (MenuException e) {
+//                response = e.toString();
+//            }
+//        } else if (command.matches(Regexes.EXIT_MENU.regex)) {
+//            scoreBoardMenuController.exitMenu();
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {
             response = getCurrentMenu();
         } else {

@@ -5,7 +5,7 @@ import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Deck;
 import yugioh.model.cards.SpellAndTrap;
-import yugioh.view.Menus.Menu;
+import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Menus.MenuType;
 import yugioh.view.Responses;
 
@@ -161,13 +161,4 @@ public class DeckMenuController extends MenuController {
         return Card.sortCards(User.loggedInUser.getCardsInventory());
     }
 
-    @Override
-    public void enterMenu(String menu) throws MenuException {
-        throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
-    }
-
-    @Override
-    public void exitMenu() {
-        Menu.setCurrentMenu(MenuType.MAIN);
-    }
 }

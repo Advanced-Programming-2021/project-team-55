@@ -9,11 +9,11 @@ import yugioh.view.ViewInterface;
 
 import java.util.regex.Matcher;
 
-public class ImportExportMenu extends Menu {
+public class ImportExportMenu extends WelcomeMenu {
     private static final DataBaseController dataBaseController = DataBaseController.getInstance();
 
     @Override
-    protected void execute() {
+    public void execute() {
         String response = processCommand(ViewInterface.getInput());
         ViewInterface.showResult(response);
     }
@@ -27,15 +27,15 @@ public class ImportExportMenu extends Menu {
         } else if (command.matches(Regexes.EXPORT_CARD.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.EXPORT_CARD.regex);
             response = dataBaseController.exportCard(matcher.group(1));
-        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
-            Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
-            try {
-                dataBaseController.enterMenu(matcher.group(1));
-            } catch (MenuException e) {
-                response = e.toString();
-            }
-        } else if (command.matches(Regexes.EXIT_MENU.regex)) {
-            dataBaseController.exitMenu();
+//        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
+//            Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
+//            try {
+//                dataBaseController.enterMenu(matcher.group(1));
+//            } catch (MenuException e) {
+//                response = e.toString();
+//            }
+//        } else if (command.matches(Regexes.EXIT_MENU.regex)) {
+//            dataBaseController.exitMenu();
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {
             response = getCurrentMenu();
         } else {

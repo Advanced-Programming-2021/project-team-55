@@ -2,6 +2,7 @@ package yugioh.view;
 
 public enum Responses {
     INVALID_COMMAND("Error: invalid command"),
+    FILL_ALL_FIELDS("Error: fill all the fields"),
     USERNAME_AND_PASSWORD_DIDNT_MATCH("Error: Username and password didn't match!"),
     MENU_NAVIGATION_NOT_POSSIBLE("Error: menu navigation is not possible"),
     LOGIN_FIRST("Error: please login first!"),

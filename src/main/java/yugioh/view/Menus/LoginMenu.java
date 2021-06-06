@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import yugioh.controller.menucontroller.LoginMenuController;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.Regexes;
@@ -14,16 +13,17 @@ import yugioh.view.ViewInterface;
 import java.net.URL;
 import java.util.regex.Matcher;
 
-public class LoginMenu extends Menu {
+public class LoginMenu extends WelcomeMenu {
     private static final LoginMenuController loginMenuController = LoginMenuController.getInstance();
 
     @Override
-    protected void execute() {
-        String response = processCommand(ViewInterface.getInput());
-        ViewInterface.showResult(response);
+    public void execute() throws Exception{
+        //String response = processCommand(ViewInterface.getInput());
+       // ViewInterface.showResult(response);
 //       try {
 //           start(new Stage());
 //       }catch (Exception ignored){}
+        start(stage);
     }
 
     @Override
@@ -37,21 +37,21 @@ public class LoginMenu extends Menu {
             } catch (MenuException e) {
                 response = e.toString();
             }
-        } else if (command.matches(Regexes.CREATE_USER.regex)) {
-            try {
-                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.CREATE_USER.regex);
-                loginMenuController.createUser(matcher.group(3), matcher.group(2), matcher.group(1));
-                response = Responses.CREATE_SUCCESSFULLY.response;
-            } catch (MenuException e) {
-                response = e.toString();
-            }
+//        } else if (command.matches(Regexes.CREATE_USER.regex)) {
+//            try {
+//                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.CREATE_USER.regex);
+//                loginMenuController.createUser(matcher.group(3), matcher.group(2), matcher.group(1));
+//                response = Responses.CREATE_SUCCESSFULLY.response;
+//            } catch (MenuException e) {
+//                response = e.toString();
+//            }
         } else if (command.matches(Regexes.ENTER_MENU.regex)) {
-            try {
-                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
-                loginMenuController.enterMenu(matcher.group(1));
-            } catch (MenuException e) {
-                response = e.toString();
-            }
+//            try {
+//                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
+//                loginMenuController.enterMenu(matcher.group(1));
+//            } catch (MenuException e) {
+//                response = e.toString();
+//            }
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             loginMenuController.exitMenu();
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {
@@ -62,20 +62,12 @@ public class LoginMenu extends Menu {
         return response;
     }
 
-    private static Stage stage;
-
-    public static Stage getStage() {
-        return stage;
-    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL url = getClass().getResource("/yugioh/fxml/loginMenu.fxml");
+        URL url = getClass().getResource("/yugioh/fxml/LoginMenu.fxml");
         Parent root = FXMLLoader.load(url);
         Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        LoginMenu.stage = stage;
-        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
     }

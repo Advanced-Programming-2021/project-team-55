@@ -6,7 +6,7 @@ import yugioh.model.Player;
 import yugioh.model.User;
 import yugioh.model.board.Game;
 import yugioh.model.cards.Deck;
-import yugioh.view.Menus.Menu;
+import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Menus.MenuType;
 import yugioh.view.Responses;
 
@@ -25,15 +25,7 @@ public class DuelMenuController extends MenuController {
         return duelMenuController;
     }
 
-    @Override
-    public void enterMenu(String menu) throws MenuException {
-        throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
-    }
 
-    @Override
-    public void exitMenu() {
-        Menu.setCurrentMenu(MenuType.MAIN);
-    }
 
     public GameController newPVPDuel(String secondPlayer, int rounds) throws MenuException {
         User rival = User.getUserByUsername(secondPlayer);

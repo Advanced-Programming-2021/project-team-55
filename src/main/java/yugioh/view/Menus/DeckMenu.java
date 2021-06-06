@@ -12,11 +12,11 @@ import yugioh.view.ViewInterface;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 
-public class DeckMenu extends Menu {
+public class DeckMenu extends WelcomeMenu {
     private static final DeckMenuController deckMenuController = DeckMenuController.getInstance();
 
     @Override
-    protected void execute() {
+    public void execute() {
         String response = processCommand(ViewInterface.getInput());
         ViewInterface.showResult(response);
     }
@@ -76,15 +76,15 @@ public class DeckMenu extends Menu {
             }
         } else if (command.matches(Regexes.SHOW_DECK_CARDS.regex)) {
             showCards(deckMenuController.getCards());
-        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
-            Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
-            try {
-                deckMenuController.enterMenu(matcher.group(1));
-            } catch (MenuException e) {
-                response = e.toString();
-            }
-        } else if (command.matches(Regexes.EXIT_MENU.regex)) {
-            deckMenuController.exitMenu();
+//        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
+//            Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
+//            try {
+//                deckMenuController.enterMenu(matcher.group(1));
+//            } catch (MenuException e) {
+//                response = e.toString();
+//            }
+//        } else if (command.matches(Regexes.EXIT_MENU.regex)) {
+//            deckMenuController.exitMenu();
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {
             response = getCurrentMenu();
         } else {

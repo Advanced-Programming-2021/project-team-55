@@ -2,7 +2,7 @@ package yugioh.controller.menucontroller;
 
 import yugioh.model.exceptions.MenuException;
 import yugioh.model.User;
-import yugioh.view.Menus.Menu;
+import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Menus.MenuType;
 import yugioh.view.Responses;
 
@@ -34,14 +34,5 @@ public class ProfileMenuController extends MenuController {
         User.loggedInUser.setPassword(newPassword);
     }
 
-    @Override
-    public void enterMenu(String menu) throws MenuException {
-        throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
-    }
-
-    @Override
-    public void exitMenu() {
-        Menu.setCurrentMenu(MenuType.MAIN);
-    }
 
 }

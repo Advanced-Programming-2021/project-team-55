@@ -1,9 +1,9 @@
 package yugioh;
 
-import yugioh.view.Menus.Menu;
+import yugioh.view.Menus.WelcomeMenu;
 
 public class Main {
     public static void main(String[] args) {
-        Menu.run(args);
+        WelcomeMenu.run(args);
     }
 }
