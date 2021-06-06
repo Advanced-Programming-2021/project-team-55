@@ -22,7 +22,6 @@ abstract public class Menu extends Application {
         try {
             DataBaseController.usersDataBaseInitialization();
             DataBaseController.cardsDataBaseInitialization();
-            launch(args);
         } catch (IOException e) {
             e.printStackTrace();
         }
