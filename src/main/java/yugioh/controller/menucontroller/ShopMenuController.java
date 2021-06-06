@@ -1,5 +1,6 @@
 package yugioh.controller.menucontroller;
 
+import javafx.scene.input.MouseEvent;
 import yugioh.model.exceptions.MenuException;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
@@ -11,9 +12,9 @@ import java.util.ArrayList;
 
 public class ShopMenuController extends MenuController {
 
-    private static ShopMenuController shopMenuController;
+    public static ShopMenuController shopMenuController;
 
-    private ShopMenuController() {
+    public ShopMenuController() {
     }
 
     public static ShopMenuController getInstance() {
@@ -39,4 +40,7 @@ public class ShopMenuController extends MenuController {
         return Card.sortCards(Card.getCards());
     }
 
+    public void backClicked(MouseEvent mouseEvent) throws Exception{
+        mainMenu.execute();
+    }
 }

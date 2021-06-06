@@ -8,6 +8,7 @@ import yugioh.controller.DataBaseController;
 import yugioh.model.exceptions.MenuException;
 import yugioh.model.User;
 import yugioh.view.LoggerMessage;
+import yugioh.view.Menus.MainMenu;
 import yugioh.view.Menus.PopUpWindow;
 import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Menus.MenuType;
@@ -35,23 +36,8 @@ public class LoginMenuController extends MenuController {
         if (user == null || !user.getPassword().equals(password)) {
             throw new MenuException(Responses.USERNAME_AND_PASSWORD_DIDNT_MATCH.response);
         } else {
-            WelcomeMenu.currentMenu = MenuType.MAIN;
             User.setLoggedInUser(user);
         }
-    }
-
-
-
-    public void exitMenu() {
-        for (User user : User.getAllUsers()) {
-            try {
-                DataBaseController.saveUserInfo(user);
-            } catch (Exception e) {
-                LoggerMessage.log("unable to save user data");
-                e.printStackTrace();
-            }
-        }
-        System.exit(0);
     }
 
     public void loginClicked(MouseEvent mouseEvent) throws Exception{
@@ -65,7 +51,8 @@ public class LoginMenuController extends MenuController {
             try {
                 loginUser(username,password);
                 response=Responses.LOGIN_SUCCESSFULLY.response;
-                //todo enter MainMenu
+                mainMenu.execute();
+
             }catch (MenuException e){
                 response=e.getMessage();
             }

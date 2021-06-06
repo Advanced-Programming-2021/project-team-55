@@ -3,6 +3,7 @@ package yugioh.view.Menus;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -71,6 +72,7 @@ public class WelcomeMenu extends Application {
         Parent pane = FXMLLoader.load(fxmlAddress);
         Scene scene = new Scene(pane);
         stage.setScene(scene);
+        scene.setCursor(Cursor.HAND);
         //stage.getIcons().add(new Image("/Sample/JPG/Pacman.jpg"));
         stage.setTitle("Yugioh");
         stage.setX(490.0);

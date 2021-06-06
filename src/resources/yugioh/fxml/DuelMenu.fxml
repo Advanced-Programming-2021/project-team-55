@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.DuelMenuController">
+   <children>
+      <Button layoutX="262.0" layoutY="162.0" mnemonicParsing="false" text="Duel Player" />
+      <Button layoutX="272.0" layoutY="214.0" mnemonicParsing="false" text="Duel AI" />
+      <Label layoutX="248.0" layoutY="40.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="Duel Menu" textFill="chartreuse">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button layoutX="280.0" layoutY="273.0" mnemonicParsing="false" onMouseClicked="#backClicked" text="back" />
+   </children>
+</AnchorPane>

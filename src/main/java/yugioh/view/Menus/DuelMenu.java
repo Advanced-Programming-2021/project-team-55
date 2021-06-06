@@ -1,5 +1,8 @@
 package yugioh.view.Menus;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import yugioh.controller.AIPlayerController;
 import yugioh.controller.menucontroller.DuelMenuController;
@@ -9,6 +12,7 @@ import yugioh.view.Responses;
 import yugioh.view.ViewInterface;
 import yugioh.view.gamephases.Duel;
 
+import java.net.URL;
 import java.util.regex.Matcher;
 
 public class DuelMenu extends WelcomeMenu {
@@ -16,10 +20,9 @@ public class DuelMenu extends WelcomeMenu {
     private static final DuelMenuController duelMenuController = DuelMenuController.getInstance();
 
     @Override
-    public void execute() {
-        AIPlayerController.setIsGameEnded(true);
-        String response = processCommand(ViewInterface.getInput());
-        ViewInterface.showResult(response);
+    public void execute() throws Exception{
+        AIPlayerController.setIsGameEnded(true);   //todo: in chie? (parham)
+        start(stage);
     }
 
     @Override
@@ -58,6 +61,10 @@ public class DuelMenu extends WelcomeMenu {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
+        URL url=getClass().getResource("/yugioh/fxml/DuelMenu.fxml");
+        Parent parent= FXMLLoader.load(url);
+        Scene scene=new Scene(parent);
+        stage.setScene(scene);
+        stage.show();
     }
 }

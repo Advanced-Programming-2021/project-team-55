@@ -1,5 +1,6 @@
 package yugioh.controller.menucontroller;
 
+import javafx.scene.input.MouseEvent;
 import yugioh.model.exceptions.MenuException;
 import yugioh.model.User;
 import yugioh.view.Menus.WelcomeMenu;
@@ -11,9 +12,9 @@ import java.util.LinkedHashMap;
 
 public class ScoreBoardMenuController extends MenuController {
 
-    private static ScoreBoardMenuController scoreBoardMenuController;
+    public static ScoreBoardMenuController scoreBoardMenuController;
 
-    private ScoreBoardMenuController() {
+    public ScoreBoardMenuController() {
     }
 
     public static ScoreBoardMenuController getInstance() {
@@ -28,4 +29,7 @@ public class ScoreBoardMenuController extends MenuController {
     }
 
 
+    public void backClicked(MouseEvent mouseEvent) throws Exception{
+        mainMenu.execute();
+    }
 }

@@ -53,7 +53,7 @@ public class LoginMenu extends WelcomeMenu {
 //                response = e.toString();
 //            }
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {
-            loginMenuController.exitMenu();
+         //   loginMenuController.exitMenu();
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {
             response = getCurrentMenu();
         } else {

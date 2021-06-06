@@ -2,6 +2,7 @@ package yugioh.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import javafx.scene.input.MouseEvent;
 import yugioh.controller.menucontroller.MenuController;
 import yugioh.model.cards.monsters.*;
 import yugioh.model.cards.trapandspells.*;
@@ -19,9 +20,9 @@ import java.util.Scanner;
 
 public class DataBaseController extends MenuController {
 
-    private static DataBaseController dataBaseController;
+    public static DataBaseController dataBaseController;
 
-    private DataBaseController() {
+    public DataBaseController() {
 
     }
 
@@ -174,4 +175,7 @@ public class DataBaseController extends MenuController {
         return output.toString();
     }
 
+    public void backClicked(MouseEvent mouseEvent)throws Exception {
+        mainMenu.execute();
+    }
 }

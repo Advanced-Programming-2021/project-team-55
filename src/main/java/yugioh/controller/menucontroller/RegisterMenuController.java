@@ -33,6 +33,9 @@ public class RegisterMenuController extends MenuController{
             }
             new PopUpWindow(response).start(WelcomeMenu.stage);
         }
+        usernameField.setText("");
+        nicknameField.setText("");
+        passwordField.setText("");
     }
     public void createUser(String username, String password, String nickname) throws MenuException {
         if (User.usernameExists(username)) {

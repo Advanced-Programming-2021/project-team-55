@@ -1,5 +1,6 @@
 package yugioh.controller.menucontroller;
 
+import javafx.scene.input.MouseEvent;
 import yugioh.model.exceptions.MenuException;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
@@ -16,9 +17,9 @@ import java.util.Comparator;
 import static yugioh.model.cards.cardfeaturesenums.EffectiveTerm.LIMITED;
 
 public class DeckMenuController extends MenuController {
-    private static DeckMenuController deckMenuController;
+    public static DeckMenuController deckMenuController;
 
-    private DeckMenuController() {
+    public DeckMenuController() {
     }
 
     public static DeckMenuController getInstance() {
@@ -161,4 +162,7 @@ public class DeckMenuController extends MenuController {
         return Card.sortCards(User.loggedInUser.getCardsInventory());
     }
 
+    public void backClicked(MouseEvent mouseEvent) throws Exception{
+        mainMenu.execute();
+    }
 }

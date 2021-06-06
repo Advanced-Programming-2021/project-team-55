@@ -2,7 +2,7 @@ package yugioh.view.Menus;
 
 public enum MenuType {
     LOGIN("Login Menu"),
-    MAIN("yugioh.Main Menu"),
+    MAIN("Main Menu"),
     DUEL("Duel Menu"),
     DECK("Deck Menu"),
     SCOREBOARD("ScoreBoard Menu"),

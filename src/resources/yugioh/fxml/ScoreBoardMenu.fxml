@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ScoreBoardMenuController">
+   <children>
+      <Button layoutX="280.0" layoutY="287.0" mnemonicParsing="false" onMouseClicked="#backClicked" text="back" />
+       <Label layoutX="216.0" layoutY="40.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="ScoreBoard Menu" textFill="chartreuse">
+           <font>
+               <Font size="20.0" />
+           </font>
+       </Label>
+   </children>
+</AnchorPane>

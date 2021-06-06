@@ -1,5 +1,6 @@
 package yugioh.controller.menucontroller;
 
+import javafx.scene.input.MouseEvent;
 import yugioh.model.exceptions.MenuException;
 import yugioh.model.User;
 import yugioh.view.Menus.WelcomeMenu;
@@ -7,9 +8,9 @@ import yugioh.view.Menus.MenuType;
 import yugioh.view.Responses;
 
 public class ProfileMenuController extends MenuController {
-    private static ProfileMenuController profileMenuController;
+    public static ProfileMenuController profileMenuController;
 
-    private ProfileMenuController() {
+    public ProfileMenuController() {
     }
 
     public static ProfileMenuController getInstance() {
@@ -35,4 +36,7 @@ public class ProfileMenuController extends MenuController {
     }
 
 
+    public void backClicked(MouseEvent mouseEvent) throws Exception{
+        mainMenu.execute();
+    }
 }
