@@ -26,7 +26,7 @@ public abstract class SpellAndTrap extends Card {
         this.status = status;
     }
 
-    public static void activateSpellOrTrapEffects(GameController gameController, SpellAndTrap spellAndTrap) {
+    public static void activateSpellEffects(GameController gameController, SpellAndTrap spellAndTrap) {
         if (spellAndTrap.name.equals("Monster Reborn")) MonsterReborn.setActivated(gameController);
         else if (spellAndTrap.name.equals("Terraforming")) Terraforming.setActivated(gameController);
         else if (spellAndTrap.name.equals("Pot of Greed")) PotofGreed.setActivated(gameController);
@@ -53,14 +53,14 @@ public abstract class SpellAndTrap extends Card {
         else {
             ViewInterface.showResult(GameResponses.ACTIVATION_ONLY_FOR_SPELL.response);
         }
-        //todo : in be nazaram qhalate (parham)
-        SpellAbsorption.handleEffect();
     }
 
     public static void updateSpellInGameBoard(GameController gameController) {
         Cell selectedCell = Cell.getSelectedCell();
+        if (selectedCell == null) return;
         Card card = selectedCell.getCellCard();
         SpellAndTrap spell = (SpellAndTrap) card;
+        if (spell == null) return;
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         if (!playerGameBoard.isCellInSpellAndTrapZone(selectedCell)) {
             playerGameBoard.getHandCards().remove(selectedCell);
@@ -74,6 +74,7 @@ public abstract class SpellAndTrap extends Card {
                 }
             }
         } else {
+            SpellAbsorption.handleEffect();
             selectedCell.setCardStatus(CardStatus.OCCUPIED);
         }
         Cell.deselectCell();
