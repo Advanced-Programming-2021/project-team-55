@@ -19,8 +19,9 @@ public class LoginMenu extends Menu {
 
     @Override
     protected void execute() {
-        String response = processCommand(ViewInterface.getInput());
-        ViewInterface.showResult(response);
+//        String response = processCommand(ViewInterface.getInput());
+//        ViewInterface.showResult(response);
+        launch(args);
 //       try {
 //           start(new Stage());
 //       }catch (Exception ignored){}

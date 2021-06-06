@@ -18,6 +18,7 @@ abstract public class Menu extends Application {
     public static MenuType currentMenu = MenuType.LOGIN;
 
     public static void run(String[] args) {
+
         Menu.args = args;
         try {
             DataBaseController.usersDataBaseInitialization();
@@ -25,38 +26,39 @@ abstract public class Menu extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        while (true) {
-            switch (currentMenu) {
-                case LOGIN: {
-                    loginMenu.execute();
-                    break;
-                }
-                case MAIN: {
-                    mainMenu.execute();
-                    break;
-                }
-                case PROFILE: {
-                    profileMenu.execute();
-                    break;
-                }
-                case SCOREBOARD: {
-                    scoreBoardMenu.execute();
-                    break;
-                }
-                case SHOP: {
-                    shopMenu.execute();
-                    break;
-                }
-                case DECK: {
-                    deckMenu.execute();
-                    break;
-                }
-                case DUEL: {
-                    duelMenu.execute();
-                    break;
-                }
-            }
-        }
+        loginMenu.execute();
+//        while (true) {
+//            switch (currentMenu) {
+//                case LOGIN: {
+//                    loginMenu.execute();
+//                    break;
+//                }
+//                case MAIN: {
+//                    mainMenu.execute();
+//                    break;
+//                }
+//                case PROFILE: {
+//                    profileMenu.execute();
+//                    break;
+//                }
+//                case SCOREBOARD: {
+//                    scoreBoardMenu.execute();
+//                    break;
+//                }
+//                case SHOP: {
+//                    shopMenu.execute();
+//                    break;
+//                }
+//                case DECK: {
+//                    deckMenu.execute();
+//                    break;
+//                }
+//                case DUEL: {
+//                    duelMenu.execute();
+//                    break;
+//                }
+//            }
+//        }
     }
 
     public static String getCurrentMenu() {
