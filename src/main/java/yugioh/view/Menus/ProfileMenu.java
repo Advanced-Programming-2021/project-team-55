@@ -3,8 +3,12 @@ package yugioh.view.Menus;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import yugioh.controller.menucontroller.ProfileMenuController;
+import yugioh.model.User;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.Regexes;
 import yugioh.view.Responses;
@@ -61,8 +65,12 @@ public class ProfileMenu extends WelcomeMenu {
     @Override
     public void start(Stage primaryStage) throws Exception {
         URL url=getClass().getResource("/yugioh/fxml/ProfileMenu.fxml");
-        Parent parent= FXMLLoader.load(url);
-        Scene scene=new Scene(parent);
+        Pane pane= FXMLLoader.load(url);
+        Label usernameLabel=(Label) pane.getChildren().get(2);
+        usernameLabel.setText(User.loggedInUser.getUsername());
+        TextField nicknameField=(TextField)pane.getChildren().get(5);
+        nicknameField.setText(User.loggedInUser.getNickname());
+        Scene scene=new Scene(pane);
         stage.setScene(scene);
         stage.show();
     }
