@@ -7,6 +7,7 @@ import yugioh.controller.DataBaseController;
 import java.io.IOException;
 
 abstract public class Menu extends Application {
+    public static String[] args;
     private static final LoginMenu loginMenu = new LoginMenu();
     private static final MainMenu mainMenu = new MainMenu();
     private static final ScoreBoardMenu scoreBoardMenu = new ScoreBoardMenu();
@@ -16,10 +17,12 @@ abstract public class Menu extends Application {
     private static final DuelMenu duelMenu = new DuelMenu();
     public static MenuType currentMenu = MenuType.LOGIN;
 
-    public static void run() {
+    public static void run(String[] args) {
+        Menu.args = args;
         try {
             DataBaseController.usersDataBaseInitialization();
             DataBaseController.cardsDataBaseInitialization();
+            launch(args);
         } catch (IOException e) {
             e.printStackTrace();
         }
