@@ -1,13 +1,12 @@
 package controller.menucontroller;
 
-import model.User;
-import model.cards.Card;
-import model.cards.Deck;
-import model.cards.monsters.Babydragon;
-import model.cards.monsters.CrabTurtle;
-import model.cards.monsters.FeralImp;
-import model.cards.trapandspells.AdvancedRitualArt;
-import model.cards.trapandspells.SolemnWarning;
+import yugioh.controller.menucontroller.DeckMenuController;
+import yugioh.model.User;
+import yugioh.model.cards.Deck;
+import yugioh.model.cards.monsters.Babydragon;
+import yugioh.model.cards.monsters.CrabTurtle;
+import yugioh.model.cards.monsters.FeralImp;
+import yugioh.model.cards.trapandspells.SolemnWarning;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ class DeckMenuControllerTest {
         deck.addCardToMainDeck(feralImp);
         User.loggedInUser.addDeck(deck);
         try {
-            String expected="Deck: first deck\nMain deck:\nMonsters:\n" + crabTurtle.toString() +"\n"+feralImp.toString()+
+            String expected="Deck: first deck\nyugioh.Main deck:\nMonsters:\n" + crabTurtle.toString() +"\n"+feralImp.toString()+
                     "\nSpell and Traps:\n" + solemnWarning.toString();
             assertEquals(expected,deckMenuController.getADeck("first deck", false));
             String expected2="Deck: first deck\nSide deck:\nMonsters:\n"+babydragon.toString()+"\n"+feralImp.toString()+"\n" +

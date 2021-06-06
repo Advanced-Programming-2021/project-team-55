@@ -4,9 +4,9 @@ menu enter Scoreboard
 menu show-current
 scoreboard show
 menu exit
-menu enter Main
+menu enter yugioh.Main
 menu exit
-menu enter Main
+menu enter yugioh.Main
 user logout
 menu exit
 
