@@ -4,17 +4,21 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="yugioh.controller.menucontroller.WelcomeMenuController">
-   <Button layoutX="274.0" layoutY="209.0" mnemonicParsing="false" onMouseClicked="#enterLoginMenuClicked"
-           text="Login"/>
-   <Button layoutX="267.0" layoutY="154.0" mnemonicParsing="false" onMouseClicked="#enterRegisterMenuClicked"
-           text="Register"/>
-   <Label layoutX="226.0" layoutY="43.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="Welcome Menu"
-          textFill="chartreuse">
-      <font>
-         <Font size="20.0"/>
-      </font>
-   </Label>
-   <Button layoutX="282.0" layoutY="257.0" mnemonicParsing="false" onMouseClicked="#exitClicked" text="Exit"/>
+<AnchorPane prefHeight="720" prefWidth="1080" style="-fx-background-color: rgb(4,30,125);" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.WelcomeMenuController">
+   <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="290.8" AnchorPane.leftAnchor="466.0" AnchorPane.rightAnchor="466.0" AnchorPane.topAnchor="290.8">
+      <children>
+         <Label styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="YU GI OH" textFill="chartreuse">
+            <font>
+
+               <Font name="loadFont()" size="87.0" />
+            </font>
+         </Label>
+         <Button mnemonicParsing="false" onMouseClicked="#enterLoginMenuClicked" text="Login">
+            <font>
+               <Font name="Comic Sans MS" size="19.0" />
+            </font></Button>
+         <Button mnemonicParsing="false" onMouseClicked="#enterRegisterMenuClicked" text="Register" />
+         <Button alignment="CENTER" cancelButton="true" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#exitClicked" text="Exit" />
+      </children>
+   </VBox>
 </AnchorPane>

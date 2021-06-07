@@ -1,9 +1,12 @@
 package yugioh.model.cards;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import yugioh.model.cards.cardfeaturesenums.SpellOrTrap;
 import yugioh.model.cards.monsters.*;
 import yugioh.model.cards.trapandspells.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -336,6 +339,19 @@ public class Card {
 
     }
 
+    public static ImageView getCardImage(Card card, int width) {
+        String name;
+        if (card == null) name = "Unknown";
+        else name = card.getClass().getName().replaceAll("yugioh.model.cards.monsters.",
+                "").replaceAll("yugioh.model.cards.trapandspells.", "");
+        File imageFile = new File("src/resources/yugioh/PNG/cardsImages/" + name + ".jpg");
+        if (!imageFile.exists()) System.out.println(name);
+        ImageView imageView = new ImageView(new Image(imageFile.toURI().toString()));
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(width);
+        return imageView;
+    }
+
     public String getName() {
         return name;
     }
@@ -377,7 +393,6 @@ public class Card {
         return cardKind != Kind.MONSTER;
     }
 
-
     public Card clone() {
         return Card.getNewCardObjectByName(this.getName());
     }
@@ -386,5 +401,10 @@ public class Card {
         return cardKind;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public enum Kind {MONSTER, MAGIC}
+
 }
