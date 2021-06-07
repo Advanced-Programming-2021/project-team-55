@@ -1,9 +1,12 @@
 package yugioh.model.cards;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import yugioh.model.cards.cardfeaturesenums.SpellOrTrap;
 import yugioh.model.cards.monsters.*;
 import yugioh.model.cards.trapandspells.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -373,7 +376,6 @@ public class Card {
         return cardKind != Kind.MONSTER;
     }
 
-
     public Card clone() {
         return Card.getNewCardObjectByName(this.getName());
     }
@@ -382,5 +384,13 @@ public class Card {
         return cardKind;
     }
 
+    public static ImageView getCardImage(Card card){
+        String name = card.getClass().getName().replaceAll("yugioh.model.cards.monsters.",
+                "").replaceAll("yugioh.model.cards.trapandspells.", "");
+        File imageFile = new File("src/resources/yugioh/PNG/cardsImages/" + name + ".jpg");
+        return new ImageView(new Image(imageFile.toURI().toString()));
+    }
+
     public enum Kind {MONSTER, MAGIC}
+
 }
