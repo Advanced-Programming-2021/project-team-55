@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="page" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.LoginMenuController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="yugioh.controller.menucontroller.LoginMenuController">
     <HBox layoutX="240.0" layoutY="40.0">
         <Label text="Login Menu" textFill="chartreuse" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" />
     </HBox>
