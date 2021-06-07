@@ -3,9 +3,13 @@ package yugioh.view.Menus;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -47,17 +51,18 @@ public class PopUpWindow extends Application {
             text.setFill(Color.GREEN);
             popUp.initModality(Modality.NONE);
         }
-//        BackgroundFill background_fill = new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY);
-//        Background background = new Background(background_fill);
-//        messageBox.setBackground(background);
-//        scene.getStylesheets().add("/Sample/CSS/MenuCss.css");
+        BackgroundFill background_fill = new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY);
+        Background background = new Background(background_fill);
+        messageBox.setBackground(background);
         Button okButton = new Button("ok");
         okButton.setOnAction(okButtonHandler);
         messageBox.getChildren().add(okButton);
         text.setFont(Font.font(20));
-//                messageBox.getChildren().add(text);//todo uncomment
+                messageBox.getChildren().add(text);//todo uncomment
         messageBox.setAlignment(Pos.BASELINE_CENTER);
         Scene scene = new Scene(messageBox, 400, 100);
+        scene.getStylesheets().add("/Sample/CSS/MenuCss.css");
+
         popUp.setScene(scene);
         popUp.setX(640.0);
         popUp.setY(230.0);
