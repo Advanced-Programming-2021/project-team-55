@@ -224,7 +224,7 @@ public class DataBaseController extends MenuController {
 
             }
             else{
-                cardInfo.add(new Label("Monster"));
+                cardInfo.add(new Label("Type: Monster"));
                 cardInfo.add(new Label(String.valueOf(monster.getLevel())));
                 cardInfo.add(new Label(monster.getAttribute().toString()));
                 cardInfo.add(new Label(monster.getMonsterType().toString()));

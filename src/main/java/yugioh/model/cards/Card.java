@@ -96,7 +96,7 @@ public class Card {
         return spellAndTraps;
     }
 
-    public String getDescription() {
+    public String getDescription(){
         return description;
     }
 
@@ -401,9 +401,6 @@ public class Card {
         return cardKind;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
     public enum Kind {MONSTER, MAGIC}
 
