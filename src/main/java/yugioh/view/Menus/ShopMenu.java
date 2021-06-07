@@ -72,6 +72,7 @@ public class ShopMenu extends WelcomeMenu {
         Parent parent = FXMLLoader.load(url);
         Scene scene = new Scene(parent);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 }

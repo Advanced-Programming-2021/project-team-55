@@ -335,6 +335,19 @@ public class Card {
 
     }
 
+    public static ImageView getCardImage(Card card, int width) {
+        String name;
+        if (card == null) name = "Unknown";
+        else name = card.getClass().getName().replaceAll("yugioh.model.cards.monsters.",
+                "").replaceAll("yugioh.model.cards.trapandspells.", "");
+        File imageFile = new File("src/resources/yugioh/PNG/cardsImages/" + name + ".jpg");
+        if (!imageFile.exists()) System.out.println(name);
+        ImageView imageView = new ImageView(new Image(imageFile.toURI().toString()));
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(width);
+        return imageView;
+    }
+
     public String getName() {
         return name;
     }
@@ -384,11 +397,8 @@ public class Card {
         return cardKind;
     }
 
-    public static ImageView getCardImage(Card card){
-        String name = card.getClass().getName().replaceAll("yugioh.model.cards.monsters.",
-                "").replaceAll("yugioh.model.cards.trapandspells.", "");
-        File imageFile = new File("src/resources/yugioh/PNG/cardsImages/" + name + ".jpg");
-        return new ImageView(new Image(imageFile.toURI().toString()));
+    public String getDescription() {
+        return description;
     }
 
     public enum Kind {MONSTER, MAGIC}
