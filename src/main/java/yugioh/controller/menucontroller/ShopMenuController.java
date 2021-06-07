@@ -1,9 +1,13 @@
 package yugioh.controller.menucontroller;
 
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.model.exceptions.MenuException;
@@ -17,6 +21,9 @@ public class ShopMenuController extends MenuController implements Initializable 
 
     public static ShopMenuController shopMenuController;
     public ScrollPane scrollPane;
+    public ImageView hoveredImage;
+    public Button buyButton;
+    public ScrollPane cardDescription;
 
     public ShopMenuController() {
     }
@@ -48,23 +55,36 @@ public class ShopMenuController extends MenuController implements Initializable 
         mainMenu.execute();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        shopMenuController = this;
-        ArrayList<Card> allCards = getAllCards();
+    private void initializeCardsPane() {
+        ArrayList<Card> allCards = new ArrayList<>(getAllCards());
         int cardsPerRow = 6;
         int columnCounter = 0;
         GridPane cardsPane = new GridPane();
+        cardsPane.setHgap(10);
+        cardsPane.setVgap(10);
         outer:
         while (allCards.size() > 0) {
             for (int j = 0; j < cardsPerRow; j++) {
-                cardsPane.add(Card.getCardImage(allCards.get(allCards.size() - 1)), j, columnCounter);
+                ImageView cardImage = Card.getCardImage(allCards.get(allCards.size() - 1), 86);
+                cardImage.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+                    hoveredImage.setImage(cardImage.getImage());
+                    cardDescription.contentProperty().set(new Text(allCards.get(allCards.size() - 1).getName()));
+                    event.consume();
+                });
+                cardsPane.add(cardImage, j, columnCounter);
                 allCards.remove(allCards.get(allCards.size() - 1));
                 if (allCards.size() < 1) break outer;
             }
             columnCounter++;
         }
         scrollPane.contentProperty().set(cardsPane);
-        System.out.println("fdg");
     }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        shopMenuController = this;
+        initializeCardsPane();
+        hoveredImage.setImage(Card.getCardImage(null, 354).getImage());
+    }
+
 }

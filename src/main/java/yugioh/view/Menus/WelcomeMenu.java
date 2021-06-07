@@ -84,8 +84,8 @@ public class WelcomeMenu extends Application {
         scene.setCursor(Cursor.HAND);
         //stage.getIcons().add(new Image("/Sample/JPG/Pacman.jpg"));
         stage.setTitle("Yugioh");
-        stage.setX(490.0);
-        stage.setY(190.0);
+//        stage.setX(700);
+//        stage.setY(300);
         stage.show();
     }
 
