@@ -1,18 +1,20 @@
 package yugioh.controller.menucontroller;
 
-import javafx.scene.input.MouseEvent;
-import yugioh.model.exceptions.MenuException;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.GridPane;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
-import yugioh.view.Menus.WelcomeMenu;
-import yugioh.view.Menus.MenuType;
+import yugioh.model.exceptions.MenuException;
 import yugioh.view.Responses;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class ShopMenuController extends MenuController {
+public class ShopMenuController extends MenuController  implements Initializable {
 
     public static ShopMenuController shopMenuController;
+    public GridPane cardsPane;
 
     public ShopMenuController() {
     }
@@ -40,7 +42,12 @@ public class ShopMenuController extends MenuController {
         return Card.sortCards(Card.getCards());
     }
 
-    public void backClicked(MouseEvent mouseEvent) throws Exception{
+    public void back() throws Exception{
         mainMenu.execute();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        shopMenuController = this;
     }
 }

@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.DuelMenuController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.DuelMenuController">
    <children>
       <Button layoutX="262.0" layoutY="162.0" mnemonicParsing="false" text="Duel Player" />
       <Button layoutX="272.0" layoutY="214.0" mnemonicParsing="false" text="Duel AI" />
