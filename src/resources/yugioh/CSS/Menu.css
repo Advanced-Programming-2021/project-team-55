@@ -12,17 +12,13 @@
        -fx-alignment: center;
 
 }
-.titleMenu{
-        -fx-font-family: "Bauhaus 93";;
-       -fx-font-size: 30px;
-}
 .buttonText{
        -fx-font-family: "Bauhaus 93";;
        -fx-font-size: 20px;
 }
 .titleText{
        -fx-font-family: "Bauhaus 93";;
-       -fx-font-size: 30px;
+       -fx-font-size: 50 px;
 }
 .buttonShape{
        -fx-shape: "M 1000 300 L 1000 300 Q 550 250 50 300 Q 0 400 50 500 Q 500 550 1000 500 Q 1050 400 1000 300 ";
