@@ -1,76 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
+<?import javafx.scene.paint.Color?>
+<?import java.lang.String?>
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.RegisterMenuController">
+    <VBox alignment="CENTER" layoutX="218.0" layoutY="173.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="375.0"
+          prefWidth="644.0" spacing="10.0" AnchorPane.bottomAnchor="172.0" AnchorPane.leftAnchor="218.0"
+          AnchorPane.rightAnchor="218.0" AnchorPane.topAnchor="173.0">
 
-<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.RegisterMenuController">
-    <VBox alignment="CENTER" layoutX="218.0" layoutY="173.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="375.0" prefWidth="644.0" spacing="10.0" AnchorPane.bottomAnchor="172.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="218.0" AnchorPane.topAnchor="173.0">
 
-
-        <children>
-            <Label styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Register Menu" textFill="#e1e100" />
-            <JFXTextField fx:id="usernameField" focusColor="#7aceed" promptText="Username" styleClass="buttonText" unFocusColor="#a6e9ff" />
-            <JFXTextField fx:id="nicknameField" focusColor="#7aceed" promptText="Nickname" styleClass="buttonText" unFocusColor="#a6e9ff" />
-            <JFXPasswordField fx:id="passwordField" focusColor="#7aceed" promptText="Password" styleClass="buttonText" unFocusColor="#a6e9ff" />
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                <children>
-                    <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#RegisterClicked" prefHeight="48.0" prefWidth="150" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Register">
-                        <styleClass>
-                            <String fx:value="buttonText" />
-                            <String fx:value="buttonShape" />
-                        </styleClass>
-                    </JFXButton>
-                    <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="48.0" prefWidth="150" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
-                        <styleClass>
-                            <String fx:value="buttonText" />
-                            <String fx:value="buttonShape" />
-                        </styleClass>
-                    </JFXButton>
-                </children>
-            </HBox>
-        </children>
         <effect>
             <DropShadow blurType="GAUSSIAN" height="14.0" radius="6.5" width="14.0">
                 <color>
-                    <Color red="0.3684210479259491" />
+                    <Color red="0.3684210479259491"/>
                 </color>
             </DropShadow>
         </effect>
-
-        <!--
-                <children>
-                    <HBox layoutX="230.0" layoutY="40.0" styleClass="title"/>
-                    <VBox alignment="CENTER" layoutX="200.0" layoutY="130.0" prefHeight="210.0" prefWidth="200.0">
-                        <TextField fx:id="usernameField" promptText="username"/>
-                        <TextField fx:id="nicknameField" promptText="nickname"/>
-                        <PasswordField fx:id="passwordField" promptText="password">
-                            <VBox.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                            </VBox.margin>
-                        </PasswordField>
-                        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
-                            <Button mnemonicParsing="false" onMouseClicked="#RegisterClicked" text="register">
-                                <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                                </VBox.margin>
-                            </Button>
-                            <Button mnemonicParsing="false" onMouseClicked="#backClicked" text="back">
-                                <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                                </VBox.margin>
-                            </Button>
-                        </VBox>
-                    </VBox>
-                    <Label layoutX="237.0" layoutY="40.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css"
-                           text="Register Menu" textFill="chartreuse">
-                        <font>
-                            <Font size="20.0"/>
-                        </font>
-                    </Label>
-                </children>-->
+        <Label styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Register Menu" textFill="#e1e100"/>
+        <JFXTextField fx:id="usernameField" focusColor="#7aceed" promptText="Username" styleClass="buttonText"
+                      unFocusColor="#a6e9ff"/>
+        <JFXTextField fx:id="nicknameField" focusColor="#7aceed" promptText="Nickname" styleClass="buttonText"
+                      unFocusColor="#a6e9ff"/>
+        <JFXPasswordField fx:id="passwordField" focusColor="#7aceed" promptText="Password" styleClass="buttonText"
+                          unFocusColor="#a6e9ff"/>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#RegisterClicked"
+                       prefHeight="48.0" prefWidth="150" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css"
+                       text="Register">
+                <styleClass>
+                    <String fx:value="buttonText"/>
+                    <String fx:value="buttonShape"/>
+                </styleClass>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked"
+                       prefHeight="48.0" prefWidth="150" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css"
+                       text="Back">
+                <styleClass>
+                    <String fx:value="buttonText"/>
+                    <String fx:value="buttonShape"/>
+                </styleClass>
+            </JFXButton>
+        </HBox>
     </VBox>
 </AnchorPane>
