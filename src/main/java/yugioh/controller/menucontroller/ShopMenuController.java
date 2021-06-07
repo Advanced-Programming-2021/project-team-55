@@ -1,7 +1,12 @@
 package yugioh.controller.menucontroller;
 
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
@@ -15,7 +20,7 @@ import java.util.ResourceBundle;
 public class ShopMenuController extends MenuController implements Initializable {
 
     public static ShopMenuController shopMenuController;
-    public GridPane cardsPane;
+    public ScrollPane scrollPane;
 
     public ShopMenuController() {
     }
@@ -44,20 +49,30 @@ public class ShopMenuController extends MenuController implements Initializable 
     }
 
     public void back() throws Exception {
-        mainMenu.execute();
+        ArrayList<Card> allCards = getAllCards();
+        int cardsPerRow = 6;
+        int columnCounter = 0;
+        GridPane cardsPane = new GridPane();
+        outer:
+        while (allCards.size() > 0) {
+            for (int j = 0; j < cardsPerRow; j++) {
+                //new Text(allCards.get(allCards.size() - 1).getName())
+                Rectangle rectangle =new Rectangle();
+                rectangle.setWidth(300.0f);
+                rectangle.setHeight(150.0f);
+                cardsPane.add(rectangle, j, columnCounter);
+                allCards.remove(allCards.get(allCards.size() - 1));
+                if (allCards.size() < 1) break outer;
+            }
+            columnCounter++;
+        }
+        scrollPane.contentProperty().set(cardsPane);
+        System.out.println("fdg");
+//        mainMenu.execute();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         shopMenuController = this;
-        ArrayList<Card> allCards = getAllCards();
-        int cardsPerRow = 6;
-        int columnCounter = 0;
-        while (allCards.size() > 0) {
-            for (int j = 0; j < cardsPerRow; j++) {
-                cardsPane.add(new Text(allCards.get(0).getName()), j, columnCounter);
-            }
-            columnCounter++;
-        }
     }
 }
