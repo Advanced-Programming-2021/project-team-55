@@ -14,9 +14,9 @@
     </Label>
     <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="207.0" layoutY="79.0" prefHeight="485.0" prefWidth="590.0" />
    <ImageView fx:id="hoveredImage" fitHeight="266.0" fitWidth="192.0" layoutX="8.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
-   <ScrollPane fx:id="cardDescription" hbarPolicy="NEVER" layoutX="4.0" layoutY="323.0" prefHeight="200.0" prefWidth="200.0">
-      <content>
-         <Text fx:id="description" strokeType="OUTSIDE" strokeWidth="0.0" />
-      </content></ScrollPane>
+    <ScrollPane fx:id="cardDescription" hbarPolicy="NEVER" layoutX="4.0" layoutY="323.0" prefHeight="200.0"
+                prefWidth="200.0">
+        <Text fx:id="descriptionScrollPane" strokeType="OUTSIDE" strokeWidth="0.0"/>
+    </ScrollPane>
    <Button fx:id="buyButton" layoutX="74.0" layoutY="552.0" mnemonicParsing="false" text="BUY" />
 </AnchorPane>

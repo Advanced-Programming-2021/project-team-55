@@ -1,7 +1,6 @@
 package yugioh.controller.menucontroller;
 
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -11,7 +10,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
-import yugioh.model.cards.Monster;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.Responses;
 
@@ -25,8 +23,8 @@ public class ShopMenuController extends MenuController implements Initializable 
     public ScrollPane scrollPane;
     public ImageView hoveredImage;
     public Button buyButton;
-//    public ScrollPane cardDescription;
-    public Text description;
+    public Text descriptionScrollPane;
+    public ScrollPane cardDescription;
 
     public ShopMenuController() {
     }
@@ -72,7 +70,7 @@ public class ShopMenuController extends MenuController implements Initializable 
                 ImageView cardImage = Card.getCardImage(card, 86);
                 cardImage.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
                     Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));
-                    Platform.runLater(() -> description.setText(card.getDescription()));
+//                    Platform.runLater(() -> descriptionScrollPane.setText(card.getDescription()));//todo uncomment
                     event.consume();
                 });
                 cardsPane.add(cardImage, j, columnCounter);
@@ -89,6 +87,8 @@ public class ShopMenuController extends MenuController implements Initializable 
         shopMenuController = this;
         initializeCardsPane();
         hoveredImage.setImage(Card.getCardImage(null, 354).getImage());
+        descriptionScrollPane.wrappingWidthProperty().bind(cardDescription.widthProperty());
+        cardDescription.setFitToWidth(true);
     }
 
 }
