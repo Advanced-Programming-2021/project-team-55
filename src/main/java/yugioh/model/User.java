@@ -22,6 +22,7 @@ public class User {
     private String nickname;
     private int score;
     private int money;
+    private String profileImage;
     private Deck activeDeck;
 
     {
@@ -35,7 +36,12 @@ public class User {
         setNickname(nickname);
         setPassword(password);
         allUsers.add(this);
+        setProfileImage();
         initializeCards();
+
+    }
+
+    public void setProfileImage() {
 
     }
 
