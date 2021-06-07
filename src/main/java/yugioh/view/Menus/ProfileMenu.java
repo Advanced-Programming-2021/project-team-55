@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.image.*;
 import javafx.stage.Stage;
 import yugioh.controller.menucontroller.ProfileMenuController;
 import yugioh.model.User;
@@ -68,6 +69,8 @@ public class ProfileMenu extends WelcomeMenu {
         Label usernameLabel = (Label) pane.getChildren().get(2);
         usernameLabel.setText(User.loggedInUser.getUsername());
         TextField nicknameField = (TextField) pane.getChildren().get(5);
+        ImageView profileImage=(ImageView)pane.getChildren().get(9);
+        profileImage.setImage(new Image(User.loggedInUser.getProfileImage()));
         nicknameField.setText(User.loggedInUser.getNickname());
         Scene scene = new Scene(pane);
         stage.setScene(scene);

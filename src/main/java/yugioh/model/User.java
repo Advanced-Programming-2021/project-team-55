@@ -22,6 +22,7 @@ public class User {
     private String nickname;
     private int score;
     private int money;
+    private String profileImage;
     private Deck activeDeck;
 
     {
@@ -35,8 +36,19 @@ public class User {
         setNickname(nickname);
         setPassword(password);
         allUsers.add(this);
+        setProfileImage();
         initializeCards();
 
+    }
+
+    public void setProfileImage() {
+        Random random=new Random();
+        int randomNumber=random.nextInt(8);
+        this.profileImage="/yugioh/PNG/UsersImage/"+randomNumber+".png";
+    }
+
+    public String getProfileImage() {
+        return profileImage;
     }
 
     public static User getUserByUsername(String username) {
