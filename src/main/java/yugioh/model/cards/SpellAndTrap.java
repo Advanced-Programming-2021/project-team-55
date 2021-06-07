@@ -12,7 +12,7 @@ import yugioh.model.exceptions.GameException;
 import yugioh.view.ViewInterface;
 import yugioh.view.gamephases.GameResponses;
 
-public abstract class SpellAndTrap extends Card {
+public class SpellAndTrap extends Card {
 
     protected SpellOrTrap type;
     private final SpellOrTrapAttribute attribute;

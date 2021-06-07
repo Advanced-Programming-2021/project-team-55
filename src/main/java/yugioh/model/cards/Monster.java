@@ -6,7 +6,7 @@ import yugioh.model.cards.cardfeaturesenums.MonsterAttribute;
 import yugioh.model.cards.cardfeaturesenums.MonsterType;
 
 
-public abstract class Monster extends Card {
+public class Monster extends Card {
 
     private int atk;
     private int def;
@@ -15,8 +15,7 @@ public abstract class Monster extends Card {
     private MonsterType monsterType;
     private CardType cardType;
     private CardStatus cardStatus;
-
-    protected Monster(String cardName, String description, int price, int atk, int def, int level,
+    public Monster(String cardName, String description, int price, int atk, int def, int level,
                       MonsterAttribute attribute, MonsterType monsterType, CardType cardType) {
         super(cardName, description, price, Kind.MONSTER, null);
         this.atk = atk;

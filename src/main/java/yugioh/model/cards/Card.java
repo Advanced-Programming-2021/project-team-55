@@ -24,11 +24,13 @@ public class Card {
     protected int price;
     protected SpellOrTrap magicType;
     protected Kind cardKind;
+    protected String image;
 
     public Card(String name, String description, int price, Kind cardKind, SpellOrTrap magicType) {
         setName(name);
         setDescription(description);
         setPrice(price);
+        setImage();
         this.cardKind = cardKind;
         this.magicType = magicType;
 
@@ -94,6 +96,10 @@ public class Card {
             }
         });
         return spellAndTraps;
+    }
+
+    public String getDescription(){
+        return description;
     }
 
     public static Card getNewCardObjectByName(String name) {
@@ -396,9 +402,18 @@ public class Card {
     public Kind getCardKind() {
         return cardKind;
     }
-
-    public String getDescription() {
-        return description;
+    public static Card getCardNameByImage(String image){
+        for(Card card:allCards){
+            if(card.image.equals(image)){
+                return card;
+            }
+        }
+        return null;
+    }
+    public void setImage(){
+        String name = getClass().getName().replaceAll("yugioh.model.cards.monsters.",
+                "").replaceAll("yugioh.model.cards.trapandspells.", "");
+        image="src/resources/yugioh/PNG/cardsImages/" + name + ".jpg";
     }
 
     public enum Kind {MONSTER, MAGIC}

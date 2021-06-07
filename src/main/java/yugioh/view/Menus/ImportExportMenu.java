@@ -28,7 +28,7 @@ public class ImportExportMenu extends WelcomeMenu {
             dataBaseController.importDeck(matcher.group(1));
         } else if (command.matches(Regexes.EXPORT_CARD.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.EXPORT_CARD.regex);
-            response = dataBaseController.exportCard(matcher.group(1));
+           // response = dataBaseController.exportCard(matcher.group(1));
 //        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
 //            Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
 //            try {

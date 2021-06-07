@@ -3,7 +3,10 @@ package yugioh.controller.menucontroller;
 import javafx.scene.input.MouseEvent;
 import yugioh.controller.DataBaseController;
 import yugioh.model.User;
+import yugioh.model.cards.Card;
 import yugioh.view.LoggerMessage;
+
+import java.util.Date;
 
 public class WelcomeMenuController extends MenuController {
     public void enterRegisterMenuClicked(MouseEvent mouseEvent) {
@@ -28,6 +31,15 @@ public class WelcomeMenuController extends MenuController {
                 DataBaseController.saveUserInfo(user);
             } catch (Exception e) {
                 LoggerMessage.log("unable to save user data");
+                e.printStackTrace();
+            }
+        }
+        for(Card card: Card.getCards()){
+            try {
+                DataBaseController.saveCardInfo(card);
+            }
+            catch (Exception e){
+                LoggerMessage.log("unable to save card data");
                 e.printStackTrace();
             }
         }
