@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="yugioh.controller.menucontroller.MainMenuController">
    <Button layoutX="273.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#enterDuelMenuClicked" text="Duel"/>
    <Button layoutX="272.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#enterDeckMenuClicked" text="Deck"/>

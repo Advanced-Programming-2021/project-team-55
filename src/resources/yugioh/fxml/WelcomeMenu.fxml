@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.WelcomeMenuController">
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.WelcomeMenuController">
     <VBox alignment="CENTER" layoutX="309.0" layoutY="227.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="267.0" prefWidth="462.0" spacing="10.0" AnchorPane.bottomAnchor="226.0" AnchorPane.leftAnchor="309.0" AnchorPane.rightAnchor="309.0" AnchorPane.topAnchor="227.0">
         <children>
-            <Label styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="YU GI OH" textFill="chartreuse">
+            <Label styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="YU GI OH" textFill="#ffe000">
                 <font>
 
                     <Font name="loadFont()" size="87.0" />

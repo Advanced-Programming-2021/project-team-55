@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ShopMenuController">
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ShopMenuController">
     <Button layoutX="745.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#back" text="back" />
     <Label layoutX="373.0" layoutY="13.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="SHOP" textFill="CHARTREUSE">
         <font>

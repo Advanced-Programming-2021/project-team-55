@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ProfileMenuController">
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ProfileMenuController">
    <children>
       <Button layoutX="280.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#backClicked" text="back" />
        <Label layoutX="239.0" layoutY="40.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="Profile Menu" textFill="chartreuse">
