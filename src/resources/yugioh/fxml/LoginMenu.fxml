@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="yugioh.controller.menucontroller.LoginMenuController">
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.LoginMenuController">
+    <VBox alignment="CENTER" layoutX="309.0" layoutY="227.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="267.0" prefWidth="462.0" spacing="10.0" AnchorPane.bottomAnchor="226.0" AnchorPane.leftAnchor="309.0" AnchorPane.rightAnchor="309.0" AnchorPane.topAnchor="227.0">
+      <children>
+         <JFXTextField focusColor="WHITE" promptText="Username" unFocusColor="#fd0000" />
+      </children></VBox>
     <HBox layoutX="240.0" layoutY="40.0">
-        <Label text="Login Menu" textFill="chartreuse" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" />
+        <Label styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="Login Menu" textFill="chartreuse" />
     </HBox>
     <VBox alignment="CENTER" layoutX="200.0" layoutY="130.0" prefHeight="210.0" prefWidth="200.0">
         <TextField fx:id="usernameField" promptText="username" />
@@ -29,4 +35,11 @@
         </VBox>
 
     </VBox>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <cursor>
+      <Cursor fx:constant="MOVE" />
+   </cursor>
+
 </AnchorPane>
