@@ -93,6 +93,10 @@ public class Card {
         return spellAndTraps;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public static Card getNewCardObjectByName(String name) {
 
         switch (name) {

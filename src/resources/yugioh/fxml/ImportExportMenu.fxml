@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="yugioh.controller.DataBaseController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.DataBaseController">
    <children>
       <Button layoutX="274.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#backClicked" text="back" />
        <Label layoutX="196.0" layoutY="40.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="Import/Export Menu" textFill="chartreuse">
@@ -12,5 +12,7 @@
                <Font size="20.0" />
            </font>
        </Label>
+      <Button layoutX="253.0" layoutY="249.0" mnemonicParsing="false" onMouseClicked="#openFileChooser" text="choose a file" />
+      <VBox layoutX="151.0" layoutY="70.0" prefHeight="170.0" prefWidth="286.0" fx:id="cardInfoBox"/>
    </children>
 </AnchorPane>

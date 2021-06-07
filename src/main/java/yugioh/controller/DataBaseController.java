@@ -2,19 +2,30 @@ package yugioh.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.InstanceCreator;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import yugioh.controller.menucontroller.MenuController;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
+import yugioh.model.cards.Monster;
+import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.cards.monsters.*;
 import yugioh.model.cards.trapandspells.*;
+import yugioh.view.Menus.WelcomeMenu;
 
+import java.awt.*;
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javafx.scene.control.*;
 
 public class DataBaseController extends MenuController {
-
+    public VBox cardInfoBox;
     public static DataBaseController dataBaseController;
 
     public DataBaseController() {
@@ -34,6 +45,16 @@ public class DataBaseController extends MenuController {
 
     public static void saveUserInfo(User user) throws IOException {
         writeJSON(user, "src\\resources\\users\\" + user.getUsername() + ".json");
+    }
+    public static void saveCardInfo(Card card)throws IOException{
+        if(card.getCardKind()== Card.Kind.MAGIC) {
+            SpellAndTrap spellAndTrap=(SpellAndTrap)card;
+            writeJSON(spellAndTrap, "src\\resources\\cards\\" + card.getName() + ".json");
+        }
+        else{
+            Monster monster=(Monster)card;
+            writeJSON(monster, "src\\resources\\cards\\" + card.getName() + ".json");
+        }
     }
 
     public static void writeFile(String fileAddress, String content) throws IOException {
@@ -172,5 +193,51 @@ public class DataBaseController extends MenuController {
 
     public void backClicked(MouseEvent mouseEvent) throws Exception {
         mainMenu.execute();
+    }
+
+    public void openFileChooser(MouseEvent mouseEvent) {
+        FileChooser fileChooser=new FileChooser();
+        fileChooser.setTitle("select a card");
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("text files","*.json", "*.csv");
+        fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setInitialDirectory(new File("src\\resources\\cards"));
+        File file=fileChooser.showOpenDialog(WelcomeMenu.stage);
+        try {
+            GsonBuilder monsterBuilder = new GsonBuilder();
+            Gson monsterGson =monsterBuilder.create();
+            GsonBuilder magicBuilder=new GsonBuilder();
+            Gson magicGson=magicBuilder.create();
+            BufferedReader monsterBufferedReader=new BufferedReader(new FileReader(file));
+            BufferedReader magicBufferedReader=new BufferedReader(new FileReader(file));
+            //Card card = gson.fromJson(bufferedReader, Card.class);
+            Monster monster=monsterGson.fromJson(monsterBufferedReader,Monster.class);
+            SpellAndTrap spellAndTrap=magicGson.fromJson(magicBufferedReader,SpellAndTrap.class);
+            ArrayList<Label>cardInfo=new ArrayList<>();
+            cardInfo.add(new Label("Name: "+monster.getName()));
+            if(monster.getCardKind()== Card.Kind.MAGIC){
+                cardInfo.add(new Label("Type: Magic"));
+                cardInfo.add(new Label("Attribute: "+spellAndTrap.getAttribute().toString()));
+                Label label=new Label("Description: "+spellAndTrap.getDescription());
+                cardInfo.add(label);
+                cardInfo.add(new Label("Status: "+spellAndTrap.getStatus().toString()));
+
+            }
+            else{
+                cardInfo.add(new Label("Monster"));
+                cardInfo.add(new Label(String.valueOf(monster.getLevel())));
+                cardInfo.add(new Label(monster.getAttribute().toString()));
+                cardInfo.add(new Label(monster.getMonsterType().toString()));
+                cardInfo.add(new Label(monster.getCardType().toString()));
+                cardInfo.add(new Label(String.valueOf(monster.getAtk())));
+                cardInfo.add(new Label(String.valueOf(monster.getDef())));
+                cardInfo.add(new Label(monster.getDescription()));
+            }
+            cardInfo.add(new Label(String.valueOf(monster.getPrice())));
+            cardInfoBox.getChildren().addAll(cardInfo);
+        }catch (Exception e){
+            e.printStackTrace();
+            cardInfoBox.getChildren().add(new Text("can not read data from this file"));
+        }
     }
 }
