@@ -2,6 +2,7 @@ package yugioh.controller.menucontroller;
 
 import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.model.exceptions.MenuException;
@@ -49,5 +50,14 @@ public class ShopMenuController extends MenuController  implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         shopMenuController = this;
+        ArrayList<Card> allCards = getAllCards();
+        int cardsPerRow = 6;
+        int columnCounter = 0;
+        while (allCards.size() > 0) {
+            for (int j = 0; j < cardsPerRow; j++) {
+                cardsPane.add(new Text(allCards.get(0).getName()), j, columnCounter);
+            }
+            columnCounter++;
+        }
     }
 }

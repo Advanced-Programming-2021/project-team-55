@@ -4,19 +4,22 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.MainMenuController">
-   <children>
-      <Button layoutX="273.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#enterDuelMenuClicked" text="Duel" />
-      <Button layoutX="272.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#enterDeckMenuClicked" text="Deck" />
-      <Button layoutX="253.0" layoutY="187.0" mnemonicParsing="false" onMouseClicked="#enterScoreBoardMenuClicked" text="ScoreBoard" />
-      <Button layoutX="268.0" layoutY="225.0" mnemonicParsing="false" onMouseClicked="#enterProfileMenuClicked" text="Profile" />
-      <Button layoutX="271.0" layoutY="264.0" mnemonicParsing="false" onMouseClicked="#enterShopMenuClicked" text="Shop" />
-      <Button layoutX="247.0" layoutY="303.0" mnemonicParsing="false" onMouseClicked="#enterImportExportClicked" text="Import/Export" />
-      <Button layoutX="30.0" layoutY="339.0" mnemonicParsing="false" onMouseClicked="#logoutClicked" text="Logout" />
-      <Label layoutX="239.0" layoutY="40.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="Main Menu" textFill="chartreuse">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="yugioh.controller.menucontroller.MainMenuController">
+   <Button layoutX="273.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#enterDuelMenuClicked" text="Duel"/>
+   <Button layoutX="272.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#enterDeckMenuClicked" text="Deck"/>
+   <Button layoutX="253.0" layoutY="187.0" mnemonicParsing="false" onMouseClicked="#enterScoreBoardMenuClicked"
+           text="ScoreBoard"/>
+   <Button layoutX="268.0" layoutY="225.0" mnemonicParsing="false" onMouseClicked="#enterProfileMenuClicked"
+           text="Profile"/>
+   <Button layoutX="271.0" layoutY="264.0" mnemonicParsing="false" onMouseClicked="#enterShopMenuClicked" text="Shop"/>
+   <Button layoutX="247.0" layoutY="303.0" mnemonicParsing="false" onMouseClicked="#enterImportExportClicked"
+           text="Import/Export"/>
+   <Button layoutX="30.0" layoutY="339.0" mnemonicParsing="false" onMouseClicked="#logoutClicked" text="Logout"/>
+   <Label layoutX="239.0" layoutY="40.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="Main Menu"
+          textFill="chartreuse">
+      <font>
+         <Font size="20.0"/>
+      </font>
+   </Label>
 </AnchorPane>
