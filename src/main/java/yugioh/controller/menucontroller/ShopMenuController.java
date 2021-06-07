@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class ShopMenuController extends MenuController implements Initializable {
+public class ShopMenuController extends MenuController /*implements Initializable*/ {
 
     public static ShopMenuController shopMenuController;
     public GridPane cardsPane;
@@ -47,17 +47,17 @@ public class ShopMenuController extends MenuController implements Initializable 
         mainMenu.execute();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        shopMenuController = this;
-        ArrayList<Card> allCards = getAllCards();
-        int cardsPerRow = 6;
-        int columnCounter = 0;
-        while (allCards.size() > 0) {
-            for (int j = 0; j < cardsPerRow; j++) {
-                cardsPane.add(new Text(allCards.get(0).getName()), j, columnCounter);
-            }
-            columnCounter++;
-        }
-    }
+//    @Override
+//    public void initialize(URL url, ResourceBundle resourceBundle) {
+//        shopMenuController = this;
+//        ArrayList<Card> allCards = getAllCards();
+//        int cardsPerRow = 6;
+//        int columnCounter = 0;
+//        while (allCards.size() > 0) {
+//            for (int j = 0; j < cardsPerRow; j++) {
+//                cardsPane.add(new Text(allCards.get(0).getName()), j, columnCounter);
+//            }
+//            columnCounter++;
+//        }
+//    }
 }

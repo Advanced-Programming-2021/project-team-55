@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="yugioh.controller.menucontroller.ProfileMenuController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ProfileMenuController">
    <children>
       <Button layoutX="280.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#backClicked" text="back" />
        <Label layoutX="239.0" layoutY="40.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="Profile Menu" textFill="chartreuse">
@@ -27,10 +28,11 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="259.0" layoutY="133.0" prefHeight="26.0" prefWidth="99.0" fx:id="nicknameField"/>
-       <TextField fx:id="oldPasswordField" layoutX="226.0" layoutY="207.0" promptText="old password"  />
+      <TextField fx:id="nicknameField" layoutX="259.0" layoutY="133.0" prefHeight="26.0" prefWidth="99.0" />
+       <TextField fx:id="oldPasswordField" layoutX="226.0" layoutY="207.0" promptText="old password" />
        <TextField fx:id="newPasswordField" layoutX="226.0" layoutY="242.0" promptText="new password">
        </TextField>
        <Button layoutX="246.0" layoutY="275.0" onMouseClicked="#changePasswordClicked" text="change password" />
+      <ImageView fitHeight="99.0" fitWidth="122.0" layoutX="419.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

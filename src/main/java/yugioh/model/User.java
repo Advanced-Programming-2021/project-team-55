@@ -42,7 +42,13 @@ public class User {
     }
 
     public void setProfileImage() {
+        Random random=new Random();
+        int randomNumber=random.nextInt(8);
+        this.profileImage="/yugioh/PNG/UsersImage/"+randomNumber+".png";
+    }
 
+    public String getProfileImage() {
+        return profileImage;
     }
 
     public static User getUserByUsername(String username) {
