@@ -55,7 +55,7 @@ public class PopUpWindow extends Application {
         okButton.setOnAction(okButtonHandler);
         messageBox.getChildren().add(okButton);
         text.setFont(Font.font(20));
-//                messageBox.getChildren().add(text);
+//                messageBox.getChildren().add(text);//todo uncomment
         messageBox.setAlignment(Pos.BASELINE_CENTER);
         Scene scene = new Scene(messageBox, 400, 100);
         popUp.setScene(scene);
