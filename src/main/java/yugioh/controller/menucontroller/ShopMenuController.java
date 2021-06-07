@@ -1,5 +1,6 @@
 package yugioh.controller.menucontroller;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -10,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
+import yugioh.model.cards.Monster;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.Responses;
 
@@ -23,7 +25,8 @@ public class ShopMenuController extends MenuController implements Initializable 
     public ScrollPane scrollPane;
     public ImageView hoveredImage;
     public Button buyButton;
-    public ScrollPane cardDescription;
+//    public ScrollPane cardDescription;
+    public Text description;
 
     public ShopMenuController() {
     }
@@ -65,15 +68,16 @@ public class ShopMenuController extends MenuController implements Initializable 
         outer:
         while (allCards.size() > 0) {
             for (int j = 0; j < cardsPerRow; j++) {
-                ImageView cardImage = Card.getCardImage(allCards.get(allCards.size() - 1), 86);
+                Card card = allCards.get(allCards.size() - 1);
+                ImageView cardImage = Card.getCardImage(card, 86);
                 cardImage.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
-                    hoveredImage.setImage(cardImage.getImage());
-                    cardDescription.contentProperty().set(new Text(allCards.get(allCards.size() - 1).getName()));
+                    Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));
+                    Platform.runLater(() -> description.setText(card.getDescription()));
                     event.consume();
                 });
                 cardsPane.add(cardImage, j, columnCounter);
-                allCards.remove(allCards.get(allCards.size() - 1));
-                if (allCards.size() < 1) break outer;
+                allCards.remove(card);
+                if (allCards.size() == 0) break outer;
             }
             columnCounter++;
         }

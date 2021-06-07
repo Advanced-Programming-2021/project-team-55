@@ -397,6 +397,10 @@ public class Card {
         return cardKind;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public enum Kind {MONSTER, MAGIC}
 
 }
