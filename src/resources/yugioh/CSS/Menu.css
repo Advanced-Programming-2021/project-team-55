@@ -3,6 +3,11 @@
        -fx-font: url("../fonts/BAUHS93.ttf");
 }
 .titleMenu{
-       -fx-font-style: url("../fonts/BAUHS93.ttf");
+       -fx-font:url("../fonts/BAUHS93.ttf");
        -fx-font-size: 30px;
+}
+.image-view-wrapper:border {
+    -fx-border-color: red;
+    -fx-border-style: solid;
+    -fx-border-width: 10;
 }

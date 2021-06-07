@@ -6,13 +6,17 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.DataBaseController">
    <children>
-      <Button layoutX="274.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#backClicked" text="back" />
+      <Button layoutX="274.0" layoutY="351.0" mnemonicParsing="false" onMouseClicked="#backClicked" text="back" />
        <Label layoutX="196.0" layoutY="40.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="Import/Export Menu" textFill="chartreuse">
            <font>
                <Font size="20.0" />
            </font>
        </Label>
-      <Button layoutX="253.0" layoutY="258.0" mnemonicParsing="false" onMouseClicked="#openFileChooser" text="choose a file" />
-      <VBox fx:id="cardInfoBox" layoutX="151.0" layoutY="78.0" prefHeight="170.0" prefWidth="286.0" />
+      <Button layoutX="268.0" layoutY="281.0" mnemonicParsing="false" onMouseClicked="#openFileChooser" text="import" />
+      <ScrollPane fx:id="cardInfoBox" layoutX="136.0" layoutY="81.0" prefHeight="200.0" prefWidth="327.0">
+         <content>
+            <Text fx:id="cardInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="221.13671875" />
+         </content></ScrollPane>
+      <Button layoutX="269.0" layoutY="316.0" mnemonicParsing="false" onMouseClicked="#exportClicked" text="export" />
    </children>
 </AnchorPane>

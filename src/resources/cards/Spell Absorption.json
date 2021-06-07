@@ -1,1 +1,1 @@
-{"type":"SPELL","attribute":"CONTINUOUS","status":"UNLIMITED","name":"Spell Absorption","description":"Each time a Spell Card is activated, gain 500 Life Points immediately after it resolves.","price":4000,"magicType":"SPELL","cardKind":"MAGIC"}
+{"type":"SPELL","attribute":"CONTINUOUS","status":"UNLIMITED","name":"Spell Absorption","description":"Each time a Spell Card is activated, gain 500 Life Points immediately after it resolves.","price":4000,"magicType":"SPELL","cardKind":"MAGIC","image":"src/resources/yugioh/PNG/cardsImages/SpellAbsorption.jpg"}
