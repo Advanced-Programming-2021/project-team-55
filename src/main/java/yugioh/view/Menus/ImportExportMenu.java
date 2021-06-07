@@ -5,7 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import yugioh.controller.DataBaseController;
-import yugioh.model.exceptions.MenuException;
 import yugioh.view.Regexes;
 import yugioh.view.Responses;
 import yugioh.view.ViewInterface;
@@ -17,8 +16,8 @@ public class ImportExportMenu extends WelcomeMenu {
     private static final DataBaseController dataBaseController = DataBaseController.getInstance();
 
     @Override
-    public void execute() throws Exception{
-       start(stage);
+    public void execute() throws Exception {
+        start(stage);
     }
 
     @Override
@@ -49,9 +48,9 @@ public class ImportExportMenu extends WelcomeMenu {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL url=getClass().getResource("/yugioh/fxml/ImportExportMenu.fxml");
-        Parent parent= FXMLLoader.load(url);
-        Scene scene=new Scene(parent);
+        URL url = getClass().getResource("/yugioh/fxml/ImportExportMenu.fxml");
+        Parent parent = FXMLLoader.load(url);
+        Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.show();
     }

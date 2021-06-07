@@ -2,13 +2,11 @@ package yugioh.controller.menucontroller;
 
 import javafx.scene.input.MouseEvent;
 import yugioh.controller.gamephasescontrollers.GameController;
-import yugioh.model.exceptions.MenuException;
 import yugioh.model.Player;
 import yugioh.model.User;
 import yugioh.model.board.Game;
 import yugioh.model.cards.Deck;
-import yugioh.view.Menus.WelcomeMenu;
-import yugioh.view.Menus.MenuType;
+import yugioh.model.exceptions.MenuException;
 import yugioh.view.Responses;
 
 public class DuelMenuController extends MenuController {
@@ -25,7 +23,6 @@ public class DuelMenuController extends MenuController {
         }
         return duelMenuController;
     }
-
 
 
     public GameController newPVPDuel(String secondPlayer, int rounds) throws MenuException {
@@ -98,7 +95,7 @@ public class DuelMenuController extends MenuController {
     }
 
 
-    public void backClicked(MouseEvent mouseEvent)throws Exception {
+    public void backClicked(MouseEvent mouseEvent) throws Exception {
         mainMenu.execute();
     }
 }

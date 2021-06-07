@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class ShopMenuController extends MenuController  implements Initializable {
+public class ShopMenuController extends MenuController implements Initializable {
 
     public static ShopMenuController shopMenuController;
     public GridPane cardsPane;
@@ -43,7 +43,7 @@ public class ShopMenuController extends MenuController  implements Initializable
         return Card.sortCards(Card.getCards());
     }
 
-    public void back() throws Exception{
+    public void back() throws Exception {
         mainMenu.execute();
     }
 

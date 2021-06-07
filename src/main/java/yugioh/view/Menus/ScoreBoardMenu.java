@@ -1,35 +1,23 @@
 package yugioh.view.Menus;
 
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import yugioh.controller.menucontroller.ScoreBoardMenuController;
-import yugioh.model.User;
-import yugioh.model.exceptions.MenuException;
 import yugioh.view.Regexes;
 import yugioh.view.Responses;
-import yugioh.view.ViewInterface;
 
-import java.lang.reflect.Array;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.regex.Matcher;
 
 public class ScoreBoardMenu extends WelcomeMenu {
     private static final ScoreBoardMenuController scoreBoardMenuController = ScoreBoardMenuController.getInstance();
 
 
     @Override
-    public void execute()throws Exception {
+    public void execute() throws Exception {
         start(stage);
     }
 
@@ -55,33 +43,20 @@ public class ScoreBoardMenu extends WelcomeMenu {
         return response;
     }
 
-    private ArrayList<Label> showScoreBoard(LinkedHashMap<Integer, HashMap<Integer, String>> scoreBoard) {
-        ArrayList<Label>scoreBoardInfo=new ArrayList<>();
-        for (int i = 0; i < Math.min(scoreBoard.size(),20); i++) {
+    private void showScoreBoard(LinkedHashMap<Integer, HashMap<Integer, String>> scoreBoard) {
+        for (int i = 0; i < scoreBoard.size(); i++) {
             HashMap<Integer, String> userInfo = scoreBoard.get(i);
             for (int rank : userInfo.keySet()) {
-                Label info=new Label(rank+userInfo.get(rank));
-                info.setFont(Font.font(15.0));
-                info.setAlignment(Pos.TOP_CENTER);
-                if(userInfo.get(rank).equals(User.loggedInUser.toString())){
-                    info.setTextFill(Color.CYAN);
-                }
-                else {
-                    info.setTextFill(Color.CHARTREUSE);
-                }
-                scoreBoardInfo.add(info);
+                System.out.println(rank + userInfo.get(rank));
             }
         }
-        return scoreBoardInfo;
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL url=getClass().getResource("/yugioh/fxml/ScoreBoardMenu.fxml");
-        Pane pane= FXMLLoader.load(url);
-        VBox scoreBoard=(VBox) pane.getChildren().get(2);
-        scoreBoard.getChildren().addAll(showScoreBoard(scoreBoardMenuController.getScoreBoard()));
-        Scene scene=new Scene(pane);
+        URL url = getClass().getResource("/yugioh/fxml/ScoreBoardMenu.fxml");
+        Parent parent = FXMLLoader.load(url);
+        Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.show();
     }

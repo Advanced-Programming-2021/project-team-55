@@ -1,9 +1,9 @@
 package yugioh.controller.gamephasescontrollers;
 
-import yugioh.model.exceptions.GameException;
 import yugioh.model.Player;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Card;
+import yugioh.model.exceptions.GameException;
 import yugioh.view.gamephases.GameResponses;
 
 import java.util.ArrayList;

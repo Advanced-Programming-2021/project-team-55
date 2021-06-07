@@ -1,11 +1,11 @@
 package yugioh.controller;
 
 import yugioh.controller.gamephasescontrollers.GameController;
-import yugioh.model.exceptions.GameException;
 import yugioh.model.Player;
 import yugioh.model.User;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Card;
+import yugioh.model.exceptions.GameException;
 import yugioh.view.Responses;
 import yugioh.view.gamephases.GameResponses;
 
@@ -13,7 +13,8 @@ public class CheatController {
 
     private static CheatController cheatController;
 
-    private CheatController() {}
+    private CheatController() {
+    }
 
     public static CheatController getInstance() {
         if (cheatController == null) {

@@ -8,7 +8,6 @@ import yugioh.model.cards.cardfeaturesenums.EffectiveTerm;
 import yugioh.model.cards.cardfeaturesenums.SpellOrTrap;
 import yugioh.model.cards.cardfeaturesenums.SpellOrTrapAttribute;
 import yugioh.model.cards.trapandspells.*;
-import yugioh.model.cards.trapandspells.*;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.ViewInterface;
 import yugioh.view.gamephases.GameResponses;
@@ -16,8 +15,8 @@ import yugioh.view.gamephases.GameResponses;
 public abstract class SpellAndTrap extends Card {
 
     protected SpellOrTrap type;
-    private SpellOrTrapAttribute attribute;
-    private EffectiveTerm status;
+    private final SpellOrTrapAttribute attribute;
+    private final EffectiveTerm status;
 
     public SpellAndTrap(String name, String description, int price,
                         SpellOrTrap type, SpellOrTrapAttribute attribute, EffectiveTerm status) {
