@@ -37,10 +37,10 @@ public class ViewInterface {
                     }
                 } catch (Exception ignored) {
                 }
-                new PopUpWindow(result, true, new Stage());
+//                new PopUpWindow(result, true, new Stage());
                 System.out.println(ConsoleColors.RED + result.replaceAll("Error: ", "") + ConsoleColors.RESET);
             } else {
-                new PopUpWindow(result, false, new Stage());
+//                new PopUpWindow(result, false, new Stage());
                 if (Responses.responseExists(result) || GameResponses.responseExists(result)) {
                     System.out.println(ConsoleColors.GREEN + result + ConsoleColors.RESET);
                 } else {

@@ -13,13 +13,13 @@ import javafx.stage.StageStyle;
 
 import java.util.Objects;
 
-public class PopUpWindow extends Application {
+public class PopUpWindow1 extends Application {
 
     private final String message;
     private final boolean isError;
     private Stage stage;
 
-    public PopUpWindow(String message, boolean isError, Stage stage) {
+    public PopUpWindow1(String message, boolean isError, Stage stage) {
         this.message = message;
         this.isError = isError;
         start(stage);
