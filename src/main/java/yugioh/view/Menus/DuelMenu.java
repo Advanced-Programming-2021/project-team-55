@@ -20,7 +20,7 @@ public class DuelMenu extends WelcomeMenu {
     private static final DuelMenuController duelMenuController = DuelMenuController.getInstance();
 
     @Override
-    public void execute() throws Exception{
+    public void execute() throws Exception {
         AIPlayerController.setIsGameEnded(true);   //todo: in chie? (parham)
         start(stage);
     }
@@ -61,9 +61,9 @@ public class DuelMenu extends WelcomeMenu {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL url=getClass().getResource("/yugioh/fxml/DuelMenu.fxml");
-        Parent parent= FXMLLoader.load(url);
-        Scene scene=new Scene(parent);
+        URL url = getClass().getResource("/yugioh/fxml/DuelMenu.fxml");
+        Parent parent = FXMLLoader.load(url);
+        Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.show();
     }

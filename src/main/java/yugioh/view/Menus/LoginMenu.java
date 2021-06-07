@@ -17,9 +17,9 @@ public class LoginMenu extends WelcomeMenu {
     private static final LoginMenuController loginMenuController = LoginMenuController.getInstance();
 
     @Override
-    public void execute() throws Exception{
+    public void execute() throws Exception {
         //String response = processCommand(ViewInterface.getInput());
-       // ViewInterface.showResult(response);
+        // ViewInterface.showResult(response);
 //       try {
 //           start(new Stage());
 //       }catch (Exception ignored){}
@@ -53,7 +53,7 @@ public class LoginMenu extends WelcomeMenu {
 //                response = e.toString();
 //            }
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {
-         //   loginMenuController.exitMenu();
+            //   loginMenuController.exitMenu();
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {
             response = getCurrentMenu();
         } else {

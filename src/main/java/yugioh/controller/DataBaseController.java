@@ -4,15 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javafx.scene.input.MouseEvent;
 import yugioh.controller.menucontroller.MenuController;
-import yugioh.model.cards.monsters.*;
-import yugioh.model.cards.trapandspells.*;
-import yugioh.model.exceptions.MenuException;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
-
-import yugioh.view.Menus.WelcomeMenu;
-import yugioh.view.Menus.MenuType;
-import yugioh.view.Responses;
+import yugioh.model.cards.monsters.*;
+import yugioh.model.cards.trapandspells.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -175,7 +170,7 @@ public class DataBaseController extends MenuController {
         return output.toString();
     }
 
-    public void backClicked(MouseEvent mouseEvent)throws Exception {
+    public void backClicked(MouseEvent mouseEvent) throws Exception {
         mainMenu.execute();
     }
 }

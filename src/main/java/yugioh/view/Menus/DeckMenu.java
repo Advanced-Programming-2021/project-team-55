@@ -20,7 +20,7 @@ public class DeckMenu extends WelcomeMenu {
     private static final DeckMenuController deckMenuController = DeckMenuController.getInstance();
 
     @Override
-    public void execute() throws Exception{
+    public void execute() throws Exception {
         start(stage);
     }
 
@@ -117,9 +117,9 @@ public class DeckMenu extends WelcomeMenu {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL url=getClass().getResource("/yugioh/fxml/DeckMenu.fxml");
-        Parent parent= FXMLLoader.load(url);
-        Scene scene=new Scene(parent);
+        URL url = getClass().getResource("/yugioh/fxml/DeckMenu.fxml");
+        Parent parent = FXMLLoader.load(url);
+        Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.show();
     }

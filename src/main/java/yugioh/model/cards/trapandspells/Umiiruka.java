@@ -10,7 +10,7 @@ import yugioh.model.cards.cardfeaturesenums.SpellOrTrapAttribute;
 
 import java.util.ArrayList;
 
-import static yugioh.model.cards.cardfeaturesenums.MonsterType.*;
+import static yugioh.model.cards.cardfeaturesenums.MonsterType.AQUA;
 
 public class Umiiruka extends SpellAndTrap {
     private static final ArrayList<Monster> effectedMonsters;

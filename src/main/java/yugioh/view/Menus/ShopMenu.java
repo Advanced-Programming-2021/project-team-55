@@ -22,7 +22,7 @@ public class ShopMenu extends WelcomeMenu {
     private static final CheatController cheatController = CheatController.getInstance();
 
     @Override
-    public void execute()throws Exception {
+    public void execute() throws Exception {
         start(stage);
     }
 
@@ -68,9 +68,9 @@ public class ShopMenu extends WelcomeMenu {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL url=getClass().getResource("/yugioh/fxml/ShopMenu.fxml");
-        Parent parent= FXMLLoader.load(url);
-        Scene scene=new Scene(parent);
+        URL url = getClass().getResource("/yugioh/fxml/ShopMenu.fxml");
+        Parent parent = FXMLLoader.load(url);
+        Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.show();
     }

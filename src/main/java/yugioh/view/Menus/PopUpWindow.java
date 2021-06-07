@@ -3,24 +3,19 @@ package yugioh.view.Menus;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
-import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 
 public class PopUpWindow extends Application {
-    private String response;
-    private boolean isError;
+    private final String response;
+    private final boolean isError;
     private Stage popUp;
     private final EventHandler okButtonHandler = new EventHandler() {
         @Override
@@ -28,20 +23,20 @@ public class PopUpWindow extends Application {
             popUp.close();
         }
     };
-    public PopUpWindow(String response){
-        if(response.startsWith("Error: ")){
-            this.response=response.substring(7);
-            this.isError=true;
-        }
 
-        else{
-            this.response=response;
-            this.isError=false;
+    public PopUpWindow(String response) {
+        if (response.startsWith("Error: ")) {
+            this.response = response.substring(7);
+            this.isError = true;
+        } else {
+            this.response = response;
+            this.isError = false;
         }
     }
+
     @Override
     public void start(Stage stage) throws Exception {
-        popUp=new Stage();
+        popUp = new Stage();
         VBox messageBox = new VBox(20);
         Text text = new Text(response);
         if (isError) {

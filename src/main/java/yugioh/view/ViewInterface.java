@@ -1,6 +1,5 @@
 package yugioh.view;
 
-import javafx.stage.Stage;
 import yugioh.controller.AIPlayerController;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GameResponses;

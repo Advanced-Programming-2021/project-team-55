@@ -5,22 +5,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import yugioh.controller.menucontroller.ScoreBoardMenuController;
-import yugioh.model.exceptions.MenuException;
 import yugioh.view.Regexes;
 import yugioh.view.Responses;
-import yugioh.view.ViewInterface;
 
 import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.regex.Matcher;
 
 public class ScoreBoardMenu extends WelcomeMenu {
     private static final ScoreBoardMenuController scoreBoardMenuController = ScoreBoardMenuController.getInstance();
 
 
     @Override
-    public void execute()throws Exception {
+    public void execute() throws Exception {
         start(stage);
     }
 
@@ -57,9 +54,9 @@ public class ScoreBoardMenu extends WelcomeMenu {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL url=getClass().getResource("/yugioh/fxml/ScoreBoardMenu.fxml");
-        Parent parent= FXMLLoader.load(url);
-        Scene scene=new Scene(parent);
+        URL url = getClass().getResource("/yugioh/fxml/ScoreBoardMenu.fxml");
+        Parent parent = FXMLLoader.load(url);
+        Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.show();
     }

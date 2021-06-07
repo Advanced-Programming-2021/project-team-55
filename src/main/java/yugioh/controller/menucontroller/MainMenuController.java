@@ -1,11 +1,7 @@
 package yugioh.controller.menucontroller;
 
 import javafx.scene.input.MouseEvent;
-import yugioh.model.exceptions.MenuException;
 import yugioh.model.User;
-import yugioh.view.Menus.WelcomeMenu;
-import yugioh.view.Menus.MenuType;
-import yugioh.view.Responses;
 
 public class MainMenuController extends MenuController {
 
@@ -22,36 +18,36 @@ public class MainMenuController extends MenuController {
         return mainMenuController;
     }
 
-    public void logout() throws Exception{
+    public void logout() throws Exception {
         User.setLoggedInUser(null);
         welcomeMenu.execute();
     }
 
-    public void enterDuelMenuClicked(MouseEvent mouseEvent) throws Exception{
+    public void enterDuelMenuClicked(MouseEvent mouseEvent) throws Exception {
         duelMenu.execute();
     }
 
-    public void enterDeckMenuClicked(MouseEvent mouseEvent) throws Exception{
+    public void enterDeckMenuClicked(MouseEvent mouseEvent) throws Exception {
         deckMenu.execute();
     }
 
-    public void enterScoreBoardMenuClicked(MouseEvent mouseEvent) throws Exception{
+    public void enterScoreBoardMenuClicked(MouseEvent mouseEvent) throws Exception {
         scoreBoardMenu.execute();
     }
 
-    public void enterProfileMenuClicked(MouseEvent mouseEvent) throws Exception{
+    public void enterProfileMenuClicked(MouseEvent mouseEvent) throws Exception {
         profileMenu.execute();
     }
 
-    public void enterShopMenuClicked(MouseEvent mouseEvent) throws Exception{
+    public void enterShopMenuClicked(MouseEvent mouseEvent) throws Exception {
         shopMenu.execute();
     }
 
-    public void enterImportExportClicked(MouseEvent mouseEvent) throws Exception{
+    public void enterImportExportClicked(MouseEvent mouseEvent) throws Exception {
         importExportMenu.execute();
     }
 
-    public void logoutClicked(MouseEvent mouseEvent) throws Exception{
+    public void logoutClicked(MouseEvent mouseEvent) throws Exception {
         logout();
     }
 

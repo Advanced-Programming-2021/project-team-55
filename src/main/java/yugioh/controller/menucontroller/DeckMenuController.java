@@ -1,13 +1,11 @@
 package yugioh.controller.menucontroller;
 
 import javafx.scene.input.MouseEvent;
-import yugioh.model.exceptions.MenuException;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Deck;
 import yugioh.model.cards.SpellAndTrap;
-import yugioh.view.Menus.WelcomeMenu;
-import yugioh.view.Menus.MenuType;
+import yugioh.model.exceptions.MenuException;
 import yugioh.view.Responses;
 
 import java.util.ArrayList;
@@ -162,7 +160,7 @@ public class DeckMenuController extends MenuController {
         return Card.sortCards(User.loggedInUser.getCardsInventory());
     }
 
-    public void backClicked(MouseEvent mouseEvent) throws Exception{
+    public void backClicked(MouseEvent mouseEvent) throws Exception {
         mainMenu.execute();
     }
 }

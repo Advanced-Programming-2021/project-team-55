@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.net.URL;
 
 public class WelcomeMenu extends Application {
-    public static String[] args;
-    public  static Stage stage;
     private static final LoginMenu loginMenu = new LoginMenu();
     private static final MainMenu mainMenu = new MainMenu();
     private static final ScoreBoardMenu scoreBoardMenu = new ScoreBoardMenu();
@@ -22,6 +20,8 @@ public class WelcomeMenu extends Application {
     private static final ShopMenu shopMenu = new ShopMenu();
     private static final DeckMenu deckMenu = new DeckMenu();
     private static final DuelMenu duelMenu = new DuelMenu();
+    public static String[] args;
+    public static Stage stage;
     public static MenuType currentMenu = MenuType.LOGIN;
 
     public static void run(String[] args) {
@@ -65,9 +65,18 @@ public class WelcomeMenu extends Application {
 //            }
 //        }
     }
+
+    public static String getCurrentMenu() {
+        return currentMenu.menuName;
+    }
+
+    public static void setCurrentMenu(MenuType currentMenu) {
+        WelcomeMenu.currentMenu = currentMenu;
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
-        this.stage = stage;
+        WelcomeMenu.stage = stage;
         URL fxmlAddress = getClass().getResource("/yugioh/fxml/WelcomeMenu.fxml");
         Parent pane = FXMLLoader.load(fxmlAddress);
         Scene scene = new Scene(pane);
@@ -80,16 +89,12 @@ public class WelcomeMenu extends Application {
         stage.show();
     }
 
-    public static String getCurrentMenu() {
-        return currentMenu.menuName;
+    public void execute() throws Exception {
+        start(stage);
     }
 
-    public static void setCurrentMenu(MenuType currentMenu) {
-        WelcomeMenu.currentMenu = currentMenu;
+    protected String processCommand(String command) {
+        return "";
     }
-
-    public void execute()throws Exception{start(stage);};
-
-    protected String processCommand(String command){return "";};
 
 }

@@ -7,13 +7,13 @@ import yugioh.model.board.GameBoard;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
 import yugioh.model.cards.SpellAndTrap;
-import yugioh.view.ViewInterface;
-import yugioh.view.gamephases.Duel;
-import yugioh.view.gamephases.GameResponses;
 import yugioh.model.cards.cardfeaturesenums.EffectiveTerm;
 import yugioh.model.cards.cardfeaturesenums.MonsterType;
 import yugioh.model.cards.cardfeaturesenums.SpellOrTrap;
 import yugioh.model.cards.cardfeaturesenums.SpellOrTrapAttribute;
+import yugioh.view.ViewInterface;
+import yugioh.view.gamephases.Duel;
+import yugioh.view.gamephases.GameResponses;
 
 public class Swordofdarkdestruction extends SpellAndTrap {
     private Card equippedCard;

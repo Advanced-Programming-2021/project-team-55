@@ -4,13 +4,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.net.URL;
 
 public class RegisterMenu extends WelcomeMenu {
     @Override
-    public void execute() throws Exception{
+    public void execute() throws Exception {
         start(stage);
     }
 

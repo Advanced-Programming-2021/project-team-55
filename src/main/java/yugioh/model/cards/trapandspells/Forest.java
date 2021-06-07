@@ -5,9 +5,9 @@ import yugioh.model.board.Cell;
 import yugioh.model.cards.Monster;
 import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.cards.cardfeaturesenums.EffectiveTerm;
+import yugioh.model.cards.cardfeaturesenums.MonsterType;
 import yugioh.model.cards.cardfeaturesenums.SpellOrTrap;
 import yugioh.model.cards.cardfeaturesenums.SpellOrTrapAttribute;
-import yugioh.model.cards.cardfeaturesenums.MonsterType;
 
 import java.util.ArrayList;
 

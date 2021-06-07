@@ -3,10 +3,9 @@ package yugioh.controller.menucontroller;
 import javafx.scene.input.MouseEvent;
 import yugioh.controller.DataBaseController;
 import yugioh.model.User;
-import yugioh.model.exceptions.MenuException;
 import yugioh.view.LoggerMessage;
 
-public class WelcomeMenuController extends MenuController{
+public class WelcomeMenuController extends MenuController {
     public void enterRegisterMenuClicked(MouseEvent mouseEvent) {
         try {
             registerMenu.execute();

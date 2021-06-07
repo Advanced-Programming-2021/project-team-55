@@ -17,7 +17,7 @@ public class MagicCylinder extends SpellAndTrap {
     }
 
     public static void setActivated(GameController gameController) {
-        if (gameController.getBattlePhaseController().getAttacker()==null) {
+        if (gameController.getBattlePhaseController().getAttacker() == null) {
             ViewInterface.showResult(GameResponses.PREPARATION_NOT_DONE.response);
             return;
         }

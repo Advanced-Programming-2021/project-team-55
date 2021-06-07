@@ -1,12 +1,12 @@
 package yugioh.model.cards.monsters;
 
 import yugioh.controller.gamephasescontrollers.GameController;
+import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Monster;
 import yugioh.model.cards.cardfeaturesenums.CardType;
 import yugioh.model.cards.cardfeaturesenums.MonsterAttribute;
 import yugioh.model.cards.cardfeaturesenums.MonsterType;
-import yugioh.model.board.CardStatus;
 
 public class TheCalculator extends Monster {
 

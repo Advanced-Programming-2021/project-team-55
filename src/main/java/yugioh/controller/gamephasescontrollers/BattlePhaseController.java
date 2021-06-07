@@ -1,18 +1,18 @@
 package yugioh.controller.gamephasescontrollers;
 
+import yugioh.model.Player;
+import yugioh.model.board.CardStatus;
+import yugioh.model.board.Cell;
+import yugioh.model.board.GameBoard;
+import yugioh.model.cards.Card;
+import yugioh.model.cards.Monster;
 import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.cards.monsters.*;
-import yugioh.model.board.CardStatus;
 import yugioh.model.cards.trapandspells.MagicCylinder;
 import yugioh.model.cards.trapandspells.MirrorForce;
 import yugioh.model.cards.trapandspells.NegateAttack;
 import yugioh.model.cards.trapandspells.SwordsofRevealingLight;
 import yugioh.model.exceptions.GameException;
-import yugioh.model.Player;
-import yugioh.model.board.Cell;
-import yugioh.model.board.GameBoard;
-import yugioh.model.cards.Card;
-import yugioh.model.cards.Monster;
 import yugioh.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class BattlePhaseController {
 
     private final GameController gameController;
     private boolean attackDisabled = false;
-    private Cell attacker ;
+    private Cell attacker;
 
     public BattlePhaseController(GameController gameController) {
         this.gameController = gameController;
@@ -45,7 +45,7 @@ public class BattlePhaseController {
     }
 
     private void setAttacker(Cell attacker) {
-        if(attacker!=null) {
+        if (attacker != null) {
             this.attacker = new Cell(attacker.getCellCard());
         }
     }
@@ -203,7 +203,7 @@ public class BattlePhaseController {
     }
 
     public String directAttack(GameController gameController) throws GameException {
-        String response="" ;
+        String response = "";
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         if (selectedCell == null) {

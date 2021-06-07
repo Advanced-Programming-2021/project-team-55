@@ -4,21 +4,16 @@ package yugioh.controller.menucontroller;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import yugioh.controller.DataBaseController;
-import yugioh.model.exceptions.MenuException;
 import yugioh.model.User;
-import yugioh.view.LoggerMessage;
-import yugioh.view.Menus.MainMenu;
+import yugioh.model.exceptions.MenuException;
 import yugioh.view.Menus.PopUpWindow;
 import yugioh.view.Menus.WelcomeMenu;
-import yugioh.view.Menus.MenuType;
 import yugioh.view.Responses;
 
 public class LoginMenuController extends MenuController {
+    public static LoginMenuController loginMenuController;
     public TextField usernameField;
     public PasswordField passwordField;
-
-    public static LoginMenuController loginMenuController;
 
     public LoginMenuController() {
 
@@ -40,27 +35,26 @@ public class LoginMenuController extends MenuController {
         }
     }
 
-    public void loginClicked(MouseEvent mouseEvent) throws Exception{
-        String username=usernameField.getText();
-        String password=passwordField.getText();
-        if(username.equals("")||password.equals("")){
+    public void loginClicked(MouseEvent mouseEvent) throws Exception {
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        if (username.equals("") || password.equals("")) {
             new PopUpWindow(Responses.FILL_ALL_FIELDS.response).start(WelcomeMenu.stage);
-        }
-        else{
-            String response="";
+        } else {
+            String response = "";
             try {
-                loginUser(username,password);
-                response=Responses.LOGIN_SUCCESSFULLY.response;
+                loginUser(username, password);
+                response = Responses.LOGIN_SUCCESSFULLY.response;
                 mainMenu.execute();
 
-            }catch (MenuException e){
-                response=e.getMessage();
+            } catch (MenuException e) {
+                response = e.getMessage();
             }
             new PopUpWindow(response).start(WelcomeMenu.stage);
         }
     }
 
-    public void backClicked(MouseEvent mouseEvent) throws Exception{
+    public void backClicked(MouseEvent mouseEvent) throws Exception {
         welcomeMenu.execute();
     }
 }

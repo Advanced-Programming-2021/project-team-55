@@ -3,8 +3,6 @@ package yugioh.model.cards;
 import yugioh.model.cards.cardfeaturesenums.SpellOrTrap;
 import yugioh.model.cards.monsters.*;
 import yugioh.model.cards.trapandspells.*;
-import yugioh.model.cards.monsters.*;
-import yugioh.model.cards.trapandspells.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
