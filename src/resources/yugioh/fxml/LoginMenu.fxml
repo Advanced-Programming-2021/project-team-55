@@ -1,45 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.LoginMenuController">
-    <VBox alignment="CENTER" layoutX="309.0" layoutY="227.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="267.0" prefWidth="462.0" spacing="10.0" AnchorPane.bottomAnchor="226.0" AnchorPane.leftAnchor="309.0" AnchorPane.rightAnchor="309.0" AnchorPane.topAnchor="227.0">
-      <children>
-         <JFXTextField focusColor="WHITE" promptText="Username" unFocusColor="#fd0000" />
-      </children></VBox>
-    <HBox layoutX="240.0" layoutY="40.0">
-        <Label styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="Login Menu" textFill="chartreuse" />
-    </HBox>
-    <VBox alignment="CENTER" layoutX="200.0" layoutY="130.0" prefHeight="210.0" prefWidth="200.0">
-        <TextField fx:id="usernameField" promptText="username" />
-        <PasswordField fx:id="passwordField" promptText="password">
-            <VBox.margin>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-            </VBox.margin>
-        </PasswordField>
-        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
-            <Button mnemonicParsing="false" onMouseClicked="#loginClicked" text="login">
-                <VBox.margin>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                </VBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#backClicked" text="back">
-                <VBox.margin>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                </VBox.margin>
-            </Button>
-        </VBox>
-
+    <VBox alignment="CENTER" layoutX="218.0" layoutY="173.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="375.0" prefWidth="644.0" spacing="10.0" AnchorPane.bottomAnchor="172.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="218.0" AnchorPane.topAnchor="173.0">
+        <children>
+            <Label styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="Login Menu" textFill="chartreuse" />
+            <JFXTextField fx:id="usernameField" focusColor="#7aceed" promptText="Username" styleClass="buttonText" unFocusColor="#a6e9ff" />
+            <JFXPasswordField fx:id="passwordField" focusColor="#7aceed" unFocusColor="#a6e9ff" styleClass="buttonText" promptText="Password" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                <children>
+                    <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#loginClicked" prefHeight="48.0" prefWidth="96.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Login">
+                        <styleClass>
+                            <String fx:value="buttonText" />
+                            <String fx:value="buttonShape" />
+                        </styleClass>
+                    </JFXButton>
+                    <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="48.0" prefWidth="96.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
+                        <styleClass>
+                            <String fx:value="buttonText" />
+                            <String fx:value="buttonShape" />
+                        </styleClass>
+                    </JFXButton>
+                </children>
+            </HBox>
+        </children>
+        <effect>
+            <DropShadow blurType="GAUSSIAN" height="14.0" radius="6.5" width="14.0">
+                <color>
+                    <Color red="0.3684210479259491" />
+                </color>
+            </DropShadow>
+        </effect>
     </VBox>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
-   <cursor>
-      <Cursor fx:constant="MOVE" />
-   </cursor>
+    <opaqueInsets>
+        <Insets />
+    </opaqueInsets>
+    <cursor>
+        <Cursor fx:constant="MOVE" />
+    </cursor>
 
 </AnchorPane>
