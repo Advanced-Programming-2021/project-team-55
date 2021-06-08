@@ -14,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.model.exceptions.MenuException;
@@ -61,18 +60,16 @@ public class ShopMenuController extends MenuController implements Initializable 
                 throw new MenuException(Responses.NO_CARD_EXISTS.response);
             } else if (User.loggedInUser.getMoney() < card.getPrice()) {
                 throw new MenuException(Responses.NOT_ENOUGH_MONEY.response);
-            } else if (User.loggedInUser.getCardsInventory().contains(selectedCard)) {
-                throw new MenuException("Error: you already owned this card!");
             } else {
                 User.loggedInUser.changeMoney(-card.getPrice());
                 ArrayList<Card> cardsToAdd = new ArrayList<>();
                 cardsToAdd.add(card);
                 User.loggedInUser.addCardsToInventory(cardsToAdd);
                 Platform.runLater(() -> userCoins.setText(User.loggedInUser.getMoney() + ""));
-                selectedCardImageView.setOpacity(0.5);
                 isCardClicked = false;
+                selectedCardImageView.setOpacity(0.5);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             new PopUpWindow(e.getMessage()).start(WelcomeMenu.stage);
         }
     }
@@ -99,7 +96,7 @@ public class ShopMenuController extends MenuController implements Initializable 
             for (int j = 0; j < cardsPerRow; j++) {
                 Card card = allCards.get(allCards.size() - 1);
                 ImageView cardImage = Card.getCardImage(card, 86);
-                if (User.loggedInUser.getCardsInventory().contains(card)) cardImage.setOpacity(0.5);
+                if (User.loggedInUser.cardExistsInInventory(card.getName())) cardImage.setOpacity(0.5);
                 cardImage.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
                     if (isCardClicked) return;
                     Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));
@@ -113,14 +110,14 @@ public class ShopMenuController extends MenuController implements Initializable 
                         GREEN, 10, 2.0f, 0, 0);
                 cardImage.focusedProperty().addListener((ObservableValue<? extends Boolean> observable,
                                                          Boolean oldValue, Boolean newValue) -> {
-                    isCardClicked = true;
                     if (newValue) {
-                        selectedCardImageView=cardImage;
+                        isCardClicked = true;
+                        selectedCardImageView = cardImage;
                         cardImage.setEffect(selectEffect);
                     } else {
                         cardImage.setEffect(null);
-                        if(selectedCardImageView!=null)
-                            selectedCardImageView = new ImageView(selectedCardImageView.getImage());
+                        selectedCardImageView.setEffect(null);
+                        isCardClicked = false;
                     }
                 });
                 cardImage.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {

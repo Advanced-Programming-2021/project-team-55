@@ -41,6 +41,7 @@ import java.util.Scanner;
 import static javafx.scene.paint.Color.GREEN;
 
 public class DataBaseController extends MenuController {
+
     public static DataBaseController dataBaseController;
     public ScrollPane cardInfoBox;
     public Text cardInfo;
