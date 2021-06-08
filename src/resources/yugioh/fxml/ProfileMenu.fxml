@@ -7,28 +7,39 @@
 
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ProfileMenuController">
    <children>
+      <VBox alignment="CENTER" layoutX="395.0" layoutY="220.0" prefHeight="200.0" prefWidth="353.0">
+         <children>
+             <Label prefHeight="30.0" prefWidth="114.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="Profile Menu" textFill="chartreuse">
+                 <font>
+                     <Font size="20.0" />
+                 </font>
+             </Label>
+            <HBox alignment="CENTER" prefHeight="58.0" prefWidth="354.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="144.0" styleClass="buttonText" text="Username:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="174.0" styleClass="buttonText" text="user username" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="96.0" prefHeight="58.0" prefWidth="354.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="144.0" styleClass="buttonText" text="Nickname:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="nicknameField" prefHeight="26.0" prefWidth="99.0" />
+               </children>
+            </HBox>
+         </children></VBox>
       <Button layoutX="280.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#backClicked" text="back" />
-       <Label layoutX="239.0" layoutY="40.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="Profile Menu" textFill="chartreuse">
-           <font>
-               <Font size="20.0" />
-           </font>
-       </Label>
-      <Label layoutX="264.0" layoutY="89.0" prefHeight="30.0" prefWidth="131.0" text="user username" textAlignment="CENTER">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="173.0" layoutY="82.0" prefHeight="42.0" prefWidth="91.0" text="username:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="177.0" layoutY="133.0" prefHeight="27.0" prefWidth="82.0" text="nickname:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <TextField fx:id="nicknameField" layoutX="259.0" layoutY="133.0" prefHeight="26.0" prefWidth="99.0" />
        <TextField fx:id="oldPasswordField" layoutX="226.0" layoutY="207.0" promptText="old password" />
        <TextField fx:id="newPasswordField" layoutX="226.0" layoutY="242.0" promptText="new password">
        </TextField>
