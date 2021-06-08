@@ -77,7 +77,7 @@ public class ShopMenuController extends MenuController implements Initializable 
                 ImageView cardImage = Card.getCardImage(card, 86);
                 cardImage.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
                     Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));
-                    Platform.runLater(() -> description.setText(card.getDescription()));//todo uncomment
+                    Platform.runLater(() -> description.setText(card.getDescription()));
                     event.consume();
                 });
                 cardsPane.add(cardImage, j, columnCounter);

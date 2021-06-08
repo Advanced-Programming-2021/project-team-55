@@ -310,7 +310,7 @@ public class DataBaseController extends MenuController {
         exportStage.show();
     }
 
-    public void exportCard(MouseEvent mouseEvent)throws Exception {
+    public void exportCard()throws Exception {
         if(selectedImage==null&&previousImage==null){
             new PopUpWindow("Error: no cards selected").start(WelcomeMenu.stage);
             return;
@@ -326,7 +326,7 @@ public class DataBaseController extends MenuController {
         }
     }
 
-    public void backToImportClicked(MouseEvent mouseEvent) throws Exception{
+    public void backToImportClicked() throws Exception{
         exportStage.close();
         importExportMenu.execute();
     }

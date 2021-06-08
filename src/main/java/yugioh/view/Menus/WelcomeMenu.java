@@ -1,6 +1,5 @@
 package yugioh.view.Menus;
 
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -20,18 +19,18 @@ public class WelcomeMenu extends Application {
     private static final ShopMenu shopMenu = new ShopMenu();
     private static final DeckMenu deckMenu = new DeckMenu();
     private static final DuelMenu duelMenu = new DuelMenu();
-    public static String[] args;
     public static Stage stage;
     public static MenuType currentMenu = MenuType.LOGIN;
 
-    public static void run(String[] args) {
+    public static void run() throws Exception {
         try {
             DataBaseController.usersDataBaseInitialization();
             DataBaseController.cardsDataBaseInitialization();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        launch(args);
+//        launch(args);
+        new WelcomeMenu().start(new Stage());
 //        while (true) {
 //            switch (currentMenu) {
 //                case LOGIN: {
