@@ -38,6 +38,7 @@ public class ShopMenuController extends MenuController implements Initializable 
     public ScrollPane descriptionContainer;
     public Label userCoins;
     private Card selectedCard;
+    private ImageView selectedCardImageView;
 
     public ShopMenuController() {
     }
@@ -62,6 +63,7 @@ public class ShopMenuController extends MenuController implements Initializable 
                 cardsToAdd.add(card);
                 User.loggedInUser.addCardsToInventory(cardsToAdd);
                 Platform.runLater(() -> userCoins.setText(User.loggedInUser.getMoney() + ""));
+                selectedCardImageView.setOpacity(0.5);
             }
         }catch (Exception e){
             new PopUpWindow(e.getMessage()).start(WelcomeMenu.stage);
@@ -96,6 +98,7 @@ public class ShopMenuController extends MenuController implements Initializable 
                     Platform.runLater(() -> description.setText(card.getDescription()));
                     Platform.runLater(() -> buyButton.setText("BUY (" + card.getPrice() + ")"));
                     selectedCard = card;
+                    selectedCardImageView = cardImage;
                     event.consume();
                 });
                 cardsPane.add(cardImage, j, columnCounter);
