@@ -75,7 +75,7 @@ public class ScoreBoardMenu extends WelcomeMenu {
     public void start(Stage primaryStage) throws Exception {
         URL url=getClass().getResource("/yugioh/fxml/ScoreBoardMenu.fxml");
         Pane pane= FXMLLoader.load(url);
-        VBox scoreBoard=(VBox) pane.getChildren().get(2);
+        VBox scoreBoard=(VBox)((VBox)pane.getChildren().get(0)).getChildren().get(1) ;
         scoreBoard.getChildren().addAll(showScoreBoard(scoreBoardMenuController.getScoreBoard()));
         Scene scene=new Scene(pane);
         stage.setScene(scene);
