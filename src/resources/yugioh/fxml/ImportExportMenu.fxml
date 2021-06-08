@@ -6,13 +6,13 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.DataBaseController">
-    <VBox alignment="CENTER" layoutX="68.0" layoutY="32.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="336.0" prefWidth="465.0" spacing="10.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="32.0">
+    <VBox alignment="CENTER" layoutX="254.0" layoutY="32.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="656.0" prefWidth="573.0" spacing="10.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="254.0" AnchorPane.rightAnchor="253.0" AnchorPane.topAnchor="32.0">
         <Label layoutX="196.0" layoutY="40.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Import/Export Menu" textFill="chartreuse">
             <font>
                 <Font size="20.0" />
             </font>
         </Label>
-        <ScrollPane fx:id="cardInfoBox" fitToHeight="true" fitToWidth="true" layoutX="136.0" layoutY="81.0" prefHeight="110.0" prefWidth="524.0">
+        <ScrollPane fx:id="cardInfoBox" fitToHeight="true" fitToWidth="true" layoutX="136.0" layoutY="81.0" prefHeight="110.0" prefWidth="823.0">
             <Text fx:id="cardInfo" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="221.13671875" />
         </ScrollPane>
         <Button mnemonicParsing="false" onMouseClicked="#openFileChooser" prefHeight="55.0" prefWidth="124.0" text="import">

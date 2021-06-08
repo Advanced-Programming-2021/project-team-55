@@ -1,56 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXPasswordField?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.effect.DropShadow?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.Color?>
-<?import java.lang.String?>
-<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.LoginMenuController">
-    <VBox alignment="CENTER" layoutX="218.0" layoutY="173.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="375.0"
-          prefWidth="644.0" spacing="10.0" AnchorPane.bottomAnchor="172.0" AnchorPane.leftAnchor="218.0"
-          AnchorPane.rightAnchor="218.0" AnchorPane.topAnchor="173.0">
+<?import javafx.scene.paint.*?>
+
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.LoginMenuController">
+    <VBox alignment="CENTER" layoutX="218.0" layoutY="173.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="375.0" prefWidth="644.0" spacing="10.0" AnchorPane.bottomAnchor="172.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="218.0" AnchorPane.topAnchor="173.0">
         <effect>
             <DropShadow blurType="GAUSSIAN" height="14.0" radius="6.5" width="14.0">
                 <color>
-                    <Color red="0.3684210479259491"/>
+                    <Color red="0.3684210479259491" />
                 </color>
             </DropShadow>
         </effect>
-        <Label styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Login Menu" textFill="#e1e100"/>
-        <JFXTextField fx:id="usernameField" focusColor="#7aceed" promptText="Username" styleClass="buttonText"
-                      unFocusColor="#a6e9ff"/>
-        <JFXPasswordField fx:id="passwordField" focusColor="#7aceed" promptText="Password" styleClass="buttonText"
-                          unFocusColor="#a6e9ff"/>
+        <Label styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Login Menu" textFill="#e1e100" />
+        <JFXTextField fx:id="usernameField" focusColor="#7aceed" promptText="Username" styleClass="buttonText" unFocusColor="#a6e9ff" />
+        <JFXPasswordField fx:id="passwordField" focusColor="#7aceed" promptText="Password" styleClass="buttonText" unFocusColor="#a6e9ff" />
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-            <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#loginClicked"
-                       prefHeight="48.0" prefWidth="150" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css"
-                       text="Login">
+            <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#loginClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Login">
                 <styleClass>
-                    <String fx:value="buttonText"/>
-                    <String fx:value="buttonShape"/>
+                    <String fx:value="buttonText" />
+                    <String fx:value="buttonShape" />
+               <String fx:value="buttonHover" />
                 </styleClass>
             </JFXButton>
-            <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked"
-                       prefHeight="48.0" prefWidth="150" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css"
-                       text="Back">
+            <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
                 <styleClass>
-                    <String fx:value="buttonText"/>
-                    <String fx:value="buttonShape"/>
+                    <String fx:value="buttonText" />
+                    <String fx:value="buttonShape" />
+               <String fx:value="buttonHover" />
                 </styleClass>
             </JFXButton>
         </HBox>
     </VBox>
     <opaqueInsets>
-        <Insets/>
+        <Insets />
     </opaqueInsets>
     <cursor>
-        <Cursor fx:constant="MOVE"/>
+        <Cursor fx:constant="MOVE" />
     </cursor>
 
 </AnchorPane>
