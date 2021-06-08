@@ -7,7 +7,7 @@
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ScoreBoardMenuController">
    <children>
       <Button layoutX="280.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#backClicked" text="back" />
-       <Label layoutX="216.0" layoutY="40.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="ScoreBoard Menu" textFill="chartreuse">
+       <Label layoutX="216.0" layoutY="40.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="ScoreBoard Menu" textFill="#fafa00">
            <font>
                <Font size="20.0" />
            </font>
