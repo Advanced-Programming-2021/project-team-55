@@ -2,6 +2,7 @@ package yugioh.view.Menus;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -68,13 +69,13 @@ public class ProfileMenu extends WelcomeMenu {
     public void start(Stage primaryStage) throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/ProfileMenu.fxml");
         Pane pane = FXMLLoader.load(url);
-        // Label usernameLabel = (Label) pane.getChildren().get(2);//todo fix geting name
+        TextField  usernameField = (TextField) ((HBox) ((VBox) pane.getChildren().get(1)).getChildren().get(1)).getChildren().get(1);
         // Label usernameLabel = ((HBox)((VBox)pane.getChildren().get(0)).getChildren().get(2)).getChildren().get(1)
-        //  usernameLabel.setText(User.loggedInUser.getUsername());
+          usernameField.setText(User.loggedInUser.getUsername());
         TextField nicknameField = (TextField) ((HBox) ((VBox) pane.getChildren().get(1)).getChildren().get(2)).getChildren().get(1);
+        nicknameField.setText(User.loggedInUser.getNickname());
         //ImageView profileImage = (ImageView) pane.getChildren().get(0);
         //profileImage.setImage(new Image(User.loggedInUser.getProfileImage()));
-        nicknameField.setText(User.loggedInUser.getNickname());
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.show();
