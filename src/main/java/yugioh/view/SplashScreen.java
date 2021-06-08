@@ -44,7 +44,8 @@ public class SplashScreen extends Application {
             try {
                 initStage.close();
                 WelcomeMenu.run();
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }));
         timeline.play();
@@ -52,7 +53,8 @@ public class SplashScreen extends Application {
 
     private void showSplash(Stage initStage) {
         Scene splashScene = new Scene(splashLayout);
-        initStage.initStyle(StageStyle.UNDECORATED);
+        splashScene.setFill(null);
+        initStage.initStyle(StageStyle.TRANSPARENT);
         initStage.setScene(splashScene);
 //        initStage.getIcons().add(new Image(Objects.requireNonNull(SplashScreen.class.getResourceAsStream("/pacman/images/pacman.png"))));
         initStage.show();
