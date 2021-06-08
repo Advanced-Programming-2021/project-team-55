@@ -3,6 +3,7 @@ package yugioh.controller.menucontroller;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -10,9 +11,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.model.exceptions.MenuException;
+import yugioh.view.Menus.PopUpWindow;
+import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Responses;
 
 import java.net.URL;
@@ -32,6 +36,8 @@ public class ShopMenuController extends MenuController implements Initializable 
     public Label description;
     @FXML
     public ScrollPane descriptionContainer;
+    public Label userCoins;
+    private Card selectedCard;
 
     public ShopMenuController() {
     }
@@ -41,17 +47,24 @@ public class ShopMenuController extends MenuController implements Initializable 
         return shopMenuController;
     }
 
-    public void buyCard(String cardName) throws MenuException {
-        Card card = Card.getCardByName(cardName);
-        if (card == null) {
-            throw new MenuException(Responses.NO_CARD_EXISTS.response);
-        } else if (User.loggedInUser.getMoney() < card.getPrice()) {
-            throw new MenuException(Responses.NOT_ENOUGH_MONEY.response);
-        } else {
-            User.loggedInUser.changeMoney(-card.getPrice());
-            ArrayList<Card> cardsToAdd = new ArrayList<>();
-            cardsToAdd.add(card);
-            User.loggedInUser.addCardsToInventory(cardsToAdd);
+    public void buyCard() throws Exception {
+        Card card = selectedCard;
+        try {
+            if (card == null) {
+                throw new MenuException(Responses.NO_CARD_EXISTS.response);
+            } else if (User.loggedInUser.getMoney() < card.getPrice()) {
+                throw new MenuException(Responses.NOT_ENOUGH_MONEY.response);
+            } else if (User.loggedInUser.getCardsInventory().contains(selectedCard)) {
+                throw new MenuException("Error: you already owned this card!");
+            } else {
+                User.loggedInUser.changeMoney(-card.getPrice());
+                ArrayList<Card> cardsToAdd = new ArrayList<>();
+                cardsToAdd.add(card);
+                User.loggedInUser.addCardsToInventory(cardsToAdd);
+                Platform.runLater(() -> userCoins.setText(User.loggedInUser.getMoney() + ""));
+            }
+        }catch (Exception e){
+            new PopUpWindow(e.getMessage()).start(WelcomeMenu.stage);
         }
     }
 
@@ -65,11 +78,13 @@ public class ShopMenuController extends MenuController implements Initializable 
 
     private void initializeCardsPane() {
         ArrayList<Card> allCards = new ArrayList<>(getAllCards());
-        int cardsPerRow = 6;
+        int cardsPerRow = 7;
         int columnCounter = 0;
         GridPane cardsPane = new GridPane();
         cardsPane.setHgap(10);
         cardsPane.setVgap(10);
+        cardsPane.setPadding(new Insets(10, 10, 10, 10));
+        Platform.runLater(() -> userCoins.setText(User.loggedInUser.getMoney() + ""));
         outer:
         while (allCards.size() > 0) {
             for (int j = 0; j < cardsPerRow; j++) {
@@ -78,6 +93,8 @@ public class ShopMenuController extends MenuController implements Initializable 
                 cardImage.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
                     Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));
                     Platform.runLater(() -> description.setText(card.getDescription()));
+                    Platform.runLater(() -> buyButton.setText("BUY (" + card.getPrice() + ")"));
+                    selectedCard = card;
                     event.consume();
                 });
                 cardsPane.add(cardImage, j, columnCounter);
@@ -94,8 +111,6 @@ public class ShopMenuController extends MenuController implements Initializable 
         shopMenuController = this;
         initializeCardsPane();
         hoveredImage.setImage(Card.getCardImage(null, 354).getImage());
-//        description.wrappingWidthProperty().bind(descriptionContainer.widthProperty());
-//        descriptionContainer.setFitToWidth(true);
         description.setWrapText(true);
         description.setTextAlignment(TextAlignment.JUSTIFY);
     }

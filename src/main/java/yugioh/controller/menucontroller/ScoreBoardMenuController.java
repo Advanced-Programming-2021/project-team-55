@@ -1,15 +1,7 @@
 package yugioh.controller.menucontroller;
 
-import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 import yugioh.model.User;
 
-import java.io.File;
-import java.net.URL;
 import java.util.*;
 
 public class ScoreBoardMenuController extends MenuController {

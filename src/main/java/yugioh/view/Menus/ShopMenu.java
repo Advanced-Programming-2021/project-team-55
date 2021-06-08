@@ -21,6 +21,7 @@ public class ShopMenu extends WelcomeMenu {
     private static final ShopMenuController shopMenuController = ShopMenuController.getInstance();
     private static final CheatController cheatController = CheatController.getInstance();
 
+
     @Override
     public void execute() throws Exception {
         start(stage);
@@ -31,12 +32,12 @@ public class ShopMenu extends WelcomeMenu {
         String response = "";
         if (command.matches(Regexes.BUY_SHOP.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.BUY_SHOP.regex);
-            try {
-                shopMenuController.buyCard(matcher.group(1));
-                response = Responses.CARD_BOUGHT_SUCCESSFULLY.response;
-            } catch (MenuException e) {
-                response = e.toString();
-            }
+//            try {
+//                shopMenuController.buyCard(matcher.group(1));
+//                response = Responses.CARD_BOUGHT_SUCCESSFULLY.response;
+//            } catch (MenuException e) {
+//                response = e.toString();
+//            }
         } else if (command.matches(Regexes.SHOW_SHOP.regex)) {
             showAllCards(shopMenuController.getAllCards());
 //        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
