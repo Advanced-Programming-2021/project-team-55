@@ -15,17 +15,17 @@
         <ScrollPane fx:id="cardInfoBox" fitToHeight="true" fitToWidth="true" layoutX="136.0" layoutY="81.0" prefHeight="110.0" prefWidth="823.0">
             <Text fx:id="cardInfo" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="221.13671875" />
         </ScrollPane>
-        <Button mnemonicParsing="false" onMouseClicked="#openFileChooser" prefHeight="55.0" prefWidth="124.0" text="import">
+        <Button mnemonicParsing="false" onMouseClicked="#openFileChooser" prefHeight="60.0" prefWidth="230.0" text="import">
          <styleClass>
             <String fx:value="buttonShape" />
             <String fx:value="buttonText" />
          </styleClass></Button>
-        <Button mnemonicParsing="false" onMouseClicked="#exportClicked" prefHeight="55.0" prefWidth="124.0" text="export">
+        <Button mnemonicParsing="false" onMouseClicked="#exportClicked" prefHeight="60.0" prefWidth="230.0" text="export">
             <styleClass>
                 <String fx:value="buttonShape" />
                 <String fx:value="buttonText" />
             </styleClass></Button>
-        <Button mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="55.0" prefWidth="124.0" text="back">
+        <Button mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0" prefWidth="230.0" text="back">
             <styleClass>
                 <String fx:value="buttonShape" />
                 <String fx:value="buttonText" />
