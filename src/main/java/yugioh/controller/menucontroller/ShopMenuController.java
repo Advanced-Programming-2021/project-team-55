@@ -1,12 +1,15 @@
 package yugioh.controller.menucontroller;
 
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -22,6 +25,8 @@ import yugioh.view.Responses;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import static javafx.scene.paint.Color.GREEN;
 
 public class ShopMenuController extends MenuController implements Initializable {
 
@@ -39,6 +44,7 @@ public class ShopMenuController extends MenuController implements Initializable 
     public Label userCoins;
     private Card selectedCard;
     private ImageView selectedCardImageView;
+    private boolean isCardClicked = false;
 
     public ShopMenuController() {
     }
@@ -64,6 +70,7 @@ public class ShopMenuController extends MenuController implements Initializable 
                 User.loggedInUser.addCardsToInventory(cardsToAdd);
                 Platform.runLater(() -> userCoins.setText(User.loggedInUser.getMoney() + ""));
                 selectedCardImageView.setOpacity(0.5);
+                isCardClicked = false;
             }
         }catch (Exception e){
             new PopUpWindow(e.getMessage()).start(WelcomeMenu.stage);
@@ -94,11 +101,30 @@ public class ShopMenuController extends MenuController implements Initializable 
                 ImageView cardImage = Card.getCardImage(card, 86);
                 if (User.loggedInUser.getCardsInventory().contains(card)) cardImage.setOpacity(0.5);
                 cardImage.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+                    if (isCardClicked) return;
                     Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));
                     Platform.runLater(() -> description.setText(card.getDescription()));
                     Platform.runLater(() -> buyButton.setText("BUY (" + card.getPrice() + ")"));
                     selectedCard = card;
                     selectedCardImageView = cardImage;
+                    event.consume();
+                });
+                DropShadow selectEffect = new DropShadow(BlurType.values()[1],
+                        GREEN, 10, 2.0f, 0, 0);
+                cardImage.focusedProperty().addListener((ObservableValue<? extends Boolean> observable,
+                                                         Boolean oldValue, Boolean newValue) -> {
+                    isCardClicked = true;
+                    if (newValue) {
+                        selectedCardImageView=cardImage;
+                        cardImage.setEffect(selectEffect);
+                    } else {
+                        cardImage.setEffect(null);
+                        if(selectedCardImageView!=null)
+                            selectedCardImageView = new ImageView(selectedCardImageView.getImage());
+                    }
+                });
+                cardImage.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    cardImage.requestFocus();
                     event.consume();
                 });
                 cardsPane.add(cardImage, j, columnCounter);
