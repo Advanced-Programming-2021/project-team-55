@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.WelcomeMenuController">
+<AnchorPane  prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.WelcomeMenuController">
     <VBox alignment="CENTER" layoutX="275.0" layoutY="114.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="493.0" prefWidth="531.0" spacing="10.0" stylesheets="@../CSS/Menu.css" AnchorPane.bottomAnchor="113.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="274.0" AnchorPane.topAnchor="114.0">
        <Label styleClass="mainTitleText" text="YU GI OH" textFill="#e1ff00">
            <font>
