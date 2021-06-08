@@ -6,10 +6,10 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -38,13 +38,13 @@ public class PopUpWindow extends Application {
     public void start(Stage stage) throws Exception {
         popUp = new Stage();
         VBox messageBox = new VBox(20);
-        Text text = new Text(response);
+        Label label = new Label(response);
         if (isError) {
-            text.setFill(Color.RED);
+            label.setTextFill(Color.RED);
             popUp.setTitle("ERROR");
             popUp.initModality(Modality.APPLICATION_MODAL);
         } else {
-            text.setFill(Color.GREEN);
+            label.setTextFill(Color.GREEN);
             popUp.initModality(Modality.NONE);
         }
 //        BackgroundFill background_fill = new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY);
@@ -54,8 +54,8 @@ public class PopUpWindow extends Application {
         Button okButton = new Button("ok");
         okButton.setOnAction(okButtonHandler);
         messageBox.getChildren().add(okButton);
-        text.setFont(Font.font(20));
-//                messageBox.getChildren().add(text);//todo uncomment
+        label.setFont(Font.font(20));
+        messageBox.getChildren().add(label);//todo uncomment
         messageBox.setAlignment(Pos.BASELINE_CENTER);
         Scene scene = new Scene(messageBox, 400, 100);
         popUp.setScene(scene);
