@@ -25,7 +25,7 @@ public class ScoreBoardMenuController extends MenuController {
     }
 
 
-    public void backClicked(MouseEvent mouseEvent) throws Exception {
+    public void backClicked() throws Exception {
         mainMenu.execute();
     }
 }

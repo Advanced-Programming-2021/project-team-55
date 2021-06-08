@@ -1,13 +1,15 @@
 package yugioh.controller.menucontroller;
 
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.model.exceptions.MenuException;
@@ -20,11 +22,16 @@ import java.util.ResourceBundle;
 public class ShopMenuController extends MenuController implements Initializable {
 
     public static ShopMenuController shopMenuController;
+    @FXML
     public ScrollPane scrollPane;
+    @FXML
     public ImageView hoveredImage;
+    @FXML
     public Button buyButton;
-    public Text descriptionScrollPane;
-    public ScrollPane cardDescription;
+    @FXML
+    public Label description;
+    @FXML
+    public ScrollPane descriptionContainer;
 
     public ShopMenuController() {
     }
@@ -70,7 +77,7 @@ public class ShopMenuController extends MenuController implements Initializable 
                 ImageView cardImage = Card.getCardImage(card, 86);
                 cardImage.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
                     Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));
-                    Platform.runLater(() -> descriptionScrollPane.setText(card.getDescription()));//todo uncomment
+                    Platform.runLater(() -> description.setText(card.getDescription()));//todo uncomment
                     event.consume();
                 });
                 cardsPane.add(cardImage, j, columnCounter);
@@ -87,8 +94,10 @@ public class ShopMenuController extends MenuController implements Initializable 
         shopMenuController = this;
         initializeCardsPane();
         hoveredImage.setImage(Card.getCardImage(null, 354).getImage());
-        descriptionScrollPane.wrappingWidthProperty().bind(cardDescription.widthProperty());
-        cardDescription.setFitToWidth(true);
+//        description.wrappingWidthProperty().bind(descriptionContainer.widthProperty());
+//        descriptionContainer.setFitToWidth(true);
+        description.setWrapText(true);
+        description.setTextAlignment(TextAlignment.JUSTIFY);
     }
 
 }
