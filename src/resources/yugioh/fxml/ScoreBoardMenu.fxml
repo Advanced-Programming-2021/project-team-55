@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ScoreBoardMenuController">
-   <children>
-      <Button layoutX="280.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#backClicked" text="back" />
-       <Label layoutX="216.0" layoutY="40.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="ScoreBoard Menu" textFill="chartreuse">
-           <font>
-               <Font size="20.0" />
-           </font>
-       </Label>
-      <VBox alignment="TOP_CENTER" layoutX="163.0" layoutY="73.0" prefHeight="244.0" prefWidth="271.0" />
-   </children>
+    <children>
+        <VBox alignment="CENTER" layoutX="222.0" layoutY="125.0" prefHeight="469.0" prefWidth="636.0" spacing="25.0">
+            <children>
+                <Label styleClass="titleText" stylesheets="@../CSS/Menu.css" text="ScoreBoard Menu" textFill="#fafa00">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Label>
+                <VBox alignment="TOP_CENTER" prefHeight="244.0" prefWidth="271.0" spacing="10.0" styleClass="simpleText" />
+                <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
+                    <styleClass>
+                        <String fx:value="buttonText" />
+                        <String fx:value="buttonShape" />
+                        <String fx:value="buttonHover" />
+                    </styleClass>
+                </JFXButton>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

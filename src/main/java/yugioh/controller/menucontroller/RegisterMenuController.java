@@ -25,6 +25,7 @@ public class RegisterMenuController extends MenuController {
             try {
                 createUser(username, password, nickname);
                 response = Responses.CREATE_SUCCESSFULLY.response;
+                loginMenu.execute();
             } catch (MenuException e) {
                 response = e.getMessage();
             }
@@ -33,6 +34,7 @@ public class RegisterMenuController extends MenuController {
         usernameField.setText("");
         nicknameField.setText("");
         passwordField.setText("");
+
     }
 
     public void createUser(String username, String password, String nickname) throws MenuException {

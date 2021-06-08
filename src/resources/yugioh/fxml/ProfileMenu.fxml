@@ -1,38 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ProfileMenuController">
-   <children>
-      <Button layoutX="280.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#backClicked" text="back" />
-       <Label layoutX="239.0" layoutY="40.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="Profile Menu" textFill="chartreuse">
-           <font>
-               <Font size="20.0" />
-           </font>
-       </Label>
-      <Label layoutX="264.0" layoutY="89.0" prefHeight="30.0" prefWidth="131.0" text="user username" textAlignment="CENTER">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="173.0" layoutY="82.0" prefHeight="42.0" prefWidth="91.0" text="username:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="177.0" layoutY="133.0" prefHeight="27.0" prefWidth="82.0" text="nickname:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <TextField fx:id="nicknameField" layoutX="259.0" layoutY="133.0" prefHeight="26.0" prefWidth="99.0" />
-       <TextField fx:id="oldPasswordField" layoutX="226.0" layoutY="207.0" promptText="old password" />
-       <TextField fx:id="newPasswordField" layoutX="226.0" layoutY="242.0" promptText="new password">
-       </TextField>
-       <Button layoutX="246.0" layoutY="275.0" onMouseClicked="#changePasswordClicked" text="change password" />
-      <ImageView fitHeight="99.0" fitWidth="122.0" layoutX="419.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
-   </children>
+    <children>
+        <ImageView fitHeight="137.0" fitWidth="144.0" layoutX="665.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
+        <VBox alignment="CENTER" layoutX="246.0" layoutY="55.0" prefHeight="586.0" prefWidth="587.0" spacing="25.0">
+            <children>
+                <Label prefHeight="58.0" prefWidth="305.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Profile Menu" textFill="#fafa00">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Label>
+                <HBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="354.0">
+                    <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="144.0" styleClass="buttonText" text="Username:">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <JFXTextField fx:id="nicknameField1" disable="true" focusColor="#7aceed" prefHeight="26.0" prefWidth="200.0" styleClass="buttonText" unFocusColor="#a6e9ff" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="96.0" prefHeight="58.0" prefWidth="514.0">
+                    <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="144.0" styleClass="buttonText" text="Nickname:">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <JFXTextField fx:id="nicknameField" focusColor="#7aceed" focusTraversable="false" prefHeight="26.0" prefWidth="200.0" promptText="Enter A Nickname" styleClass="buttonText" unFocusColor="#a6e9ff" />
+                    </children>
+                </HBox>
+                <JFXTextField fx:id="oldPasswordField" focusColor="#7aceed" focusTraversable="false" labelFloat="true" prefHeight="38.0" prefWidth="526.0" promptText="old password" styleClass="buttonText" unFocusColor="#a6e9ff" />
+                <JFXTextField fx:id="newPasswordField" focusColor="#7aceed" focusTraversable="false" labelFloat="true" promptText="new password" styleClass="buttonText" unFocusColor="#a6e9ff" />
+
+                <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#changePasswordClicked" prefHeight="60.0" prefWidth="260.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Change Password">
+                    <styleClass>
+                        <String fx:value="buttonText" />
+                        <String fx:value="buttonShape" />
+                        <String fx:value="buttonHover" />
+                    </styleClass>
+                </JFXButton>
+                <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
+                    <styleClass>
+                        <String fx:value="buttonText" />
+                        <String fx:value="buttonShape" />
+                        <String fx:value="buttonHover" />
+                    </styleClass>
+                </JFXButton>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

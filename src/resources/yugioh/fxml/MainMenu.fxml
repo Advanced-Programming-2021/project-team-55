@@ -1,25 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="yugioh.controller.menucontroller.MainMenuController">
-   <Button layoutX="273.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#enterDuelMenuClicked" text="Duel"/>
-   <Button layoutX="272.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#enterDeckMenuClicked" text="Deck"/>
-   <Button layoutX="253.0" layoutY="187.0" mnemonicParsing="false" onMouseClicked="#enterScoreBoardMenuClicked"
-           text="ScoreBoard"/>
-   <Button layoutX="268.0" layoutY="225.0" mnemonicParsing="false" onMouseClicked="#enterProfileMenuClicked"
-           text="Profile"/>
-   <Button layoutX="271.0" layoutY="264.0" mnemonicParsing="false" onMouseClicked="#enterShopMenuClicked" text="Shop"/>
-   <Button layoutX="247.0" layoutY="303.0" mnemonicParsing="false" onMouseClicked="#enterImportExportClicked"
-           text="Import/Export"/>
-   <Button layoutX="30.0" layoutY="339.0" mnemonicParsing="false" onMouseClicked="#logoutClicked" text="Logout"/>
-   <Label layoutX="239.0" layoutY="40.0" styleClass="titleMenu" stylesheets="@../CSS/Menu.css" text="Main Menu"
-          textFill="chartreuse">
-      <font>
-         <Font size="20.0"/>
-      </font>
-   </Label>
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.MainMenuController">
+    <VBox alignment="CENTER" layoutX="381.0" layoutY="52.0" prefHeight="616.0" prefWidth="318.0" spacing="10.0">
+        <Label prefHeight="111.0" prefWidth="246.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Main Menu" textFill="#fafa00">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#enterDuelMenuClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Duel">
+            <styleClass>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
+            </styleClass>
+        </JFXButton>
+        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#enterDeckMenuClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Deck">
+            <styleClass>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
+            </styleClass>
+        </JFXButton>
+        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#enterScoreBoardMenuClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="ScoreBoard">
+            <styleClass>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
+            </styleClass>
+        </JFXButton>
+        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#enterProfileMenuClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Profile">
+            <styleClass>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
+            </styleClass>
+        </JFXButton>
+        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#enterShopMenuClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Shop">
+            <styleClass>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
+            </styleClass>
+        </JFXButton>
+        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#enterImportExportClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Import/Export">
+            <styleClass>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
+            </styleClass>
+        </JFXButton>
+        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#logoutClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Logout">
+            <styleClass>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
+            </styleClass>
+        </JFXButton>
+    </VBox>
 </AnchorPane>

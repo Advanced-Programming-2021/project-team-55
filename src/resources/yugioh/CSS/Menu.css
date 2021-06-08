@@ -14,12 +14,27 @@
 }
 .buttonText{
        -fx-font-family: "Bauhaus 93";;
-       -fx-font-size: 20px;
+       -fx-font-size: 23px;
 }
 .titleText{
        -fx-font-family: "Bauhaus 93";;
        -fx-font-size: 50 px;
 }
+.simpleText{
+       -fx-font-family: "Bauhaus 93";;
+       -fx-font-size: 17 px;
+}
+
+.mainTitleText{
+       -fx-font-family: "Bauhaus 93";;
+       -fx-font-size: 80 px;
+}
+
+.buttonHover:hover{
+       -fx-font-size: 26 px;
+       -fx-background-color: #bf0e0e;
+}
+
 .buttonShape{
        -fx-shape: "M 1000 300 L 1000 300 Q 550 250 50 300 Q 0 400 50 500 Q 500 550 1000 500 Q 1050 400 1000 300 ";
        -fx-background-color: red;
