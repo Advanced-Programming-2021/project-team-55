@@ -90,6 +90,7 @@ public class ShopMenuController extends MenuController implements Initializable 
             for (int j = 0; j < cardsPerRow; j++) {
                 Card card = allCards.get(allCards.size() - 1);
                 ImageView cardImage = Card.getCardImage(card, 86);
+                if (User.loggedInUser.getCardsInventory().contains(card)) cardImage.setOpacity(0.5);
                 cardImage.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
                     Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));
                     Platform.runLater(() -> description.setText(card.getDescription()));
