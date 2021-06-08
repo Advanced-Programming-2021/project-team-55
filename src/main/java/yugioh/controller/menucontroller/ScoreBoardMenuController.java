@@ -4,15 +4,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.jetbrains.annotations.NotNull;
+import yugioh.model.TableItem;
 import yugioh.model.User;
 
 import java.net.URL;
 import java.util.*;
 
-public class ScoreBoardMenuController extends MenuController {
+public class ScoreBoardMenuController extends MenuController implements Initializable {
 
     public static ScoreBoardMenuController scoreBoardMenuController;
-    public static TableView scoreBoard;
+    public TableView<TableItem> scoreBoard;
+
     public ScoreBoardMenuController() {
     }
 
@@ -32,6 +35,57 @@ public class ScoreBoardMenuController extends MenuController {
         mainMenu.execute();
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        initializeScoreBoard();
+
+        ArrayList<User> users = User.getAllUsers();
+        ArrayList<TableItem> tableItems = makeTableItemsFromUsers(users);
+        sortUsers(tableItems);
+
+        int counter = 0;
+        for (TableItem tableItem : tableItems) {
+            counter++;
+            if (counter > 10) break;
+            scoreBoard.getItems().add(tableItem);
+        }
+    }
+
+    @NotNull
+    private ArrayList<TableItem> makeTableItemsFromUsers(ArrayList<User> users) {
+        ArrayList<TableItem> tableItems = new ArrayList<>();
+        for (int i = 0; i < users.size(); i++) {
+            User user = users.get(i);
+            tableItems.add(new TableItem(i + 1, user.getUsername(), user.getScore()));
+        }
+        return tableItems;
+    }
+
+    private void initializeScoreBoard() {
+        TableColumn<TableItem, Object> column0 = new TableColumn<>("Rank");
+        column0.setCellValueFactory(new PropertyValueFactory<>("rank"));
+
+        TableColumn<TableItem, Object> column1 = new TableColumn<>("Username");
+        column1.setCellValueFactory(new PropertyValueFactory<>("username"));
+
+        TableColumn<TableItem, Object> column2 = new TableColumn<>("Max Score");
+        column2.setCellValueFactory(new PropertyValueFactory<>("score"));
+
+        scoreBoard.getColumns().add(column0);
+        scoreBoard.getColumns().add(column1);
+        scoreBoard.getColumns().add(column2);
+    }
+
+    private void sortUsers(ArrayList<TableItem> tableItems) {
+        tableItems.sort(new SortByScore());
+        for (int i = 0; i < tableItems.size(); i++) {
+            TableItem tableItem = tableItems.get(i);
+            tableItem.setRank(i + 1);
+            if (i == 0) continue;
+            if (tableItems.get(i - 1).getRank() == tableItem.getRank())
+                tableItem.setRank(tableItems.get(i - 1).getRank());
+        }
+    }
 
 }
 
@@ -109,13 +163,12 @@ public class ScoreBoardMenuController extends MenuController {
 //        }
 //    }
 
-//}
-//
-//class SortByScore implements Comparator<User> {
-//
-//    @Override
-//    public int compare(User user1, User user2) {
-//        return (user2.getMaxScore() - user1.getMaxScore());
-//    }
-//}
-//
+
+
+class SortByScore implements Comparator<TableItem> {
+
+    @Override
+    public int compare(TableItem user1, TableItem user2) {
+        return (user2.getScore() - user1.getScore());
+    }
+}

@@ -29,8 +29,7 @@
                 <Insets left="10.0" right="10.0" />
             </padding></Label>
     </ScrollPane>
-    <JFXButton fx:id="buyButton" buttonType="RAISED" layoutX="57.0" layoutY="575.0" mnemonicParsing="false"
-               onMouseClicked="#buyCard" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="BUY">
+    <JFXButton fx:id="buyButton" buttonType="RAISED" layoutX="57.0" layoutY="575.0" mnemonicParsing="false" onMouseClicked="#buyCard" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="BUY">
         <styleClass>
             <String fx:value="buttonText" />
             <String fx:value="buttonShape" />
