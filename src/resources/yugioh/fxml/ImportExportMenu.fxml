@@ -1,47 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 <?import java.lang.*?>
-<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.DataBaseController">
-    <VBox alignment="CENTER" layoutX="254.0" layoutY="32.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="656.0"
-          prefWidth="573.0" spacing="10.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="254.0"
-          AnchorPane.rightAnchor="253.0" AnchorPane.topAnchor="32.0">
-        <Label layoutX="196.0" layoutY="40.0" styleClass="titleText" stylesheets="@../CSS/Menu.css"
-               text="Import/Export Menu" textFill="chartreuse">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.DataBaseController">
+    <VBox alignment="CENTER" layoutX="254.0" layoutY="32.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="656.0" prefWidth="573.0" spacing="10.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="254.0" AnchorPane.rightAnchor="253.0" AnchorPane.topAnchor="32.0">
+        <Label layoutX="196.0" layoutY="40.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Import/Export Menu" textFill="chartreuse">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </Label>
-        <ScrollPane fx:id="cardInfoBox" fitToHeight="true" fitToWidth="true" layoutX="136.0" layoutY="81.0"
-                    prefHeight="110.0" prefWidth="823.0">
-            <Text fx:id="cardInfo" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="221.13671875"/>
+        <ScrollPane fx:id="cardInfoBox" fitToHeight="true" fitToWidth="true" layoutX="136.0" layoutY="81.0" prefHeight="316.0" prefWidth="574.0">
+            <Text fx:id="cardInfo" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="221.13671875" />
         </ScrollPane>
-        <Button mnemonicParsing="false" onMouseClicked="#openFileChooser" prefHeight="60.0" prefWidth="230.0"
-                text="import">
+        <Button mnemonicParsing="false" onMouseClicked="#importCard" prefHeight="60.0" prefWidth="230.0" text="import">
             <styleClass>
-                <String fx:value="buttonShape"/>
-                <String fx:value="buttonText"/>
-                <String fx:value="buttonHover"/>
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonText" />
+                <String fx:value="buttonHover" />
             </styleClass>
         </Button>
-        <Button mnemonicParsing="false" onMouseClicked="#exportClicked" prefHeight="60.0" prefWidth="230.0"
-                text="export">
+        <Button mnemonicParsing="false" onMouseClicked="#exportClicked" prefHeight="60.0" prefWidth="230.0" text="export">
             <styleClass>
-                <String fx:value="buttonShape"/>
-                <String fx:value="buttonText"/>
-                <String fx:value="buttonHover"/>
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonText" />
+                <String fx:value="buttonHover" />
             </styleClass>
         </Button>
         <Button mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0" prefWidth="230.0" text="back">
             <styleClass>
-                <String fx:value="buttonShape"/>
-                <String fx:value="buttonText"/>
-                <String fx:value="buttonHover"/>
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonText" />
+                <String fx:value="buttonHover" />
             </styleClass>
         </Button>
     </VBox>
+   <ImageView fx:id="importedCard" fitHeight="316.0" fitWidth="230.0" layoutX="827.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true" />
 </AnchorPane>

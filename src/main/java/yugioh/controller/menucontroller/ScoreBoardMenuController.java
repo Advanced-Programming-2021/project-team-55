@@ -1,13 +1,18 @@
 package yugioh.controller.menucontroller;
 
+import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import yugioh.model.User;
 
+import java.net.URL;
 import java.util.*;
 
 public class ScoreBoardMenuController extends MenuController {
 
     public static ScoreBoardMenuController scoreBoardMenuController;
-
+    public static TableView scoreBoard;
     public ScoreBoardMenuController() {
     }
 
@@ -26,6 +31,8 @@ public class ScoreBoardMenuController extends MenuController {
     public void backClicked() throws Exception {
         mainMenu.execute();
     }
+
+
 }
 
 //todo use this for scoreboard

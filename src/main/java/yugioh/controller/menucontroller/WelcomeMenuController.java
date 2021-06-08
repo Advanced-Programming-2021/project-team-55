@@ -26,23 +26,6 @@ public class WelcomeMenuController extends MenuController {
     }
 
     public void exitClicked(MouseEvent mouseEvent) {
-        for (User user : User.getAllUsers()) {
-            try {
-                DataBaseController.saveUserInfo(user);
-            } catch (Exception e) {
-                LoggerMessage.log("unable to save user data");
-                e.printStackTrace();
-            }
-        }
-        for(Card card: Card.getCards()){
-            try {
-                DataBaseController.saveCardInfo(card);
-            }
-            catch (Exception e){
-                LoggerMessage.log("unable to save card data");
-                e.printStackTrace();
-            }
-        }
         System.exit(0);
     }
 }

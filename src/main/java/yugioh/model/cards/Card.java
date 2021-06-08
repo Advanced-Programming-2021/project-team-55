@@ -39,6 +39,10 @@ public class Card {
         }
     }
 
+    public String getImage() {
+        return image;
+    }
+
     public static ArrayList<Card> getCards() {
         return allCards;
     }
@@ -415,7 +419,11 @@ public class Card {
                 "").replaceAll("yugioh.model.cards.trapandspells.", "");
         image="src/resources/yugioh/PNG/cardsImages/" + name + ".jpg";
     }
-
+    public static void addCardToAllCards(Card card){
+        if(getCardByName(card.name)==null){
+            allCards.add(card);
+        }
+    }
     public enum Kind {MONSTER, MAGIC}
 
 }

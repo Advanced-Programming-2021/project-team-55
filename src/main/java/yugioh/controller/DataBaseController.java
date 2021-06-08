@@ -10,6 +10,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Shadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -44,6 +45,7 @@ public class DataBaseController extends MenuController {
     public ScrollPane cardInfoBox;
     public Text cardInfo;
     public ScrollPane exportCardsPane;
+    public ImageView importedCard;
     public static ImageView selectedImage;
     public static ImageView previousImage;
     public static Stage exportStage;
@@ -211,7 +213,7 @@ public class DataBaseController extends MenuController {
         mainMenu.execute();
     }
 
-    public void openFileChooser(MouseEvent mouseEvent) {
+    public void importCard(MouseEvent mouseEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("select a card");
         FileChooser.ExtensionFilter extFilter =
@@ -232,12 +234,14 @@ public class DataBaseController extends MenuController {
                 String info = "";
                 info += "Name: " + monster.getName();
                 if (monster.getCardKind() == Card.Kind.MAGIC) {
+                    Card.addCardToAllCards(spellAndTrap);
                     info += "\nType: Magic";
                     info += "\nAttribute: " + spellAndTrap.getAttribute().toString();
                     info += "\nDescription: " + spellAndTrap.getDescription();
                     info += "\nStatus: " + spellAndTrap.getStatus().toString();
 
                 } else {
+                    Card.addCardToAllCards(monster);
                     info += ("\nType: Monster");
                     info += ("\nLevel: " + String.valueOf(monster.getLevel()));
                     info += ("\nAttribute: " + monster.getAttribute().toString());
@@ -248,6 +252,7 @@ public class DataBaseController extends MenuController {
                     info += ("\nDescription: " + monster.getDescription());
                 }
                 info += ("\nPrice: " + String.valueOf(monster.getPrice()));
+                importedCard.setImage(new Image(new File(monster.getImage()).toURI().toString()));
                 cardInfo.wrappingWidthProperty().bind(cardInfoBox.widthProperty().add(-15));
                 cardInfo.setText(info);
                 cardInfoBox.setFitToWidth(true);

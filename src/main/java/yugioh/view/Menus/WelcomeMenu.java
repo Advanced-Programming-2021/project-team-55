@@ -7,6 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import yugioh.controller.DataBaseController;
+import yugioh.model.User;
+import yugioh.model.cards.Card;
+import yugioh.view.LoggerMessage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,40 +32,33 @@ public class WelcomeMenu extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        launch(args);
+        Thread saveDataThread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true){
+                    for (User user : User.getAllUsers()) {
+                        try {
+                            DataBaseController.saveUserInfo(user);
+                        } catch (Exception e) {
+                            LoggerMessage.log("unable to save user data");
+                            e.printStackTrace();
+                        }
+                    }
+                    for(Card card: Card.getCards()){
+                        try {
+                            DataBaseController.saveCardInfo(card);
+                        }
+                        catch (Exception e){
+                            LoggerMessage.log("unable to save card data");
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
+        saveDataThread.setDaemon(true);
+        saveDataThread.start();
         new WelcomeMenu().start(new Stage());
-//        while (true) {
-//            switch (currentMenu) {
-//                case LOGIN: {
-//                    loginMenu.execute();
-//                    break;
-//                }
-//                case MAIN: {
-//                    mainMenu.execute();
-//                    break;
-//                }
-//                case PROFILE: {
-//                    profileMenu.execute();
-//                    break;
-//                }
-//                case SCOREBOARD: {
-//                    scoreBoardMenu.execute();
-//                    break;
-//                }
-//                case SHOP: {
-//                    shopMenu.execute();
-//                    break;
-//                }
-//                case DECK: {
-//                    deckMenu.execute();
-//                    break;
-//                }
-//                case DUEL: {
-//                    duelMenu.execute();
-//                    break;
-//                }
-//            }
-//        }
     }
 
     public static String getCurrentMenu() {

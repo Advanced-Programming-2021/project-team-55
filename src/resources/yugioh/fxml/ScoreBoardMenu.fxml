@@ -15,7 +15,15 @@
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <VBox alignment="TOP_CENTER" prefHeight="244.0" prefWidth="271.0" spacing="10.0" styleClass="simpleText" />
+                <VBox alignment="TOP_CENTER" prefHeight="244.0" prefWidth="271.0" spacing="10.0" styleClass="simpleText">
+               <children>
+                  <TableView prefHeight="258.0" prefWidth="636.0" fx:id="scoreBoard">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="Rank" />
+                      <TableColumn prefWidth="234.20001220703125" text="User" />
+                    </columns>
+                  </TableView>
+               </children></VBox>
                 <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
                     <styleClass>
                         <String fx:value="buttonText" />
