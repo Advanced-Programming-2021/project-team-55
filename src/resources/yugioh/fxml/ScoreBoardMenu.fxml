@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ScoreBoardMenuController">
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" styleClass="scoreBoardBackground" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ScoreBoardMenuController">
     <VBox alignment="CENTER" layoutX="222.0" layoutY="125.0" prefHeight="469.0" prefWidth="636.0" spacing="25.0">
         <Label styleClass="titleText" stylesheets="@../CSS/Menu.css" text="ScoreBoard Menu" textFill="#fafa00">
             <font>

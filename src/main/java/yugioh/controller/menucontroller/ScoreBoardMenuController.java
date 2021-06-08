@@ -47,6 +47,9 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         for (TableItem tableItem : tableItems) {
             counter++;
             if (counter > 10) break;
+            scoreBoard.getStylesheets().add("Menu.css");
+            scoreBoard.getStyleClass().add("-fx-text-alignment: center");
+            scoreBoard.getStyleClass().add("simpleText");
             scoreBoard.getItems().add(tableItem);
         }
     }
@@ -56,7 +59,8 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         ArrayList<TableItem> tableItems = new ArrayList<>();
         for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
-            tableItems.add(new TableItem(i + 1, user.getUsername(), user.getScore()));
+            TableItem tableItem=new TableItem(i + 1, user.getUsername(), user.getScore());
+            tableItems.add(tableItem);
         }
         return tableItems;
     }
@@ -64,12 +68,13 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
     private void initializeScoreBoard() {
         TableColumn<TableItem, Object> column0 = new TableColumn<>("Rank");
         column0.setCellValueFactory(new PropertyValueFactory<>("rank"));
-
+        column0.setStyle("-fx-alignment: CENTER;");
         TableColumn<TableItem, Object> column1 = new TableColumn<>("Username");
         column1.setCellValueFactory(new PropertyValueFactory<>("username"));
-
+        column1.setStyle("-fx-alignment: CENTER;");
         TableColumn<TableItem, Object> column2 = new TableColumn<>("Max Score");
         column2.setCellValueFactory(new PropertyValueFactory<>("score"));
+        column2.setStyle("-fx-alignment: CENTER;");
 
         scoreBoard.getColumns().add(column0);
         scoreBoard.getColumns().add(column1);

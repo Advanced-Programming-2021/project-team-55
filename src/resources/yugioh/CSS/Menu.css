@@ -4,7 +4,14 @@
        src: url("../fonts/BAUHS93.ttf");
 }
 {
+
        -fx-base: rgb(4,30,125);
+}
+.scoreBoardBackground{
+    -fx-background-image: url("../PNG/backgrounds/scoreBoardBackground2.png");
+       -fx-background-repeat: no-repeat;
+       -fx-background-size: cover;
+
 }
 .vboxDesign{
        -fx-alignment: center;
@@ -30,6 +37,7 @@
 
 .buttonHover:hover{
        -fx-font-size: 26 px;
+
        -fx-background-color: #bf0e0e;
 }
 
