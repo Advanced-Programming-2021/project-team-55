@@ -10,7 +10,7 @@
 <?import javafx.scene.paint.*?>
 
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.LoginMenuController">
-    <VBox alignment="CENTER" layoutX="218.0" layoutY="173.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="375.0" prefWidth="644.0" spacing="10.0" AnchorPane.bottomAnchor="172.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="218.0" AnchorPane.topAnchor="173.0">
+    <VBox alignment="CENTER" layoutX="218.0" layoutY="173.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="375.0" prefWidth="644.0" spacing="25.0" AnchorPane.bottomAnchor="172.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="218.0" AnchorPane.topAnchor="173.0">
         <effect>
             <DropShadow blurType="GAUSSIAN" height="14.0" radius="6.5" width="14.0">
                 <color>
@@ -19,8 +19,8 @@
             </DropShadow>
         </effect>
         <Label styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Login Menu" textFill="#e1e100" />
-        <JFXTextField fx:id="usernameField" focusColor="#7aceed" promptText="Username" styleClass="buttonText" unFocusColor="#a6e9ff" />
-        <JFXPasswordField fx:id="passwordField" focusColor="#7aceed" promptText="Password" styleClass="buttonText" unFocusColor="#a6e9ff" />
+        <JFXTextField fx:id="usernameField" focusColor="#7aceed" labelFloat="true" promptText="Username" styleClass="buttonText" unFocusColor="#a6e9ff" />
+        <JFXPasswordField fx:id="passwordField" focusColor="#7aceed" labelFloat="true" promptText="Password" styleClass="buttonText" unFocusColor="#a6e9ff" />
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
             <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#loginClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Login">
                 <styleClass>
