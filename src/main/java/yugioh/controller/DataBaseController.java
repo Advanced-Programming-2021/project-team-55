@@ -224,33 +224,36 @@ public class DataBaseController extends MenuController {
             Gson monsterGson = monsterBuilder.create();
             GsonBuilder magicBuilder = new GsonBuilder();
             Gson magicGson = magicBuilder.create();
-            BufferedReader monsterBufferedReader = new BufferedReader(new FileReader(file));
-            BufferedReader magicBufferedReader = new BufferedReader(new FileReader(file));
-            Monster monster = monsterGson.fromJson(monsterBufferedReader, Monster.class);
-            SpellAndTrap spellAndTrap = magicGson.fromJson(magicBufferedReader, SpellAndTrap.class);
-            String info = "";
-            info += "Name: " + monster.getName();
-            if (monster.getCardKind() == Card.Kind.MAGIC) {
-                info += "\nType: Magic";
-                info += "\nAttribute: " + spellAndTrap.getAttribute().toString();
-                info += "\nDescription: " + spellAndTrap.getDescription();
-                info += "\nStatus: " + spellAndTrap.getStatus().toString();
+            if (file != null) {
+                BufferedReader monsterBufferedReader = new BufferedReader(new FileReader(file));
+                BufferedReader magicBufferedReader = new BufferedReader(new FileReader(file));
+                Monster monster = monsterGson.fromJson(monsterBufferedReader, Monster.class);
+                SpellAndTrap spellAndTrap = magicGson.fromJson(magicBufferedReader, SpellAndTrap.class);
+                String info = "";
+                info += "Name: " + monster.getName();
+                if (monster.getCardKind() == Card.Kind.MAGIC) {
+                    info += "\nType: Magic";
+                    info += "\nAttribute: " + spellAndTrap.getAttribute().toString();
+                    info += "\nDescription: " + spellAndTrap.getDescription();
+                    info += "\nStatus: " + spellAndTrap.getStatus().toString();
 
-            } else {
-                info += ("\nType: Monster");
-                info += ("\nLevel: " + String.valueOf(monster.getLevel()));
-                info += ("\nAttribute: " + monster.getAttribute().toString());
-                info += ("\nMonster Type: " + monster.getMonsterType().toString());
-                info += ("\nCard Type: " + monster.getCardType().toString());
-                info += ("\nAttack: " + String.valueOf(monster.getAtk()));
-                info += ("\nDefense: " + String.valueOf(monster.getDef()));
-                info += ("\nDescription: " + monster.getDescription());
+                } else {
+                    info += ("\nType: Monster");
+                    info += ("\nLevel: " + String.valueOf(monster.getLevel()));
+                    info += ("\nAttribute: " + monster.getAttribute().toString());
+                    info += ("\nMonster Type: " + monster.getMonsterType().toString());
+                    info += ("\nCard Type: " + monster.getCardType().toString());
+                    info += ("\nAttack: " + String.valueOf(monster.getAtk()));
+                    info += ("\nDefense: " + String.valueOf(monster.getDef()));
+                    info += ("\nDescription: " + monster.getDescription());
+                }
+                info += ("\nPrice: " + String.valueOf(monster.getPrice()));
+                cardInfo.wrappingWidthProperty().bind(cardInfoBox.widthProperty().add(-15));
+                cardInfo.setText(info);
+                cardInfoBox.setFitToWidth(true);
             }
-            info += ("\nPrice: " + String.valueOf(monster.getPrice()));
-            cardInfo.wrappingWidthProperty().bind(cardInfoBox.widthProperty().add(-15));
-            cardInfo.setText(info);
-            cardInfoBox.setFitToWidth(true);
-        } catch (Exception e) {
+        }
+        catch(Exception e){
             e.printStackTrace();
             cardInfo.setText("can not read data from this file");
         }
