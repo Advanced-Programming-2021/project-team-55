@@ -9,7 +9,7 @@ import yugioh.model.User;
 import java.net.URL;
 import java.util.*;
 
-public class ScoreBoardMenuController extends MenuController {
+public class ScoreBoardMenuController extends MenuController/* implements Initializable*/ {
 
     public static ScoreBoardMenuController scoreBoardMenuController;
     public static TableView scoreBoard;
@@ -23,7 +23,7 @@ public class ScoreBoardMenuController extends MenuController {
         return scoreBoardMenuController;
     }
 
-    public LinkedHashMap<Integer, HashMap<Integer, String>> getScoreBoard() {
+    public ArrayList<HashMap<Integer, String>> getScoreBoard() {
         return User.getScoreBoardUsers();
     }
 
@@ -33,6 +33,17 @@ public class ScoreBoardMenuController extends MenuController {
     }
 
 
+//    @Override
+//    public void initialize(URL url, ResourceBundle resourceBundle) {
+//        TableColumn<User, Object> column0 = new TableColumn<>("Rank");
+//        column0.setCellValueFactory(new PropertyValueFactory<>("lastRank"));
+//
+//        TableColumn<User, Object> column1 = new TableColumn<>("User");
+//        column1.setCellValueFactory(new PropertyValueFactory<>("username"));
+//        scoreBoard.getColumns().add(column0);
+//        scoreBoard.getColumns().add(column1);
+//
+//    }
 }
 
 //todo use this for scoreboard

@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ProfileMenuController">
     <children>
-        <ImageView fitHeight="137.0" fitWidth="144.0" layoutX="665.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fitHeight="160.0" fitWidth="144.0" layoutX="665.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true" />
         <VBox alignment="CENTER" layoutX="246.0" layoutY="55.0" prefHeight="586.0" prefWidth="587.0" spacing="25.0">
             <children>
                 <Label prefHeight="58.0" prefWidth="305.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Profile Menu" textFill="#fafa00">
@@ -24,7 +24,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <JFXTextField fx:id="nicknameField1" disable="true" focusColor="#7aceed" prefHeight="26.0" prefWidth="200.0" styleClass="buttonText" unFocusColor="#a6e9ff" />
+                  <Label prefHeight="28.0" prefWidth="203.0" styleClass="buttonText" text="username" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="96.0" prefHeight="58.0" prefWidth="514.0">

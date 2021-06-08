@@ -44,15 +44,16 @@ public class WelcomeMenu extends Application {
                             e.printStackTrace();
                         }
                     }
-                    for(Card card: Card.getCards()){
-                        try {
-                            DataBaseController.saveCardInfo(card);
+                    try {
+                        for (Card card : Card.getCards()) {
+                            try {
+                                DataBaseController.saveCardInfo(card);
+                            } catch (Exception e) {
+                                LoggerMessage.log("unable to save card data");
+                                e.printStackTrace();
+                            }
                         }
-                        catch (Exception e){
-                            LoggerMessage.log("unable to save card data");
-                            e.printStackTrace();
-                        }
-                    }
+                    }catch (Exception e){ }
                 }
             }
         });

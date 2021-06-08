@@ -5,6 +5,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -22,7 +25,7 @@ import java.util.LinkedHashMap;
 
 public class ScoreBoardMenu extends WelcomeMenu {
     private static final ScoreBoardMenuController scoreBoardMenuController = ScoreBoardMenuController.getInstance();
-
+    private static TableView scoreBoard;
 
     @Override
     public void execute() throws Exception {
@@ -51,7 +54,7 @@ public class ScoreBoardMenu extends WelcomeMenu {
         return response;
     }
 
-    private ArrayList<Label> showScoreBoard(LinkedHashMap<Integer, HashMap<Integer, String>> scoreBoard) {
+    private ArrayList<Label> showScoreBoard(ArrayList<HashMap<Integer, String>> scoreBoard) {
         ArrayList<Label>scoreBoardInfo=new ArrayList<>();
         for (int i = 0; i < Math.min(scoreBoard.size(),20); i++) {
             HashMap<Integer, String> userInfo = scoreBoard.get(i);
@@ -75,8 +78,7 @@ public class ScoreBoardMenu extends WelcomeMenu {
     public void start(Stage primaryStage) throws Exception {
         URL url=getClass().getResource("/yugioh/fxml/ScoreBoardMenu.fxml");
         Pane pane= FXMLLoader.load(url);
-        VBox scoreBoard=(VBox)((VBox)pane.getChildren().get(0)).getChildren().get(1) ;
-        scoreBoard.getChildren().addAll(showScoreBoard(scoreBoardMenuController.getScoreBoard()));
+        scoreBoard=(TableView)(((VBox)((VBox)((VBox)(pane.getChildren().get(0))).getChildren().get(1))).getChildren().get(0));
         Scene scene=new Scene(pane);
         stage.setScene(scene);
         stage.show();

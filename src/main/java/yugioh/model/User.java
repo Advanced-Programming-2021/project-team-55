@@ -82,7 +82,7 @@ public class User {
         loggedInUser = user;
     }
 
-    public static LinkedHashMap<Integer, HashMap<Integer, String>> getScoreBoardUsers() {
+    public static ArrayList<HashMap<Integer, String>> getScoreBoardUsers() {
         Collections.sort(allUsers, new Comparator<User>() {
             @Override
             public int compare(User user1, User user2) {
@@ -94,13 +94,13 @@ public class User {
                 return score2.compareTo(score1);
             }
         });
-        LinkedHashMap<Integer, HashMap<Integer, String>> scoreBoard = new LinkedHashMap<>();
+        ArrayList<HashMap<Integer, String>> scoreBoard = new ArrayList<>();
         int rank = 1;
         int sameNumbers = 1;
         for (int i = 0; i < allUsers.size(); i++) {
             HashMap<Integer, String> userInfo = new HashMap<>();
             userInfo.put(rank, allUsers.get(i).toString());
-            scoreBoard.put(i, userInfo);
+            scoreBoard.set(i, userInfo);
             if (i + 1 < allUsers.size() && allUsers.get(i).score != allUsers.get(i + 1).score) {
                 rank += sameNumbers;
                 sameNumbers = 1;
