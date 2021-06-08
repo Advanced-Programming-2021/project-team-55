@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -22,8 +23,11 @@
     </Label>
     <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="304.0" layoutY="80.0" prefHeight="615.0" prefWidth="739.0" />
     <ImageView fx:id="hoveredImage" fitHeight="246.0" fitWidth="170.0" layoutX="73.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true" />
-    <ScrollPane fx:id="cardDescription" hbarPolicy="NEVER" layoutX="14.0" layoutY="323.0" prefHeight="200.0" prefWidth="274.0" styleClass="simpleText">
-        <Text fx:id="descriptionScrollPane" strokeType="OUTSIDE" strokeWidth="0.0" />
+    <ScrollPane fx:id="descriptionContainer" hbarPolicy="NEVER" layoutX="14.0" layoutY="323.0" prefHeight="200.0" prefWidth="274.0" styleClass="simpleText">
+        <Label fx:id="description" prefHeight="198.0" prefWidth="189.0" text="Label">
+            <padding>
+                <Insets left="10.0" right="10.0" />
+            </padding></Label>
     </ScrollPane>
     <JFXButton fx:id="buyButton" buttonType="RAISED" layoutX="43.0" layoutY="530.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="BUY">
         <styleClass>

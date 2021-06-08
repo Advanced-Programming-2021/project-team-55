@@ -3,17 +3,13 @@ package yugioh.view.Menus;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -42,27 +38,26 @@ public class PopUpWindow extends Application {
     public void start(Stage stage) throws Exception {
         popUp = new Stage();
         VBox messageBox = new VBox(20);
-        Text text = new Text(response);
+        Label label = new Label(response);
         if (isError) {
-            text.setFill(Color.RED);
+            label.setTextFill(Color.RED);
             popUp.setTitle("ERROR");
             popUp.initModality(Modality.APPLICATION_MODAL);
         } else {
-            text.setFill(Color.GREEN);
+            label.setTextFill(Color.GREEN);
             popUp.initModality(Modality.NONE);
         }
-        BackgroundFill background_fill = new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY);
-        Background background = new Background(background_fill);
-        messageBox.setBackground(background);
+//        BackgroundFill background_fill = new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY);
+//        Background background = new Background(background_fill);
+//        messageBox.setBackground(background);
+//        scene.getStylesheets().add("/Sample/CSS/MenuCss.css");
         Button okButton = new Button("ok");
         okButton.setOnAction(okButtonHandler);
         messageBox.getChildren().add(okButton);
-        text.setFont(Font.font(20));
-                messageBox.getChildren().add(text);//todo uncomment
+        label.setFont(Font.font(20));
+        messageBox.getChildren().add(label);
         messageBox.setAlignment(Pos.BASELINE_CENTER);
         Scene scene = new Scene(messageBox, 400, 100);
-        scene.getStylesheets().add("/Sample/CSS/MenuCss.css");
-
         popUp.setScene(scene);
         popUp.setX(640.0);
         popUp.setY(230.0);
