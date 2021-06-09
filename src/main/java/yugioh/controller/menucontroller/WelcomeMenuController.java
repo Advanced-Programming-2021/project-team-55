@@ -10,6 +10,7 @@ import java.util.Date;
 
 public class WelcomeMenuController extends MenuController {
     public void enterRegisterMenuClicked(MouseEvent mouseEvent) {
+        playButtonSound();
         try {
             registerMenu.execute();
         } catch (Exception e) {
@@ -18,6 +19,7 @@ public class WelcomeMenuController extends MenuController {
     }
 
     public void enterLoginMenuClicked(MouseEvent mouseEvent) {
+        playButtonSound();
         try {
             loginMenu.execute();
         } catch (Exception e) {
@@ -26,6 +28,7 @@ public class WelcomeMenuController extends MenuController {
     }
 
     public void exitClicked(MouseEvent mouseEvent) {
+        playButtonSound();
         System.exit(0);
     }
 }

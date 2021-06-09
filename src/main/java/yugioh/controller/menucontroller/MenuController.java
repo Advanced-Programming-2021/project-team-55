@@ -1,8 +1,9 @@
 package yugioh.controller.menucontroller;
 
 import yugioh.view.Menus.*;
+import yugioh.view.SoundPlayable;
 
-abstract public class MenuController {
+abstract public class MenuController implements SoundPlayable {
     protected WelcomeMenu welcomeMenu = new WelcomeMenu();
     protected LoginMenu loginMenu = new LoginMenu();
     protected RegisterMenu registerMenu = new RegisterMenu();

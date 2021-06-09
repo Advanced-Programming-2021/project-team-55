@@ -10,6 +10,7 @@ import yugioh.controller.DataBaseController;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.view.LoggerMessage;
+import yugioh.view.SoundPlayable;
 
 import java.io.IOException;
 import java.net.URL;
