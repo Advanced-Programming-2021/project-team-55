@@ -101,6 +101,12 @@ public class ShopMenuController extends MenuController implements Initializable 
                     if (isCardClicked) return;
                     Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));
                     Platform.runLater(() -> description.setText(card.getDescription()));
+                    if(card.getPrice()>User.loggedInUser.getMoney()){
+                        buyButton.setDisable(true);
+                    }
+                    else{
+                        buyButton.setDisable(false);
+                    }
                     Platform.runLater(() -> buyButton.setText("BUY (" + card.getPrice() + ")"));
                     selectedCard = card;
                     selectedCardImageView = cardImage;
@@ -122,6 +128,18 @@ public class ShopMenuController extends MenuController implements Initializable 
                 });
                 cardImage.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                     cardImage.requestFocus();
+                    Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));
+                    Platform.runLater(() -> description.setText(card.getDescription()));
+                    if(card.getPrice()>User.loggedInUser.getMoney()){
+                        buyButton.setDisable(true);
+                    }
+                    else{
+                        buyButton.setDisable(false);
+                    }
+                    Platform.runLater(() -> buyButton.setText("BUY (" + card.getPrice() + ")"));
+                    selectedCard = card;
+                    selectedCardImageView = cardImage;
+                    event.consume();
                     event.consume();
                 });
                 cardsPane.add(cardImage, j, columnCounter);

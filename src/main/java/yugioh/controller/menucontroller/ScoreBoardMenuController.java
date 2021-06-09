@@ -1,9 +1,15 @@
 package yugioh.controller.menucontroller;
 
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderImage;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.paint.Color;
 import org.jetbrains.annotations.NotNull;
 import yugioh.model.TableItem;
 import yugioh.model.User;
@@ -14,7 +20,7 @@ import java.util.*;
 public class ScoreBoardMenuController extends MenuController implements Initializable {
 
     public static ScoreBoardMenuController scoreBoardMenuController;
-    public TableView<TableItem> scoreBoard;
+    public TableView<TableRow> scoreBoard;
 
     public ScoreBoardMenuController() {
     }
@@ -46,8 +52,9 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         for (TableItem tableItem : tableItems) {
             counter++;
             if (counter > 10) break;
-            scoreBoard.getStylesheets().add("Menu.css");
-            scoreBoard.getStyleClass().add("-fx-text-alignment: center");
+            if(tableItem.getUsername().equals(User.loggedInUser.getUsername())){
+                tableItem.setStyle("-fx-background-color:green;");
+            }
             scoreBoard.getStyleClass().add("simpleText");
             scoreBoard.getItems().add(tableItem);
         }
@@ -58,26 +65,26 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         ArrayList<TableItem> tableItems = new ArrayList<>();
         for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
-            TableItem tableItem=new TableItem(i + 1, user.getUsername(), user.getScore());
+            TableItem tableItem=new TableItem(i + 1, user.getNickname(), user.getScore());
             tableItems.add(tableItem);
         }
         return tableItems;
     }
 
     private void initializeScoreBoard() {
-        TableColumn<TableItem, Object> column0 = new TableColumn<>("Rank");
+        TableColumn<TableRow,Object> column0 = new TableColumn<>("Rank");
         column0.setCellValueFactory(new PropertyValueFactory<>("rank"));
         column0.setStyle("-fx-alignment: CENTER;");
-        TableColumn<TableItem, Object> column1 = new TableColumn<>("Username");
+        TableColumn<TableRow, Object> column1 = new TableColumn<>("Nickname");
         column1.setCellValueFactory(new PropertyValueFactory<>("username"));
         column1.setStyle("-fx-alignment: CENTER;");
-        TableColumn<TableItem, Object> column2 = new TableColumn<>("Max Score");
+        TableColumn<TableRow, Object> column2 = new TableColumn<>("Max Score");
         column2.setCellValueFactory(new PropertyValueFactory<>("score"));
         column2.setStyle("-fx-alignment: CENTER;");
-
         scoreBoard.getColumns().add(column0);
         scoreBoard.getColumns().add(column1);
         scoreBoard.getColumns().add(column2);
+
     }
 
     private void sortUsers(ArrayList<TableItem> tableItems) {
