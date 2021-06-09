@@ -14,6 +14,7 @@ abstract public class MenuController implements SoundPlayable {
     protected ProfileMenu profileMenu = new ProfileMenu();
     protected ShopMenu shopMenu = new ShopMenu();
     protected ImportExportMenu importExportMenu = new ImportExportMenu();
+    protected SelectDeckNamePage selectDeckNamePage=new SelectDeckNamePage();
 
 
 }

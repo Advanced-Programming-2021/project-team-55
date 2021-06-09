@@ -260,7 +260,6 @@ public class DataBaseController extends MenuController {
             }
         }
         catch(Exception e){
-            e.printStackTrace();
             cardInfo.setText("can not read data from this file");
         }
     }

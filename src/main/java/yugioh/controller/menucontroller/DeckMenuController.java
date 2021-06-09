@@ -1,21 +1,56 @@
 package yugioh.controller.menucontroller;
 
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Deck;
 import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.exceptions.MenuException;
+import yugioh.view.Menus.PopUpWindow;
+import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Responses;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.ResourceBundle;
 
+import static javafx.scene.paint.Color.GREEN;
 import static yugioh.model.cards.cardfeaturesenums.EffectiveTerm.LIMITED;
 
-public class DeckMenuController extends MenuController {
+public class DeckMenuController extends MenuController implements Initializable {
     public static DeckMenuController deckMenuController;
+    public MenuButton decksBox;
+    public Pane deckPane;
+    public Label deckInfo;
+    public Button deleteDeckButton;
+    public Button editDeckButton;
+
+    private MenuItem selectedMenuItem;
 
     public DeckMenuController() {
     }
@@ -163,5 +198,90 @@ public class DeckMenuController extends MenuController {
     public void backClicked(MouseEvent mouseEvent) throws Exception {
         playButtonSound();
         mainMenu.execute();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        decksBox.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(t1.equals("Decks")){
+                    deleteDeckButton.setDisable(true);
+                    editDeckButton.setDisable(true);
+                }
+                else{
+                    deleteDeckButton.setDisable(false);
+                    editDeckButton.setDisable(false);
+                }
+            }
+        });
+        for(Deck deck:User.loggedInUser.getDecks()){
+            MenuItem deckItem=new MenuItem();
+            deckItem.setText(deck.getName());
+            if(deck.isActive()) {
+                deckItem.setText(deck.getName()+"(Active deck)");
+                deckItem.setStyle("-fx-background-color: green;");
+            }
+            deckItem.setUserData(deck);
+            deckItem.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    selectedMenuItem=deckItem;
+                    Deck selectedDeck=(Deck) deckItem.getUserData();
+                    decksBox.setText(deckItem.getText());
+                    deckInfo.setText(selectedDeck.toString());
+                    setDeckView(selectedDeck);
+                }
+            });
+            decksBox.getItems().add(deckItem);
+        }
+    }
+    private void setDeckView(Deck deck){
+        ArrayList<Card> mainCards = new ArrayList<>(Card.sortCards(deck.getMainDeck()));
+        ArrayList<Card> sideCards = new ArrayList<>(Card.sortCards(deck.getSideDeck()));
+        int cardsPerRow = 9;
+        int columnCounter = 0;
+        GridPane cardsPane = new GridPane();
+        outer:
+        while (mainCards.size() > 0) {
+            for (int j = 0; j < cardsPerRow; j++) {
+                Card card = mainCards.get(mainCards.size() - 1);
+                ImageView cardImage = card.getCardImageForDeck(40);
+                cardsPane.add(cardImage, j, columnCounter);
+                mainCards.remove(card);
+                if (mainCards.size() == 0) break outer;
+            }
+            columnCounter++;
+        }
+        columnCounter++;
+        outer:
+        while (sideCards.size() > 0) {
+            for (int j = 0; j < cardsPerRow; j++) {
+                Card card = sideCards.get(sideCards.size() - 1);
+                ImageView cardImage = card.getCardImageForDeck(40);
+                cardsPane.add(cardImage, j, columnCounter);
+                sideCards.remove(card);
+                if (sideCards.size() == 0) break outer;
+            }
+            columnCounter++;
+        }
+        deckPane.getChildren().add(cardsPane);
+        cardsPane.setAlignment(Pos.CENTER);
+    }
+
+    public void deleteDeckClicked(MouseEvent mouseEvent) {
+        Deck deck=(Deck) selectedMenuItem.getUserData();
+        User.loggedInUser.removeDeck(deck);
+        deckPane.getChildren().clear();
+        deckInfo.setText("");
+        decksBox.getItems().remove(selectedMenuItem);
+        decksBox.setText("Decks");
+    }
+
+    public void editDeckClicked(MouseEvent mouseEvent) {
+    }
+
+    public void newDeckClicked(MouseEvent mouseEvent) throws Exception{
+        selectDeckNamePage.execute();
     }
 }
