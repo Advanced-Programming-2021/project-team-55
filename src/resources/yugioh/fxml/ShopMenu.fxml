@@ -39,4 +39,6 @@
    <Label layoutX="99.0" layoutY="531.0" text="YOUR COINS:" />
    <Label fx:id="userCoins" layoutX="193.0" layoutY="531.0" text="0" />
    <ImageView fitHeight="58.0" fitWidth="56.0" layoutX="253.0" layoutY="511.0" pickOnBounds="true" preserveRatio="true" />
+   <Label layoutX="12.0" layoutY="503.0" text="number of this card you have:" />
+   <Label fx:id="numberOfCard" layoutX="193.0" layoutY="503.0" text="0" />
 </AnchorPane>
