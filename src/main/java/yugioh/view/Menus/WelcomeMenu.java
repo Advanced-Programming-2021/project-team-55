@@ -65,7 +65,9 @@ public class WelcomeMenu extends Application {
         });
         saveDataThread.setDaemon(true);
         saveDataThread.start();
-        new WelcomeMenu().start(new Stage());
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
+        new WelcomeMenu().start(stage);
     }
 
     public static String getCurrentMenu() {
@@ -83,7 +85,6 @@ public class WelcomeMenu extends Application {
         Parent pane = FXMLLoader.load(fxmlAddress);
         Scene scene = new Scene(pane);
         stage.setScene(scene);
-        stage.initStyle(StageStyle.UNDECORATED);
         scene.setCursor(Cursor.HAND);
         stage.getIcons().add(new Image("/yugioh/PNG/icon/icon.png"));
         stage.setTitle("Yugioh");
