@@ -18,6 +18,7 @@ import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.Menus.PopUpWindow;
+import yugioh.view.Menus.ShopMenu;
 import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Responses;
 
@@ -71,6 +72,7 @@ public class ShopMenuController extends MenuController implements Initializable 
                 Platform.runLater(() -> numberOfCard.setText(User.loggedInUser.getNumberOfSpecificCard(card.getName()) + ""));
                 isCardClicked = false;
                 selectedCardImageView.setOpacity(1);
+                new PopUpWindow("Card added successfully").start(ShopMenu.stage);
             }
         } catch (Exception e) {
             new PopUpWindow(e.getMessage()).start(WelcomeMenu.stage);
