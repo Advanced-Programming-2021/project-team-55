@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class PopUpWindow extends Application {
     private final String response;
@@ -37,12 +38,14 @@ public class PopUpWindow extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         popUp = new Stage();
+        popUp.initOwner(stage);
+        popUp.initStyle(StageStyle.UNDECORATED);
         VBox messageBox = new VBox(20);
         Label label = new Label(response);
+        popUp.initModality(Modality.APPLICATION_MODAL);
         if (isError) {
             label.setTextFill(Color.RED);
             popUp.setTitle("ERROR");
-            popUp.initModality(Modality.APPLICATION_MODAL);
         } else {
             label.setTextFill(Color.GREEN);
             popUp.initModality(Modality.NONE);
@@ -52,15 +55,15 @@ public class PopUpWindow extends Application {
 //        messageBox.setBackground(background);
 //        scene.getStylesheets().add("/Sample/CSS/MenuCss.css");
         Button okButton = new Button("ok");
+        okButton.getStyleClass().add("buttonShape");
+        okButton.getStylesheets().add("/yugioh/CSS/Menu.css");
         okButton.setOnAction(okButtonHandler);
-        messageBox.getChildren().add(okButton);
         label.setFont(Font.font(20));
         messageBox.getChildren().add(label);
+        messageBox.getChildren().add(okButton);
         messageBox.setAlignment(Pos.BASELINE_CENTER);
         Scene scene = new Scene(messageBox, 400, 100);
         popUp.setScene(scene);
-        popUp.setX(640.0);
-        popUp.setY(230.0);
         popUp.show();
     }
 }
