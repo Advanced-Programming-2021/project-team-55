@@ -36,7 +36,7 @@
             <String fx:value="buttonHover" />
         </styleClass>
     </JFXButton>
-   <Label layoutX="99.0" layoutY="531.0" text="YOUR COINS:" />
-   <Label fx:id="userCoins" layoutX="193.0" layoutY="531.0" text="0" />
-   <ImageView fitHeight="58.0" fitWidth="56.0" layoutX="253.0" layoutY="511.0" pickOnBounds="true" preserveRatio="true" />
+   <Label layoutX="100.0" layoutY="531.0" styleClass="buttonText" text="YOUR COINS:" />
+   <Label fx:id="userCoins" layoutX="240.0" layoutY="531.0" styleClass="buttonText" text="0" />
+   <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="65.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true" />
 </AnchorPane>
