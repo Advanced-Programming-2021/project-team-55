@@ -152,7 +152,7 @@ public class Deck {
 
     @Override
     public String toString() {
-        String information = name + ": main deck " + mainDeck.size() + ", side deck " + sideDeck.size() + ", ";
+        String information ="main deck : " + mainDeck.size() + " , side deck : " + sideDeck.size() + " , ";
         if (isDeckValid()) {
             return information + "valid";
         } else {
