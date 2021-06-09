@@ -13,6 +13,7 @@ import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.view.LoggerMessage;
 import yugioh.view.SplashScreen;
+import yugioh.view.SplashScreen;
 import yugioh.view.SoundPlayable;
 
 import java.io.IOException;
