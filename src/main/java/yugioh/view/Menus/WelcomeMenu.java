@@ -5,14 +5,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import yugioh.controller.DataBaseController;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.view.LoggerMessage;
+import yugioh.view.SplashScreen;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 public class WelcomeMenu extends Application {
     private static final LoginMenu loginMenu = new LoginMenu();
@@ -77,8 +81,9 @@ public class WelcomeMenu extends Application {
         Parent pane = FXMLLoader.load(fxmlAddress);
         Scene scene = new Scene(pane);
         stage.setScene(scene);
+        stage.initStyle(StageStyle.UNDECORATED);
         scene.setCursor(Cursor.HAND);
-        //stage.getIcons().add(new Image("/Sample/JPG/Pacman.jpg"));
+        stage.getIcons().add(new Image("/yugioh/PNG/icon/icon.png"));
         stage.setTitle("Yugioh");
 //        stage.setX(700);
 //        stage.setY(300);
