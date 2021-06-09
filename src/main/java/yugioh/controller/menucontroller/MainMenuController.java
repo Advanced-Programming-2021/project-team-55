@@ -24,65 +24,39 @@ public class MainMenuController extends MenuController {
     }
 
     public void enterDuelMenuClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
         duelMenu.execute();
     }
 
-    public void enterDeckMenuClicked(MouseEvent mouseEvent) throws Exception {
+    public void enterDeckMenuClicked(MouseEvent mouseEvent) throws Exception
+    {playButtonSound();
         deckMenu.execute();
     }
 
     public void enterScoreBoardMenuClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
         scoreBoardMenu.execute();
     }
 
     public void enterProfileMenuClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
         profileMenu.execute();
     }
 
     public void enterShopMenuClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
         shopMenu.execute();
     }
 
     public void enterImportExportClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
         importExportMenu.execute();
     }
 
     public void logoutClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
         logout();
     }
 
-//    @Override
-//    public void enterMenu(String menu) throws MenuException {
-//        switch (menu) {
-//            case "Duel": {
-//                WelcomeMenu.setCurrentMenu(MenuType.DUEL);
-//                break;
-//            }
-//            case "Deck": {
-//                WelcomeMenu.setCurrentMenu(MenuType.DECK);
-//                break;
-//            }
-//            case "Scoreboard": {
-//                WelcomeMenu.setCurrentMenu(MenuType.SCOREBOARD);
-//                break;
-//            }
-//            case "Profile": {
-//                WelcomeMenu.setCurrentMenu(MenuType.PROFILE);
-//                break;
-//            }
-//            case "Shop": {
-//                WelcomeMenu.setCurrentMenu(MenuType.SHOP);
-//                break;
-//            }
-//            case "Import/Export": {
-//                WelcomeMenu.setCurrentMenu(MenuType.IMPORT_EXPORT);
-//                break;
-//            }
-//            default: {
-//                throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
-//            }
-//
-//        }
-//    }
 
 }

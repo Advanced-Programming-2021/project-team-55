@@ -36,6 +36,7 @@ public class LoginMenuController extends MenuController {
     }
 
     public void loginClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
         String username = usernameField.getText();
         String password = passwordField.getText();
         if (username.equals("") || password.equals("")) {
@@ -55,6 +56,7 @@ public class LoginMenuController extends MenuController {
     }
 
     public void backClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
         welcomeMenu.execute();
     }
 }
