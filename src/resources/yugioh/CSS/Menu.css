@@ -5,7 +5,7 @@
 }
 {
 
-       -fx-base: rgb(4,30,125);
+       -fx-base: rgb(7,14,43);
 }
 .scoreBoardBackground{
     -fx-background-image: url("../PNG/backgrounds/scoreBoardBackground.png");
