@@ -110,7 +110,7 @@ public class LoginMenuController extends MenuController implements Initializable
         });
     }
     public void initialize() {
-        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\signup.mp4").toURI().toString()));
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\main.mp4").toURI().toString()));
         mediaPlayer.play();
         mediaPlayer.setCycleCount(-1);
         background.setMediaPlayer(mediaPlayer);

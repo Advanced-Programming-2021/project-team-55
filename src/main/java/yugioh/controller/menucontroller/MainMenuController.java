@@ -66,7 +66,6 @@ public class MainMenuController extends MenuController {
         logout();
     }
     public void initialize() {
-
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\main.mp4").toURI().toString()));
         mediaPlayer.play();
         mediaPlayer.setCycleCount(-1);
