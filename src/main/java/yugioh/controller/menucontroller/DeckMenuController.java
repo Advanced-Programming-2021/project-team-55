@@ -16,6 +16,8 @@ import yugioh.model.cards.Card;
 import yugioh.model.cards.Deck;
 import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.exceptions.MenuException;
+import yugioh.view.Menus.EditDeckMenu;
+import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Responses;
 
 import java.net.URL;
@@ -181,30 +183,28 @@ public class DeckMenuController extends MenuController implements Initializable 
         return Card.sortCards(User.loggedInUser.getCardsInventory());
     }
 
-    public void backClicked(MouseEvent mouseEvent) throws Exception {
+    public void backClicked() throws Exception {
         playButtonSound();
         mainMenu.execute();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        decksBox.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if(t1.equals("Decks")){
-                    deleteDeckButton.setDisable(true);
-                    editDeckButton.setDisable(true);
-                    activateDeckButton.setDisable(true);
-                }
-                else{
-                    deleteDeckButton.setDisable(false);
-                    editDeckButton.setDisable(false);
-                    activateDeckButton.setDisable(false);
-                }
+        decksBox.textProperty().addListener((observableValue, s, t1) -> {
+            if(t1.equals("Decks")){
+                deleteDeckButton.setDisable(true);
+                editDeckButton.setDisable(true);
+                activateDeckButton.setDisable(true);
+            }
+            else{
+                deleteDeckButton.setDisable(false);
+                editDeckButton.setDisable(false);
+                activateDeckButton.setDisable(false);
             }
         });
         updateMenuItems();
     }
+
     private void setDeckView(Deck deck){
         ArrayList<Card> mainCards = new ArrayList<>(Card.sortCards(deck.getMainDeck()));
         ArrayList<Card> sideCards = new ArrayList<>(Card.sortCards(deck.getSideDeck()));
@@ -248,7 +248,8 @@ public class DeckMenuController extends MenuController implements Initializable 
         decksBox.setText("Decks");
     }
 
-    public void editDeckClicked(MouseEvent mouseEvent) {
+    public void editDeckClicked() throws Exception {
+        new EditDeckMenu().start(WelcomeMenu.stage);
     }
 
     public void newDeckClicked(MouseEvent mouseEvent) throws Exception{
