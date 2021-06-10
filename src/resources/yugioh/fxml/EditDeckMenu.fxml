@@ -1,41 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.text.Font?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="yugioh.controller.menucontroller.EditDeckMenuController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="606.0" prefWidth="693.0" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.EditDeckMenuController">
 
-    <JFXButton buttonType="RAISED" layoutX="425.0" layoutY="646.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
+    <JFXButton buttonType="RAISED" layoutX="232.0" layoutY="533.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
         <styleClass>
             <String fx:value="buttonText" />
             <String fx:value="buttonShape" />
             <String fx:value="buttonHover" />
         </styleClass>
     </JFXButton>
-    <Label layoutX="413.0" layoutY="14.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Deck Menu" textFill="#fafa00">
+    <Label layoutX="171.0" layoutY="14.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Edit Deck Menu" textFill="#fafa00">
         <font>
             <Font size="20.0" />
         </font>
     </Label>
-    <MenuButton fx:id="decksBox" alignment="CENTER" layoutX="413.0" layoutY="81.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="254.0" text="Decks" textAlignment="CENTER">
-    </MenuButton>
-    <Pane fx:id="deckPane" layoutX="361.0" layoutY="161.0" prefHeight="385.0" prefWidth="364.0" />
-    <Label fx:id="deckInfo" alignment="CENTER" layoutX="369.0" layoutY="115.0" prefHeight="34.0" prefWidth="335.0" text="">
-        <font>
-            <Font size="18.0" />
-        </font>
-    </Label>
-<!--    <Button fx:id="deleteDeckButton" layoutX="279.0" layoutY="588.0" mnemonicParsing="false" onMouseClicked="#deleteDeckClicked" prefHeight="48.0" prefWidth="112.0" text="Delete Deck" />-->
-<!--    <Button fx:id="editDeckButton" layoutX="599.0" layoutY="588.0" mnemonicParsing="false" onMouseClicked="#editDeckClicked" prefHeight="48.0" prefWidth="112.0" text="Edit Deck" />-->
-<!--    <Button layoutX="758.0" layoutY="588.0" mnemonicParsing="false" onMouseClicked="#newDeckClicked" prefHeight="48.0" prefWidth="112.0" text="New Deck" />-->
-<!--    <Button layoutX="439.0" layoutY="588.0" mnemonicParsing="false" onMouseClicked="#activateDeckClicked" prefHeight="48.0" prefWidth="112.0" text="Activate Deck" fx:id="activateDeckButton"/>-->
+   <ScrollPane layoutX="39.0" layoutY="135.0" prefHeight="371.0" prefWidth="252.0" />
+   <ScrollPane layoutX="403.0" layoutY="135.0" prefHeight="371.0" prefWidth="252.0" />
+   <Label fx:id="deckName" layoutX="114.0" layoutY="95.0" text="Deck Name" textFill="#fafa00">
+      <font>
+         <Font size="20.0" />
+      </font>
+   </Label>
+   <Label fx:id="deckName1" layoutX="464.0" layoutY="95.0" text="Card Inventory" textFill="#fafa00">
+      <font>
+         <Font size="20.0" />
+      </font>
+   </Label>
 
 </AnchorPane>
