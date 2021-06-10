@@ -43,7 +43,7 @@ public class User {
 
     public void setProfileImage() {
         Random random=new Random();
-        int randomNumber=random.nextInt(8);
+        int randomNumber=random.nextInt(7)+1;
         this.profileImage="/yugioh/PNG/UsersImage/"+randomNumber+".png";
     }
 

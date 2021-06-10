@@ -40,7 +40,7 @@
                 <JFXTextField fx:id="oldPasswordField" focusColor="#7aceed" focusTraversable="false" labelFloat="true" prefHeight="38.0" prefWidth="526.0" promptText="old password" styleClass="buttonText" unFocusColor="#a6e9ff" />
                 <JFXTextField fx:id="newPasswordField" focusColor="#7aceed" focusTraversable="false" labelFloat="true" promptText="new password" styleClass="buttonText" unFocusColor="#a6e9ff" />
 
-                <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#changePasswordClicked" prefHeight="60.0" prefWidth="260.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Change Password">
+                <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#changePasswordClicked" prefHeight="60.0" prefWidth="260.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Change Password" fx:id="changePasswordButton">
                     <styleClass>
                         <String fx:value="buttonText" />
                         <String fx:value="buttonShape" />

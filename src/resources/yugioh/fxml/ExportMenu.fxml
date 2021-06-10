@@ -7,7 +7,7 @@
    <children>
       <ScrollPane fx:id="exportCardsPane" layoutX="4.0" layoutY="24.0" prefHeight="320.0" prefWidth="591.0" />
       <Label alignment="CENTER" layoutX="219.0" layoutY="344.0" prefHeight="18.0" prefWidth="161.0" text="Select a card to export" />
-      <Button layoutX="285.0" layoutY="362.0" mnemonicParsing="false" onMouseClicked="#exportCard" text="ok" />
+      <Button layoutX="285.0" layoutY="362.0" mnemonicParsing="false" onMouseClicked="#exportCard" text="ok" fx:id="okButton" />
       <Button layoutX="25.0" layoutY="362.0" mnemonicParsing="false" onMouseClicked="#backToImportClicked" text="back" />
    </children>
 </AnchorPane>

@@ -23,7 +23,7 @@
         <JFXTextField fx:id="nicknameField" focusColor="#7aceed" labelFloat="true" promptText="Nickname" styleClass="buttonText" unFocusColor="#a6e9ff" />
         <JFXPasswordField fx:id="passwordField" focusColor="#7aceed" labelFloat="true" promptText="Password" styleClass="buttonText" unFocusColor="#a6e9ff" />
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-            <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#RegisterClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Register">
+            <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#RegisterClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Register" fx:id="registerButton">
                 <styleClass>
                     <String fx:value="buttonText" />
                     <String fx:value="buttonShape" />

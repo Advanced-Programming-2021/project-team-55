@@ -1,5 +1,9 @@
 package yugioh.controller.menucontroller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -9,10 +13,19 @@ import yugioh.view.Menus.PopUpWindow;
 import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Responses;
 
-public class RegisterMenuController extends MenuController {
+import java.lang.reflect.Field;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+public class RegisterMenuController extends MenuController implements Initializable {
     public TextField usernameField;
     public TextField nicknameField;
     public PasswordField passwordField;
+    public Button registerButton;
+    boolean usernameFieldIsFilled=false;
+    boolean passwordFieldIsFilled=false;
+    boolean nicknameFieldIsFilled=false;
 
     public void RegisterClicked(MouseEvent mouseEvent) throws Exception {
         playButtonSound();
@@ -52,4 +65,51 @@ public class RegisterMenuController extends MenuController {
         welcomeMenu.execute();
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        registerButton.setDisable(true);
+        usernameField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(t1.equals("")){
+                    usernameFieldIsFilled=false;
+                    registerButton.setDisable(true);
+                }
+                else{
+                    usernameFieldIsFilled=true;
+                    if(passwordFieldIsFilled&&nicknameFieldIsFilled)
+                        registerButton.setDisable(false);
+                }
+            }
+        });
+        passwordField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(t1.equals("")){
+                    passwordFieldIsFilled=false;
+                    registerButton.setDisable(true);
+                }
+                else{
+                    passwordFieldIsFilled=true;
+                    if(usernameFieldIsFilled&&nicknameFieldIsFilled)
+                        registerButton.setDisable(false);
+                }
+            }
+        });
+        nicknameField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(t1.equals("")){
+                    nicknameFieldIsFilled=false;
+                    registerButton.setDisable(true);
+                }
+                else{
+                    nicknameFieldIsFilled=true;
+                    if(usernameFieldIsFilled&&passwordFieldIsFilled)
+                        registerButton.setDisable(false);
+                }
+            }
+        });
+
+    }
 }

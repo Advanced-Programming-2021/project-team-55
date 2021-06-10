@@ -1,5 +1,9 @@
 package yugioh.controller.menucontroller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import yugioh.model.User;
@@ -8,11 +12,17 @@ import yugioh.view.Menus.PopUpWindow;
 import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Responses;
 
-public class ProfileMenuController extends MenuController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ProfileMenuController extends MenuController implements Initializable {
     public static ProfileMenuController profileMenuController;
     public TextField nicknameField;
     public TextField oldPasswordField;
     public TextField newPasswordField;
+    public Button changePasswordButton;
+    boolean isNewPasswordFieldFilled=false;
+    boolean isOldPasswordFieldFilled=false;
 
     public ProfileMenuController() {
     }
@@ -62,5 +72,40 @@ public class ProfileMenuController extends MenuController {
         }
         oldPasswordField.setText("");
         newPasswordField.setText("");
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        changePasswordButton.setDisable(true);
+        newPasswordField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(t1.equals("")){
+                    isNewPasswordFieldFilled=false;
+                    changePasswordButton.setDisable(true);
+                }
+                else{
+                    isNewPasswordFieldFilled=true;
+                    if(isOldPasswordFieldFilled){
+                        changePasswordButton.setDisable(false);
+                    }
+                }
+            }
+        });
+        oldPasswordField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(t1.equals("")){
+                    isOldPasswordFieldFilled=false;
+                    changePasswordButton.setDisable(true);
+                }
+                else{
+                    isOldPasswordFieldFilled=true;
+                    if(isNewPasswordFieldFilled){
+                        changePasswordButton.setDisable(false);
+                    }
+                }
+            }
+        });
     }
 }

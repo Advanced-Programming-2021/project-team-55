@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
@@ -50,6 +51,7 @@ public class DataBaseController extends MenuController {
     public static ImageView selectedImage;
     public static ImageView previousImage;
     public static Stage exportStage;
+    public Button okButton;
 
     public DataBaseController() {
     }
@@ -263,12 +265,11 @@ public class DataBaseController extends MenuController {
             cardInfo.setText("can not read data from this file");
         }
     }
-
-    public void exportClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound();
+    public void openExportPage()throws Exception{
         URL fxmlAddress = getClass().getResource("/yugioh/fxml/ExportMenu.fxml");
         Parent pane = FXMLLoader.load(fxmlAddress);
         this.exportCardsPane = (ScrollPane) pane.getChildrenUnmodifiable().get(0);
+        this.okButton=(Button)pane.getChildrenUnmodifiable().get(2);
         exportStage = new Stage();
         exportStage.initModality(Modality.APPLICATION_MODAL);
         ArrayList<Card> allCards = new ArrayList<>(Card.getCards());
@@ -277,7 +278,7 @@ public class DataBaseController extends MenuController {
         GridPane cardsPane = new GridPane();
         cardsPane.setHgap(10);
         cardsPane.setVgap(10);
-
+        okButton.setDisable(true);
         outer:
         while (allCards.size() > 0) {
             for (int j = 0; j < cardsPerRow; j++) {
@@ -291,13 +292,18 @@ public class DataBaseController extends MenuController {
                     if (newValue) {
                         selectedImage=cardImage;
                         cardImage.setEffect(selectEffect);
+                        okButton.setDisable(false);
                     } else {
                         cardImage.setEffect(null);
-                        if(selectedImage!=null)
-                            previousImage=new ImageView(selectedImage.getImage());
+                        if(selectedImage!=null) {
+                            previousImage = new ImageView(selectedImage.getImage());
+
+                        }
                         else{
+                            okButton.setDisable(true);
                             previousImage=null;
                         }
+
                         selectedImage=null;
                     }
                 });
@@ -318,10 +324,15 @@ public class DataBaseController extends MenuController {
                 getClass().getResource("/yugioh/CSS/Menu.css").toExternalForm());
         exportStage.show();
     }
+    public void exportClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
+        openExportPage();
+    }
 
     public void exportCard()throws Exception {
         playButtonSound();
         if(selectedImage==null&&previousImage==null){
+            openExportPage();
             new PopUpWindow("Error: no cards selected").start(WelcomeMenu.stage);
             return;
         }
@@ -332,8 +343,11 @@ public class DataBaseController extends MenuController {
         Card card=Card.getCardNameByImage(imageAddress);
         if(file!=null) {
             writeJSON(card, file.getPath()+"/"+card.getName()+".json");
+            exportStage.close();
             new PopUpWindow("Card exported successfully!").start(WelcomeMenu.stage);
         }
+        exportStage.close();
+        openExportPage();
     }
 
     public void backToImportClicked() throws Exception{
