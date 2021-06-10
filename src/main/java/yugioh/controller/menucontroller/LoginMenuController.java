@@ -3,17 +3,22 @@ package yugioh.controller.menucontroller;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import yugioh.model.User;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.Menus.PopUpWindow;
 import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Responses;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -25,7 +30,8 @@ public class LoginMenuController extends MenuController implements Initializable
     public Button loginButton;
     boolean passwordFieldIsFilled=false;
     boolean usernameFieldIsFilled=false;
-
+    @FXML
+    private MediaView background;
     public LoginMenuController() {
 
     }
@@ -102,5 +108,11 @@ public class LoginMenuController extends MenuController implements Initializable
                 }
             }
         });
+    }
+    public void initialize() {
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\signup.mp4").toURI().toString()));
+        mediaPlayer.play();
+        mediaPlayer.setCycleCount(-1);
+        background.setMediaPlayer(mediaPlayer);
     }
 }
