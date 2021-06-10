@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.media.*?>
 <?import javafx.scene.text.*?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<AnchorPane  prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.WelcomeMenuController">
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.WelcomeMenuController">
+   <MediaView fx:id="background" fitHeight="720.0" fitWidth="1080.0" />
     <VBox alignment="CENTER" layoutX="275.0" layoutY="114.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="493.0" prefWidth="531.0" spacing="10.0" stylesheets="@../CSS/Menu.css" AnchorPane.bottomAnchor="113.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="274.0" AnchorPane.topAnchor="114.0">
        <Label styleClass="mainTitleText" text="YU GI OH" textFill="#e1ff00">
            <font>
@@ -21,14 +23,14 @@
             <String fx:value="buttonHover" />
             </styleClass>
         </JFXButton>
-        <JFXButton buttonType="RAISED" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#enterRegisterMenuClicked" prefHeight="75.0" prefWidth="272.0" text="Register">
+        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#enterRegisterMenuClicked" prefHeight="75.0" prefWidth="272.0" text="Register">
             <styleClass>
                 <String fx:value="buttonShape" />
                 <String fx:value="buttonText" />
             <String fx:value="buttonHover" />
             </styleClass>
         </JFXButton>
-        <JFXButton buttonType="RAISED" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#exitClicked" prefHeight="75.0" prefWidth="272.0" text="Exit">
+        <JFXButton alignment="CENTER" buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#exitClicked" prefHeight="75.0" prefWidth="272.0" text="Exit">
             <styleClass>
                 <String fx:value="buttonText" />
                 <String fx:value="buttonShape" />

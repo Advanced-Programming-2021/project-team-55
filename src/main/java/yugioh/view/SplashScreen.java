@@ -27,7 +27,7 @@ public class SplashScreen extends Application {
 
     @Override
     public void init() {
-        File file = new File("src/resources/yugioh/PNG/splashScreen/splash.png");
+        File file = new File("src/resources/yugioh/PNG/splashScreen/splash.png");//todo aph
         ImageView splash = new ImageView(new Image(file.toURI().toString()));
         splashLayout = new VBox();
         splashLayout.getChildren().addAll(splash);
