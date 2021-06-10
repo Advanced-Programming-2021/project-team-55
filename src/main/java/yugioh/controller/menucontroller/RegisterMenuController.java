@@ -15,6 +15,7 @@ public class RegisterMenuController extends MenuController {
     public PasswordField passwordField;
 
     public void RegisterClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
         String username = usernameField.getText();
         String nickname = nicknameField.getText();
         String password = passwordField.getText();
@@ -47,6 +48,7 @@ public class RegisterMenuController extends MenuController {
     }
 
     public void backClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
         welcomeMenu.execute();
     }
 

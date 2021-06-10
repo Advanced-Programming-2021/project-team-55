@@ -174,6 +174,14 @@ public class User {
         return activeDeck;
     }
 
+    public int getNumberOfSpecificCard(String cardName){
+        int counter = 0;
+        for (Card card : cardsInventory){
+            if (card.getName().equals(cardName)) counter++;
+        }
+        return counter;
+    }
+
     public void setActiveDeck(Deck activeDeck) {
         this.activeDeck = activeDeck;
     }

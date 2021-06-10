@@ -96,6 +96,7 @@ public class DuelMenuController extends MenuController {
 
 
     public void backClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
         mainMenu.execute();
     }
 }

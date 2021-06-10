@@ -15,6 +15,7 @@ import javafx.util.Duration;
 import yugioh.view.Menus.WelcomeMenu;
 
 import java.io.File;
+import java.util.Objects;
 
 public class SplashScreen extends Application {
 
@@ -56,7 +57,7 @@ public class SplashScreen extends Application {
         splashScene.setFill(null);
         initStage.initStyle(StageStyle.TRANSPARENT);
         initStage.setScene(splashScene);
-//        initStage.getIcons().add(new Image(Objects.requireNonNull(SplashScreen.class.getResourceAsStream("/pacman/images/pacman.png"))));
+        initStage.getIcons().add(new Image("/yugioh/PNG/icon/icon.png"));
         initStage.show();
     }
 }

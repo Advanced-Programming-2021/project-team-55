@@ -18,6 +18,7 @@ import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.Menus.PopUpWindow;
+import yugioh.view.Menus.ShopMenu;
 import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Responses;
 
@@ -41,6 +42,7 @@ public class ShopMenuController extends MenuController implements Initializable 
     @FXML
     public ScrollPane descriptionContainer;
     public Label userCoins;
+    public Label numberOfCard;
     private Card selectedCard;
     private ImageView selectedCardImageView;
     private boolean isCardClicked = false;
@@ -54,6 +56,7 @@ public class ShopMenuController extends MenuController implements Initializable 
     }
 
     public void buyCard() throws Exception {
+        playButtonSound();
         Card card = selectedCard;
         try {
             if (card == null) {
@@ -66,8 +69,10 @@ public class ShopMenuController extends MenuController implements Initializable 
                 cardsToAdd.add(card);
                 User.loggedInUser.addCardsToInventory(cardsToAdd);
                 Platform.runLater(() -> userCoins.setText(User.loggedInUser.getMoney() + ""));
+                Platform.runLater(() -> numberOfCard.setText(User.loggedInUser.getNumberOfSpecificCard(card.getName()) + ""));
                 isCardClicked = false;
-                selectedCardImageView.setOpacity(0.5);
+                selectedCardImageView.setOpacity(1);
+                new PopUpWindow("Card added successfully").start(ShopMenu.stage);
             }
         } catch (Exception e) {
             new PopUpWindow(e.getMessage()).start(WelcomeMenu.stage);
@@ -79,6 +84,7 @@ public class ShopMenuController extends MenuController implements Initializable 
     }
 
     public void back() throws Exception {
+        playButtonSound();
         mainMenu.execute();
     }
 
@@ -96,11 +102,18 @@ public class ShopMenuController extends MenuController implements Initializable 
             for (int j = 0; j < cardsPerRow; j++) {
                 Card card = allCards.get(allCards.size() - 1);
                 ImageView cardImage = Card.getCardImage(card, 86);
-                if (User.loggedInUser.cardExistsInInventory(card.getName())) cardImage.setOpacity(0.5);
+                if (!User.loggedInUser.cardExistsInInventory(card.getName())) cardImage.setOpacity(0.5);
                 cardImage.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
                     if (isCardClicked) return;
                     Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));
                     Platform.runLater(() -> description.setText(card.getDescription()));
+                    Platform.runLater(() -> numberOfCard.setText(User.loggedInUser.getNumberOfSpecificCard(card.getName()) + ""));
+                    if(card.getPrice()>User.loggedInUser.getMoney()){
+                        buyButton.setDisable(true);
+                    }
+                    else{
+                        buyButton.setDisable(false);
+                    }
                     Platform.runLater(() -> buyButton.setText("BUY (" + card.getPrice() + ")"));
                     selectedCard = card;
                     selectedCardImageView = cardImage;
@@ -122,6 +135,18 @@ public class ShopMenuController extends MenuController implements Initializable 
                 });
                 cardImage.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                     cardImage.requestFocus();
+                    Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));
+                    Platform.runLater(() -> description.setText(card.getDescription()));
+                    if(card.getPrice()>User.loggedInUser.getMoney()){
+                        buyButton.setDisable(true);
+                    }
+                    else{
+                        buyButton.setDisable(false);
+                    }
+                    Platform.runLater(() -> buyButton.setText("BUY (" + card.getPrice() + ")"));
+                    selectedCard = card;
+                    selectedCardImageView = cardImage;
+                    event.consume();
                     event.consume();
                 });
                 cardsPane.add(cardImage, j, columnCounter);

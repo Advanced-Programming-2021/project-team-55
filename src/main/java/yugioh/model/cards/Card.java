@@ -419,6 +419,13 @@ public class Card {
                 "").replaceAll("yugioh.model.cards.trapandspells.", "");
         image="src/resources/yugioh/PNG/cardsImages/" + name + ".jpg";
     }
+    public ImageView getCardImageForDeck(int width){
+        File imageFile = new File(image);
+        ImageView imageView = new ImageView(new Image(imageFile.toURI().toString()));
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(width);
+        return imageView;
+    }
     public static void addCardToAllCards(Card card){
         if(getCardByName(card.name)==null){
             allCards.add(card);

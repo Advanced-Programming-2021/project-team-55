@@ -189,9 +189,7 @@ public class DataBaseController extends MenuController {
     }
 
 
-    public void importDeck(String cardName) {
 
-    }
 
 
     public String readFileContent(String address) {
@@ -211,10 +209,12 @@ public class DataBaseController extends MenuController {
     }
 
     public void backClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
         mainMenu.execute();
     }
 
     public void importCard(MouseEvent mouseEvent) {
+        playButtonSound();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("select a card");
         FileChooser.ExtensionFilter extFilter =
@@ -260,12 +260,12 @@ public class DataBaseController extends MenuController {
             }
         }
         catch(Exception e){
-            e.printStackTrace();
             cardInfo.setText("can not read data from this file");
         }
     }
 
     public void exportClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
         URL fxmlAddress = getClass().getResource("/yugioh/fxml/ExportMenu.fxml");
         Parent pane = FXMLLoader.load(fxmlAddress);
         this.exportCardsPane = (ScrollPane) pane.getChildrenUnmodifiable().get(0);
@@ -320,6 +320,7 @@ public class DataBaseController extends MenuController {
     }
 
     public void exportCard()throws Exception {
+        playButtonSound();
         if(selectedImage==null&&previousImage==null){
             new PopUpWindow("Error: no cards selected").start(WelcomeMenu.stage);
             return;
@@ -336,6 +337,7 @@ public class DataBaseController extends MenuController {
     }
 
     public void backToImportClicked() throws Exception{
+        playButtonSound();
         exportStage.close();
         importExportMenu.execute();
     }

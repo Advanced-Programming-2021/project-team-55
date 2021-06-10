@@ -41,11 +41,13 @@ public class ProfileMenuController extends MenuController {
 
 
     public void backClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
         User.loggedInUser.setNickname(nicknameField.getText());
         mainMenu.execute();
     }
 
     public void changePasswordClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
         if (oldPasswordField.getText().equals("") || newPasswordField.getText().equals("")) {
             new PopUpWindow(Responses.FILL_ALL_FIELDS.response).start(WelcomeMenu.stage);
         } else {
