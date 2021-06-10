@@ -16,9 +16,9 @@
        </Label>-->
         <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#enterLoginMenuClicked" prefHeight="75.0" prefWidth="272.0" text="Login">
             <styleClass>
-                <String fx:value="buttonShape" />
                 <String fx:value="buttonText" />
-            <String fx:value="buttonHover" />
+                <String fx:value="buttonHover" />
+            <String fx:value="buttonShape" />
             </styleClass>
         </JFXButton>
         <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#enterRegisterMenuClicked" prefHeight="75.0" prefWidth="272.0" text="Register">

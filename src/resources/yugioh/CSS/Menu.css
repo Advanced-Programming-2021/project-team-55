@@ -1,50 +1,55 @@
 @font-face {
-       font-family: "Bauhaus 93";
-       font-style: normal;
-       src: url("../fonts/BAUHS93.ttf");
+    font-family: "Bauhaus 93";
+    font-style: normal;
+    src: url("../fonts/BAUHS93.ttf");
 }
+
 {
-
-       -fx-base: rgb(7,14,43);
+    -fx-base: rgb(4, 9, 26);
 }
-.scoreBoardBackground{
+.scoreBoardBackground {
     -fx-background-image: url("../PNG/backgrounds/scoreBoardBackground.png");
-       -fx-background-repeat: no-repeat;
-       -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
 
 }
-.vboxDesign{
-       -fx-alignment: center;
+
+.vboxDesign {
+    -fx-alignment: center;
 
 }
-.buttonText{
-       -fx-font-family: "Bauhaus 93";;
-       -fx-font-size: 23px;
-}
-.titleText{
-       -fx-font-family: "Bauhaus 93";;
-       -fx-font-size: 50 px;
-}
-.simpleText{
-       -fx-font-family: "Bauhaus 93";;
-       -fx-font-size: 17 px;
+
+.buttonText {
+    -fx-font-family: "Bauhaus 93";;
+    -fx-font-size: 23px;
 }
 
-.mainTitleText{
-       -fx-font-family: "Bauhaus 93";;
-       -fx-font-size: 80 px;
+.titleText {
+    -fx-font-family: "Bauhaus 93";;
+    -fx-font-size: 50px;
 }
 
-.buttonHover:hover{
-       -fx-font-size: 26 px;
-
-       -fx-background-color: #bf0e0e;
+.simpleText {
+    -fx-font-family: "Bauhaus 93";;
+    -fx-font-size: 17px;
 }
 
-.buttonShape{
-       -fx-shape: "M 1000 300 L 1000 300 Q 550 250 50 300 Q 0 400 50 500 Q 500 550 1000 500 Q 1050 400 1000 300 ";
-       -fx-background-color: red;
+.mainTitleText {
+    -fx-font-family: "Bauhaus 93";;
+    -fx-font-size: 80px;
 }
-.background{
+
+.buttonHover:hover {
+    -fx-font-size: 26px;
+
+    -fx-background-color: #bf0e0e;
+}
+
+.buttonShape {
+    -fx-shape: "M 1000 300 L 1000 300 Q 550 250 50 300 Q 0 400 50 500 Q 500 550 1000 500 Q 1050 400 1000 300 ";
+    -fx-background-color: green;
+}
+
+.background {
 
 }
