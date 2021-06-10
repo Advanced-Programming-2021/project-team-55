@@ -183,6 +183,11 @@ public class User {
     }
 
     public void setActiveDeck(Deck activeDeck) {
+        for(Deck deck:decks){
+            deck.setActive(false);
+        }
+        if(activeDeck!=null)
+        activeDeck.setActive(true);
         this.activeDeck = activeDeck;
     }
 

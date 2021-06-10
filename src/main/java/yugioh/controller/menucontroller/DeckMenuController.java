@@ -1,36 +1,21 @@
 package yugioh.controller.menucontroller;
 
-import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.BlurType;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Deck;
 import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.exceptions.MenuException;
-import yugioh.view.Menus.PopUpWindow;
-import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Responses;
 
 import java.net.URL;
@@ -39,7 +24,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 
-import static javafx.scene.paint.Color.GREEN;
 import static yugioh.model.cards.cardfeaturesenums.EffectiveTerm.LIMITED;
 
 public class DeckMenuController extends MenuController implements Initializable {
@@ -49,10 +33,12 @@ public class DeckMenuController extends MenuController implements Initializable 
     public Label deckInfo;
     public Button deleteDeckButton;
     public Button editDeckButton;
+    public Button activateDeckButton;
 
     private MenuItem selectedMenuItem;
 
     public DeckMenuController() {
+        ;
     }
 
     public static DeckMenuController getInstance() {
@@ -208,33 +194,16 @@ public class DeckMenuController extends MenuController implements Initializable 
                 if(t1.equals("Decks")){
                     deleteDeckButton.setDisable(true);
                     editDeckButton.setDisable(true);
+                    activateDeckButton.setDisable(true);
                 }
                 else{
                     deleteDeckButton.setDisable(false);
                     editDeckButton.setDisable(false);
+                    activateDeckButton.setDisable(false);
                 }
             }
         });
-        for(Deck deck:User.loggedInUser.getDecks()){
-            MenuItem deckItem=new MenuItem();
-            deckItem.setText(deck.getName());
-            if(deck.isActive()) {
-                deckItem.setText(deck.getName()+"(Active deck)");
-                deckItem.setStyle("-fx-background-color: green;");
-            }
-            deckItem.setUserData(deck);
-            deckItem.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    selectedMenuItem=deckItem;
-                    Deck selectedDeck=(Deck) deckItem.getUserData();
-                    decksBox.setText(deckItem.getText());
-                    deckInfo.setText(selectedDeck.toString());
-                    setDeckView(selectedDeck);
-                }
-            });
-            decksBox.getItems().add(deckItem);
-        }
+        updateMenuItems();
     }
     private void setDeckView(Deck deck){
         ArrayList<Card> mainCards = new ArrayList<>(Card.sortCards(deck.getMainDeck()));
@@ -275,6 +244,7 @@ public class DeckMenuController extends MenuController implements Initializable 
         deckPane.getChildren().clear();
         deckInfo.setText("");
         decksBox.getItems().remove(selectedMenuItem);
+        selectedMenuItem=null;
         decksBox.setText("Decks");
     }
 
@@ -283,5 +253,38 @@ public class DeckMenuController extends MenuController implements Initializable 
 
     public void newDeckClicked(MouseEvent mouseEvent) throws Exception{
         selectDeckNamePage.execute();
+    }
+
+    public void activateDeckClicked(MouseEvent mouseEvent)throws Exception{
+        Deck deck=(Deck)selectedMenuItem.getUserData();
+        decksBox.setText(decksBox.getText()+" (Active deck)");
+        User.loggedInUser.setActiveDeck(deck);
+        updateMenuItems();
+    }
+    public void updateMenuItems(){
+        decksBox.getItems().clear();
+        for(Deck deck:User.loggedInUser.getDecks()){
+            MenuItem deckItem=new MenuItem();
+            deckItem.setText(deck.getName());
+            if(deck.isActive()) {
+                deckItem.setText(deck.getName()+" (Active deck)");
+                deckItem.setStyle("-fx-background-color: green;");
+            }
+            deckItem.setUserData(deck);
+            deckItem.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    selectedMenuItem=deckItem;
+                    Deck selectedDeck=(Deck) deckItem.getUserData();
+                    decksBox.setText(deckItem.getText());
+                    deckInfo.setText(selectedDeck.toString());
+                    setDeckView(selectedDeck);
+                }
+            });
+            decksBox.getItems().add(deckItem);
+        }
+        if(selectedMenuItem!=null){
+            decksBox.setText(selectedMenuItem.getText());
+        }
     }
 }
