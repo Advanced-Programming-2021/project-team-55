@@ -29,6 +29,7 @@ import java.util.ResourceBundle;
 import static yugioh.model.cards.cardfeaturesenums.EffectiveTerm.LIMITED;
 
 public class DeckMenuController extends MenuController implements Initializable {
+
     public static DeckMenuController deckMenuController;
     public MenuButton decksBox;
     public Pane deckPane;
@@ -238,7 +239,7 @@ public class DeckMenuController extends MenuController implements Initializable 
         cardsPane.setAlignment(Pos.CENTER);
     }
 
-    public void deleteDeckClicked(MouseEvent mouseEvent) {
+    public void deleteDeckClicked() {
         Deck deck=(Deck) selectedMenuItem.getUserData();
         User.loggedInUser.removeDeck(deck);
         deckPane.getChildren().clear();
@@ -249,19 +250,20 @@ public class DeckMenuController extends MenuController implements Initializable 
     }
 
     public void editDeckClicked() throws Exception {
-        new EditDeckMenu().start(WelcomeMenu.stage);
+        new EditDeckMenu((Deck) selectedMenuItem.getUserData()).start(WelcomeMenu.stage);
     }
 
-    public void newDeckClicked(MouseEvent mouseEvent) throws Exception{
+    public void newDeckClicked() throws Exception{
         selectDeckNamePage.execute();
     }
 
-    public void activateDeckClicked(MouseEvent mouseEvent)throws Exception{
+    public void activateDeckClicked() {
         Deck deck=(Deck)selectedMenuItem.getUserData();
         decksBox.setText(decksBox.getText()+" (Active deck)");
         User.loggedInUser.setActiveDeck(deck);
         updateMenuItems();
     }
+
     public void updateMenuItems(){
         decksBox.getItems().clear();
         for(Deck deck:User.loggedInUser.getDecks()){
@@ -272,15 +274,12 @@ public class DeckMenuController extends MenuController implements Initializable 
                 deckItem.setStyle("-fx-background-color: green;");
             }
             deckItem.setUserData(deck);
-            deckItem.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    selectedMenuItem=deckItem;
-                    Deck selectedDeck=(Deck) deckItem.getUserData();
-                    decksBox.setText(deckItem.getText());
-                    deckInfo.setText(selectedDeck.toString());
-                    setDeckView(selectedDeck);
-                }
+            deckItem.setOnAction(actionEvent -> {
+                selectedMenuItem=deckItem;
+                Deck selectedDeck=(Deck) deckItem.getUserData();
+                decksBox.setText(deckItem.getText());
+                deckInfo.setText(selectedDeck.toString());
+                setDeckView(selectedDeck);
             });
             decksBox.getItems().add(deckItem);
         }
@@ -288,4 +287,5 @@ public class DeckMenuController extends MenuController implements Initializable 
             decksBox.setText(selectedMenuItem.getText());
         }
     }
+
 }

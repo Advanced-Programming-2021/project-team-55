@@ -190,10 +190,6 @@ public class DataBaseController extends MenuController {
         Card AdvancedRitualArt = new AdvancedRitualArt();
     }
 
-
-
-
-
     public String readFileContent(String address) {
         StringBuilder output = new StringBuilder();
         try {

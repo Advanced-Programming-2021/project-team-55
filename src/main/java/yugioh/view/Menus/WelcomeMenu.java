@@ -38,28 +38,30 @@ public class WelcomeMenu extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Thread saveDataThread=new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true){
-                    for (User user : User.getAllUsers()) {
+        Thread saveDataThread=new Thread(() -> {
+            while(true){
+                for (User user : User.getAllUsers()) {
+                    try {
+                        DataBaseController.saveUserInfo(user);
+                    } catch (Exception e) {
+                        LoggerMessage.log("unable to save user data");
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    for (Card card : Card.getCards()) {
                         try {
-                            DataBaseController.saveUserInfo(user);
+                            DataBaseController.saveCardInfo(card);
                         } catch (Exception e) {
-                            LoggerMessage.log("unable to save user data");
+                            LoggerMessage.log("unable to save card data");
                             e.printStackTrace();
                         }
                     }
-                    try {
-                        for (Card card : Card.getCards()) {
-                            try {
-                                DataBaseController.saveCardInfo(card);
-                            } catch (Exception e) {
-                                LoggerMessage.log("unable to save card data");
-                                e.printStackTrace();
-                            }
-                        }
-                    }catch (Exception e){ }
+                }catch (Exception e){ }
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         });

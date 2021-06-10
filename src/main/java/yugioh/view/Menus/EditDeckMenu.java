@@ -1,18 +1,23 @@
 package yugioh.view.Menus;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import yugioh.model.cards.Deck;
 
 import java.net.URL;
 
 public class EditDeckMenu extends WelcomeMenu {
 
     private static Stage stage;
+    private static Deck deck;
+
+    public EditDeckMenu(Deck deck) {
+        EditDeckMenu.deck = deck;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -31,4 +36,9 @@ public class EditDeckMenu extends WelcomeMenu {
     public static Stage getStage() {
         return stage;
     }
+
+    public static Deck getDeck() {
+        return deck;
+    }
+
 }

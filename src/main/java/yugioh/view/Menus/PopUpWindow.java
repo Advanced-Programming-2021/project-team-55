@@ -39,7 +39,7 @@ public class PopUpWindow extends Application {
     public void start(Stage stage) throws Exception {
         popUp = new Stage();
         popUp.initOwner(stage);
-        popUp.initStyle(StageStyle.UNDECORATED);
+        popUp.initStyle(StageStyle.UTILITY);
         VBox messageBox = new VBox(20);
         Label label = new Label(response);
         popUp.initModality(Modality.APPLICATION_MODAL);
