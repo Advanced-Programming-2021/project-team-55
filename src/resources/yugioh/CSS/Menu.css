@@ -5,7 +5,7 @@
 }
 
 {
-    -fx-base: rgb(4, 9, 26);
+    -fx-base:#04091a;
 }
 .scoreBoardBackground {
     -fx-background-image: url("../PNG/backgrounds/scoreBoardBackground.png");
@@ -42,12 +42,12 @@
 .buttonHover:hover {
     -fx-font-size: 26px;
 
-    -fx-background-color: #bf0e0e;
+    -fx-background-color: #62d9ec;
 }
 
 .buttonShape {
     -fx-shape: "M 1000 300 L 1000 300 Q 550 250 50 300 Q 0 400 50 500 Q 500 550 1000 500 Q 1050 400 1000 300 ";
-    -fx-background-color: green;
+    -fx-background-color: #2d4ac3;
 }
 
 .background {
