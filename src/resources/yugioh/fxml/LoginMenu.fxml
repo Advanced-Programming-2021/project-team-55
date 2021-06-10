@@ -18,18 +18,18 @@
                 </color>
             </DropShadow>
         </effect>
-        <Label styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Login Menu" textFill="#e1e100" />
+        <Label styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Login Menu" textFill="#ccdefc" />
         <JFXTextField fx:id="usernameField" focusColor="#7aceed" labelFloat="true" promptText="Username" styleClass="buttonText" unFocusColor="#a6e9ff" />
         <JFXPasswordField fx:id="passwordField" focusColor="#7aceed" labelFloat="true" promptText="Password" styleClass="buttonText" unFocusColor="#a6e9ff" />
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-            <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#loginClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Login" fx:id="loginButton">
+            <JFXButton fx:id="loginButton" buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#loginClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#0e1b77" stylesheets="@../CSS/Menu.css" text="Login" textFill="#ccdefc">
                 <styleClass>
                     <String fx:value="buttonText" />
                     <String fx:value="buttonShape" />
                <String fx:value="buttonHover" />
                 </styleClass>
             </JFXButton>
-            <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
+            <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#0e1b77" stylesheets="@../CSS/Menu.css" text="Back" textFill="#ccdefc">
                 <styleClass>
                     <String fx:value="buttonText" />
                     <String fx:value="buttonShape" />

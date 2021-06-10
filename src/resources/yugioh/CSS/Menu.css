@@ -37,6 +37,7 @@
 .mainTitleText {
     -fx-font-family: "Bauhaus 93";;
     -fx-font-size: 80px;
+    -fx-background-color: #ccdefc;
 }
 
 .buttonHover:hover {
@@ -47,7 +48,7 @@
 
 .buttonShape {
     -fx-shape: "M 1000 300 L 1000 300 Q 550 250 50 300 Q 0 400 50 500 Q 500 550 1000 500 Q 1050 400 1000 300 ";
-    -fx-background-color: #2d4ac3;
+    -fx-background-color: #0e1b77;
 }
 
 .background {

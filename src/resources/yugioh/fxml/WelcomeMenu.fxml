@@ -14,21 +14,21 @@
                <Font name="Bauhaus 93" size="78.0" />
            </font>
        </Label>-->
-        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#enterLoginMenuClicked" prefHeight="75.0" prefWidth="272.0" text="Login">
+        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#enterLoginMenuClicked" prefHeight="75.0" prefWidth="272.0" text="Login" textFill="#ccdefc">
             <styleClass>
-                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
                 <String fx:value="buttonHover" />
-            <String fx:value="buttonShape" />
+            <String fx:value="buttonText" />
             </styleClass>
         </JFXButton>
-        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#enterRegisterMenuClicked" prefHeight="75.0" prefWidth="272.0" text="Register">
+        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#enterRegisterMenuClicked" prefHeight="75.0" prefWidth="272.0" text="Register" textFill="#ccdefc">
             <styleClass>
                 <String fx:value="buttonShape" />
                 <String fx:value="buttonText" />
             <String fx:value="buttonHover" />
             </styleClass>
         </JFXButton>
-        <JFXButton alignment="CENTER" buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#exitClicked" prefHeight="75.0" prefWidth="272.0" text="Exit">
+        <JFXButton alignment="CENTER" buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#exitClicked" prefHeight="75.0" prefWidth="272.0" text="Exit" textFill="#ccdefc">
             <styleClass>
                 <String fx:value="buttonText" />
                 <String fx:value="buttonShape" />
