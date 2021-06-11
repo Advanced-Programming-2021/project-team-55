@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
+import yugioh.view.Menus.DeckMenu;
 import yugioh.view.Menus.EditDeckMenu;
 
 import java.net.URL;
@@ -23,12 +24,13 @@ public class EditDeckMenuController implements Initializable {
     public ScrollPane sideDeck;
     public ScrollPane inventory;
 
-    public void back() {
-        EditDeckMenu.getStage().close();
+    public void back() throws Exception {
+//        EditDeckMenu.getStage().close();
+        new DeckMenu().execute();
     }
 
     private void initializeCardsPane(ArrayList<Card> cards, ScrollPane scrollPane) {
-        int cardsPerRow = 5;
+        int cardsPerRow = 6;
         int columnCounter = 0;
         GridPane cardsPane = new GridPane();
         cardsPane.setHgap(10);
@@ -38,7 +40,7 @@ public class EditDeckMenuController implements Initializable {
         while (cards.size() > 0) {
             for (int j = 0; j < cardsPerRow; j++) {
                 Card card = cards.get(cards.size() - 1);
-                ImageView cardImage = Card.getCardImage(card, 40);
+                ImageView cardImage = card.getCardImageForDeck(60);
                 /*cardImage.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
                     if (isCardClicked) return;
                     Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));

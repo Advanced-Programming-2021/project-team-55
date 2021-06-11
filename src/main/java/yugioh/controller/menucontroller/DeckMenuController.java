@@ -16,7 +16,9 @@ import yugioh.model.cards.Card;
 import yugioh.model.cards.Deck;
 import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.exceptions.MenuException;
+import yugioh.view.Menus.DeckMenu;
 import yugioh.view.Menus.EditDeckMenu;
+import yugioh.view.Menus.PopUpWindow;
 import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Responses;
 
@@ -250,6 +252,10 @@ public class DeckMenuController extends MenuController implements Initializable 
     }
 
     public void editDeckClicked() throws Exception {
+        if (selectedMenuItem == null || selectedMenuItem.getUserData() == null) {
+            new PopUpWindow("Error: select a Deck from menu bar first!").start(DeckMenu.stage);
+            return;
+        }
         new EditDeckMenu((Deck) selectedMenuItem.getUserData()).start(WelcomeMenu.stage);
     }
 

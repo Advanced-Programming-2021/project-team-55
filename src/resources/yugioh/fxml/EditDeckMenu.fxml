@@ -6,39 +6,39 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="606.0" prefWidth="753.0" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.EditDeckMenuController">
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.EditDeckMenuController">
 
-    <JFXButton buttonType="RAISED" layoutX="262.0" layoutY="532.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
+    <JFXButton buttonType="RAISED" layoutX="46.0" layoutY="632.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
         <styleClass>
             <String fx:value="buttonText" />
             <String fx:value="buttonShape" />
             <String fx:value="buttonHover" />
         </styleClass>
     </JFXButton>
-    <Label layoutX="201.0" layoutY="14.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Edit Deck Menu" textFill="#fafa00">
+    <Label layoutX="419.0" layoutY="14.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Edit Deck Menu" textFill="#fafa00">
         <font>
             <Font size="20.0" />
         </font>
     </Label>
-   <ScrollPane fx:id="mainDeck" layoutX="71.0" layoutY="135.0" prefHeight="220.0" prefWidth="282.0" />
-   <ScrollPane fx:id="inventory" layoutX="432.0" layoutY="135.0" prefHeight="371.0" prefWidth="282.0" />
-   <Label fx:id="deckName" layoutX="161.0" layoutY="95.0" text="Deck Name" textFill="#fafa00">
+   <ScrollPane fx:id="mainDeck" layoutX="124.0" layoutY="132.0" prefHeight="242.0" prefWidth="399.0" />
+   <ScrollPane fx:id="inventory" layoutX="641.0" layoutY="135.0" prefHeight="398.0" prefWidth="399.0" />
+   <Label fx:id="deckName" layoutX="273.0" layoutY="95.0" text="Deck Name" textFill="#fafa00">
       <font>
          <Font size="20.0" />
       </font>
    </Label>
-   <Label layoutX="508.0" layoutY="95.0" text="Card Inventory" textFill="#fafa00">
+   <Label layoutX="776.0" layoutY="95.0" text="Card Inventory" textFill="#fafa00">
       <font>
          <Font size="20.0" />
       </font>
    </Label>
-   <ScrollPane fx:id="sideDeck" layoutX="71.0" layoutY="366.0" prefHeight="140.0" prefWidth="282.0" />
-   <Label layoutX="14.0" layoutY="238.0" text="Main:" textFill="#fafa00">
+   <ScrollPane fx:id="sideDeck" layoutX="124.0" layoutY="393.0" prefHeight="140.0" prefWidth="399.0" />
+   <Label layoutX="17.0" layoutY="238.0" text="Main Deck:" textFill="#fafa00">
       <font>
          <Font size="20.0" />
       </font>
    </Label>
-   <Label layoutX="14.0" layoutY="421.0" text="Side:" textFill="#fafa00">
+   <Label layoutX="20.0" layoutY="448.0" text="Side Deck:" textFill="#fafa00">
       <font>
          <Font size="20.0" />
       </font>

@@ -406,6 +406,7 @@ public class Card {
     public Kind getCardKind() {
         return cardKind;
     }
+
     public static Card getCardNameByImage(String image){
         for(Card card:allCards){
             if(card.image.equals(image)){
@@ -414,11 +415,13 @@ public class Card {
         }
         return null;
     }
+
     public void setImage(){
         String name = getClass().getName().replaceAll("yugioh.model.cards.monsters.",
                 "").replaceAll("yugioh.model.cards.trapandspells.", "");
         image="src/resources/yugioh/PNG/cardsImages/" + name + ".jpg";
     }
+
     public ImageView getCardImageForDeck(int width){
         File imageFile = new File(image);
         ImageView imageView = new ImageView(new Image(imageFile.toURI().toString()));
@@ -426,11 +429,13 @@ public class Card {
         imageView.setFitWidth(width);
         return imageView;
     }
+
     public static void addCardToAllCards(Card card){
         if(getCardByName(card.name)==null){
             allCards.add(card);
         }
     }
+
     public enum Kind {MONSTER, MAGIC}
 
 }
