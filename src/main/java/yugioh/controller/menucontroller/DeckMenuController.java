@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -22,6 +23,7 @@ import yugioh.view.Menus.PopUpWindow;
 import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Responses;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -225,6 +227,12 @@ public class DeckMenuController extends MenuController implements Initializable 
             }
             columnCounter++;
         }
+        columnCounter++;
+        ImageView space = new ImageView(new Image("/yugioh/PNG/icon/icon.png"));
+        cardsPane.add(space, 0, columnCounter);
+        space.setOpacity(0);
+        space.setPreserveRatio(true);
+        space.setFitWidth(10);
         columnCounter++;
         outer:
         while (sideCards.size() > 0) {
