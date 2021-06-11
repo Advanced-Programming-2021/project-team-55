@@ -15,7 +15,7 @@
             <String fx:value="buttonHover" />
         </styleClass>
     </JFXButton>
-    <Label layoutX="419.0" layoutY="14.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Edit Deck Menu" textFill="#fafa00">
+    <Label layoutX="365.0" layoutY="20.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Edit Deck Menu" textFill="#fafa00">
         <font>
             <Font size="20.0" />
         </font>
@@ -43,5 +43,20 @@
          <Font size="20.0" />
       </font>
    </Label>
+   <Label fx:id="selectedCardName" layoutX="756.0" layoutY="563.0" text="selected card name" textFill="WHITE">
+      <font>
+         <Font size="20.0" />
+      </font>
+   </Label>
+   <Button fx:id="toAndFromMainDeck" layoutX="556.0" layoutY="226.0" mnemonicParsing="false" text="&gt;" textAlignment="CENTER">
+      <font>
+         <Font size="25.0" />
+      </font>
+   </Button>
+   <Button fx:id="toAndFromSideDeck" layoutX="556.0" layoutY="436.0" mnemonicParsing="false" text="&gt;" textAlignment="CENTER">
+      <font>
+         <Font size="25.0" />
+      </font>
+   </Button>
 
 </AnchorPane>
