@@ -48,12 +48,12 @@
          <Font size="20.0" />
       </font>
    </Label>
-   <Button fx:id="toAndFromMainDeck" layoutX="556.0" layoutY="226.0" mnemonicParsing="false" text="&gt;" textAlignment="CENTER">
+   <Button fx:id="toAndFromMainDeck" layoutX="556.0" layoutY="226.0" mnemonicParsing="false" onMouseClicked="#moveToOrFormMainDeck" text="&gt;" textAlignment="CENTER">
       <font>
          <Font size="25.0" />
       </font>
    </Button>
-   <Button fx:id="toAndFromSideDeck" layoutX="556.0" layoutY="436.0" mnemonicParsing="false" text="&gt;" textAlignment="CENTER">
+   <Button fx:id="toAndFromSideDeck" layoutX="556.0" layoutY="436.0" mnemonicParsing="false" onMouseClicked="#moveToOrFormSideDeck" text="&gt;" textAlignment="CENTER">
       <font>
          <Font size="25.0" />
       </font>

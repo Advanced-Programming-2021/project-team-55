@@ -430,6 +430,13 @@ public class Card {
         return imageView;
     }
 
+    public static Card getArrayListCard(String cardName, ArrayList<Card> cards) {
+        for (Card card : cards) {
+            if (card.getName().equals(cardName)) return card;
+        }
+        return null;
+    }
+
     public static void addCardToAllCards(Card card){
         if(getCardByName(card.name)==null){
             allCards.add(card);

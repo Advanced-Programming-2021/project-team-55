@@ -37,8 +37,9 @@ public class EditDeckMenuController implements Initializable {
     private Card selectedCard;
     private ImageView selectedCardImageView;
 
+    private ArrayList<Card> inventoryCards;
+
     public void back() throws Exception {
-//        EditDeckMenu.getStage().close();
         new DeckMenu().execute();
     }
 
@@ -86,7 +87,6 @@ public class EditDeckMenuController implements Initializable {
                     selectedCard = card;
                     selectedCardImageView = cardImage;
                     event.consume();
-                    event.consume();
                 });
                 cardsPane.add(cardImage, j, columnCounter);
                 cards.remove(card);
@@ -101,8 +101,50 @@ public class EditDeckMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         selectedCardName.setText("");
         deckName.setText(EditDeckMenu.getDeck().getName());
+        ArrayList<Card> cardsInventory = new ArrayList<>(User.loggedInUser.getCardsInventory());
+        ArrayList<Card> mainDeckCopy = new ArrayList<>(EditDeckMenu.getDeck().getMainDeck());
+        ArrayList<Card> sideDeckCopy = new ArrayList<>(EditDeckMenu.getDeck().getSideDeck());
+        removeRepeatedCards(cardsInventory, mainDeckCopy);
+        removeRepeatedCards(cardsInventory, sideDeckCopy);
         initializeCardsPane(new ArrayList<>(EditDeckMenu.getDeck().getMainDeck()), mainDeck);
         initializeCardsPane(new ArrayList<>(EditDeckMenu.getDeck().getSideDeck()), sideDeck);
-        initializeCardsPane(new ArrayList<>(User.loggedInUser.getCardsInventory()), inventory);
+        initializeCardsPane(new ArrayList<>(cardsInventory), inventory);
+        inventoryCards = cardsInventory;
     }
+
+    private void removeRepeatedCards(ArrayList<Card> cardsInventory, ArrayList<Card> sideDeckCopy) {
+        for (int i = cardsInventory.size() - 1; i >= 0; i--) {
+            Card card = cardsInventory.get(i);
+            Card correspondCard = Card.getArrayListCard(card.getName(), sideDeckCopy);
+            if (correspondCard != null) {
+                sideDeckCopy.remove(correspondCard);
+                cardsInventory.remove(card);
+            }
+        }
+    }
+
+    public void moveToOrFormMainDeck() {
+        if (toAndFromMainDeck.getText().equals(">")) {
+            EditDeckMenu.getDeck().getMainDeck().remove(selectedCard);
+            inventoryCards.add(selectedCard);
+        } else {
+            EditDeckMenu.getDeck().getMainDeck().add(selectedCard);
+            inventoryCards.remove(selectedCard);
+        }
+        initializeCardsPane(new ArrayList<>(EditDeckMenu.getDeck().getMainDeck()), mainDeck);
+        initializeCardsPane(new ArrayList<>(inventoryCards), inventory);
+    }
+
+    public void moveToOrFormSideDeck() {
+        if (toAndFromSideDeck.getText().equals(">")) {
+            EditDeckMenu.getDeck().getSideDeck().remove(selectedCard);
+            inventoryCards.add(selectedCard);
+        } else {
+            EditDeckMenu.getDeck().getSideDeck().add(selectedCard);
+            inventoryCards.remove(selectedCard);
+        }
+        initializeCardsPane(new ArrayList<>(EditDeckMenu.getDeck().getSideDeck()), sideDeck);
+        initializeCardsPane(new ArrayList<>(inventoryCards), inventory);
+    }
+
 }
