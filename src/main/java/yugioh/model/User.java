@@ -5,6 +5,7 @@ import yugioh.model.cards.Deck;
 import yugioh.model.cards.monsters.*;
 import yugioh.model.cards.trapandspells.*;
 
+import java.io.File;
 import java.util.*;
 
 public class User {
@@ -14,7 +15,7 @@ public class User {
     static {
         allUsers = new ArrayList<>();
     }
-
+    private boolean imageIsChanged=false;
     private final ArrayList<Deck> decks;
     private final ArrayList<Card> cardsInventory;
     private String username;
@@ -23,7 +24,9 @@ public class User {
     private int score;
     private int money;
     private String profileImage;
+    private File profileImageFile;
     private Deck activeDeck;
+
 
     {
         decks = new ArrayList<>();
@@ -45,6 +48,7 @@ public class User {
         Random random=new Random();
         int randomNumber=random.nextInt(7)+1;
         this.profileImage="/yugioh/PNG/UsersImage/"+randomNumber+".png";
+        profileImageFile=new File(profileImage);
     }
 
     public String getProfileImage() {
@@ -283,5 +287,26 @@ public class User {
     @Override
     public String toString() {
         return "- " + nickname + ": " + score;
+    }
+    public void setProfileImage(String address){
+        this.profileImage=address;
+        profileImageFile=new File(address);
+    }
+    public void deleteProfileImage(){
+        this.profileImage="";
+        profileImageFile.delete();
+        this.profileImageFile=null;
+    }
+    public File getProfileImageFile(){
+        return profileImageFile;
+    }
+    public void setProfileImageFile(File file){
+        this.profileImageFile=file;
+    }
+    public boolean isImageIsChanged(){
+        return imageIsChanged;
+    }
+    public void setImageIsChanged(){
+        this.imageIsChanged=true;
     }
 }

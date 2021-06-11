@@ -73,8 +73,10 @@ public class ProfileMenu extends WelcomeMenu {
         usernameLabel.setText(User.loggedInUser.getUsername());
         TextField nicknameField = (TextField) ((HBox) ((VBox) pane.getChildren().get(1)).getChildren().get(2)).getChildren().get(1);
         nicknameField.setText(User.loggedInUser.getNickname());
-        ImageView profileImage = (ImageView) pane.getChildren().get(0);
-        profileImage.setImage(new Image(User.loggedInUser.getProfileImage()));
+        if(!User.loggedInUser.isImageIsChanged()) {
+            ImageView profileImage = (ImageView) pane.getChildren().get(0);
+            profileImage.setImage(new Image(User.loggedInUser.getProfileImage()));
+        }
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.show();

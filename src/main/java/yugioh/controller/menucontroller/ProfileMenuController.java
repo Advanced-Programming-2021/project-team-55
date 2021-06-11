@@ -5,15 +5,23 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import yugioh.model.User;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.Menus.PopUpWindow;
 import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.Responses;
 
+import java.io.File;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 public class ProfileMenuController extends MenuController implements Initializable {
     public static ProfileMenuController profileMenuController;
@@ -21,8 +29,9 @@ public class ProfileMenuController extends MenuController implements Initializab
     public TextField oldPasswordField;
     public TextField newPasswordField;
     public Button changePasswordButton;
-    boolean isNewPasswordFieldFilled=false;
-    boolean isOldPasswordFieldFilled=false;
+    public ImageView profileImage;
+    boolean isNewPasswordFieldFilled = false;
+    boolean isOldPasswordFieldFilled = false;
 
     public ProfileMenuController() {
     }
@@ -76,17 +85,19 @@ public class ProfileMenuController extends MenuController implements Initializab
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println(User.loggedInUser.getProfileImageFile().toURI().toString());
+        Image image=new Image(User.loggedInUser.getProfileImageFile().toURI().toString());
+        profileImage.setImage(image);
         changePasswordButton.setDisable(true);
         newPasswordField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if(t1.equals("")){
-                    isNewPasswordFieldFilled=false;
+                if (t1.equals("")) {
+                    isNewPasswordFieldFilled = false;
                     changePasswordButton.setDisable(true);
-                }
-                else{
-                    isNewPasswordFieldFilled=true;
-                    if(isOldPasswordFieldFilled){
+                } else {
+                    isNewPasswordFieldFilled = true;
+                    if (isOldPasswordFieldFilled) {
                         changePasswordButton.setDisable(false);
                     }
                 }
@@ -95,17 +106,38 @@ public class ProfileMenuController extends MenuController implements Initializab
         oldPasswordField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if(t1.equals("")){
-                    isOldPasswordFieldFilled=false;
+                if (t1.equals("")) {
+                    isOldPasswordFieldFilled = false;
                     changePasswordButton.setDisable(true);
-                }
-                else{
-                    isOldPasswordFieldFilled=true;
-                    if(isNewPasswordFieldFilled){
+                } else {
+                    isOldPasswordFieldFilled = true;
+                    if (isNewPasswordFieldFilled) {
                         changePasswordButton.setDisable(false);
                     }
                 }
             }
         });
+    }
+
+    public void changeImageClicked(MouseEvent mouseEvent) throws Exception {
+        playButtonSound();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select an image");
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("image files", "*.jpg", "*.png");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(WelcomeMenu.stage);
+        if (file != null) {
+            User.loggedInUser.setImageIsChanged();
+            User.loggedInUser.deleteProfileImage();
+            Path sourceDirectory = Paths.get(file.getPath());
+            UUID random=UUID.randomUUID();
+            String imageAddress = "/yugioh/PNG/UsersImage/" +random + ".png";
+            Path targetDirectory = Paths.get("src\\resources\\yugioh\\PNG\\UsersImage\\"+random+".png");
+            Files.copy(sourceDirectory, targetDirectory);
+            profileImage.setImage(new Image(file.toURI().toString()));
+            User.loggedInUser.setProfileImage(imageAddress);
+            User.loggedInUser.setProfileImageFile(file);
+        }
     }
 }

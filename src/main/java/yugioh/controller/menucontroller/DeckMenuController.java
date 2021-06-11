@@ -191,6 +191,9 @@ public class DeckMenuController extends MenuController implements Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        editDeckButton.setDisable(true);
+        deleteDeckButton.setDisable(true);
+        activateDeckButton.setDisable(true);
         decksBox.textProperty().addListener((observableValue, s, t1) -> {
             if(t1.equals("Decks")){
                 deleteDeckButton.setDisable(true);
@@ -251,6 +254,7 @@ public class DeckMenuController extends MenuController implements Initializable 
 
     public void editDeckClicked() throws Exception {
         new EditDeckMenu((Deck) selectedMenuItem.getUserData()).start(WelcomeMenu.stage);
+
     }
 
     public void newDeckClicked() throws Exception{
@@ -259,6 +263,7 @@ public class DeckMenuController extends MenuController implements Initializable 
 
     public void activateDeckClicked() {
         Deck deck=(Deck)selectedMenuItem.getUserData();
+        selectedMenuItem.setText(selectedMenuItem.getText()+" (Active deck)");
         decksBox.setText(decksBox.getText()+" (Active deck)");
         User.loggedInUser.setActiveDeck(deck);
         updateMenuItems();
