@@ -16,7 +16,7 @@
                 <Font size="20.0"/>
             </font>
         </Label>
-        <JFXButton buttonType="RAISED" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727"
+        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#newPVPDuel" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727"
                    stylesheets="@../CSS/Menu.css" text="Duel With Player">
             <styleClass>
                 <String fx:value="buttonText"/>

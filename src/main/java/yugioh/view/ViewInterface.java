@@ -57,7 +57,7 @@ public class ViewInterface {
     }
 
     private static String sortFields(String input) {
-        if (input.indexOf("--") != -1) {
+        if (input.contains("--")) {
             input += "  ";
             String init = input.substring(0, input.indexOf("--"));
             ArrayList<String> fields = new ArrayList<>();

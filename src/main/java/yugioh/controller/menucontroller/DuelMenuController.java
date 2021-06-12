@@ -7,7 +7,9 @@ import yugioh.model.User;
 import yugioh.model.board.Game;
 import yugioh.model.cards.Deck;
 import yugioh.model.exceptions.MenuException;
+import yugioh.view.Menus.DetermineStarterMenu;
 import yugioh.view.Responses;
+import yugioh.view.gamephases.Duel;
 
 public class DuelMenuController extends MenuController {
 
@@ -98,5 +100,13 @@ public class DuelMenuController extends MenuController {
     public void backClicked(MouseEvent mouseEvent) throws Exception {
         playButtonSound();
         mainMenu.execute();
+    }
+
+    public void newPVPDuel() {
+        try {
+            Duel.runGame(newPVPDuel("a", 1));//todo reform
+        } catch (MenuException e) {
+            e.printStackTrace();
+        }
     }
 }

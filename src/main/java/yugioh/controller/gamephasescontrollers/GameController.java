@@ -1,5 +1,6 @@
 package yugioh.controller.gamephasescontrollers;
 
+import yugioh.controller.menucontroller.DetermineStarterMenuController;
 import yugioh.model.CoinDice;
 import yugioh.model.Player;
 import yugioh.model.User;
@@ -11,6 +12,7 @@ import yugioh.model.cards.Deck;
 import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
+import yugioh.view.Menus.DetermineStarterMenu;
 import yugioh.view.ViewInterface;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GamePhase;
@@ -40,6 +42,7 @@ public class GameController {
     private BattlePhaseController battlePhaseController;
     private MainPhase2Controller mainPhase2Controller;
     private EndPhaseController endPhaseController;
+    private DetermineStarterMenu determineStarterMenu;
 
     public GameController(Game game) {
         this.game = game;
@@ -73,6 +76,7 @@ public class GameController {
         battlePhaseController = new BattlePhaseController(this);
         mainPhase2Controller = MainPhase2Controller.getInstance();
         endPhaseController = EndPhaseController.getInstance(this);
+        DetermineStarterMenuController.setGameController(this);
     }
 
     public int tossCoin() {
