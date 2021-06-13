@@ -6,7 +6,6 @@ import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
 import yugioh.view.Menus.DetermineStarterMenu;
-import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.ViewInterface;
 
 import java.util.regex.Matcher;
@@ -132,8 +131,30 @@ abstract public class Duel {
     }
 
     private static void assignTurn() {
+        String opponentPlayerName = gameController.getGame().getSecondPlayer().getUser().getNickname();
         try {
-            new DetermineStarterMenu().execute();
+            if (gameController.getCurrentRound() == 1)
+                new DetermineStarterMenu().execute();
+            else {
+                ViewInterface.showResult(opponentPlayerName + " do you want to be the first player? yes/no");
+                String input = ViewInterface.getInput();
+                while (!input.equals("no") && !input.equals("yes")) {
+                    ViewInterface.showResult("Error: invalid choice!");
+                    input = ViewInterface.getInput();
+                }
+                switch (input) {
+                    case "yes": {
+                        gameController.setCurrentTurnPlayer(gameController.getGame().getSecondPlayer());
+                        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getFirstPlayer());
+                        break;
+                    }
+                    case "no": {
+                        gameController.setCurrentTurnPlayer(gameController.getGame().getFirstPlayer());
+                        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getSecondPlayer());
+                        break;
+                    }
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
