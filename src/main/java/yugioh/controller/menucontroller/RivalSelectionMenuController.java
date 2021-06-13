@@ -43,9 +43,10 @@ public class RivalSelectionMenuController extends MenuController implements Init
     public void initialize(URL url, ResourceBundle resourceBundle) {
         RivalSelectionMenu.setDoCancel(false);
         RivalSelectionMenu.setRival(null);
-        RivalSelectionMenu.setRounds(1);
+        RivalSelectionMenu.setRounds(0);
         ArrayList<User> allUsers = User.getAllUsers();
         for (User user : allUsers) {
+            if (User.loggedInUser == user) continue;
             rivals.getItems().add(user);
         }
     }
@@ -55,7 +56,12 @@ public class RivalSelectionMenuController extends MenuController implements Init
         RivalSelectionMenu.getStage().close();
     }
 
-    public void startGame() {
+    public void startGame() throws Exception {
+        if (rivals.getValue() == null) {
+            new PopUpWindow("select a user first!").start(RivalSelectionMenu.getStage());
+            return;
+        }
+        RivalSelectionMenu.setRival(rivals.getValue());
         RivalSelectionMenu.setDoCancel(false);
         RivalSelectionMenu.getStage().close();
     }

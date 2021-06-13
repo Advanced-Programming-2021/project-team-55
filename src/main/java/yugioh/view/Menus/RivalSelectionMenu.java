@@ -21,7 +21,7 @@ import java.util.regex.Matcher;
 
 public class RivalSelectionMenu extends WelcomeMenu {
     private static final DeckMenuController deckMenuController = DeckMenuController.getInstance();
-    private static int rounds = 1;
+    private static int rounds = 0;
     private static User rival = null;
     private static boolean doCancel = false;
     private static Stage stage;
