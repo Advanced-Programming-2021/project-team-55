@@ -1,8 +1,5 @@
 package yugioh.view.gamephases;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
 import yugioh.controller.AIPlayerController;
 import yugioh.controller.CheatController;
 import yugioh.controller.gamephasescontrollers.GameController;
@@ -37,52 +34,52 @@ abstract public class Duel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        start(gameController);
+        startGame(gameController);
     }
 
-    private static void start(GameController gameController) {
+    private static void startGame(GameController gameController) {
         showSideDeckCards();
         gameController.phases.add(gameController.currentPhase);
         showPhase();
-        while (!gameController.isGameEnded()) {
-            if (gameController.phases.get(gameController.phases.size() - 1) != gameController.currentPhase) {
-                gameController.phases.add(gameController.currentPhase);
-            }
-            gameController.phases.add(gameController.currentPhase);
-            switch (gameController.getCurrentPhase()) {
-                case DRAW: {
-                    drawPhase.execute();
-                    break;
-                }
-                case STANDBY: {
-                    standByPhase.execute();
-                    break;
-                }
-                case MAIN1: {
+//        while (!gameController.isGameEnded()) {//todo uncomment
+//            if (gameController.phases.get(gameController.phases.size() - 1) != gameController.currentPhase) {
+//                gameController.phases.add(gameController.currentPhase);
+//            }
+//            gameController.phases.add(gameController.currentPhase);
+//            switch (gameController.getCurrentPhase()) {
+//                case DRAW: {
+//                    drawPhase.execute();
+//                    break;
+//                }
+//                case STANDBY: {
+//                    standByPhase.execute();
+//                    break;
+//                }
+//                case MAIN1: {
                     mainPhase1.execute();
-                    break;
-                }
-                case MAIN2: {
-                    mainPhase2.execute();
-                    break;
-                }
-                case BATTLE: {
-                    battlePhase.execute();
-                    break;
-                }
-                case END: {
-                    endPhase.execute();
-                    break;
-                }
-                case GRAVEYARD: {
-                    graveyard.execute();
-                    break;
-                }
-            }
-            // showPhase();
-            AIPlayerController.recordGameLogs(gameController);
-        }
-        gameController.endGameRound();
+//                    break;
+//                }
+//                case MAIN2: {
+//                    mainPhase2.execute();
+//                    break;
+//                }
+//                case BATTLE: {
+//                    battlePhase.execute();
+//                    break;
+//                }
+//                case END: {
+//                    endPhase.execute();
+//                    break;
+//                }
+//                case GRAVEYARD: {
+//                    graveyard.execute();
+//                    break;
+//                }
+//            }
+//            // showPhase();
+//            AIPlayerController.recordGameLogs(gameController);
+//        }
+//        gameController.endGameRound();
     }
 
     public static void showPhase() {

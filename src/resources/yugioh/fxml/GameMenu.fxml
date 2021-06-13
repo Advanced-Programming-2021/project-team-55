@@ -128,5 +128,8 @@
          <Font size="8.0" />
       </font>
      </JFXButton>
-   <Pane fx:id="gameBoardPane" layoutX="393.0" prefHeight="720.0" prefWidth="680.0" />
+   <GridPane fx:id="gameBoardPane" layoutX="393.0" prefHeight="720.0" prefWidth="680.0">
+      <columnConstraints>
+         <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints></GridPane>
 </AnchorPane>

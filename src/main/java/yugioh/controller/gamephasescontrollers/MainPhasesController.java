@@ -1,5 +1,6 @@
 package yugioh.controller.gamephasescontrollers;
 
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.Player;
 import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
@@ -359,6 +360,7 @@ public interface MainPhasesController {
             response += "\t";
         }
         for (int i = 0; i < opponentPlayerGameBoard.getHandCards().size(); i++) {
+            GameMenuController.getGameMenuController().gameBoardPane.add(Card.getCardImage(opponentPlayerGameBoard.getHandCards().get(0).getCellCard(), 20), i, 0);
             response += "\tc";
         }
         response += "\n" + opponentPlayerGameBoard.getDeckZone().size() + "\n";

@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.GridPane;
 import yugioh.view.Menus.DuelMenu;
 import yugioh.view.gamephases.Duel;
 
@@ -34,7 +34,7 @@ public class GameMenuController extends MenuController implements Initializable 
     public Label bpLabel;
     public Label m2Label;
     public Label epLabel;
-    public Pane gameBoardPane;
+    public GridPane gameBoardPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,7 +59,4 @@ public class GameMenuController extends MenuController implements Initializable 
         return gameMenuController;
     }
 
-    public static void setGameMenuController(GameMenuController gameMenuController) {
-        GameMenuController.gameMenuController = gameMenuController;
-    }
 }
