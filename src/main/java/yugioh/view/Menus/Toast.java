@@ -12,11 +12,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-public class Toast {
+public final class Toast {
 
     public static void makeText(Stage ownerStage, String toastMsg) {
-        int toastDelay = 3500;
-        int fadeInDelay = 500;
+        int toastDelay = 2500;
+        int fadeInDelay = 250;
         int fadeOutDelay = 500;
         Stage toastStage = new Stage();
         toastStage.initOwner(ownerStage);
@@ -25,7 +25,7 @@ public class Toast {
 
         Text text = new Text(toastMsg);
         text.setFont(Font.font("Verdana", 40));
-        text.setFill(Color.RED);
+        text.setFill(new Color(1, 1, 0, 1));
 
         StackPane root = new StackPane(text);
         root.setStyle("-fx-background-radius: 20; -fx-background-color: rgba(0, 0, 0, 0.2); -fx-padding: 50px;");
