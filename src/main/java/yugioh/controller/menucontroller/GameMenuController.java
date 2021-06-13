@@ -2,11 +2,14 @@ package yugioh.controller.menucontroller;
 
 
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import yugioh.view.Menus.DuelMenu;
 import yugioh.view.gamephases.Duel;
 
@@ -34,12 +37,16 @@ public class GameMenuController extends MenuController implements Initializable 
     public Label bpLabel;
     public Label m2Label;
     public Label epLabel;
-    public GridPane gameBoardPane;
+    public Pane gameBoardPane;
+    public HBox rivalHandCardsContainer;
+    public HBox userHandCardsContainer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateGameStatusUIs();
         gameMenuController = this;
+        userHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
+        rivalHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
     }
 
     public void backClicked() throws Exception {

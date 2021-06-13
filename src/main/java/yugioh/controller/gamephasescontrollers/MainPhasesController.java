@@ -1,9 +1,11 @@
 package yugioh.controller.gamephasescontrollers;
 
+import javafx.scene.image.ImageView;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.Player;
 import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
+import yugioh.model.board.ElementsCoordinates;
 import yugioh.model.board.GameBoard;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
@@ -360,7 +362,6 @@ public interface MainPhasesController {
             response += "\t";
         }
         for (int i = 0; i < opponentPlayerGameBoard.getHandCards().size(); i++) {
-            GameMenuController.getGameMenuController().gameBoardPane.add(Card.getCardImage(opponentPlayerGameBoard.getHandCards().get(0).getCellCard(), 20), i, 0);
             response += "\tc";
         }
         response += "\n" + opponentPlayerGameBoard.getDeckZone().size() + "\n";
@@ -466,6 +467,13 @@ public interface MainPhasesController {
         response += "\n\t5\t3\t1\t2\t4";
         response += "\n\t\t\t\t\t\t" + playerGameBoard.getDeckZone().size() + "\n";
         for (int i = 0; i < playerGameBoard.getHandCards().size(); i++) {
+//            ImageView imageView = Card.getCardImage(opponentPlayerGameBoard.getHandCards().get(i).getCellCard(), 80);
+//            imageView.setX(ElementsCoordinates.getUserHandCards().get(i).getX());
+//            imageView.setY(ElementsCoordinates.getUserHandCards().get(i).getY());
+//            GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(imageView);
+            ImageView imageView = Card.getCardImage(opponentPlayerGameBoard.getHandCards().get(i).getCellCard(), 103);
+            GameMenuController.getGameMenuController().userHandCardsContainer.getChildren().add(imageView);
+
             response += "c\t";
         }
         response += "\n\t\t" + currentPlayer.getUser().getNickname() + ":" + currentPlayer.getLP() + ConsoleColors.RESET;

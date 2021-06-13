@@ -15,12 +15,14 @@
         <Label fx:id="description" focusTraversable="false" prefHeight="148.0" prefWidth="273.0">
             <padding>
                 <Insets left="10.0" right="10.0" />
-            </padding></Label>
+            </padding>
+        </Label>
     </ScrollPane>
     <Label fx:id="atkLabel" layoutX="25.0" layoutY="526.0" styleClass="buttonText" text="ATK:">
-      <font>
-         <Font size="10.0" />
-      </font></Label>
+        <font>
+            <Font size="10.0" />
+        </font>
+    </Label>
     <HBox alignment="CENTER_LEFT" layoutX="325.0" layoutY="1.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="720.0" prefWidth="757.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="325.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <VBox alignment="CENTER_LEFT" prefHeight="721.0" prefWidth="75.5">
             <VBox alignment="CENTER" maxWidth="-Infinity" prefHeight="721.0" prefWidth="67.0">
@@ -78,58 +80,61 @@
             <Image url="@../PNG/Field/fie_desert.jpg" />
         </ImageView>
     </HBox>
-   <Label fx:id="defLabel" layoutX="162.0" layoutY="527.0" styleClass="buttonText" text="DEF:">
-      <font>
-         <Font size="10.0" />
-      </font>
-   </Label>
-   <Label fx:id="defValue" layoutX="223.0" layoutY="528.0" styleClass="buttonText">
-      <font>
-         <Font size="10.0" />
-      </font>
-   </Label>
-   <Label fx:id="atkValue" layoutX="85.0" layoutY="527.0" styleClass="buttonText">
-      <font>
-         <Font size="10.0" />
-      </font>
-   </Label>
-   <Separator layoutY="560.0" prefHeight="4.0" prefWidth="325.0" />
-   <Separator layoutY="107.0" prefHeight="4.0" prefWidth="325.0" />
-   <Separator layoutX="322.0" layoutY="1.0" orientation="VERTICAL" prefHeight="720.0" prefWidth="0.0" />
-   <Label layoutX="67.0" layoutY="11.0" styleClass="buttonText2" text="LP" textFill="#fafa00">
-      <font>
-         <Font size="40" />
-      </font>
-   </Label>
-   <Label fx:id="rivalLP" layoutX="138.0" layoutY="18.0" style="-fx-font-size: 30;" styleClass="buttonText" text="0" textAlignment="CENTER">
-      <font>
-         <Font size="16.0" />
-      </font>
-   </Label>
-   <ProgressBar fx:id="rivalLPBar" layoutX="50.0" layoutY="65.0" prefHeight="28.0" prefWidth="200.0" progress="1.0" />
-   <Label layoutX="67.0" layoutY="577.0" styleClass="buttonText2" text="LP" textFill="#fafa00">
-      <font>
-         <Font size="40" />
-      </font>
-   </Label>
-   <Label fx:id="userLP" layoutX="141.0" layoutY="584.0" style="-fx-font-size: 30;" styleClass="buttonText" text="0">
-      <font>
-         <Font size="16.0" />
-      </font>
-   </Label>
-   <ProgressBar fx:id="userLPBar" layoutX="50.0" layoutY="631.0" prefHeight="28.0" prefWidth="200.0" progress="1.0" />
-     <JFXButton layoutX="11.0" layoutY="682.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="32.0" prefWidth="127.0" ripplerFill="#e72727" style="-fx-font-size: 18;" stylesheets="@../CSS/Menu.css" text="Surrender">
-         <styleClass>
-             <String fx:value="buttonText" />
-             <String fx:value="buttonShape" />
-             <String fx:value="buttonHover" />
-         </styleClass>
-      <font>
-         <Font size="8.0" />
-      </font>
-     </JFXButton>
-   <GridPane fx:id="gameBoardPane" layoutX="393.0" prefHeight="720.0" prefWidth="680.0">
-      <columnConstraints>
-         <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-      </columnConstraints></GridPane>
+    <Label fx:id="defLabel" layoutX="162.0" layoutY="527.0" styleClass="buttonText" text="DEF:">
+        <font>
+            <Font size="10.0" />
+        </font>
+    </Label>
+    <Label fx:id="defValue" layoutX="223.0" layoutY="528.0" styleClass="buttonText">
+        <font>
+            <Font size="10.0" />
+        </font>
+    </Label>
+    <Label fx:id="atkValue" layoutX="85.0" layoutY="527.0" styleClass="buttonText">
+        <font>
+            <Font size="10.0" />
+        </font>
+    </Label>
+    <Separator layoutY="560.0" prefHeight="4.0" prefWidth="325.0" />
+    <Separator layoutY="107.0" prefHeight="4.0" prefWidth="325.0" />
+    <Separator layoutX="322.0" layoutY="1.0" orientation="VERTICAL" prefHeight="720.0" prefWidth="0.0" />
+    <Label layoutX="67.0" layoutY="11.0" styleClass="buttonText2" text="LP" textFill="#fafa00">
+        <font>
+            <Font size="40" />
+        </font>
+    </Label>
+    <Label fx:id="rivalLP" layoutX="138.0" layoutY="18.0" style="-fx-font-size: 30;" styleClass="buttonText" text="0" textAlignment="CENTER">
+        <font>
+            <Font size="16.0" />
+        </font>
+    </Label>
+    <ProgressBar fx:id="rivalLPBar" layoutX="50.0" layoutY="65.0" prefHeight="28.0" prefWidth="200.0" progress="1.0" />
+    <Label layoutX="67.0" layoutY="577.0" styleClass="buttonText2" text="LP" textFill="#fafa00">
+        <font>
+            <Font size="40" />
+        </font>
+    </Label>
+    <Label fx:id="userLP" layoutX="141.0" layoutY="584.0" style="-fx-font-size: 30;" styleClass="buttonText" text="0">
+        <font>
+            <Font size="16.0" />
+        </font>
+    </Label>
+    <ProgressBar fx:id="userLPBar" layoutX="50.0" layoutY="631.0" prefHeight="28.0" prefWidth="200.0" progress="1.0" />
+    <JFXButton layoutX="11.0" layoutY="682.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="32.0" prefWidth="127.0" ripplerFill="#e72727" style="-fx-font-size: 18;" stylesheets="@../CSS/Menu.css" text="Surrender">
+        <styleClass>
+            <String fx:value="buttonText" />
+            <String fx:value="buttonShape" />
+            <String fx:value="buttonHover" />
+        </styleClass>
+        <font>
+            <Font size="8.0" />
+        </font>
+    </JFXButton>
+    <Pane fx:id="gameBoardPane" layoutX="393.0" prefHeight="720.0" prefWidth="680.0">
+        <HBox fx:id="rivalHandCardsContainer" alignment="BOTTOM_CENTER" layoutX="31.0" prefHeight="69.0" prefWidth="649.0" />
+        <HBox fx:id="userHandCardsContainer" alignment="TOP_CENTER" layoutX="31.0" layoutY="636.0" prefHeight="84.0" prefWidth="649.0">
+         <opaqueInsets>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </opaqueInsets></HBox>
+    </Pane>
 </AnchorPane>
