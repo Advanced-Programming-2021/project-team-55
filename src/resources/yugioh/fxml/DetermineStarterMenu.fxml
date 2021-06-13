@@ -21,7 +21,7 @@
             <Font size="20.0" />
         </font>
     </Label>
-    <JFXButton fx:id="head" layoutX="268.0" layoutY="117.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="160.0" ripplerFill="#e13434" stylesheets="@../CSS/Menu.css" text="HEAD">
+    <JFXButton fx:id="head" layoutX="268.0" layoutY="117.0" onMouseClicked="#headClicked" mnemonicParsing="false" prefHeight="45.0" prefWidth="160.0" ripplerFill="#e13434" stylesheets="@../CSS/Menu.css" text="HEAD">
         <styleClass>
             <String fx:value="buttonText" />
             <String fx:value="buttonShape" />
@@ -29,7 +29,7 @@
         </styleClass>
     </JFXButton>
    <Label layoutX="27.0" layoutY="148.0" styleClass="buttonText" text="choose your Coin side:" /><ImageView fitHeight="25.0" fitWidth="25.0" layoutX="65.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true" />
-   <JFXButton fx:id="tale" layoutX="268.0" layoutY="162.0" mnemonicParsing="false"  prefHeight="45.0" prefWidth="160.0" ripplerFill="#e13434" stylesheets="@../CSS/Menu.css" text="TALE">
+   <JFXButton fx:id="tale" layoutX="268.0" layoutY="162.0" mnemonicParsing="false" onMouseClicked="#taleClicked" prefHeight="45.0" prefWidth="160.0" ripplerFill="#e13434" stylesheets="@../CSS/Menu.css" text="TALE">
       <styleClass>
          <String fx:value="buttonText" />
          <String fx:value="buttonShape" />

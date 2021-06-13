@@ -2,8 +2,11 @@ package yugioh.controller.menucontroller;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.view.Menus.DuelMenu;
+import yugioh.view.Menus.Toast;
+import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.ViewInterface;
 import yugioh.view.gamephases.Duel;
 
@@ -63,4 +66,12 @@ public class DetermineStarterMenuController implements Initializable {
     public void back() throws Exception {
         new DuelMenu().execute();
     }
+
+    public void headClicked() {
+        assignTurn();
+    }
+
+    public void taleClicked() {
+    }
+
 }
