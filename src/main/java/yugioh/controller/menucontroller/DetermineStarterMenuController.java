@@ -1,9 +1,11 @@
 package yugioh.controller.menucontroller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.view.Menus.DuelMenu;
 import yugioh.view.ViewInterface;
+import yugioh.view.gamephases.Duel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -11,9 +13,11 @@ import java.util.ResourceBundle;
 public class DetermineStarterMenuController implements Initializable {
 
     private static GameController gameController;
+    public JFXButton head;
+    public JFXButton tale;
 
-    public DetermineStarterMenuController(GameController gameController) {
-        DetermineStarterMenuController.gameController = gameController;
+    public DetermineStarterMenuController() {
+        DetermineStarterMenuController.gameController = Duel.getGameController();
     }
 
     public static void setGameController(GameController gameController) {
