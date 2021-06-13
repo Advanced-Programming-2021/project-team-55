@@ -51,4 +51,5 @@ public class WelcomeMenuController extends MenuController {
         mediaPlayer.setCycleCount(-1);
         background.setMediaPlayer(mediaPlayer);
     }
+
 }

@@ -6,6 +6,7 @@ import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
 import yugioh.view.Menus.DetermineStarterMenu;
+import yugioh.view.Menus.GameMenu;
 import yugioh.view.ViewInterface;
 
 import java.util.regex.Matcher;
@@ -22,9 +23,19 @@ abstract public class Duel {
     private static final Graveyard graveyard = new Graveyard();
     protected static GameController gameController;
 
+
     public static void runGame(GameController gameController) {
         Duel.gameController = gameController;
         assignTurn();
+        try {
+            new GameMenu().execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        start(gameController);//todo
+    }
+
+    private static void start(GameController gameController) {
         showSideDeckCards();
         gameController.phases.add(gameController.currentPhase);
         showPhase();

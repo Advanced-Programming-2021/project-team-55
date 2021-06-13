@@ -4,10 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import yugioh.controller.gamephasescontrollers.GameController;
-import yugioh.view.Menus.DuelMenu;
+import yugioh.view.Menus.DetermineStarterMenu;
 import yugioh.view.Menus.Toast;
-import yugioh.view.Menus.WelcomeMenu;
-import yugioh.view.ViewInterface;
 import yugioh.view.gamephases.Duel;
 
 import java.net.URL;
@@ -38,56 +36,20 @@ public class DetermineStarterMenuController implements Initializable {
         int randomNumber = gameController.tossCoin();
         switch (randomNumber) {//todo add coin animation
             case 1:
-                Toast.makeText(WelcomeMenu.getStage(), "HEAD!");
+                Toast.makeText(DetermineStarterMenu.getStage(), "HEAD!");
                 break;
             case 2:
-                Toast.makeText(WelcomeMenu.getStage(), "TALE!");
+                Toast.makeText(DetermineStarterMenu.getStage(), "TALE!");
                 break;
         }
         if (Integer.parseInt(choice) == randomNumber) {
-//            ViewInterface.showResult(currentPlayerName + " do you want to be the first player? yes/no");
             yesNoQuestion.setText(currentPlayerName + " do you want to be the first player?");
-//            String input = ViewInterface.getInput();
-//            while (!input.equals("no") && !input.equals("yes")) {
-//                ViewInterface.showResult("Error: invalid choice!");
-//                input = ViewInterface.getInput();
-//            }
             noButton.setOpacity(1);
             yesButton.setOpacity(1);
-//            switch (input) {
-//                case "yes": {
-//                    gameController.setCurrentTurnPlayer(gameController.getGame().getFirstPlayer());
-//                    gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getSecondPlayer());
-//                    break;
-//                }
-//                case "no": {
-//                    gameController.setCurrentTurnPlayer(gameController.getGame().getSecondPlayer());
-//                    gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getFirstPlayer());
-//                    break;
-//                }
-//            }
         } else {
-//            ViewInterface.showResult(opponentPlayerName + " do you want to be the first player? yes/no");
             yesNoQuestion.setText(opponentPlayerName + " do you want to be the first player?");
             noButton.setOpacity(1);
             yesButton.setOpacity(1);
-//            String input = ViewInterface.getInput();
-//            while (!input.equals("no") && !input.equals("yes")) {
-//                ViewInterface.showResult("Error: invalid choice!");
-//                input = ViewInterface.getInput();
-//            }
-//            switch (input) {
-//                case "yes": {
-//                    gameController.setCurrentTurnPlayer(gameController.getGame().getSecondPlayer());
-//                    gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getFirstPlayer());
-//                    break;
-//                }
-//                case "no": {
-//                    gameController.setCurrentTurnPlayer(gameController.getGame().getFirstPlayer());
-//                    gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getSecondPlayer());
-//                    break;
-//                }
-//            }
         }
     }
 
@@ -100,7 +62,8 @@ public class DetermineStarterMenuController implements Initializable {
     }
 
     public void back() throws Exception {
-        new DuelMenu().execute();
+//        new DuelMenu().execute();
+        DetermineStarterMenu.getStage().close();
     }
 
     public void headClicked() {
@@ -121,9 +84,11 @@ public class DetermineStarterMenuController implements Initializable {
         if (yesNoQuestion.getText().startsWith(currentPlayerName)) {
             gameController.setCurrentTurnPlayer(gameController.getGame().getSecondPlayer());
             gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getFirstPlayer());
+            DetermineStarterMenu.getStage().close();
         } else if (yesNoQuestion.getText().startsWith(opponentPlayerName)) {
             gameController.setCurrentTurnPlayer(gameController.getGame().getFirstPlayer());
             gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getSecondPlayer());
+            DetermineStarterMenu.getStage().close();
         }
     }
 
@@ -133,9 +98,11 @@ public class DetermineStarterMenuController implements Initializable {
         if (yesNoQuestion.getText().startsWith(currentPlayerName)) {
             gameController.setCurrentTurnPlayer(gameController.getGame().getFirstPlayer());
             gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getSecondPlayer());
+            DetermineStarterMenu.getStage().close();
         } else if (yesNoQuestion.getText().startsWith(opponentPlayerName)) {
             gameController.setCurrentTurnPlayer(gameController.getGame().getSecondPlayer());
             gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getFirstPlayer());
+            DetermineStarterMenu.getStage().close();
         }
     }
 
