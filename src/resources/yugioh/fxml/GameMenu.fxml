@@ -10,14 +10,14 @@
 
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.GameMenuController">
 
-    <ImageView fx:id="hoveredImage" fitHeight="246.0" fitWidth="170.0" layoutX="77.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
-    <ScrollPane fx:id="descriptionContainer" hbarPolicy="NEVER" layoutX="25.0" layoutY="379.0" prefHeight="152.0" prefWidth="274.0">
+    <ImageView fx:id="hoveredImage" fitHeight="246.0" fitWidth="170.0" layoutX="77.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" />
+    <ScrollPane fx:id="descriptionContainer" hbarPolicy="NEVER" layoutX="26.0" layoutY="370.0" prefHeight="152.0" prefWidth="274.0">
         <Label fx:id="description" prefHeight="148.0" prefWidth="273.0">
             <padding>
                 <Insets left="10.0" right="10.0" />
             </padding></Label>
     </ScrollPane>
-    <Label fx:id="atkLabel" layoutX="25.0" layoutY="531.0" styleClass="buttonText" text="ATK:">
+    <Label fx:id="atkLabel" layoutX="25.0" layoutY="526.0" styleClass="buttonText" text="ATK:">
       <font>
          <Font size="10.0" />
       </font></Label>
@@ -27,35 +27,55 @@
                 <Font size="20.0" />
             </font>
         </Label>
-        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
-            <styleClass>
-                <String fx:value="buttonText" />
-                <String fx:value="buttonShape" />
-                <String fx:value="buttonHover" />
-            </styleClass>
-        </JFXButton>
     </VBox>
-   <Label fx:id="defLabel" layoutX="162.0" layoutY="531.0" styleClass="buttonText" text="DEF:">
+   <Label fx:id="defLabel" layoutX="162.0" layoutY="527.0" styleClass="buttonText" text="DEF:">
       <font>
          <Font size="10.0" />
       </font>
    </Label>
-   <Label fx:id="defValue" layoutX="223.0" layoutY="531.0" styleClass="buttonText">
+   <Label fx:id="defValue" layoutX="223.0" layoutY="528.0" styleClass="buttonText">
       <font>
          <Font size="10.0" />
       </font>
    </Label>
-   <Label fx:id="atkValue" layoutX="85.0" layoutY="531.0" styleClass="buttonText">
+   <Label fx:id="atkValue" layoutX="85.0" layoutY="527.0" styleClass="buttonText">
       <font>
          <Font size="10.0" />
       </font>
    </Label>
-   <Separator layoutY="564.0" prefHeight="4.0" prefWidth="325.0" />
-   <Separator layoutY="111.0" prefHeight="4.0" prefWidth="325.0" />
+   <Separator layoutY="560.0" prefHeight="4.0" prefWidth="325.0" />
+   <Separator layoutY="107.0" prefHeight="4.0" prefWidth="325.0" />
    <Separator layoutX="323.0" layoutY="1.0" orientation="VERTICAL" prefHeight="720.0" prefWidth="0.0" />
-   <Label fx:id="atkLabel1" layoutX="36.0" layoutY="38.0" styleClass="buttonText" text="LP" textFill="#fafa00">
+   <Label layoutX="67.0" layoutY="11.0" styleClass="buttonText2" text="LP" textFill="#fafa00">
       <font>
-         <Font size="18.0" />
+         <Font size="40" />
       </font>
    </Label>
+   <Label fx:id="rivalLP" layoutX="143.0" layoutY="19.0" prefHeight="28.0" prefWidth="0.0" style="-fx-font-size: 30;" styleClass="buttonText" text="0">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Label>
+   <ProgressBar fx:id="rivalLPBar" layoutX="50.0" layoutY="65.0" prefHeight="28.0" prefWidth="200.0" progress="1.0" />
+   <Label layoutX="67.0" layoutY="577.0" styleClass="buttonText2" text="LP" textFill="#fafa00">
+      <font>
+         <Font size="40" />
+      </font>
+   </Label>
+   <Label fx:id="userLP" layoutX="141.0" layoutY="584.0" prefHeight="28.0" prefWidth="0.0" style="-fx-font-size: 30;" styleClass="buttonText" text="0">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Label>
+   <ProgressBar fx:id="userLPBar" layoutX="50.0" layoutY="631.0" prefHeight="28.0" prefWidth="200.0" progress="1.0" />
+     <JFXButton layoutX="11.0" layoutY="682.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="32.0" prefWidth="127.0" ripplerFill="#e72727" style="-fx-font-size: 18;" stylesheets="@../CSS/Menu.css" text="Surrender">
+         <styleClass>
+             <String fx:value="buttonText" />
+             <String fx:value="buttonShape" />
+             <String fx:value="buttonHover" />
+         </styleClass>
+      <font>
+         <Font size="8.0" />
+      </font>
+     </JFXButton>
 </AnchorPane>

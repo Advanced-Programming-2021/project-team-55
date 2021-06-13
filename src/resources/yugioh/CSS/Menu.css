@@ -24,6 +24,11 @@
     -fx-font-size: 23px;
 }
 
+.buttonText2 {
+    -fx-font-family: "Bauhaus 93";;
+    -fx-font-size: 40px;
+}
+
 .titleText {
     -fx-font-family: "Bauhaus 93";;
     -fx-font-size: 50px;
