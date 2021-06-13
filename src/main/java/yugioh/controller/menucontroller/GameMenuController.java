@@ -1,15 +1,21 @@
 package yugioh.controller.menucontroller;
 
 
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.TextAlignment;
+import yugioh.model.User;
+import yugioh.model.cards.Card;
+import yugioh.model.cards.Monster;
 import yugioh.view.Menus.DuelMenu;
 import yugioh.view.gamephases.Duel;
 
@@ -47,6 +53,11 @@ public class GameMenuController extends MenuController implements Initializable 
         gameMenuController = this;
         userHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
         rivalHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
+        userHandCardsContainer.setSpacing(17);
+        rivalHandCardsContainer.setSpacing(17);
+        hoveredImage.setImage(Card.getCardImage(null, 354).getImage());
+        description.setWrapText(true);
+        description.setTextAlignment(TextAlignment.JUSTIFY);
     }
 
     public void backClicked() throws Exception {
@@ -64,6 +75,31 @@ public class GameMenuController extends MenuController implements Initializable 
 
     public static GameMenuController getGameMenuController() {
         return gameMenuController;
+    }
+
+    public void addEventForCardImage(ImageView imageView, Card card) {
+        imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+            Platform.runLater(() -> hoveredImage.setImage(imageView.getImage()));
+            if (card == null){
+                Platform.runLater(() -> description.setText(""));
+                return;
+            }
+            Platform.runLater(() -> description.setText(card.getDescription()));
+            if (card instanceof Monster) {
+                defValue.setOpacity(1);
+                atkValue.setOpacity(1);
+                defLabel.setOpacity(1);
+                atkLabel.setOpacity(1);
+                Platform.runLater(() -> defValue.setText(((Monster) card).getDef() + ""));
+                Platform.runLater(() -> atkValue.setText(((Monster) card).getAtk() + ""));
+            } else {
+                defLabel.setOpacity(0);
+                atkLabel.setOpacity(0);
+                defValue.setOpacity(0);
+                atkValue.setOpacity(0);
+            }
+            event.consume();
+        });
     }
 
 }

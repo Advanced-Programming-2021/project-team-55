@@ -1,8 +1,11 @@
 package yugioh.controller.gamephasescontrollers;
 
+import javafx.application.Platform;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.Player;
+import yugioh.model.User;
 import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
 import yugioh.model.board.ElementsCoordinates;
@@ -359,9 +362,13 @@ public interface MainPhasesController {
         GameBoard playerGameBoard = currentPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = opponentPlayer.getGameBoard();
         for (int i = 0; i < 6 - opponentPlayerGameBoard.getHandCards().size(); i++) {
+
             response += "\t";
         }
         for (int i = 0; i < opponentPlayerGameBoard.getHandCards().size(); i++) {
+            ImageView imageView = Card.getCardImage(null, 103);
+            GameMenuController.getGameMenuController().rivalHandCardsContainer.getChildren().add(imageView);
+            GameMenuController.getGameMenuController().addEventForCardImage(imageView, null);
             response += "\tc";
         }
         response += "\n" + opponentPlayerGameBoard.getDeckZone().size() + "\n";
@@ -471,8 +478,10 @@ public interface MainPhasesController {
 //            imageView.setX(ElementsCoordinates.getUserHandCards().get(i).getX());
 //            imageView.setY(ElementsCoordinates.getUserHandCards().get(i).getY());
 //            GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(imageView);
-            ImageView imageView = Card.getCardImage(opponentPlayerGameBoard.getHandCards().get(i).getCellCard(), 103);
+            Card card = playerGameBoard.getHandCards().get(i).getCellCard();
+            ImageView imageView = Card.getCardImage(card, 103);
             GameMenuController.getGameMenuController().userHandCardsContainer.getChildren().add(imageView);
+            GameMenuController.getGameMenuController().addEventForCardImage(imageView, card);
 
             response += "c\t";
         }
