@@ -2,12 +2,15 @@ package yugioh.controller.menucontroller;
 
 
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
 import yugioh.view.Menus.DuelMenu;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GameMenuController extends MenuController implements Initializable {
+
+    public ImageView hoveredImage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
