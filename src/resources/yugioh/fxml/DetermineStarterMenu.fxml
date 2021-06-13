@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.DetermineStarterMenuController">
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.DetermineStarterMenuController">
     <JFXButton buttonType="RAISED" layoutX="57.0" layoutY="635.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
         <styleClass>
             <String fx:value="buttonText" />
@@ -21,7 +20,7 @@
             <Font size="20.0" />
         </font>
     </Label>
-    <JFXButton fx:id="head" layoutX="268.0" layoutY="117.0" onMouseClicked="#headClicked" mnemonicParsing="false" prefHeight="45.0" prefWidth="160.0" ripplerFill="#e13434" stylesheets="@../CSS/Menu.css" text="HEAD">
+    <JFXButton fx:id="head" layoutX="268.0" layoutY="117.0" mnemonicParsing="false" onMouseClicked="#headClicked" prefHeight="45.0" prefWidth="160.0" ripplerFill="#e13434" stylesheets="@../CSS/Menu.css" text="HEAD">
         <styleClass>
             <String fx:value="buttonText" />
             <String fx:value="buttonShape" />
@@ -36,4 +35,5 @@
          <String fx:value="buttonHover" />
       </styleClass>
    </JFXButton>
+   <Label fx:id="firstPlayerName" layoutX="27.0" layoutY="112.0" styleClass="buttonText" />
 </AnchorPane>

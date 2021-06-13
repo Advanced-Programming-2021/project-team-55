@@ -131,12 +131,12 @@ abstract public class Duel {
     }
 
     private static void assignTurn() {
-        String opponentPlayerName = gameController.getGame().getSecondPlayer().getUser().getNickname();
         try {
             if (gameController.getCurrentRound() == 1)
                 new DetermineStarterMenu().execute();
             else {
-                ViewInterface.showResult(opponentPlayerName + " do you want to be the first player? yes/no");
+                String playerName = gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1).getUser().getNickname();
+                ViewInterface.showResult(playerName + " do you want to be the first player? yes/no");
                 String input = ViewInterface.getInput();
                 while (!input.equals("no") && !input.equals("yes")) {
                     ViewInterface.showResult("Error: invalid choice!");
@@ -144,13 +144,13 @@ abstract public class Duel {
                 }
                 switch (input) {
                     case "yes": {
-                        gameController.setCurrentTurnPlayer(gameController.getGame().getSecondPlayer());
-                        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getFirstPlayer());
+                        gameController.setCurrentTurnPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
+                        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
                         break;
                     }
                     case "no": {
-                        gameController.setCurrentTurnPlayer(gameController.getGame().getFirstPlayer());
-                        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getSecondPlayer());
+                        gameController.setCurrentTurnPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
+                        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
                         break;
                     }
                 }

@@ -2,11 +2,9 @@ package yugioh.controller.menucontroller;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Label;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.view.Menus.DuelMenu;
-import yugioh.view.Menus.Toast;
-import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.ViewInterface;
 import yugioh.view.gamephases.Duel;
 
@@ -18,6 +16,7 @@ public class DetermineStarterMenuController implements Initializable {
     private static GameController gameController;
     public JFXButton head;
     public JFXButton tale;
+    public Label firstPlayerName;
 
     public DetermineStarterMenuController() {
         DetermineStarterMenuController.gameController = Duel.getGameController();
@@ -27,15 +26,10 @@ public class DetermineStarterMenuController implements Initializable {
         DetermineStarterMenuController.gameController = gameController;
     }
 
-    private void assignTurn() {
+    private void assignTurn(String choice) {
         String currentPlayerName = gameController.getGame().getFirstPlayer().getUser().getNickname();
-        String request = currentPlayerName + " choose a side: 1-head 2-tale";
-        ViewInterface.showResult(request);
-        String choice = ViewInterface.getInput();
-        while (!choice.equals("1") && !choice.equals("2")) {
-            ViewInterface.showResult("Error: invalid choice!");
-            choice = ViewInterface.getInput();
-        }
+        String opponentPlayerName = gameController.getGame().getSecondPlayer().getUser().getNickname();
+
         if (Integer.parseInt(choice) == gameController.tossCoin()) {
             ViewInterface.showResult(currentPlayerName + " do you want to be the first player? yes/no");
             String input = ViewInterface.getInput();
@@ -55,12 +49,32 @@ public class DetermineStarterMenuController implements Initializable {
                     break;
                 }
             }
+        } else {
+            ViewInterface.showResult(opponentPlayerName + " do you want to be the first player? yes/no");
+            String input = ViewInterface.getInput();
+            while (!input.equals("no") && !input.equals("yes")) {
+                ViewInterface.showResult("Error: invalid choice!");
+                input = ViewInterface.getInput();
+            }
+            switch (input) {
+                case "yes": {
+                    gameController.setCurrentTurnPlayer(gameController.getGame().getSecondPlayer());
+                    gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getFirstPlayer());
+                    break;
+                }
+                case "no": {
+                    gameController.setCurrentTurnPlayer(gameController.getGame().getFirstPlayer());
+                    gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getSecondPlayer());
+                    break;
+                }
+            }
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        String currentPlayerName = gameController.getGame().getFirstPlayer().getUser().getNickname();
+        firstPlayerName.setText(currentPlayerName + " :");
     }
 
     public void back() throws Exception {
@@ -68,10 +82,15 @@ public class DetermineStarterMenuController implements Initializable {
     }
 
     public void headClicked() {
-        assignTurn();
+        head.setDisable(true);
+        tale.setDisable(true);
+        assignTurn("1");
     }
 
     public void taleClicked() {
+        head.setDisable(true);
+        tale.setDisable(true);
+        assignTurn("2");
     }
 
 }
