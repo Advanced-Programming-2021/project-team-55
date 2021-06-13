@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="670.0" prefWidth="940.0" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.RivalSelectionMenuController">
+
+        <JFXButton fx:id="cancel" buttonType="RAISED" focusTraversable="false" layoutX="27.0" layoutY="596.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Cancel">
+         <styleClass>
+             <String fx:value="buttonText" />
+             <String fx:value="buttonShape" />
+             <String fx:value="buttonHover" />
+         </styleClass>
+     </JFXButton>
+ <Label layoutX="234.0" layoutY="74.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Rival Selection Menu" textFill="#fafa00">
+     <font>
+         <Font size="20.0" />
+     </font>
+ </Label>
+   <Label alignment="CENTER" layoutX="297.0" layoutY="193.0" prefHeight="34.0" prefWidth="335.0" text="select rival:">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Label>
+   <JFXButton fx:id="start" buttonType="RAISED" focusTraversable="false" layoutX="356.0" layoutY="459.0" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="go!">
+      <styleClass>
+         <String fx:value="buttonText" />
+         <String fx:value="buttonShape" />
+         <String fx:value="buttonHover" />
+      </styleClass>
+   </JFXButton>
+   <ChoiceBox fx:id="rivals" focusTraversable="false" layoutX="350.0" layoutY="245.0" prefHeight="34.0" prefWidth="230.0" />
+   <ToggleButton fx:id="threeRounds" layoutX="471.0" layoutY="369.0" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="48.0" prefWidth="112.0" text="3 rounds" />
+   <ToggleButton fx:id="oneRound" layoutX="350.0" layoutY="369.0" mnemonicParsing="false" onMouseClicked="#clickThreeRounds" prefHeight="48.0" prefWidth="112.0" text="1 round" />
+
+</AnchorPane>
