@@ -21,13 +21,65 @@
       <font>
          <Font size="10.0" />
       </font></Label>
-    <VBox alignment="CENTER" layoutX="325.0" layoutY="1.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="720.0" prefWidth="757.0" spacing="10.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="325.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="1.0">
-        <Label layoutX="248.0" layoutY="40.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Game" textFill="#fafa00">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </Label>
-    </VBox>
+    <HBox alignment="CENTER_LEFT" layoutX="325.0" layoutY="1.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="720.0" prefWidth="757.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="325.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER_LEFT" prefHeight="721.0" prefWidth="75.5">
+         <children>
+            <VBox alignment="CENTER" maxWidth="-Infinity" prefHeight="721.0" prefWidth="67.0">
+               <children>
+                  <Label fx:id="DPPhaseLabel" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" styleClass="buttonText2" text="DP" textFill="#fafa00">
+                     <font>
+                        <Font size="40" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="SPPhaseLabel" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="347.0" styleClass="buttonText2" text="SP" textFill="#fafa0080">
+                     <font>
+                        <Font size="40" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="SPPhaseLabel1" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="371.0" styleClass="buttonText2" text="M1" textFill="#fafa0080">
+                     <font>
+                        <Font size="40" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="SPPhaseLabel11" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="424.0" styleClass="buttonText2" text="BP" textFill="#fafa0080">
+                     <font>
+                        <Font size="40" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="SPPhaseLabel111" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="448.0" styleClass="buttonText2" text="M2" textFill="#fafa0080">
+                     <font>
+                        <Font size="40" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="SPPhaseLabel1111" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="471.0" styleClass="buttonText2" text="EP" textFill="#fafa0080">
+                     <font>
+                        <Font size="40" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="15.0" />
+                     </VBox.margin>
+                  </Label>
+               </children></VBox>
+         </children></VBox>
+        <ImageView fitHeight="684.0" fitWidth="772.0" pickOnBounds="true" preserveRatio="true" scaleX="1.06" scaleY="1.055">
+            <Image url="@../PNG/Field/fie_desert.jpg" />
+        </ImageView>
+    </HBox>
    <Label fx:id="defLabel" layoutX="162.0" layoutY="527.0" styleClass="buttonText" text="DEF:">
       <font>
          <Font size="10.0" />
@@ -45,13 +97,13 @@
    </Label>
    <Separator layoutY="560.0" prefHeight="4.0" prefWidth="325.0" />
    <Separator layoutY="107.0" prefHeight="4.0" prefWidth="325.0" />
-   <Separator layoutX="323.0" layoutY="1.0" orientation="VERTICAL" prefHeight="720.0" prefWidth="0.0" />
+   <Separator layoutX="322.0" layoutY="1.0" orientation="VERTICAL" prefHeight="720.0" prefWidth="0.0" />
    <Label layoutX="67.0" layoutY="11.0" styleClass="buttonText2" text="LP" textFill="#fafa00">
       <font>
          <Font size="40" />
       </font>
    </Label>
-   <Label fx:id="rivalLP" layoutX="143.0" layoutY="19.0" prefHeight="28.0" prefWidth="0.0" style="-fx-font-size: 30;" styleClass="buttonText" text="0">
+   <Label fx:id="rivalLP" layoutX="138.0" layoutY="18.0" style="-fx-font-size: 30;" styleClass="buttonText" text="0" textAlignment="CENTER">
       <font>
          <Font size="16.0" />
       </font>
@@ -62,7 +114,7 @@
          <Font size="40" />
       </font>
    </Label>
-   <Label fx:id="userLP" layoutX="141.0" layoutY="584.0" prefHeight="28.0" prefWidth="0.0" style="-fx-font-size: 30;" styleClass="buttonText" text="0">
+   <Label fx:id="userLP" layoutX="141.0" layoutY="584.0" style="-fx-font-size: 30;" styleClass="buttonText" text="0">
       <font>
          <Font size="16.0" />
       </font>
