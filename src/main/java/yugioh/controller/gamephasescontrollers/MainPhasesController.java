@@ -367,6 +367,7 @@ public interface MainPhasesController {
         }
         for (int i = 0; i < opponentPlayerGameBoard.getHandCards().size(); i++) {
             ImageView imageView = Card.getCardImage(null, 103);
+            imageView.rotateProperty().setValue(180);
             GameMenuController.getGameMenuController().rivalHandCardsContainer.getChildren().add(imageView);
             GameMenuController.getGameMenuController().addEventForCardImage(imageView, null);
             response += "\tc";

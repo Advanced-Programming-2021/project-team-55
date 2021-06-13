@@ -131,7 +131,7 @@
         </font>
     </JFXButton>
     <Pane fx:id="gameBoardPane" layoutX="393.0" prefHeight="720.0" prefWidth="680.0">
-        <HBox fx:id="rivalHandCardsContainer" alignment="BOTTOM_CENTER" layoutX="31.0" prefHeight="69.0" prefWidth="649.0" />
+        <HBox fx:id="rivalHandCardsContainer" alignment="BOTTOM_CENTER" layoutX="31.0" layoutY="-104.0" prefHeight="173.0" prefWidth="649.0" />
         <HBox fx:id="userHandCardsContainer" alignment="TOP_CENTER" layoutX="31.0" layoutY="636.0" prefHeight="84.0" prefWidth="649.0">
          <opaqueInsets>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
