@@ -1,5 +1,8 @@
 package yugioh.view.gamephases;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import yugioh.controller.AIPlayerController;
 import yugioh.controller.CheatController;
 import yugioh.controller.gamephasescontrollers.GameController;
@@ -7,6 +10,8 @@ import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
 import yugioh.view.Menus.DetermineStarterMenu;
 import yugioh.view.Menus.GameMenu;
+import yugioh.view.Menus.Toast;
+import yugioh.view.Menus.WelcomeMenu;
 import yugioh.view.ViewInterface;
 
 import java.util.regex.Matcher;
@@ -32,7 +37,7 @@ abstract public class Duel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        start(gameController);//todo
+        start(gameController);
     }
 
     private static void start(GameController gameController) {
@@ -86,6 +91,7 @@ abstract public class Duel {
             response += "its " + gameController.getCurrentTurnPlayer().getUser().getNickname() + "'s turn\n";
         }
         response += "\nphase: " + gameController.currentPhase.name;
+        Toast.makeText(WelcomeMenu.getStage(), response);
         ViewInterface.showResult(response);
     }
 

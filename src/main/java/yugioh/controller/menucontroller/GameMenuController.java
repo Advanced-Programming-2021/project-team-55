@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import yugioh.view.Menus.DuelMenu;
 import yugioh.view.gamephases.Duel;
 
@@ -13,6 +14,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GameMenuController extends MenuController implements Initializable {
+
+    private static GameMenuController gameMenuController;
 
     public ImageView hoveredImage;
     public ScrollPane descriptionContainer;
@@ -25,10 +28,18 @@ public class GameMenuController extends MenuController implements Initializable 
     public ProgressBar rivalLPBar;
     public Label userLP;
     public ProgressBar userLPBar;
+    public Label dpLabel;
+    public Label spLabel;
+    public Label m1Label;
+    public Label bpLabel;
+    public Label m2Label;
+    public Label epLabel;
+    public Pane gameBoardPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateGameStatusUIs();
+        gameMenuController = this;
     }
 
     public void backClicked() throws Exception {
@@ -44,4 +55,11 @@ public class GameMenuController extends MenuController implements Initializable 
         userLPBar.setProgress((double) myLP / 8000);
     }
 
+    public static GameMenuController getGameMenuController() {
+        return gameMenuController;
+    }
+
+    public static void setGameMenuController(GameMenuController gameMenuController) {
+        GameMenuController.gameMenuController = gameMenuController;
+    }
 }
