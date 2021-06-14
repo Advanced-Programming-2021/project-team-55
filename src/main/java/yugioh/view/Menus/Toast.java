@@ -52,7 +52,7 @@ public final class Toast {
                 fadeOutTimeline.getKeyFrames().add(fadeOutKey1);
                 fadeOutTimeline.setOnFinished((aeb) -> toastStage.close());
                 fadeOutTimeline.play();
-            }).start();
+            },"toast").start();
         });
         fadeInTimeline.play();
     }

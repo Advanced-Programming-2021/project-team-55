@@ -1,5 +1,7 @@
 package yugioh.model.board;
 
+import javafx.scene.image.ImageView;
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
 import yugioh.model.cards.monsters.CommandKnight;
@@ -15,14 +17,16 @@ public class Cell {
     private static Cell selectedCell;
     public CardStatus cardStatus;
     private Card card;
+    transient private ImageView cardImage;
 
     public Cell() {
     }
 
     public Cell(Card card) {
-        this.card = card;
-    }
 
+        setCard(card);
+       GameMenuController.getGameMenuController().addEventForCardImage(this.cardImage,card);
+    }
 
     public static void deselectCell() {//better to be same as select cell or rename
         selectedCell = null;
@@ -64,6 +68,7 @@ public class Cell {
         } else {
             cardStatus = CardStatus.HIDDEN;
         }
+        cardImage = Card.getCardImage(card, 90);
     }
 
     public boolean isEmpty() {
@@ -81,4 +86,7 @@ public class Cell {
     }
 
 
+   public ImageView getCardImage() {
+       return cardImage;
+   }
 }

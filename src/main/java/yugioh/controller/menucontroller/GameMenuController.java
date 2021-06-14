@@ -7,13 +7,17 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 import yugioh.model.User;
+import yugioh.model.board.Cell;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
 import yugioh.view.Menus.DuelMenu;
@@ -21,6 +25,8 @@ import yugioh.view.gamephases.Duel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static javafx.scene.paint.Color.GREEN;
 
 public class GameMenuController extends MenuController implements Initializable {
 
@@ -46,13 +52,15 @@ public class GameMenuController extends MenuController implements Initializable 
     public Pane gameBoardPane;
     public HBox rivalHandCardsContainer;
     public HBox userHandCardsContainer;
-
+    public Pane rivalDeckZoneContainer;
+    public Pane userDeckZoneContainer;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateGameStatusUIs();
         gameMenuController = this;
         userHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
         rivalHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
+        userDeckZoneContainer.setPadding(new Insets(0,0,0,0));
         userHandCardsContainer.setSpacing(17);
         rivalHandCardsContainer.setSpacing(17);
         hoveredImage.setImage(Card.getCardImage(null, 354).getImage());
@@ -99,6 +107,13 @@ public class GameMenuController extends MenuController implements Initializable 
                 atkValue.setOpacity(0);
             }
             event.consume();
+        });
+        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
+            DropShadow selectEffect = new DropShadow(BlurType.values()[1],
+                    GREEN, 10, 2.0f, 0, 0);
+            selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
+            imageView.setEffect(selectEffect);
+            //here
         });
     }
 

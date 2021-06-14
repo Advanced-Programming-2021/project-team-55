@@ -64,7 +64,7 @@ public class WelcomeMenu extends Application {
                     e.printStackTrace();
                 }
             }
-        });
+        },"save data");
         saveDataThread.setDaemon(true);
         saveDataThread.start();
         Stage stage = new Stage();
