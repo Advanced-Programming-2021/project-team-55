@@ -1,6 +1,7 @@
 package yugioh.model.board;
 
 import yugioh.controller.gamephasescontrollers.GameController;
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Deck;
 import yugioh.model.cards.Monster;

@@ -369,7 +369,8 @@ public interface MainPhasesController {
             response += "\t";
         }
         for (int i = 0; i < opponentPlayerGameBoard.getHandCards().size(); i++) {
-            ImageView imageView = Card.getCardImage(null, 90);
+            ImageView imageView=opponentPlayerGameBoard.getHandCards().get(i).getCellCard().getCardBackImage();
+            imageView.setFitWidth(70);
             imageView.rotateProperty().setValue(180);
             gameMenuController.rivalHandCardsContainer.getChildren().add(imageView);
             gameMenuController.addEventForCardImage(imageView, null);
@@ -377,7 +378,8 @@ public interface MainPhasesController {
         }
         double paneX=gameMenuController.rivalDeckZoneContainer.getLayoutX();
         for(int i=opponentPlayerGameBoard.getDeckZone().size()-1;i>=0;i--){
-            ImageView imageView=Card.getCardImage(null,70);
+            ImageView imageView=opponentPlayerGameBoard.getDeckZone().get(i).getCellCard().getCardBackImage();
+            imageView.setFitWidth(70);
             imageView.rotateProperty().set(180.0);
             imageView.setLayoutX(paneX-i/2);
             gameMenuController.rivalDeckZoneContainer.getChildren().add(imageView);
@@ -487,7 +489,8 @@ public interface MainPhasesController {
         response += "\n\t\t\t\t\t\t" + playerGameBoard.getDeckZone().size() + "\n";
         double xPane=gameMenuController.userDeckZoneContainer.getLayoutX();
         for(int i=playerGameBoard.getDeckZone().size()-1;i>=0;i--){
-            ImageView imageView=Card.getCardImage(null,70);
+            ImageView imageView=playerGameBoard.getDeckZone().get(i).getCellCard().getCardBackImage();
+            imageView.setFitWidth(70);
             imageView.setLayoutX(xPane+i/2);
             gameMenuController.userDeckZoneContainer.getChildren().add(imageView);
             gameMenuController.addEventForCardImage(imageView,null);
@@ -500,10 +503,9 @@ public interface MainPhasesController {
 //            imageView.setY(ElementsCoordinates.getUserHandCards().get(i).getY());
 //            GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(imageView);
             //Card card = playerGameBoard.getHandCards().get(i).getCellCard();
-
-            gameMenuController.userHandCardsContainer.getChildren().add(cell.getCardImage());
-            //gameMenuController.addEventForCardImage(imageView, card);
-
+            ImageView imageView=cell.getCellCard().getCardImageForDeck(90);
+            gameMenuController.userHandCardsContainer.getChildren().add(imageView);
+            gameMenuController.addEventForCardImage(imageView, cell.getCellCard());
             response += "c\t";
         }
         response += "\n\t\t" + currentPlayer.getUser().getNickname() + ":" + currentPlayer.getLP() + ConsoleColors.RESET;

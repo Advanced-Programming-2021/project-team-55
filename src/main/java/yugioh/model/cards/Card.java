@@ -25,6 +25,9 @@ public class Card {
     protected SpellOrTrap magicType;
     protected Kind cardKind;
     protected String image;
+    transient protected ImageView cardImage;
+    transient protected ImageView backImage;
+
 
     public Card(String name, String description, int price, Kind cardKind, SpellOrTrap magicType) {
         setName(name);
@@ -420,14 +423,20 @@ public class Card {
         String name = getClass().getName().replaceAll("yugioh.model.cards.monsters.",
                 "").replaceAll("yugioh.model.cards.trapandspells.", "");
         image="src/resources/yugioh/PNG/cardsImages/" + name + ".jpg";
+        cardImage=new ImageView(new Image(new File(image).toURI().toString()));
+        backImage=new ImageView(new Image(new File("src/resources/yugioh/PNG/cardsImages/Unknown.jpg").
+                toURI().toString()));
     }
 
     public ImageView getCardImageForDeck(int width){
-        File imageFile = new File(image);
-        ImageView imageView = new ImageView(new Image(imageFile.toURI().toString()));
-        imageView.setPreserveRatio(true);
-        imageView.setFitWidth(width);
-        return imageView;
+        cardImage.setPreserveRatio(true);
+        cardImage.setFitWidth(width);
+        return cardImage;
+    }
+    public ImageView getCardBackImage(){
+        backImage.setPreserveRatio(true);
+        backImage.setFitWidth(70);
+        return backImage;
     }
 
     public static Card getArrayListCard(String cardName, ArrayList<Card> cards) {
@@ -441,6 +450,10 @@ public class Card {
         if(getCardByName(card.name)==null){
             allCards.add(card);
         }
+    }
+
+    public ImageView getCardImage() {
+        return cardImage;
     }
 
     public enum Kind {MONSTER, MAGIC}

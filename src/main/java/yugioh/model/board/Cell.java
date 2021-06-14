@@ -1,6 +1,7 @@
 package yugioh.model.board;
 
 import javafx.scene.image.ImageView;
+import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
@@ -11,21 +12,34 @@ import yugioh.model.cards.trapandspells.Swordofdarkdestruction;
 import yugioh.model.cards.trapandspells.UnitedWeStand;
 import yugioh.view.gamephases.Duel;
 
+import java.util.ArrayList;
+
 
 public class Cell {
 
     private static Cell selectedCell;
     public CardStatus cardStatus;
     private Card card;
-    transient private ImageView cardImage;
+    private static ArrayList<Cell>allCells=new ArrayList<>();
+
+    public static void setSelectedCellByImage(ImageView imageView){
+        for(Cell cell:allCells){
+            if(!cell.isEmpty()&&(cell.getCellCard().getCardImage()==imageView||cell.getCellCard().getCardBackImage()==imageView)){
+                selectedCell=cell;
+            }
+        }
+    }
+    public static ArrayList<Cell> getAllCells() {
+        return allCells;
+    }
 
     public Cell() {
+        allCells.add(this);
     }
 
     public Cell(Card card) {
-
         setCard(card);
-       GameMenuController.getGameMenuController().addEventForCardImage(this.cardImage,card);
+        allCells.add(this);
     }
 
     public static void deselectCell() {//better to be same as select cell or rename
@@ -68,7 +82,6 @@ public class Cell {
         } else {
             cardStatus = CardStatus.HIDDEN;
         }
-        cardImage = Card.getCardImage(card, 90);
     }
 
     public boolean isEmpty() {
@@ -85,8 +98,4 @@ public class Cell {
         CommandKnight.deActivateEffect(this);
     }
 
-
-   public ImageView getCardImage() {
-       return cardImage;
-   }
 }

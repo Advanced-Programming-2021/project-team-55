@@ -1,6 +1,7 @@
 package yugioh.controller.gamephasescontrollers;
 
 import yugioh.controller.menucontroller.DetermineStarterMenuController;
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.CoinDice;
 import yugioh.model.Player;
 import yugioh.model.User;
@@ -43,6 +44,7 @@ public class GameController {
     private MainPhase2Controller mainPhase2Controller;
     private EndPhaseController endPhaseController;
     private DetermineStarterMenu determineStarterMenu;
+    private GameMenuController gameMenuController;
 
     public GameController(Game game) {
         this.game = game;
@@ -50,6 +52,14 @@ public class GameController {
     }
 
     public GameController() {
+    }
+
+    public void setGameMenuController(GameMenuController gameMenuController) {
+        this.gameMenuController = gameMenuController;
+    }
+
+    public GameMenuController getGameMenuController() {
+        return gameMenuController;
     }
 
     public Cell getLastSummonedMonster() {

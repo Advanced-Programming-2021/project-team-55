@@ -56,7 +56,9 @@ public class GameMenuController extends MenuController implements Initializable 
     public Pane userDeckZoneContainer;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Duel.getGameController().setGameMenuController(this);
         updateGameStatusUIs();
+        updateCells();
         gameMenuController = this;
         userHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
         rivalHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
@@ -66,6 +68,13 @@ public class GameMenuController extends MenuController implements Initializable 
         hoveredImage.setImage(Card.getCardImage(null, 354).getImage());
         description.setWrapText(true);
         description.setTextAlignment(TextAlignment.JUSTIFY);
+    }
+
+    private void updateCells() {
+        for(Cell cell:Cell.getAllCells()){
+            if(!cell.isEmpty())
+            addEventForCardImage(cell.getCellCard().getCardImage(), cell.getCellCard());
+        }
     }
 
     public void backClicked() throws Exception {
@@ -90,9 +99,9 @@ public class GameMenuController extends MenuController implements Initializable 
             Platform.runLater(() -> hoveredImage.setImage(imageView.getImage()));
             if (card == null){
                 Platform.runLater(() -> description.setText(""));
-                return;
             }
-            Platform.runLater(() -> description.setText(card.getDescription()));
+            else{
+                Platform.runLater(() -> description.setText(card.getDescription()));
             if (card instanceof Monster) {
                 defValue.setOpacity(1);
                 atkValue.setOpacity(1);
@@ -107,14 +116,24 @@ public class GameMenuController extends MenuController implements Initializable 
                 atkValue.setOpacity(0);
             }
             event.consume();
-        });
+            }});
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
-            DropShadow selectEffect = new DropShadow(BlurType.values()[1],
-                    GREEN, 10, 2.0f, 0, 0);
-            selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
-            imageView.setEffect(selectEffect);
-            //here
+            if(Cell.getSelectedCell()!=null&&!Cell.getSelectedCell().isEmpty()) {
+                Cell.getSelectedCell().getCellCard().getCardImage().setEffect(null);
+                Cell.getSelectedCell().getCellCard().getCardBackImage().setEffect(null);
+            }
+            if(Cell.getSelectedCell()!=null&&Cell.getSelectedCell().getCellCard().getCardImage().equals(imageView)){
+                Cell.setSelectedCell(null);
+            }else {
+                DropShadow selectEffect = new DropShadow(BlurType.values()[1],
+                        GREEN, 10, 2.0f, 0, 0);
+                selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
+                Cell.setSelectedCellByImage(imageView);
+                imageView.setEffect(selectEffect);
+            }
+            event.consume();
         });
     }
+
 
 }
