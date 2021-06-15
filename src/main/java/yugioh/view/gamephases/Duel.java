@@ -1,6 +1,5 @@
 package yugioh.view.gamephases;
 
-import yugioh.controller.AIPlayerController;
 import yugioh.controller.CheatController;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.exceptions.GameException;
