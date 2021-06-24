@@ -1,5 +1,6 @@
 package controller.gamephasescontrollers;
 
+import controller.AIPlayerController;
 import model.CoinDice;
 import model.Player;
 import model.User;
@@ -314,14 +315,15 @@ public class GameController {
             currentRound++;
             ViewInterface.showResult(response);
             changeCards(currentTurnPlayer);
+            AIPlayerController.setIsGameEnded(true);
             changeCards(currentTurnOpponentPlayer);
+            AIPlayerController.setIsGameEnded(false);
             Duel.runGame(this);
         }
-
     }
 
     private void undoMakeAICheatCommand() {
-        if (!currentTurnPlayer.getUser().getNickname().equals("ai") && currentTurnPlayer.isAI())
+        if (!(currentTurnPlayer.getUser().getNickname().equals("ai")) && currentTurnPlayer.isAI())
             currentTurnPlayer.setAI(false);
         if (!currentTurnOpponentPlayer.getUser().getNickname().equals("ai") && currentTurnOpponentPlayer.isAI())
             currentTurnOpponentPlayer.setAI(false);
@@ -426,6 +428,10 @@ public class GameController {
     }
 
     private void changeCards(Player player) {
+        if(player.isAI())
+            return;
+        if(player.getUser().getNickname().equals("ai"))
+            return;
         Deck deck = player.getPlayDeck();
         String deckInfo = player.getUser().getNickname() + "’s Deck: " + deck.getName() + "\n";
         ArrayList<Card> monsters = Card.getMonstersSorted(deck.getMainDeck());
