@@ -16,7 +16,7 @@ public class JustForScore {
 //        return monsterCardsDetailsList;
 //    }
 //
-//    public static List<TrapAndSpellCardDetails> importTrapAndSpellsDetails() throws FileNotFoundException {//todo save the list in model
+//    public static List<TrapAndSpellCardDetails> importTrapAndSpellsDetails() throws FileNotFoundException {
 //        List<TrapAndSpellCardDetails> trapAndSpellCardDetailsList = new CsvToBeanBuilder(
 //                new FileReader("src/resources/cards details/SpellTrap.csv"))
 //                .withType(TrapAndSpellCardDetails.class).build().parse();

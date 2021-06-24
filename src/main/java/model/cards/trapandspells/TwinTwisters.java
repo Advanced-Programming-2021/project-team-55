@@ -69,7 +69,7 @@ public class TwinTwisters extends SpellAndTrap {
         }
 
         Cell.setSelectedCell(oldSelectedCell);
-        updateSpellInGameBoard(gameController);//todo, conflict with AI
+        updateSpellInGameBoard(gameController);
     }
 
     private static boolean canActivate(GameController gameController) {

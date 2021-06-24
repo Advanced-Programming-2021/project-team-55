@@ -1,6 +1,5 @@
 package controller;
 
-import com.opencsv.CSVWriter;
 import controller.gamephasescontrollers.GameController;
 import model.CoinDice;
 import model.board.CardStatus;
@@ -8,7 +7,6 @@ import model.board.Cell;
 import model.cards.Monster;
 import view.gamephases.Duel;
 
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 

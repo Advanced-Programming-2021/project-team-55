@@ -199,7 +199,7 @@ public class User {
 
     private void initializeCards() {
         ArrayList<Card> initCards = new ArrayList<>();
-        //game init cards:
+
         initCards.add(new AxeRaider());
         initCards.add(new Babydragon());
         initCards.add(new CallofTheHaunted());
@@ -208,12 +208,11 @@ public class User {
         initCards.add(new HarpiesFeatherDuster());
         initCards.add(new MagicCylinder());
         initCards.add(new MagicJamamer());
-        initCards.add(new MonsterReborn());
+        initCards.add(new SpiralSerpent());
         initCards.add(new Mysticalspacetyphoon());
         initCards.add(new SlotMachine());
         initCards.add(new TorrentialTribute());
 
-        //other cards added by me (parham)
 
         initCards.add(new BattleOX());
         initCards.add(new BeastKingBarbaros());

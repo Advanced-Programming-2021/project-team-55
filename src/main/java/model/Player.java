@@ -42,7 +42,7 @@ public class Player {
         setLP(this.getLP() + amount);
     }
 
-    public GameBoard getGameBoard() {//better to rename to getPlayerGameBoard
+    public GameBoard getGameBoard() {
         return playerGameBoard;
     }
 

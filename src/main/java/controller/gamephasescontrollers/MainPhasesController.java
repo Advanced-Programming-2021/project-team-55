@@ -59,7 +59,8 @@ public interface MainPhasesController {
         currentPlayer.getGameBoard().getHandCards().remove(selectedCell);
         Cell.deselectCell();
     }
-    default boolean isSummonedMonsterATKMoreThan1000(Cell summonedCell) {//todo check null pointer exception
+
+    default boolean isSummonedMonsterATKMoreThan1000(Cell summonedCell) {
         return ((Monster) summonedCell.getCellCard()).getAtk() >= 1000;
     }
 
@@ -112,18 +113,15 @@ public interface MainPhasesController {
         summonEffectSpellAndTrap.add(new TorrentialTribute());
         if (isSummonedMonsterATKMoreThan1000(summonedCell))
             flipSummonEffectSpellAndTrap.add(new TorrentialTribute());
-        //todo add the rest of summon monsters thing
     }
 
     private void addMonstersToFlipSummonEffectSpellAndTrap(Cell summonedCell) {
         if (isSummonedMonsterATKMoreThan1000(summonedCell))
             flipSummonEffectSpellAndTrap.add(new TorrentialTribute());
-        //todo add the rest of summon monsters thing
     }
 
     private void addMonstersToSpecialSummonEffectSpellAndTrap() {
         SpecialSummonEffectSpellAndTrap.add(new TorrentialTribute());
-        //todo add the rest of summon monsters thing
     }
 
     private void handleTributeForNormalSummon(Player currentPlayer, Cell selectedCell, int monsterLevel, boolean isSpecialSummon) throws GameException {
@@ -168,24 +166,10 @@ public interface MainPhasesController {
             for (Cell tribute : tributes) {
                 tribute.removeCardFromCell(playerGameBoard);
             }
-//            for (int i=0;i<numberOfTributes;i++){
-//                ViewInterface.showResult("select cell to tribute:");
-//                Duel.processSelect(ViewInterface.getInput());
-//                newSelectedCell = Cell.getSelectedCell();
-//                if (!currentPlayer.getGameBoard().isCellInMonsterZone(newSelectedCell))
-//                    ViewInterface.showResult(GameResponses.NO_MONSTER_ON_CELL.response);
-//                tributes.add(newSelectedCell);
-//                ViewInterface.showResult("cell taken");
-//            }
-//            for (Cell tribute : tributes) {
-//                tribute.removeCardFromCell(currentPlayer.getGameBoard());
-//            }
-//
-//        }
         }
     }
 
-    default void setCard(GameController gameController) throws GameException {//todo, the method can insert 6 spells
+    default void setCard(GameController gameController) throws GameException {
         Cell selectedCell = Cell.getSelectedCell();
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         if (selectedCell == null) {
@@ -267,24 +251,10 @@ public interface MainPhasesController {
                 } else if (playerGameBoard.isSpellAndTrapCardZoneFull() && spell.getAttribute() != SpellOrTrapAttribute.FIELD) {
                     throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
                 } else {
-                    //todo activate spell
                     if(Cell.getSelectedCell().isEmpty()||Cell.getSelectedCell()==null){
                         System.out.println("error in activate effect");
                     }
                     SpellAndTrap.activateSpellEffects(gameController, spell);
-//                        if(!playerGameBoard.isCellInSpellAndTrapZone(selectedCell)) {
-//                            playerGameBoard.getHandCards().remove(selectedCell);
-//                            if (spell.getAttribute() == SpellOrTrapAttribute.FIELD) {
-//                                playerGameBoard.addCardToFieldZone(card);
-//                                gameController.currentTurnOpponentPlayer.getGameBoard().addCardToFieldZone(card);
-//                            } else {
-//                                playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED,gameController);
-//                            }
-//                        }
-//                        else{
-//                            selectedCell.setCardStatus(CardStatus.OCCUPIED);
-//                        }
-//                        Cell.deselectCell();
                 }
             }
         }
@@ -299,7 +269,6 @@ public interface MainPhasesController {
         if (!currentPlayer.getGameBoard().isCellInMonsterZone(selectedCell)) {
             throw new GameException(GameResponses.CAN_NOT_CHANGE_CARD_POSITION.response);
         }
-        //todo  ببینین ارور دوم رو درست هندل کردم: در همین دور تازه روی زمین گذاشته شده باشد
         if (selectedCell.getCardStatus() != CardStatus.DEFENSIVE_HIDDEN || gameController.getChangedPositionCells().contains(selectedCell)) {
             throw new GameException(GameResponses.CAN_NOT_FLIP_SUMMON.response);
         }
@@ -316,11 +285,6 @@ public interface MainPhasesController {
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         while (true) {
-//            if (selectedCell == null) {
-//                throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
-//            } else if (!isSummonable(selectedCell.getCellCard())) {
-//                throw new GameException(GameResponses.CANT_SUMMON_CARD.response);
-//            }
             String input = ViewInterface.getInput();
             if (!input.equals("summon")) {
                 ViewInterface.showResult(GameResponses.YOU_SHOULD_SPECIAL_SUMMON_NOW.response);
@@ -361,7 +325,6 @@ public interface MainPhasesController {
             response += "\tc";
         }
         response += "\n" + opponentPlayerGameBoard.getDeckZone().size() + "\n";
-        response += "\t4\t2\t1\t3\t5\n";
         int[] opponentCellNumbering = {3, 1, 0, 2, 4};
         for (int i = 0; i < 5; i++) {
             if (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentCellNumbering[i]]
@@ -460,7 +423,6 @@ public interface MainPhasesController {
                 }
             }
         }
-        response += "\n\t5\t3\t1\t2\t4";
         response += "\n\t\t\t\t\t\t" + playerGameBoard.getDeckZone().size() + "\n";
         for (int i = 0; i < playerGameBoard.getHandCards().size(); i++) {
             response += "c\t";

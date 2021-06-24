@@ -96,7 +96,6 @@ public class Card {
     public static Card getNewCardObjectByName(String name) {
 
         switch (name) {
-            //monsters:
             case "Battle OX":
                 return new BattleOX();
 
@@ -220,7 +219,8 @@ public class Card {
             case "Command Knight":
                 return new CommandKnight();
 
-            //spell and traps:
+
+
             case "Trap Hole":
                 return new TrapHole();
 
@@ -383,4 +383,5 @@ public class Card {
     }
 
     public enum Kind {MONSTER, MAGIC}
+
 }

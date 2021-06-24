@@ -24,7 +24,7 @@ public class Cell {
     }
 
 
-    public static void deselectCell() {//better to be same as select cell or rename
+    public static void deselectCell() {
         selectedCell = null;
     }
 

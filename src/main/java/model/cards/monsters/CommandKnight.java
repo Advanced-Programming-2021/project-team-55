@@ -21,7 +21,7 @@ public class CommandKnight extends Monster {
                 , 2100, 1000, 1000, 4, MonsterAttribute.FIRE, MonsterType.WARRIOR, CardType.EFFECTIVE);
     }
 
-    public static void handleEffect(CardStatus cardStatus, Cell cell) {//todo deactivate
+    public static void handleEffect(CardStatus cardStatus, Cell cell) {
         if (cell == null || cell.isEmpty() || cardStatus != CardStatus.OFFENSIVE_OCCUPIED ||
                 !cell.getCellCard().getName().equals("Command Knight")) return;
 
@@ -47,7 +47,7 @@ public class CommandKnight extends Monster {
         ViewInterface.showResult("Command Knight effect deActivated: all monsters atk will decrease 400");
         try {
             ((CommandKnight) cell.getCellCard()).owner.getGameBoard().addAllMonstersATK(-400);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 

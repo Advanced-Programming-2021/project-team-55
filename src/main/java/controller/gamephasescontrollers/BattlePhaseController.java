@@ -126,7 +126,7 @@ public class BattlePhaseController {
             response = "opponent’s monster card was " +
                     attackedCell.getCellCard().getName() + " the defense position monster is destroyed";
             response += Marshmallon.handleEffect(gameController, attackerCell, attackedCell);
-            if (!Marshmallon.isMarshmallon(attackedCell))//todo chera ba payiniha fargh miknone? baad inja tanaghoz dareha
+            if (!Marshmallon.isMarshmallon(attackedCell))
                 attackedCell.removeCardFromCell(opponentGameBoard);
         } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
             response = "opponent’s monster card was " +
@@ -240,7 +240,7 @@ public class BattlePhaseController {
         return gameController;
     }
 
-    public int getPower(Cell cell, Cell attackerCell, Cell attackedCell) {//todo null pointer exception
+    public int getPower(Cell cell, Cell attackerCell, Cell attackedCell) {
         switch (cell.getCardStatus()) {
             case DEFENSIVE_OCCUPIED:
             case DEFENSIVE_HIDDEN:

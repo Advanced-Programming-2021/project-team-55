@@ -26,7 +26,6 @@ public class GateGuardian extends Monster {
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         Cell selectedCell = Cell.getSelectedCell();
         if (!selectedCell.getCellCard().getName().equals("Gate Guardian")) return false;
-//todo پنج تا مانستر برا یه هیولا D:
         if (!playerGameBoard.doesMonsterZoneHaveMonsters(5) || !gameController.getMainPhase1Controller().canSpecialSummon(gameController)) {
             throw new GameException(GameResponses.CAN_NOT_SET_OR_SUMMON.response);
         }

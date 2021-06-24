@@ -82,7 +82,7 @@ public class MonsterReborn extends SpellAndTrap {
                 playerGraveyardMonstersCell.remove(choice - 1);
                 try {
                     gameController.getMainPhase1Controller().specialSummon(gameController);
-                } catch (GameException e) {
+                } catch (GameException ignored) {
                 }
                 return;
             } else {

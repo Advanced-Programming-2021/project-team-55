@@ -214,8 +214,6 @@ public class GameController {
         changedPositionCells = new ArrayList<>();
         attackerCellsThisTurn = new ArrayList<>();
         turnCount++;
-        //todo update changedPositionCells & other fields
-        //todo reset attacked arraylist
     }
 
     public void activateTrapEffect(ArrayList<SpellAndTrap> trapsCanBeActivated) {
@@ -426,6 +424,8 @@ public class GameController {
     }
 
     private void changeCards(Player player) {
+        if (player.isAI())
+            return;
         Deck deck = player.getPlayDeck();
         String deckInfo = player.getUser().getNickname() + "’s Deck: " + deck.getName() + "\n";
         ArrayList<Card> monsters = Card.getMonstersSorted(deck.getMainDeck());

@@ -42,22 +42,6 @@ public class MainPhase1 extends Duel {
     @Override
     protected String processCommand(String command) {
         String response = "";
-        //todo injaro badan azam beporsin tozih bedam bahaton check konam
-       /* if (gameController.shouldRitualSummonNow) {
-            if (command.matches(GameRegexes.SELECT.regex)) {
-                response = processSelect(command);
-            } else if (command.matches(GameRegexes.SUMMON.regex)) {
-                try {
-                    mainPhase1Controller.ritualSummon(gameController);
-                    response=GameResponses.SUMMONED_SUCCESSFULLY.response;
-
-                }catch (GameException e){
-                    response=e.toString();
-                }
-            } else {
-                response = GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response;
-            }
-        }*/
         if (command.equals("show attack")) {
             System.out.println(((Monster) Cell.getSelectedCell().getCellCard()).getAtk());
         } else if (command.equals("remove card"))
@@ -124,7 +108,6 @@ public class MainPhase1 extends Duel {
                 response = e.toString();
             }
         }
-        //todo check whether we have handled all methods in this phase or not
         else if (command.matches(GameRegexes.SURRENDER.regex)) {
             gameController.surrender();
         } else if (command.matches(GameRegexes.INCREASE_LP.regex)) {
