@@ -23,7 +23,7 @@ public class RegisterMenu extends WelcomeMenu {
     public void start(Stage stage) throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/RegisterMenu.fxml");
         Parent root = FXMLLoader.load(url);
-        Scene scene = new Scene(root);
+        Scene scene = WelcomeMenu.createScene(root);
         stage.setScene(scene);
         stage.show();
     }

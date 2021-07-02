@@ -75,7 +75,7 @@ public class ScoreBoardMenu extends WelcomeMenu {
         Pane pane= FXMLLoader.load(url);
 //        VBox scoreBoard=(VBox)((VBox)pane.getChildren().get(0)).getChildren().get(1) ;
 //        scoreBoard.getChildren().addAll(showScoreBoard(scoreBoardMenuController.getScoreBoard()));
-        Scene scene=new Scene(pane);
+        Scene scene=WelcomeMenu.createScene(pane);
         stage.setScene(scene);
         stage.show();
     }

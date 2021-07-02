@@ -10,7 +10,7 @@ import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderImage;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.paint.Color;
-import org.jetbrains.annotations.NotNull;
+//import org.jetbrains.annotations.NotNull;
 import yugioh.model.TableItem;
 import yugioh.model.User;
 
@@ -61,7 +61,7 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         }
     }
 
-    @NotNull
+   // @NotNull
     private ArrayList<TableItem> makeTableItemsFromUsers(ArrayList<User> users) {
         ArrayList<TableItem> tableItems = new ArrayList<>();
         for (int i = 0; i < users.size(); i++) {

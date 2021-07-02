@@ -51,7 +51,7 @@ public class User {
         profileImageFile=new File(profileImage);
     }
 
-    public String getProfileImage() {
+    public String getProfileImageString() {
         return profileImage;
     }
 

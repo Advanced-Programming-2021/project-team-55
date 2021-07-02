@@ -14,6 +14,8 @@ public class WelcomeMenuController extends MenuController {
     static int x = 1;
     @FXML
     private MediaView background;
+    public static MediaPlayer backAudio;
+    public static boolean isAudioMuted=false;
 
     public void enterRegisterMenuClicked(MouseEvent mouseEvent) {
         playButtonSound();
@@ -40,16 +42,27 @@ public class WelcomeMenuController extends MenuController {
 
     public void initialize() {
         if (x==1) {
-            AudioClip audioClip =  new AudioClip(new Media(new File("src\\resources\\yugioh\\Audio\\backMusic.mp3").toURI().toString()).getSource());
-            audioClip.setCycleCount(-1);
-            audioClip.play();
-            audioClip.setCycleCount(-1);
+            backAudio =  new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Audio\\backMusic.mp3").toURI().toString()));
+            backAudio.setCycleCount(-1);
+            backAudio.play();
+            backAudio.setCycleCount(-1);
             x=-1;
         }
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\welcome.m4v").toURI().toString()));
         mediaPlayer.play();
         mediaPlayer.setCycleCount(-1);
         background.setMediaPlayer(mediaPlayer);
+    }
+    public static void muteSound(){
+        if(isAudioMuted)unMuteSound();
+        else {
+            backAudio.setMute(true);
+            isAudioMuted=true;
+        }
+    }
+    public static void unMuteSound(){
+        isAudioMuted=false;
+        backAudio.setMute(false);
     }
 
 }

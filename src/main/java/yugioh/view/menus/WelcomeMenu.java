@@ -6,9 +6,11 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import yugioh.controller.DataBaseController;
+import yugioh.controller.menucontroller.WelcomeMenuController;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.view.LoggerMessage;
@@ -25,6 +27,7 @@ public class WelcomeMenu extends Application {
     private static final DeckMenu deckMenu = new DeckMenu();
     private static final DuelMenu duelMenu = new DuelMenu();
     public static Stage stage;
+
     public static MenuType currentMenu = MenuType.LOGIN;
 
     public static void run() throws Exception {
@@ -81,9 +84,8 @@ public class WelcomeMenu extends Application {
         WelcomeMenu.stage = stage;
         URL fxmlAddress = getClass().getResource("/yugioh/fxml/WelcomeMenu.fxml");
         Parent pane = FXMLLoader.load(fxmlAddress);
-        Scene scene = new Scene(pane);
+        Scene scene =createScene(pane);
         stage.setScene(scene);
-        scene.setCursor(Cursor.HAND);
         stage.getIcons().add(new Image("/yugioh/PNG/icon/icon.png"));
         stage.setTitle("Yugioh");
 //        stage.setX(700);
@@ -102,5 +104,15 @@ public class WelcomeMenu extends Application {
     public static Stage getStage() {
         return stage;
     }
+    public static Scene createScene(Parent parent){
+        Scene scene=new Scene(parent);
+        scene.setCursor(Cursor.HAND);
+        scene.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.M && event.isControlDown()) {
+                WelcomeMenuController.muteSound();
+            }
+        });
+        return scene;
 
+    }
 }

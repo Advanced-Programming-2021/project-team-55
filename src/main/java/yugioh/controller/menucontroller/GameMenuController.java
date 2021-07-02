@@ -9,11 +9,13 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.TextAlignment;
+import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
@@ -46,6 +48,12 @@ public class GameMenuController extends MenuController implements Initializable 
     public Label bpLabel;
     public Label m2Label;
     public Label epLabel;
+    public Label currentUsername;
+    public Label currentNickname;
+    public Label opponentUsername;
+    public Label opponentNickname;
+    public ImageView currentImage;
+    public ImageView opponentImage;
     public Pane gameBoardPane;
     public HBox rivalHandCardsContainer;
     public HBox userHandCardsContainer;
@@ -80,10 +88,25 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void updateGameStatusUIs() {
-        int opponentLP = Duel.getGameController().currentTurnOpponentPlayer.getLP();
-        int myLP = Duel.getGameController().currentTurnPlayer.getLP();
+        GameController gameController=Duel.getGameController();
+        int opponentLP = gameController.currentTurnOpponentPlayer.getLP();
+        int myLP = gameController.currentTurnPlayer.getLP();
         rivalLP.setText(opponentLP + "");
         userLP.setText(myLP + "");
+        opponentUsername.setText(opponentUsername.getText()+gameController.currentTurnOpponentPlayer.
+                getUser().getUsername());
+        opponentNickname.setText(opponentNickname.getText()+gameController.currentTurnOpponentPlayer.
+                getUser().getNickname());
+        currentUsername.setText(currentUsername.getText()+gameController.currentTurnPlayer.
+                getUser().getUsername());
+        currentNickname.setText(currentNickname.getText()+gameController.currentTurnPlayer.
+                getUser().getNickname());
+        currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageString()));
+        currentImage.setPreserveRatio(true);
+        currentImage.setFitWidth(50);
+        opponentImage.setImage(new Image(gameController.currentTurnOpponentPlayer.getUser().getProfileImageString()));
+        opponentImage.setPreserveRatio(true);
+        opponentImage.setFitWidth(50);
         rivalLPBar.setProgress((double) opponentLP / 8000);
         userLPBar.setProgress((double) myLP / 8000);
     }

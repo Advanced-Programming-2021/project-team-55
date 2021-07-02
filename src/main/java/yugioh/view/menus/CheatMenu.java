@@ -23,7 +23,7 @@ public class CheatMenu extends WelcomeMenu {
     public void start(Stage primaryStage) throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/CheatMenu.fxml");
         Pane pane = FXMLLoader.load(url);
-        Scene scene = new Scene(pane);
+        Scene scene = WelcomeMenu.createScene(pane);
         Stage newStage = new Stage();
         newStage.setScene(scene);
         newStage.initModality(Modality.APPLICATION_MODAL);

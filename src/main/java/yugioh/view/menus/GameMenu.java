@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import yugioh.controller.menucontroller.WelcomeMenuController;
 
 import java.net.URL;
 
@@ -21,7 +22,7 @@ public class GameMenu extends WelcomeMenu {
     public void start(Stage primaryStage) throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/GameMenu.fxml");
         Parent parent = FXMLLoader.load(url);
-        Scene scene = new Scene(parent);
+        Scene scene = WelcomeMenu.createScene(parent);
         stage.setScene(scene);
 
         EventHandler<KeyEvent> keyListener = event -> {
@@ -36,6 +37,7 @@ public class GameMenu extends WelcomeMenu {
             }
             event.consume();
         };
+        WelcomeMenuController.backAudio.setVolume(0.15);
         scene.addEventFilter(KeyEvent.KEY_PRESSED, keyListener);
     }
 

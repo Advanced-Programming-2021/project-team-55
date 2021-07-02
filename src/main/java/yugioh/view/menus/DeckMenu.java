@@ -119,7 +119,7 @@ public class DeckMenu extends WelcomeMenu {
     public void start(Stage primaryStage) throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/DeckMenu.fxml");
         Parent parent = FXMLLoader.load(url);
-        Scene scene = new Scene(parent);
+        Scene scene = WelcomeMenu.createScene(parent);
         stage.setScene(scene);
         stage.show();
     }

@@ -75,9 +75,9 @@ public class ProfileMenu extends WelcomeMenu {
         nicknameField.setText(User.loggedInUser.getNickname());
         if(!User.loggedInUser.isImageIsChanged()) {
             ImageView profileImage = (ImageView) pane.getChildren().get(0);
-            profileImage.setImage(new Image(User.loggedInUser.getProfileImage()));
+            profileImage.setImage(new Image(User.loggedInUser.getProfileImageString()));
         }
-        Scene scene = new Scene(pane);
+        Scene scene = WelcomeMenu.createScene(pane);
         stage.setScene(scene);
         stage.show();
     }

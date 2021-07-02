@@ -20,7 +20,7 @@ public class SelectDeckNamePage extends WelcomeMenu{
         URL fxmlAddress = getClass().getResource("/yugioh/fxml/SelectDeckNamePage.fxml");
         Parent pane = FXMLLoader.load(fxmlAddress);
         page=new Stage();
-        Scene scene = new Scene(pane);
+        Scene scene = WelcomeMenu.createScene(pane);
         page.setScene(scene);
         page.initModality(Modality.WINDOW_MODAL);
         page.show();

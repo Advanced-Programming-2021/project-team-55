@@ -309,7 +309,7 @@ public class DataBaseController extends MenuController {
             columnCounter++;
         }
         exportCardsPane.contentProperty().set(cardsPane);
-        Scene scene = new Scene(pane);
+        Scene scene = WelcomeMenu.createScene(pane);
         exportStage.setScene(scene);
         scene.getStylesheets().add(
                 getClass().getResource("/yugioh/CSS/Menu.css").toExternalForm());

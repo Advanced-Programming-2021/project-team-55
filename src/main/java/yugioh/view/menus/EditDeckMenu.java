@@ -21,7 +21,7 @@ public class EditDeckMenu extends WelcomeMenu {
     public void start(Stage primaryStage) throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/EditDeckMenu.fxml");
         Parent parent = FXMLLoader.load(url);
-        Scene scene = new Scene(parent);
+        Scene scene = WelcomeMenu.createScene(parent);
 //        Stage stage = new Stage();
 //        stage.initOwner(primaryStage);
 //        stage.initModality(Modality.APPLICATION_MODAL);
