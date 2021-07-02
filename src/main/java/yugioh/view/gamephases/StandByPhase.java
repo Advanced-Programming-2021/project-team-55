@@ -1,6 +1,7 @@
 package yugioh.view.gamephases;
 
 import yugioh.controller.gamephasescontrollers.StandByPhaseController;
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.view.ViewInterface;
 
 public class StandByPhase extends Duel {
@@ -9,10 +10,10 @@ public class StandByPhase extends Duel {
 
     @Override
     protected void execute() {
+        GameMenuController.getGameMenuController().focusOpacityOnPhase(GamePhase.STANDBY);
         standByPhaseController = gameController.getStandByPhaseController();
         String response = processCommand("");
         ViewInterface.showResult(response);
-
     }
 
     @Override

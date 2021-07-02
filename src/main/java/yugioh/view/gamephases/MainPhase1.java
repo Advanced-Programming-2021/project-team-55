@@ -3,6 +3,7 @@ package yugioh.view.gamephases;
 import yugioh.controller.AIPlayerController;
 import yugioh.controller.CheatController;
 import yugioh.controller.gamephasescontrollers.MainPhase1Controller;
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Monster;
 import yugioh.model.exceptions.GameException;
@@ -17,6 +18,7 @@ public class MainPhase1 extends Duel {
 
     @Override
     protected void execute() {
+        GameMenuController.getGameMenuController().focusOpacityOnPhase(GamePhase.MAIN1);
         mainPhase1Controller = gameController.getMainPhase1Controller();
 
         ViewInterface.showResult(mainPhase1Controller.showGameBoard(gameController.currentTurnPlayer,

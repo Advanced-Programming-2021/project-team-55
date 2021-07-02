@@ -1,6 +1,7 @@
 package yugioh.view.gamephases;
 
 import yugioh.controller.gamephasescontrollers.EndPhaseController;
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.view.ViewInterface;
 
 public class EndPhase extends Duel {
@@ -9,6 +10,7 @@ public class EndPhase extends Duel {
 
     @Override
     protected void execute() {
+        GameMenuController.getGameMenuController().focusOpacityOnPhase(GamePhase.END);
         endPhaseController = gameController.getEndPhaseController();
         String response = processCommand("");
         ViewInterface.showResult(response);

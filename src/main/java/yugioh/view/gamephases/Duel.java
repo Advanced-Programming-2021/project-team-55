@@ -2,6 +2,7 @@ package yugioh.view.gamephases;
 
 import yugioh.controller.CheatController;
 import yugioh.controller.gamephasescontrollers.GameController;
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
 import yugioh.view.menus.DetermineStarterMenu;
@@ -82,6 +83,7 @@ abstract public class Duel {
     }
 
     public static void showPhase() {
+        GameMenuController.getGameMenuController().focusOpacityOnPhase(gameController.currentPhase);
         String response = "";
         if (gameController.currentPhase == GamePhase.DRAW) {
             response += "its " + gameController.getCurrentTurnPlayer().getUser().getNickname() + "'s turn\n";
