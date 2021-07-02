@@ -156,5 +156,10 @@ public class GameMenuController extends MenuController implements Initializable 
         });
     }
 
+    public void showGraveyard() {
+    }
+
+    public void closeGraveyard() {
+    }
 
 }

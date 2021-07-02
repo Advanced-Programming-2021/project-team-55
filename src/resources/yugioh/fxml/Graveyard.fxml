@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane prefHeight="450" prefWidth="500" style="-fx-background-color: Transparent;" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.gamephasescontrollers.GraveyardController">
+   <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#0e1b77" height="450.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="500.0" />
+   <ScrollPane fx:id="graveyard" layoutX="51.0" layoutY="26.0" prefHeight="398.0" prefWidth="399.0" />
+
+</AnchorPane>
