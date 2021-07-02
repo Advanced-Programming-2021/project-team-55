@@ -13,7 +13,7 @@ import yugioh.view.menus.WelcomeMenu;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class Graveyard extends WelcomeMenu {
+public class Graveyard  extends WelcomeMenu{
 
     private static Stage graveyardStage;
     private static ArrayList<Card> graveyardCards;

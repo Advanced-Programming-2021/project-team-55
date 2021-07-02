@@ -6,7 +6,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -25,15 +24,12 @@ import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
+import yugioh.view.gamephases.CardActionsMenu;
 import yugioh.view.gamephases.Duel;
-import yugioh.view.menus.DuelMenu;
 import yugioh.view.menus.WelcomeMenu;
 import yugioh.view.gamephases.GamePhase;
 import yugioh.view.gamephases.Graveyard;
-import yugioh.view.menus.DuelMenu;
 
-import java.io.File;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -189,6 +185,7 @@ public class GameMenuController extends MenuController implements Initializable 
             }
             event.consume();
             }});
+        CardActionsMenu cardActionsMenu=new CardActionsMenu();
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
             if(Cell.getSelectedCell()!=null&&!Cell.getSelectedCell().isEmpty()) {
                 Cell.getSelectedCell().getCellCard().getCardImage().setEffect(null);
@@ -202,6 +199,9 @@ public class GameMenuController extends MenuController implements Initializable 
                 selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
                 Cell.setSelectedCellByImage(imageView);
                 imageView.setEffect(selectEffect);
+                try {
+                    cardActionsMenu.execute();
+                }catch (Exception e){e.printStackTrace();}
             }
             event.consume();
         });
