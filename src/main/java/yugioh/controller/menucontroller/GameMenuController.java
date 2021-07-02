@@ -80,7 +80,7 @@ public class GameMenuController extends MenuController implements Initializable 
         Duel.getGameController().setGameMenuController(this);
         this.gameController = Duel.getGameController();
         updateGameStatusUIs();
-        updateCells();
+        //updateCells();
         gameMenuController = this;
         userHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
         rivalHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
@@ -190,8 +190,10 @@ public class GameMenuController extends MenuController implements Initializable 
             if(Cell.getSelectedCell()!=null&&!Cell.getSelectedCell().isEmpty()) {
                 Cell.getSelectedCell().getCellCard().getCardImage().setEffect(null);
                 Cell.getSelectedCell().getCellCard().getCardBackImage().setEffect(null);
+                CardActionsMenu.close();
             }
             if(Cell.getSelectedCell()!=null&&Cell.getSelectedCell().getCellCard().getCardImage().equals(imageView)){
+                CardActionsMenu.close();
                 Cell.setSelectedCell(null);
             }else {
                 DropShadow selectEffect = new DropShadow(BlurType.values()[1],
@@ -200,6 +202,7 @@ public class GameMenuController extends MenuController implements Initializable 
                 Cell.setSelectedCellByImage(imageView);
                 imageView.setEffect(selectEffect);
                 try {
+                    cardActionsMenu.setCoordinates(event.getSceneX()+150,event.getSceneY()+40);
                     cardActionsMenu.execute();
                 }catch (Exception e){e.printStackTrace();}
             }
