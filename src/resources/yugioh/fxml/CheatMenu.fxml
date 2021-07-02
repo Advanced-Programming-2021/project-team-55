@@ -10,6 +10,6 @@
             <Font size="20.0" />
         </font>
     </Label>
-   <TextField fx:id="console" layoutX="38.0" layoutY="76.0" prefHeight="143.0" prefWidth="465.0" />
-   <TextField fx:id="resultConsole" layoutX="38.0" layoutY="233.0" prefHeight="112.0" prefWidth="465.0" />
+   <TextField fx:id="console" layoutX="38.0" layoutY="76.0" prefHeight="105.0" prefWidth="465.0" promptText="type your command here!" />
+   <TextArea fx:id="resultConsole" editable="false" layoutX="38.0" layoutY="196.0" prefHeight="149.0" prefWidth="465.0" />
 </AnchorPane>

@@ -1,10 +1,7 @@
 package yugioh.view.menus;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -15,7 +12,7 @@ import java.net.URL;
 
 public class CheatMenu extends WelcomeMenu {
 
-    private static Stage cheatMenuStage;
+    private static Stage cheatStage;
 
     @Override
     public void execute() throws Exception {
@@ -33,19 +30,11 @@ public class CheatMenu extends WelcomeMenu {
         newStage.initStyle(StageStyle.UTILITY);
         newStage.initOwner(stage);
         newStage.show();
-        cheatMenuStage = newStage;
-//        EventHandler<KeyEvent> keyListener = event -> {
-//            if (event.getCode() == KeyCode.ENTER) {
-//                CheatController.getInstance().processCommand(CheatController.getInstance().console.getText());
-//            }
-//            event.consume();
-//        };
-//        CheatMenu.getCheatMenuStage().addEventFilter(KeyEvent.KEY_PRESSED, keyListener);
+        cheatStage = newStage;
         CheatController.getInstance().console.setOnAction((event) -> CheatController.getInstance().runCommand());
     }
 
-    public static Stage getCheatMenuStage() {
-        return cheatMenuStage;
+    public static Stage getCheatStage() {
+        return cheatStage;
     }
-
 }
