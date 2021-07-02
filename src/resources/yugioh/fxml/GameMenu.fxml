@@ -35,7 +35,7 @@
                         <Insets bottom="15.0" top="15.0" />
                     </VBox.margin>
                 </Label>
-                <Label fx:id="spLabel" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="347.0" styleClass="buttonText2" text="SP" textFill="#fafa0080">
+                <Label fx:id="spLabel" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="347.0" opacity="0.5" styleClass="buttonText2" text="SP" textFill="#fafa00">
                     <font>
                         <Font size="40" />
                     </font>
@@ -43,7 +43,7 @@
                         <Insets bottom="15.0" top="15.0" />
                     </VBox.margin>
                 </Label>
-                <Label fx:id="m1Label" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="371.0" styleClass="buttonText2" text="M1" textFill="#fafa0080">
+                <Label fx:id="m1Label" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="371.0" opacity="0.5" styleClass="buttonText2" text="M1" textFill="#fafa00">
                     <font>
                         <Font size="40" />
                     </font>
@@ -51,7 +51,7 @@
                         <Insets bottom="15.0" top="15.0" />
                     </VBox.margin>
                 </Label>
-                <Label fx:id="bpLabel" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="424.0" styleClass="buttonText2" text="BP" textFill="#fafa0080">
+                <Label fx:id="bpLabel" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="424.0" opacity="0.5" styleClass="buttonText2" text="BP" textFill="#fafa00">
                     <font>
                         <Font size="40" />
                     </font>
@@ -59,7 +59,7 @@
                         <Insets bottom="15.0" top="15.0" />
                     </VBox.margin>
                 </Label>
-                <Label fx:id="m2Label" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="448.0" styleClass="buttonText2" text="M2" textFill="#fafa0080">
+                <Label fx:id="m2Label" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="448.0" opacity="0.5" styleClass="buttonText2" text="M2" textFill="#fafa00">
                     <font>
                         <Font size="40" />
                     </font>
@@ -67,7 +67,7 @@
                         <Insets bottom="15.0" top="15.0" />
                     </VBox.margin>
                 </Label>
-                <Label fx:id="epLabel" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="471.0" styleClass="buttonText2" text="EP" textFill="#fafa0080">
+                <Label fx:id="epLabel" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="471.0" opacity="0.5" styleClass="buttonText2" text="EP" textFill="#fafa00">
                     <font>
                         <Font size="40" />
                     </font>
