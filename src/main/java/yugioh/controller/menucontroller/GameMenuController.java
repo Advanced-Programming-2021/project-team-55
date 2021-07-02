@@ -19,6 +19,7 @@ import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
+import yugioh.view.gamephases.Graveyard;
 import yugioh.view.menus.DuelMenu;
 import yugioh.view.gamephases.Duel;
 
@@ -156,10 +157,15 @@ public class GameMenuController extends MenuController implements Initializable 
         });
     }
 
-    public void showGraveyard() {
+    public void showGraveyardForUser() {
+        new Graveyard().execute(Duel.getGameController().getCurrentTurnPlayer().getGameBoard().getGraveyard());
     }
 
     public void closeGraveyard() {
+        Graveyard.getGraveyardStage().close();
     }
 
+    public void showGraveyardForOpponent() {
+        new Graveyard().execute(Duel.getGameController().getCurrentTurnOpponentPlayer().getGameBoard().getGraveyard());
+    }
 }

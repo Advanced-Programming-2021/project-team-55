@@ -1,21 +1,13 @@
 package yugioh.controller.gamephasescontrollers;
 
 
-import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.effect.BlurType;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import yugioh.model.User;
 import yugioh.model.cards.Card;
-import yugioh.view.menus.DeckMenu;
-import yugioh.view.menus.EditDeckMenu;
+import yugioh.view.gamephases.Graveyard;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -49,7 +41,7 @@ public class GraveyardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        initializeCardsPane(Graveyard.getGraveyardCards(), graveyard);
     }
 
 }

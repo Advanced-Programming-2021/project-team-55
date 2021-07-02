@@ -13,62 +13,37 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.board.Cell;
+import yugioh.model.cards.Card;
 import yugioh.view.menus.WelcomeMenu;
 
 import java.net.URL;
 import java.util.ArrayList;
 
-public class Graveyard extends WelcomeMenu{
+public class Graveyard extends WelcomeMenu {
 
     private static Stage graveyardStage;
-    private static ArrayList<Cell> graveyard;
+    private static ArrayList<Card> graveyardCards;
     private GameController gameController;
 
-    public static void makeText(Stage ownerStage, String toastMsg) {
-        int toastDelay = 2500;
-        int fadeInDelay = 250;
-        int fadeOutDelay = 500;
-        Stage toastStage = new Stage();
-        toastStage.initOwner(ownerStage);
-        toastStage.setResizable(false);
-        toastStage.initStyle(StageStyle.TRANSPARENT);
+    public static ArrayList<Card> getGraveyardCards() {
+        return graveyardCards;
+    }
 
-        StackPane root = new StackPane();
-        root.setStyle("-fx-background-radius: 20; -fx-background-color: rgba(0, 0, 0, 0.2); -fx-padding: 50px;");
-        root.setOpacity(0);
-
-        Scene scene = new Scene(root);
-        scene.setFill(Color.TRANSPARENT);
-        toastStage.setScene(scene);
-        toastStage.show();
-
-        Timeline fadeInTimeline = new Timeline();
-        KeyFrame fadeInKey1 = new KeyFrame(Duration.millis(fadeInDelay), new KeyValue(toastStage.getScene().getRoot().opacityProperty(), 1));
-        fadeInTimeline.getKeyFrames().add(fadeInKey1);
-        fadeInTimeline.setOnFinished((ae) ->
-        {
-            new Thread(() -> {
-                try {
-                    Thread.sleep(toastDelay);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Timeline fadeOutTimeline = new Timeline();
-                KeyFrame fadeOutKey1 = new KeyFrame(Duration.millis(fadeOutDelay), new KeyValue(toastStage.getScene().getRoot().opacityProperty(), 0));
-                fadeOutTimeline.getKeyFrames().add(fadeOutKey1);
-                fadeOutTimeline.setOnFinished((aeb) -> toastStage.close());
-                fadeOutTimeline.play();
-            }, "toast").start();
-        });
-        fadeInTimeline.play();
+    public static Stage getGraveyardStage() {
+        return graveyardStage;
     }
 
     public void execute(ArrayList<Cell> graveyard) {
-        Graveyard.graveyard = graveyard;
         gameController = Duel.getGameController();
-//        String response = processCommand(ViewInterface.getInput());
-//        ViewInterface.showResult(response);
-
+        graveyardCards = new ArrayList<>();
+        for (Cell cell : graveyard) {
+            graveyardCards.add(cell.getCellCard());
+        }
+        try {
+            start(WelcomeMenu.getStage());
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     @Override
@@ -76,14 +51,13 @@ public class Graveyard extends WelcomeMenu{
         URL url = getClass().getResource("/yugioh/fxml/Graveyard.fxml");
         Parent parent = FXMLLoader.load(url);
         Scene scene = WelcomeMenu.createScene(parent);
-        Stage stage = new Stage();
-//        stage.initOwner(primaryStage);
-//        stage.initModality(Modality.APPLICATION_MODAL);
-//        stage.initStyle(StageStyle.UTILITY);
-//        stage.setScene(scene);
-//        EditDeckMenu.stage = stage;
-        stage.setScene(scene);
-//        stage.show();
+        scene.setFill(Color.TRANSPARENT);
+        graveyardStage = new Stage();
+        graveyardStage.setX(720);
+        graveyardStage.initOwner(primaryStage);
+        graveyardStage.initStyle(StageStyle.TRANSPARENT);
+        graveyardStage.setScene(scene);
+        graveyardStage.show();
     }
 
     protected String processCommand(String command) {
@@ -95,5 +69,4 @@ public class Graveyard extends WelcomeMenu{
         }
         return response;
     }
-
 }
