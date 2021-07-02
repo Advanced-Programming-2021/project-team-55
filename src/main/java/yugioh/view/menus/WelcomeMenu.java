@@ -37,8 +37,8 @@ public class WelcomeMenu extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Thread saveDataThread=new Thread(() -> {
-            while(true){
+        Thread saveDataThread = new Thread(() -> {
+            while (true) {
                 for (User user : User.getAllUsers()) {
                     try {
                         DataBaseController.saveUserInfo(user);
@@ -56,14 +56,15 @@ public class WelcomeMenu extends Application {
                             e.printStackTrace();
                         }
                     }
-                }catch (Exception e){ }
+                } catch (Exception e) {
+                }
                 try {
                     Thread.sleep(30000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        },"save data");
+        }, "save data");
         saveDataThread.setDaemon(true);
         saveDataThread.start();
         Stage stage = new Stage();
@@ -79,12 +80,28 @@ public class WelcomeMenu extends Application {
         WelcomeMenu.currentMenu = currentMenu;
     }
 
+    public static Stage getStage() {
+        //stage.setFullScreen(true);
+        return stage;
+    }
+
+    public static Scene createScene(Parent parent) {
+        Scene scene = new Scene(parent);
+        scene.setCursor(Cursor.HAND);
+        scene.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.M && event.isControlDown()) {
+                WelcomeMenuController.muteSound();
+            }
+        });
+        return scene;
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         WelcomeMenu.stage = stage;
         URL fxmlAddress = getClass().getResource("/yugioh/fxml/WelcomeMenu.fxml");
         Parent pane = FXMLLoader.load(fxmlAddress);
-        Scene scene =createScene(pane);
+        Scene scene = createScene(pane);
         stage.setScene(scene);
         stage.getIcons().add(new Image("/yugioh/PNG/icon/icon.png"));
         stage.setTitle("Yu Gi Oh");
@@ -97,20 +114,5 @@ public class WelcomeMenu extends Application {
 
     protected String processCommand(String command) {
         return "";
-    }
-
-    public static Stage getStage() {
-        stage.setFullScreen(true);
-        return stage;
-    }
-    public static Scene createScene(Parent parent){
-        Scene scene=new Scene(parent);
-        scene.setCursor(Cursor.HAND);
-        scene.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.M && event.isControlDown()) {
-                WelcomeMenuController.muteSound();
-            }
-        });
-        return scene;
     }
 }
