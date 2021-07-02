@@ -193,6 +193,13 @@ public class DeckMenuController extends MenuController implements Initializable 
         deleteDeckButton.setDisable(true);
         activateDeckButton.setDisable(true);
         decksBox.textProperty().addListener((observableValue, s, t1) -> {
+
+            if(t1.contains("Active deck")){
+                activateDeckButton.setDisable(true);
+            }
+            else{
+                activateDeckButton.setDisable(false);
+            }
             if(t1.equals("Decks")){
                 deleteDeckButton.setDisable(true);
                 editDeckButton.setDisable(true);
@@ -201,7 +208,6 @@ public class DeckMenuController extends MenuController implements Initializable 
             else{
                 deleteDeckButton.setDisable(false);
                 editDeckButton.setDisable(false);
-                activateDeckButton.setDisable(false);
             }
         });
         updateMenuItems();

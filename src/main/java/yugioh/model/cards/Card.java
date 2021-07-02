@@ -429,6 +429,9 @@ public class Card {
     }
 
     public ImageView getCardImageForDeck(int width){
+        if(cardImage==null){
+            cardImage=new ImageView(new Image(new File(image).toURI().toString()));
+        }
         cardImage.setPreserveRatio(true);
         cardImage.setFitWidth(width);
         return cardImage;
