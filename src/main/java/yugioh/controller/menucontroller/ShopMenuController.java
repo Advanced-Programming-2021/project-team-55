@@ -17,9 +17,9 @@ import javafx.scene.text.TextAlignment;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.model.exceptions.MenuException;
-import yugioh.view.Menus.PopUpWindow;
-import yugioh.view.Menus.ShopMenu;
-import yugioh.view.Menus.WelcomeMenu;
+import yugioh.view.menus.PopUpWindow;
+import yugioh.view.menus.ShopMenu;
+import yugioh.view.menus.WelcomeMenu;
 import yugioh.view.Responses;
 
 import java.net.URL;

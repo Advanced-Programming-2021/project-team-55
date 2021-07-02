@@ -7,9 +7,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import yugioh.view.Menus.PopUpWindow;
-import yugioh.view.Menus.SelectDeckNamePage;
-import yugioh.view.Menus.WelcomeMenu;
+import yugioh.view.menus.PopUpWindow;
+import yugioh.view.menus.SelectDeckNamePage;
 import yugioh.view.Responses;
 
 import java.net.URL;

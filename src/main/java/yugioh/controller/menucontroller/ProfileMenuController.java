@@ -11,8 +11,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import yugioh.model.User;
 import yugioh.model.exceptions.MenuException;
-import yugioh.view.Menus.PopUpWindow;
-import yugioh.view.Menus.WelcomeMenu;
+import yugioh.view.menus.PopUpWindow;
+import yugioh.view.menus.WelcomeMenu;
 import yugioh.view.Responses;
 
 import java.io.File;

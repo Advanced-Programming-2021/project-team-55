@@ -16,15 +16,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
-import yugioh.view.Menus.DeckMenu;
-import yugioh.view.Menus.EditDeckMenu;
+import yugioh.view.menus.DeckMenu;
+import yugioh.view.menus.EditDeckMenu;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-public class EditDeckMenuController implements Initializable {
+public class EditDeckMenuController implements Initializable {//todo debug
 
     public Label deckName;
     public ScrollPane mainDeck;

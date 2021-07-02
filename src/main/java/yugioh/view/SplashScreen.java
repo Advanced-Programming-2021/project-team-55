@@ -12,10 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import yugioh.view.Menus.WelcomeMenu;
+import yugioh.view.menus.WelcomeMenu;
 
 import java.io.File;
-import java.util.Objects;
 
 public class SplashScreen extends Application {
 

@@ -1,4 +1,4 @@
-package yugioh.view.Menus;
+package yugioh.view.menus;
 
 public enum MenuType {
     LOGIN("Login Menu"),

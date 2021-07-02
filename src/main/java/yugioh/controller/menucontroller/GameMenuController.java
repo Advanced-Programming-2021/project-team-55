@@ -11,16 +11,13 @@ import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
-import yugioh.model.User;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
-import yugioh.view.Menus.DuelMenu;
+import yugioh.view.menus.DuelMenu;
 import yugioh.view.gamephases.Duel;
 
 import java.net.URL;
@@ -54,6 +51,7 @@ public class GameMenuController extends MenuController implements Initializable 
     public HBox userHandCardsContainer;
     public Pane rivalDeckZoneContainer;
     public Pane userDeckZoneContainer;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Duel.getGameController().setGameMenuController(this);

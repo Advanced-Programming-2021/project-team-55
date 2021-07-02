@@ -1,4 +1,4 @@
-package yugioh.view.Menus;
+package yugioh.view.menus;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,13 +12,9 @@ import yugioh.controller.DataBaseController;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.view.LoggerMessage;
-import yugioh.view.SplashScreen;
-import yugioh.view.SplashScreen;
-import yugioh.view.SoundPlayable;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 
 public class WelcomeMenu extends Application {
     private static final LoginMenu loginMenu = new LoginMenu();

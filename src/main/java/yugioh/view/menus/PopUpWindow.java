@@ -1,4 +1,4 @@
-package yugioh.view.Menus;
+package yugioh.view.menus;
 
 import javafx.application.Application;
 import javafx.event.Event;

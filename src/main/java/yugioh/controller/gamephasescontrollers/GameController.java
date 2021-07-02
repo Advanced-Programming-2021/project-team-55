@@ -13,7 +13,7 @@ import yugioh.model.cards.Deck;
 import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
-import yugioh.view.Menus.DetermineStarterMenu;
+import yugioh.view.menus.DetermineStarterMenu;
 import yugioh.view.ViewInterface;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GamePhase;

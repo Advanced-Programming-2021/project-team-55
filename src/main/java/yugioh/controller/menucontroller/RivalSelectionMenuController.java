@@ -2,25 +2,12 @@ package yugioh.controller.menucontroller;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import yugioh.model.User;
-import yugioh.model.cards.Card;
-import yugioh.model.cards.Deck;
-import yugioh.model.cards.SpellAndTrap;
-import yugioh.model.exceptions.MenuException;
-import yugioh.view.Menus.*;
-import yugioh.view.Responses;
+import yugioh.view.menus.*;
 
 import java.net.URL;
 import java.util.*;
-
-import static yugioh.model.cards.cardfeaturesenums.EffectiveTerm.LIMITED;
 
 public class RivalSelectionMenuController extends MenuController implements Initializable {
 

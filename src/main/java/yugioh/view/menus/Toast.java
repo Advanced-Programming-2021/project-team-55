@@ -1,4 +1,4 @@
-package yugioh.view.Menus;
+package yugioh.view.menus;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

@@ -1,4 +1,4 @@
-package yugioh.view.Menus;
+package yugioh.view.menus;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,16 +8,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import yugioh.controller.menucontroller.DeckMenuController;
 import yugioh.model.User;
-import yugioh.model.cards.Card;
-import yugioh.model.cards.Deck;
-import yugioh.model.exceptions.MenuException;
-import yugioh.view.Regexes;
-import yugioh.view.Responses;
-import yugioh.view.ViewInterface;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
 
 public class RivalSelectionMenu extends WelcomeMenu {
     private static final DeckMenuController deckMenuController = DeckMenuController.getInstance();

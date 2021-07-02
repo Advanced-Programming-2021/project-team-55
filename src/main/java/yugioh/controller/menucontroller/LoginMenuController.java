@@ -14,13 +14,12 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import yugioh.model.User;
 import yugioh.model.exceptions.MenuException;
-import yugioh.view.Menus.PopUpWindow;
-import yugioh.view.Menus.WelcomeMenu;
+import yugioh.view.menus.PopUpWindow;
+import yugioh.view.menus.WelcomeMenu;
 import yugioh.view.Responses;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class LoginMenuController extends MenuController implements Initializable {

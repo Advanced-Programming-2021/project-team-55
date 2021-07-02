@@ -9,13 +9,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import yugioh.model.User;
 import yugioh.model.exceptions.MenuException;
-import yugioh.view.Menus.PopUpWindow;
-import yugioh.view.Menus.WelcomeMenu;
+import yugioh.view.menus.PopUpWindow;
+import yugioh.view.menus.WelcomeMenu;
 import yugioh.view.Responses;
 
-import java.lang.reflect.Field;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class RegisterMenuController extends MenuController implements Initializable {

@@ -4,10 +4,10 @@ import yugioh.controller.CheatController;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
-import yugioh.view.Menus.DetermineStarterMenu;
-import yugioh.view.Menus.GameMenu;
-import yugioh.view.Menus.Toast;
-import yugioh.view.Menus.WelcomeMenu;
+import yugioh.view.menus.DetermineStarterMenu;
+import yugioh.view.menus.GameMenu;
+import yugioh.view.menus.Toast;
+import yugioh.view.menus.WelcomeMenu;
 import yugioh.view.ViewInterface;
 
 import java.util.regex.Matcher;
@@ -191,4 +191,5 @@ abstract public class Duel {
     abstract protected void execute();
 
     abstract protected String processCommand(String command);
+
 }

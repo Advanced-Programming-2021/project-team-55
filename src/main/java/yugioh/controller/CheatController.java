@@ -1,5 +1,6 @@
 package yugioh.controller;
 
+import com.jfoenix.controls.JFXTextField;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.Player;
 import yugioh.model.User;
@@ -12,9 +13,6 @@ import yugioh.view.gamephases.GameResponses;
 public class CheatController {
 
     private static CheatController cheatController;
-
-    private CheatController() {
-    }
 
     public static CheatController getInstance() {
         if (cheatController == null) {

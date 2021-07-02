@@ -1,6 +1,6 @@
 package yugioh.controller.menucontroller;
 
-import yugioh.view.Menus.*;
+import yugioh.view.menus.*;
 import yugioh.view.SoundPlayable;
 
 abstract public class MenuController implements SoundPlayable {
