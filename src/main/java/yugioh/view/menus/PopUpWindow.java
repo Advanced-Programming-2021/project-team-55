@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
+import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -40,30 +40,35 @@ public class PopUpWindow extends Application {
         popUp = new Stage();
         popUp.initOwner(stage);
         popUp.initStyle(StageStyle.UTILITY);
-        VBox messageBox = new VBox(20);
-        Label label = new Label(response);
         popUp.initModality(Modality.APPLICATION_MODAL);
+        popUp.setScene(generatePopup());
+        popUp.show();
+    }
+    private Scene generatePopup(){
+        Label label = new Label(response);
+        label.getStyleClass().add("popupText");
+        label.setTextFill(Paint.valueOf("#ccdefc"));
         if (isError) {
-            label.setTextFill(Color.RED);
+            label.setTextFill(Paint.valueOf("#e22b34"));
             popUp.setTitle("ERROR");
-        } else {
-            label.setTextFill(Color.GREEN);
+        } else
             popUp.initModality(Modality.NONE);
-        }
-//        BackgroundFill background_fill = new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY);
-//        Background background = new Background(background_fill);
-//        messageBox.setBackground(background);
-//        scene.getStylesheets().add("/Sample/CSS/MenuCss.css");
-        Button okButton = new Button("ok");
+        Button okButton = new Button("Ok");
         okButton.getStyleClass().add("buttonShape");
-        okButton.getStylesheets().add("/yugioh/CSS/Menu.css");
+        okButton.getStyleClass().add("buttonText");
+        okButton.getStyleClass().add("buttonHover");
+        okButton.getStyleClass().add("buttonSize");
+        okButton.setTextFill(Paint.valueOf("#ccdefc"));
+        okButton.setPrefHeight(60);
+        okButton.setPrefWidth(200);
         okButton.setOnAction(okButtonHandler);
-        label.setFont(Font.font(20));
+        VBox messageBox = new VBox(20);
+        messageBox.setSpacing(10);
+        messageBox.getStylesheets().add("/yugioh/CSS/Menu.css");
+        messageBox.getChildren().add(new Label(""));
         messageBox.getChildren().add(label);
         messageBox.getChildren().add(okButton);
         messageBox.setAlignment(Pos.BASELINE_CENTER);
-        Scene scene = new Scene(messageBox, 400, 100);
-        popUp.setScene(scene);
-        popUp.show();
+        return new Scene(messageBox, 600, 170);
     }
 }
