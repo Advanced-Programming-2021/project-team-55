@@ -18,6 +18,7 @@ import yugioh.view.ViewInterface;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GamePhase;
 import yugioh.view.gamephases.GameResponses;
+import yugioh.view.menus.DuelMenu;
 
 import java.util.ArrayList;
 
@@ -323,6 +324,13 @@ public class GameController {
         if (game.getRounds() == currentRound) {
             ViewInterface.showResult(response);
             isGameEnded = true;
+            //todo end game should be handled here:
+            //i mean we should play an animation or show a message to user
+            try {
+                new DuelMenu().execute();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         } else {
             gameControllerInitialization();
             currentRound++;

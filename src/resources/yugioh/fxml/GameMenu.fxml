@@ -121,7 +121,7 @@
         </font>
     </Label>
     <ProgressBar fx:id="userLPBar" layoutX="62.0" layoutY="654.0" prefHeight="28.0" prefWidth="200.0" progress="1.0" />
-    <JFXButton layoutX="11.0" layoutY="682.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="32.0" prefWidth="127.0" ripplerFill="#e72727" style="-fx-font-size: 18;" stylesheets="@../CSS/Menu.css" text="Surrender">
+    <JFXButton layoutX="11.0" layoutY="682.0" mnemonicParsing="false" onMouseClicked="#pauseClicked" prefHeight="32.0" prefWidth="127.0" ripplerFill="#e72727" style="-fx-font-size: 18;" stylesheets="@../CSS/Menu.css" text="Setting">
         <styleClass>
             <String fx:value="buttonText" />
             <String fx:value="buttonShape" />

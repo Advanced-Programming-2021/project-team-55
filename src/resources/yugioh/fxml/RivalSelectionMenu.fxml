@@ -33,7 +33,7 @@
       </styleClass>
    </JFXButton>
    <ChoiceBox fx:id="rivals" focusTraversable="false" layoutX="412.0" layoutY="239.0" prefHeight="34.0" prefWidth="230.0" />
-   <ToggleButton fx:id="threeRounds" layoutX="540.0" layoutY="353.0" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="48.0" prefWidth="112.0" text="3 rounds" />
-   <ToggleButton fx:id="oneRound" layoutX="400.0" layoutY="353.0" mnemonicParsing="false" onMouseClicked="#clickThreeRounds" prefHeight="48.0" prefWidth="112.0" text="1 round" />
+   <ToggleButton fx:id="threeRounds" layoutX="540.0" layoutY="353.0" mnemonicParsing="false" onMouseClicked="#clickThreeRounds" prefHeight="48.0" prefWidth="112.0" text="3 rounds" />
+   <ToggleButton fx:id="oneRound" layoutX="400.0" layoutY="353.0" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="48.0" prefWidth="112.0" text="1 round" />
 
 </AnchorPane>
