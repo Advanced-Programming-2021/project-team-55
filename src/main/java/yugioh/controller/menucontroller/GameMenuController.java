@@ -13,6 +13,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -220,30 +221,44 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void focusOpacityOnPhase(GamePhase gamePhase) {
+        dpLabel.setEffect(null);
+        spLabel.setEffect(null);
+        m1Label.setEffect(null);
+        bpLabel.setEffect(null);
+        m2Label.setEffect(null);
+        epLabel.setEffect(null);
         dpLabel.setOpacity(0.5);
         spLabel.setOpacity(0.5);
         m1Label.setOpacity(0.5);
         bpLabel.setOpacity(0.5);
         m2Label.setOpacity(0.5);
         epLabel.setOpacity(0.5);
+        Glow glow = new Glow();
+        glow.setLevel(5);
         switch (gamePhase) {
             case DRAW:
                 dpLabel.setOpacity(1);
+                dpLabel.setEffect(glow);
                 break;
             case STANDBY:
                 spLabel.setOpacity(1);
+                spLabel.setEffect(glow);
                 break;
             case MAIN1:
                 m1Label.setOpacity(1);
+                m1Label.setEffect(glow);
                 break;
             case BATTLE:
                 bpLabel.setOpacity(1);
+                bpLabel.setEffect(glow);
                 break;
             case MAIN2:
                 m2Label.setOpacity(1);
+                m2Label.setEffect(glow);
                 break;
             case END:
                 epLabel.setOpacity(1);
+                epLabel.setEffect(glow);
                 break;
         }
     }
