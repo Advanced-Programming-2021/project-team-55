@@ -102,4 +102,5 @@ public class WelcomeMenu extends Application {
     public static Stage getStage() {
         return stage;
     }
+
 }

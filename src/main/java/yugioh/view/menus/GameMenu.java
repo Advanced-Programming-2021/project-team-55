@@ -38,4 +38,5 @@ public class GameMenu extends WelcomeMenu {
         };
         scene.addEventFilter(KeyEvent.KEY_PRESSED, keyListener);
     }
+
 }

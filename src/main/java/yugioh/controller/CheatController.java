@@ -1,18 +1,26 @@
 package yugioh.controller;
 
-import com.jfoenix.controls.JFXTextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.Player;
 import yugioh.model.User;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Card;
 import yugioh.model.exceptions.GameException;
+import yugioh.view.Regexes;
 import yugioh.view.Responses;
 import yugioh.view.gamephases.GameResponses;
 
-public class CheatController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class CheatController implements Initializable {
 
     private static CheatController cheatController;
+    public TextField console;
+    public TextArea resultConsole;
 
     public static CheatController getInstance() {
         if (cheatController == null) {
@@ -57,6 +65,29 @@ public class CheatController {
     public String makeMeAI(GameController gameController) {
         gameController.getCurrentTurnPlayer().setAI(true);
         return "you're now ai :D";
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        cheatController = this;
+    }
+
+    public String processCommand(String command) {
+        String response = "";
+        if (command.matches(Regexes.CHANGE_NICKNAME.regex)) {
+
+        } else if (command.matches("hello")) {
+            System.out.println("hi");
+            response = "hi";
+        } else if (command.matches(Regexes.SHOW_MENU.regex)) {
+        } else {
+            response = Responses.INVALID_COMMAND.response;
+        }
+        return response;
+    }
+
+    public void runCommand() {
+        resultConsole.setText(resultConsole.getText() + "\n> " + processCommand(CheatController.getInstance().console.getText()));
     }
 
 }
