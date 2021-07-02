@@ -81,22 +81,22 @@ public class CheatController implements Initializable {
         String response = "";
         if (command.matches(GameRegexes.INCREASE_LP.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.INCREASE_LP.regex);
-            cheatController.increaseLPAmount(Integer.parseInt(matcher.group(1)), Duel.getGameController().currentTurnPlayer);
+            increaseLPAmount(Integer.parseInt(matcher.group(1)), Duel.getGameController().currentTurnPlayer);
             response = GameResponses.CHEAT_ACTIVATED_LP_INCREASED.response;
         } else if (command.matches(GameRegexes.SET_WINNER.regex)) {
-            cheatController.setWinner(Duel.getGameController());
+            setWinner(Duel.getGameController());
             response = GameResponses.CHEAT_ACTIVATED_WINNER_SET.response;
         } else if (command.matches(GameRegexes.SELECT_CARD_FORCE.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_CARD_FORCE.regex);
             try {
-                response = cheatController.selectHandForce(matcher.group(1), Duel.getGameController());
+                response = selectHandForce(matcher.group(1), Duel.getGameController());
             } catch (GameException e) {
                 response = e.toString();
             }
         } else if (command.matches(GameRegexes.CHEAT_ADD_OPTIONAL_CARD.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.CHEAT_ADD_OPTIONAL_CARD.regex);
             try {
-                response = cheatController.addOptionalCardAndSelect(matcher.group(1), Duel.getGameController());
+                response = addOptionalCardAndSelect(matcher.group(1), Duel.getGameController());
             } catch (GameException e) {
                 response = e.toString();
             }
