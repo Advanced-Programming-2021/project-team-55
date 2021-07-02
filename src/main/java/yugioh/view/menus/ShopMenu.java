@@ -72,7 +72,7 @@ public class ShopMenu extends WelcomeMenu {
     public void start(Stage primaryStage) throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/ShopMenu.fxml");
         Pane pane= FXMLLoader.load(url);
-        Scene scene = new Scene(pane);
+        Scene scene =WelcomeMenu.createScene(pane);
         ImageView coinImage=(ImageView)pane.getChildren().get(8);
         new CoinTransition(coinImage).play();
         stage.setScene(scene);

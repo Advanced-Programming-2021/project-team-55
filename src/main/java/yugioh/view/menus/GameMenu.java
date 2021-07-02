@@ -23,7 +23,7 @@ public class GameMenu extends WelcomeMenu {
         URL url = getClass().getResource("/yugioh/fxml/GameMenu.fxml");
         Parent parent = FXMLLoader.load(url);
         Scene scene = WelcomeMenu.createScene(parent);
-        stage.setScene(scene);
+
 
         EventHandler<KeyEvent> keyListener = event -> {
             if (event.getCode() == KeyCode.SPACE) {
@@ -35,10 +35,14 @@ public class GameMenu extends WelcomeMenu {
                     exception.printStackTrace();
                 }
             }
+           else if (event.getCode() == KeyCode.M && event.isControlDown()) {
+               WelcomeMenuController.muteSound();
+           }
             event.consume();
         };
         WelcomeMenuController.backAudio.setVolume(0.15);
         scene.addEventFilter(KeyEvent.KEY_PRESSED, keyListener);
+        stage.setScene(scene);
     }
 
 }
