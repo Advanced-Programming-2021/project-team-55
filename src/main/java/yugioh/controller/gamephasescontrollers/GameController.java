@@ -1,5 +1,8 @@
 package yugioh.controller.gamephasescontrollers;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import yugioh.controller.menucontroller.DetermineStarterMenuController;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.CoinDice;
@@ -185,6 +188,7 @@ public class GameController {
     }
 
     public void changePhase() {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
         switch (currentPhase) {
             case DRAW: {
                 currentPhase = GamePhase.STANDBY;
@@ -213,6 +217,8 @@ public class GameController {
             }
         }
         Duel.showPhase();
+        }));
+        timeline.play();
     }
 
     public void changeTurn(boolean isTemporary, boolean backToPlayer) {

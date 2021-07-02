@@ -162,7 +162,7 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void closeGraveyard() {
-        Graveyard.getGraveyardStage().close();
+        Graveyard.close();
     }
 
     public void showGraveyardForOpponent() {

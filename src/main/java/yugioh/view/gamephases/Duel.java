@@ -47,7 +47,7 @@ abstract public class Duel {
 //            gameController.phases.add(gameController.currentPhase);
 //            switch (gameController.getCurrentPhase()) {
 //                case DRAW: {
-//                    drawPhase.execute();
+                    drawPhase.execute();
 //                    break;
 //                }
 //                case STANDBY: {
