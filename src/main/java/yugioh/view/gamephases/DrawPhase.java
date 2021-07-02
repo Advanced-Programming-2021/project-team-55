@@ -1,6 +1,7 @@
 package yugioh.view.gamephases;
 
 import yugioh.controller.gamephasescontrollers.DrawPhaseController;
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.cards.trapandspells.TimeSeal;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.ViewInterface;
@@ -10,6 +11,7 @@ public class DrawPhase extends Duel {
 
     @Override
     protected void execute() {
+        GameMenuController.getGameMenuController().focusOpacityOnPhase(GamePhase.DRAW);
         drawPhaseController = gameController.getDrawPhaseController();
         String response = processCommand("");
         ViewInterface.showResult(response);

@@ -43,7 +43,7 @@ public class EditDeckMenuController implements Initializable {//todo debug
         new DeckMenu().execute();
     }
 
-    private void initializeCardsPane(ArrayList<Card> cards, ScrollPane scrollPane) {
+    public void initializeCardsPane(ArrayList<Card> cards, ScrollPane scrollPane) {
         int cardsPerRow = 6;
         int columnCounter = 0;
         GridPane cardsPane = new GridPane();

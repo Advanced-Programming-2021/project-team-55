@@ -3,6 +3,7 @@ package yugioh.view.gamephases;
 import yugioh.controller.AIPlayerController;
 import yugioh.controller.CheatController;
 import yugioh.controller.gamephasescontrollers.MainPhase1Controller;
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Monster;
 import yugioh.model.exceptions.GameException;
@@ -17,6 +18,7 @@ public class MainPhase1 extends Duel {
 
     @Override
     protected void execute() {
+        GameMenuController.getGameMenuController().focusOpacityOnPhase(GamePhase.MAIN1);
         mainPhase1Controller = gameController.getMainPhase1Controller();
 
         ViewInterface.showResult(mainPhase1Controller.showGameBoard(gameController.currentTurnPlayer,
@@ -44,22 +46,6 @@ public class MainPhase1 extends Duel {
     @Override
     protected String processCommand(String command) {
         String response = "";
-        //todo injaro badan azam beporsin tozih bedam bahaton check konam
-       /* if (gameController.shouldRitualSummonNow) {
-            if (command.matches(GameRegexes.SELECT.regex)) {
-                response = processSelect(command);
-            } else if (command.matches(GameRegexes.SUMMON.regex)) {
-                try {
-                    mainPhase1Controller.ritualSummon(gameController);
-                    response=GameResponses.SUMMONED_SUCCESSFULLY.response;
-
-                }catch (GameException e){
-                    response=e.toString();
-                }
-            } else {
-                response = GameResponses.YOU_SHOULD_RITUAL_SUMMON_NOW.response;
-            }
-        }*/
         if (command.equals("show attack")) {
             System.out.println(((Monster) Cell.getSelectedCell().getCellCard()).getAtk());
         } else if (command.equals("remove card"))
