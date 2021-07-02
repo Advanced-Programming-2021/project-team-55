@@ -87,9 +87,7 @@ public class WelcomeMenu extends Application {
         Scene scene =createScene(pane);
         stage.setScene(scene);
         stage.getIcons().add(new Image("/yugioh/PNG/icon/icon.png"));
-        stage.setTitle("Yugioh");
-//        stage.setX(700);
-//        stage.setY(300);
+        stage.setTitle("Yu Gi Oh");
         stage.show();
     }
 
@@ -102,6 +100,7 @@ public class WelcomeMenu extends Application {
     }
 
     public static Stage getStage() {
+        stage.setFullScreen(true);
         return stage;
     }
     public static Scene createScene(Parent parent){
@@ -113,6 +112,5 @@ public class WelcomeMenu extends Application {
             }
         });
         return scene;
-
     }
 }

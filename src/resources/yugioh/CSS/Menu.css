@@ -5,7 +5,8 @@
 }
 
 {
-    -fx-base:#04091a;
+    -fx-base: #04091a
+;
 }
 .scoreBoardBackground {
     -fx-background-image: url("../PNG/backgrounds/scoreBoardBackground.png");
@@ -22,6 +23,15 @@
 .buttonText {
     -fx-font-family: "Bauhaus 93";;
     -fx-font-size: 23px;
+}
+.popupText{
+    -fx-font-family: "Bauhaus 93";;
+    -fx-font-size: 25px;
+}
+
+buttonSize {
+    -fx-pref-height: 60.0;
+    -fx-pref-width: 230.0;
 }
 
 .buttonText2 {

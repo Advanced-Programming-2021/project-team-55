@@ -23,8 +23,6 @@ public class GameMenu extends WelcomeMenu {
         URL url = getClass().getResource("/yugioh/fxml/GameMenu.fxml");
         Parent parent = FXMLLoader.load(url);
         Scene scene = WelcomeMenu.createScene(parent);
-
-
         EventHandler<KeyEvent> keyListener = event -> {
             if (event.getCode() == KeyCode.SPACE) {
                 //todo pause game
@@ -35,9 +33,9 @@ public class GameMenu extends WelcomeMenu {
                     exception.printStackTrace();
                 }
             }
-           else if (event.getCode() == KeyCode.M && event.isControlDown()) {
-               WelcomeMenuController.muteSound();
-           }
+            else if (event.getCode() == KeyCode.M && event.isControlDown()) {
+                WelcomeMenuController.muteSound();
+            }
             event.consume();
         };
         WelcomeMenuController.backAudio.setVolume(0.15);
