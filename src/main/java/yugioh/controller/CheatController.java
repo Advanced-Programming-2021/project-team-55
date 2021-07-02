@@ -7,7 +7,6 @@ import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.Player;
 import yugioh.model.User;
 import yugioh.model.board.Cell;
-import yugioh.model.board.Game;
 import yugioh.model.cards.Card;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
