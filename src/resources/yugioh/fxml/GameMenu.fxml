@@ -4,7 +4,6 @@
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
@@ -28,16 +27,13 @@
     <HBox alignment="CENTER_LEFT" layoutX="325.0" layoutY="1.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="720.0" prefWidth="757.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="325.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <VBox alignment="CENTER_LEFT" prefHeight="721.0" prefWidth="75.5">
             <VBox alignment="CENTER" maxWidth="-Infinity" prefHeight="721.0" prefWidth="67.0">
-                <Label fx:id="dpLabel" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" styleClass="buttonText2" text="DP" textFill="#fafa00">
+                <Label fx:id="dpLabel" accessibleRole="BUTTON" alignment="CENTER" contentDisplay="CENTER" opacity="0.5" styleClass="buttonText2" text="DP" textFill="#fafa00">
                     <font>
                         <Font size="40" />
                     </font>
                     <VBox.margin>
                         <Insets bottom="15.0" top="15.0" />
                     </VBox.margin>
-               <effect>
-                  <Glow level="0.5" />
-               </effect>
                <padding>
                   <Insets left="5.0" right="5.0" />
                </padding>

@@ -10,7 +10,6 @@ public class StandByPhase extends Duel {
 
     @Override
     protected void execute() {
-        GameMenuController.getGameMenuController().focusOpacityOnPhase(GamePhase.STANDBY);
         standByPhaseController = gameController.getStandByPhaseController();
         String response = processCommand("");
         ViewInterface.showResult(response);

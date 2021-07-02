@@ -18,7 +18,6 @@ public class MainPhase1 extends Duel {
 
     @Override
     protected void execute() {
-        GameMenuController.getGameMenuController().focusOpacityOnPhase(GamePhase.MAIN1);
         mainPhase1Controller = gameController.getMainPhase1Controller();
 
         ViewInterface.showResult(mainPhase1Controller.showGameBoard(gameController.currentTurnPlayer,
