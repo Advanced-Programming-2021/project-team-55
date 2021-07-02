@@ -11,7 +11,6 @@ public class DrawPhase extends Duel {
 
     @Override
     protected void execute() {
-        GameMenuController.getGameMenuController().focusOpacityOnPhase(GamePhase.DRAW);
         drawPhaseController = gameController.getDrawPhaseController();
         String response = processCommand("");
         ViewInterface.showResult(response);

@@ -10,7 +10,6 @@ public class EndPhase extends Duel {
 
     @Override
     protected void execute() {
-        GameMenuController.getGameMenuController().focusOpacityOnPhase(GamePhase.END);
         endPhaseController = gameController.getEndPhaseController();
         String response = processCommand("");
         ViewInterface.showResult(response);
