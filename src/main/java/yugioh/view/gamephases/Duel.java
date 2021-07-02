@@ -41,7 +41,10 @@ abstract public class Duel {
         showSideDeckCards();
         gameController.phases.add(gameController.currentPhase);
         showPhase();
-//        while (!gameController.isGameEnded()) {//todo uncomment
+        mainPhase1.execute();
+
+//            new Thread(() -> {
+//                while (!gameController.isGameEnded()) {
 //            if (gameController.phases.get(gameController.phases.size() - 1) != gameController.currentPhase) {
 //                gameController.phases.add(gameController.currentPhase);
 //            }
@@ -56,7 +59,7 @@ abstract public class Duel {
 //                    break;
 //                }
 //                case MAIN1: {
-                    mainPhase1.execute();
+
 //                    break;
 //                }
 //                case MAIN2: {
@@ -79,7 +82,9 @@ abstract public class Duel {
 //            // showPhase();
 //            AIPlayerController.recordGameLogs(gameController);
 //        }
-//        gameController.endGameRound();
+//    }
+//                gameController.endGameRound();
+//            }).start();
     }
 
     public static void showPhase() {

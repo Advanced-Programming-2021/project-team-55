@@ -2,8 +2,12 @@ package yugioh.controller.menucontroller;
 
 
 import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
@@ -15,15 +19,21 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
 import yugioh.view.gamephases.Duel;
+import yugioh.view.menus.DuelMenu;
+import yugioh.view.menus.WelcomeMenu;
 import yugioh.view.gamephases.GamePhase;
 import yugioh.view.gamephases.Graveyard;
 import yugioh.view.menus.DuelMenu;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -61,20 +71,24 @@ public class GameMenuController extends MenuController implements Initializable 
     public HBox userHandCardsContainer;
     public Pane rivalDeckZoneContainer;
     public Pane userDeckZoneContainer;
+    public GameController gameController;
+    private Stage pauseStage;
 
     public static GameMenuController getGameMenuController() {
         return gameMenuController;
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Duel.getGameController().setGameMenuController(this);
+        this.gameController = Duel.getGameController();
         updateGameStatusUIs();
         updateCells();
         gameMenuController = this;
         userHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
         rivalHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
-        userDeckZoneContainer.setPadding(new Insets(0, 0, 0, 0));
+        userDeckZoneContainer.setPadding(new Insets(0,0,0,0));
         userHandCardsContainer.setSpacing(17);
         rivalHandCardsContainer.setSpacing(17);
         hoveredImage.setImage(Card.getCardImage(null, 354).getImage());
@@ -83,29 +97,63 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     private void updateCells() {
-        for (Cell cell : Cell.getAllCells()) {
-            if (!cell.isEmpty())
-                addEventForCardImage(cell.getCellCard().getCardImage(), cell.getCellCard());
+        for(Cell cell:Cell.getAllCells()){
+            if(!cell.isEmpty())
+            addEventForCardImage(cell.getCellCard().getCardImage(), cell.getCellCard());
         }
     }
 
-    public void backClicked() throws Exception {
-        new DuelMenu().execute();
+    public void pauseClicked() throws Exception {
+        URL url = getClass().getResource("/yugioh/fxml/PauseMenu.fxml");
+        Pane pane= FXMLLoader.load(url);
+        pane.getChildren().get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                resume();
+            }
+        });
+        pane.getChildren().get(1).setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                try {
+                    surrender();
+                }catch (Exception e){};
+            }
+        });
+        Scene scene = WelcomeMenu.createScene(pane);
+        pauseStage = new Stage();
+        scene.getStylesheets().add(
+                getClass().getResource("/yugioh/CSS/Menu.css").toExternalForm());
+        pauseStage.setScene(scene);
+        pauseStage.initModality(Modality.APPLICATION_MODAL);
+        pauseStage.show();
+
+    }
+
+    public void resume() {
+        pauseStage.close();
+    }
+
+    public void surrender() throws Exception {
+        gameController.surrender();
+        pauseStage.close();
+        gameController.surrender();
+        gameController.endGameRound();
     }
 
     public void updateGameStatusUIs() {
-        GameController gameController = Duel.getGameController();
+        GameController gameController=Duel.getGameController();
         int opponentLP = gameController.currentTurnOpponentPlayer.getLP();
         int myLP = gameController.currentTurnPlayer.getLP();
         rivalLP.setText(opponentLP + "");
         userLP.setText(myLP + "");
-        opponentUsername.setText(opponentUsername.getText() + gameController.currentTurnOpponentPlayer.
+        opponentUsername.setText(opponentUsername.getText()+gameController.currentTurnOpponentPlayer.
                 getUser().getUsername());
-        opponentNickname.setText(opponentNickname.getText() + gameController.currentTurnOpponentPlayer.
+        opponentNickname.setText(opponentNickname.getText()+gameController.currentTurnOpponentPlayer.
                 getUser().getNickname());
-        currentUsername.setText(currentUsername.getText() + gameController.currentTurnPlayer.
+        currentUsername.setText(currentUsername.getText()+gameController.currentTurnPlayer.
                 getUser().getUsername());
-        currentNickname.setText(currentNickname.getText() + gameController.currentTurnPlayer.
+        currentNickname.setText(currentNickname.getText()+gameController.currentTurnPlayer.
                 getUser().getNickname());
         currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageString()));
         currentImage.setPreserveRatio(true);
@@ -117,37 +165,38 @@ public class GameMenuController extends MenuController implements Initializable 
         userLPBar.setProgress((double) myLP / 8000);
     }
 
+
     public void addEventForCardImage(ImageView imageView, Card card) {
         imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
             Platform.runLater(() -> hoveredImage.setImage(imageView.getImage()));
-            if (card == null) {
+            if (card == null){
                 Platform.runLater(() -> description.setText(""));
-            } else {
-                Platform.runLater(() -> description.setText(card.getDescription()));
-                if (card instanceof Monster) {
-                    defValue.setOpacity(1);
-                    atkValue.setOpacity(1);
-                    defLabel.setOpacity(1);
-                    atkLabel.setOpacity(1);
-                    Platform.runLater(() -> defValue.setText(((Monster) card).getDef() + ""));
-                    Platform.runLater(() -> atkValue.setText(((Monster) card).getAtk() + ""));
-                } else {
-                    defLabel.setOpacity(0);
-                    atkLabel.setOpacity(0);
-                    defValue.setOpacity(0);
-                    atkValue.setOpacity(0);
-                }
-                event.consume();
             }
-        });
-        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            if (Cell.getSelectedCell() != null && !Cell.getSelectedCell().isEmpty()) {
+            else{
+                Platform.runLater(() -> description.setText(card.getDescription()));
+            if (card instanceof Monster) {
+                defValue.setOpacity(1);
+                atkValue.setOpacity(1);
+                defLabel.setOpacity(1);
+                atkLabel.setOpacity(1);
+                Platform.runLater(() -> defValue.setText(((Monster) card).getDef() + ""));
+                Platform.runLater(() -> atkValue.setText(((Monster) card).getAtk() + ""));
+            } else {
+                defLabel.setOpacity(0);
+                atkLabel.setOpacity(0);
+                defValue.setOpacity(0);
+                atkValue.setOpacity(0);
+            }
+            event.consume();
+            }});
+        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
+            if(Cell.getSelectedCell()!=null&&!Cell.getSelectedCell().isEmpty()) {
                 Cell.getSelectedCell().getCellCard().getCardImage().setEffect(null);
                 Cell.getSelectedCell().getCellCard().getCardBackImage().setEffect(null);
             }
-            if (Cell.getSelectedCell() != null && Cell.getSelectedCell().getCellCard().getCardImage().equals(imageView)) {
+            if(Cell.getSelectedCell()!=null&&Cell.getSelectedCell().getCellCard().getCardImage().equals(imageView)){
                 Cell.setSelectedCell(null);
-            } else {
+            }else {
                 DropShadow selectEffect = new DropShadow(BlurType.values()[1],
                         GREEN, 10, 2.0f, 0, 0);
                 selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
