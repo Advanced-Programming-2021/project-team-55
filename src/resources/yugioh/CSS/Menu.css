@@ -8,12 +8,6 @@
     -fx-base: #04091a
 ;
 }
-.scoreBoardBackground {
-    -fx-background-image: url("../PNG/backgrounds/scoreBoardBackground.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: cover;
-
-}
 
 .vboxDesign {
     -fx-alignment: center;
