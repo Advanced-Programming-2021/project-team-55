@@ -23,7 +23,11 @@
                            <Font size="18.0" />
                         </font>
                      </Label>
-                     <ChoiceBox fx:id="rivals" focusTraversable="false" prefHeight="50.0" prefWidth="192.0" styleClass="buttonShape" />
+                     <ChoiceBox fx:id="rivals" focusTraversable="false" prefHeight="50.0" prefWidth="192.0">
+                        <styleClass>
+                           <String fx:value="buttonShape" />
+                           <String fx:value="buttonText" />
+                        </styleClass></ChoiceBox>
                   </children>
                </HBox>
                <HBox alignment="CENTER" prefHeight="82.0" prefWidth="1038.0" spacing="10.0">
