@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="119.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.SelectDeckNamePageController">
-   <children>
-      <TextField layoutX="126.0" layoutY="34.0" fx:id="deckNameField"/>
-      <Button layoutX="243.0" layoutY="74.0" mnemonicParsing="false" text="Ok" fx:id="selectionOkButton" />
-      <Button layoutX="126.0" layoutY="74.0" mnemonicParsing="false" text="Back" fx:id="selectionBackButton" />
-   </children>
+<AnchorPane prefHeight="170" prefWidth="600" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.SelectDeckNamePageController">
+    <children>
+        <VBox alignment="CENTER" layoutX="57.0" prefHeight="250.0" prefWidth="486.0" spacing="20.0">
+            <children>
+                <Label prefHeight="61.0" prefWidth="207.0" styleClass="buttonText2" text="Deck Name" textFill="#ccdefc" />
+                <JFXTextField fx:id="deckNameField" focusColor="#7aceed" labelFloat="true" promptText="Please enter a name for deck" styleClass="buttonText" unFocusColor="#a6e9ff" />
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <JFXButton fx:id="selectionOkButton" buttonType="RAISED" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" ripplerFill="#0e1b77" stylesheets="@../CSS/Menu.css" text="Ok" textFill="#ccdefc">
+                            <styleClass>
+                                <String fx:value="buttonText" />
+                                <String fx:value="buttonShape" />
+                                <String fx:value="buttonHover" />
+                            </styleClass>
+                        </JFXButton>
+                        <JFXButton fx:id="selectionBackButton" buttonType="RAISED" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" ripplerFill="#0e1b77" stylesheets="@../CSS/Menu.css" text="Back" textFill="#ccdefc">
+                            <styleClass>
+                                <String fx:value="buttonText" />
+                                <String fx:value="buttonShape" />
+                                <String fx:value="buttonHover" />
+                            </styleClass>
+                        </JFXButton>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>
