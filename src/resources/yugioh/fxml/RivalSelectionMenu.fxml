@@ -18,18 +18,18 @@
             <children>
                <HBox alignment="CENTER" prefHeight="82.0" prefWidth="1038.0">
                   <children>
-                     <Label prefHeight="34.0" prefWidth="154.0" styleClass="buttonText" text="select rival:" textFill="#ccdefc">
+                     <Label prefHeight="34.0" prefWidth="154.0" styleClass="buttonText" text="Select Rival:" textFill="#ccdefc">
                         <font>
                            <Font size="18.0" />
                         </font>
                      </Label>
-                     <ChoiceBox fx:id="rivals" focusTraversable="false" prefHeight="34.0" prefWidth="192.0" />
+                     <ChoiceBox fx:id="rivals" focusTraversable="false" prefHeight="50.0" prefWidth="192.0" styleClass="buttonShape" />
                   </children>
                </HBox>
                <HBox alignment="CENTER" prefHeight="82.0" prefWidth="1038.0" spacing="10.0">
                   <children>
-                     <JFXToggleButton fx:id="threeRounds" mnemonicParsing="false" onMouseClicked="#clickThreeRounds" prefHeight="66.0" prefWidth="175.0" styleClass="buttonText" text="3 rounds" />
-                      <JFXToggleButton fx:id="oneRound" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="66.0" prefWidth="175" styleClass="buttonText" text="1 round" />
+                     <JFXToggleButton fx:id="threeRounds" mnemonicParsing="false" onMouseClicked="#clickThreeRounds" prefHeight="66.0" prefWidth="180.0" styleClass="buttonText" text="3 Rounds" textFill="#ccdefc" />
+                      <JFXToggleButton fx:id="oneRound" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="66.0" prefWidth="180" styleClass="buttonText" text="1 Round" textFill="#ccdefc" />
                     <!--  <ToggleButton fx:id="threeRounds" mnemonicParsing="false" onMouseClicked="#clickThreeRounds" prefHeight="48.0" prefWidth="112.0" text="3 rounds" />
                      <ToggleButton fx:id="oneRound" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="48.0" prefWidth="112.0" text="1 round" />
                   -->
