@@ -108,19 +108,12 @@ public class GameMenuController extends MenuController implements Initializable 
 
     public void pauseClicked() throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/PauseMenu.fxml");
-        Pane pane= FXMLLoader.load(url);
-        pane.getChildren().get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                resume();
-            }
-        });
-        pane.getChildren().get(1).setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                try {
-                    surrender();
-                }catch (Exception e){};
+        Pane pane = FXMLLoader.load(url);
+        pane.getChildren().get(0).setOnMouseClicked(mouseEvent -> resume());
+        pane.getChildren().get(1).setOnMouseClicked(mouseEvent -> {
+            try {
+                surrender();
+            } catch (Exception ignored) {
             }
         });
         Scene scene = WelcomeMenu.createScene(pane);
@@ -242,7 +235,9 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void focusOpacityOnPhase(GamePhase gamePhase) {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
+        double length = 0.1;
+        if (gamePhase == GamePhase.DRAW) length = 3.5;
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(length), event -> {
             dpLabel.setEffect(null);
             spLabel.setEffect(null);
             m1Label.setEffect(null);
@@ -285,5 +280,9 @@ public class GameMenuController extends MenuController implements Initializable 
             }
         }));
         timeline.play();
+    }
+
+    public void nextPhase() {
+        Duel.getGameController().changePhase();
     }
 }

@@ -16,7 +16,7 @@ public class BattlePhase extends Duel {
     protected void execute() {
         battlePhaseController = gameController.getBattlePhaseController();
         if (gameController.turnCount == 1) {
-            gameController.changePhase();
+//            gameController.changePhase();
         } else {
             String response;
             if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
