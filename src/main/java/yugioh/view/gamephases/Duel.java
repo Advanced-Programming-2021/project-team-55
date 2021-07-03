@@ -45,6 +45,8 @@ abstract public class Duel {
         gameController.phases.add(gameController.currentPhase);
         showPhase();
 
+        Duel.getGameController().getMainPhase1Controller().showGameBoard(gameController.currentTurnPlayer,
+                gameController.currentTurnOpponentPlayer);
 //        new Thread(() -> {
 //        while (!gameController.isGameEnded()) {
 //            if (gameController.phases.get(gameController.phases.size() - 1) != gameController.currentPhase) {
@@ -54,6 +56,7 @@ abstract public class Duel {
 //            switch (gameController.getCurrentPhase()) {
 //                case DRAW: {
         drawPhase.execute();
+
 //                    break;
 //                }
 //                case STANDBY: {
@@ -119,12 +122,12 @@ abstract public class Duel {
                 mainPhase1.execute();
                 break;
             }
-            case MAIN2: {
-                mainPhase2.execute();
-                break;
-            }
             case BATTLE: {
                 battlePhase.execute();
+                break;
+            }
+            case MAIN2: {
+                mainPhase2.execute();
                 break;
             }
             case END: {
@@ -221,10 +224,6 @@ abstract public class Duel {
         response += gameController.getSideDeckCards(gameController.getCurrentTurnPlayer());
         response += gameController.getSideDeckCards(gameController.getCurrentTurnOpponentPlayer());
         ViewInterface.showResult(response);
-    }
-
-    public static MainPhase1 getMainPhase1() {
-        return mainPhase1;
     }
 
     public static GameController getGameController() {
