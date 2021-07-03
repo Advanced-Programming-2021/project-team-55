@@ -234,8 +234,13 @@ public class GameController {
         changedPositionCells = new ArrayList<>();
         attackerCellsThisTurn = new ArrayList<>();
         turnCount++;
-        //todo update changedPositionCells & other fields
-        //todo reset attacked arraylist
+
+        GameMenuController.getGameMenuController().updateGameStatusUIs();
+        GameController gameController = Duel.getGameController();
+        GameMenuController.getGameMenuController().makeFieldsOfGameBoardEmpty();
+        gameController.getMainPhase1Controller().showGameBoard(gameController.currentTurnPlayer,
+                gameController.currentTurnOpponentPlayer);
+        GameMenuController.getGameMenuController().getBackground().rotateProperty().setValue(180);
     }
 
     public void activateTrapEffect(ArrayList<SpellAndTrap> trapsCanBeActivated) {

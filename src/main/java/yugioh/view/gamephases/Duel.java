@@ -140,7 +140,7 @@ abstract public class Duel {
     }
 
     public static String processSelect(String command) {
-        String response = "";
+        String response;
         if (command.matches(GameRegexes.SELECT_MONSTER.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_MONSTER.regex);
             try {

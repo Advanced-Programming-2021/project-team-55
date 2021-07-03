@@ -95,7 +95,7 @@
                 </Label>
             </VBox>
         </VBox>
-        <ImageView fitHeight="684.0" fitWidth="772.0" pickOnBounds="true" preserveRatio="true" scaleX="1.06" scaleY="1.055">
+        <ImageView fx:id="background" fitHeight="684.0" fitWidth="772.0" pickOnBounds="true" preserveRatio="true" scaleX="1.06" scaleY="1.055">
             <Image url="@../PNG/Field/fie_desert.jpg" />
         </ImageView>
     </HBox>
