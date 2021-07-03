@@ -16,35 +16,34 @@ import yugioh.view.menus.WelcomeMenu;
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 
-public class CardActionsMenu extends WelcomeMenu {
-    private static Stage actionsStage;
-    private double xImage;
-    private double yImage;
-    private Button actionButton=new Button();
-    private ArrayList<String>actions=new ArrayList<>();
+public class CardActionsMenu {
+    private static Stage actionsStage=new Stage();
 
-    {
-        actions.add("set");
-        actions.add("summon");
+    private static double xImage;
+    private static double yImage;
+    private static Button actionButton=new Button();
+    private static ArrayList<String>actions=new ArrayList<>();
+    static {
+        actionsStage.initOwner(WelcomeMenu.stage);
+        actionsStage.initModality(Modality.NONE);
+        actionsStage.initStyle(StageStyle.UNDECORATED);
+        {
+            actions.add("set");
+            actions.add("summon");
+        }
     }
-    @Override
-    public void execute() throws Exception {
-        start(stage);
+    public static void execute() throws Exception {
+        start(WelcomeMenu.stage);
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
+    public static void start(Stage stage) throws Exception {
         actionButton.setText("set");
         actionButton.setMinWidth(70);
         Pane pane=new Pane();
         pane.getChildren().add(actionButton);
         pane.setMaxWidth(70);
         pane.setMaxHeight(30);
-        Scene scene=new Scene(pane);
-        actionsStage=new Stage();
-        actionsStage.initOwner(stage);
-        actionsStage.initModality(Modality.NONE);
-        actionsStage.initStyle(StageStyle.UNDECORATED);
+        Scene scene=WelcomeMenu.createScene(pane);
         actionsStage.setX(xImage);
         actionsStage.setY(yImage);
         actionsStage.setScene(scene);
@@ -54,11 +53,11 @@ public class CardActionsMenu extends WelcomeMenu {
         actionsStage.close();
     }
 
-    public void setCoordinates(double x, double y) {
+    public static void setCoordinates(double x, double y) {
         xImage=x;
         yImage=y;
     }
-    public void change(){
+    public static void change(){
         int counter=0;
         for(String action:actions){
             if(action.equals(actionButton.getText())){

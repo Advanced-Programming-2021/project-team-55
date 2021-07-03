@@ -192,7 +192,6 @@ public class GameMenuController extends MenuController implements Initializable 
             }
             event.consume();
             }});
-        CardActionsMenu cardActionsMenu=new CardActionsMenu();
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
             if(event.getButton()== MouseButton.PRIMARY) {
                 if (Cell.getSelectedCell() != null && !Cell.getSelectedCell().isEmpty()) {
@@ -209,19 +208,23 @@ public class GameMenuController extends MenuController implements Initializable 
                     selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
                     Cell.setSelectedCellByImage(imageView);
                     imageView.setEffect(selectEffect);
-                    try {
-                        cardActionsMenu.setCoordinates(event.getSceneX() + 200, event.getSceneY() + 60);
-                        cardActionsMenu.execute();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    if(!gameController.currentTurnOpponentPlayer.getGameBoard().isCellInGameBoard(Cell.getSelectedCell())
+                &&!gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {
+                        try {
+                            CardActionsMenu.setCoordinates(event.getSceneX() + 195, event.getSceneY() + 60);
+                            CardActionsMenu.execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 event.consume();
             }
             else if(event.getButton()== MouseButton.SECONDARY){
                 if (Cell.getSelectedCell() != null && Cell.getSelectedCell().getCellCard().getCardImage().equals(imageView)) {
-                    cardActionsMenu.change();
+                    CardActionsMenu.change();
                 }
+                event.consume();
             }
         });
     }

@@ -356,6 +356,17 @@ public class GameBoard {
         }
         return result;
     }
+    public boolean isCellInDeckZone(Cell cell){
+        for(Cell cell1:deckZone){
+            if(cell1==cell){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isCellInGameBoard(Cell cell){
+        return isCellInHandZone(cell)||isCellInMonsterZone(cell)||isCellInSpellAndTrapZone(cell)||isCellInDeckZone(cell);
+    }
 
 
 }
