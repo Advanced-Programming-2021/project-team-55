@@ -1,5 +1,8 @@
 package yugioh.view.gamephases;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import yugioh.controller.gamephasescontrollers.StandByPhaseController;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.view.ViewInterface;
@@ -19,8 +22,9 @@ public class StandByPhase extends Duel {
     protected String processCommand(String command) {
         String response = "";
         standByPhaseController.activateEffects();
-//        gameController.changePhase();
 
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> gameController.changePhase()));
+        timeline.play();
 
         return response;
     }

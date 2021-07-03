@@ -22,6 +22,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -75,12 +76,20 @@ public class GameMenuController extends MenuController implements Initializable 
     public Pane rivalDeckZoneContainer;
     public Pane userDeckZoneContainer;
     public GameController gameController;
+    public Polygon nextPhaseTriangle;
+    public ImageView background;
     private Stage pauseStage;
 
     public static GameMenuController getGameMenuController() {
         return gameMenuController;
     }
 
+    public void makeFieldsOfGameBoardEmpty() {
+        rivalHandCardsContainer.getChildren().clear();
+        rivalDeckZoneContainer.getChildren().clear();
+        userHandCardsContainer.getChildren().clear();
+        userDeckZoneContainer.getChildren().clear();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -107,7 +116,6 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void pauseClicked() throws Exception {
-        CardActionsMenu.close();
         URL url = getClass().getResource("/yugioh/fxml/PauseMenu.fxml");
         Pane pane = FXMLLoader.load(url);
         pane.getChildren().get(0).setOnMouseClicked(mouseEvent -> resume());
@@ -286,5 +294,17 @@ public class GameMenuController extends MenuController implements Initializable 
 
     public void nextPhase() {
         Duel.getGameController().changePhase();
+    }
+
+    public Label getEpLabel() {
+        return epLabel;
+    }
+
+    public Polygon getNextPhaseTriangle() {
+        return nextPhaseTriangle;
+    }
+
+    public ImageView getBackground() {
+        return background;
     }
 }

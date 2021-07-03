@@ -16,26 +16,26 @@ public class MainPhase2 extends Duel {
     @Override
     protected void execute() {
         mainPhase2Controller = gameController.getMainPhase2Controller();
-        ViewInterface.showResult(mainPhase2Controller.showGameBoard(gameController.currentTurnPlayer,
-                gameController.currentTurnOpponentPlayer));
+//        ViewInterface.showResult(mainPhase2Controller.showGameBoard(gameController.currentTurnPlayer,
+//                gameController.currentTurnOpponentPlayer));
 
-        String response;
-        if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
-            AIPlayerController aiPlayerController = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
-                    AIPlayerController.orderKind.RANDOM));
-            String AICommand = "";
-            response = processCommand(AICommand);
-            while (response.startsWith("Error: ") && !AICommand.equals("next phase")) {
-                AICommand = aiPlayerController.getSelectCommandForMainPhases();
-                response = processCommand(AICommand);
-                if (AICommand.equals("next phase")) break;
-                AICommand = aiPlayerController.getMainCommandForMainPhases();
-                response = processCommand(AICommand);
-            }
-        } else {
-            response = processCommand(ViewInterface.getInput());
-        }
-        ViewInterface.showResult(response);
+//        String response;
+//        if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
+//            AIPlayerController aiPlayerController = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
+//                    AIPlayerController.orderKind.RANDOM));
+//            String AICommand = "";
+//            response = processCommand(AICommand);
+//            while (response.startsWith("Error: ") && !AICommand.equals("next phase")) {
+//                AICommand = aiPlayerController.getSelectCommandForMainPhases();
+//                response = processCommand(AICommand);
+//                if (AICommand.equals("next phase")) break;
+//                AICommand = aiPlayerController.getMainCommandForMainPhases();
+//                response = processCommand(AICommand);
+//            }
+//        } else {
+//            response = processCommand(ViewInterface.getInput());
+//        }
+//        ViewInterface.showResult(response);
     }
 
     @Override

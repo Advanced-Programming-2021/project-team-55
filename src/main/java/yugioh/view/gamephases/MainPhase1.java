@@ -20,8 +20,8 @@ public class MainPhase1 extends Duel {
     protected void execute() {
         mainPhase1Controller = gameController.getMainPhase1Controller();
 
-        ViewInterface.showResult(mainPhase1Controller.showGameBoard(gameController.currentTurnPlayer,
-                gameController.currentTurnOpponentPlayer));
+//        ViewInterface.showResult(mainPhase1Controller.showGameBoard(gameController.currentTurnPlayer,
+//                gameController.currentTurnOpponentPlayer));
 
 //        String response = "";//todo uncomment
 //        if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
@@ -141,5 +141,7 @@ public class MainPhase1 extends Duel {
         return response;
     }
 
-
+    public static MainPhase1Controller getMainPhase1Controller() {
+        return mainPhase1Controller;
+    }
 }

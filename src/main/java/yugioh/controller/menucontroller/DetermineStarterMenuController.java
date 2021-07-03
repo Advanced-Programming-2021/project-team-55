@@ -56,7 +56,7 @@ public class DetermineStarterMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         String currentPlayerName = gameController.getGame().getFirstPlayer().getUser().getNickname();
-        firstPlayerName.setText(currentPlayerName + " :");
+        firstPlayerName.setText(currentPlayerName + " choose your Coin side:");
         noButton.setOpacity(0);
         yesButton.setOpacity(0);
     }

@@ -45,6 +45,8 @@ abstract public class Duel {
         gameController.phases.add(gameController.currentPhase);
         showPhase();
 
+        Duel.getGameController().getMainPhase1Controller().showGameBoard(gameController.currentTurnPlayer,
+                gameController.currentTurnOpponentPlayer);
 //        new Thread(() -> {
 //        while (!gameController.isGameEnded()) {
 //            if (gameController.phases.get(gameController.phases.size() - 1) != gameController.currentPhase) {
@@ -92,6 +94,8 @@ abstract public class Duel {
     public static void showPhase() {
         GameMenuController.getGameMenuController().focusOpacityOnPhase(gameController.currentPhase);
         if (gameController.currentPhase == GamePhase.DRAW) {
+            GameMenuController.getGameMenuController().getEpLabel().setEffect(null);
+            GameMenuController.getGameMenuController().getEpLabel().setOpacity(0.5);
             Toast.makeText(WelcomeMenu.getStage(), "its " + gameController.getCurrentTurnPlayer().getUser().getNickname() + "'s turn\n");
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
                 Toast.makeText(WelcomeMenu.getStage(), "phase: " + gameController.currentPhase.name);
@@ -119,12 +123,12 @@ abstract public class Duel {
                 mainPhase1.execute();
                 break;
             }
-            case MAIN2: {
-                mainPhase2.execute();
-                break;
-            }
             case BATTLE: {
                 battlePhase.execute();
+                break;
+            }
+            case MAIN2: {
+                mainPhase2.execute();
                 break;
             }
             case END: {
@@ -135,7 +139,7 @@ abstract public class Duel {
     }
 
     public static String processSelect(String command) {
-        String response = "";
+        String response;
         if (command.matches(GameRegexes.SELECT_MONSTER.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_MONSTER.regex);
             try {
@@ -221,10 +225,6 @@ abstract public class Duel {
         response += gameController.getSideDeckCards(gameController.getCurrentTurnPlayer());
         response += gameController.getSideDeckCards(gameController.getCurrentTurnOpponentPlayer());
         ViewInterface.showResult(response);
-    }
-
-    public static MainPhase1 getMainPhase1() {
-        return mainPhase1;
     }
 
     public static GameController getGameController() {

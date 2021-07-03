@@ -1,16 +1,10 @@
 package yugioh.controller.gamephasescontrollers;
 
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.Player;
-import yugioh.model.User;
 import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
-import yugioh.model.board.ElementsCoordinates;
 import yugioh.model.board.GameBoard;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
@@ -389,156 +383,158 @@ public interface MainPhasesController {
     }
 
     default String showGameBoard(Player currentPlayer, Player opponentPlayer) {
-        GameMenuController gameMenuController=GameMenuController.getGameMenuController();
-        String response = ConsoleColors.BLUE + "\t\t" + opponentPlayer.getUser().getNickname() + ":" + opponentPlayer.getLP() + "\n";
+        GameMenuController gameMenuController = GameMenuController.getGameMenuController();
+        StringBuilder response = new StringBuilder(ConsoleColors.BLUE + "\t\t" + opponentPlayer.getUser().getNickname() + ":" + opponentPlayer.getLP() + "\n");
         GameBoard playerGameBoard = currentPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = opponentPlayer.getGameBoard();
-        for (int i = 0; i < 6 - opponentPlayerGameBoard.getHandCards().size(); i++) {
+        response.append("\t".repeat(Math.max(0, 6 - opponentPlayerGameBoard.getHandCards().size())));
 
-            response += "\t";
-        }
         for (int i = 0; i < opponentPlayerGameBoard.getHandCards().size(); i++) {
-            ImageView imageView=opponentPlayerGameBoard.getHandCards().get(i).getCellCard().getCardBackImage();
+            ImageView imageView = opponentPlayerGameBoard.getHandCards().get(i).getCellCard().getCardBackImage();
             imageView.setFitWidth(70);
             imageView.rotateProperty().setValue(180);
             gameMenuController.rivalHandCardsContainer.getChildren().add(imageView);
             gameMenuController.addEventForCardImage(imageView, null);
-            response += "\tc";
+            response.append("\tc");
         }
-        double paneX=gameMenuController.rivalDeckZoneContainer.getLayoutX();
-        for(int i=opponentPlayerGameBoard.getDeckZone().size()-1;i>=0;i--){
-            ImageView imageView=opponentPlayerGameBoard.getDeckZone().get(i).getCellCard().getCardBackImage();
+
+        double paneX = gameMenuController.rivalDeckZoneContainer.getLayoutX();
+        for (int i = opponentPlayerGameBoard.getDeckZone().size() - 1; i >= 0; i--) {
+            ImageView imageView = opponentPlayerGameBoard.getDeckZone().get(i).getCellCard().getCardBackImage();
             imageView.setFitWidth(70);
             imageView.rotateProperty().set(180.0);
-            imageView.setLayoutX(paneX-i/2);
+            imageView.setLayoutX(paneX - i / 2);
             gameMenuController.rivalDeckZoneContainer.getChildren().add(imageView);
-            gameMenuController.addEventForCardImage(imageView,null);
+            gameMenuController.addEventForCardImage(imageView, null);
         }
-        response += "\n" + opponentPlayerGameBoard.getDeckZone().size() + "\n";
-        response += "\t4\t2\t1\t3\t5\n";
+
+        response.append("\n").append(opponentPlayerGameBoard.getDeckZone().size()).append("\n");
+        response.append("\t4\t2\t1\t3\t5\n");
         int[] opponentCellNumbering = {3, 1, 0, 2, 4};
+
         for (int i = 0; i < 5; i++) {
             if (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentCellNumbering[i]]
                     .getCellCard() == null) {
-                response += "\tE";
+                response.append("\tE");
             } else {
                 switch (opponentPlayerGameBoard.getSpellAndTrapCardZone()[opponentCellNumbering[i]]
                         .getCardStatus()) {
                     case HIDDEN: {
-                        response += "\tH";
+                        response.append("\tH");
                         break;
                     }
                     case OCCUPIED: {
-                        response += "\tO";
+                        response.append("\tO");
                         break;
                     }
 
                 }
             }
         }
-        response += "\n";
+
+        response.append("\n");
         for (int i = 0; i < 5; i++) {
             if (opponentPlayerGameBoard.getMonsterCardZone()[opponentCellNumbering[i]]
                     .getCellCard() == null) {
-                response += "\tE";
+                response.append("\tE");
             } else {
                 switch (opponentPlayerGameBoard.getMonsterCardZone()[opponentCellNumbering[i]]
                         .getCardStatus()) {
                     case DEFENSIVE_HIDDEN: {
-                        response += "\tDH";
+                        response.append("\tDH");
                         break;
                     }
                     case DEFENSIVE_OCCUPIED: {
-                        response += "\tDO";
+                        response.append("\tDO");
                         break;
                     }
                     case OFFENSIVE_OCCUPIED: {
-                        response += "\tOO";
+                        response.append("\tOO");
                     }
                 }
             }
         }
-        response += "\n" + opponentPlayerGameBoard.getGraveyard().size() + "\t\t\t\t\t\t";
+        response.append("\n").append(opponentPlayerGameBoard.getGraveyard().size()).append("\t\t\t\t\t\t");
         if (opponentPlayerGameBoard.getFieldZone().isEmpty()) {
-            response += "E";
+            response.append("E");
         } else {
-            response += "O";
+            response.append("O");
         }
-        response += "\n\n--------------------------\n\n";
+        response.append("\n\n--------------------------\n\n");
         if (playerGameBoard.getFieldZone().isEmpty()) {
-            response += "E";
+            response.append("E");
         } else {
-            response += "O";
+            response.append("O");
         }
-        response += "\t\t\t\t\t\t" + playerGameBoard.getGraveyard().size() + "\n";
+        response.append("\t\t\t\t\t\t").append(playerGameBoard.getGraveyard().size()).append("\n");
         int[] playerCellNumbering = {4, 2, 0, 1, 3};
         for (int i = 0; i < 5; i++) {
             if (playerGameBoard.getMonsterCardZone()[playerCellNumbering[i]]
                     .getCellCard() == null) {
-                response += "\tE";
+                response.append("\tE");
             } else {
                 switch (playerGameBoard.getMonsterCardZone()[playerCellNumbering[i]]
                         .getCardStatus()) {
                     case DEFENSIVE_HIDDEN: {
-                        response += "\tDH";
+                        response.append("\tDH");
                         break;
                     }
                     case DEFENSIVE_OCCUPIED: {
-                        response += "\tDO";
+                        response.append("\tDO");
                         break;
                     }
                     case OFFENSIVE_OCCUPIED: {
-                        response += "\tOO";
+                        response.append("\tOO");
                     }
                 }
             }
         }
-        response += "\n";
+        response.append("\n");
 
         for (int i = 0; i < 5; i++) {
             if (playerGameBoard.getSpellAndTrapCardZone()[playerCellNumbering[i]]
                     .getCellCard() == null) {
-                response += "\tE";
+                response.append("\tE");
             } else {
                 switch (playerGameBoard.getSpellAndTrapCardZone()[playerCellNumbering[i]]
                         .getCardStatus()) {
                     case HIDDEN: {
-                        response += "\tH";
+                        response.append("\tH");
                         break;
                     }
                     case OCCUPIED: {
-                        response += "\tO";
+                        response.append("\tO");
                         break;
                     }
 
                 }
             }
         }
-        response += "\n\t5\t3\t1\t2\t4";
-        response += "\n\t\t\t\t\t\t" + playerGameBoard.getDeckZone().size() + "\n";
-        double xPane=gameMenuController.userDeckZoneContainer.getLayoutX();
-        for(int i=playerGameBoard.getDeckZone().size()-1;i>=0;i--){
-            ImageView imageView=playerGameBoard.getDeckZone().get(i).getCellCard().getCardBackImage();
+        response.append("\n\t5\t3\t1\t2\t4");
+        response.append("\n\t\t\t\t\t\t").append(playerGameBoard.getDeckZone().size()).append("\n");
+        double xPane = gameMenuController.userDeckZoneContainer.getLayoutX();
+        for (int i = playerGameBoard.getDeckZone().size() - 1; i >= 0; i--) {
+            ImageView imageView = playerGameBoard.getDeckZone().get(i).getCellCard().getCardBackImage();
             imageView.setFitWidth(70);
-            imageView.setLayoutX(xPane+i/2);
+            imageView.setLayoutX(xPane + i / 2);
             gameMenuController.userDeckZoneContainer.getChildren().add(imageView);
-            gameMenuController.addEventForCardImage(imageView,null);
+            gameMenuController.addEventForCardImage(imageView, null);
         }
 
         for (int i = 0; i < playerGameBoard.getHandCards().size(); i++) {
-            Cell cell=playerGameBoard.getHandCards().get(i);
+            Cell cell = playerGameBoard.getHandCards().get(i);
 //            ImageView imageView = Card.getCardImage(opponentPlayerGameBoard.getHandCards().get(i).getCellCard(), 80);
 //            imageView.setX(ElementsCoordinates.getUserHandCards().get(i).getX());
 //            imageView.setY(ElementsCoordinates.getUserHandCards().get(i).getY());
 //            GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(imageView);
             //Card card = playerGameBoard.getHandCards().get(i).getCellCard();
-            ImageView imageView=cell.getCellCard().getCardImageForDeck(90);
+            ImageView imageView = cell.getCellCard().getCardImageForDeck(90);
             gameMenuController.userHandCardsContainer.getChildren().add(imageView);
             gameMenuController.addEventForCardImage(imageView, cell.getCellCard());
-            response += "c\t";
+            response.append("c\t");
         }
-        response += "\n\t\t" + currentPlayer.getUser().getNickname() + ":" + currentPlayer.getLP() + ConsoleColors.RESET;
-        return response;
+        response.append("\n\t\t").append(currentPlayer.getUser().getNickname()).append(":").append(currentPlayer.getLP()).append(ConsoleColors.RESET);
+        return response.toString();
     }
 
 }

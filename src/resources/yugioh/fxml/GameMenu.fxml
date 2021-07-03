@@ -95,8 +95,8 @@
                 </Label>
             </VBox>
         </VBox>
-    <!--4/2--> <ImageView fitHeight="684.0" fitWidth="772.0" pickOnBounds="true" preserveRatio="true" scaleX="1.06" scaleY="1.055">
-     <Image url="@../PNG/Field/fie_desert.jpg" />
+        <ImageView fx:id="background" fitHeight="684.0" fitWidth="772.0" pickOnBounds="true" preserveRatio="true" scaleX="1.06" scaleY="1.055">
+            <Image url="@../PNG/Field/fie_desert.jpg" />
         </ImageView>
     </HBox>
     <!--5--> <Label fx:id="defLabel" layoutX="162.0" layoutY="527.0" styleClass="buttonText" text="DEF:">
@@ -114,10 +114,10 @@
             <Font size="10.0" />
         </font>
     </Label>
-    <!--8--> <Separator layoutY="560.0" prefHeight="4.0" prefWidth="325.0" />
-    <!--9--> <Separator layoutY="107.0" prefHeight="76.0" prefWidth="326.0" />
-    <!--10--> <Separator layoutX="322.0" layoutY="1.0" orientation="VERTICAL" prefHeight="720.0" prefWidth="0.0" />
-    <!--11--> <Label layoutX="102.0" styleClass="buttonText2" text="LP" textFill="#fafa00">
+    <Separator layoutY="560.0" prefHeight="4.0" prefWidth="325.0" />
+    <Separator layoutY="104.0" prefHeight="76.0" prefWidth="326.0" />
+    <Separator layoutX="322.0" layoutY="1.0" orientation="VERTICAL" prefHeight="720.0" prefWidth="0.0" />
+    <Label layoutX="102.0" styleClass="buttonText2" text="LP" textFill="#fafa00">
         <font>
             <Font size="40" />
         </font>
@@ -164,14 +164,14 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="110.0" layoutX="313.0" layoutY="378.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="83.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="110.0" layoutX="502.0" layoutY="378.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="83.0" />
     </Pane>
-    <!--19--> <Label fx:id="currentUsername" layoutX="20.0" layoutY="564.0" prefHeight="34.0" prefWidth="151.0" text="Username : " />
-    <!--20--> <Label fx:id="currentNickname" layoutX="21.0" layoutY="598.0" prefHeight="18.0" prefWidth="127.0" text="Nickname : " />
-    <!--21--> <Label fx:id="opponentUsername" layoutX="17.0" layoutY="69.0" prefHeight="18.0" prefWidth="136.0" text="Username : " />
-    <!--22--> <Label fx:id="opponentNickname" layoutX="18.0" layoutY="98.0" prefHeight="18.0" prefWidth="136.0" text="Nickname : " />
-    <!--23--> <ImageView fx:id="currentImage" fitHeight="76.0" fitWidth="76.0" layoutX="246.0" layoutY="564.0" pickOnBounds="true" preserveRatio="true" />
-    <!--24--> <ImageView fx:id="opponentImage" fitHeight="76.0" fitWidth="76.0" layoutX="246.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
-    <!--25--> <Polygon accessibleHelp="next phase" accessibleRoleDescription="next phase" accessibleText="next phase" fill="DODGERBLUE" layoutX="358.0" layoutY="625.0" onMouseClicked="#nextPhase" rotate="180.0" scaleX="0.4" scaleY="0.4" scaleZ="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="triangle">
-    <points>
+    <Label fx:id="currentUsername" layoutX="20.0" layoutY="564.0" prefHeight="34.0" prefWidth="151.0" text="Username : " />
+    <Label fx:id="currentNickname" layoutX="21.0" layoutY="598.0" prefHeight="18.0" prefWidth="127.0" text="Nickname : " />
+    <Label fx:id="opponentUsername" layoutX="17.0" layoutY="69.0" prefHeight="18.0" prefWidth="136.0" text="Username : " />
+    <Label fx:id="opponentNickname" layoutX="18.0" layoutY="98.0" prefHeight="18.0" prefWidth="136.0" text="Nickname : " />
+    <ImageView fx:id="currentImage" fitHeight="76.0" fitWidth="76.0" layoutX="246.0" layoutY="564.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="opponentImage" fitHeight="76.0" fitWidth="76.0" layoutX="246.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
+   <Polygon fx:id="nextPhaseTriangle" accessibleHelp="next phase" accessibleRoleDescription="next phase" accessibleText="next phase" fill="DODGERBLUE" layoutX="358.0" layoutY="625.0" onMouseClicked="#nextPhase" rotate="180.0" scaleX="0.4" scaleY="0.4" scaleZ="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="triangle">
+     <points>
        <Double fx:value="-50.0" />
        <Double fx:value="40.0" />
        <Double fx:value="50.0" />
