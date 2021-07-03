@@ -7,33 +7,52 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.RivalSelectionMenuController">
-
-        <JFXButton fx:id="cancel" buttonType="RAISED" focusTraversable="false" layoutX="30.0" layoutY="623.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Cancel">
-         <styleClass>
-             <String fx:value="buttonText" />
-             <String fx:value="buttonShape" />
-             <String fx:value="buttonHover" />
-         </styleClass>
-     </JFXButton>
- <Label layoutX="297.0" layoutY="69.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Rival Selection Menu" textFill="#fafa00">
-     <font>
-         <Font size="20.0" />
-     </font>
- </Label>
-   <Label alignment="CENTER" layoutX="360.0" layoutY="192.0" prefHeight="34.0" prefWidth="335.0" text="select rival:">
-      <font>
-         <Font size="18.0" />
-      </font>
-   </Label>
-   <JFXButton fx:id="start" buttonType="RAISED" focusTraversable="false" layoutX="412.0" layoutY="466.0" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="go!">
-      <styleClass>
-         <String fx:value="buttonText" />
-         <String fx:value="buttonShape" />
-         <String fx:value="buttonHover" />
-      </styleClass>
-   </JFXButton>
-   <ChoiceBox fx:id="rivals" focusTraversable="false" layoutX="412.0" layoutY="239.0" prefHeight="34.0" prefWidth="230.0" />
-   <ToggleButton fx:id="threeRounds" layoutX="540.0" layoutY="353.0" mnemonicParsing="false" onMouseClicked="#clickThreeRounds" prefHeight="48.0" prefWidth="112.0" text="3 rounds" />
-   <ToggleButton fx:id="oneRound" layoutX="400.0" layoutY="353.0" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="48.0" prefWidth="112.0" text="1 round" />
+   <VBox alignment="CENTER" prefHeight="745.0" prefWidth="1038.0">
+      <children>
+       <Label alignment="TOP_CENTER" prefHeight="171.0" prefWidth="460.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Rival Selection Menu" textFill="#ccdefc">
+           <font>
+               <Font size="20.0" />
+           </font>
+       </Label>
+         <VBox alignment="CENTER" prefHeight="250.0" prefWidth="1038.0">
+            <children>
+               <HBox alignment="CENTER" prefHeight="82.0" prefWidth="1038.0">
+                  <children>
+                     <Label prefHeight="34.0" prefWidth="154.0" styleClass="buttonText" text="select rival:" textFill="#ccdefc">
+                        <font>
+                           <Font size="18.0" />
+                        </font>
+                     </Label>
+                     <ChoiceBox fx:id="rivals" focusTraversable="false" prefHeight="34.0" prefWidth="192.0" />
+                  </children>
+               </HBox>
+               <HBox alignment="CENTER" prefHeight="82.0" prefWidth="1038.0" spacing="10.0">
+                  <children>
+                     <JFXToggleButton fx:id="threeRounds" mnemonicParsing="false" onMouseClicked="#clickThreeRounds" prefHeight="66.0" prefWidth="175.0" styleClass="buttonText" text="3 rounds" />
+                      <JFXToggleButton fx:id="oneRound" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="66.0" prefWidth="175" styleClass="buttonText" text="1 round" />
+                    <!--  <ToggleButton fx:id="threeRounds" mnemonicParsing="false" onMouseClicked="#clickThreeRounds" prefHeight="48.0" prefWidth="112.0" text="3 rounds" />
+                     <ToggleButton fx:id="oneRound" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="48.0" prefWidth="112.0" text="1 round" />
+                  -->
+                  </children>
+               </HBox>
+            </children>
+         </VBox>
+         <JFXButton fx:id="start" buttonType="RAISED" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="go!">
+            <styleClass>
+               <String fx:value="buttonText" />
+               <String fx:value="buttonShape" />
+               <String fx:value="buttonHover" />
+            </styleClass>
+         </JFXButton>
+      
+              <JFXButton fx:id="cancel" buttonType="RAISED" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Cancel">
+               <styleClass>
+                   <String fx:value="buttonText" />
+                   <String fx:value="buttonShape" />
+                   <String fx:value="buttonHover" />
+               </styleClass>
+           </JFXButton>
+      </children>
+   </VBox>
 
 </AnchorPane>
