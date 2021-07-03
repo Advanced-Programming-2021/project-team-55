@@ -33,7 +33,7 @@ public class CardActionsMenu implements MainPhasesController {
     private static double xImage;
     private static double yImage;
     private static Button actionButton=new Button();
-    private static ImageView image;
+    private static Rectangle imageRectangle;
     private static ArrayList<String>actions=new ArrayList<>();
     private static Pane gamePane;
     private static int place=6;
@@ -47,8 +47,8 @@ public class CardActionsMenu implements MainPhasesController {
             actions.add("summon");
         }
     }
-    public static void execute(ImageView imageView, GameController controller) throws Exception {
-        image=imageView;
+    public static void execute(Rectangle rectangle, GameController controller) throws Exception {
+        imageRectangle=rectangle;
         gameController=controller;
         start();
     }
@@ -98,15 +98,18 @@ public class CardActionsMenu implements MainPhasesController {
     }
     public static void handleSet(){
         if(Cell.getSelectedCell().getCellCard().isMonster()){
-           try {
+          // try {
                ImagePattern imagePattern=new ImagePattern(new Image(new File(Cell.getSelectedCell().getCellCard().getImage()).toURI().toString()));
-               ((Rectangle)gamePane.getChildren().get(place++)).setFill(imagePattern);
-               new CardActionsMenu().setCard(gameController,image);
-               ((HBox)gamePane.getChildren().get(1)).getChildren().remove(image);
-           } catch (GameException e) {
-               e.printStackTrace();
+               Rectangle rectangle=((Rectangle)gamePane.getChildren().get(place++));
+            rectangle.setFill(imagePattern);
+               rectangle.opacityProperty().set(1);
+
+               //new CardActionsMenu().setCard(gameController,image);
+               ((HBox)gamePane.getChildren().get(1)).getChildren().remove(imageRectangle);
+           //} catch (GameException e) {
+           //    e.printStackTrace();
               //todo show an error box
-           }
+          // }
             actionsStage.close();
         }
     }

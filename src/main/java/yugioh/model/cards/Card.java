@@ -2,6 +2,7 @@ package yugioh.model.cards;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
 import yugioh.model.cards.cardfeaturesenums.SpellOrTrap;
 import yugioh.model.cards.monsters.*;
 import yugioh.model.cards.trapandspells.*;
@@ -26,7 +27,12 @@ public class Card {
     protected Kind cardKind;
     protected String image;
     transient protected ImageView cardImage;
+    transient protected ImagePattern cardImagePattern;
     transient protected ImageView backImage;
+    transient protected ImagePattern backImagePattern;
+
+    transient public final static ImagePattern backImageForAllCards=new ImagePattern(new Image(
+            new File("src/resources/yugioh/PNG/cardsImages/Unknown.jpg").toURI().toString()));
 
 
     public Card(String name, String description, int price, Kind cardKind, SpellOrTrap magicType) {
@@ -424,8 +430,10 @@ public class Card {
                 "").replaceAll("yugioh.model.cards.trapandspells.", "");
         image="src/resources/yugioh/PNG/cardsImages/" + name + ".jpg";
         cardImage=new ImageView(new Image(new File(image).toURI().toString()));
+        cardImagePattern=new ImagePattern(new Image(new File(image).toURI().toString()));
         backImage=new ImageView(new Image(new File("src/resources/yugioh/PNG/cardsImages/Unknown.jpg").
                 toURI().toString()));
+        backImagePattern=new ImagePattern(new Image(new File("src/resources/yugioh/PNG/cardsImages/Unknown.jpg").toURI().toString()));
     }
 
     public ImageView getCardImageForDeck(int width){
@@ -435,6 +443,9 @@ public class Card {
         cardImage.setPreserveRatio(true);
         cardImage.setFitWidth(width);
         return cardImage;
+    }
+    public ImagePattern getCardImagePattern(){
+        return cardImagePattern;
     }
     public ImageView getCardBackImage(){
         backImage.setPreserveRatio(true);
@@ -457,6 +468,10 @@ public class Card {
 
     public ImageView getCardImage() {
         return cardImage;
+    }
+
+    public ImagePattern getCardBackImagePattern(){
+        return backImagePattern;
     }
 
     public enum Kind {MONSTER, MAGIC}

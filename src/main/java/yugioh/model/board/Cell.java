@@ -1,8 +1,8 @@
 package yugioh.model.board;
 
-import javafx.scene.image.ImageView;
-import yugioh.controller.gamephasescontrollers.GameController;
-import yugioh.controller.menucontroller.GameMenuController;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
 import yugioh.model.cards.monsters.CommandKnight;
@@ -18,19 +18,23 @@ import java.util.ArrayList;
 public class Cell {
 
     private static Cell selectedCell;
+    public transient static Rectangle selectedRectangle;
     public CardStatus cardStatus;
     private Card card;
     private double xPosition;
     private double yPosition;
     private static ArrayList<Cell>allCells=new ArrayList<>();
 
-    public static void setSelectedCellByImage(ImageView imageView){
+    public static void setSelectedCellByImage(Paint paint){
+        ImagePattern imagePattern=(ImagePattern) paint;
         for(Cell cell:allCells){
-            if(!cell.isEmpty()&&(cell.getCellCard().getCardImage()==imageView||cell.getCellCard().getCardBackImage()==imageView)){
+            if(!cell.isEmpty()&&(cell.getCellCard().getCardImagePattern().equals(imagePattern)||cell.getCellCard().
+                    getCardBackImagePattern().equals(imagePattern))){
                 selectedCell=cell;
             }
         }
     }
+
     public static ArrayList<Cell> getAllCells() {
         return allCells;
     }
@@ -54,6 +58,9 @@ public class Cell {
 
     public static void setSelectedCell(Cell selectedCell) {
         Cell.selectedCell = selectedCell;
+    }
+    public static void setSelectedRectangle(Rectangle rectangle){
+        Cell.selectedRectangle=rectangle;
     }
 
     public Card getCellCard() {

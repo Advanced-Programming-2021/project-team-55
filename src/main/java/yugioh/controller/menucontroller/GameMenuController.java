@@ -22,7 +22,10 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -47,7 +50,7 @@ public class GameMenuController extends MenuController implements Initializable 
 
     private static GameMenuController gameMenuController;
     public Pane gamePane;
-    public ImageView hoveredImage;
+    public Rectangle hoveredImageRectangle;
     public ScrollPane descriptionContainer;
     public Label description;
     public Label atkLabel;
@@ -73,6 +76,7 @@ public class GameMenuController extends MenuController implements Initializable 
     public Pane gameBoardPane;
     public HBox rivalHandCardsContainer;
     public HBox userHandCardsContainer;
+    public StackPane userDeckZoneContainer2;
     public Pane rivalDeckZoneContainer;
     public Pane userDeckZoneContainer;
     public GameController gameController;
@@ -103,15 +107,17 @@ public class GameMenuController extends MenuController implements Initializable 
         userDeckZoneContainer.setPadding(new Insets(0,0,0,0));
         userHandCardsContainer.setSpacing(17);
         rivalHandCardsContainer.setSpacing(17);
-        hoveredImage.setImage(Card.getCardImage(null, 354).getImage());
+        hoveredImageRectangle.setFill(Card.backImageForAllCards);
         description.setWrapText(true);
         description.setTextAlignment(TextAlignment.JUSTIFY);
     }
 
+    //todo: is this necessary?
     private void updateCells() {
         for(Cell cell:Cell.getAllCells()){
-            if(!cell.isEmpty())
-            addEventForCardImage(cell.getCellCard().getCardImage(), cell.getCellCard());
+            if(!cell.isEmpty()) {
+                //  addEventForCardImageRectangle(cell.getCellCard().getCardImage(), cell.getCellCard());
+            }
         }
     }
 
@@ -171,9 +177,9 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
 
-    public void addEventForCardImage(ImageView imageView, Card card) {
-        imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
-            Platform.runLater(() -> hoveredImage.setImage(imageView.getImage()));
+    public void addEventForCardImageRectangle(Rectangle rectangle, Card card) {
+        rectangle.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+            Platform.runLater(() -> hoveredImageRectangle.setFill(rectangle.getFill()));
             if (card == null){
                 Platform.runLater(() -> description.setText(""));
             }
@@ -195,27 +201,31 @@ public class GameMenuController extends MenuController implements Initializable 
             event.consume();
             }});
         CardActionsMenu.setGamePane(gameBoardPane);
-        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
+        rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED ,event->{
             if(event.getButton()== MouseButton.PRIMARY) {
+                ImagePattern rectangleImage=(ImagePattern) rectangle.getFill();
                 if (Cell.getSelectedCell() != null && !Cell.getSelectedCell().isEmpty()) {
-                    Cell.getSelectedCell().getCellCard().getCardImage().setEffect(null);
-                    Cell.getSelectedCell().getCellCard().getCardBackImage().setEffect(null);
+                    Cell.selectedRectangle.setEffect(null);
                     CardActionsMenu.close();
                 }
-                if (Cell.getSelectedCell() != null && Cell.getSelectedCell().getCellCard().getCardImage().equals(imageView)) {
+                if (Cell.getSelectedCell() != null && Cell.getSelectedCell().getCellCard().getCardImagePattern().equals
+                        (rectangleImage)) {
                     CardActionsMenu.close();
                     Cell.setSelectedCell(null);
-                } else {
+                    Cell.setSelectedRectangle(null);
+                }
+                else {
                     DropShadow selectEffect = new DropShadow(BlurType.values()[1],
                             GREEN, 10, 2.0f, 0, 0);
                     selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
-                    Cell.setSelectedCellByImage(imageView);
-                    imageView.setEffect(selectEffect);
+                    Cell.setSelectedCellByImage(rectangle.getFill());
+                    Cell.setSelectedRectangle(rectangle);
+                    rectangle.setEffect(selectEffect);
                     if(!gameController.currentTurnOpponentPlayer.getGameBoard().isCellInGameBoard(Cell.getSelectedCell())
                 &&!gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {
                         try {
                             CardActionsMenu.setCoordinates(event.getSceneX() + 195, event.getSceneY() + 60);
-                            CardActionsMenu.execute(imageView,gameController);
+                            CardActionsMenu.execute(rectangle,gameController);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -224,7 +234,8 @@ public class GameMenuController extends MenuController implements Initializable 
                 event.consume();
             }
             else if(event.getButton()== MouseButton.SECONDARY){
-                if (Cell.getSelectedCell() != null && Cell.getSelectedCell().getCellCard().getCardImage().equals(imageView)) {
+                if (Cell.getSelectedCell() != null && Cell.getSelectedCell().getCellCard().getCardImagePattern().
+                        equals((ImagePattern) rectangle.getFill())) {
                     CardActionsMenu.change();
                 }
                 event.consume();
