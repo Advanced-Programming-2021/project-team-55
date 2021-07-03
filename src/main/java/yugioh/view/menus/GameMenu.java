@@ -12,6 +12,7 @@ import yugioh.controller.menucontroller.WelcomeMenuController;
 import java.net.URL;
 
 public class GameMenu extends WelcomeMenu {
+    public Parent parent;
 
     @Override
     public void execute() throws Exception {

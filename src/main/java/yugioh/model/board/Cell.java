@@ -20,6 +20,8 @@ public class Cell {
     private static Cell selectedCell;
     public CardStatus cardStatus;
     private Card card;
+    private double xPosition;
+    private double yPosition;
     private static ArrayList<Cell>allCells=new ArrayList<>();
 
     public static void setSelectedCellByImage(ImageView imageView){
@@ -97,5 +99,16 @@ public class Cell {
         this.cardStatus = cardStatus;
         CommandKnight.deActivateEffect(this);
     }
+    public void setPosition(double x,double y){
+        this.xPosition=x;
+        this.yPosition=y;
+    }
 
+    public double getxPosition() {
+        return xPosition;
+    }
+
+    public double getyPosition() {
+        return yPosition;
+    }
 }

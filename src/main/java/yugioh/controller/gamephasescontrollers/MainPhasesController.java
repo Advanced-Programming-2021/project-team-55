@@ -193,7 +193,36 @@ public interface MainPhasesController {
 //        }
         }
     }
-
+    default void setCard(GameController gameController,ImageView imageView) throws GameException {//todo, the method can insert 6 spells
+        Cell selectedCell = Cell.getSelectedCell();
+        GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
+        if (selectedCell == null) {
+            throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
+        }
+        Card selectedCard = selectedCell.getCellCard();
+        if (selectedCard == null) {
+            throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
+        } else if (!playerGameBoard.getHandCards().contains(selectedCell)) {
+            throw new GameException(GameResponses.CANT_SET_CARD.response);
+        } else {
+            if (selectedCard.isMonster()) {
+//                if (gameController.DoPlayerSetOrSummonedThisTurn()) {
+//                    throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
+//                }
+                playerGameBoard.addCardToMonsterCardZone(selectedCard, CardStatus.DEFENSIVE_HIDDEN, gameController);
+                playerGameBoard.getHandCards().remove(selectedCell);
+                gameController.changedPositionCells.add(selectedCell);
+                gameController.setDidPlayerSetOrSummonThisTurn(true);
+            } else {
+                playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard, CardStatus.HIDDEN, gameController);
+                playerGameBoard.getHandCards().remove(selectedCell);
+                gameController.changedPositionCells.add(selectedCell);
+                TimeSeal.setActivated(gameController);
+            }
+            imageView.setEffect(null);
+            Cell.deselectCell();
+        }
+    }
     default void setCard(GameController gameController) throws GameException {//todo, the method can insert 6 spells
         Cell selectedCell = Cell.getSelectedCell();
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();

@@ -45,7 +45,7 @@ import static javafx.scene.paint.Color.GREEN;
 public class GameMenuController extends MenuController implements Initializable {
 
     private static GameMenuController gameMenuController;
-
+    public Pane gamePane;
     public ImageView hoveredImage;
     public ScrollPane descriptionContainer;
     public Label description;
@@ -107,6 +107,7 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void pauseClicked() throws Exception {
+        CardActionsMenu.close();
         URL url = getClass().getResource("/yugioh/fxml/PauseMenu.fxml");
         Pane pane = FXMLLoader.load(url);
         pane.getChildren().get(0).setOnMouseClicked(mouseEvent -> resume());
@@ -185,6 +186,7 @@ public class GameMenuController extends MenuController implements Initializable 
             }
             event.consume();
             }});
+        CardActionsMenu.setGamePane(gameBoardPane);
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
             if(event.getButton()== MouseButton.PRIMARY) {
                 if (Cell.getSelectedCell() != null && !Cell.getSelectedCell().isEmpty()) {
@@ -205,7 +207,7 @@ public class GameMenuController extends MenuController implements Initializable 
                 &&!gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {
                         try {
                             CardActionsMenu.setCoordinates(event.getSceneX() + 195, event.getSceneY() + 60);
-                            CardActionsMenu.execute();
+                            CardActionsMenu.execute(imageView,gameController);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

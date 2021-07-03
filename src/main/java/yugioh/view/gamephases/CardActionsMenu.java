@@ -1,28 +1,37 @@
 package yugioh.view.gamephases;
 
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import yugioh.controller.gamephasescontrollers.GameController;
+import yugioh.controller.gamephasescontrollers.MainPhasesController;
 import yugioh.model.board.Cell;
+import yugioh.model.board.GameBoard;
+import yugioh.model.exceptions.GameException;
 import yugioh.view.menus.WelcomeMenu;
 
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 
-public class CardActionsMenu {
+public class CardActionsMenu implements MainPhasesController {
     private static Stage actionsStage=new Stage();
 
     private static double xImage;
     private static double yImage;
     private static Button actionButton=new Button();
+    private static ImageView image;
     private static ArrayList<String>actions=new ArrayList<>();
+    private static Pane gamePane;
+    private static GameController gameController;
     static {
         actionsStage.initOwner(WelcomeMenu.stage);
         actionsStage.initModality(Modality.NONE);
@@ -32,17 +41,27 @@ public class CardActionsMenu {
             actions.add("summon");
         }
     }
-    public static void execute() throws Exception {
-        start(WelcomeMenu.stage);
+    public static void execute(ImageView imageView, GameController controller) throws Exception {
+        image=imageView;
+        gameController=controller;
+        start();
     }
 
-    public static void start(Stage stage) throws Exception {
+    public static void start() throws Exception {
         actionButton.setText("set");
         actionButton.setMinWidth(70);
         Pane pane=new Pane();
         pane.getChildren().add(actionButton);
         pane.setMaxWidth(70);
         pane.setMaxHeight(30);
+        actionButton.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(actionButton.getText().equals("set")){
+                    handleSet();
+                }
+            }
+        });
         Scene scene=WelcomeMenu.createScene(pane);
         actionsStage.setX(xImage);
         actionsStage.setY(yImage);
@@ -50,6 +69,7 @@ public class CardActionsMenu {
         actionsStage.show();
     }
     public static void close(){
+        if(actionsStage!=null)
         actionsStage.close();
     }
 
@@ -69,5 +89,21 @@ public class CardActionsMenu {
             }
             counter++;
         }
+    }
+    public static void handleSet(){
+        if(Cell.getSelectedCell().getCellCard().isMonster()){
+           try {
+               new CardActionsMenu().setCard(gameController,image);
+               ((HBox)gamePane.getChildren().get(1)).getChildren().remove(image);
+           } catch (GameException e) {
+               e.printStackTrace();
+              //todo show an error box
+           }
+            actionsStage.close();
+        }
+    }
+    public static void setGamePane(Pane pane){
+        gamePane=pane;
+        GameBoard.setGamePane(gamePane);
     }
 }
