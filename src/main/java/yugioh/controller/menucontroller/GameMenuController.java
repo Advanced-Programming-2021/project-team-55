@@ -1,6 +1,8 @@
 package yugioh.controller.menucontroller;
 
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +15,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -21,19 +24,18 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
+import yugioh.view.gamephases.CardActionsMenu;
 import yugioh.view.gamephases.Duel;
-import yugioh.view.menus.DuelMenu;
 import yugioh.view.menus.WelcomeMenu;
 import yugioh.view.gamephases.GamePhase;
 import yugioh.view.gamephases.Graveyard;
-import yugioh.view.menus.DuelMenu;
+import yugioh.view.menus.WelcomeMenu;
 
-import java.io.File;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -189,12 +191,15 @@ public class GameMenuController extends MenuController implements Initializable 
             }
             event.consume();
             }});
+        CardActionsMenu cardActionsMenu=new CardActionsMenu();
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
             if(Cell.getSelectedCell()!=null&&!Cell.getSelectedCell().isEmpty()) {
                 Cell.getSelectedCell().getCellCard().getCardImage().setEffect(null);
                 Cell.getSelectedCell().getCellCard().getCardBackImage().setEffect(null);
+                CardActionsMenu.close();
             }
             if(Cell.getSelectedCell()!=null&&Cell.getSelectedCell().getCellCard().getCardImage().equals(imageView)){
+                CardActionsMenu.close();
                 Cell.setSelectedCell(null);
             }else {
                 DropShadow selectEffect = new DropShadow(BlurType.values()[1],
@@ -202,6 +207,10 @@ public class GameMenuController extends MenuController implements Initializable 
                 selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
                 Cell.setSelectedCellByImage(imageView);
                 imageView.setEffect(selectEffect);
+                try {
+                    cardActionsMenu.setCoordinates(event.getSceneX()+150,event.getSceneY()+40);
+                    cardActionsMenu.execute();
+                }catch (Exception e){e.printStackTrace();}
             }
             event.consume();
         });
@@ -220,31 +229,48 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void focusOpacityOnPhase(GamePhase gamePhase) {
-        dpLabel.setOpacity(0.5);
-        spLabel.setOpacity(0.5);
-        m1Label.setOpacity(0.5);
-        bpLabel.setOpacity(0.5);
-        m2Label.setOpacity(0.5);
-        epLabel.setOpacity(0.5);
-        switch (gamePhase) {
-            case DRAW:
-                dpLabel.setOpacity(1);
-                break;
-            case STANDBY:
-                spLabel.setOpacity(1);
-                break;
-            case MAIN1:
-                m1Label.setOpacity(1);
-                break;
-            case BATTLE:
-                bpLabel.setOpacity(1);
-                break;
-            case MAIN2:
-                m2Label.setOpacity(1);
-                break;
-            case END:
-                epLabel.setOpacity(1);
-                break;
-        }
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
+            dpLabel.setEffect(null);
+            spLabel.setEffect(null);
+            m1Label.setEffect(null);
+            bpLabel.setEffect(null);
+            m2Label.setEffect(null);
+            epLabel.setEffect(null);
+            dpLabel.setOpacity(0.5);
+            spLabel.setOpacity(0.5);
+            m1Label.setOpacity(0.5);
+            bpLabel.setOpacity(0.5);
+            m2Label.setOpacity(0.5);
+            epLabel.setOpacity(0.5);
+            Glow glow = new Glow();
+            glow.setLevel(5);
+            switch (gamePhase) {
+                case DRAW:
+                    dpLabel.setOpacity(1);
+                    dpLabel.setEffect(glow);
+                    break;
+                case STANDBY:
+                    spLabel.setOpacity(1);
+                    spLabel.setEffect(glow);
+                    break;
+                case MAIN1:
+                    m1Label.setOpacity(1);
+                    m1Label.setEffect(glow);
+                    break;
+                case BATTLE:
+                    bpLabel.setOpacity(1);
+                    bpLabel.setEffect(glow);
+                    break;
+                case MAIN2:
+                    m2Label.setOpacity(1);
+                    m2Label.setEffect(glow);
+                    break;
+                case END:
+                    epLabel.setOpacity(1);
+                    epLabel.setEffect(glow);
+                    break;
+            }
+        }));
+        timeline.play();
     }
 }

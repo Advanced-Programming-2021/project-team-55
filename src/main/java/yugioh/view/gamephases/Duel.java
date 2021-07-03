@@ -1,15 +1,18 @@
 package yugioh.view.gamephases;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import yugioh.controller.CheatController;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
+import yugioh.view.ViewInterface;
 import yugioh.view.menus.DetermineStarterMenu;
 import yugioh.view.menus.GameMenu;
 import yugioh.view.menus.Toast;
 import yugioh.view.menus.WelcomeMenu;
-import yugioh.view.ViewInterface;
 
 import java.util.regex.Matcher;
 
@@ -41,7 +44,6 @@ abstract public class Duel {
         showSideDeckCards();
         gameController.phases.add(gameController.currentPhase);
         showPhase();
-        mainPhase1.execute();
 
 //            new Thread(() -> {
 //                while (!gameController.isGameEnded()) {
@@ -51,7 +53,7 @@ abstract public class Duel {
 //            gameController.phases.add(gameController.currentPhase);
 //            switch (gameController.getCurrentPhase()) {
 //                case DRAW: {
-                    drawPhase.execute();
+        drawPhase.execute();
 //                    break;
 //                }
 //                case STANDBY: {
@@ -59,7 +61,7 @@ abstract public class Duel {
 //                    break;
 //                }
 //                case MAIN1: {
-
+        mainPhase1.execute();
 //                    break;
 //                }
 //                case MAIN2: {
@@ -89,13 +91,13 @@ abstract public class Duel {
 
     public static void showPhase() {
         GameMenuController.getGameMenuController().focusOpacityOnPhase(gameController.currentPhase);
-        String response = "";
         if (gameController.currentPhase == GamePhase.DRAW) {
-            response += "its " + gameController.getCurrentTurnPlayer().getUser().getNickname() + "'s turn\n";
+            Toast.makeText(WelcomeMenu.getStage(), "its " + gameController.getCurrentTurnPlayer().getUser().getNickname() + "'s turn\n");
         }
-        response += "\nphase: " + gameController.currentPhase.name;
-        Toast.makeText(WelcomeMenu.getStage(), response);
-        ViewInterface.showResult(response);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
+            Toast.makeText(WelcomeMenu.getStage(), "phase: " + gameController.currentPhase.name);
+        }));
+        timeline.play();
     }
 
     public static String processSelect(String command) {

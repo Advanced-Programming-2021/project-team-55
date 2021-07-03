@@ -14,7 +14,6 @@ public class BattlePhase extends Duel {
 
     @Override
     protected void execute() {
-        GameMenuController.getGameMenuController().focusOpacityOnPhase(GamePhase.BATTLE);
         battlePhaseController = gameController.getBattlePhaseController();
         if (gameController.turnCount == 1) {
             gameController.changePhase();

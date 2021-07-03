@@ -40,20 +40,18 @@ public final class Toast {
         KeyFrame fadeInKey1 = new KeyFrame(Duration.millis(fadeInDelay), new KeyValue(toastStage.getScene().getRoot().opacityProperty(), 1));
         fadeInTimeline.getKeyFrames().add(fadeInKey1);
         fadeInTimeline.setOnFinished((ae) ->
-        {
-            new Thread(() -> {
-                try {
-                    Thread.sleep(toastDelay);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Timeline fadeOutTimeline = new Timeline();
-                KeyFrame fadeOutKey1 = new KeyFrame(Duration.millis(fadeOutDelay), new KeyValue(toastStage.getScene().getRoot().opacityProperty(), 0));
-                fadeOutTimeline.getKeyFrames().add(fadeOutKey1);
-                fadeOutTimeline.setOnFinished((aeb) -> toastStage.close());
-                fadeOutTimeline.play();
-            },"toast").start();
-        });
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(toastDelay);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Timeline fadeOutTimeline = new Timeline();
+                    KeyFrame fadeOutKey1 = new KeyFrame(Duration.millis(fadeOutDelay), new KeyValue(toastStage.getScene().getRoot().opacityProperty(), 0));
+                    fadeOutTimeline.getKeyFrames().add(fadeOutKey1);
+                    fadeOutTimeline.setOnFinished((aeb) -> toastStage.close());
+                    fadeOutTimeline.play();
+                },"toast").start());
         fadeInTimeline.play();
     }
 }
