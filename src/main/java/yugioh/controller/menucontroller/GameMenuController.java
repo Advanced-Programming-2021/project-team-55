@@ -18,6 +18,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -107,19 +108,12 @@ public class GameMenuController extends MenuController implements Initializable 
 
     public void pauseClicked() throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/PauseMenu.fxml");
-        Pane pane= FXMLLoader.load(url);
-        pane.getChildren().get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                resume();
-            }
-        });
-        pane.getChildren().get(1).setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                try {
-                    surrender();
-                }catch (Exception e){};
+        Pane pane = FXMLLoader.load(url);
+        pane.getChildren().get(0).setOnMouseClicked(mouseEvent -> resume());
+        pane.getChildren().get(1).setOnMouseClicked(mouseEvent -> {
+            try {
+                surrender();
+            } catch (Exception ignored) {
             }
         });
         Scene scene = WelcomeMenu.createScene(pane);
@@ -191,28 +185,40 @@ public class GameMenuController extends MenuController implements Initializable 
             }
             event.consume();
             }});
-        CardActionsMenu cardActionsMenu=new CardActionsMenu();
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
-            if(Cell.getSelectedCell()!=null&&!Cell.getSelectedCell().isEmpty()) {
-                Cell.getSelectedCell().getCellCard().getCardImage().setEffect(null);
-                Cell.getSelectedCell().getCellCard().getCardBackImage().setEffect(null);
-                CardActionsMenu.close();
+            if(event.getButton()== MouseButton.PRIMARY) {
+                if (Cell.getSelectedCell() != null && !Cell.getSelectedCell().isEmpty()) {
+                    Cell.getSelectedCell().getCellCard().getCardImage().setEffect(null);
+                    Cell.getSelectedCell().getCellCard().getCardBackImage().setEffect(null);
+                    CardActionsMenu.close();
+                }
+                if (Cell.getSelectedCell() != null && Cell.getSelectedCell().getCellCard().getCardImage().equals(imageView)) {
+                    CardActionsMenu.close();
+                    Cell.setSelectedCell(null);
+                } else {
+                    DropShadow selectEffect = new DropShadow(BlurType.values()[1],
+                            GREEN, 10, 2.0f, 0, 0);
+                    selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
+                    Cell.setSelectedCellByImage(imageView);
+                    imageView.setEffect(selectEffect);
+                    if(!gameController.currentTurnOpponentPlayer.getGameBoard().isCellInGameBoard(Cell.getSelectedCell())
+                &&!gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {
+                        try {
+                            CardActionsMenu.setCoordinates(event.getSceneX() + 195, event.getSceneY() + 60);
+                            CardActionsMenu.execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                event.consume();
             }
-            if(Cell.getSelectedCell()!=null&&Cell.getSelectedCell().getCellCard().getCardImage().equals(imageView)){
-                CardActionsMenu.close();
-                Cell.setSelectedCell(null);
-            }else {
-                DropShadow selectEffect = new DropShadow(BlurType.values()[1],
-                        GREEN, 10, 2.0f, 0, 0);
-                selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
-                Cell.setSelectedCellByImage(imageView);
-                imageView.setEffect(selectEffect);
-                try {
-                    cardActionsMenu.setCoordinates(event.getSceneX()+150,event.getSceneY()+40);
-                    cardActionsMenu.execute();
-                }catch (Exception e){e.printStackTrace();}
+            else if(event.getButton()== MouseButton.SECONDARY){
+                if (Cell.getSelectedCell() != null && Cell.getSelectedCell().getCellCard().getCardImage().equals(imageView)) {
+                    CardActionsMenu.change();
+                }
+                event.consume();
             }
-            event.consume();
         });
     }
 
@@ -229,7 +235,9 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void focusOpacityOnPhase(GamePhase gamePhase) {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
+        double length = 0.1;
+        if (gamePhase == GamePhase.DRAW) length = 3.5;
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(length), event -> {
             dpLabel.setEffect(null);
             spLabel.setEffect(null);
             m1Label.setEffect(null);
@@ -272,5 +280,9 @@ public class GameMenuController extends MenuController implements Initializable 
             }
         }));
         timeline.play();
+    }
+
+    public void nextPhase() {
+        Duel.getGameController().changePhase();
     }
 }

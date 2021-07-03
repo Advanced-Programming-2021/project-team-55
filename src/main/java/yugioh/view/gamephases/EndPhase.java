@@ -20,7 +20,7 @@ public class EndPhase extends Duel {
         String response = "";
         if (Duel.getGameController().getCurrentTurnPlayer().isAI()) response = "AI turn completed";
         endPhaseController.handleCardsSideEffectsForThisPhase();
-        gameController.changePhase();
+//        gameController.changePhase();
         return response;
     }
 

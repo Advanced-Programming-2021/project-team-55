@@ -166,4 +166,14 @@
     <Label fx:id="opponentNickname" layoutX="18.0" layoutY="98.0" prefHeight="18.0" prefWidth="136.0" text="Nickname : " />
     <ImageView fx:id="currentImage" fitHeight="76.0" fitWidth="76.0" layoutX="246.0" layoutY="564.0" pickOnBounds="true" preserveRatio="true" />
     <ImageView fx:id="opponentImage" fitHeight="76.0" fitWidth="76.0" layoutX="246.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
+   <Polygon accessibleHelp="next phase" styleClass="triangle" accessibleRoleDescription="next phase" accessibleText="next phase" fill="DODGERBLUE" layoutX="358.0" layoutY="625.0" onMouseClicked="#nextPhase" rotate="180.0" scaleX="0.4" scaleY="0.4" scaleZ="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+     <points>
+       <Double fx:value="-50.0" />
+       <Double fx:value="40.0" />
+       <Double fx:value="50.0" />
+       <Double fx:value="40.0" />
+       <Double fx:value="0.0" />
+       <Double fx:value="-60.0" />
+     </points>
+   </Polygon>
 </AnchorPane>

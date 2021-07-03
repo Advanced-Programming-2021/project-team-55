@@ -1,8 +1,5 @@
 package yugioh.controller.gamephasescontrollers;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
 import yugioh.controller.menucontroller.DetermineStarterMenuController;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.CoinDice;
@@ -16,11 +13,11 @@ import yugioh.model.cards.Deck;
 import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
-import yugioh.view.menus.DetermineStarterMenu;
 import yugioh.view.ViewInterface;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GamePhase;
 import yugioh.view.gamephases.GameResponses;
+import yugioh.view.menus.DetermineStarterMenu;
 import yugioh.view.menus.DuelMenu;
 
 import java.util.ArrayList;
@@ -58,12 +55,12 @@ public class GameController {
     public GameController() {
     }
 
-    public void setGameMenuController(GameMenuController gameMenuController) {
-        this.gameMenuController = gameMenuController;
-    }
-
     public GameMenuController getGameMenuController() {
         return gameMenuController;
+    }
+
+    public void setGameMenuController(GameMenuController gameMenuController) {
+        this.gameMenuController = gameMenuController;
     }
 
     public Cell getLastSummonedMonster() {
@@ -189,7 +186,7 @@ public class GameController {
     }
 
     public void changePhase() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
+//        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
         switch (currentPhase) {
             case DRAW: {
                 currentPhase = GamePhase.STANDBY;
@@ -218,8 +215,10 @@ public class GameController {
             }
         }
         Duel.showPhase();
-        }));
-        timeline.play();
+//        }));
+//        timeline.play();
+
+        Duel.executePhase();
     }
 
     public void changeTurn(boolean isTemporary, boolean backToPlayer) {
@@ -334,7 +333,7 @@ public class GameController {
             //i mean we should play an animation or show a message to user
             try {
                 new DuelMenu().execute();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
