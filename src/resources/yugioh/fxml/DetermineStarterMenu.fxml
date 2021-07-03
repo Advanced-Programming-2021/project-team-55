@@ -16,10 +16,9 @@
               </font>
           </Label>
          <ImageView fitHeight="316.0" fitWidth="721.0" pickOnBounds="true" preserveRatio="true" />
-         <HBox alignment="CENTER" prefHeight="71.0" prefWidth="1050.0">
+         <HBox alignment="CENTER" prefHeight="64.0" prefWidth="1050.0">
             <children>
-               <Label fx:id="firstPlayerName" prefHeight="28.0" prefWidth="142.0" styleClass="buttonText" textFill="#ccdefc" />
-               <Label prefHeight="28.0" prefWidth="359.0" styleClass="buttonText" text="choose your Coin side:" textFill="#ccdefc" />
+               <Label fx:id="firstPlayerName" prefHeight="28.0" prefWidth="502.0" styleClass="buttonText" textFill="#ccdefc" />
                <JFXButton fx:id="tale" mnemonicParsing="false" onMouseClicked="#taleClicked" prefHeight="45.0" prefWidth="160.0" ripplerFill="#e13434" stylesheets="@../CSS/Menu.css" text="TALE" textFill="#ccdefc">
                   <styleClass>
                      <String fx:value="buttonText" />
@@ -36,7 +35,7 @@
                 </JFXButton>
             </children>
          </HBox>
-         <HBox alignment="CENTER" prefHeight="73.0" prefWidth="1050.0">
+         <HBox alignment="CENTER" prefHeight="89.0" prefWidth="1050.0">
             <children>
                <Label fx:id="yesNoQuestion" prefHeight="50.0" prefWidth="503.0" styleClass="buttonText" textFill="#ccdefc" />
                <JFXButton fx:id="yesButton" mnemonicParsing="false" onMouseClicked="#yesClicked" prefHeight="45.0" prefWidth="160.0" ripplerFill="#e13434" stylesheets="@../CSS/Menu.css" text="YES" textFill="#ccdefc">
