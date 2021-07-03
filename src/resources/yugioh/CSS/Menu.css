@@ -18,7 +18,8 @@
     -fx-font-family: "Bauhaus 93";;
     -fx-font-size: 23px;
 }
-.popupText{
+
+.popupText {
     -fx-font-family: "Bauhaus 93";;
     -fx-font-size: 25px;
 }
@@ -62,4 +63,8 @@ buttonSize {
 
 .background {
 
+}
+
+.triangle:hover {
+    -fx-fill: yellow;
 }

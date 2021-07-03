@@ -1,8 +1,5 @@
 package yugioh.controller.gamephasescontrollers;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
 import yugioh.controller.menucontroller.DetermineStarterMenuController;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.CoinDice;
@@ -189,37 +186,37 @@ public class GameController {
     }
 
     public void changePhase() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
-            switch (currentPhase) {
-                case DRAW: {
-                    currentPhase = GamePhase.STANDBY;
-                    break;
-                }
-                case STANDBY: {
-                    currentPhase = GamePhase.MAIN1;
-                    break;
-                }
-                case MAIN1: {
-                    currentPhase = GamePhase.BATTLE;
-                    break;
-                }
-                case BATTLE: {
-                    currentPhase = GamePhase.MAIN2;
-                    break;
-                }
-                case MAIN2: {
-                    currentPhase = GamePhase.END;
-                    break;
-                }
-                case END: {
-                    currentPhase = GamePhase.DRAW;
-                    changeTurn(false, false);
-                    break;
-                }
+//        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
+        switch (currentPhase) {
+            case DRAW: {
+                currentPhase = GamePhase.STANDBY;
+                break;
             }
-            Duel.showPhase();
-        }));
-        timeline.play();
+            case STANDBY: {
+                currentPhase = GamePhase.MAIN1;
+                break;
+            }
+            case MAIN1: {
+                currentPhase = GamePhase.BATTLE;
+                break;
+            }
+            case BATTLE: {
+                currentPhase = GamePhase.MAIN2;
+                break;
+            }
+            case MAIN2: {
+                currentPhase = GamePhase.END;
+                break;
+            }
+            case END: {
+                currentPhase = GamePhase.DRAW;
+                changeTurn(false, false);
+                break;
+            }
+        }
+        Duel.showPhase();
+//        }));
+//        timeline.play();
 
         Duel.executePhase();
     }
