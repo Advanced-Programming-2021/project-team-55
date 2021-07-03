@@ -285,4 +285,7 @@ public class GameMenuController extends MenuController implements Initializable 
         Duel.getGameController().changePhase();
     }
 
+    public Label getEpLabel() {
+        return epLabel;
+    }
 }
