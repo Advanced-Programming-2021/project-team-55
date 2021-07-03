@@ -1,7 +1,9 @@
 package yugioh.view.gamephases;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import yugioh.controller.gamephasescontrollers.DrawPhaseController;
-import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.cards.trapandspells.TimeSeal;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.ViewInterface;
@@ -14,7 +16,10 @@ public class DrawPhase extends Duel {
         drawPhaseController = gameController.getDrawPhaseController();
         String response = processCommand("");
         ViewInterface.showResult(response);
-//        gameController.changePhase();
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(7), event -> gameController.changePhase()));
+        timeline.play();
+
     }
 
     @Override
