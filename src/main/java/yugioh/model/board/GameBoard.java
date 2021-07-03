@@ -1,5 +1,8 @@
 package yugioh.model.board;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.cards.Card;
@@ -10,6 +13,8 @@ import yugioh.model.cards.cardfeaturesenums.MonsterType;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.gamephases.GameResponses;
 
+import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -21,13 +26,24 @@ public class GameBoard {
     private final ArrayList<Cell> deckZone;
     private final ArrayList<Cell> handCards;
     private final Cell fieldZone;
-
+    private static Pane gamePane;
     {
         monsterCardZone = new Cell[5];
+
         spellAndTrapCardZone = new Cell[5];
         for (int i = 0; i < 5; i++) {
             monsterCardZone[i] = new Cell();
             spellAndTrapCardZone[i] = new Cell();
+        }
+        double x=-60;
+        for(Cell cell:monsterCardZone){
+            cell.setPosition(x,380);
+            x+=25;
+        }
+        x=-60;
+        for(Cell cell:spellAndTrapCardZone){
+            cell.setPosition(x,480);
+            x+=30;
         }
         deckZone = new ArrayList<>();
         handCards = new ArrayList<>();
@@ -114,7 +130,12 @@ public class GameBoard {
             if (monsterCardZone[i].isEmpty()) {
                 monsterCardZone[i].addCardToCell(card);
                 monsterCardZone[i].setCardStatus(cardStatus);
+                ImageView imageView=card.getCardImageForDeck(80);
+                imageView.setX(monsterCardZone[i].getxPosition());
+                imageView.setY(monsterCardZone[i].getyPosition());
+                gamePane.getChildren().add(imageView);
                 gameController.changedPositionCells.add(monsterCardZone[i]);
+
                 return;
             }
         }
@@ -366,6 +387,9 @@ public class GameBoard {
     }
     public boolean isCellInGameBoard(Cell cell){
         return isCellInHandZone(cell)||isCellInMonsterZone(cell)||isCellInSpellAndTrapZone(cell)||isCellInDeckZone(cell);
+    }
+    public static void setGamePane(Pane pane){
+        gamePane=pane;
     }
 
 

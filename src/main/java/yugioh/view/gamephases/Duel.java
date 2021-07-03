@@ -56,7 +56,6 @@ abstract public class Duel {
 //            switch (gameController.getCurrentPhase()) {
 //                case DRAW: {
         drawPhase.execute();
-
 //                    break;
 //                }
 //                case STANDBY: {
@@ -140,7 +139,7 @@ abstract public class Duel {
     }
 
     public static String processSelect(String command) {
-        String response = "";
+        String response;
         if (command.matches(GameRegexes.SELECT_MONSTER.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_MONSTER.regex);
             try {

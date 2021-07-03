@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import yugioh.controller.menucontroller.GameMenuController;
 
 public final class Toast {
 
@@ -36,6 +37,11 @@ public final class Toast {
         toastStage.setScene(scene);
         toastStage.show();
 
+        try {
+            GameMenuController.getGameMenuController().nextPhaseTriangle.setDisable(true);
+        }catch (Exception ignored){
+        }
+
         Timeline fadeInTimeline = new Timeline();
         KeyFrame fadeInKey1 = new KeyFrame(Duration.millis(fadeInDelay), new KeyValue(toastStage.getScene().getRoot().opacityProperty(), 1));
         fadeInTimeline.getKeyFrames().add(fadeInKey1);
@@ -49,7 +55,13 @@ public final class Toast {
                     Timeline fadeOutTimeline = new Timeline();
                     KeyFrame fadeOutKey1 = new KeyFrame(Duration.millis(fadeOutDelay), new KeyValue(toastStage.getScene().getRoot().opacityProperty(), 0));
                     fadeOutTimeline.getKeyFrames().add(fadeOutKey1);
-                    fadeOutTimeline.setOnFinished((aeb) -> toastStage.close());
+                    fadeOutTimeline.setOnFinished((aeb) -> {
+                        try {
+                            GameMenuController.getGameMenuController().nextPhaseTriangle.setDisable(false);
+                        } catch (Exception ignored) {
+                        }
+                        toastStage.close();
+                    });
                     fadeOutTimeline.play();
                 },"toast").start());
         fadeInTimeline.play();
