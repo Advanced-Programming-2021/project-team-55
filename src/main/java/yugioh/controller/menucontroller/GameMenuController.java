@@ -130,7 +130,7 @@ public class GameMenuController extends MenuController implements Initializable 
         pauseStage.close();
     }
 
-    public void surrender() throws Exception {
+    public void surrender() {
         gameController.surrender();
         pauseStage.close();
         gameController.surrender();
@@ -160,7 +160,6 @@ public class GameMenuController extends MenuController implements Initializable 
         rivalLPBar.setProgress((double) opponentLP / 8000);
         userLPBar.setProgress((double) myLP / 8000);
     }
-
 
     public void addEventForCardImage(ImageView imageView, Card card) {
         imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
@@ -285,4 +284,5 @@ public class GameMenuController extends MenuController implements Initializable 
     public void nextPhase() {
         Duel.getGameController().changePhase();
     }
+
 }
