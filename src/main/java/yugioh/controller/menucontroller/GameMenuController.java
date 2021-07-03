@@ -273,4 +273,8 @@ public class GameMenuController extends MenuController implements Initializable 
         }));
         timeline.play();
     }
+
+    public void nextPhase() {
+        Duel.getGameController().changePhase();
+    }
 }

@@ -14,7 +14,7 @@ public class DrawPhase extends Duel {
         drawPhaseController = gameController.getDrawPhaseController();
         String response = processCommand("");
         ViewInterface.showResult(response);
-        gameController.changePhase();
+//        gameController.changePhase();
     }
 
     @Override

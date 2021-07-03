@@ -45,15 +45,15 @@ abstract public class Duel {
         gameController.phases.add(gameController.currentPhase);
         showPhase();
 
-//            new Thread(() -> {
-//                while (!gameController.isGameEnded()) {
+//        new Thread(() -> {
+//        while (!gameController.isGameEnded()) {
 //            if (gameController.phases.get(gameController.phases.size() - 1) != gameController.currentPhase) {
 //                gameController.phases.add(gameController.currentPhase);
 //            }
 //            gameController.phases.add(gameController.currentPhase);
 //            switch (gameController.getCurrentPhase()) {
 //                case DRAW: {
-        drawPhase.execute();
+                    drawPhase.execute();
 //                    break;
 //                }
 //                case STANDBY: {
@@ -61,7 +61,7 @@ abstract public class Duel {
 //                    break;
 //                }
 //                case MAIN1: {
-        mainPhase1.execute();
+//        mainPhase1.execute();
 //                    break;
 //                }
 //                case MAIN2: {
@@ -84,9 +84,9 @@ abstract public class Duel {
 //            // showPhase();
 //            AIPlayerController.recordGameLogs(gameController);
 //        }
-//    }
-//                gameController.endGameRound();
-//            }).start();
+//            }
+//        gameController.endGameRound();
+//        }).start();
     }
 
     public static void showPhase() {
@@ -98,6 +98,35 @@ abstract public class Duel {
             Toast.makeText(WelcomeMenu.getStage(), "phase: " + gameController.currentPhase.name);
         }));
         timeline.play();
+    }
+
+    public static void executePhase() {
+        switch (gameController.getCurrentPhase()) {
+            case DRAW: {
+                drawPhase.execute();
+                break;
+            }
+            case STANDBY: {
+                standByPhase.execute();
+                break;
+            }
+            case MAIN1: {
+                mainPhase1.execute();
+                break;
+            }
+            case MAIN2: {
+                mainPhase2.execute();
+                break;
+            }
+            case BATTLE: {
+                battlePhase.execute();
+                break;
+            }
+            case END: {
+                endPhase.execute();
+                break;
+            }
+        }
     }
 
     public static String processSelect(String command) {

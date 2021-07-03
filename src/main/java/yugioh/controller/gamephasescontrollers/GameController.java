@@ -16,11 +16,11 @@ import yugioh.model.cards.Deck;
 import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
-import yugioh.view.menus.DetermineStarterMenu;
 import yugioh.view.ViewInterface;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GamePhase;
 import yugioh.view.gamephases.GameResponses;
+import yugioh.view.menus.DetermineStarterMenu;
 import yugioh.view.menus.DuelMenu;
 
 import java.util.ArrayList;
@@ -58,12 +58,12 @@ public class GameController {
     public GameController() {
     }
 
-    public void setGameMenuController(GameMenuController gameMenuController) {
-        this.gameMenuController = gameMenuController;
-    }
-
     public GameMenuController getGameMenuController() {
         return gameMenuController;
+    }
+
+    public void setGameMenuController(GameMenuController gameMenuController) {
+        this.gameMenuController = gameMenuController;
     }
 
     public Cell getLastSummonedMonster() {
@@ -190,36 +190,38 @@ public class GameController {
 
     public void changePhase() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
-        switch (currentPhase) {
-            case DRAW: {
-                currentPhase = GamePhase.STANDBY;
-                break;
+            switch (currentPhase) {
+                case DRAW: {
+                    currentPhase = GamePhase.STANDBY;
+                    break;
+                }
+                case STANDBY: {
+                    currentPhase = GamePhase.MAIN1;
+                    break;
+                }
+                case MAIN1: {
+                    currentPhase = GamePhase.BATTLE;
+                    break;
+                }
+                case BATTLE: {
+                    currentPhase = GamePhase.MAIN2;
+                    break;
+                }
+                case MAIN2: {
+                    currentPhase = GamePhase.END;
+                    break;
+                }
+                case END: {
+                    currentPhase = GamePhase.DRAW;
+                    changeTurn(false, false);
+                    break;
+                }
             }
-            case STANDBY: {
-                currentPhase = GamePhase.MAIN1;
-                break;
-            }
-            case MAIN1: {
-                currentPhase = GamePhase.BATTLE;
-                break;
-            }
-            case BATTLE: {
-                currentPhase = GamePhase.MAIN2;
-                break;
-            }
-            case MAIN2: {
-                currentPhase = GamePhase.END;
-                break;
-            }
-            case END: {
-                currentPhase = GamePhase.DRAW;
-                changeTurn(false, false);
-                break;
-            }
-        }
-        Duel.showPhase();
+            Duel.showPhase();
         }));
         timeline.play();
+
+        Duel.executePhase();
     }
 
     public void changeTurn(boolean isTemporary, boolean backToPlayer) {
@@ -334,7 +336,7 @@ public class GameController {
             //i mean we should play an animation or show a message to user
             try {
                 new DuelMenu().execute();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {

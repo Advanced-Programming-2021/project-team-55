@@ -111,7 +111,6 @@ public class MainPhase1 extends Duel {
                 response = e.toString();
             }
         }
-        //todo check whether we have handled all methods in this phase or not
         else if (command.matches(GameRegexes.SURRENDER.regex)) {
             gameController.surrender();
         } else if (command.matches(GameRegexes.INCREASE_LP.regex)) {

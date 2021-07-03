@@ -19,7 +19,7 @@ public class StandByPhase extends Duel {
     protected String processCommand(String command) {
         String response = "";
         standByPhaseController.activateEffects();
-        gameController.changePhase();
+//        gameController.changePhase();
 
 
         return response;
