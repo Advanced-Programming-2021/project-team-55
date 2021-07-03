@@ -4,11 +4,14 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -19,7 +22,9 @@ import yugioh.model.board.GameBoard;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.menus.WelcomeMenu;
 
+import java.awt.*;
 import java.awt.event.MouseAdapter;
+import java.io.File;
 import java.util.ArrayList;
 
 public class CardActionsMenu implements MainPhasesController {
@@ -31,6 +36,7 @@ public class CardActionsMenu implements MainPhasesController {
     private static ImageView image;
     private static ArrayList<String>actions=new ArrayList<>();
     private static Pane gamePane;
+    private static int place=6;
     private static GameController gameController;
     static {
         actionsStage.initOwner(WelcomeMenu.stage);
@@ -93,6 +99,8 @@ public class CardActionsMenu implements MainPhasesController {
     public static void handleSet(){
         if(Cell.getSelectedCell().getCellCard().isMonster()){
            try {
+               ImagePattern imagePattern=new ImagePattern(new Image(new File(Cell.getSelectedCell().getCellCard().getImage()).toURI().toString()));
+               ((Rectangle)gamePane.getChildren().get(place++)).setFill(imagePattern);
                new CardActionsMenu().setCard(gameController,image);
                ((HBox)gamePane.getChildren().get(1)).getChildren().remove(image);
            } catch (GameException e) {
