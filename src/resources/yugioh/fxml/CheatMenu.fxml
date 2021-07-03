@@ -9,14 +9,14 @@
 <AnchorPane prefHeight="361.0" prefWidth="540" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.CheatController">
    <VBox alignment="CENTER" layoutX="50.0" prefHeight="335.0" prefWidth="440.0">
       <children>
-          <Label prefHeight="130.0" prefWidth="306.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Cheat Menu" textFill="#ccdefc">
+          <Label prefHeight="112.0" prefWidth="275.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Cheat Menu" textFill="#ccdefc">
               <font>
                   <Font size="20.0" />
               </font>
           </Label>
-         <JFXTextField fx:id="console" focusColor="#7aceed" labelFloat="true" prefWidth="440.0" promptText="Type your command here!" styleClass="buttonText" unFocusColor="#a6e9ff" />
-         <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="DODGERBLUE" height="57.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-         <JFXTextArea fx:id="resultConsole" accessibleRole="IMAGE_VIEW" disable="true" editable="false" focusColor="#7aceed" focusTraversable="false" labelFloat="true" prefHeight="126.0" prefWidth="440.0" styleClass="buttonText" unFocusColor="#a6e9ff" />
+         <JFXTextField fx:id="console" focusColor="#7aceed" labelFloat="true" prefWidth="440.0" promptText="Type your commands here!" styleClass="buttonText" unFocusColor="#a6e9ff" />
+         <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="DODGERBLUE" height="24.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+         <JFXTextArea fx:id="resultConsole" accessibleRole="IMAGE_VIEW" editable="false" focusColor="#7aceed" labelFloat="true" prefHeight="189.0" prefWidth="440.0" styleClass="simpleText" unFocusColor="#a6e9ff" />
       </children>
    </VBox>
 </AnchorPane>
