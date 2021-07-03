@@ -18,6 +18,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -193,26 +194,35 @@ public class GameMenuController extends MenuController implements Initializable 
             }});
         CardActionsMenu cardActionsMenu=new CardActionsMenu();
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
-            if(Cell.getSelectedCell()!=null&&!Cell.getSelectedCell().isEmpty()) {
-                Cell.getSelectedCell().getCellCard().getCardImage().setEffect(null);
-                Cell.getSelectedCell().getCellCard().getCardBackImage().setEffect(null);
-                CardActionsMenu.close();
+            if(event.getButton()== MouseButton.PRIMARY) {
+                if (Cell.getSelectedCell() != null && !Cell.getSelectedCell().isEmpty()) {
+                    Cell.getSelectedCell().getCellCard().getCardImage().setEffect(null);
+                    Cell.getSelectedCell().getCellCard().getCardBackImage().setEffect(null);
+                    CardActionsMenu.close();
+                }
+                if (Cell.getSelectedCell() != null && Cell.getSelectedCell().getCellCard().getCardImage().equals(imageView)) {
+                    CardActionsMenu.close();
+                    Cell.setSelectedCell(null);
+                } else {
+                    DropShadow selectEffect = new DropShadow(BlurType.values()[1],
+                            GREEN, 10, 2.0f, 0, 0);
+                    selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
+                    Cell.setSelectedCellByImage(imageView);
+                    imageView.setEffect(selectEffect);
+                    try {
+                        cardActionsMenu.setCoordinates(event.getSceneX() + 200, event.getSceneY() + 60);
+                        cardActionsMenu.execute();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                event.consume();
             }
-            if(Cell.getSelectedCell()!=null&&Cell.getSelectedCell().getCellCard().getCardImage().equals(imageView)){
-                CardActionsMenu.close();
-                Cell.setSelectedCell(null);
-            }else {
-                DropShadow selectEffect = new DropShadow(BlurType.values()[1],
-                        GREEN, 10, 2.0f, 0, 0);
-                selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
-                Cell.setSelectedCellByImage(imageView);
-                imageView.setEffect(selectEffect);
-                try {
-                    cardActionsMenu.setCoordinates(event.getSceneX()+150,event.getSceneY()+40);
-                    cardActionsMenu.execute();
-                }catch (Exception e){e.printStackTrace();}
+            else if(event.getButton()== MouseButton.SECONDARY){
+                if (Cell.getSelectedCell() != null && Cell.getSelectedCell().getCellCard().getCardImage().equals(imageView)) {
+                    cardActionsMenu.change();
+                }
             }
-            event.consume();
         });
     }
 
