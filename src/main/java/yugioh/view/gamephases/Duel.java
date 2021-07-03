@@ -53,7 +53,7 @@ abstract public class Duel {
 //            gameController.phases.add(gameController.currentPhase);
 //            switch (gameController.getCurrentPhase()) {
 //                case DRAW: {
-                    drawPhase.execute();
+        drawPhase.execute();
 //                    break;
 //                }
 //                case STANDBY: {
@@ -93,11 +93,16 @@ abstract public class Duel {
         GameMenuController.getGameMenuController().focusOpacityOnPhase(gameController.currentPhase);
         if (gameController.currentPhase == GamePhase.DRAW) {
             Toast.makeText(WelcomeMenu.getStage(), "its " + gameController.getCurrentTurnPlayer().getUser().getNickname() + "'s turn\n");
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
+                Toast.makeText(WelcomeMenu.getStage(), "phase: " + gameController.currentPhase.name);
+            }));
+            timeline.play();
+            return;
         }
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
-            Toast.makeText(WelcomeMenu.getStage(), "phase: " + gameController.currentPhase.name);
-        }));
-        timeline.play();
+//        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
+        Toast.makeText(WelcomeMenu.getStage(), "phase: " + gameController.currentPhase.name);
+//        }));
+//        timeline.play();
     }
 
     public static void executePhase() {
