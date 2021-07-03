@@ -1,5 +1,8 @@
 package yugioh.view.gamephases;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import yugioh.controller.gamephasescontrollers.EndPhaseController;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.view.ViewInterface;
@@ -20,7 +23,8 @@ public class EndPhase extends Duel {
         String response = "";
         if (Duel.getGameController().getCurrentTurnPlayer().isAI()) response = "AI turn completed";
         endPhaseController.handleCardsSideEffectsForThisPhase();
-//        gameController.changePhase();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> gameController.changePhase()));
+        timeline.play();
         return response;
     }
 

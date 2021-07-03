@@ -1,5 +1,8 @@
 package yugioh.controller.gamephasescontrollers;
 
+import javafx.animation.RotateTransition;
+import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 import yugioh.controller.menucontroller.DetermineStarterMenuController;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.CoinDice;
@@ -240,7 +243,13 @@ public class GameController {
         GameMenuController.getGameMenuController().makeFieldsOfGameBoardEmpty();
         gameController.getMainPhase1Controller().showGameBoard(gameController.currentTurnPlayer,
                 gameController.currentTurnOpponentPlayer);
-        GameMenuController.getGameMenuController().getBackground().rotateProperty().setValue(180);
+
+        RotateTransition rotate = new RotateTransition();
+        rotate.setAxis(Rotate.Z_AXIS);
+        rotate.setByAngle(540);
+        rotate.setDuration(Duration.millis(1000));
+        rotate.setNode(GameMenuController.getGameMenuController().getBackground());
+        rotate.play();
     }
 
     public void activateTrapEffect(ArrayList<SpellAndTrap> trapsCanBeActivated) {

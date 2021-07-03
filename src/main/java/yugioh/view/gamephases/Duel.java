@@ -56,7 +56,6 @@ abstract public class Duel {
 //            switch (gameController.getCurrentPhase()) {
 //                case DRAW: {
         drawPhase.execute();
-
 //                    break;
 //                }
 //                case STANDBY: {
