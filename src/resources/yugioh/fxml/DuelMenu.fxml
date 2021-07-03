@@ -1,43 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
-<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.DuelMenuController">
-    <VBox alignment="CENTER" layoutX="218.0" layoutY="173.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="375.0"
-          prefWidth="644.0" spacing="10.0" AnchorPane.bottomAnchor="172.0" AnchorPane.leftAnchor="218.0"
-          AnchorPane.rightAnchor="218.0" AnchorPane.topAnchor="173.0">
-        <Label layoutX="248.0" layoutY="40.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Duel Menu"
-               textFill="#fafa00">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.DuelMenuController">
+    <VBox alignment="CENTER" layoutX="218.0" layoutY="126.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="469.0" prefWidth="644.0" spacing="10.0" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="218.0" AnchorPane.topAnchor="126.0">
+        <Label alignment="TOP_CENTER" layoutX="248.0" layoutY="40.0" prefHeight="201.0" prefWidth="241.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Duel Menu" textFill="#ccdefc">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </Label>
-        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#newPVPDuel" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727"
-                   stylesheets="@../CSS/Menu.css" text="Duel With Player">
+        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#newPVPDuel" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Duel With Player" textFill="#ccdefc">
             <styleClass>
-                <String fx:value="buttonText"/>
-                <String fx:value="buttonShape"/>
-                <String fx:value="buttonHover"/>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
             </styleClass>
         </JFXButton>
-        <JFXButton buttonType="RAISED" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727"
-                   stylesheets="@../CSS/Menu.css" text="Duel With AI">
+        <JFXButton buttonType="RAISED" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Duel With AI" textFill="#ccdefc">
             <styleClass>
-                <String fx:value="buttonText"/>
-                <String fx:value="buttonShape"/>
-                <String fx:value="buttonHover"/>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
             </styleClass>
         </JFXButton>
-        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0"
-                   prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
+        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back" textFill="#ccdefc">
             <styleClass>
-                <String fx:value="buttonText"/>
-                <String fx:value="buttonShape"/>
-                <String fx:value="buttonHover"/>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
             </styleClass>
         </JFXButton>
     </VBox>
