@@ -2,12 +2,15 @@ package yugioh.controller.menucontroller;
 
 
 import javafx.animation.KeyFrame;
+import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Point3D;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -20,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -27,6 +31,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -76,7 +81,6 @@ public class GameMenuController extends MenuController implements Initializable 
     public Pane gameBoardPane;
     public HBox rivalHandCardsContainer;
     public HBox userHandCardsContainer;
-    public StackPane userDeckZoneContainer2;
     public Pane rivalDeckZoneContainer;
     public Pane userDeckZoneContainer;
     public GameController gameController;
@@ -88,11 +92,39 @@ public class GameMenuController extends MenuController implements Initializable 
         return gameMenuController;
     }
 
-    public void makeFieldsOfGameBoardEmpty() {
-        rivalHandCardsContainer.getChildren().clear();
-        rivalDeckZoneContainer.getChildren().clear();
-        userHandCardsContainer.getChildren().clear();
-        userDeckZoneContainer.getChildren().clear();
+    public void changeGameBoard(){
+//        rivalHandCardsContainer.getChildren().clear();
+//        rivalDeckZoneContainer.getChildren().clear();
+//        userHandCardsContainer.getChildren().clear();
+//        userDeckZoneContainer.getChildren().clear();
+        RotateTransition rotateTransition= new RotateTransition();
+        RotateTransition rotateTransitionForBackground=new RotateTransition();
+        rotateTransition.setAxis(Rotate.Z_AXIS);
+        rotateTransitionForBackground.setAxis(Rotate.Z_AXIS);
+      //  Point3D point3D=Rotate.Z_AXIS;
+       // point3D=new Point3D(50,0,1);
+        //point3D=point3D.subtract(100,0,0);
+       // rotate.setAxis(point3D);
+        //rotate.setAxis(Rotate.Z_AXIS.add(50,0,0));
+//        Group group=new Group();
+//        group.getChildren().add(gameMenuController.gameBoardPane);
+//        group.getChildren().add(gameMenuController.background);
+        rotateTransition.setByAngle(180);
+        rotateTransitionForBackground.setByAngle(180);
+        rotateTransition.setDuration(Duration.millis(1000));
+        rotateTransitionForBackground.setDuration(Duration.millis(1000));
+        rotateTransition.setNode(gameMenuController.gameBoardPane);
+        rotateTransitionForBackground.setNode(gameMenuController.getBackground());
+        rotateTransitionForBackground.play();
+        rotateTransition.play();
+        for(Cell cell:gameController.currentTurnPlayer.getGameBoard().getHandCards()){
+            cell.getCellRectangle().setFill(cell.getCellCard().getCardBackImagePattern());
+           // userHandCardsContainer.getChildren().add(cell.getCellRectangle());
+        }
+        for(Cell cell:gameController.currentTurnOpponentPlayer.getGameBoard().getHandCards()){
+            cell.getCellRectangle().setFill(cell.getCellCard().getCardImagePattern());
+            //rivalHandCardsContainer.getChildren().add(cell.getCellRectangle());
+        }
     }
 
     @Override
@@ -101,6 +133,7 @@ public class GameMenuController extends MenuController implements Initializable 
         this.gameController = Duel.getGameController();
         updateGameStatusUIs();
         updateCells();
+        gameController.currentTurnPlayer.getGameBoard().setBoardRectangles(gameBoardPane);
         gameMenuController = this;
         userHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
         rivalHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
@@ -180,12 +213,18 @@ public class GameMenuController extends MenuController implements Initializable 
     public void addEventForCardImageRectangle(Rectangle rectangle, Card card) {
         rectangle.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
             Platform.runLater(() -> hoveredImageRectangle.setFill(rectangle.getFill()));
-            if (card == null){
+            if (card == null||rectangle.getFill().equals(card.getCardBackImagePattern())){
                 Platform.runLater(() -> description.setText(""));
+                Platform.runLater(()->defLabel.setText(""));
+                Platform.runLater(()->atkLabel.setText(""));
+                Platform.runLater(()->defValue.setText(""));
+                Platform.runLater(()->atkValue.setText(""));
             }
             else{
                 Platform.runLater(() -> description.setText(card.getDescription()));
             if (card instanceof Monster) {
+                defLabel.setText("DEF:");
+                atkLabel.setText("ATK:");
                 defValue.setOpacity(1);
                 atkValue.setOpacity(1);
                 defLabel.setOpacity(1);
@@ -205,21 +244,19 @@ public class GameMenuController extends MenuController implements Initializable 
             if(event.getButton()== MouseButton.PRIMARY) {
                 ImagePattern rectangleImage=(ImagePattern) rectangle.getFill();
                 if (Cell.getSelectedCell() != null && !Cell.getSelectedCell().isEmpty()) {
-                    Cell.selectedRectangle.setEffect(null);
+                    Cell.getSelectedCell().getCellRectangle().setEffect(null);
                     CardActionsMenu.close();
                 }
                 if (Cell.getSelectedCell() != null && Cell.getSelectedCell().getCellCard().getCardImagePattern().equals
                         (rectangleImage)) {
                     CardActionsMenu.close();
                     Cell.setSelectedCell(null);
-                    Cell.setSelectedRectangle(null);
                 }
                 else {
                     DropShadow selectEffect = new DropShadow(BlurType.values()[1],
                             GREEN, 10, 2.0f, 0, 0);
                     selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
                     Cell.setSelectedCellByImage(rectangle.getFill());
-                    Cell.setSelectedRectangle(rectangle);
                     rectangle.setEffect(selectEffect);
                     if(!gameController.currentTurnOpponentPlayer.getGameBoard().isCellInGameBoard(Cell.getSelectedCell())
                 &&!gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {

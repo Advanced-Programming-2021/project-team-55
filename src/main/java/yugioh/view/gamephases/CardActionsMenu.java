@@ -98,23 +98,23 @@ public class CardActionsMenu implements MainPhasesController {
     }
     public static void handleSet(){
         if(Cell.getSelectedCell().getCellCard().isMonster()){
-          // try {
-               ImagePattern imagePattern=new ImagePattern(new Image(new File(Cell.getSelectedCell().getCellCard().getImage()).toURI().toString()));
-               Rectangle rectangle=((Rectangle)gamePane.getChildren().get(place++));
-            rectangle.setFill(imagePattern);
-               rectangle.opacityProperty().set(1);
+           try {
+                new CardActionsMenu().setCard(gameController);
+//               ImagePattern imagePattern=new ImagePattern(new Image(new File(Cell.getSelectedCell().getCellCard().getImage()).toURI().toString()));
+  //             Rectangle rectangle=((Rectangle)gamePane.getChildren().get(place++));
+  //              rectangle.setFill(imagePattern);
+ //              rectangle.opacityProperty().set(1);
 
-               //new CardActionsMenu().setCard(gameController,image);
+
                ((HBox)gamePane.getChildren().get(1)).getChildren().remove(imageRectangle);
-           //} catch (GameException e) {
-           //    e.printStackTrace();
+           } catch (GameException e) {
+               e.printStackTrace();
               //todo show an error box
-          // }
+           }
             actionsStage.close();
         }
     }
     public static void setGamePane(Pane pane){
         gamePane=pane;
-        GameBoard.setGamePane(gamePane);
     }
 }

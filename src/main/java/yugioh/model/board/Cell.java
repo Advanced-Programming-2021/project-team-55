@@ -18,11 +18,11 @@ import java.util.ArrayList;
 public class Cell {
 
     private static Cell selectedCell;
-    public transient static Rectangle selectedRectangle;
     public CardStatus cardStatus;
     private Card card;
     private double xPosition;
     private double yPosition;
+    private transient Rectangle cellRectangle;
     private static ArrayList<Cell>allCells=new ArrayList<>();
 
     public static void setSelectedCellByImage(Paint paint){
@@ -58,9 +58,6 @@ public class Cell {
 
     public static void setSelectedCell(Cell selectedCell) {
         Cell.selectedCell = selectedCell;
-    }
-    public static void setSelectedRectangle(Rectangle rectangle){
-        Cell.selectedRectangle=rectangle;
     }
 
     public Card getCellCard() {
@@ -109,6 +106,14 @@ public class Cell {
     public void setPosition(double x,double y){
         this.xPosition=x;
         this.yPosition=y;
+    }
+
+    public void setCellRectangle(Rectangle cellRectangle) {
+        this.cellRectangle = cellRectangle;
+    }
+
+    public Rectangle getCellRectangle() {
+        return cellRectangle;
     }
 
     public double getxPosition() {

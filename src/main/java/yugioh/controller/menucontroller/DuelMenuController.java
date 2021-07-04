@@ -1,14 +1,20 @@
 package yugioh.controller.menucontroller;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.layout.Pane;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.Player;
 import yugioh.model.User;
 import yugioh.model.board.Game;
+import yugioh.model.board.GameBoard;
 import yugioh.model.cards.Deck;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.menus.RivalSelectionMenu;
 import yugioh.view.Responses;
 import yugioh.view.gamephases.Duel;
+
+import java.net.URL;
 
 public class DuelMenuController extends MenuController {
 
@@ -26,7 +32,7 @@ public class DuelMenuController extends MenuController {
     }
 
 
-    public GameController newPVPDuel(String secondPlayer, int rounds) throws MenuException {
+    public GameController newPVPDuel(String secondPlayer, int rounds) throws Exception {
         User rival = User.getUserByUsername(secondPlayer);
         if (rival == null) {
             throw new MenuException(Responses.NO_PLAYER_EXISTS.response);
@@ -44,6 +50,7 @@ public class DuelMenuController extends MenuController {
             } else if (rounds != 1 && rounds != 3) {
                 throw new MenuException(Responses.NUMBER_OF_ROUNDS_NOT_SUPPORTED.response);
             } else {
+
                 Player player1 = new Player(User.loggedInUser, player1Deck.clone(), false);
                 Player player2 = new Player(rival, player2Deck.clone(), false);
                 return new GameController(new Game(player1, player2, rounds));
@@ -52,7 +59,7 @@ public class DuelMenuController extends MenuController {
 
     }
 
-    public GameController newAIDuel(int rounds) throws MenuException {
+    public GameController newAIDuel(int rounds) throws Exception {
         if (rounds != 1 && rounds != 3) {
             throw new MenuException(Responses.NUMBER_OF_ROUNDS_NOT_SUPPORTED.response);
         } else {

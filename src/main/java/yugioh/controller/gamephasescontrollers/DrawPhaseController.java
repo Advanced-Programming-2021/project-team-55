@@ -35,7 +35,7 @@ public class DrawPhaseController {
             gameController.endGameRound();
         }
         Card removedCard = player.getGameBoard().getDeckZone().get(0).getCellCard();
-        player.getGameBoard().addCardsToHandDeck(1);
+        player.getGameBoard().addCardsToHandDeck(1,true);
         return "new card added to the hand : " + removedCard.getName();
     }
 

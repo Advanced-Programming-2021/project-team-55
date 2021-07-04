@@ -6,6 +6,7 @@ import javafx.util.Duration;
 import yugioh.controller.CheatController;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.menucontroller.GameMenuController;
+import yugioh.model.board.GameBoard;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
 import yugioh.view.ViewInterface;
@@ -33,7 +34,10 @@ abstract public class Duel {
         Duel.gameController = gameController;
         assignTurn();
         try {
-            new GameMenu().execute();
+            GameMenu gameMenu=new GameMenu();
+            gameMenu.execute();
+            gameController.currentTurnPlayer.getGameBoard().setGamePane(gameMenu.getPane());
+            gameController.currentTurnOpponentPlayer.getGameBoard().setGamePane(gameMenu.getPane());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,7 +48,8 @@ abstract public class Duel {
         showSideDeckCards();
         gameController.phases.add(gameController.currentPhase);
         showPhase();
-
+       gameController.currentTurnPlayer.getGameBoard().addCardsToHandDeck(5,true);
+        gameController.currentTurnOpponentPlayer.getGameBoard().addCardsToHandDeck(5,false);
         Duel.getGameController().getMainPhase1Controller().showGameBoard(gameController.currentTurnPlayer,
                 gameController.currentTurnOpponentPlayer);
 //        new Thread(() -> {

@@ -1,6 +1,7 @@
 package yugioh.controller.gamephasescontrollers;
 
 import javafx.animation.RotateTransition;
+import javafx.scene.Group;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import yugioh.controller.menucontroller.DetermineStarterMenuController;
@@ -225,6 +226,7 @@ public class GameController {
     }
 
     public void changeTurn(boolean isTemporary, boolean backToPlayer) {
+        gameMenuController.changeGameBoard();
         Player player = currentTurnPlayer;
         currentTurnPlayer = currentTurnOpponentPlayer;
         currentTurnOpponentPlayer = player;
@@ -237,19 +239,11 @@ public class GameController {
         changedPositionCells = new ArrayList<>();
         attackerCellsThisTurn = new ArrayList<>();
         turnCount++;
+        gameMenuController.updateGameStatusUIs();
+        mainPhase1Controller.showGameBoard(currentTurnPlayer,
+               currentTurnOpponentPlayer);
 
-        GameMenuController.getGameMenuController().updateGameStatusUIs();
-        GameController gameController = Duel.getGameController();
-        GameMenuController.getGameMenuController().makeFieldsOfGameBoardEmpty();
-        gameController.getMainPhase1Controller().showGameBoard(gameController.currentTurnPlayer,
-                gameController.currentTurnOpponentPlayer);
 
-        RotateTransition rotate = new RotateTransition();
-        rotate.setAxis(Rotate.Z_AXIS);
-        rotate.setByAngle(540);
-        rotate.setDuration(Duration.millis(1000));
-        rotate.setNode(GameMenuController.getGameMenuController().getBackground());
-        rotate.play();
     }
 
     public void activateTrapEffect(ArrayList<SpellAndTrap> trapsCanBeActivated) {

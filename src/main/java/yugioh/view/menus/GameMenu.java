@@ -6,27 +6,32 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.controller.menucontroller.WelcomeMenuController;
 
 import java.net.URL;
 
 public class GameMenu extends WelcomeMenu {
-    public Parent parent;
+    public Pane pane;
 
-    @Override
     public void execute() throws Exception {
         start(stage);
     }
 
-    @Override
     public void start(Stage primaryStage) throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/GameMenu.fxml");
-        Parent parent = FXMLLoader.load(url);
-        Scene scene = WelcomeMenu.createScene(parent);
+        pane = FXMLLoader.load(url);
+
+        Scene scene = WelcomeMenu.createScene(pane);
         EventHandler<KeyEvent> keyListener = event -> {
             if (event.getCode() == KeyCode.SPACE) {
-                //todo pause game
+                try {
+                    new GameMenuController().pauseClicked();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else if (event.getCode() == KeyCode.C && event.isControlDown() && event.isShiftDown()) {
                 try {
                     new CheatMenu().execute();
@@ -44,4 +49,7 @@ public class GameMenu extends WelcomeMenu {
         stage.setScene(scene);
     }
 
+    public Pane getPane() {
+        return pane;
+    }
 }

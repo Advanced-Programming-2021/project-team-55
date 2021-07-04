@@ -1,8 +1,9 @@
 package yugioh.model.board;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.cards.Card;
@@ -11,10 +12,9 @@ import yugioh.model.cards.Monster;
 import yugioh.model.cards.cardfeaturesenums.CardType;
 import yugioh.model.cards.cardfeaturesenums.MonsterType;
 import yugioh.model.exceptions.GameException;
+import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GameResponses;
 
-import java.awt.*;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -60,7 +60,16 @@ public class GameBoard {
             cell.addCardToCell(card);
             deckZone.add(cell);
         }
-        addCardsToHandDeck(5);
+        //todo i changed:
+        //addCardsToHandDeck(5);
+    }
+
+    public void setBoardRectangles(Pane gamePane) {
+        monsterCardZone[0].setCellRectangle((Rectangle) gamePane.getChildren().get(8));
+        monsterCardZone[1].setCellRectangle((Rectangle) gamePane.getChildren().get(9));
+        monsterCardZone[2].setCellRectangle((Rectangle) gamePane.getChildren().get(7));
+        monsterCardZone[3].setCellRectangle((Rectangle) gamePane.getChildren().get(10));
+        monsterCardZone[4].setCellRectangle((Rectangle) gamePane.getChildren().get(7));
     }
 
     public Cell[] getMonsterCardZone() {
@@ -130,12 +139,13 @@ public class GameBoard {
             if (monsterCardZone[i].isEmpty()) {
                 monsterCardZone[i].addCardToCell(card);
                 monsterCardZone[i].setCardStatus(cardStatus);
-                ImageView imageView=card.getCardImageForDeck(80);
-                imageView.setX(monsterCardZone[i].getxPosition());
-                imageView.setY(monsterCardZone[i].getyPosition());
-                gamePane.getChildren().add(imageView);
+                ImagePattern imagePattern=card.getCardImagePattern();
+                Rectangle rectangle=monsterCardZone[i].getCellRectangle();
+                rectangle.setFill(imagePattern);
+                for(double j=0;j<=1;j+=0.05){
+                    rectangle.opacityProperty().set(j);
+                }
                 gameController.changedPositionCells.add(monsterCardZone[i]);
-
                 return;
             }
         }
@@ -229,10 +239,29 @@ public class GameBoard {
         }
     }
 
-    public void addCardsToHandDeck(int countCard) {
+    public void addCardsToHandDeck(int countCard,boolean isToCurrentPlayer) {
         for (int i = 0; i < countCard; i++) {
             Card card = deckZone.get(0).getCellCard();
-            handCards.add(new Cell(card));
+            Cell cell=new Cell(card);
+            Rectangle rectangle=new Rectangle();
+            Duel.getGameController().getGameMenuController().addEventForCardImageRectangle(rectangle,card);
+            rectangle.setWidth(90);
+            rectangle.setHeight(120);
+
+            int numberChildren;
+            if(isToCurrentPlayer){
+                numberChildren=1;
+                rectangle.setFill(card.getCardImagePattern());
+            }
+            else{
+                rectangle.rotateProperty().set(180);
+                rectangle.setFill(card.getCardBackImagePattern());
+                numberChildren=0;
+            }
+            cell.setCellRectangle(rectangle);
+            ((HBox)gamePane.getChildren().get(numberChildren)).getChildren().add(rectangle);
+            handCards.add(cell);
+            //todo : remove deckzone card in graphic
             deckZone.remove(0);
         }
     }
@@ -240,7 +269,17 @@ public class GameBoard {
     public void addCardToHandDeck(String cardName) {
         for (int i = 0; i < deckZone.size(); i++) {
             if (deckZone.get(i).getCellCard().getName().equals(cardName)) {
-                handCards.add(new Cell(deckZone.get(i).getCellCard()));
+                Card card=deckZone.get(i).getCellCard();
+                Cell cell=new Cell(card);
+                Rectangle rectangle=new Rectangle();
+                Duel.getGameController().getGameMenuController().addEventForCardImageRectangle(rectangle,card);
+                rectangle.setWidth(90);
+                rectangle.setHeight(120);
+                rectangle.setFill(card.getCardImagePattern());
+                cell.setCellRectangle(rectangle);
+                ((HBox)gamePane.getChildren().get(1)).getChildren().add(rectangle);
+                handCards.add(cell);
+                ((Pane)gamePane.getChildren().get(3)).getChildren().remove(i);
                 deckZone.remove(i);
             }
         }
@@ -388,9 +427,11 @@ public class GameBoard {
     public boolean isCellInGameBoard(Cell cell){
         return isCellInHandZone(cell)||isCellInMonsterZone(cell)||isCellInSpellAndTrapZone(cell)||isCellInDeckZone(cell);
     }
-    public static void setGamePane(Pane pane){
-        gamePane=pane;
+    public void setGamePane(Pane pane){
+        gamePane=(Pane)pane.getChildren().get(16);
     }
 
-
+    public  Pane getGamePane() {
+        return gamePane;
+    }
 }

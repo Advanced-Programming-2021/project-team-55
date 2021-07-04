@@ -181,7 +181,8 @@
         <!--18/3-->
         <Pane fx:id="rivalDeckZoneContainer" layoutX="14.0" layoutY="113.0" prefHeight="131.0" prefWidth="93.0" />
         <!--18/4-->
-        <Pane fx:id="userDeckZoneContainer" layoutX="300.0" layoutY="496.0" opacity="0.07" prefHeight="131.0" prefWidth="100.0" />
+        <Pane fx:id="userDeckZoneContainer" layoutX="300.0" layoutY="500.0" prefHeight="131.0" prefWidth="93.0" />
+
         <!--18/5-->
         <Circle fill="#1f93ff" layoutX="625.0" layoutY="459.0" onMouseEntered="#showGraveyardForUser" onMouseExited="#closeGraveyard" opacity="0.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" />
         <!--18/6-->
@@ -191,7 +192,6 @@
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="110.0" layoutX="313.0" layoutY="378.0" opacity="0.2" stroke="BLACK" strokeType="INSIDE" width="83.0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="110.0" layoutX="407.0" layoutY="378.0" opacity="0.2" stroke="BLACK" strokeType="INSIDE" width="83.0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="110.0" layoutX="500.0" layoutY="378.0" opacity="0.2" stroke="BLACK" strokeType="INSIDE" width="83.0" />
-      <StackPane fx:id="userDeckZoneContainer2" layoutX="581.0" layoutY="490.0" prefHeight="131.0" prefWidth="100.0" />
     </Pane>
     <Label fx:id="currentUsername" layoutX="20.0" layoutY="564.0" prefHeight="34.0" prefWidth="151.0" text="Username : " />
     <Label fx:id="currentNickname" layoutX="21.0" layoutY="598.0" prefHeight="18.0" prefWidth="127.0" text="Nickname : " />

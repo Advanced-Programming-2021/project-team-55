@@ -1,7 +1,12 @@
 package yugioh.model;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.layout.Pane;
 import yugioh.model.board.GameBoard;
 import yugioh.model.cards.Deck;
+
+import java.net.URL;
 
 public class Player {
 
@@ -55,7 +60,11 @@ public class Player {
     }
 
     public void resetGameBoard() {
-        playerGameBoard = new GameBoard(playDeck);
+        try {
+            playerGameBoard = new GameBoard(playDeck);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         setLP(8000);
     }
 

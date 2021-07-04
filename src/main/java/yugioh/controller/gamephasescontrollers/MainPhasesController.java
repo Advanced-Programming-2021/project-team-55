@@ -245,6 +245,7 @@ public interface MainPhasesController {
                 gameController.changedPositionCells.add(selectedCell);
                 TimeSeal.setActivated(gameController);
             }
+            Cell.getSelectedCell().getCellRectangle().setFill(null);
             Cell.deselectCell();
         }
     }
@@ -392,18 +393,18 @@ public interface MainPhasesController {
         response.append("\t".repeat(Math.max(0, 6 - opponentPlayerGameBoard.getHandCards().size())));
 
         for (int i = 0; i < opponentPlayerGameBoard.getHandCards().size(); i++) {
-            Cell cell=opponentPlayerGameBoard.getHandCards().get(i);
-            ImageView imageView = cell.getCellCard().getCardBackImage();
-            imageView.setFitWidth(70);
-            imageView.rotateProperty().setValue(180);
-            ImagePattern imagePattern=cell.getCellCard().getCardBackImagePattern();
-            javafx.scene.shape.Rectangle rectangleImage= new javafx.scene.shape.Rectangle();
-            rectangleImage.setWidth(90);
-            rectangleImage.setHeight(115);
+          //Cell cell=opponentPlayerGameBoard.getHandCards().get(i);
+          //ImageView imageView = cell.getCellCard().getCardBackImage();
+          //imageView.setFitWidth(70);
+          //imageView.rotateProperty().setValue(180);
+          //ImagePattern imagePattern=cell.getCellCard().getCardBackImagePattern();
+          //javafx.scene.shape.Rectangle rectangleImage= new javafx.scene.shape.Rectangle();
+          //rectangleImage.setWidth(90);
+          //rectangleImage.setHeight(115);
 
-            rectangleImage.setFill(imagePattern);
-            gameMenuController.rivalHandCardsContainer.getChildren().add(rectangleImage);
-            gameMenuController.addEventForCardImageRectangle(rectangleImage, null);
+          //rectangleImage.setFill(imagePattern);
+          //gameMenuController.rivalHandCardsContainer.getChildren().add(rectangleImage);
+          //gameMenuController.addEventForCardImageRectangle(rectangleImage, null);
             response.append("\tc");
         }
 
@@ -531,6 +532,7 @@ public interface MainPhasesController {
         response.append("\n\t5\t3\t1\t2\t4");
         response.append("\n\t\t\t\t\t\t").append(playerGameBoard.getDeckZone().size()).append("\n");
         double xPane = gameMenuController.userDeckZoneContainer.getLayoutX();
+
         for (int i = playerGameBoard.getDeckZone().size() - 1; i >= 0; i--) {
             //todo: i tried to make the deck zone Rectangles but i couldnt
 //            Rectangle rectangleImage=new Rectangle();
@@ -540,7 +542,6 @@ public interface MainPhasesController {
 //            rectangleImage.setFill(imagePattern);
 //            gameMenuController.userDeckZoneContainer2.getChildren().add(rectangleImage);
 //            gameMenuController.addEventForCardImageRectangle(rectangleImage, null);
-
             ImageView imageView=playerGameBoard.getDeckZone().get(i).getCellCard().getCardBackImage();
             imageView.setFitWidth(70);
             imageView.setLayoutX(xPane+i/2);
@@ -555,15 +556,17 @@ public interface MainPhasesController {
 //            imageView.setY(ElementsCoordinates.getUserHandCards().get(i).getY());
 //            GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(imageView);
             //Card card = playerGameBoard.getHandCards().get(i).getCellCard();
-            ImagePattern imagePattern=cell.getCellCard().getCardImagePattern();
-            javafx.scene.shape.Rectangle rectangleImage= new javafx.scene.shape.Rectangle();
+           /* ImagePattern imagePattern=cell.getCellCard().getCardImagePattern();
+           Rectangle rectangleImage= new Rectangle();
+
+            cell.setCellRectangle(rectangleImage);
             rectangleImage.setWidth(90);
             rectangleImage.setHeight(120);
-            rectangleImage.setFill(imagePattern);
+            rectangleImage.setFill(imagePattern);*/
             //ImageView imageView = cell.getCellCard().getCardImageForDeck(90);
            // gameMenuController.userHandCardsContainer.getChildren().add(imageView);
-            gameMenuController.userHandCardsContainer.getChildren().add(rectangleImage);
-           gameMenuController.addEventForCardImageRectangle(rectangleImage, cell.getCellCard());
+          /*  gameMenuController.userHandCardsContainer.getChildren().add(rectangleImage);
+           gameMenuController.addEventForCardImageRectangle(rectangleImage, cell.getCellCard());*/
             response.append("c\t");
         }
         response.append("\n\t\t").append(currentPlayer.getUser().getNickname()).append(":").append(currentPlayer.getLP()).append(ConsoleColors.RESET);

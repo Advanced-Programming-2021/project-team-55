@@ -32,14 +32,14 @@ public class DuelMenu extends WelcomeMenu {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.DUEL_PLAYER.regex);
             try {
                 Duel.runGame(duelMenuController.newPVPDuel(matcher.group(2), Integer.parseInt(matcher.group(1))));
-            } catch (MenuException e) {
+            } catch (Exception e) {
                 response = e.toString();
             }
         } else if (command.matches(Regexes.DUEL_AI.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.DUEL_AI.regex);
             try {
                 Duel.runGame(duelMenuController.newAIDuel(Integer.parseInt(matcher.group(1))));
-            } catch (MenuException e) {
+            } catch (Exception e) {
                 response = e.toString();
             }
 //        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
