@@ -1,6 +1,9 @@
 package yugioh.model.board;
 
 import javafx.animation.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
@@ -191,6 +194,19 @@ public class GameBoard {
                 Rectangle rectangle=monsterCardZone[i].getCellRectangle();
                 setTranslationAnimation(imagePattern, rectangle, card);
                 setFlipTransition(card, rectangle);
+                rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    rectangle.requestFocus();
+                    ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword2.png"));
+                    GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
+                    sword.setX(rectangle.getLayoutX() + 21);
+                    sword.setY(rectangle.getLayoutY() + 15);
+                    sword.addEventHandler(MouseEvent.MOUSE_MOVED, event2 -> {
+                        sword.rotateProperty().setValue(Math.toDegrees(Math.atan((event2.getY() - rectangle.getLayoutY()) / (event2.getX() - rectangle.getLayoutX()))));
+                        System.out.println(Math.atan((event2.getY() - rectangle.getLayoutY()) / (event2.getX() - rectangle.getLayoutX())));
+                        event2.consume();
+                    });
+                    event.consume();
+                });
                 for(double j=0;j<=1;j+=0.05){
                     rectangle.opacityProperty().set(j);
                 }
