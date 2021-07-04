@@ -38,6 +38,9 @@ public class CardActionsMenu implements MainPhasesController {
     private static Pane gamePane;
     private static int place=6;
     private static GameController gameController;
+
+    private static double lastMousePositionX = 0;
+    private static double lastMousePositionY = 0;
     static {
         actionsStage.initOwner(WelcomeMenu.stage);
         actionsStage.initModality(Modality.NONE);
@@ -105,7 +108,6 @@ public class CardActionsMenu implements MainPhasesController {
   //              rectangle.setFill(imagePattern);
  //              rectangle.opacityProperty().set(1);
 
-
                ((HBox)gamePane.getChildren().get(1)).getChildren().remove(imageRectangle);
            } catch (GameException e) {
                e.printStackTrace();
@@ -114,7 +116,24 @@ public class CardActionsMenu implements MainPhasesController {
             actionsStage.close();
         }
     }
+
     public static void setGamePane(Pane pane){
         gamePane=pane;
+    }
+
+    public static double getLastMousePositionX() {
+        return lastMousePositionX;
+    }
+
+    public static void setLastMousePositionX(double lastMousePositionX) {
+        CardActionsMenu.lastMousePositionX = lastMousePositionX;
+    }
+
+    public static double getLastMousePositionY() {
+        return lastMousePositionY;
+    }
+
+    public static void setLastMousePositionY(double lastMousePositionY) {
+        CardActionsMenu.lastMousePositionY = lastMousePositionY;
     }
 }

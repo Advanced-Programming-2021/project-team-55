@@ -1,9 +1,12 @@
 package yugioh.model.board;
 
+import javafx.animation.TranslateTransition;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Translate;
+import javafx.util.Duration;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.cards.Card;
@@ -12,6 +15,7 @@ import yugioh.model.cards.Monster;
 import yugioh.model.cards.cardfeaturesenums.CardType;
 import yugioh.model.cards.cardfeaturesenums.MonsterType;
 import yugioh.model.exceptions.GameException;
+import yugioh.view.gamephases.CardActionsMenu;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GameResponses;
 
@@ -141,7 +145,13 @@ public class GameBoard {
                 monsterCardZone[i].setCardStatus(cardStatus);
                 ImagePattern imagePattern=card.getCardImagePattern();
                 Rectangle rectangle=monsterCardZone[i].getCellRectangle();
+                TranslateTransition trans = new TranslateTransition(Duration.seconds(2), rectangle);
+                trans.setToX(rectangle.getX());
+                trans.setFromX(CardActionsMenu.getLastMousePositionX());
+                trans.setToY(rectangle.getY());
+                trans.setFromY(CardActionsMenu.getLastMousePositionY());
                 rectangle.setFill(imagePattern);
+                trans.play();
                 for(double j=0;j<=1;j+=0.05){
                     rectangle.opacityProperty().set(j);
                 }

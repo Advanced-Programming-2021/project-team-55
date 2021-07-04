@@ -254,6 +254,9 @@ public class GameMenuController extends MenuController implements Initializable 
                             && !gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {
                         try {
                             CardActionsMenu.setCoordinates(event.getSceneX() + 195, event.getSceneY() + 60);
+                            CardActionsMenu.setLastMousePositionX(event.getSceneX() - 700);
+                            CardActionsMenu.setLastMousePositionY(200);
+//                            CardActionsMenu.setLastMousePositionY(event.getSceneY() - 200);
                             CardActionsMenu.execute(rectangle, gameController);
                         } catch (Exception e) {
                             e.printStackTrace();
