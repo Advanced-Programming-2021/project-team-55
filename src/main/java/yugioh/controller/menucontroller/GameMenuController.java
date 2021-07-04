@@ -119,11 +119,9 @@ public class GameMenuController extends MenuController implements Initializable 
         rotateTransition.play();
         for(Cell cell:gameController.currentTurnPlayer.getGameBoard().getHandCards()){
             cell.getCellRectangle().setFill(cell.getCellCard().getCardBackImagePattern());
-           // userHandCardsContainer.getChildren().add(cell.getCellRectangle());
         }
         for(Cell cell:gameController.currentTurnOpponentPlayer.getGameBoard().getHandCards()){
             cell.getCellRectangle().setFill(cell.getCellCard().getCardImagePattern());
-            //rivalHandCardsContainer.getChildren().add(cell.getCellRectangle());
         }
     }
 
@@ -133,7 +131,8 @@ public class GameMenuController extends MenuController implements Initializable 
         this.gameController = Duel.getGameController();
         updateGameStatusUIs();
         updateCells();
-        gameController.currentTurnPlayer.getGameBoard().setBoardRectangles(gameBoardPane);
+        gameController.currentTurnPlayer.getGameBoard().setBoardRectangles(gameBoardPane,false);
+        gameController.currentTurnOpponentPlayer.getGameBoard().setBoardRectangles(gameBoardPane,true);
         gameMenuController = this;
         userHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
         rivalHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
@@ -191,13 +190,13 @@ public class GameMenuController extends MenuController implements Initializable 
         int myLP = gameController.currentTurnPlayer.getLP();
         rivalLP.setText(opponentLP + "");
         userLP.setText(myLP + "");
-        opponentUsername.setText(opponentUsername.getText()+gameController.currentTurnOpponentPlayer.
+        opponentUsername.setText("Username: "+gameController.currentTurnOpponentPlayer.
                 getUser().getUsername());
-        opponentNickname.setText(opponentNickname.getText()+gameController.currentTurnOpponentPlayer.
+        opponentNickname.setText("Nickname: "+gameController.currentTurnOpponentPlayer.
                 getUser().getNickname());
-        currentUsername.setText(currentUsername.getText()+gameController.currentTurnPlayer.
+        currentUsername.setText("Username: "+gameController.currentTurnPlayer.
                 getUser().getUsername());
-        currentNickname.setText(currentNickname.getText()+gameController.currentTurnPlayer.
+        currentNickname.setText("Nickname: "+gameController.currentTurnPlayer.
                 getUser().getNickname());
         currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageString()));
         currentImage.setPreserveRatio(true);
@@ -250,7 +249,7 @@ public class GameMenuController extends MenuController implements Initializable 
                 if (Cell.getSelectedCell() != null && Cell.getSelectedCell().getCellCard().getCardImagePattern().equals
                         (rectangleImage)) {
                     CardActionsMenu.close();
-                    Cell.setSelectedCell(null);
+                    Cell.deselectCell();
                 }
                 else {
                     DropShadow selectEffect = new DropShadow(BlurType.values()[1],

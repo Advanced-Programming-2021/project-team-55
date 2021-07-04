@@ -49,6 +49,7 @@ public class Cell {
     }
 
     public static void deselectCell() {//better to be same as select cell or rename
+        selectedCell.getCellRectangle().setEffect(null);
         selectedCell = null;
     }
 

@@ -36,8 +36,8 @@ abstract public class Duel {
         try {
             GameMenu gameMenu=new GameMenu();
             gameMenu.execute();
-            gameController.currentTurnPlayer.getGameBoard().setGamePane(gameMenu.getPane());
-            gameController.currentTurnOpponentPlayer.getGameBoard().setGamePane(gameMenu.getPane());
+            gameController.currentTurnPlayer.getGameBoard().setGamePane(gameMenu.getPane(),false);
+            gameController.currentTurnOpponentPlayer.getGameBoard().setGamePane(gameMenu.getPane(),true);
         } catch (Exception e) {
             e.printStackTrace();
         }

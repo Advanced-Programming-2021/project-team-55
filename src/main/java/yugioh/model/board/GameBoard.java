@@ -26,6 +26,7 @@ public class GameBoard {
     private final ArrayList<Cell> deckZone;
     private final ArrayList<Cell> handCards;
     private final Cell fieldZone;
+    private transient HBox handDeck;
     private static Pane gamePane;
     {
         monsterCardZone = new Cell[5];
@@ -64,12 +65,55 @@ public class GameBoard {
         //addCardsToHandDeck(5);
     }
 
-    public void setBoardRectangles(Pane gamePane) {
-        monsterCardZone[0].setCellRectangle((Rectangle) gamePane.getChildren().get(8));
-        monsterCardZone[1].setCellRectangle((Rectangle) gamePane.getChildren().get(9));
-        monsterCardZone[2].setCellRectangle((Rectangle) gamePane.getChildren().get(7));
-        monsterCardZone[3].setCellRectangle((Rectangle) gamePane.getChildren().get(10));
-        monsterCardZone[4].setCellRectangle((Rectangle) gamePane.getChildren().get(7));
+    public void setBoardRectangles(Pane gamePane,boolean isOpponent) {
+        if(!isOpponent){
+            monsterCardZone[0].setCellRectangle((Rectangle) gamePane.getChildren().get(8));
+            monsterCardZone[1].setCellRectangle((Rectangle) gamePane.getChildren().get(9));
+            monsterCardZone[2].setCellRectangle((Rectangle) gamePane.getChildren().get(7));
+            monsterCardZone[3].setCellRectangle((Rectangle) gamePane.getChildren().get(10));
+            monsterCardZone[4].setCellRectangle((Rectangle) gamePane.getChildren().get(6));
+
+            spellAndTrapCardZone[0].setCellRectangle((Rectangle) gamePane.getChildren().get(13));
+            spellAndTrapCardZone[1].setCellRectangle((Rectangle) gamePane.getChildren().get(14));
+            spellAndTrapCardZone[2].setCellRectangle((Rectangle) gamePane.getChildren().get(12));
+            spellAndTrapCardZone[3].setCellRectangle((Rectangle) gamePane.getChildren().get(15));
+            spellAndTrapCardZone[4].setCellRectangle((Rectangle) gamePane.getChildren().get(11));
+        }
+        else {
+            Rectangle rectangle1=(Rectangle) gamePane.getChildren().get(18);
+            rectangle1.rotateProperty().set(180);
+            Rectangle rectangle2=(Rectangle) gamePane.getChildren().get(19);
+            rectangle2.rotateProperty().set(180);
+            Rectangle rectangle3=(Rectangle) gamePane.getChildren().get(17);
+            rectangle3.rotateProperty().set(180);
+            Rectangle rectangle4=(Rectangle) gamePane.getChildren().get(20);
+            rectangle4.rotateProperty().set(180);
+            Rectangle rectangle5=(Rectangle) gamePane.getChildren().get(16);
+            rectangle5.rotateProperty().set(180);
+            monsterCardZone[0].setCellRectangle(rectangle1);
+            monsterCardZone[1].setCellRectangle(rectangle2);
+            monsterCardZone[2].setCellRectangle(rectangle3);
+            monsterCardZone[3].setCellRectangle(rectangle4);
+            monsterCardZone[4].setCellRectangle(rectangle5);
+
+            Rectangle rectangle6=(Rectangle) gamePane.getChildren().get(23);
+            rectangle6.rotateProperty().set(180);
+            Rectangle rectangle7=(Rectangle) gamePane.getChildren().get(24);
+            rectangle7.rotateProperty().set(180);
+            Rectangle rectangle8=(Rectangle) gamePane.getChildren().get(22);
+            rectangle8.rotateProperty().set(180);
+            Rectangle rectangle9=(Rectangle) gamePane.getChildren().get(25);
+            rectangle9.rotateProperty().set(180);
+            Rectangle rectangle10=(Rectangle) gamePane.getChildren().get(21);
+            rectangle10.rotateProperty().set(180);
+
+
+            spellAndTrapCardZone[0].setCellRectangle(rectangle6);
+            spellAndTrapCardZone[1].setCellRectangle(rectangle7);
+            spellAndTrapCardZone[2].setCellRectangle(rectangle8);
+            spellAndTrapCardZone[3].setCellRectangle(rectangle9);
+            spellAndTrapCardZone[4].setCellRectangle(rectangle10);
+        }
     }
 
     public Cell[] getMonsterCardZone() {
@@ -232,6 +276,12 @@ public class GameBoard {
             if (spellAndTrapCardZone[i].isEmpty()) {
                 spellAndTrapCardZone[i].addCardToCell(card);
                 spellAndTrapCardZone[i].setCardStatus(cardStatus);
+                ImagePattern imagePattern=card.getCardImagePattern();
+                Rectangle rectangle=spellAndTrapCardZone[i].getCellRectangle();
+                rectangle.setFill(imagePattern);
+                for(double j=0;j<=1;j+=0.05){
+                    rectangle.opacityProperty().set(j);
+                }
                 gameController.changedPositionCells.add(spellAndTrapCardZone[i]);
 
                 return;
@@ -427,11 +477,22 @@ public class GameBoard {
     public boolean isCellInGameBoard(Cell cell){
         return isCellInHandZone(cell)||isCellInMonsterZone(cell)||isCellInSpellAndTrapZone(cell)||isCellInDeckZone(cell);
     }
-    public void setGamePane(Pane pane){
+    public void setGamePane(Pane pane,boolean isOpponent){
         gamePane=(Pane)pane.getChildren().get(16);
+        if(isOpponent)
+        handDeck=(HBox) gamePane.getChildren().get(0);
+        else{
+            handDeck=(HBox) gamePane.getChildren().get(1);
+        }
+
     }
 
     public  Pane getGamePane() {
         return gamePane;
+    }
+
+    public void removeCardFromHand(Cell selectedCell) {
+        handCards.remove(selectedCell);
+        handDeck.getChildren().remove(selectedCell.getCellRectangle());
     }
 }

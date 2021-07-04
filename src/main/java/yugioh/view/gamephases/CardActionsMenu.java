@@ -1,16 +1,11 @@
 package yugioh.view.gamephases;
 
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -18,13 +13,9 @@ import javafx.stage.StageStyle;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.gamephasescontrollers.MainPhasesController;
 import yugioh.model.board.Cell;
-import yugioh.model.board.GameBoard;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.menus.WelcomeMenu;
 
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.io.File;
 import java.util.ArrayList;
 
 public class CardActionsMenu implements MainPhasesController {
@@ -34,7 +25,9 @@ public class CardActionsMenu implements MainPhasesController {
     private static double yImage;
     private static Button actionButton=new Button();
     private static Rectangle imageRectangle;
-    private static ArrayList<String>actions=new ArrayList<>();
+    private static ArrayList<String> monsterActions =new ArrayList<>();
+    private static ArrayList<String>spellAndTrapActions=new ArrayList<>();
+    private static ArrayList<String>thisActions=new ArrayList<>();
     private static Pane gamePane;
     private static int place=6;
     private static GameController gameController;
@@ -43,8 +36,12 @@ public class CardActionsMenu implements MainPhasesController {
         actionsStage.initModality(Modality.NONE);
         actionsStage.initStyle(StageStyle.UNDECORATED);
         {
-            actions.add("set");
-            actions.add("summon");
+            monsterActions.add("set");
+            monsterActions.add("summon");
+
+
+            spellAndTrapActions.add("set");
+            spellAndTrapActions.add("activate");
         }
     }
     public static void execute(Rectangle rectangle, GameController controller) throws Exception {
@@ -54,7 +51,13 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static void start() throws Exception {
-        actionButton.setText("set");
+        if(Cell.getSelectedCell().getCellCard().isMonster()){
+            thisActions=monsterActions;
+        }
+        else{
+            thisActions=spellAndTrapActions;
+        }
+        actionButton.setText(thisActions.get(0));
         actionButton.setMinWidth(70);
         Pane pane=new Pane();
         pane.getChildren().add(actionButton);
@@ -85,19 +88,18 @@ public class CardActionsMenu implements MainPhasesController {
     }
     public static void change(){
         int counter=0;
-        for(String action:actions){
+        for(String action: thisActions){
             if(action.equals(actionButton.getText())){
-                if(counter==actions.size()-1){
+                if(counter== thisActions.size()-1){
                     counter=-1;
                 }
-                actionButton.setText(actions.get(counter+1));
+                actionButton.setText(thisActions.get(counter+1));
                 return;
             }
             counter++;
         }
     }
     public static void handleSet(){
-        if(Cell.getSelectedCell().getCellCard().isMonster()){
            try {
                 new CardActionsMenu().setCard(gameController);
 //               ImagePattern imagePattern=new ImagePattern(new Image(new File(Cell.getSelectedCell().getCellCard().getImage()).toURI().toString()));
@@ -106,13 +108,11 @@ public class CardActionsMenu implements MainPhasesController {
  //              rectangle.opacityProperty().set(1);
 
 
-               ((HBox)gamePane.getChildren().get(1)).getChildren().remove(imageRectangle);
            } catch (GameException e) {
                e.printStackTrace();
               //todo show an error box
            }
             actionsStage.close();
-        }
     }
     public static void setGamePane(Pane pane){
         gamePane=pane;
