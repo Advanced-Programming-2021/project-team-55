@@ -1,11 +1,11 @@
 package yugioh.model.board;
 
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Translate;
+import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.menucontroller.GameMenuController;
@@ -181,13 +181,8 @@ public class GameBoard {
                 monsterCardZone[i].setCardStatus(cardStatus);
                 ImagePattern imagePattern=card.getCardImagePattern();
                 Rectangle rectangle=monsterCardZone[i].getCellRectangle();
-                TranslateTransition trans = new TranslateTransition(Duration.seconds(2), rectangle);
-                trans.setToX(rectangle.getX());
-                trans.setFromX(CardActionsMenu.getLastMousePositionX());
-                trans.setToY(rectangle.getY());
-                trans.setFromY(CardActionsMenu.getLastMousePositionY());
-                rectangle.setFill(imagePattern);
-                trans.play();
+                setTranslationAnimation(imagePattern, rectangle, card);
+                setFlipTransition(card, rectangle);
                 for(double j=0;j<=1;j+=0.05){
                     rectangle.opacityProperty().set(j);
                 }
@@ -281,7 +276,8 @@ public class GameBoard {
                 spellAndTrapCardZone[i].setCardStatus(cardStatus);
                 ImagePattern imagePattern=card.getCardImagePattern();
                 Rectangle rectangle=spellAndTrapCardZone[i].getCellRectangle();
-                rectangle.setFill(imagePattern);
+                setTranslationAnimation(imagePattern, rectangle, card);
+                setFlipTransition(card, rectangle);
                 for(double j=0;j<=1;j+=0.05){
                     rectangle.opacityProperty().set(j);
                 }
@@ -291,6 +287,31 @@ public class GameBoard {
                 return;
             }
         }
+    }
+
+    private void setFlipTransition(Card card, Rectangle rectangle) {
+        RotateTransition rotator = new RotateTransition(Duration.millis(2000), rectangle);
+        rotator.setAxis(Rotate.Y_AXIS);
+        rotator.setFromAngle(0);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> rectangle.setFill(card.getCardBackImagePattern())));
+        timeline.play();
+        rotator.setToAngle(180);
+        rotator.setInterpolator(Interpolator.EASE_BOTH);
+        rotator.play();
+    }
+
+    private void setTranslationAnimation(ImagePattern imagePattern, Rectangle rectangle, Card card) {
+        TranslateTransition trans = new TranslateTransition(Duration.seconds(2), rectangle);
+        trans.setToX(rectangle.getX());
+        double constant = 1;
+        double rotationValue = GameMenuController.getGameMenuController().background.rotateProperty().getValue() % 360;
+        if (rotationValue > 179 && rotationValue < 181) constant = -1;
+        if (!card.isMonster()) constant /= 2;
+        trans.setFromX(constant * CardActionsMenu.getLastMousePositionX());
+        trans.setToY(rectangle.getY());
+        trans.setFromY(constant * CardActionsMenu.getLastMousePositionY());
+        rectangle.setFill(imagePattern);
+        trans.play();
     }
 
     public void addCardsToHandDeck(int countCard,boolean isToCurrentPlayer) {
