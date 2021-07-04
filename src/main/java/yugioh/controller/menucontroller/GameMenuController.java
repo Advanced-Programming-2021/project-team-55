@@ -41,7 +41,6 @@ import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
 import yugioh.view.gamephases.CardActionsMenu;
 import yugioh.view.gamephases.Duel;
-import yugioh.view.menus.WelcomeMenu;
 import yugioh.view.gamephases.GamePhase;
 import yugioh.view.gamephases.Graveyard;
 import yugioh.view.menus.WelcomeMenu;
@@ -119,9 +118,11 @@ public class GameMenuController extends MenuController implements Initializable 
         rotateTransition.play();
         for(Cell cell:gameController.currentTurnPlayer.getGameBoard().getHandCards()){
             cell.getCellRectangle().setFill(cell.getCellCard().getCardBackImagePattern());
+           // userHandCardsContainer.getChildren().add(cell.getCellRectangle());
         }
         for(Cell cell:gameController.currentTurnOpponentPlayer.getGameBoard().getHandCards()){
             cell.getCellRectangle().setFill(cell.getCellCard().getCardImagePattern());
+            //rivalHandCardsContainer.getChildren().add(cell.getCellRectangle());
         }
     }
 
@@ -190,13 +191,13 @@ public class GameMenuController extends MenuController implements Initializable 
         int myLP = gameController.currentTurnPlayer.getLP();
         rivalLP.setText(opponentLP + "");
         userLP.setText(myLP + "");
-        opponentUsername.setText("Username: "+gameController.currentTurnOpponentPlayer.
+        opponentUsername.setText("Username : " + gameController.currentTurnOpponentPlayer.
                 getUser().getUsername());
-        opponentNickname.setText("Nickname: "+gameController.currentTurnOpponentPlayer.
+        opponentNickname.setText("Nickname : " + gameController.currentTurnOpponentPlayer.
                 getUser().getNickname());
-        currentUsername.setText("Username: "+gameController.currentTurnPlayer.
+        currentUsername.setText("Username : " + gameController.currentTurnPlayer.
                 getUser().getUsername());
-        currentNickname.setText("Nickname: "+gameController.currentTurnPlayer.
+        currentNickname.setText("Nickname : " + gameController.currentTurnPlayer.
                 getUser().getNickname());
         currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageString()));
         currentImage.setPreserveRatio(true);
@@ -261,7 +262,10 @@ public class GameMenuController extends MenuController implements Initializable 
                 &&!gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {
                         try {
                             CardActionsMenu.setCoordinates(event.getSceneX() + 195, event.getSceneY() + 60);
-                            CardActionsMenu.execute(rectangle,gameController);
+                            CardActionsMenu.setLastMousePositionX(event.getSceneX() - 700);
+                            CardActionsMenu.setLastMousePositionY(200);
+//                            CardActionsMenu.setLastMousePositionY(event.getSceneY() - 200);
+                            CardActionsMenu.execute(rectangle, gameController);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

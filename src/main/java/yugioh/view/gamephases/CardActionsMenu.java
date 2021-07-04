@@ -1,11 +1,16 @@
 package yugioh.view.gamephases;
 
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -13,9 +18,13 @@ import javafx.stage.StageStyle;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.gamephasescontrollers.MainPhasesController;
 import yugioh.model.board.Cell;
+import yugioh.model.board.GameBoard;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.menus.WelcomeMenu;
 
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.io.File;
 import java.util.ArrayList;
 
 public class CardActionsMenu implements MainPhasesController {
@@ -31,6 +40,9 @@ public class CardActionsMenu implements MainPhasesController {
     private static Pane gamePane;
     private static int place=6;
     private static GameController gameController;
+
+    private static double lastMousePositionX = 0;
+    private static double lastMousePositionY = 0;
     static {
         actionsStage.initOwner(WelcomeMenu.stage);
         actionsStage.initModality(Modality.NONE);
@@ -113,8 +125,25 @@ public class CardActionsMenu implements MainPhasesController {
               //todo show an error box
            }
             actionsStage.close();
-    }
+        }
+
     public static void setGamePane(Pane pane){
         gamePane=pane;
+    }
+
+    public static double getLastMousePositionX() {
+        return lastMousePositionX;
+    }
+
+    public static void setLastMousePositionX(double lastMousePositionX) {
+        CardActionsMenu.lastMousePositionX = lastMousePositionX;
+    }
+
+    public static double getLastMousePositionY() {
+        return lastMousePositionY;
+    }
+
+    public static void setLastMousePositionY(double lastMousePositionY) {
+        CardActionsMenu.lastMousePositionY = lastMousePositionY;
     }
 }

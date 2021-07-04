@@ -37,10 +37,10 @@ public final class Toast {
         toastStage.setScene(scene);
         toastStage.show();
 
-        try {
-            GameMenuController.getGameMenuController().nextPhaseTriangle.setDisable(true);
-        }catch (Exception ignored){
-        }
+//        try {//todo uncomment, commented for debug purposes
+//            GameMenuController.getGameMenuController().nextPhaseTriangle.setDisable(true);
+//        }catch (Exception ignored){
+//        }
 
         Timeline fadeInTimeline = new Timeline();
         KeyFrame fadeInKey1 = new KeyFrame(Duration.millis(fadeInDelay), new KeyValue(toastStage.getScene().getRoot().opacityProperty(), 1));
@@ -56,10 +56,10 @@ public final class Toast {
                     KeyFrame fadeOutKey1 = new KeyFrame(Duration.millis(fadeOutDelay), new KeyValue(toastStage.getScene().getRoot().opacityProperty(), 0));
                     fadeOutTimeline.getKeyFrames().add(fadeOutKey1);
                     fadeOutTimeline.setOnFinished((aeb) -> {
-                        try {
-                            GameMenuController.getGameMenuController().nextPhaseTriangle.setDisable(false);
-                        } catch (Exception ignored) {
-                        }
+//                        try {//todo uncomment, commented for debug purposes
+//                            GameMenuController.getGameMenuController().nextPhaseTriangle.setDisable(false);
+//                        } catch (Exception ignored) {
+//                        }
                         toastStage.close();
                     });
                     fadeOutTimeline.play();
