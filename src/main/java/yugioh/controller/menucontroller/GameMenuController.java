@@ -264,7 +264,6 @@ public class GameMenuController extends MenuController implements Initializable 
                             CardActionsMenu.setCoordinates(event.getSceneX() + 195, event.getSceneY() + 60);
                             CardActionsMenu.setLastMousePositionX(event.getSceneX() - 700);
                             CardActionsMenu.setLastMousePositionY(200);
-//                            CardActionsMenu.setLastMousePositionY(event.getSceneY() - 200);
                             CardActionsMenu.execute(rectangle, gameController);
                         } catch (Exception e) {
                             e.printStackTrace();

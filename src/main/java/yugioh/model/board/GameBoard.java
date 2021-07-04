@@ -189,13 +189,7 @@ public class GameBoard {
                 monsterCardZone[i].setCardStatus(cardStatus);
                 ImagePattern imagePattern=card.getCardImagePattern();
                 Rectangle rectangle=monsterCardZone[i].getCellRectangle();
-                TranslateTransition trans = new TranslateTransition(Duration.seconds(2), rectangle);
-                trans.setToX(rectangle.getX());
-                trans.setFromX(CardActionsMenu.getLastMousePositionX());
-                trans.setToY(rectangle.getY());
-                trans.setFromY(CardActionsMenu.getLastMousePositionY());
-                rectangle.setFill(imagePattern);
-                trans.play();
+                setTransitionAnimation(imagePattern, rectangle, card);
                 for(double j=0;j<=1;j+=0.05){
                     rectangle.opacityProperty().set(j);
                 }
@@ -288,7 +282,7 @@ public class GameBoard {
                 spellAndTrapCardZone[i].setCardStatus(cardStatus);
                 ImagePattern imagePattern=card.getCardImagePattern();
                 Rectangle rectangle=spellAndTrapCardZone[i].getCellRectangle();
-                rectangle.setFill(imagePattern);
+                setTransitionAnimation(imagePattern, rectangle, card);
                 for(double j=0;j<=1;j+=0.05){
                     rectangle.opacityProperty().set(j);
                 }
@@ -297,6 +291,19 @@ public class GameBoard {
                 return;
             }
         }
+    }
+
+    private void setTransitionAnimation(ImagePattern imagePattern, Rectangle rectangle, Card card) {
+        TranslateTransition trans = new TranslateTransition(Duration.seconds(2), rectangle);
+        trans.setToX(rectangle.getX());
+        double constant = 1;
+        if (GameMenuController.getGameMenuController().background.rotateProperty().getValue() > 179) constant = -1;
+        if (!card.isMonster()) constant /= 2;
+        trans.setFromX(constant * CardActionsMenu.getLastMousePositionX());
+        trans.setToY(rectangle.getY());
+        trans.setFromY(constant * CardActionsMenu.getLastMousePositionY());
+        rectangle.setFill(imagePattern);
+        trans.play();
     }
 
     public void addCardsToHandDeck(int countCard,boolean isToCurrentPlayer) {
