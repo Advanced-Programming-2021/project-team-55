@@ -9,14 +9,18 @@
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.DeckMenuController">
    <VBox alignment="CENTER" layoutY="7.0" prefHeight="710.0" prefWidth="1068.0">
       <children>
-       <Label prefHeight="104.0" prefWidth="254.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Deck Menu" textFill="#ccdefc">
+       <Label prefHeight="83.0" prefWidth="254.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Deck Menu" textFill="#ccdefc">
            <font>
                <Font size="20.0" />
            </font>
        </Label>
-         <MenuButton fx:id="decksBox" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="242.0" text="Decks" textAlignment="CENTER">
-   </MenuButton>
-         <Label fx:id="deckInfo" alignment="CENTER" prefHeight="34.0" prefWidth="335.0" text="">
+         <MenuButton fx:id="decksBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="55.0" prefWidth="268.0" text="Decks" textAlignment="CENTER" textFill="#ccdefc">
+            <styleClass>
+               <String fx:value="buttonShape" />
+               <String fx:value="buttonHover" />
+               <String fx:value="popupText" />
+            </styleClass></MenuButton>
+         <Label fx:id="deckInfo" alignment="CENTER" prefHeight="34.0" prefWidth="335.0" text="" textFill="#ccdefc">
             <font>
                <Font size="18.0" />
             </font>
@@ -61,7 +65,7 @@
             </children>
          </HBox>
 
-              <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
+              <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back" textFill="#ccdefc">
                <styleClass>
                    <String fx:value="buttonText" />
                    <String fx:value="buttonShape" />
