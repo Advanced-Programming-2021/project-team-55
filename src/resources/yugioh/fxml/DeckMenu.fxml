@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -9,47 +10,53 @@
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.DeckMenuController">
    <VBox alignment="CENTER" layoutY="7.0" prefHeight="710.0" prefWidth="1068.0">
       <children>
-       <Label prefHeight="83.0" prefWidth="254.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Deck Menu" textFill="#ccdefc">
+       <Label prefHeight="75.0" prefWidth="254.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Deck Menu" textFill="#ccdefc">
            <font>
                <Font size="20.0" />
            </font>
        </Label>
-         <MenuButton fx:id="decksBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="55.0" prefWidth="268.0" text="Decks" textAlignment="CENTER" textFill="#ccdefc">
+         <MenuButton fx:id="decksBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="64.0" prefWidth="371.0" text="Decks" textAlignment="CENTER" textFill="#ccdefc">
             <styleClass>
                <String fx:value="buttonShape" />
                <String fx:value="buttonHover" />
                <String fx:value="popupText" />
             </styleClass></MenuButton>
-         <Label fx:id="deckInfo" alignment="CENTER" prefHeight="34.0" prefWidth="335.0" text="" textFill="#ccdefc">
+         <Label fx:id="deckInfo" alignment="CENTER" prefHeight="42.0" prefWidth="976.0" styleClass="popupText" text="" textFill="#ccdefc">
             <font>
                <Font size="18.0" />
             </font>
          </Label>
-         <Pane fx:id="deckPane" prefHeight="348.0" prefWidth="1068.0" />
-         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+          <HBox alignment="CENTER" prefHeight="353.0" prefWidth="1068.0">
+              <Pane fx:id="deckPane" prefHeight="354.0" prefWidth="369.0">
+                 <padding>
+                     <Insets left="200.0"/>
+                 </padding>
+              </Pane>
+          </HBox>
+         <HBox alignment="CENTER" prefHeight="88.0" prefWidth="1068.0">
             <children>
-                <JFXButton fx:id="activateDeckButton" buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#activateDeckClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Activate Deck">
+                <JFXButton fx:id="activateDeckButton" buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#activateDeckClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Activate Deck" textFill="#ccdefc">
                     <styleClass>
                         <String fx:value="buttonText" />
                         <String fx:value="buttonShape" />
                         <String fx:value="buttonHover" />
                     </styleClass>
                 </JFXButton>
-                <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#newDeckClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="New Deck">
+                <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#newDeckClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="New Deck" textFill="#ccdefc">
                     <styleClass>
                         <String fx:value="buttonText" />
                         <String fx:value="buttonShape" />
                         <String fx:value="buttonHover" />
                     </styleClass>
                 </JFXButton>
-                <JFXButton fx:id="editDeckButton" buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#editDeckClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Edit Deck">
+                <JFXButton fx:id="editDeckButton" buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#editDeckClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Edit Deck" textFill="#ccdefc">
                     <styleClass>
                         <String fx:value="buttonText" />
                         <String fx:value="buttonShape" />
                         <String fx:value="buttonHover" />
                     </styleClass>
                 </JFXButton>
-                <JFXButton fx:id="deleteDeckButton" buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#deleteDeckClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Delete Deck">
+                <JFXButton fx:id="deleteDeckButton" buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#deleteDeckClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Delete Deck" textFill="#ccdefc">
                     <styleClass>
                         <String fx:value="buttonText" />
                         <String fx:value="buttonShape" />
