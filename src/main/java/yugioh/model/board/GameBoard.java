@@ -43,16 +43,6 @@ public class GameBoard {
             monsterCardZone[i] = new Cell();
             spellAndTrapCardZone[i] = new Cell();
         }
-        double x=-60;
-        for(Cell cell:monsterCardZone){
-            cell.setPosition(x,380);
-            x+=25;
-        }
-        x=-60;
-        for(Cell cell:spellAndTrapCardZone){
-            cell.setPosition(x,480);
-            x+=30;
-        }
         deckZone = new ArrayList<>();
         handCards = new ArrayList<>();
         fieldZone = new Cell();
@@ -65,7 +55,9 @@ public class GameBoard {
         Collections.shuffle(mainDeck);
         for (Card card : mainDeck) {
             Cell cell = new Cell();
+            Rectangle rectangle=new Rectangle();
             cell.addCardToCell(card);
+            cell.setCellRectangle(rectangle);
             deckZone.add(cell);
         }
         //todo i changed:
@@ -210,6 +202,7 @@ public class GameBoard {
                 for(double j=0;j<=1;j+=0.05){
                     rectangle.opacityProperty().set(j);
                 }
+                gameController.getGameMenuController().addEventForCardImageRectangle(rectangle,card);
                 gameController.changedPositionCells.add(monsterCardZone[i]);
                 return;
             }
@@ -304,6 +297,7 @@ public class GameBoard {
                 for(double j=0;j<=1;j+=0.05){
                     rectangle.opacityProperty().set(j);
                 }
+                gameController.getGameMenuController().addEventForCardImageRectangle(rectangle,card);
                 gameController.changedPositionCells.add(spellAndTrapCardZone[i]);
 
                 return;
@@ -345,18 +339,15 @@ public class GameBoard {
             rectangle.setWidth(90);
             rectangle.setHeight(120);
 
-            int numberChildren;
             if(isToCurrentPlayer){
-                numberChildren=1;
                 rectangle.setFill(card.getCardImagePattern());
             }
             else{
                 rectangle.rotateProperty().set(180);
                 rectangle.setFill(card.getCardBackImagePattern());
-                numberChildren=0;
             }
             cell.setCellRectangle(rectangle);
-            ((HBox)gamePane.getChildren().get(numberChildren)).getChildren().add(rectangle);
+            handDeck.getChildren().add(rectangle);
             handCards.add(cell);
             //todo : remove deckzone card in graphic
             deckZone.remove(0);
@@ -374,7 +365,7 @@ public class GameBoard {
                 rectangle.setHeight(120);
                 rectangle.setFill(card.getCardImagePattern());
                 cell.setCellRectangle(rectangle);
-                ((HBox)gamePane.getChildren().get(1)).getChildren().add(rectangle);
+                handDeck.getChildren().add(rectangle);
                 handCards.add(cell);
                 ((Pane)gamePane.getChildren().get(3)).getChildren().remove(i);
                 deckZone.remove(i);

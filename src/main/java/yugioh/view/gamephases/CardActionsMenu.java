@@ -1,5 +1,7 @@
 package yugioh.view.gamephases;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -63,31 +65,15 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static void start() throws Exception {
-        if(Cell.getSelectedCell().getCellCard().isMonster()){
-            thisActions=monsterActions;
+        if(gameController.currentTurnPlayer.getGameBoard().isCellInHandZone(Cell.getSelectedCell())) {
+            if (gameController.currentPhase.equals(GamePhase.MAIN1) || gameController.currentPhase.equals(GamePhase.MAIN2)) {
+                openMainPhaseActions();
+            }
         }
         else{
-            thisActions=spellAndTrapActions;
+            //todo : add actions of cards in monster zone and spell zone
         }
-        actionButton.setText(thisActions.get(0));
-        actionButton.setMinWidth(70);
-        Pane pane=new Pane();
-        pane.getChildren().add(actionButton);
-        pane.setMaxWidth(70);
-        pane.setMaxHeight(30);
-        actionButton.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if(actionButton.getText().equals("set")){
-                    handleSet();
-                }
-            }
-        });
-        Scene scene=WelcomeMenu.createScene(pane);
-        actionsStage.setX(xImage);
-        actionsStage.setY(yImage);
-        actionsStage.setScene(scene);
-        actionsStage.show();
+
     }
     public static void close(){
         if(actionsStage!=null)
@@ -114,12 +100,6 @@ public class CardActionsMenu implements MainPhasesController {
     public static void handleSet(){
            try {
                 new CardActionsMenu().setCard(gameController);
-//               ImagePattern imagePattern=new ImagePattern(new Image(new File(Cell.getSelectedCell().getCellCard().getImage()).toURI().toString()));
-  //             Rectangle rectangle=((Rectangle)gamePane.getChildren().get(place++));
-  //              rectangle.setFill(imagePattern);
- //              rectangle.opacityProperty().set(1);
-
-
            } catch (GameException e) {
                e.printStackTrace();
               //todo show an error box
@@ -145,5 +125,45 @@ public class CardActionsMenu implements MainPhasesController {
 
     public static void setLastMousePositionY(double lastMousePositionY) {
         CardActionsMenu.lastMousePositionY = lastMousePositionY;
+    }
+    public static void openMainPhaseActions(){
+        if(Cell.getSelectedCell().getCellCard().isMonster()){
+            thisActions=monsterActions;
+        }
+        else{
+            thisActions=spellAndTrapActions;
+        }
+        actionButton.setMinWidth(70);
+        Pane pane=new Pane();
+        pane.getChildren().add(actionButton);
+        pane.setMaxWidth(70);
+        pane.setMaxHeight(30);
+        actionButton.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(t1.equals("set")){
+                    if(gameController.doPlayerSetOrSummonedThisTurn()){
+                        actionButton.setDisable(true);
+                    }
+                    else{
+                        actionButton.setDisable(false);
+                    }
+                }
+            }
+        });
+        actionButton.setText(thisActions.get(0));
+        actionButton.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(actionButton.getText().equals("set")){
+                    handleSet();
+                }
+            }
+        });
+        Scene scene=WelcomeMenu.createScene(pane);
+        actionsStage.setX(xImage);
+        actionsStage.setY(yImage);
+        actionsStage.setScene(scene);
+        actionsStage.show();
     }
 }

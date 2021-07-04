@@ -1,8 +1,6 @@
 package yugioh.controller.gamephasescontrollers;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.Player;
 import yugioh.model.board.CardStatus;
@@ -43,7 +41,7 @@ public interface MainPhasesController {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         } else if (!isSummonable(selectedCell, gameController)) {
             throw new GameException(GameResponses.CANT_SUMMON_CARD.response);
-        } else if (gameController.DoPlayerSetOrSummonedThisTurn()) {
+        } else if (gameController.doPlayerSetOrSummonedThisTurn()) {
             throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
         }
         int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
@@ -202,7 +200,7 @@ public interface MainPhasesController {
             throw new GameException(GameResponses.CANT_SET_CARD.response);
         } else {
             if (selectedCard.isMonster()) {
-//                if (gameController.DoPlayerSetOrSummonedThisTurn()) {
+//                if (gameController.doPlayerSetOrSummonedThisTurn()) {
 //                    throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
 //                }
                 playerGameBoard.addCardToMonsterCardZone(selectedCard, CardStatus.DEFENSIVE_HIDDEN, gameController);
@@ -232,7 +230,7 @@ public interface MainPhasesController {
             throw new GameException(GameResponses.CANT_SET_CARD.response);
         } else {
             if (selectedCard.isMonster()) {
-                if (gameController.DoPlayerSetOrSummonedThisTurn()) {
+                if (gameController.doPlayerSetOrSummonedThisTurn()) {
                     throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
                 }
                 playerGameBoard.addCardToMonsterCardZone(selectedCard, CardStatus.DEFENSIVE_HIDDEN, gameController);

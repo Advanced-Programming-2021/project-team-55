@@ -256,7 +256,8 @@ public class GameMenuController extends MenuController implements Initializable 
                     DropShadow selectEffect = new DropShadow(BlurType.values()[1],
                             GREEN, 10, 2.0f, 0, 0);
                     selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
-                    Cell.setSelectedCellByImage(rectangle.getFill());
+                    Cell.setSelectedCellByRectangle(rectangle);
+                    //Cell.setSelectedCellByImage(rectangle.getFill());
                     rectangle.setEffect(selectEffect);
                     if(!gameController.currentTurnOpponentPlayer.getGameBoard().isCellInGameBoard(Cell.getSelectedCell())
                 &&!gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {
@@ -274,7 +275,7 @@ public class GameMenuController extends MenuController implements Initializable 
             }
             else if(event.getButton()== MouseButton.SECONDARY){
                 if (Cell.getSelectedCell() != null && Cell.getSelectedCell().getCellCard().getCardImagePattern().
-                        equals((ImagePattern) rectangle.getFill())) {
+                        equals(rectangle.getFill())) {
                     CardActionsMenu.change();
                 }
                 event.consume();
