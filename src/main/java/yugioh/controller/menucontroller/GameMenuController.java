@@ -181,7 +181,7 @@ public class GameMenuController extends MenuController implements Initializable 
         pauseStage.close();
     }
 
-    public void surrender() throws Exception {
+    public void surrender() {
         gameController.surrender();
         pauseStage.close();
         gameController.surrender();
@@ -352,10 +352,6 @@ public class GameMenuController extends MenuController implements Initializable 
 
     public Label getEpLabel() {
         return epLabel;
-    }
-
-    public Polygon getNextPhaseTriangle() {
-        return nextPhaseTriangle;
     }
 
     public ImageView getBackground() {

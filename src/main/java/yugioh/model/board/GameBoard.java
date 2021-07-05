@@ -346,6 +346,16 @@ public class GameBoard {
                 rectangle.rotateProperty().set(180);
                 rectangle.setFill(card.getCardBackImagePattern());
             }
+            TranslateTransition trans = new TranslateTransition(Duration.seconds(2), rectangle);
+            trans.setToX(rectangle.getX());
+            double constant = -1;
+            double rotationValue = GameMenuController.getGameMenuController().background.rotateProperty().getValue() % 360;
+            if (rotationValue > 179 && rotationValue < 181) constant = 1;
+            if (countCard > 1) constant = 1;
+            trans.setFromX(constant * GameMenuController.getGameMenuController().userDeckZoneContainer.getLayoutX());
+            trans.setToY(rectangle.getY());
+            trans.setFromY(0);
+            trans.play();
             cell.setCellRectangle(rectangle);
             handDeck.getChildren().add(rectangle);
             handCards.add(cell);
