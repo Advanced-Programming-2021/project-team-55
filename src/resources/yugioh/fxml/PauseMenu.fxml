@@ -1,32 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
-<AnchorPane prefHeight="256.0" prefWidth="554.0" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/16"
-            xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="256.0" prefWidth="554.0" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <opaqueInsets>
-        <Insets/>
+        <Insets />
     </opaqueInsets>
-    <JFXButton buttonType="RAISED" layoutX="161.0" layoutY="98.0" mnemonicParsing="false" prefHeight="60.0"
-               prefWidth="230.0" ripplerFill="#0e1b77" stylesheets="@../CSS/Menu.css" text="Resume"
-               textFill="#ccdefc">
+    <JFXButton buttonType="RAISED" layoutX="161.0" layoutY="98.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" ripplerFill="#0e1b77" stylesheets="@../CSS/Menu.css" text="Resume" textFill="#ccdefc">
         <styleClass>
-            <String fx:value="buttonText"/>
-            <String fx:value="buttonShape"/>
-            <String fx:value="buttonHover"/>
+            <String fx:value="buttonText" />
+            <String fx:value="buttonShape" />
+            <String fx:value="buttonHover" />
         </styleClass>
     </JFXButton>
-    <JFXButton buttonType="RAISED" layoutX="162.0" layoutY="167.0" mnemonicParsing="false" prefHeight="60.0"
-               prefWidth="230.0" ripplerFill="#0e1b77" stylesheets="@../CSS/Menu.css" text="Surrender"
-               textFill="#ccdefc">
+    <JFXButton buttonType="RAISED" layoutX="162.0" layoutY="167.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" ripplerFill="#0e1b77" stylesheets="@../CSS/Menu.css" text="Surrender" textFill="#ccdefc">
         <styleClass>
-            <String fx:value="buttonText"/>
-            <String fx:value="buttonShape"/>
-            <String fx:value="buttonHover"/>
+            <String fx:value="buttonText" />
+            <String fx:value="buttonShape" />
+            <String fx:value="buttonHover" />
         </styleClass>
     </JFXButton>
-    <Label layoutX="212.0" layoutY="23.0" styleClass="buttonText2" text="Paused" textFill="#ccdefc"/>
+    <Label layoutX="212.0" layoutY="23.0" styleClass="buttonText2" text="Paused" textFill="#ccdefc" />
 </AnchorPane>

@@ -42,6 +42,7 @@ import yugioh.view.gamephases.GamePhase;
 import yugioh.view.gamephases.Graveyard;
 import yugioh.view.menus.WelcomeMenu;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -386,5 +387,11 @@ public class GameMenuController extends MenuController implements Initializable 
 
     public void rotateBackSettings() {
         settingImage.rotateProperty().setValue(settingImage.rotateProperty().getValue() - 15);
+    }
+    public void setHoveredImageChat(){
+        chatImage.setImage(new Image(new File( "src/resources/yugioh/PNG/Field/chatHoverIcon.png").toURI().toString()));
+    }
+    public void resetHoveredImageChat(){
+        chatImage.setImage(new Image(new File( "src/resources/yugioh/PNG/Field/chatIcon.png").toURI().toString()));
     }
 }
