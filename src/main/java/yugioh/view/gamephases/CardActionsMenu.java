@@ -58,6 +58,7 @@ public class CardActionsMenu implements MainPhasesController {
             spellAndTrapActions.add("activate");
         }
     }
+
     public static void execute(Rectangle rectangle, GameController controller) throws Exception {
         imageRectangle=rectangle;
         gameController=controller;
@@ -75,6 +76,7 @@ public class CardActionsMenu implements MainPhasesController {
         }
 
     }
+
     public static void close(){
         if(actionsStage!=null)
         actionsStage.close();
