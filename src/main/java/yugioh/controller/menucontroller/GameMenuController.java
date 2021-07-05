@@ -219,7 +219,7 @@ public class GameMenuController extends MenuController implements Initializable 
         currentImage.setFitWidth(50);
         opponentImage.setImage(new Image(gameController.currentTurnOpponentPlayer.getUser().getProfileImageString()));
         opponentImage.setPreserveRatio(true);
-        opponentImage.setFitWidth(50);
+        opponentImage.setFitHeight(80);
         rivalLPBar.setProgress((double) opponentLP / 8000);
         userLPBar.setProgress((double) myLP / 8000);
     }
