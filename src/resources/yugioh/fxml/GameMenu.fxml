@@ -219,10 +219,10 @@
       <Label alignment="CENTER" layoutX="410.0" layoutY="238.0" prefHeight="18.0" prefWidth="67.0" />
       <Label alignment="CENTER" layoutX="503.0" layoutY="238.0" prefHeight="18.0" prefWidth="67.0" />
     </Pane>
-    <Label fx:id="currentUsername" layoutX="145.0" layoutY="598.0" prefHeight="34.0" prefWidth="151.0" styleClass="simpleText" text="Username : " textFill="#ccdefc" />
-    <Label fx:id="currentNickname" layoutX="145.0" layoutY="632.0" prefHeight="18.0" prefWidth="127.0" styleClass="simpleText" text="Nickname : " textFill="#ccdefc" />
-    <Label fx:id="opponentUsername" layoutX="144.0" layoutY="112.0" prefHeight="18.0" prefWidth="136.0" styleClass="simpleText" text="Username : " textFill="#ccdefc" />
-    <Label fx:id="opponentNickname" layoutX="144.0" layoutY="139.0" prefHeight="18.0" prefWidth="136.0" styleClass="simpleText" text="Nickname : " textFill="#ccdefc" />
+    <Label fx:id="currentUsername" layoutX="144.0" layoutY="613.0" prefHeight="34.0" prefWidth="176.0" styleClass="simpleText" text="Username : " textFill="#ccdefc" />
+    <Label fx:id="currentNickname" layoutX="144.0" layoutY="645.0" prefHeight="20.0" prefWidth="176.0" styleClass="simpleText" text="Nickname : " textFill="#ccdefc" />
+    <Label fx:id="opponentUsername" layoutX="145.0" layoutY="100.0" prefHeight="20.0" prefWidth="176.0" styleClass="simpleText" text="Username : " textFill="#ccdefc" />
+    <Label fx:id="opponentNickname" layoutX="145.0" layoutY="124.0" prefHeight="20.0" prefWidth="176.0" styleClass="simpleText" text="Nickname : " textFill="#ccdefc" />
     <ImageView fx:id="currentImage" fitHeight="85" fitWidth="76.0" layoutX="64.0" layoutY="580.0" pickOnBounds="true" preserveRatio="true" />
     <ImageView fx:id="opponentImage" fitHeight="85" fitWidth="76.0" layoutX="64.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true" />
     <Polygon fx:id="nextPhaseTriangle" accessibleHelp="next phase" accessibleRoleDescription="next phase" accessibleText="next phase" fill="DODGERBLUE" layoutX="358.0" layoutY="625.0" onMouseClicked="#nextPhase" rotate="180.0" scaleX="0.4" scaleY="0.4" scaleZ="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="triangle">
