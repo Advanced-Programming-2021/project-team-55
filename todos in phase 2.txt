@@ -21,4 +21,4 @@ works to be done:
 20- add sound effects in game: like when the lp of one player decreases or when somebody attacks
 21- change the lp bar color to red when the lp gets near to 0
 22- handle different format files in import/export menu
-23
+23- designing the buttons of actions of cards in game

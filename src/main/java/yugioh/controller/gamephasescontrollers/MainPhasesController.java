@@ -232,12 +232,14 @@ public interface MainPhasesController {
             throw new GameException(GameResponses.ALREADY_CHANGED_CARD_POSITION_IN_THIS_TURN.response);
         } else {
             gameController.changedPositionCells.add(cell);
-            Cell.deselectCell();
             if (position.equals("attack")) {
+                gameController.currentTurnPlayer.getGameBoard().setFlipZTransition(cell.getCellRectangle(),false);
                 cell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
             } else {
+                gameController.currentTurnPlayer.getGameBoard().setFlipZTransition(cell.getCellRectangle(),true);
                 cell.setCardStatus(CardStatus.DEFENSIVE_OCCUPIED);
             }
+            Cell.deselectCell();
         }
     }
 

@@ -1,6 +1,7 @@
 package yugioh.model.board;
 
 import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.control.Label;
@@ -11,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.menucontroller.GameMenuController;
@@ -344,25 +346,33 @@ public class GameBoard {
     }
 
     public void setFlipZTransition( Rectangle rectangle,boolean toHorizontal) {
-        ScaleTransition hideFront = new ScaleTransition(Duration.millis(250), rectangle);
-        hideFront.setFromX(1);
-        hideFront.setToX(0);
-        hideFront.setInterpolator(Interpolator.EASE_IN);
-
-        ScaleTransition showBack = new ScaleTransition(Duration.millis(250), rectangle);
-        showBack.setInterpolator(Interpolator.EASE_OUT);
-        showBack.setFromX(0);
-        showBack.setToX(1);
-        hideFront.setOnFinished(t -> {
-            double angle;
-            if(toHorizontal)angle=90;
-            else{
-                angle=0;
-            }
-            rectangle.rotateProperty().set(angle);
-            showBack.play();
-        });
-        hideFront.play();
+        RotateTransition rotateTransition=new RotateTransition();
+        rotateTransition.setNode(rectangle);
+        rotateTransition.setAxis(Rotate.Z_AXIS);
+        if(toHorizontal){
+            rotateTransition.setByAngle(-90);
+        }
+        else{
+            rotateTransition.setByAngle(90);
+        }
+        rotateTransition.setDuration(Duration.millis(250));
+        rotateTransition.play();
+//
+//        ScaleTransition hideFront = new ScaleTransition(Duration.millis(250), rectangle);
+//        hideFront.setFromX(1);
+//        hideFront.setToX(0);
+//        hideFront.setInterpolator(Interpolator.EASE_IN);
+//
+//        ScaleTransition showBack = new ScaleTransition(Duration.millis(250), rectangle);
+//        showBack.setInterpolator(Interpolator.EASE_OUT);
+//        showBack.setFromX(0);
+//        showBack.setToX(1);
+//        hideFront.setOnFinished(t -> {
+//
+//            rectangle.rotateProperty().set(angle);
+//            showBack.play();
+//        });
+//        hideFront.play();
     }
 
     public void setFlipTransition(Card card, Rectangle rectangle,boolean isToBack) {

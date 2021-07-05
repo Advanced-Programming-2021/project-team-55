@@ -94,7 +94,7 @@ public class CardActionsMenu implements MainPhasesController {
         actionButton.setMinWidth(70);
         Pane pane = new Pane();
         pane.getChildren().add(actionButton);
-        pane.setMaxWidth(90);
+        pane.setMaxWidth(actionButton.getMaxWidth());
         pane.setMaxHeight(30);
         actionButton.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -110,8 +110,10 @@ public class CardActionsMenu implements MainPhasesController {
                         actionButton.setDisable(false);
                     }
                 } else if (t1.equals("change position")) {
-                    if (gameController.doPlayerSetOrSummonedThisTurn() || gameController.currentTurnPlayer.getGameBoard().
-                            isMonsterZoneFull()) {
+                    if(Cell.getSelectedCell().getCardStatus()==CardStatus.DEFENSIVE_HIDDEN){
+                        change();
+                    }
+                    else if (gameController.changedPositionCells.contains(Cell.getSelectedCell())) {
                         actionButton.setDisable(true);
                     } else {
                         actionButton.setDisable(false);
@@ -140,6 +142,15 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     private static void handleChangePosition() {
+        try {
+            if(Cell.getSelectedCell().getCardStatus()==CardStatus.DEFENSIVE_OCCUPIED)
+            new CardActionsMenu().setPosition("attack",gameController);
+            else new CardActionsMenu().setPosition("defense",gameController);
+        } catch (GameException e) {
+            e.printStackTrace();
+            //todo show an error box
+        }
+        actionsStage.close();
     }
 
     private static void handleFlipSummon() {
@@ -173,8 +184,6 @@ public class CardActionsMenu implements MainPhasesController {
                 if (counter == thisActions.size() - 1) {
                     counter = -1;
                 }
-//                String nextAction=thisActions.get(counter+1);
-//                if(nextAction.equals(""))
                 actionButton.setText(thisActions.get(counter + 1));
                 return;
             }

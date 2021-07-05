@@ -130,11 +130,11 @@ public class GameMenuController extends MenuController implements Initializable 
             if (cell.getCardStatus() == CardStatus.DEFENSIVE_HIDDEN) {
                 label.setText("");
             }
-            if((gameBoardPane.rotateProperty().get()%360)<179)
-                label.rotateProperty().set(180);
-            else{
-                label.rotateProperty().set(0);
-            }
+            //if((gameBoardPane.rotateProperty().get()%360)<179)
+                label.rotateProperty().set(gameBoardPane.rotateProperty().get());
+//            else{
+//                label.rotateProperty().set(0);
+//            }
         }
         for (Cell cell : gameController.currentTurnOpponentPlayer.getGameBoard().getMonsterCardZone()) {
             Label label = cell.getCellInfo();
@@ -142,8 +142,10 @@ public class GameMenuController extends MenuController implements Initializable 
                 label.setText(((Monster) (cell.getCellCard())).getAtk() + "/" +
                         ((Monster) (cell.getCellCard())).getDef());
             }
-            if((gameBoardPane.rotateProperty().get()%360)>179)
-            label.rotateProperty().set(0);
+
+           // if((gameBoardPane.rotateProperty().get()%360)>179)
+            //label.rotateProperty().set(0);
+            label.rotateProperty().set(gameBoardPane.rotateProperty().get());
 
         }
         Cell.deselectCell();
