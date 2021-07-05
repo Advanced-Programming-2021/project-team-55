@@ -158,7 +158,9 @@
     <!--16-->
     <ProgressBar fx:id="userLPBar" layoutX="62.0" layoutY="654.0" prefHeight="28.0" prefWidth="200.0" progress="1.0" />
     <!--17-->
-    <ImageView fx:id="settingImage" fitHeight="34.0" fitWidth="36.0"  onMouseClicked="#pauseClicked" layoutX="17.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="settingImage" fitHeight="34.0" fitWidth="36.0"  onMouseClicked="#pauseClicked" layoutX="17.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../PNG/Field/settingIcon.png"/>
+    </ImageView>
     <!--18-->
     <Pane fx:id="gameBoardPane" layoutX="393.0" prefHeight="720.0" prefWidth="680.0">
         <!--18/1-->
