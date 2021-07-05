@@ -1,6 +1,8 @@
 package yugioh.model.board;
 
 import javafx.animation.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -306,14 +308,20 @@ public class GameBoard {
     }
 
     private void setFlipTransition(Card card, Rectangle rectangle) {
-        RotateTransition rotator = new RotateTransition(Duration.millis(2000), rectangle);
-        rotator.setAxis(Rotate.Y_AXIS);
-        rotator.setFromAngle(0);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> rectangle.setFill(card.getCardBackImagePattern())));
-        timeline.play();
-        rotator.setToAngle(180);
-        rotator.setInterpolator(Interpolator.EASE_BOTH);
-        rotator.play();
+        ScaleTransition hideFront = new ScaleTransition(Duration.millis(1000), rectangle);
+        hideFront.setFromX(1);
+        hideFront.setToX(0);
+        hideFront.setInterpolator(Interpolator.EASE_IN);
+
+        ScaleTransition showBack = new ScaleTransition(Duration.millis(1000), rectangle);
+        showBack.setInterpolator(Interpolator.EASE_OUT);
+        showBack.setFromX(0);
+        showBack.setToX(1);
+        hideFront.setOnFinished(t -> {
+            rectangle.setFill(card.getCardBackImagePattern());
+            showBack.play();
+        });
+        hideFront.play();
     }
 
     private void setTranslationAnimation(ImagePattern imagePattern, Rectangle rectangle, Card card) {
