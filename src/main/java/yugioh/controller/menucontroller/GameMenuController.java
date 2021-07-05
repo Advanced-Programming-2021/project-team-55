@@ -136,7 +136,9 @@ public class GameMenuController extends MenuController implements Initializable 
                 label.setText(((Monster) (cell.getCellCard())).getAtk() + "/" +
                         ((Monster) (cell.getCellCard())).getDef());
             }
+            if((gameBoardPane.rotateProperty().get()%360)>179)
             label.rotateProperty().set(0);
+
         }
     }
 

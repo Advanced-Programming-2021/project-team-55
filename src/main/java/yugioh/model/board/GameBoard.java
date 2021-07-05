@@ -344,12 +344,12 @@ public class GameBoard {
     }
 
     private void setFlipZTransition( Rectangle rectangle) {
-        ScaleTransition hideFront = new ScaleTransition(Duration.millis(1000), rectangle);
+        ScaleTransition hideFront = new ScaleTransition(Duration.millis(250), rectangle);
         hideFront.setFromX(1);
         hideFront.setToX(0);
         hideFront.setInterpolator(Interpolator.EASE_IN);
 
-        ScaleTransition showBack = new ScaleTransition(Duration.millis(1000), rectangle);
+        ScaleTransition showBack = new ScaleTransition(Duration.millis(250), rectangle);
         showBack.setInterpolator(Interpolator.EASE_OUT);
         showBack.setFromX(0);
         showBack.setToX(1);

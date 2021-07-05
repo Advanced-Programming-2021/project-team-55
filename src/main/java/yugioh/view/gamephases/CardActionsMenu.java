@@ -151,8 +151,8 @@ public class CardActionsMenu implements MainPhasesController {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 if (t1.equals("set")) {
-                    if (gameController.doPlayerSetOrSummonedThisTurn() || gameController.currentTurnPlayer.getGameBoard().
-                            isMonsterZoneFull()) {
+                    if (Cell.getSelectedCell().getCellCard().isMonster()&&(gameController.doPlayerSetOrSummonedThisTurn()
+                            || gameController.currentTurnPlayer.getGameBoard().isMonsterZoneFull())) {
                         actionButton.setDisable(true);
                     } else {
                         actionButton.setDisable(false);
