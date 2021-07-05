@@ -79,6 +79,7 @@ public class GameMenuController extends MenuController implements Initializable 
     public GameController gameController;
     public Polygon nextPhaseTriangle;
     public ImageView background;
+    public ImageView settingImage;
     private Stage pauseStage;
 
     public static GameMenuController getGameMenuController() {
