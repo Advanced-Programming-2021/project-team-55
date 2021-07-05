@@ -220,19 +220,18 @@ public class GameBoard {
                     setFlipTransition(card, rectangle,true);
                     setFlipZTransition(rectangle,true);
                 }
-//                rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-//                    rectangle.requestFocus();
-//                    ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword2.png"));
-//                    GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
-//                    sword.setX(rectangle.getLayoutX() + 21);
-//                    sword.setY(rectangle.getLayoutY() + 15);
-//                    sword.addEventHandler(MouseEvent.MOUSE_MOVED, event2 -> {
-//                        sword.rotateProperty().setValue(Math.toDegrees(Math.atan((event2.getY() - rectangle.getLayoutY()) / (event2.getX() - rectangle.getLayoutX()))));
-//                        System.out.println(Math.atan((event2.getY() - rectangle.getLayoutY()) / (event2.getX() - rectangle.getLayoutX())));
-//                        event2.consume();
-//                    });
-//                    event.consume();
-//                });
+                rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    rectangle.requestFocus();
+                    ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
+                    GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
+                    sword.setX(rectangle.getLayoutX() + 21);
+                    sword.setY(rectangle.getLayoutY() + 15);
+                    GameMenuController.getGameMenuController().gameBoardPane.addEventHandler(MouseEvent.MOUSE_MOVED, event2 -> {
+                        sword.setRotate(-(Math.toDegrees(Math.atan((event2.getSceneX() - 400 - rectangle.getLayoutX()) / (event2.getSceneY() - rectangle.getLayoutY())))));
+                        event2.consume();
+                    });
+                    event.consume();
+                });
                 for (double j = 0; j <= 1; j += 0.05) {
                     rectangle.opacityProperty().set(j);
                 }
