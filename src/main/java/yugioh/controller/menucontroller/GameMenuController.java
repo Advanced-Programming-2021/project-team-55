@@ -34,6 +34,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.board.Cell;
@@ -170,9 +171,10 @@ public class GameMenuController extends MenuController implements Initializable 
         scene.getStylesheets().add(
                 getClass().getResource("/yugioh/CSS/Menu.css").toExternalForm());
         pauseStage.setScene(scene);
+        pauseStage.initStyle(StageStyle.UTILITY);
+        pauseStage.initOwner(WelcomeMenu.getStage());
         pauseStage.initModality(Modality.APPLICATION_MODAL);
         pauseStage.show();
-
     }
 
     public void resume() {
@@ -358,5 +360,13 @@ public class GameMenuController extends MenuController implements Initializable 
 
     public ImageView getBackground() {
         return background;
+    }
+
+    public void rotateSettings() {
+        settingImage.rotateProperty().setValue(settingImage.rotateProperty().getValue() + 45);
+    }
+
+    public void rotateBackSettings() {
+        settingImage.rotateProperty().setValue(settingImage.rotateProperty().getValue() - 15);
     }
 }
