@@ -32,8 +32,8 @@
                </HBox>
                <HBox alignment="CENTER" prefHeight="82.0" prefWidth="1038.0" spacing="10.0">
                   <children>
-                     <JFXToggleButton fx:id="threeRounds" mnemonicParsing="false" onMouseClicked="#clickThreeRounds" prefHeight="66.0" prefWidth="180.0" styleClass="buttonText" text="3 Rounds" textFill="#ccdefc" />
-                      <JFXToggleButton fx:id="oneRound" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="66.0" prefWidth="180" styleClass="buttonText" text="1 Round" textFill="#ccdefc" />
+                      <JFXToggleButton fx:id="oneRound" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="66.0" prefWidth="180" selected="true" styleClass="buttonText" text="1 Round" textFill="#ccdefc" />
+                     <JFXToggleButton fx:id="threeRounds" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#clickThreeRounds" prefHeight="66.0" prefWidth="180.0" styleClass="buttonText" text="3 Rounds" textFill="#ccdefc" />
                     <!--  <ToggleButton fx:id="threeRounds" mnemonicParsing="false" onMouseClicked="#clickThreeRounds" prefHeight="48.0" prefWidth="112.0" text="3 rounds" />
                      <ToggleButton fx:id="oneRound" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="48.0" prefWidth="112.0" text="1 round" />
                   -->
