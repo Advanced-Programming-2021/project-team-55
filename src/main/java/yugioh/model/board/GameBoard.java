@@ -335,11 +335,16 @@ public class GameBoard {
             Card card = deckZone.get(0).getCellCard();
             Cell cell=new Cell(card);
             Rectangle rectangle=new Rectangle();
-            Duel.getGameController().getGameMenuController().addEventForCardImageRectangle(rectangle,card);
+            GameMenuController.getGameMenuController().addEventForCardImageRectangle(rectangle,card);
             rectangle.setWidth(90);
             rectangle.setHeight(120);
 
             if(isToCurrentPlayer){
+                double rotationValue = GameMenuController.getGameMenuController().background.rotateProperty().getValue() % 360;
+                if (rotationValue > 179 && rotationValue < 181||countCard==5)rectangle.rotateProperty().set(0);
+                else{
+                    rectangle.rotateProperty().set(180);
+                }
                 rectangle.setFill(card.getCardImagePattern());
             }
             else{
@@ -359,6 +364,8 @@ public class GameBoard {
             cell.setCellRectangle(rectangle);
             handDeck.getChildren().add(rectangle);
             handCards.add(cell);
+
+
             //todo : remove deckzone card in graphic
             deckZone.remove(0);
         }
