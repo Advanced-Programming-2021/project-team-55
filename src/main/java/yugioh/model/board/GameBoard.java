@@ -1,6 +1,7 @@
 package yugioh.model.board;
 
 import javafx.animation.*;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -65,6 +66,7 @@ public class GameBoard {
     }
 
     public void setBoardRectangles(Pane gamePane,boolean isOpponent) {
+        this.gamePane=gamePane;
         if(!isOpponent){
             monsterCardZone[0].setCellRectangle((Rectangle) gamePane.getChildren().get(8));
             monsterCardZone[1].setCellRectangle((Rectangle) gamePane.getChildren().get(9));
@@ -112,6 +114,33 @@ public class GameBoard {
             spellAndTrapCardZone[2].setCellRectangle(rectangle8);
             spellAndTrapCardZone[3].setCellRectangle(rectangle9);
             spellAndTrapCardZone[4].setCellRectangle(rectangle10);
+        }
+    }
+
+    public void setCellsLabels(boolean isOpponent){
+        if(!isOpponent){
+            monsterCardZone[0].setCellInfo((Label) gamePane.getChildren().get(28));
+            monsterCardZone[1].setCellInfo((Label) gamePane.getChildren().get(29));
+            monsterCardZone[2].setCellInfo((Label) gamePane.getChildren().get(27));
+            monsterCardZone[3].setCellInfo((Label) gamePane.getChildren().get(30));
+            monsterCardZone[4].setCellInfo((Label) gamePane.getChildren().get(26));
+        }
+        else {
+            Label label1=(Label) gamePane.getChildren().get(33);
+            label1.rotateProperty().set(180);
+            Label label2=(Label) gamePane.getChildren().get(34);
+            label2.rotateProperty().set(180);
+            Label label3=(Label) gamePane.getChildren().get(32);
+            label3.rotateProperty().set(180);
+            Label label4=(Label) gamePane.getChildren().get(35);
+            label4.rotateProperty().set(180);
+            Label label5=(Label) gamePane.getChildren().get(31);
+            label5.rotateProperty().set(180);
+            monsterCardZone[0].setCellInfo(label1);
+            monsterCardZone[1].setCellInfo(label2);
+            monsterCardZone[2].setCellInfo(label3);
+            monsterCardZone[3].setCellInfo(label4);
+            monsterCardZone[4].setCellInfo(label5);
         }
     }
 
@@ -202,6 +231,7 @@ public class GameBoard {
                 for(double j=0;j<=1;j+=0.05){
                     rectangle.opacityProperty().set(j);
                 }
+                monsterCardZone[i].getCellInfo().setText(((Monster)card).getAtk()+"/"+((Monster)card).getDef());
                 gameController.getGameMenuController().addEventForCardImageRectangle(rectangle,card);
                 gameController.changedPositionCells.add(monsterCardZone[i]);
                 return;

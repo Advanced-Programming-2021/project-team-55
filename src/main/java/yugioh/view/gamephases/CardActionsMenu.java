@@ -69,12 +69,28 @@ public class CardActionsMenu implements MainPhasesController {
             if (gameController.currentPhase.equals(GamePhase.MAIN1) || gameController.currentPhase.equals(GamePhase.MAIN2)) {
                 openMainPhaseActions();
             }
+
         }
         else{
+            if(gameController.currentPhase.equals(GamePhase.BATTLE)){
+                openBattlePhaseActionsForCardsInBoard();
+            }
+            else if(gameController.currentPhase.equals(GamePhase.MAIN1)||gameController.currentPhase.equals(GamePhase.MAIN2)){
+                openMainPhaseActionsForCardsInBoard();
+            }
             //todo : add actions of cards in monster zone and spell zone
         }
 
     }
+
+    private static void openMainPhaseActionsForCardsInBoard() {
+
+    }
+
+    private static void openBattlePhaseActionsForCardsInBoard() {
+        //todo: sword must be added here
+    }
+
     public static void close(){
         if(actionsStage!=null)
         actionsStage.close();
