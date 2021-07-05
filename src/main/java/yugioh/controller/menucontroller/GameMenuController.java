@@ -129,7 +129,11 @@ public class GameMenuController extends MenuController implements Initializable 
             if (cell.getCardStatus() == CardStatus.DEFENSIVE_HIDDEN) {
                 label.setText("");
             }
-            label.rotateProperty().set(180);
+            if((gameBoardPane.rotateProperty().get()%360)<179)
+                label.rotateProperty().set(180);
+            else{
+                label.rotateProperty().set(0);
+            }
         }
         for (Cell cell : gameController.currentTurnOpponentPlayer.getGameBoard().getMonsterCardZone()) {
             Label label = cell.getCellInfo();
@@ -141,6 +145,7 @@ public class GameMenuController extends MenuController implements Initializable 
             label.rotateProperty().set(0);
 
         }
+        Cell.deselectCell();
     }
 
     @Override
@@ -269,13 +274,15 @@ public class GameMenuController extends MenuController implements Initializable 
         CardActionsMenu.setGamePane(gameBoardPane);
         rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
+                Cell selectedCell=Cell.getSelectedCell();
                 ImagePattern rectangleImage = (ImagePattern) rectangle.getFill();
-                if (Cell.getSelectedCell() != null && !Cell.getSelectedCell().isEmpty()) {
-                    Cell.getSelectedCell().getCellRectangle().setEffect(null);
+                if (selectedCell != null && !selectedCell.isEmpty()) {
+                    selectedCell.getCellRectangle().setEffect(null);
                     CardActionsMenu.close();
                 }
-                if (Cell.getSelectedCell() != null && Cell.getSelectedCell().getCellCard().getCardImagePattern().equals
-                        (rectangleImage)) {
+                if (selectedCell != null && (selectedCell.getCellCard().getCardImagePattern().equals
+                        (rectangleImage)||selectedCell.getCellCard().getCardBackImagePattern().equals
+                        (rectangleImage))){
                     CardActionsMenu.close();
                     Cell.deselectCell();
                 } else {
@@ -283,7 +290,6 @@ public class GameMenuController extends MenuController implements Initializable 
                             GREEN, 10, 2.0f, 0, 0);
                     selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
                     Cell.setSelectedCellByRectangle(rectangle);
-                    //Cell.setSelectedCellByImage(rectangle.getFill());
                     rectangle.setEffect(selectEffect);
                     if (!gameController.currentTurnOpponentPlayer.getGameBoard().isCellInGameBoard(Cell.getSelectedCell())
                             && !gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {
@@ -299,8 +305,9 @@ public class GameMenuController extends MenuController implements Initializable 
                 }
                 event.consume();
             } else if (event.getButton() == MouseButton.SECONDARY) {
-                if (Cell.getSelectedCell() != null && Cell.getSelectedCell().getCellCard().getCardImagePattern().
-                        equals(rectangle.getFill())) {
+                if (Cell.getSelectedCell() != null && (Cell.getSelectedCell().getCellCard().getCardImagePattern().equals
+                        (rectangle.getFill())||Cell.getSelectedCell().getCellCard().getCardBackImagePattern().equals
+                        (rectangle.getFill()))) {
                     CardActionsMenu.change();
                 }
                 event.consume();

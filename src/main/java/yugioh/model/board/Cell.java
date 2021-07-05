@@ -63,8 +63,11 @@ public class Cell {
         return allCells;
     }
 
-    public static void deselectCell() {//better to be same as select cell or rename
-        selectedCell.getCellRectangle().setEffect(null);
+    public static void deselectCell() {   //better to be same as select cell or rename
+        try {
+            selectedCell.getCellRectangle().setEffect(null);
+        } catch (Exception e) {
+        }
         selectedCell = null;
     }
 
@@ -126,6 +129,9 @@ public class Cell {
         CommandKnight.handleEffect(cardStatus, this);
         this.cardStatus = cardStatus;
         CommandKnight.deActivateEffect(this);
+    }
+    public void changeCardStatus(CardStatus cardStatus,Rectangle rectangle){
+
     }
 
     public void setPosition(double x, double y) {

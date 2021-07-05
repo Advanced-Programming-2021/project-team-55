@@ -215,8 +215,8 @@ public class GameBoard {
                 Rectangle rectangle = monsterCardZone[i].getCellRectangle();
                 setTranslationAnimation(imagePattern, rectangle, card);
                 if(cardStatus==CardStatus.DEFENSIVE_HIDDEN) {
-                    setFlipTransition(card, rectangle);
-                    setFlipZTransition(rectangle);
+                    setFlipTransition(card, rectangle,true);
+                    setFlipZTransition(rectangle,true);
                 }
 //                rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 //                    rectangle.requestFocus();
@@ -330,7 +330,7 @@ public class GameBoard {
                 Rectangle rectangle = spellAndTrapCardZone[i].getCellRectangle();
                 setTranslationAnimation(imagePattern, rectangle, card);
                 if(cardStatus==CardStatus.HIDDEN) {
-                    setFlipTransition(card, rectangle);
+                    setFlipTransition(card, rectangle,true);
                 }
                 for (double j = 0; j <= 1; j += 0.05) {
                     rectangle.opacityProperty().set(j);
@@ -343,7 +343,7 @@ public class GameBoard {
         }
     }
 
-    private void setFlipZTransition( Rectangle rectangle) {
+    public void setFlipZTransition( Rectangle rectangle,boolean toHorizontal) {
         ScaleTransition hideFront = new ScaleTransition(Duration.millis(250), rectangle);
         hideFront.setFromX(1);
         hideFront.setToX(0);
@@ -354,13 +354,18 @@ public class GameBoard {
         showBack.setFromX(0);
         showBack.setToX(1);
         hideFront.setOnFinished(t -> {
-            rectangle.rotateProperty().set(90);
+            double angle;
+            if(toHorizontal)angle=90;
+            else{
+                angle=0;
+            }
+            rectangle.rotateProperty().set(angle);
             showBack.play();
         });
         hideFront.play();
     }
 
-    private void setFlipTransition(Card card, Rectangle rectangle) {
+    public void setFlipTransition(Card card, Rectangle rectangle,boolean isToBack) {
         ScaleTransition hideFront = new ScaleTransition(Duration.millis(1000), rectangle);
         hideFront.setFromX(1);
         hideFront.setToX(0);
@@ -371,7 +376,9 @@ public class GameBoard {
         showBack.setFromX(0);
         showBack.setToX(1);
         hideFront.setOnFinished(t -> {
+            if(isToBack)
             rectangle.setFill(card.getCardBackImagePattern());
+            else  rectangle.setFill(card.getCardImagePattern());
             showBack.play();
         });
         hideFront.play();

@@ -308,7 +308,12 @@ public interface MainPhasesController {
         }
         gameController.setLastSummonedMonster(selectedCell);
         addMonstersToFlipSummonEffectSpellAndTrap(selectedCell);
+        if(selectedCell.getCardStatus()==CardStatus.DEFENSIVE_HIDDEN){
+            gameController.currentTurnPlayer.getGameBoard().setFlipZTransition(selectedCell.getCellRectangle(),false);
+        }
         selectedCell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
+        gameController.currentTurnPlayer.getGameBoard().setFlipTransition(selectedCell.getCellCard(),
+                selectedCell.getCellRectangle(),false);
         ManEaterBug.handleEffect(gameController, selectedCell);
         activateTrapIfCanBeActivated(gameController, SummonTypes.FlipSummon);
         Cell.deselectCell();
