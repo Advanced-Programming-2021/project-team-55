@@ -83,6 +83,7 @@ public class GameMenuController extends MenuController implements Initializable 
     public Polygon nextPhaseTriangle;
     public ImageView background;
     public ImageView settingImage;
+    public ImageView chatImage;
     private Stage pauseStage;
 
     public static GameMenuController getGameMenuController() {
@@ -220,10 +221,10 @@ public class GameMenuController extends MenuController implements Initializable 
                 getUser().getNickname());
         currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageString()));
         currentImage.setPreserveRatio(true);
-        currentImage.setFitWidth(50);
+        currentImage.setFitHeight(85);
         opponentImage.setImage(new Image(gameController.currentTurnOpponentPlayer.getUser().getProfileImageString()));
         opponentImage.setPreserveRatio(true);
-        opponentImage.setFitWidth(50);
+        opponentImage.setFitHeight(85);
         rivalLPBar.setProgress((double) opponentLP / 8000);
         userLPBar.setProgress((double) myLP / 8000);
     }
