@@ -22,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
@@ -93,6 +94,7 @@ public class GameMenuController extends MenuController implements Initializable 
 //        rivalDeckZoneContainer.getChildren().clear();
 //        userHandCardsContainer.getChildren().clear();
 //        userDeckZoneContainer.getChildren().clear();
+        removeCardHoveredImageAndInfo(Card.backImageForAllCards);
         RotateTransition rotateTransition = new RotateTransition();
         RotateTransition rotateTransitionForBackground = new RotateTransition();
         rotateTransition.setAxis(Rotate.Z_AXIS);
@@ -122,16 +124,16 @@ public class GameMenuController extends MenuController implements Initializable 
             //rivalHandCardsContainer.getChildren().add(cell.getCellRectangle());
         }
         for (Cell cell : gameController.currentTurnPlayer.getGameBoard().getMonsterCardZone()) {
-            Label label=cell.getCellInfo();
+            Label label = cell.getCellInfo();
             if (cell.getCardStatus() == CardStatus.DEFENSIVE_HIDDEN) {
                 label.setText("");
             }
             label.rotateProperty().set(180);
         }
         for (Cell cell : gameController.currentTurnOpponentPlayer.getGameBoard().getMonsterCardZone()) {
-            Label label=cell.getCellInfo();
+            Label label = cell.getCellInfo();
             if (cell.getCardStatus() == CardStatus.DEFENSIVE_HIDDEN) {
-               label.setText(((Monster) (cell.getCellCard())).getAtk() + "/"+
+                label.setText(((Monster) (cell.getCellCard())).getAtk() + "/" +
                         ((Monster) (cell.getCellCard())).getDef());
             }
             label.rotateProperty().set(0);
@@ -224,6 +226,14 @@ public class GameMenuController extends MenuController implements Initializable 
         userLPBar.setProgress((double) myLP / 8000);
     }
 
+    public void removeCardHoveredImageAndInfo(Paint paint) {
+        Platform.runLater(() -> hoveredImageRectangle.setFill(paint));
+        Platform.runLater(() -> description.setText(""));
+        Platform.runLater(() -> defLabel.setText(""));
+        Platform.runLater(() -> atkLabel.setText(""));
+        Platform.runLater(() -> defValue.setText(""));
+        Platform.runLater(() -> atkValue.setText(""));
+    }
 
     public void addEventForCardImageRectangle(Rectangle rectangle, Card card) {
         rectangle.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
@@ -231,12 +241,7 @@ public class GameMenuController extends MenuController implements Initializable 
                     currentTurnPlayer.getGameBoard().isCellInMonsterZone(Cell.getSelectedCellByRectangle(rectangle)) &&
                     !gameController.currentTurnPlayer.getGameBoard().isCellInSpellAndTrapZone
                             (Cell.getSelectedCellByRectangle(rectangle)))) {
-                Platform.runLater(() -> hoveredImageRectangle.setFill(rectangle.getFill()));
-                Platform.runLater(() -> description.setText(""));
-                Platform.runLater(() -> defLabel.setText(""));
-                Platform.runLater(() -> atkLabel.setText(""));
-                Platform.runLater(() -> defValue.setText(""));
-                Platform.runLater(() -> atkValue.setText(""));
+                removeCardHoveredImageAndInfo(rectangle.getFill());
             } else {
                 Platform.runLater(() -> hoveredImageRectangle.setFill(Cell.getSelectedCellByRectangle(rectangle).getCellCard().getCardImagePattern()));
                 Platform.runLater(() -> description.setText(card.getDescription()));

@@ -24,7 +24,7 @@ public class CardActionsMenu implements MainPhasesController {
 
     private static double xImage;
     private static double yImage;
-    private static Button actionButton = new Button();
+    private static Button actionButton;
     private static Rectangle imageRectangle;
     private static ArrayList<String> monsterActions = new ArrayList<>();
     private static ArrayList<String> spellAndTrapActions = new ArrayList<>();
@@ -141,6 +141,7 @@ public class CardActionsMenu implements MainPhasesController {
         } else {
             thisActions = spellAndTrapActions;
         }
+        actionButton = new Button();
         actionButton.setMinWidth(70);
         Pane pane = new Pane();
         pane.getChildren().add(actionButton);
@@ -150,7 +151,15 @@ public class CardActionsMenu implements MainPhasesController {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 if (t1.equals("set")) {
-                    if (gameController.doPlayerSetOrSummonedThisTurn()) {
+                    if (gameController.doPlayerSetOrSummonedThisTurn() || gameController.currentTurnPlayer.getGameBoard().
+                            isMonsterZoneFull()) {
+                        actionButton.setDisable(true);
+                    } else {
+                        actionButton.setDisable(false);
+                    }
+                } else if (t1.equals("summon")) {
+                    if (gameController.doPlayerSetOrSummonedThisTurn() || gameController.currentTurnPlayer.getGameBoard().
+                            isMonsterZoneFull()) {
                         actionButton.setDisable(true);
                     } else {
                         actionButton.setDisable(false);
@@ -164,6 +173,8 @@ public class CardActionsMenu implements MainPhasesController {
             public void handle(MouseEvent mouseEvent) {
                 if (actionButton.getText().equals("set")) {
                     handleSet();
+                } else if (actionButton.getText().equals("summon")) {
+                    handleSummon();
                 }
             }
         });
@@ -172,5 +183,15 @@ public class CardActionsMenu implements MainPhasesController {
         actionsStage.setY(yImage);
         actionsStage.setScene(scene);
         actionsStage.show();
+    }
+
+    private static void handleSummon() {
+        try {
+            new CardActionsMenu().monsterSummon(gameController);
+        } catch (GameException e) {
+            e.printStackTrace();
+            //todo show an error box
+        }
+        actionsStage.close();
     }
 }

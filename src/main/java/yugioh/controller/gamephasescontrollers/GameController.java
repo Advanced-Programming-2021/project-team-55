@@ -14,6 +14,7 @@ import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
 import yugioh.view.ViewInterface;
+import yugioh.view.gamephases.CardActionsMenu;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GamePhase;
 import yugioh.view.gamephases.GameResponses;
@@ -236,6 +237,7 @@ public class GameController {
         attackerCellsThisTurn = new ArrayList<>();
         turnCount++;
         gameMenuController.updateGameStatusUIs();
+        CardActionsMenu.close();
         mainPhase1Controller.showGameBoard(currentTurnPlayer,
                 currentTurnOpponentPlayer);
 
