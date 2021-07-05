@@ -1,1 +1,1 @@
-{"type":"TRAP","attribute":"NORMAL","status":"UNLIMITED","name":"Torrential Tribute","description":"When a monster(s) is Summoned: Destroy all monsters on the field.","price":2000,"magicType":"TRAP","cardKind":"MAGIC","image":"src/resources/yugioh/PNG/cardsImages/TorrentialTribute.jpg"}
+{"attribute":"NORMAL","status":"UNLIMITED","type":"TRAP","name":"Torrential Tribute","description":"When a monster(s) is Summoned: Destroy all monsters on the field.","price":2000,"magicType":"TRAP","cardKind":"MAGIC","image":"src/resources/yugioh/PNG/cardsImages/TorrentialTribute.jpg"}

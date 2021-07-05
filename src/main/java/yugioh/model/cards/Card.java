@@ -14,6 +14,8 @@ import java.util.Comparator;
 
 public class Card {
 
+    transient public final static ImagePattern backImageForAllCards = new ImagePattern(new Image(
+            new File("src/resources/yugioh/PNG/cardsImages/Unknown.jpg").toURI().toString()));
     public static ArrayList<Card> allCards;
 
     static {
@@ -31,9 +33,6 @@ public class Card {
     transient protected ImageView backImage;
     transient protected ImagePattern backImagePattern;
 
-    transient public final static ImagePattern backImageForAllCards=new ImagePattern(new Image(
-            new File("src/resources/yugioh/PNG/cardsImages/Unknown.jpg").toURI().toString()));
-
 
     public Card(String name, String description, int price, Kind cardKind, SpellOrTrap magicType) {
         setName(name);
@@ -46,10 +45,6 @@ public class Card {
         if (getCardByName(name) == null) {
             allCards.add(this);
         }
-    }
-
-    public String getImage() {
-        return image;
     }
 
     public static ArrayList<Card> getCards() {
@@ -109,10 +104,6 @@ public class Card {
             }
         });
         return spellAndTraps;
-    }
-
-    public String getDescription(){
-        return description;
     }
 
     public static Card getNewCardObjectByName(String name) {
@@ -367,16 +358,46 @@ public class Card {
         return imageView;
     }
 
+    public static Card getCardNameByImage(String image) {
+        for (Card card : allCards) {
+            if (card.image.equals(image)) {
+                return card;
+            }
+        }
+        return null;
+    }
+
+    public static Card getArrayListCard(String cardName, ArrayList<Card> cards) {
+        for (Card card : cards) {
+            if (card.getName().equals(cardName)) return card;
+        }
+        return null;
+    }
+
+    public static void addCardToAllCards(Card card) {
+        if (getCardByName(card.name) == null) {
+            allCards.add(card);
+        }
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    protected void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getName() {
         return name;
     }
 
     protected void setName(String name) {
         this.name = name;
-    }
-
-    protected void setDescription(String description) {
-        this.description = description;
     }
 
     public int getPrice() {
@@ -416,61 +437,41 @@ public class Card {
         return cardKind;
     }
 
-    public static Card getCardNameByImage(String image){
-        for(Card card:allCards){
-            if(card.image.equals(image)){
-                return card;
-            }
-        }
-        return null;
-    }
-
-    public void setImage(){
+    public void setImage() {
         String name = getClass().getName().replaceAll("yugioh.model.cards.monsters.",
                 "").replaceAll("yugioh.model.cards.trapandspells.", "");
-        image="src/resources/yugioh/PNG/cardsImages/" + name + ".jpg";
-        cardImage=new ImageView(new Image(new File(image).toURI().toString()));
-        cardImagePattern=new ImagePattern(new Image(new File(image).toURI().toString()));
-        backImage=new ImageView(new Image(new File("src/resources/yugioh/PNG/cardsImages/Unknown.jpg").
+        image = "src/resources/yugioh/PNG/cardsImages/" + name + ".jpg";
+        cardImage = new ImageView(new Image(new File(image).toURI().toString()));
+        cardImagePattern = new ImagePattern(new Image(new File(image).toURI().toString()));
+        backImage = new ImageView(new Image(new File("src/resources/yugioh/PNG/cardsImages/Unknown.jpg").
                 toURI().toString()));
-        backImagePattern=new ImagePattern(new Image(new File("src/resources/yugioh/PNG/cardsImages/Unknown.jpg").toURI().toString()));
+        backImagePattern = new ImagePattern(new Image(new File("src/resources/yugioh/PNG/cardsImages/Unknown.jpg").toURI().toString()));
     }
 
-    public ImageView getCardImageForDeck(int width){
-        if(cardImage==null){
-            cardImage=new ImageView(new Image(new File(image).toURI().toString()));
+    public ImageView getCardImageForDeck(int width) {
+        if (cardImage == null) {
+            cardImage = new ImageView(new Image(new File(image).toURI().toString()));
         }
         cardImage.setPreserveRatio(true);
         cardImage.setFitWidth(width);
         return cardImage;
     }
-    public ImagePattern getCardImagePattern(){
+
+    public ImagePattern getCardImagePattern() {
         return cardImagePattern;
     }
-    public ImageView getCardBackImage(){
+
+    public ImageView getCardBackImage() {
         backImage.setPreserveRatio(true);
         backImage.setFitWidth(70);
         return backImage;
-    }
-
-    public static Card getArrayListCard(String cardName, ArrayList<Card> cards) {
-        for (Card card : cards) {
-            if (card.getName().equals(cardName)) return card;
-        }
-        return null;
-    }
-
-    public static void addCardToAllCards(Card card){
-        if(getCardByName(card.name)==null){
-            allCards.add(card);
-        }
     }
 
     public ImageView getCardImage() {
         return cardImage;
     }
 
-    public ImagePattern getCardBackImagePattern(){
+    public ImagePattern getCardBackImagePattern() {
         return backImagePattern;
     }
 

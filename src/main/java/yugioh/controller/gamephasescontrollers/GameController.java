@@ -1,9 +1,5 @@
 package yugioh.controller.gamephasescontrollers;
 
-import javafx.animation.RotateTransition;
-import javafx.scene.Group;
-import javafx.scene.transform.Rotate;
-import javafx.util.Duration;
 import yugioh.controller.menucontroller.DetermineStarterMenuController;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.CoinDice;
@@ -241,7 +237,7 @@ public class GameController {
         turnCount++;
         gameMenuController.updateGameStatusUIs();
         mainPhase1Controller.showGameBoard(currentTurnPlayer,
-               currentTurnOpponentPlayer);
+                currentTurnOpponentPlayer);
 
 
     }

@@ -1,16 +1,10 @@
 package yugioh.controller.menucontroller;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderImage;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.paint.Color;
-//import org.jetbrains.annotations.NotNull;
 import yugioh.model.TableItem;
 import yugioh.model.User;
 
@@ -53,7 +47,7 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         for (TableItem tableItem : tableItems) {
             counter++;
             if (counter > 10) break;
-            if(tableItem.getUsername().equals(User.loggedInUser.getUsername())){
+            if (tableItem.getUsername().equals(User.loggedInUser.getUsername())) {
                 tableItem.setStyle("-fx-background-color:green;");
             }
             scoreBoard.getStyleClass().add("simpleText");
@@ -61,19 +55,19 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         }
     }
 
-   // @NotNull
+    // @NotNull
     private ArrayList<TableItem> makeTableItemsFromUsers(ArrayList<User> users) {
         ArrayList<TableItem> tableItems = new ArrayList<>();
         for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
-            TableItem tableItem=new TableItem(i + 1, user.getNickname(), user.getScore());
+            TableItem tableItem = new TableItem(i + 1, user.getNickname(), user.getScore());
             tableItems.add(tableItem);
         }
         return tableItems;
     }
 
     private void initializeScoreBoard() {
-        TableColumn<TableRow,Object> column0 = new TableColumn<>("Rank");
+        TableColumn<TableRow, Object> column0 = new TableColumn<>("Rank");
         column0.setCellValueFactory(new PropertyValueFactory<>("rank"));
         column0.setStyle("-fx-alignment: CENTER;");
         TableColumn<TableRow, Object> column1 = new TableColumn<>("Nickname");

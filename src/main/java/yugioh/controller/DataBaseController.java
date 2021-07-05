@@ -39,13 +39,13 @@ import static javafx.scene.paint.Color.GREEN;
 public class DataBaseController extends MenuController {
 
     public static DataBaseController dataBaseController;
+    public static ImageView selectedImage;
+    public static ImageView previousImage;
+    public static Stage exportStage;
     public ScrollPane cardInfoBox;
     public Text cardInfo;
     public ScrollPane exportCardsPane;
     public ImageView importedCard;
-    public static ImageView selectedImage;
-    public static ImageView previousImage;
-    public static Stage exportStage;
     public Button okButton;
 
     public DataBaseController() {
@@ -237,30 +237,30 @@ public class DataBaseController extends MenuController {
                 } else {
                     Card.addCardToAllCards(monster);
                     info += ("\nType: Monster");
-                    info += ("\nLevel: " + String.valueOf(monster.getLevel()));
+                    info += ("\nLevel: " + monster.getLevel());
                     info += ("\nAttribute: " + monster.getAttribute().toString());
                     info += ("\nMonster Type: " + monster.getMonsterType().toString());
                     info += ("\nCard Type: " + monster.getCardType().toString());
-                    info += ("\nAttack: " + String.valueOf(monster.getAtk()));
-                    info += ("\nDefense: " + String.valueOf(monster.getDef()));
+                    info += ("\nAttack: " + monster.getAtk());
+                    info += ("\nDefense: " + monster.getDef());
                     info += ("\nDescription: " + monster.getDescription());
                 }
-                info += ("\nPrice: " + String.valueOf(monster.getPrice()));
+                info += ("\nPrice: " + monster.getPrice());
                 importedCard.setImage(new Image(new File(monster.getImage()).toURI().toString()));
                 cardInfo.wrappingWidthProperty().bind(cardInfoBox.widthProperty().add(-15));
                 cardInfo.setText(info);
                 cardInfoBox.setFitToWidth(true);
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             cardInfo.setText("can not read data from this file");
         }
     }
-    public void openExportPage()throws Exception{
+
+    public void openExportPage() throws Exception {
         URL fxmlAddress = getClass().getResource("/yugioh/fxml/ExportMenu.fxml");
         Parent pane = FXMLLoader.load(fxmlAddress);
         this.exportCardsPane = (ScrollPane) pane.getChildrenUnmodifiable().get(0);
-        this.okButton=(Button)pane.getChildrenUnmodifiable().get(2);
+        this.okButton = (Button) pane.getChildrenUnmodifiable().get(2);
         exportStage = new Stage();
         exportStage.initModality(Modality.APPLICATION_MODAL);
         ArrayList<Card> allCards = new ArrayList<>(Card.getCards());
@@ -281,21 +281,20 @@ public class DataBaseController extends MenuController {
                 cardImage.focusedProperty().addListener((ObservableValue<? extends Boolean> observable,
                                                          Boolean oldValue, Boolean newValue) -> {
                     if (newValue) {
-                        selectedImage=cardImage;
+                        selectedImage = cardImage;
                         cardImage.setEffect(selectEffect);
                         okButton.setDisable(false);
                     } else {
                         cardImage.setEffect(null);
-                        if(selectedImage!=null) {
+                        if (selectedImage != null) {
                             previousImage = new ImageView(selectedImage.getImage());
 
-                        }
-                        else{
+                        } else {
                             okButton.setDisable(true);
-                            previousImage=null;
+                            previousImage = null;
                         }
 
-                        selectedImage=null;
+                        selectedImage = null;
                     }
                 });
                 cardImage.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
@@ -315,14 +314,15 @@ public class DataBaseController extends MenuController {
                 getClass().getResource("/yugioh/CSS/Menu.css").toExternalForm());
         exportStage.show();
     }
+
     public void exportClicked(MouseEvent mouseEvent) throws Exception {
         playButtonSound();
         openExportPage();
     }
 
-    public void exportCard()throws Exception {
+    public void exportCard() throws Exception {
         playButtonSound();
-        if(selectedImage==null&&previousImage==null){
+        if (selectedImage == null && previousImage == null) {
             openExportPage();
             new PopUpWindow("Error: no cards selected").start(WelcomeMenu.stage);
             return;
@@ -331,9 +331,9 @@ public class DataBaseController extends MenuController {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("select a directory");
         File file = directoryChooser.showDialog(WelcomeMenu.stage);
-        Card card=Card.getCardNameByImage(imageAddress);
-        if(file!=null) {
-            writeJSON(card, file.getPath()+"/"+card.getName()+".json");
+        Card card = Card.getCardNameByImage(imageAddress);
+        if (file != null) {
+            writeJSON(card, file.getPath() + "/" + card.getName() + ".json");
             exportStage.close();
             new PopUpWindow("Card exported successfully!").start(WelcomeMenu.stage);
         }
@@ -341,7 +341,7 @@ public class DataBaseController extends MenuController {
         openExportPage();
     }
 
-    public void backToImportClicked() throws Exception{
+    public void backToImportClicked() throws Exception {
         playButtonSound();
         exportStage.close();
         importExportMenu.execute();

@@ -4,9 +4,9 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import yugioh.controller.gamephasescontrollers.GameController;
+import yugioh.view.gamephases.Duel;
 import yugioh.view.menus.DetermineStarterMenu;
 import yugioh.view.menus.Toast;
-import yugioh.view.gamephases.Duel;
 
 import java.net.URL;
 import java.util.ResourceBundle;

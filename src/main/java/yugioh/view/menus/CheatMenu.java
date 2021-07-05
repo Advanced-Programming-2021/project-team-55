@@ -14,6 +14,10 @@ public class CheatMenu extends WelcomeMenu {
 
     private static Stage cheatStage;
 
+    public static Stage getCheatStage() {
+        return cheatStage;
+    }
+
     @Override
     public void execute() throws Exception {
         start(stage);
@@ -32,9 +36,5 @@ public class CheatMenu extends WelcomeMenu {
         newStage.show();
         cheatStage = newStage;
         CheatController.getInstance().console.setOnAction((event) -> CheatController.getInstance().runCommand());
-    }
-
-    public static Stage getCheatStage() {
-        return cheatStage;
     }
 }

@@ -33,10 +33,10 @@ abstract public class Duel {
         Duel.gameController = gameController;
         assignTurn();
         try {
-            GameMenu gameMenu=new GameMenu();
+            GameMenu gameMenu = new GameMenu();
             gameMenu.execute();
-            gameController.currentTurnPlayer.getGameBoard().setGamePane(gameMenu.getPane(),false);
-            gameController.currentTurnOpponentPlayer.getGameBoard().setGamePane(gameMenu.getPane(),true);
+            gameController.currentTurnPlayer.getGameBoard().setGamePane(gameMenu.getPane(), false);
+            gameController.currentTurnOpponentPlayer.getGameBoard().setGamePane(gameMenu.getPane(), true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,8 +47,8 @@ abstract public class Duel {
         showSideDeckCards();
         gameController.phases.add(gameController.currentPhase);
         showPhase();
-       gameController.currentTurnPlayer.getGameBoard().addCardsToHandDeck(5,true);
-        gameController.currentTurnOpponentPlayer.getGameBoard().addCardsToHandDeck(5,false);
+        gameController.currentTurnPlayer.getGameBoard().addCardsToHandDeck(5, true);
+        gameController.currentTurnOpponentPlayer.getGameBoard().addCardsToHandDeck(5, false);
         Duel.getGameController().getMainPhase1Controller().showGameBoard(gameController.currentTurnPlayer,
                 gameController.currentTurnOpponentPlayer);
 //        new Thread(() -> {

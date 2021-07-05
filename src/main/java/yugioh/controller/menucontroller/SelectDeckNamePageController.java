@@ -7,9 +7,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import yugioh.view.Responses;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.SelectDeckNamePage;
-import yugioh.view.Responses;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,12 +25,7 @@ public class SelectDeckNamePageController extends MenuController implements Init
         deckNameField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if(t1.equals("")){
-                    selectionOkButton.setDisable(true);
-                }
-                else{
-                    selectionOkButton.setDisable(false);
-                }
+                selectionOkButton.setDisable(t1.equals(""));
             }
         });
         selectionOkButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -41,20 +36,23 @@ public class SelectDeckNamePageController extends MenuController implements Init
                     SelectDeckNamePage.page.close();
                     deckMenu.execute();
                     new PopUpWindow(Responses.DECK_CREATED_SUCCESSFULLY.response).start(SelectDeckNamePage.page);
-                }catch (Exception e){
+                } catch (Exception e) {
                     deckNameField.setText("");
                     try {
                         new PopUpWindow(e.getMessage()).start(SelectDeckNamePage.page);
-                    }catch (Exception er){}
+                    } catch (Exception er) {
+                    }
                 }
-            }});
+            }
+        });
         selectionBackButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 SelectDeckNamePage.page.close();
                 try {
                     deckMenu.execute();
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
             }
         });
     }

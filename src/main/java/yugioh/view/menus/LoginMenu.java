@@ -67,7 +67,7 @@ public class LoginMenu extends WelcomeMenu {
     public void start(Stage primaryStage) throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/LoginMenu.fxml");
         Parent root = FXMLLoader.load(url);
-        Scene scene =WelcomeMenu.createScene(root);
+        Scene scene = WelcomeMenu.createScene(root);
         stage.setScene(scene);
         stage.show();
     }

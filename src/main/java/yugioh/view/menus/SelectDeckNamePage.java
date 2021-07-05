@@ -8,8 +8,9 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 
-public class SelectDeckNamePage extends WelcomeMenu{
+public class SelectDeckNamePage extends WelcomeMenu {
     public static Stage page;
+
     @Override
     public void execute() throws Exception {
         start(WelcomeMenu.stage);
@@ -19,7 +20,7 @@ public class SelectDeckNamePage extends WelcomeMenu{
     public void start(Stage stage) throws Exception {
         URL fxmlAddress = getClass().getResource("/yugioh/fxml/SelectDeckNamePage.fxml");
         Parent pane = FXMLLoader.load(fxmlAddress);
-        page=new Stage();
+        page = new Stage();
         Scene scene = WelcomeMenu.createScene(pane);
         page.setScene(scene);
         page.initModality(Modality.WINDOW_MODAL);

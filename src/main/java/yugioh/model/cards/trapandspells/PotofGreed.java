@@ -24,7 +24,7 @@ public class PotofGreed extends SpellAndTrap {
         }
         ViewInterface.showResult("Pot of Greed activated : " + playerGameBoard.getDeckZone().get(0).getCellCard().getName() +
                 " and " + playerGameBoard.getDeckZone().get(1).getCellCard().getName() + " added to the hand");
-        playerGameBoard.addCardsToHandDeck(2,true);
+        playerGameBoard.addCardsToHandDeck(2, true);
         updateSpellInGameBoard(gameController);
     }
 

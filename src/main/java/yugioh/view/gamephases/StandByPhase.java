@@ -4,7 +4,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import yugioh.controller.gamephasescontrollers.StandByPhaseController;
-import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.view.ViewInterface;
 
 public class StandByPhase extends Duel {

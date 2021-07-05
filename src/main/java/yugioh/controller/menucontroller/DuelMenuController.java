@@ -1,20 +1,14 @@
 package yugioh.controller.menucontroller;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.layout.Pane;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.Player;
 import yugioh.model.User;
 import yugioh.model.board.Game;
-import yugioh.model.board.GameBoard;
 import yugioh.model.cards.Deck;
 import yugioh.model.exceptions.MenuException;
-import yugioh.view.menus.RivalSelectionMenu;
 import yugioh.view.Responses;
 import yugioh.view.gamephases.Duel;
-
-import java.net.URL;
+import yugioh.view.menus.RivalSelectionMenu;
 
 public class DuelMenuController extends MenuController {
 

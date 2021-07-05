@@ -11,7 +11,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import yugioh.controller.menucontroller.GameMenuController;
 
 public final class Toast {
 
@@ -63,7 +62,7 @@ public final class Toast {
                         toastStage.close();
                     });
                     fadeOutTimeline.play();
-                },"toast").start());
+                }, "toast").start());
         fadeInTimeline.play();
     }
 }

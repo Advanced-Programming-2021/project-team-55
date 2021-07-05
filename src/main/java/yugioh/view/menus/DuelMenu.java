@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import yugioh.controller.AIPlayerController;
 import yugioh.controller.menucontroller.DuelMenuController;
-import yugioh.model.exceptions.MenuException;
 import yugioh.view.Regexes;
 import yugioh.view.Responses;
 import yugioh.view.ViewInterface;

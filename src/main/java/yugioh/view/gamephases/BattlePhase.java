@@ -1,8 +1,6 @@
 package yugioh.view.gamephases;
 
-import yugioh.controller.AIPlayerController;
 import yugioh.controller.gamephasescontrollers.BattlePhaseController;
-import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
 import yugioh.view.ViewInterface;

@@ -14,6 +14,10 @@ public class DetermineStarterMenu extends WelcomeMenu {
 
     private static Stage stage;
 
+    public static Stage getStage() {
+        return stage;
+    }
+
     @Override
     public void execute() throws Exception {
         start(stage);
@@ -30,9 +34,5 @@ public class DetermineStarterMenu extends WelcomeMenu {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.showAndWait();
-    }
-
-    public static Stage getStage() {
-        return stage;
     }
 }

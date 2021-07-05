@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -44,7 +43,8 @@ public class PopUpWindow extends Application {
         popUp.setScene(generatePopup());
         popUp.show();
     }
-    private Scene generatePopup(){
+
+    private Scene generatePopup() {
         Label label = new Label(response);
         label.getStyleClass().add("popupText");
         label.setTextFill(Paint.valueOf("#ccdefc"));

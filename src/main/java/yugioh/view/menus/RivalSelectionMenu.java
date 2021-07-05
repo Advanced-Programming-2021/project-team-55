@@ -18,24 +18,6 @@ public class RivalSelectionMenu extends WelcomeMenu {
     private static boolean doCancel = false;
     private static Stage stage;
 
-    @Override
-    public void execute() throws Exception {
-        start(stage);
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        URL url = getClass().getResource("/yugioh/fxml/RivalSelectionMenu.fxml");
-        Parent parent = FXMLLoader.load(url);
-        Scene scene = new Scene(parent);
-        Stage stage = new Stage();
-        RivalSelectionMenu.stage = stage;
-        stage.initStyle(StageStyle.UTILITY);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.showAndWait();
-    }
-
     public static int getRounds() {
         return rounds;
     }
@@ -66,5 +48,23 @@ public class RivalSelectionMenu extends WelcomeMenu {
 
     public static void setStage(Stage stage) {
         RivalSelectionMenu.stage = stage;
+    }
+
+    @Override
+    public void execute() throws Exception {
+        start(stage);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        URL url = getClass().getResource("/yugioh/fxml/RivalSelectionMenu.fxml");
+        Parent parent = FXMLLoader.load(url);
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        RivalSelectionMenu.stage = stage;
+        stage.initStyle(StageStyle.UTILITY);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 }

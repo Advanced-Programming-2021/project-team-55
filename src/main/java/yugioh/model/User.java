@@ -6,7 +6,10 @@ import yugioh.model.cards.monsters.*;
 import yugioh.model.cards.trapandspells.*;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Random;
 
 public class User {
     public static User loggedInUser;
@@ -15,9 +18,10 @@ public class User {
     static {
         allUsers = new ArrayList<>();
     }
-    private boolean imageIsChanged=false;
+
     private final ArrayList<Deck> decks;
     private final ArrayList<Card> cardsInventory;
+    private boolean imageIsChanged = false;
     private String username;
     private String password;
     private String nickname;
@@ -42,17 +46,6 @@ public class User {
         setProfileImage();
         initializeCards();
 
-    }
-
-    public void setProfileImage() {
-        Random random=new Random();
-        int randomNumber=random.nextInt(7)+1;
-        this.profileImage="/yugioh/PNG/UsersImage/"+randomNumber+".png";
-        profileImageFile=new File(profileImage);
-    }
-
-    public String getProfileImageString() {
-        return profileImage;
     }
 
     public static User getUserByUsername(String username) {
@@ -121,6 +114,17 @@ public class User {
         User.allUsers = allUsers;
     }
 
+    public void setProfileImage() {
+        Random random = new Random();
+        int randomNumber = random.nextInt(7) + 1;
+        this.profileImage = "/yugioh/PNG/UsersImage/" + randomNumber + ".png";
+        profileImageFile = new File(profileImage);
+    }
+
+    public String getProfileImageString() {
+        return profileImage;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -178,21 +182,21 @@ public class User {
         return activeDeck;
     }
 
-    public int getNumberOfSpecificCard(String cardName){
+    public void setActiveDeck(Deck activeDeck) {
+        for (Deck deck : decks) {
+            deck.setActive(false);
+        }
+        if (activeDeck != null)
+            activeDeck.setActive(true);
+        this.activeDeck = activeDeck;
+    }
+
+    public int getNumberOfSpecificCard(String cardName) {
         int counter = 0;
-        for (Card card : cardsInventory){
+        for (Card card : cardsInventory) {
             if (card.getName().equals(cardName)) counter++;
         }
         return counter;
-    }
-
-    public void setActiveDeck(Deck activeDeck) {
-        for(Deck deck:decks){
-            deck.setActive(false);
-        }
-        if(activeDeck!=null)
-        activeDeck.setActive(true);
-        this.activeDeck = activeDeck;
     }
 
     public boolean cardExistsInInventory(String cardName) {
@@ -288,25 +292,31 @@ public class User {
     public String toString() {
         return "- " + nickname + ": " + score;
     }
-    public void setProfileImage(String address){
-        this.profileImage=address;
-        profileImageFile=new File(address);
+
+    public void setProfileImage(String address) {
+        this.profileImage = address;
+        profileImageFile = new File(address);
     }
-    public void deleteProfileImage(){
-        this.profileImage="";
+
+    public void deleteProfileImage() {
+        this.profileImage = "";
         profileImageFile.delete();
-        this.profileImageFile=null;
+        this.profileImageFile = null;
     }
-    public File getProfileImageFile(){
+
+    public File getProfileImageFile() {
         return profileImageFile;
     }
-    public void setProfileImageFile(File file){
-        this.profileImageFile=file;
+
+    public void setProfileImageFile(File file) {
+        this.profileImageFile = file;
     }
-    public boolean isImageIsChanged(){
+
+    public boolean isImageIsChanged() {
         return imageIsChanged;
     }
-    public void setImageIsChanged(){
-        this.imageIsChanged=true;
+
+    public void setImageIsChanged() {
+        this.imageIsChanged = true;
     }
 }

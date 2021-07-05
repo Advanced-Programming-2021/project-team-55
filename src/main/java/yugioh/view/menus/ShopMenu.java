@@ -71,9 +71,9 @@ public class ShopMenu extends WelcomeMenu {
     @Override
     public void start(Stage primaryStage) throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/ShopMenu.fxml");
-        Pane pane= FXMLLoader.load(url);
-        Scene scene =WelcomeMenu.createScene(pane);
-        ImageView coinImage=(ImageView)pane.getChildren().get(8);
+        Pane pane = FXMLLoader.load(url);
+        Scene scene = WelcomeMenu.createScene(pane);
+        ImageView coinImage = (ImageView) pane.getChildren().get(8);
         new CoinTransition(coinImage).play();
         stage.setScene(scene);
         stage.centerOnScreen();

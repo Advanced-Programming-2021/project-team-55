@@ -1,7 +1,7 @@
 package yugioh.controller.menucontroller;
 
-import yugioh.view.menus.*;
 import yugioh.view.SoundPlayable;
+import yugioh.view.menus.*;
 
 abstract public class MenuController implements SoundPlayable {
     protected WelcomeMenu welcomeMenu = new WelcomeMenu();
@@ -14,6 +14,6 @@ abstract public class MenuController implements SoundPlayable {
     protected ProfileMenu profileMenu = new ProfileMenu();
     protected ShopMenu shopMenu = new ShopMenu();
     protected ImportExportMenu importExportMenu = new ImportExportMenu();
-    protected SelectDeckNamePage selectDeckNamePage=new SelectDeckNamePage();
+    protected SelectDeckNamePage selectDeckNamePage = new SelectDeckNamePage();
 
 }

@@ -1,9 +1,7 @@
 package yugioh.view.gamephases;
 
-import yugioh.controller.AIPlayerController;
 import yugioh.controller.CheatController;
 import yugioh.controller.gamephasescontrollers.MainPhase1Controller;
-import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Monster;
 import yugioh.model.exceptions.GameException;
@@ -15,6 +13,9 @@ import java.util.regex.Matcher;
 public class MainPhase1 extends Duel {
     private static MainPhase1Controller mainPhase1Controller;
 
+    public static MainPhase1Controller getMainPhase1Controller() {
+        return mainPhase1Controller;
+    }
 
     @Override
     protected void execute() {
@@ -110,8 +111,7 @@ public class MainPhase1 extends Duel {
             } catch (GameException e) {
                 response = e.toString();
             }
-        }
-        else if (command.matches(GameRegexes.SURRENDER.regex)) {
+        } else if (command.matches(GameRegexes.SURRENDER.regex)) {
             gameController.surrender();
         } else if (command.matches(GameRegexes.INCREASE_LP.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.INCREASE_LP.regex);
@@ -139,9 +139,5 @@ public class MainPhase1 extends Duel {
         }
 
         return response;
-    }
-
-    public static MainPhase1Controller getMainPhase1Controller() {
-        return mainPhase1Controller;
     }
 }

@@ -187,7 +187,8 @@ public interface MainPhasesController {
 //        }
         }
     }
-    default void setCard(GameController gameController,ImageView imageView) throws GameException {//todo, the method can insert 6 spells
+
+    default void setCard(GameController gameController, ImageView imageView) throws GameException {//todo, the method can insert 6 spells
         Cell selectedCell = Cell.getSelectedCell();
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         if (selectedCell == null) {
@@ -217,6 +218,7 @@ public interface MainPhasesController {
             Cell.deselectCell();
         }
     }
+
     default void setCard(GameController gameController) throws GameException {//todo, the method can insert 6 spells
         Cell selectedCell = Cell.getSelectedCell();
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
@@ -391,28 +393,28 @@ public interface MainPhasesController {
         response.append("\t".repeat(Math.max(0, 6 - opponentPlayerGameBoard.getHandCards().size())));
 
         for (int i = 0; i < opponentPlayerGameBoard.getHandCards().size(); i++) {
-          //Cell cell=opponentPlayerGameBoard.getHandCards().get(i);
-          //ImageView imageView = cell.getCellCard().getCardBackImage();
-          //imageView.setFitWidth(70);
-          //imageView.rotateProperty().setValue(180);
-          //ImagePattern imagePattern=cell.getCellCard().getCardBackImagePattern();
-          //javafx.scene.shape.Rectangle rectangleImage= new javafx.scene.shape.Rectangle();
-          //rectangleImage.setWidth(90);
-          //rectangleImage.setHeight(115);
+            //Cell cell=opponentPlayerGameBoard.getHandCards().get(i);
+            //ImageView imageView = cell.getCellCard().getCardBackImage();
+            //imageView.setFitWidth(70);
+            //imageView.rotateProperty().setValue(180);
+            //ImagePattern imagePattern=cell.getCellCard().getCardBackImagePattern();
+            //javafx.scene.shape.Rectangle rectangleImage= new javafx.scene.shape.Rectangle();
+            //rectangleImage.setWidth(90);
+            //rectangleImage.setHeight(115);
 
-          //rectangleImage.setFill(imagePattern);
-          //gameMenuController.rivalHandCardsContainer.getChildren().add(rectangleImage);
-          //gameMenuController.addEventForCardImageRectangle(rectangleImage, null);
+            //rectangleImage.setFill(imagePattern);
+            //gameMenuController.rivalHandCardsContainer.getChildren().add(rectangleImage);
+            //gameMenuController.addEventForCardImageRectangle(rectangleImage, null);
             response.append("\tc");
         }
 
         double paneX = gameMenuController.rivalDeckZoneContainer.getLayoutX();
         for (int i = opponentPlayerGameBoard.getDeckZone().size() - 1; i >= 0; i--) {
-           ImageView imageView = opponentPlayerGameBoard.getDeckZone().get(i).getCellCard().getCardBackImage();
-           imageView.setFitWidth(70);
-           imageView.rotateProperty().set(180.0);
-           imageView.setLayoutX(paneX - i / 2);
-           gameMenuController.rivalDeckZoneContainer.getChildren().add(imageView);
+            ImageView imageView = opponentPlayerGameBoard.getDeckZone().get(i).getCellCard().getCardBackImage();
+            imageView.setFitWidth(70);
+            imageView.rotateProperty().set(180.0);
+            imageView.setLayoutX(paneX - i / 2);
+            gameMenuController.rivalDeckZoneContainer.getChildren().add(imageView);
 //           gameMenuController.addEventForCardImageRectangle(imageView, null);
             //todo: i tried to make the deck zone Rectangles but i couldnt
 //            javafx.scene.shape.Rectangle rectangleImage=new javafx.scene.shape.Rectangle();
@@ -540,9 +542,9 @@ public interface MainPhasesController {
 //            rectangleImage.setFill(imagePattern);
 //            gameMenuController.userDeckZoneContainer2.getChildren().add(rectangleImage);
 //            gameMenuController.addEventForCardImageRectangle(rectangleImage, null);
-            ImageView imageView=playerGameBoard.getDeckZone().get(i).getCellCard().getCardBackImage();
+            ImageView imageView = playerGameBoard.getDeckZone().get(i).getCellCard().getCardBackImage();
             imageView.setFitWidth(70);
-            imageView.setLayoutX(xPane+i/2);
+            imageView.setLayoutX(xPane + i / 2);
             gameMenuController.userDeckZoneContainer.getChildren().add(imageView);
             //gameMenuController.addEventForCardImage(imageView,null);
         }
@@ -562,7 +564,7 @@ public interface MainPhasesController {
             rectangleImage.setHeight(120);
             rectangleImage.setFill(imagePattern);*/
             //ImageView imageView = cell.getCellCard().getCardImageForDeck(90);
-           // gameMenuController.userHandCardsContainer.getChildren().add(imageView);
+            // gameMenuController.userHandCardsContainer.getChildren().add(imageView);
           /*  gameMenuController.userHandCardsContainer.getChildren().add(rectangleImage);
            gameMenuController.addEventForCardImageRectangle(rectangleImage, cell.getCellCard());*/
             response.append("c\t");

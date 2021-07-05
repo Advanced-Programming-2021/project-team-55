@@ -25,10 +25,10 @@ public class ImportExportMenu extends WelcomeMenu {
         String response = "";
         if (command.matches(Regexes.IMPORT_CARD.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.IMPORT_CARD.regex);
-          //  dataBaseController.importDeck(matcher.group(1));
+            //  dataBaseController.importDeck(matcher.group(1));
         } else if (command.matches(Regexes.EXPORT_CARD.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.EXPORT_CARD.regex);
-           // response = dataBaseController.exportCard(matcher.group(1));
+            // response = dataBaseController.exportCard(matcher.group(1));
 //        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
 //            Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
 //            try {

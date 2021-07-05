@@ -14,9 +14,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import yugioh.model.User;
 import yugioh.model.exceptions.MenuException;
+import yugioh.view.Responses;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.WelcomeMenu;
-import yugioh.view.Responses;
 
 import java.io.File;
 import java.net.URL;
@@ -27,10 +27,11 @@ public class LoginMenuController extends MenuController implements Initializable
     public TextField usernameField;
     public PasswordField passwordField;
     public Button loginButton;
-    boolean passwordFieldIsFilled=false;
-    boolean usernameFieldIsFilled=false;
+    boolean passwordFieldIsFilled = false;
+    boolean usernameFieldIsFilled = false;
     @FXML
     private MediaView background;
+
     public LoginMenuController() {
 
     }
@@ -82,32 +83,31 @@ public class LoginMenuController extends MenuController implements Initializable
         usernameField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if(t1.equals("")){
-                    usernameFieldIsFilled=false;
+                if (t1.equals("")) {
+                    usernameFieldIsFilled = false;
                     loginButton.setDisable(true);
-                }
-                else{
-                    usernameFieldIsFilled=true;
-                    if(passwordFieldIsFilled)
-                    loginButton.setDisable(false);
+                } else {
+                    usernameFieldIsFilled = true;
+                    if (passwordFieldIsFilled)
+                        loginButton.setDisable(false);
                 }
             }
         });
         passwordField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if(t1.equals("")){
-                    passwordFieldIsFilled=false;
+                if (t1.equals("")) {
+                    passwordFieldIsFilled = false;
                     loginButton.setDisable(true);
-                }
-                else{
-                    passwordFieldIsFilled=true;
-                    if(usernameFieldIsFilled)
-                    loginButton.setDisable(false);
+                } else {
+                    passwordFieldIsFilled = true;
+                    if (usernameFieldIsFilled)
+                        loginButton.setDisable(false);
                 }
             }
         });
     }
+
     public void initialize() {
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\main.mp4").toURI().toString()));
         mediaPlayer.play();

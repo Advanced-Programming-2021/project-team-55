@@ -9,9 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import yugioh.model.User;
 import yugioh.model.exceptions.MenuException;
+import yugioh.view.Responses;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.WelcomeMenu;
-import yugioh.view.Responses;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,9 +21,9 @@ public class RegisterMenuController extends MenuController implements Initializa
     public TextField nicknameField;
     public PasswordField passwordField;
     public Button registerButton;
-    boolean usernameFieldIsFilled=false;
-    boolean passwordFieldIsFilled=false;
-    boolean nicknameFieldIsFilled=false;
+    boolean usernameFieldIsFilled = false;
+    boolean passwordFieldIsFilled = false;
+    boolean nicknameFieldIsFilled = false;
 
     public void RegisterClicked(MouseEvent mouseEvent) throws Exception {
         playButtonSound();
@@ -69,13 +69,12 @@ public class RegisterMenuController extends MenuController implements Initializa
         usernameField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if(t1.equals("")){
-                    usernameFieldIsFilled=false;
+                if (t1.equals("")) {
+                    usernameFieldIsFilled = false;
                     registerButton.setDisable(true);
-                }
-                else{
-                    usernameFieldIsFilled=true;
-                    if(passwordFieldIsFilled&&nicknameFieldIsFilled)
+                } else {
+                    usernameFieldIsFilled = true;
+                    if (passwordFieldIsFilled && nicknameFieldIsFilled)
                         registerButton.setDisable(false);
                 }
             }
@@ -83,13 +82,12 @@ public class RegisterMenuController extends MenuController implements Initializa
         passwordField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if(t1.equals("")){
-                    passwordFieldIsFilled=false;
+                if (t1.equals("")) {
+                    passwordFieldIsFilled = false;
                     registerButton.setDisable(true);
-                }
-                else{
-                    passwordFieldIsFilled=true;
-                    if(usernameFieldIsFilled&&nicknameFieldIsFilled)
+                } else {
+                    passwordFieldIsFilled = true;
+                    if (usernameFieldIsFilled && nicknameFieldIsFilled)
                         registerButton.setDisable(false);
                 }
             }
@@ -97,13 +95,12 @@ public class RegisterMenuController extends MenuController implements Initializa
         nicknameField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if(t1.equals("")){
-                    nicknameFieldIsFilled=false;
+                if (t1.equals("")) {
+                    nicknameFieldIsFilled = false;
                     registerButton.setDisable(true);
-                }
-                else{
-                    nicknameFieldIsFilled=true;
-                    if(usernameFieldIsFilled&&passwordFieldIsFilled)
+                } else {
+                    nicknameFieldIsFilled = true;
+                    if (usernameFieldIsFilled && passwordFieldIsFilled)
                         registerButton.setDisable(false);
                 }
             }

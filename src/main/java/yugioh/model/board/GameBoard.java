@@ -68,7 +68,7 @@ public class GameBoard {
     }
 
     public void setBoardRectangles(Pane gamePane, boolean isOpponent) {
-        this.gamePane = gamePane;
+        GameBoard.gamePane = gamePane;
         if (!isOpponent) {
             monsterCardZone[0].setCellRectangle((Rectangle) gamePane.getChildren().get(8));
             monsterCardZone[1].setCellRectangle((Rectangle) gamePane.getChildren().get(9));
@@ -231,6 +231,7 @@ public class GameBoard {
                 for (double j = 0; j <= 1; j += 0.05) {
                     rectangle.opacityProperty().set(j);
                 }
+
                 monsterCardZone[i].getCellInfo().setText(((Monster) card).getAtk() + "/" + ((Monster) card).getDef());
                 gameController.getGameMenuController().addEventForCardImageRectangle(rectangle, card);
                 gameController.changedPositionCells.add(monsterCardZone[i]);

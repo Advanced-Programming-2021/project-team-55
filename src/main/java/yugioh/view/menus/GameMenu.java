@@ -2,7 +2,6 @@ package yugioh.view.menus;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -38,8 +37,7 @@ public class GameMenu extends WelcomeMenu {
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
-            }
-            else if (event.getCode() == KeyCode.M && event.isControlDown()) {
+            } else if (event.getCode() == KeyCode.M && event.isControlDown()) {
                 WelcomeMenuController.muteSound();
             }
             event.consume();

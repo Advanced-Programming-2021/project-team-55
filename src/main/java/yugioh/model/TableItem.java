@@ -2,14 +2,12 @@ package yugioh.model;
 
 import javafx.scene.control.TableRow;
 
-import java.awt.*;
+public class TableItem extends TableRow {
 
-public class TableItem extends TableRow{
-
+    protected String text;
     int rank;
     String username;
     int score;
-    protected String text;
 
 
     public TableItem(int rank, String username, int score) {

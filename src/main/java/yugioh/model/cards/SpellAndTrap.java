@@ -14,9 +14,9 @@ import yugioh.view.gamephases.GameResponses;
 
 public class SpellAndTrap extends Card {
 
-    protected SpellOrTrap type;
     private final SpellOrTrapAttribute attribute;
     private final EffectiveTerm status;
+    protected SpellOrTrap type;
 
     public SpellAndTrap(String name, String description, int price,
                         SpellOrTrap type, SpellOrTrapAttribute attribute, EffectiveTerm status) {

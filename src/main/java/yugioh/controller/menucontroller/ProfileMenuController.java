@@ -11,9 +11,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import yugioh.model.User;
 import yugioh.model.exceptions.MenuException;
+import yugioh.view.Responses;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.WelcomeMenu;
-import yugioh.view.Responses;
 
 import java.io.File;
 import java.net.URL;
@@ -86,7 +86,7 @@ public class ProfileMenuController extends MenuController implements Initializab
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println(User.loggedInUser.getProfileImageFile().toURI().toString());
-        Image image=new Image(User.loggedInUser.getProfileImageFile().toURI().toString());
+        Image image = new Image(User.loggedInUser.getProfileImageFile().toURI().toString());
         profileImage.setImage(image);
         changePasswordButton.setDisable(true);
         newPasswordField.textProperty().addListener(new ChangeListener<String>() {
@@ -131,9 +131,9 @@ public class ProfileMenuController extends MenuController implements Initializab
             User.loggedInUser.setImageIsChanged();
             User.loggedInUser.deleteProfileImage();
             Path sourceDirectory = Paths.get(file.getPath());
-            UUID random=UUID.randomUUID();
-            String imageAddress = "/yugioh/PNG/UsersImage/" +random + ".png";
-            Path targetDirectory = Paths.get("src\\resources\\yugioh\\PNG\\UsersImage\\"+random+".png");
+            UUID random = UUID.randomUUID();
+            String imageAddress = "/yugioh/PNG/UsersImage/" + random + ".png";
+            Path targetDirectory = Paths.get("src\\resources\\yugioh\\PNG\\UsersImage\\" + random + ".png");
             Files.copy(sourceDirectory, targetDirectory);
             profileImage.setImage(new Image(file.toURI().toString()));
             User.loggedInUser.setProfileImage(imageAddress);

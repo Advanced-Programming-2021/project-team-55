@@ -19,46 +19,13 @@ import java.util.ArrayList;
 public class Cell {
 
     private static Cell selectedCell;
+    private static final ArrayList<Cell> allCells = new ArrayList<>();
     public CardStatus cardStatus;
     private Card card;
     private double xPosition;
     private double yPosition;
     private transient Rectangle cellRectangle;
     private transient Label cellInfo;
-    private static ArrayList<Cell>allCells=new ArrayList<>();
-    public static void setSelectedCellByRectangle(Rectangle rectangle){
-        selectedCell=getSelectedCellByRectangle(rectangle);
-    }
-    public static Cell getSelectedCellByRectangle(Rectangle rectangle){
-        for(Cell cell:allCells){
-            if(cell.cellRectangle!=null&&cell.cellRectangle.equals(rectangle)){
-                return cell;
-            }
-        }
-        return null;
-    }
-
-    public void setCellInfo(Label cellInfo) {
-        this.cellInfo = cellInfo;
-    }
-
-    public Label getCellInfo() {
-        return cellInfo;
-    }
-
-    public static void setSelectedCellByImage(Paint paint){
-        ImagePattern imagePattern=(ImagePattern) paint;
-        for(Cell cell:allCells){
-            if(!cell.isEmpty()&&(cell.getCellCard().getCardImagePattern().equals(imagePattern)||cell.getCellCard().
-                    getCardBackImagePattern().equals(imagePattern))){
-                selectedCell=cell;
-            }
-        }
-    }
-
-    public static ArrayList<Cell> getAllCells() {
-        return allCells;
-    }
 
     public Cell() {
         allCells.add(this);
@@ -67,6 +34,33 @@ public class Cell {
     public Cell(Card card) {
         setCard(card);
         allCells.add(this);
+    }
+
+    public static void setSelectedCellByRectangle(Rectangle rectangle) {
+        selectedCell = getSelectedCellByRectangle(rectangle);
+    }
+
+    public static Cell getSelectedCellByRectangle(Rectangle rectangle) {
+        for (Cell cell : allCells) {
+            if (cell.cellRectangle != null && cell.cellRectangle.equals(rectangle)) {
+                return cell;
+            }
+        }
+        return null;
+    }
+
+    public static void setSelectedCellByImage(Paint paint) {
+        ImagePattern imagePattern = (ImagePattern) paint;
+        for (Cell cell : allCells) {
+            if (!cell.isEmpty() && (cell.getCellCard().getCardImagePattern().equals(imagePattern) || cell.getCellCard().
+                    getCardBackImagePattern().equals(imagePattern))) {
+                selectedCell = cell;
+            }
+        }
+    }
+
+    public static ArrayList<Cell> getAllCells() {
+        return allCells;
     }
 
     public static void deselectCell() {//better to be same as select cell or rename
@@ -80,6 +74,14 @@ public class Cell {
 
     public static void setSelectedCell(Cell selectedCell) {
         Cell.selectedCell = selectedCell;
+    }
+
+    public Label getCellInfo() {
+        return cellInfo;
+    }
+
+    public void setCellInfo(Label cellInfo) {
+        this.cellInfo = cellInfo;
     }
 
     public Card getCellCard() {
@@ -125,17 +127,18 @@ public class Cell {
         this.cardStatus = cardStatus;
         CommandKnight.deActivateEffect(this);
     }
-    public void setPosition(double x,double y){
-        this.xPosition=x;
-        this.yPosition=y;
-    }
 
-    public void setCellRectangle(Rectangle cellRectangle) {
-        this.cellRectangle = cellRectangle;
+    public void setPosition(double x, double y) {
+        this.xPosition = x;
+        this.yPosition = y;
     }
 
     public Rectangle getCellRectangle() {
         return cellRectangle;
+    }
+
+    public void setCellRectangle(Rectangle cellRectangle) {
+        this.cellRectangle = cellRectangle;
     }
 
     public double getxPosition() {

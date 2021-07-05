@@ -17,10 +17,10 @@ import javafx.scene.text.TextAlignment;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.model.exceptions.MenuException;
+import yugioh.view.Responses;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.ShopMenu;
 import yugioh.view.menus.WelcomeMenu;
-import yugioh.view.Responses;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -108,12 +108,7 @@ public class ShopMenuController extends MenuController implements Initializable 
                     Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));
                     Platform.runLater(() -> description.setText(card.getDescription()));
                     Platform.runLater(() -> numberOfCard.setText(User.loggedInUser.getNumberOfSpecificCard(card.getName()) + ""));
-                    if(card.getPrice()>User.loggedInUser.getMoney()){
-                        buyButton.setDisable(true);
-                    }
-                    else{
-                        buyButton.setDisable(false);
-                    }
+                    buyButton.setDisable(card.getPrice() > User.loggedInUser.getMoney());
                     Platform.runLater(() -> buyButton.setText("BUY (" + card.getPrice() + ")"));
                     selectedCard = card;
                     selectedCardImageView = cardImage;
@@ -137,12 +132,7 @@ public class ShopMenuController extends MenuController implements Initializable 
                     cardImage.requestFocus();
                     Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));
                     Platform.runLater(() -> description.setText(card.getDescription()));
-                    if(card.getPrice()>User.loggedInUser.getMoney()){
-                        buyButton.setDisable(true);
-                    }
-                    else{
-                        buyButton.setDisable(false);
-                    }
+                    buyButton.setDisable(card.getPrice() > User.loggedInUser.getMoney());
                     Platform.runLater(() -> buyButton.setText("BUY (" + card.getPrice() + ")"));
                     selectedCard = card;
                     selectedCardImageView = cardImage;

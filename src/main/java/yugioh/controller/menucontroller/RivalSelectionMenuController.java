@@ -2,12 +2,16 @@ package yugioh.controller.menucontroller;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ToggleButton;
 import yugioh.model.User;
-import yugioh.view.menus.*;
+import yugioh.view.menus.PopUpWindow;
+import yugioh.view.menus.RivalSelectionMenu;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class RivalSelectionMenuController extends MenuController implements Initializable {
 

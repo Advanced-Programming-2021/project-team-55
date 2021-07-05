@@ -69,11 +69,11 @@ public class ProfileMenu extends WelcomeMenu {
     public void start(Stage primaryStage) throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/ProfileMenu.fxml");
         Pane pane = FXMLLoader.load(url);
-        Label usernameLabel = (Label) ((HBox)((VBox)pane.getChildren().get(1)).getChildren().get(1)).getChildren().get(1);
+        Label usernameLabel = (Label) ((HBox) ((VBox) pane.getChildren().get(1)).getChildren().get(1)).getChildren().get(1);
         usernameLabel.setText(User.loggedInUser.getUsername());
         TextField nicknameField = (TextField) ((HBox) ((VBox) pane.getChildren().get(1)).getChildren().get(2)).getChildren().get(1);
         nicknameField.setText(User.loggedInUser.getNickname());
-        if(!User.loggedInUser.isImageIsChanged()) {
+        if (!User.loggedInUser.isImageIsChanged()) {
             ImageView profileImage = (ImageView) pane.getChildren().get(0);
             profileImage.setImage(new Image(User.loggedInUser.getProfileImageString()));
         }

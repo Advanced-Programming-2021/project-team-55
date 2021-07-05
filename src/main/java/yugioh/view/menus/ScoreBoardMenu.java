@@ -50,17 +50,16 @@ public class ScoreBoardMenu extends WelcomeMenu {
     }
 
     private ArrayList<Label> showScoreBoard(LinkedHashMap<Integer, HashMap<Integer, String>> scoreBoard) {
-        ArrayList<Label>scoreBoardInfo=new ArrayList<>();
-        for (int i = 0; i < Math.min(scoreBoard.size(),20); i++) {
+        ArrayList<Label> scoreBoardInfo = new ArrayList<>();
+        for (int i = 0; i < Math.min(scoreBoard.size(), 20); i++) {
             HashMap<Integer, String> userInfo = scoreBoard.get(i);
             for (int rank : userInfo.keySet()) {
-                Label info=new Label(rank+userInfo.get(rank));
+                Label info = new Label(rank + userInfo.get(rank));
                 info.setFont(Font.font(15.0));
                 info.setAlignment(Pos.TOP_CENTER);
-                if(userInfo.get(rank).equals(User.loggedInUser.toString())){
+                if (userInfo.get(rank).equals(User.loggedInUser.toString())) {
                     info.setTextFill(Color.CYAN);
-                }
-                else {
+                } else {
                     info.setTextFill(Color.CHARTREUSE);
                 }
                 scoreBoardInfo.add(info);
@@ -71,11 +70,11 @@ public class ScoreBoardMenu extends WelcomeMenu {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL url=getClass().getResource("/yugioh/fxml/ScoreBoardMenu.fxml");
-        Pane pane= FXMLLoader.load(url);
+        URL url = getClass().getResource("/yugioh/fxml/ScoreBoardMenu.fxml");
+        Pane pane = FXMLLoader.load(url);
 //        VBox scoreBoard=(VBox)((VBox)pane.getChildren().get(0)).getChildren().get(1) ;
 //        scoreBoard.getChildren().addAll(showScoreBoard(scoreBoardMenuController.getScoreBoard()));
-        Scene scene=WelcomeMenu.createScene(pane);
+        Scene scene = WelcomeMenu.createScene(pane);
         stage.setScene(scene);
         stage.show();
     }

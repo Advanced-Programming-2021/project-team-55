@@ -17,6 +17,14 @@ public class EditDeckMenu extends WelcomeMenu {
         EditDeckMenu.deck = deck;
     }
 
+    public static Stage getStage() {
+        return stage;
+    }
+
+    public static Deck getDeck() {
+        return deck;
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/EditDeckMenu.fxml");
@@ -30,14 +38,6 @@ public class EditDeckMenu extends WelcomeMenu {
 //        EditDeckMenu.stage = stage;
         primaryStage.setScene(scene);
 //        stage.show();
-    }
-
-    public static Stage getStage() {
-        return stage;
-    }
-
-    public static Deck getDeck() {
-        return deck;
     }
 
 }
