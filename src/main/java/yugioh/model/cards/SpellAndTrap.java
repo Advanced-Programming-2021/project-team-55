@@ -63,7 +63,7 @@ public class SpellAndTrap extends Card {
         if (spell == null) return;
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         if (!playerGameBoard.isCellInSpellAndTrapZone(selectedCell)) {
-            playerGameBoard.getHandCards().remove(selectedCell);
+            playerGameBoard.removeCardFromHand(selectedCell);
             if (spell.getAttribute() == SpellOrTrapAttribute.FIELD) {
                 playerGameBoard.addCardToFieldZone(card);
                 gameController.currentTurnOpponentPlayer.getGameBoard().addCardToFieldZone(card);

@@ -24,7 +24,14 @@ public class Cell {
     private double yPosition;
     private transient Rectangle cellRectangle;
     private static ArrayList<Cell>allCells=new ArrayList<>();
-
+    public static void setSelectedCellByRectangle(Rectangle rectangle){
+        for(Cell cell:allCells){
+            if(cell.cellRectangle!=null&&cell.cellRectangle.equals(rectangle)){
+                selectedCell=cell;
+                return;
+            }
+        }
+    }
     public static void setSelectedCellByImage(Paint paint){
         ImagePattern imagePattern=(ImagePattern) paint;
         for(Cell cell:allCells){
@@ -49,6 +56,7 @@ public class Cell {
     }
 
     public static void deselectCell() {//better to be same as select cell or rename
+        selectedCell.getCellRectangle().setEffect(null);
         selectedCell = null;
     }
 

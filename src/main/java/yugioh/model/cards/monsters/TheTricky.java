@@ -50,7 +50,7 @@ public class TheTricky extends Monster {
                 ViewInterface.showResult("Error: try again!");
                 continue;
             }
-            gameController.getCurrentTurnPlayer().getGameBoard().getHandCards().remove(Cell.getSelectedCell());
+            gameController.getCurrentTurnPlayer().getGameBoard().removeCardFromHand(Cell.getSelectedCell());
             Cell.setSelectedCell(selectedCell);
             gameController.shouldSpecialSummonNow = true;
             break;

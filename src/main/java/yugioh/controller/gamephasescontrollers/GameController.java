@@ -291,7 +291,7 @@ public class GameController {
 
     }
 
-    public boolean DoPlayerSetOrSummonedThisTurn() {
+    public boolean doPlayerSetOrSummonedThisTurn() {
         return didPlayerSetOrSummonThisTurn;
     }
 
