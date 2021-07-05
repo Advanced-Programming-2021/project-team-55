@@ -4,10 +4,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Shadow;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -24,12 +28,15 @@ public final class Toast {
         toastStage.initStyle(StageStyle.TRANSPARENT);
 
         Text text = new Text(toastMsg);
-        text.setFont(Font.font("Verdana", 40));
-        text.setFill(new Color(1, 1, 0, 1));
+        text.getStyleClass().add("mainTitleText");
+
+        text.setFill(Paint.valueOf("#ccdefc"));
+        text.setFont(Font.font("Bauhaus 93", 40));
+        text.setTextAlignment(TextAlignment.CENTER);
 
         StackPane root = new StackPane(text);
-        root.setStyle("-fx-background-radius: 20; -fx-background-color: rgba(0, 0, 0, 0.2); -fx-padding: 50px;");
-        root.setOpacity(0);
+        root.setStyle("-fx-background-radius: 20; -fx-background-color: #04091a; -fx-padding: 50px;");
+        root.setOpacity(0.1);
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
