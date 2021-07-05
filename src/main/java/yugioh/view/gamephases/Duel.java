@@ -6,7 +6,6 @@ import javafx.util.Duration;
 import yugioh.controller.CheatController;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.menucontroller.GameMenuController;
-import yugioh.model.board.GameBoard;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
 import yugioh.view.ViewInterface;
