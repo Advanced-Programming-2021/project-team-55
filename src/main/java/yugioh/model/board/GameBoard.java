@@ -5,9 +5,6 @@ import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
@@ -216,26 +213,15 @@ public class GameBoard {
                 ImagePattern imagePattern = card.getCardImagePattern();
                 Rectangle rectangle = monsterCardZone[i].getCellRectangle();
                 setTranslationAnimation(imagePattern, rectangle, card);
-                if(cardStatus==CardStatus.DEFENSIVE_HIDDEN) {
-                    setFlipTransition(card, rectangle,true);
-                    setFlipZTransition(rectangle,true);
-                }
-                rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                    rectangle.requestFocus();
-                    ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
-                    GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
-                    sword.setX(rectangle.getLayoutX() + 21);
-                    sword.setY(rectangle.getLayoutY() + 15);
-                    GameMenuController.getGameMenuController().gameBoardPane.addEventHandler(MouseEvent.MOUSE_MOVED, event2 -> {
-                        sword.setRotate(-(Math.toDegrees(Math.atan((event2.getSceneX() - 400 - rectangle.getLayoutX()) / (event2.getSceneY() - rectangle.getLayoutY())))));
-                        event2.consume();
-                    });
-                    event.consume();
-                });
+                if (cardStatus == CardStatus.DEFENSIVE_HIDDEN) {
+                    setFlipTransition(card, rectangle, true);
+                    setFlipZTransition(rectangle, true);
+                } else CardActionsMenu.makeSwordEventForSummonedMonsters(rectangle);
+
                 for (double j = 0; j <= 1; j += 0.05) {
                     rectangle.opacityProperty().set(j);
                 }
-                if((gamePane.rotateProperty().get()%360)>179) {
+                if ((gamePane.rotateProperty().get() % 360) > 179) {
                     monsterCardZone[i].getCellInfo().rotateProperty().set(180);
                 }
                 monsterCardZone[i].getCellInfo().setText(((Monster) card).getAtk() + "/" + ((Monster) card).getDef());
@@ -245,6 +231,7 @@ public class GameBoard {
             }
         }
     }
+
 
     private boolean isMonsterCardZoneFull() {
         for (int i = 0; i < 5; i++) {
@@ -330,8 +317,8 @@ public class GameBoard {
                 ImagePattern imagePattern = card.getCardImagePattern();
                 Rectangle rectangle = spellAndTrapCardZone[i].getCellRectangle();
                 setTranslationAnimation(imagePattern, rectangle, card);
-                if(cardStatus==CardStatus.HIDDEN) {
-                    setFlipTransition(card, rectangle,true);
+                if (cardStatus == CardStatus.HIDDEN) {
+                    setFlipTransition(card, rectangle, true);
                 }
                 for (double j = 0; j <= 1; j += 0.05) {
                     rectangle.opacityProperty().set(j);
@@ -344,14 +331,13 @@ public class GameBoard {
         }
     }
 
-    public void setFlipZTransition( Rectangle rectangle,boolean toHorizontal) {
-        RotateTransition rotateTransition=new RotateTransition();
+    public void setFlipZTransition(Rectangle rectangle, boolean toHorizontal) {
+        RotateTransition rotateTransition = new RotateTransition();
         rotateTransition.setNode(rectangle);
         rotateTransition.setAxis(Rotate.Z_AXIS);
-        if(toHorizontal){
+        if (toHorizontal) {
             rotateTransition.setByAngle(-90);
-        }
-        else{
+        } else {
             rotateTransition.setByAngle(90);
         }
         rotateTransition.setDuration(Duration.millis(250));
@@ -374,7 +360,7 @@ public class GameBoard {
 //        hideFront.play();
     }
 
-    public void setFlipTransition(Card card, Rectangle rectangle,boolean isToBack) {
+    public void setFlipTransition(Card card, Rectangle rectangle, boolean isToBack) {
         ScaleTransition hideFront = new ScaleTransition(Duration.millis(1000), rectangle);
         hideFront.setFromX(1);
         hideFront.setToX(0);
@@ -385,9 +371,9 @@ public class GameBoard {
         showBack.setFromX(0);
         showBack.setToX(1);
         hideFront.setOnFinished(t -> {
-            if(isToBack)
-            rectangle.setFill(card.getCardBackImagePattern());
-            else  rectangle.setFill(card.getCardImagePattern());
+            if (isToBack)
+                rectangle.setFill(card.getCardBackImagePattern());
+            else rectangle.setFill(card.getCardImagePattern());
             showBack.play();
         });
         hideFront.play();
@@ -633,7 +619,8 @@ public class GameBoard {
         handCards.remove(selectedCell);
         handDeck.getChildren().remove(selectedCell.getCellRectangle());
     }
-    public boolean isMonsterZoneFull(){
+
+    public boolean isMonsterZoneFull() {
         for (int i = 0; i < 5; i++) {
             if (monsterCardZone[i].isEmpty()) {
                 return false;

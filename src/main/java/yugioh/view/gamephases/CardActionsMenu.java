@@ -5,6 +5,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
@@ -13,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.gamephasescontrollers.MainPhasesController;
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
 import yugioh.model.exceptions.GameException;
@@ -80,6 +83,10 @@ public class CardActionsMenu implements MainPhasesController {
             }
             //todo : add actions of cards in monster zone and spell zone
         }
+
+    }
+
+    private static void openBattlePhaseActionsForCardsInBoard() {
 
     }
 
@@ -163,8 +170,21 @@ public class CardActionsMenu implements MainPhasesController {
         actionsStage.close();
     }
 
-    private static void openBattlePhaseActionsForCardsInBoard() {
-        //todo: sword must be added here
+    public static void makeSwordEventForSummonedMonsters(Rectangle rectangle) {
+        rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            rectangle.requestFocus();
+            ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
+            GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
+            sword.setX(rectangle.getLayoutX() + 14);
+            sword.setY(rectangle.getLayoutY() + 10);
+            GameMenuController.getGameMenuController().gameBoardPane.addEventHandler(MouseEvent.MOUSE_MOVED, event2 -> {
+                double constant = 0;
+                if((gamePane.rotateProperty().get()%360)>179) constant = 180;
+                sword.setRotate(constant-(Math.toDegrees(Math.atan((event2.getSceneX() - 400 - rectangle.getLayoutX()) / (event2.getSceneY() - rectangle.getLayoutY())))));
+                event2.consume();
+            });
+            event.consume();
+        });
     }
 
     public static void close() {
