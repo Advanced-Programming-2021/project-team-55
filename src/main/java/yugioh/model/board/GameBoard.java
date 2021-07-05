@@ -1,6 +1,8 @@
 package yugioh.model.board;
 
 import javafx.animation.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -66,7 +68,6 @@ public class GameBoard {
     }
 
     public void setBoardRectangles(Pane gamePane,boolean isOpponent) {
-        this.gamePane=gamePane;
         if(!isOpponent){
             monsterCardZone[0].setCellRectangle((Rectangle) gamePane.getChildren().get(8));
             monsterCardZone[1].setCellRectangle((Rectangle) gamePane.getChildren().get(9));
@@ -336,14 +337,20 @@ public class GameBoard {
     }
 
     private void setFlipTransition(Card card, Rectangle rectangle) {
-        RotateTransition rotator = new RotateTransition(Duration.millis(2000), rectangle);
-        rotator.setAxis(Rotate.Y_AXIS);
-        rotator.setFromAngle(0);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> rectangle.setFill(card.getCardBackImagePattern())));
-        timeline.play();
-        rotator.setToAngle(180);
-        rotator.setInterpolator(Interpolator.EASE_BOTH);
-        rotator.play();
+        ScaleTransition hideFront = new ScaleTransition(Duration.millis(1000), rectangle);
+        hideFront.setFromX(1);
+        hideFront.setToX(0);
+        hideFront.setInterpolator(Interpolator.EASE_IN);
+
+        ScaleTransition showBack = new ScaleTransition(Duration.millis(1000), rectangle);
+        showBack.setInterpolator(Interpolator.EASE_OUT);
+        showBack.setFromX(0);
+        showBack.setToX(1);
+        hideFront.setOnFinished(t -> {
+            rectangle.setFill(card.getCardBackImagePattern());
+            showBack.play();
+        });
+        hideFront.play();
     }
 
     private void setTranslationAnimation(ImagePattern imagePattern, Rectangle rectangle, Card card) {
@@ -381,6 +388,7 @@ public class GameBoard {
                 rectangle.rotateProperty().set(180);
                 rectangle.setFill(card.getCardBackImagePattern());
             }
+            setTransitionForHandDeck(countCard, rectangle);
             cell.setCellRectangle(rectangle);
             handDeck.getChildren().add(rectangle);
             handCards.add(cell);
@@ -389,6 +397,19 @@ public class GameBoard {
             //todo : remove deckzone card in graphic
             deckZone.remove(0);
         }
+    }
+
+    private void setTransitionForHandDeck(int countCard, Rectangle rectangle) {
+        TranslateTransition trans = new TranslateTransition(Duration.seconds(2), rectangle);
+        trans.setToX(rectangle.getX());
+        double constant = -1;
+        double rotationValue = GameMenuController.getGameMenuController().background.rotateProperty().getValue() % 360;
+        if (rotationValue > 179 && rotationValue < 181) constant = 1;
+        if (countCard > 1) constant = 1;
+        trans.setFromX(constant * GameMenuController.getGameMenuController().userDeckZoneContainer.getLayoutX());
+        trans.setToY(rectangle.getY());
+        trans.setFromY(0);
+        trans.play();
     }
 
     public void addCardToHandDeck(String cardName) {
