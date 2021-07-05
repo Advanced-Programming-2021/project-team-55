@@ -161,7 +161,7 @@
     <!--16-->
     <ProgressBar fx:id="userLPBar" layoutX="62.0" layoutY="654.0" prefHeight="28.0" prefWidth="200.0" progress="1.0" />
     <!--17-->
-    <ImageView fx:id="settingImage" fitHeight="34.0" fitWidth="36.0" layoutX="17.0" layoutY="14.0" onMouseClicked="#pauseClicked" pickOnBounds="true" preserveRatio="true"  onMouseEntered="#rotateSettings" onMouseExited="#rotateBackSettings" pickOnBounds="true" preserveRatio="true" styleClass="settings">
+    <ImageView fx:id="settingImage" fitHeight="34.0" fitWidth="36.0" layoutX="17.0" layoutY="14.0" onMouseClicked="#pauseClicked" onMouseEntered="#rotateSettings" onMouseExited="#rotateBackSettings" pickOnBounds="true" preserveRatio="true" styleClass="settings">
         <Image url="@../PNG/Field/settingIcon.png" />
     </ImageView>
     <!--18-->
