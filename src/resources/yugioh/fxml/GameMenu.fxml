@@ -210,4 +210,5 @@
         </points>
     </Polygon>
    <Rectangle fx:id="hoveredImageRectangle" arcHeight="5.0" arcWidth="5.0" fill="#0b2a46" height="246.0" layoutX="78.0" layoutY="149.0" stroke="BLACK" strokeType="INSIDE" width="182.0" />
+   <ImageView fx:id="settingImage" fitHeight="34.0" fitWidth="36.0"  onMouseClicked="#pauseClicked" layoutX="17.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
 </AnchorPane>
