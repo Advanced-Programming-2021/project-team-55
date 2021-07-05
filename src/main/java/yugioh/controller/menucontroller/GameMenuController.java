@@ -136,6 +136,8 @@ public class GameMenuController extends MenuController implements Initializable 
         updateCells();
         gameController.currentTurnPlayer.getGameBoard().setBoardRectangles(gameBoardPane,false);
         gameController.currentTurnOpponentPlayer.getGameBoard().setBoardRectangles(gameBoardPane,true);
+        gameController.currentTurnPlayer.getGameBoard().setCellsLabels(false);
+        gameController.currentTurnOpponentPlayer.getGameBoard().setCellsLabels(true);
         gameMenuController = this;
         userHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
         rivalHandCardsContainer.setPadding(new Insets(0, 30, 0, 30));
@@ -215,8 +217,11 @@ public class GameMenuController extends MenuController implements Initializable 
 
     public void addEventForCardImageRectangle(Rectangle rectangle, Card card) {
         rectangle.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
-            Platform.runLater(() -> hoveredImageRectangle.setFill(rectangle.getFill()));
-            if (card == null||rectangle.getFill().equals(card.getCardBackImagePattern())){
+            if (card == null||(rectangle.getFill().equals(card.getCardBackImagePattern())&&!gameController.
+                    currentTurnPlayer.getGameBoard().isCellInMonsterZone(Cell.getSelectedCellByRectangle(rectangle))&&
+                    !gameController.currentTurnPlayer.getGameBoard().isCellInSpellAndTrapZone
+                            (Cell.getSelectedCellByRectangle(rectangle)))){
+                Platform.runLater(() -> hoveredImageRectangle.setFill(rectangle.getFill()));
                 Platform.runLater(() -> description.setText(""));
                 Platform.runLater(()->defLabel.setText(""));
                 Platform.runLater(()->atkLabel.setText(""));
@@ -224,6 +229,7 @@ public class GameMenuController extends MenuController implements Initializable 
                 Platform.runLater(()->atkValue.setText(""));
             }
             else{
+                Platform.runLater(() -> hoveredImageRectangle.setFill(Cell.getSelectedCellByRectangle(rectangle).getCellCard().getCardImagePattern()));
                 Platform.runLater(() -> description.setText(card.getDescription()));
             if (card instanceof Monster) {
                 defLabel.setText("DEF:");

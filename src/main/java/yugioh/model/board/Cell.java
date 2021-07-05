@@ -1,5 +1,6 @@
 package yugioh.model.board;
 
+import javafx.scene.control.Label;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -23,15 +24,28 @@ public class Cell {
     private double xPosition;
     private double yPosition;
     private transient Rectangle cellRectangle;
+    private transient Label cellInfo;
     private static ArrayList<Cell>allCells=new ArrayList<>();
     public static void setSelectedCellByRectangle(Rectangle rectangle){
+        selectedCell=getSelectedCellByRectangle(rectangle);
+    }
+    public static Cell getSelectedCellByRectangle(Rectangle rectangle){
         for(Cell cell:allCells){
             if(cell.cellRectangle!=null&&cell.cellRectangle.equals(rectangle)){
-                selectedCell=cell;
-                return;
+                return cell;
             }
         }
+        return null;
     }
+
+    public void setCellInfo(Label cellInfo) {
+        this.cellInfo = cellInfo;
+    }
+
+    public Label getCellInfo() {
+        return cellInfo;
+    }
+
     public static void setSelectedCellByImage(Paint paint){
         ImagePattern imagePattern=(ImagePattern) paint;
         for(Cell cell:allCells){
