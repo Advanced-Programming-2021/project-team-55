@@ -37,6 +37,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import yugioh.controller.gamephasescontrollers.GameController;
+import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
@@ -125,6 +126,17 @@ public class GameMenuController extends MenuController implements Initializable 
         for(Cell cell:gameController.currentTurnOpponentPlayer.getGameBoard().getHandCards()){
             cell.getCellRectangle().setFill(cell.getCellCard().getCardImagePattern());
             //rivalHandCardsContainer.getChildren().add(cell.getCellRectangle());
+        }
+        for(Cell cell:gameController.currentTurnPlayer.getGameBoard().getMonsterCardZone()){
+            if(cell.getCardStatus()== CardStatus.DEFENSIVE_HIDDEN){
+                cell.getCellInfo().setText("");
+            }
+        }
+        for(Cell cell:gameController.currentTurnPlayer.getGameBoard().getMonsterCardZone()){
+            if(cell.getCardStatus()==CardStatus.DEFENSIVE_HIDDEN){
+                cell.getCellInfo().setText(((Monster)(cell.getCellCard())).getAtk()+"\"" +
+                        ((Monster)(cell.getCellCard())).getDef());
+            }
         }
     }
 
