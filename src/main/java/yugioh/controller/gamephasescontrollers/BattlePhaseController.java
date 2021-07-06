@@ -17,6 +17,7 @@ import yugioh.model.cards.trapandspells.NegateAttack;
 import yugioh.model.cards.trapandspells.SwordsofRevealingLight;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.gamephases.CardActionsMenu;
+import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
@@ -123,6 +124,7 @@ public class BattlePhaseController {
 
     private String attackToDefensiveHiddenCell(Cell attackerCell, Cell attackedCell, GameBoard opponentGameBoard) {
         String response;
+        Duel.getGameController().currentTurnPlayer.getGameBoard().setFlipTransition(attackedCell.getCellCard(), attackedCell.getCellRectangle(), false);
         if (isAttackerStronger(attackerCell, attackedCell)) {
             response = "opponent’s monster card was " +
                     attackedCell.getCellCard().getName() + " the defense position monster is destroyed";
@@ -146,6 +148,7 @@ public class BattlePhaseController {
 
     private String attackToDefensiveOccupiedCell(Cell attackerCell, Cell attackedCell, GameBoard playerGameBoard) {
         String response;
+        Duel.getGameController().currentTurnPlayer.getGameBoard().setFlipTransition(attackedCell.getCellCard(), attackedCell.getCellRectangle(), false);
         if (isAttackerStronger(attackerCell, attackedCell)) {
             decreasePlayersDamage(attackerCell, attackedCell);
             response = "the defense position monster is destroyed";
