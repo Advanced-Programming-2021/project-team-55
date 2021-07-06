@@ -56,7 +56,7 @@ public class ShopMenuController extends MenuController implements Initializable 
     }
 
     public void buyCard() throws Exception {
-        playButtonSound();
+        playButtonSound("enterButton");
         Card card = selectedCard;
         try {
             if (card == null) {
@@ -84,7 +84,7 @@ public class ShopMenuController extends MenuController implements Initializable 
     }
 
     public void back() throws Exception {
-        playButtonSound();
+        playButtonSound("backButton");
         mainMenu.execute();
     }
 

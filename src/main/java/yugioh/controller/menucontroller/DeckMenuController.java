@@ -185,7 +185,7 @@ public class DeckMenuController extends MenuController implements Initializable 
     }
 
     public void backClicked() throws Exception {
-        playButtonSound();
+        playButtonSound("backButton");
         mainMenu.execute();
     }
 

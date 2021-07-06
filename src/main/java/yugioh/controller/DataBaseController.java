@@ -202,12 +202,12 @@ public class DataBaseController extends MenuController {
     }
 
     public void backClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound();
+        playButtonSound("backButton");
         mainMenu.execute();
     }
 
     public void importCard(MouseEvent mouseEvent) {
-        playButtonSound();
+        playButtonSound("enterButton");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("select a card");
         FileChooser.ExtensionFilter extFilter =
@@ -316,12 +316,12 @@ public class DataBaseController extends MenuController {
     }
 
     public void exportClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound();
+        playButtonSound("enterButton");
         openExportPage();
     }
 
     public void exportCard() throws Exception {
-        playButtonSound();
+        playButtonSound("enterButton");
         if (selectedImage == null && previousImage == null) {
             openExportPage();
             new PopUpWindow("Error: no cards selected").start(WelcomeMenu.stage);
@@ -342,7 +342,7 @@ public class DataBaseController extends MenuController {
     }
 
     public void backToImportClicked() throws Exception {
-        playButtonSound();
+        playButtonSound("backButton");
         exportStage.close();
         importExportMenu.execute();
     }
