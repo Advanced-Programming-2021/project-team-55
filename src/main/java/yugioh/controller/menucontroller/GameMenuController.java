@@ -285,9 +285,9 @@ public class GameMenuController extends MenuController implements Initializable 
                     selectedCell.getCellRectangle().setEffect(null);
                     CardActionsMenu.close();
                 }
-                if (selectedCell != null && (selectedCell.getCellCard().getCardImagePattern().equals
-                        (rectangleImage) || selectedCell.getCellCard().getCardBackImagePattern().equals
-                        (rectangleImage))) {
+                if (selectedCell != null && selectedCell.getCellCard() != null &&
+                        (selectedCell.getCellCard().getCardImagePattern().equals(rectangleImage) ||
+                                selectedCell.getCellCard().getCardBackImagePattern().equals(rectangleImage))) {
                     CardActionsMenu.close();
                     Cell.deselectCell();
                 } else if (CardActionsMenu.getActiveSword() == null) {

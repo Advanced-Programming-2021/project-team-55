@@ -203,6 +203,7 @@ public class CardActionsMenu implements MainPhasesController {
                 int finalI = i;
                 cell.getCellRectangle().addEventHandler(MouseEvent.MOUSE_CLICKED, event3 -> {
                     try {
+                        if (gameController.currentPhase != GamePhase.BATTLE) return;
                         GameMenuController.getGameMenuController().selectCard(rectangle);
                         String result = Duel.getGameController().getBattlePhaseController().attack(finalI);
                         System.out.println(result);
@@ -338,6 +339,10 @@ public class CardActionsMenu implements MainPhasesController {
             new CardActionsMenu().monsterSummon(gameController);
         } catch (GameException e) {
             e.printStackTrace();
+            try {
+                new PopUpWindow(e.getMessage()).start(WelcomeMenu.getStage());
+            } catch (Exception ignored) {
+            }
             //todo show an error box
         }
         actionsStage.close();

@@ -1,6 +1,5 @@
 package yugioh.controller.gamephasescontrollers;
 
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.Player;
@@ -181,7 +180,7 @@ public class BattlePhaseController {
             if (CardActionsMenu.isBoardInverse()) {
                 moveCardToGraveyard(attackedCell, GameMenuController.getGameMenuController().userGraveyard, gameController.currentTurnOpponentPlayer);
                 moveCardToGraveyard(attackerCell, GameMenuController.getGameMenuController().rivalGraveyard, gameController.currentTurnPlayer);
-            }else {
+            } else {
                 moveCardToGraveyard(attackedCell, GameMenuController.getGameMenuController().rivalGraveyard, gameController.currentTurnOpponentPlayer);
                 moveCardToGraveyard(attackerCell, GameMenuController.getGameMenuController().userGraveyard, gameController.currentTurnPlayer);
             }
@@ -208,8 +207,7 @@ public class BattlePhaseController {
     private void decreasePlayersDamage(Cell attackerCell, Cell attackedCell) {
         if (isAttackerStronger(attackerCell, attackedCell)) {
             (gameController.getCurrentTurnOpponentPlayer()).decreaseLP(calculateDamage(attackerCell, attackedCell));
-        }
-        else {
+        } else {
             (gameController.getCurrentTurnPlayer()).decreaseLP(calculateDamage(attackerCell, attackedCell));
         }
     }
