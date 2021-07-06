@@ -20,6 +20,7 @@ import yugioh.model.Player;
 import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
 import yugioh.model.exceptions.GameException;
+import yugioh.view.menus.Toast;
 import yugioh.view.menus.WelcomeMenu;
 
 import java.util.ArrayList;
@@ -195,6 +196,21 @@ public class CardActionsMenu implements MainPhasesController {
                 sword.setRotate(constant - (Math.toDegrees(Math.atan((event2.getSceneX() - 400 - rectangle.getLayoutX()) / (event2.getSceneY() - rectangle.getLayoutY() - constant)))));
                 event2.consume();
             });
+            GameMenuController.getGameMenuController().selectCard(rectangle);
+            Cell[] monsterCardZone = gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone();
+            for (int i = 0; i < monsterCardZone.length; i++) {
+                Cell cell = monsterCardZone[i];
+                int finalI = i;
+                cell.getCellRectangle().addEventHandler(MouseEvent.MOUSE_CLICKED, event3 -> {
+                    try {
+                        GameMenuController.getGameMenuController().selectCard(rectangle);
+                        Toast.makeText(WelcomeMenu.getStage(), Duel.getGameController().getBattlePhaseController().attack(finalI));
+                    } catch (GameException e) {
+                        e.printStackTrace();
+                    }
+                    event3.consume();
+                });
+            }
             event.consume();
         });
     }
@@ -321,5 +337,13 @@ public class CardActionsMenu implements MainPhasesController {
             //todo show an error box
         }
         actionsStage.close();
+    }
+
+    public static ImageView getActiveSword() {
+        return activeSword;
+    }
+
+    public static Rectangle getActiveRectangle() {
+        return activeRectangle;
     }
 }

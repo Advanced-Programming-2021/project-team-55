@@ -131,7 +131,7 @@ public class GameMenuController extends MenuController implements Initializable 
                 label.setText("");
             }
             //if((gameBoardPane.rotateProperty().get()%360)<179)
-                label.rotateProperty().set(gameBoardPane.rotateProperty().get());
+            label.rotateProperty().set(gameBoardPane.rotateProperty().get());
 //            else{
 //                label.rotateProperty().set(0);
 //            }
@@ -143,7 +143,7 @@ public class GameMenuController extends MenuController implements Initializable 
                         ((Monster) (cell.getCellCard())).getDef());
             }
 
-           // if((gameBoardPane.rotateProperty().get()%360)>179)
+            // if((gameBoardPane.rotateProperty().get()%360)>179)
             //label.rotateProperty().set(0);
             label.rotateProperty().set(gameBoardPane.rotateProperty().get());
 
@@ -277,23 +277,19 @@ public class GameMenuController extends MenuController implements Initializable 
         CardActionsMenu.setGamePane(gameBoardPane);
         rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
-                Cell selectedCell=Cell.getSelectedCell();
+                Cell selectedCell = Cell.getSelectedCell();
                 ImagePattern rectangleImage = (ImagePattern) rectangle.getFill();
                 if (selectedCell != null && !selectedCell.isEmpty()) {
                     selectedCell.getCellRectangle().setEffect(null);
                     CardActionsMenu.close();
                 }
                 if (selectedCell != null && (selectedCell.getCellCard().getCardImagePattern().equals
-                        (rectangleImage)||selectedCell.getCellCard().getCardBackImagePattern().equals
-                        (rectangleImage))){
+                        (rectangleImage) || selectedCell.getCellCard().getCardBackImagePattern().equals
+                        (rectangleImage))) {
                     CardActionsMenu.close();
                     Cell.deselectCell();
-                } else {
-                    DropShadow selectEffect = new DropShadow(BlurType.values()[1],
-                            GREEN, 10, 2.0f, 0, 0);
-                    selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
-                    Cell.setSelectedCellByRectangle(rectangle);
-                    rectangle.setEffect(selectEffect);
+                } else if (CardActionsMenu.getActiveSword() == null) {
+                    selectCard(rectangle);
                     if (!gameController.currentTurnOpponentPlayer.getGameBoard().isCellInGameBoard(Cell.getSelectedCell())
                             && !gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {
                         try {
@@ -309,13 +305,21 @@ public class GameMenuController extends MenuController implements Initializable 
                 event.consume();
             } else if (event.getButton() == MouseButton.SECONDARY) {
                 if (Cell.getSelectedCell() != null && (Cell.getSelectedCell().getCellCard().getCardImagePattern().equals
-                        (rectangle.getFill())||Cell.getSelectedCell().getCellCard().getCardBackImagePattern().equals
+                        (rectangle.getFill()) || Cell.getSelectedCell().getCellCard().getCardBackImagePattern().equals
                         (rectangle.getFill()))) {
                     CardActionsMenu.change();
                 }
                 event.consume();
             }
         });
+    }
+
+    public void selectCard(Rectangle rectangle) {
+        DropShadow selectEffect = new DropShadow(BlurType.values()[1],
+                GREEN, 10, 2.0f, 0, 0);
+        selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
+        Cell.setSelectedCellByRectangle(rectangle);
+        rectangle.setEffect(selectEffect);
     }
 
     public void showGraveyardForUser() {
@@ -397,10 +401,12 @@ public class GameMenuController extends MenuController implements Initializable 
     public void rotateBackSettings() {
         settingImage.rotateProperty().setValue(settingImage.rotateProperty().getValue() - 15);
     }
-    public void setHoveredImageChat(){
-        chatImage.setImage(new Image(new File( "src/resources/yugioh/PNG/Field/chatHoverIcon.png").toURI().toString()));
+
+    public void setHoveredImageChat() {
+        chatImage.setImage(new Image(new File("src/resources/yugioh/PNG/Field/chatHoverIcon.png").toURI().toString()));
     }
-    public void resetHoveredImageChat(){
-        chatImage.setImage(new Image(new File( "src/resources/yugioh/PNG/Field/chatIcon.png").toURI().toString()));
+
+    public void resetHoveredImageChat() {
+        chatImage.setImage(new Image(new File("src/resources/yugioh/PNG/Field/chatIcon.png").toURI().toString()));
     }
 }

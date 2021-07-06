@@ -56,8 +56,8 @@ public class BattlePhaseController {
         Cell attackedCell = null;
         GameBoard opponentGameBoard = gameController.currentTurnOpponentPlayer.getGameBoard();
         GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
-        if (attackedCellNumber <= 5 && attackedCellNumber >= 1) {
-            attackedCell = (gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone())[attackedCellNumber - 1];
+        if (attackedCellNumber <= 4 && attackedCellNumber >= 0) {
+            attackedCell = (gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone())[attackedCellNumber];
         }
         if (attackerCell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
