@@ -20,6 +20,7 @@ import yugioh.model.Player;
 import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
 import yugioh.model.exceptions.GameException;
+import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.Toast;
 import yugioh.view.menus.WelcomeMenu;
 
@@ -204,9 +205,13 @@ public class CardActionsMenu implements MainPhasesController {
                 cell.getCellRectangle().addEventHandler(MouseEvent.MOUSE_CLICKED, event3 -> {
                     try {
                         GameMenuController.getGameMenuController().selectCard(rectangle);
-                        Toast.makeText(WelcomeMenu.getStage(), Duel.getGameController().getBattlePhaseController().attack(finalI));
-                    } catch (GameException e) {
-                        e.printStackTrace();
+                        String result = Duel.getGameController().getBattlePhaseController().attack(finalI);
+                        new PopUpWindow(result).start(WelcomeMenu.getStage());
+                    } catch (Exception e) {
+                        try {
+                            new PopUpWindow(e.getMessage()).start(WelcomeMenu.getStage());
+                        } catch (Exception ignored) {
+                        }
                     }
                     event3.consume();
                 });

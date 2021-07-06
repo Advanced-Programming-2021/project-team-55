@@ -1,6 +1,7 @@
 package yugioh.model.board;
 
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -105,6 +106,8 @@ public class Cell {
         if (Cell.getSelectedCell() == this) selectedCell = null;
         gameBoard.addCardToGraveyard(this.card);
         cellRectangle.setFill(null);
+        cellRectangle.setStrokeWidth(0);
+        cellInfo.setText("");
         this.card = null;
         this.cardStatus = null;
         Duel.getGameController().changedPositionCells.remove(this);

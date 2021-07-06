@@ -251,7 +251,7 @@ public class GameMenuController extends MenuController implements Initializable 
 
     public void addEventForCardImageRectangle(Rectangle rectangle, Card card) {
         rectangle.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
-            if (card == null || (rectangle.getFill().equals(card.getCardBackImagePattern()) && !gameController.
+            if (card == null || rectangle.getFill() == null || (rectangle.getFill().equals(card.getCardBackImagePattern()) && !gameController.
                     currentTurnPlayer.getGameBoard().isCellInMonsterZone(Cell.getSelectedCellByRectangle(rectangle)) &&
                     !gameController.currentTurnPlayer.getGameBoard().isCellInSpellAndTrapZone
                             (Cell.getSelectedCellByRectangle(rectangle)))) {
