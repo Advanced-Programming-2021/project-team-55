@@ -44,6 +44,9 @@ public class CardActionsMenu implements MainPhasesController {
     private static double lastMousePositionX = 0;
     private static double lastMousePositionY = 0;
 
+    private static ImageView activeSword;
+    private static Rectangle activeRectangle;
+
 
     static {
         actionsStage.initOwner(WelcomeMenu.stage);
@@ -172,11 +175,20 @@ public class CardActionsMenu implements MainPhasesController {
         Player currentPlayer = Duel.getGameController().getCurrentTurnPlayer();
         rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             if (!currentPlayer.equals(Duel.getGameController().getCurrentTurnPlayer())) return;
+            if (Duel.getGameController().getCurrentPhase() != GamePhase.BATTLE) return;
+            if (activeRectangle == rectangle && activeSword != null) {
+                removeSword();
+                return;
+            } else if (activeSword != null) {
+                removeSword();
+            }
             rectangle.requestFocus();
             ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
             GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
             sword.setX(rectangle.getLayoutX() + 14);
             sword.setY(rectangle.getLayoutY() + 10);
+            activeSword = sword;
+            activeRectangle = rectangle;
             GameMenuController.getGameMenuController().gameBoardPane.addEventHandler(MouseEvent.MOUSE_MOVED, event2 -> {
                 double constant = 0;
                 if ((gamePane.rotateProperty().get() % 360) > 179) constant = 180;
@@ -185,6 +197,13 @@ public class CardActionsMenu implements MainPhasesController {
             });
             event.consume();
         });
+    }
+
+    public static void removeSword() {
+        if (activeSword != null)
+            GameMenuController.getGameMenuController().gameBoardPane.getChildren().remove(activeSword);
+        activeSword = null;
+        activeRectangle = null;
     }
 
     public static void close() {

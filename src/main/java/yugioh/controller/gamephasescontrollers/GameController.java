@@ -202,6 +202,7 @@ public class GameController {
                 break;
             }
             case BATTLE: {
+                CardActionsMenu.removeSword();
                 currentPhase = GamePhase.MAIN2;
                 break;
             }
