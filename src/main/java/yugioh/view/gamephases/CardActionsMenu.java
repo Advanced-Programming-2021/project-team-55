@@ -21,7 +21,6 @@ import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.menus.PopUpWindow;
-import yugioh.view.menus.Toast;
 import yugioh.view.menus.WelcomeMenu;
 
 import java.util.ArrayList;
@@ -348,7 +347,8 @@ public class CardActionsMenu implements MainPhasesController {
         return activeSword;
     }
 
-    public static Rectangle getActiveRectangle() {
-        return activeRectangle;
+    public static boolean isBoardInverse() {
+        return (gamePane.rotateProperty().get() % 360) > 179;
     }
+
 }

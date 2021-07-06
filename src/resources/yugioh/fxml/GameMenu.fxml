@@ -221,7 +221,7 @@
    
        <Rectangle fx:id="userGraveyard" arcHeight="5.0" arcWidth="5.0" height="86.0" layoutX="604.0" layoutY="423.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="67.0" /><!--todo add chat page-->
    
-       <Rectangle fx:id="rivalGraveyard" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="86.0" layoutX="61.0" layoutY="220.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="67.0" />
+       <Rectangle fx:id="rivalGraveyard" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="86.0" layoutX="61.0" layoutY="220.0" opacity="0.1" rotate="180.0" stroke="BLACK" strokeType="INSIDE" width="67.0" />
     </Pane>
     <Label fx:id="currentUsername" layoutX="144.0" layoutY="613.0" prefHeight="34.0" prefWidth="176.0" styleClass="simpleText" text="Username : " textFill="#ccdefc" />
     <Label fx:id="currentNickname" layoutX="144.0" layoutY="642.0" prefHeight="20.0" prefWidth="176.0" styleClass="simpleText" text="Nickname : " textFill="#ccdefc" />

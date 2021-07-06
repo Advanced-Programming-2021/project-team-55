@@ -1,5 +1,6 @@
 package yugioh.controller.gamephasescontrollers;
 
+import javafx.scene.shape.Rectangle;
 import yugioh.controller.menucontroller.DetermineStarterMenuController;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.CoinDice;
@@ -241,7 +242,6 @@ public class GameController {
         CardActionsMenu.close();
         mainPhase1Controller.showGameBoard(currentTurnPlayer,
                 currentTurnOpponentPlayer);
-
 
     }
 

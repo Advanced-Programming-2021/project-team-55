@@ -169,19 +169,28 @@ public class BattlePhaseController {
             response = "your opponent’s monster is destroyed and your opponent receives "
                     + calculateDamage(attackerCell, attackedCell) + " battle damage";
             YomiShip.handleEffect(gameController, attackerCell, attackedCell);
-            moveCardToGraveyard(attackedCell, GameMenuController.getGameMenuController().rivalGraveyard, gameController.currentTurnOpponentPlayer);
+            Rectangle graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
+            if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().userGraveyard;
+            moveCardToGraveyard(attackedCell, graveyard, gameController.currentTurnOpponentPlayer);
             attackedCell.removeCardFromCell(opponentGameBoard);
         } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
             response = "both you and your opponent monster cards are destroyed and no one receives damage";
-            moveCardToGraveyard(attackedCell, GameMenuController.getGameMenuController().rivalGraveyard, gameController.currentTurnOpponentPlayer);
-            moveCardToGraveyard(attackerCell, GameMenuController.getGameMenuController().userGraveyard, gameController.currentTurnPlayer);
+            if (CardActionsMenu.isBoardInverse()) {
+                moveCardToGraveyard(attackedCell, GameMenuController.getGameMenuController().userGraveyard, gameController.currentTurnOpponentPlayer);
+                moveCardToGraveyard(attackerCell, GameMenuController.getGameMenuController().rivalGraveyard, gameController.currentTurnPlayer);
+            }else {
+                moveCardToGraveyard(attackedCell, GameMenuController.getGameMenuController().rivalGraveyard, gameController.currentTurnOpponentPlayer);
+                moveCardToGraveyard(attackerCell, GameMenuController.getGameMenuController().userGraveyard, gameController.currentTurnPlayer);
+            }
             attackerCell.removeCardFromCell(playerGameBoard);
             attackedCell.removeCardFromCell(opponentGameBoard);
         } else {
             decreasePlayersDamage(attackerCell, attackedCell);
             response = "Your monster card is destroyed and you received " +
                     calculateDamage(attackerCell, attackedCell) + " battle damage";
-            moveCardToGraveyard(attackerCell, GameMenuController.getGameMenuController().userGraveyard, gameController.currentTurnPlayer);
+            Rectangle graveyard = GameMenuController.getGameMenuController().userGraveyard;
+            if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
+            moveCardToGraveyard(attackerCell, graveyard, gameController.currentTurnPlayer);
             attackerCell.removeCardFromCell(playerGameBoard);
         }
         gameController.getAttackerCellsThisTurn().add(attackerCell);
