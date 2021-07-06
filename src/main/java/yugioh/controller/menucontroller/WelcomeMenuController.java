@@ -5,6 +5,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import yugioh.view.SoundPlayable;
 
 import java.io.File;
 
@@ -30,7 +31,7 @@ public class WelcomeMenuController extends MenuController {
     }
 
     public void enterRegisterMenuClicked(MouseEvent mouseEvent) {
-        playButtonSound("enterButton");
+        SoundPlayable.playButtonSound("enterButton");
         try {
             registerMenu.execute();
         } catch (Exception e) {
@@ -39,7 +40,7 @@ public class WelcomeMenuController extends MenuController {
     }
 
     public void enterLoginMenuClicked(MouseEvent mouseEvent) {
-        playButtonSound("enterButton");
+        SoundPlayable.playButtonSound("enterButton");
         try {
             loginMenu.execute();
         } catch (Exception e) {
@@ -48,7 +49,7 @@ public class WelcomeMenuController extends MenuController {
     }
 
     public void exitClicked(MouseEvent mouseEvent) {
-        playButtonSound("backButton");
+        SoundPlayable.playButtonSound("backButton");
         System.exit(0);
     }
 

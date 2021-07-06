@@ -4,12 +4,15 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import yugioh.controller.gamephasescontrollers.GameController;
+import yugioh.view.SoundPlayable;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.menus.DetermineStarterMenu;
 import yugioh.view.menus.Toast;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static yugioh.view.SoundPlayable.playButtonSound;
 
 public class DetermineStarterMenuController implements Initializable {
 
@@ -62,23 +65,27 @@ public class DetermineStarterMenuController implements Initializable {
     }
 
     public void back() throws Exception {
+        playButtonSound("backButton");
 //        new DuelMenu().execute();
         DetermineStarterMenu.getStage().close();
     }
 
     public void headClicked() {
+        playButtonSound("enterButton");
         head.setDisable(true);
         tale.setDisable(true);
         assignTurn("1");
     }
 
     public void taleClicked() {
+        playButtonSound("enterButton");
         head.setDisable(true);
         tale.setDisable(true);
         assignTurn("2");
     }
 
     public void noClicked() {
+        playButtonSound("backButton");
         String currentPlayerName = gameController.getGame().getFirstPlayer().getUser().getNickname();
         String opponentPlayerName = gameController.getGame().getSecondPlayer().getUser().getNickname();
         if (yesNoQuestion.getText().startsWith(currentPlayerName)) {
@@ -93,6 +100,7 @@ public class DetermineStarterMenuController implements Initializable {
     }
 
     public void yesClicked() {
+        playButtonSound("enterButton");
         String currentPlayerName = gameController.getGame().getFirstPlayer().getUser().getNickname();
         String opponentPlayerName = gameController.getGame().getSecondPlayer().getUser().getNickname();
         if (yesNoQuestion.getText().startsWith(currentPlayerName)) {

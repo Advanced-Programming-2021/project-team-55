@@ -6,6 +6,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import yugioh.model.User;
+import yugioh.view.SoundPlayable;
 
 import java.io.File;
 
@@ -32,37 +33,37 @@ public class MainMenuController extends MenuController {
     }
 
     public void enterDuelMenuClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound("enterButton");
+        SoundPlayable.playButtonSound("enterButton");
         duelMenu.execute();
     }
 
     public void enterDeckMenuClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound("enterButton");
+        SoundPlayable.playButtonSound("enterButton");
         deckMenu.execute();
     }
 
     public void enterScoreBoardMenuClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound("enterButton");
+        SoundPlayable.playButtonSound("enterButton");
         scoreBoardMenu.execute();
     }
 
     public void enterProfileMenuClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound("enterButton");
+        SoundPlayable.playButtonSound("enterButton");
         profileMenu.execute();
     }
 
     public void enterShopMenuClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound("enterButton");
+        SoundPlayable.playButtonSound("enterButton");
         shopMenu.execute();
     }
 
     public void enterImportExportClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound("enterButton");
+        SoundPlayable.playButtonSound("enterButton");
         importExportMenu.execute();
     }
 
     public void logoutClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound("backButton");
+        SoundPlayable.playButtonSound("backButton");
         logout();
     }
 

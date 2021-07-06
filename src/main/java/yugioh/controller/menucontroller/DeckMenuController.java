@@ -16,6 +16,7 @@ import yugioh.model.cards.Deck;
 import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.Responses;
+import yugioh.view.SoundPlayable;
 import yugioh.view.menus.DeckMenu;
 import yugioh.view.menus.EditDeckMenu;
 import yugioh.view.menus.PopUpWindow;
@@ -185,7 +186,7 @@ public class DeckMenuController extends MenuController implements Initializable 
     }
 
     public void backClicked() throws Exception {
-        playButtonSound("backButton");
+        SoundPlayable.playButtonSound("backButton");
         mainMenu.execute();
     }
 
@@ -249,6 +250,7 @@ public class DeckMenuController extends MenuController implements Initializable 
     }
 
     public void deleteDeckClicked() {
+        SoundPlayable.playButtonSound("backButton");
         Deck deck = (Deck) selectedMenuItem.getUserData();
         User.loggedInUser.removeDeck(deck);
         deckPane.getChildren().clear();
@@ -259,6 +261,7 @@ public class DeckMenuController extends MenuController implements Initializable 
     }
 
     public void editDeckClicked() throws Exception {
+        SoundPlayable.playButtonSound("enterButton");
         if (selectedMenuItem == null || selectedMenuItem.getUserData() == null) {
             new PopUpWindow("Error: select a Deck from menu bar first!").start(DeckMenu.stage);
             return;
@@ -268,10 +271,12 @@ public class DeckMenuController extends MenuController implements Initializable 
     }
 
     public void newDeckClicked() throws Exception {
+        SoundPlayable.playButtonSound("enterButton");
         selectDeckNamePage.execute();
     }
 
     public void activateDeckClicked() {
+        SoundPlayable.playButtonSound("enterButton");
         Deck deck = (Deck) selectedMenuItem.getUserData();
         selectedMenuItem.setText(selectedMenuItem.getText() + " (Active deck)");
         decksBox.setText(decksBox.getText() + " (Active deck)");

@@ -6,7 +6,7 @@ import javafx.scene.media.Media;
 import java.io.File;
 
 public interface SoundPlayable {
-    default void playButtonSound(String music) {
+    static void playButtonSound(String music) {
         if (music.equals("enterButton"))
             new AudioClip(new Media(new File("src\\resources\\yugioh\\Audio\\goButton.wav").toURI().toString()).getSource()).play();
         else if (music.equals("backButton"))

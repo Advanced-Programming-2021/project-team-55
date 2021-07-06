@@ -16,12 +16,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
+import yugioh.view.SoundPlayable;
 import yugioh.view.menus.DeckMenu;
 import yugioh.view.menus.EditDeckMenu;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import static yugioh.view.SoundPlayable.playButtonSound;
 
 
 public class EditDeckMenuController implements Initializable {//todo debug
@@ -40,6 +43,7 @@ public class EditDeckMenuController implements Initializable {//todo debug
     private ArrayList<Card> inventoryCards;
 
     public void back() throws Exception {
+        playButtonSound("backButton");
         new DeckMenu().execute();
     }
 
@@ -124,6 +128,7 @@ public class EditDeckMenuController implements Initializable {//todo debug
     }
 
     public void moveToOrFormMainDeck() {
+        playButtonSound("enterButton");//todo proper sound
         if (toAndFromMainDeck.getText().equals(">")) {
             EditDeckMenu.getDeck().getMainDeck().remove(selectedCard);
             inventoryCards.add(selectedCard);
@@ -136,6 +141,7 @@ public class EditDeckMenuController implements Initializable {//todo debug
     }
 
     public void moveToOrFormSideDeck() {
+        playButtonSound("enterButton");//todo proper sound
         if (toAndFromSideDeck.getText().equals(">")) {
             EditDeckMenu.getDeck().getSideDeck().remove(selectedCard);
             inventoryCards.add(selectedCard);

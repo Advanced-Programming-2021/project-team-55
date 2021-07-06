@@ -7,6 +7,7 @@ import yugioh.model.board.Game;
 import yugioh.model.cards.Deck;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.Responses;
+import yugioh.view.SoundPlayable;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.menus.RivalSelectionMenu;
 
@@ -54,6 +55,7 @@ public class DuelMenuController extends MenuController {
     }
 
     public GameController newAIDuel(int rounds) throws Exception {
+        SoundPlayable.playButtonSound("enterButton");
         if (rounds != 1 && rounds != 3) {
             throw new MenuException(Responses.NUMBER_OF_ROUNDS_NOT_SUPPORTED.response);
         } else {
@@ -98,12 +100,13 @@ public class DuelMenuController extends MenuController {
 
 
     public void backClicked() throws Exception {
-        playButtonSound("backButton");
+        SoundPlayable.playButtonSound("backButton");
         mainMenu.execute();
     }
 
     public void newPVPDuel() {
         try {
+            SoundPlayable.playButtonSound("enterButton");
             new RivalSelectionMenu().execute();
             if (RivalSelectionMenu.isDoCancel()) return;
             Duel.runGame(newPVPDuel(RivalSelectionMenu.getRival().getUsername(), RivalSelectionMenu.getRounds()));

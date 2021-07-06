@@ -26,6 +26,7 @@ import yugioh.model.cards.Monster;
 import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.cards.monsters.*;
 import yugioh.model.cards.trapandspells.*;
+import yugioh.view.SoundPlayable;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.WelcomeMenu;
 
@@ -202,12 +203,12 @@ public class DataBaseController extends MenuController {
     }
 
     public void backClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound("backButton");
+        SoundPlayable.playButtonSound("backButton");
         mainMenu.execute();
     }
 
     public void importCard(MouseEvent mouseEvent) {
-        playButtonSound("enterButton");
+        SoundPlayable.playButtonSound("enterButton");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("select a card");
         FileChooser.ExtensionFilter extFilter =
@@ -316,12 +317,12 @@ public class DataBaseController extends MenuController {
     }
 
     public void exportClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound("enterButton");
+        SoundPlayable.playButtonSound("enterButton");
         openExportPage();
     }
 
     public void exportCard() throws Exception {
-        playButtonSound("enterButton");
+        SoundPlayable.playButtonSound("enterButton");
         if (selectedImage == null && previousImage == null) {
             openExportPage();
             new PopUpWindow("Error: no cards selected").start(WelcomeMenu.stage);
@@ -342,7 +343,7 @@ public class DataBaseController extends MenuController {
     }
 
     public void backToImportClicked() throws Exception {
-        playButtonSound("backButton");
+        SoundPlayable.playButtonSound("backButton");
         exportStage.close();
         importExportMenu.execute();
     }

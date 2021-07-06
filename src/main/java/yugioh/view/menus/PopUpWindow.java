@@ -13,6 +13,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import static yugioh.view.SoundPlayable.playButtonSound;
+
 public class PopUpWindow extends Application {
     private final String response;
     private final boolean isError;
@@ -20,6 +22,7 @@ public class PopUpWindow extends Application {
     private final EventHandler okButtonHandler = new EventHandler() {
         @Override
         public void handle(Event event) {
+            playButtonSound("backButton");
             popUp.close();
         }
     };
