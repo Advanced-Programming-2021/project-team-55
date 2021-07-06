@@ -23,7 +23,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
@@ -326,7 +325,10 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void showGraveyardForUser() {
-        new Graveyard().execute(Duel.getGameController().getCurrentTurnPlayer().getGameBoard().getGraveyard());
+        if (CardActionsMenu.isBoardInverse())
+            new Graveyard().execute(Duel.getGameController().getCurrentTurnOpponentPlayer().getGameBoard().getGraveyard());
+        else
+            new Graveyard().execute(Duel.getGameController().getCurrentTurnPlayer().getGameBoard().getGraveyard());
     }
 
     public void closeGraveyard() {
@@ -334,7 +336,10 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void showGraveyardForOpponent() {
-        new Graveyard().execute(Duel.getGameController().getCurrentTurnOpponentPlayer().getGameBoard().getGraveyard());
+        if (CardActionsMenu.isBoardInverse())
+            new Graveyard().execute(Duel.getGameController().getCurrentTurnPlayer().getGameBoard().getGraveyard());
+        else
+            new Graveyard().execute(Duel.getGameController().getCurrentTurnOpponentPlayer().getGameBoard().getGraveyard());
     }
 
     public void focusOpacityOnPhase(GamePhase gamePhase) {

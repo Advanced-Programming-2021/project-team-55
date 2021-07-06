@@ -105,6 +105,7 @@ public class Cell {
         MagnumShield.deActivateEffect(this);
         if (Cell.getSelectedCell() == this) selectedCell = null;
         gameBoard.addCardToGraveyard(this.card);
+        Duel.getGameController().currentTurnPlayer.getGameBoard().setFadeTransition(cellRectangle, 1, 0);
         cellRectangle.setFill(null);
         cellRectangle.setStrokeWidth(0);
         cellInfo.setText("");

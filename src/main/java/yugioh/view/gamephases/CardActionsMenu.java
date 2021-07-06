@@ -205,10 +205,10 @@ public class CardActionsMenu implements MainPhasesController {
                     try {
                         GameMenuController.getGameMenuController().selectCard(rectangle);
                         String result = Duel.getGameController().getBattlePhaseController().attack(finalI);
-                        new PopUpWindow(result).start(WelcomeMenu.getStage());
+                        System.out.println(result);
                     } catch (Exception e) {
                         try {
-                            new PopUpWindow(e.getMessage()).start(WelcomeMenu.getStage());
+                            System.out.println(e.getMessage());
                         } catch (Exception ignored) {
                         }
                     }
