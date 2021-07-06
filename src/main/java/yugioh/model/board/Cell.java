@@ -4,6 +4,7 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
 import yugioh.model.cards.monsters.CommandKnight;
@@ -103,6 +104,7 @@ public class Cell {
         MagnumShield.deActivateEffect(this);
         if (Cell.getSelectedCell() == this) selectedCell = null;
         gameBoard.addCardToGraveyard(this.card);
+        GameMenuController.getGameMenuController().gameBoardPane.getChildren().remove(cellRectangle);
         this.card = null;
         this.cardStatus = null;
         Duel.getGameController().changedPositionCells.remove(this);

@@ -1,5 +1,6 @@
 package yugioh.model;
 
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.board.GameBoard;
 import yugioh.model.cards.Deck;
 
@@ -36,6 +37,12 @@ public class Player {
 
     public void decreaseLP(int amount) {
         setLP(this.getLP() - amount);
+        updateLP();
+    }
+
+    private void updateLP() {
+        GameMenuController.getGameMenuController().rivalLP.setText(getLP() + "");
+        GameMenuController.getGameMenuController().rivalLPBar.setProgress((double) getLP() / 8000);
     }
 
     public void increaseLP(int amount) {

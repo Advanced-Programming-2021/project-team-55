@@ -1,5 +1,6 @@
 package yugioh.controller.gamephasescontrollers;
 
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.Player;
 import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
@@ -180,10 +181,12 @@ public class BattlePhaseController {
     }
 
     private void decreasePlayersDamage(Cell attackerCell, Cell attackedCell) {
-        if (isAttackerStronger(attackerCell, attackedCell))
+        if (isAttackerStronger(attackerCell, attackedCell)) {
             (gameController.getCurrentTurnOpponentPlayer()).decreaseLP(calculateDamage(attackerCell, attackedCell));
-        else
+        }
+        else {
             (gameController.getCurrentTurnPlayer()).decreaseLP(calculateDamage(attackerCell, attackedCell));
+        }
     }
 
     public boolean isAttackerStronger(Cell attackerCell, Cell attackedCell) {

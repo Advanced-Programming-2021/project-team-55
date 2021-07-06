@@ -303,6 +303,7 @@ public class GameBoard {
 
     public void addCardToGraveyard(Card card) {
         graveyard.add(new Cell(card));
+        //todo add card rectangle
     }
 
     public void addCardToSpellAndTrapCardZone(Card card, CardStatus cardStatus, GameController gameController) throws GameException {
