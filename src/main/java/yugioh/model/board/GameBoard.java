@@ -217,7 +217,6 @@ public class GameBoard {
                     setFlipTransition(card, rectangle, true);
                     setFlipZTransition(rectangle, true);
                 } else CardActionsMenu.makeSwordEventForSummonedMonsters(rectangle);
-
                 for (double j = 0; j <= 1; j += 0.05) {
                     rectangle.opacityProperty().set(j);
                 }

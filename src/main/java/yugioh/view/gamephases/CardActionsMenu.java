@@ -16,6 +16,7 @@ import javafx.stage.StageStyle;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.gamephasescontrollers.MainPhasesController;
 import yugioh.controller.menucontroller.GameMenuController;
+import yugioh.model.Player;
 import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
 import yugioh.model.exceptions.GameException;
@@ -32,8 +33,8 @@ public class CardActionsMenu implements MainPhasesController {
     private static Rectangle imageRectangle;
     private static ArrayList<String> handMonsterActions = new ArrayList<>();
     private static ArrayList<String> handSpellAndTrapActions = new ArrayList<>();
-    private static ArrayList<String> boardMonsterActions=new ArrayList<>();
-    private static ArrayList<String> boardSpellAndTrapActions=new ArrayList<>();
+    private static ArrayList<String> boardMonsterActions = new ArrayList<>();
+    private static ArrayList<String> boardSpellAndTrapActions = new ArrayList<>();
 
     private static ArrayList<String> thisActions = new ArrayList<>();
     private static Pane gamePane;
@@ -42,7 +43,7 @@ public class CardActionsMenu implements MainPhasesController {
 
     private static double lastMousePositionX = 0;
     private static double lastMousePositionY = 0;
-    
+
 
     static {
         actionsStage.initOwner(WelcomeMenu.stage);
@@ -70,7 +71,7 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static void start() throws Exception {
-        Cell selectedCell=Cell.getSelectedCell();
+        Cell selectedCell = Cell.getSelectedCell();
         if (gameController.currentTurnPlayer.getGameBoard().isCellInHandZone(selectedCell)) {
             if (gameController.currentPhase.equals(GamePhase.MAIN1) || gameController.currentPhase.equals(GamePhase.MAIN2)) {
                 openMainPhaseActions();
@@ -91,10 +92,9 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     private static void openMainPhaseActionsForCardsInBoard() {
-        if (Cell.getSelectedCell().getCellCard().isMonster()){
+        if (Cell.getSelectedCell().getCellCard().isMonster()) {
             thisActions = boardMonsterActions;
-        }
-        else {
+        } else {
             thisActions = boardSpellAndTrapActions;
         }
         actionButton = new Button();
@@ -107,20 +107,18 @@ public class CardActionsMenu implements MainPhasesController {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 if (t1.equals("flip summon")) {
-                    Cell selectedCell=Cell.getSelectedCell();
-                    if (selectedCell.getCardStatus() != CardStatus.DEFENSIVE_HIDDEN){
+                    Cell selectedCell = Cell.getSelectedCell();
+                    if (selectedCell.getCardStatus() != CardStatus.DEFENSIVE_HIDDEN) {
                         change();
-                    }
-                        else if( gameController.getChangedPositionCells().contains(selectedCell)) {
+                    } else if (gameController.getChangedPositionCells().contains(selectedCell)) {
                         actionButton.setDisable(true);
                     } else {
                         actionButton.setDisable(false);
                     }
                 } else if (t1.equals("change position")) {
-                    if(Cell.getSelectedCell().getCardStatus()==CardStatus.DEFENSIVE_HIDDEN){
+                    if (Cell.getSelectedCell().getCardStatus() == CardStatus.DEFENSIVE_HIDDEN) {
                         change();
-                    }
-                    else if (gameController.changedPositionCells.contains(Cell.getSelectedCell())) {
+                    } else if (gameController.changedPositionCells.contains(Cell.getSelectedCell())) {
                         actionButton.setDisable(true);
                     } else {
                         actionButton.setDisable(false);
@@ -150,9 +148,9 @@ public class CardActionsMenu implements MainPhasesController {
 
     private static void handleChangePosition() {
         try {
-            if(Cell.getSelectedCell().getCardStatus()==CardStatus.DEFENSIVE_OCCUPIED)
-            new CardActionsMenu().setPosition("attack",gameController);
-            else new CardActionsMenu().setPosition("defense",gameController);
+            if (Cell.getSelectedCell().getCardStatus() == CardStatus.DEFENSIVE_OCCUPIED)
+                new CardActionsMenu().setPosition("attack", gameController);
+            else new CardActionsMenu().setPosition("defense", gameController);
         } catch (GameException e) {
             e.printStackTrace();
             //todo show an error box
@@ -171,7 +169,9 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static void makeSwordEventForSummonedMonsters(Rectangle rectangle) {
+        Player currentPlayer = Duel.getGameController().getCurrentTurnPlayer();
         rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            if (!currentPlayer.equals(Duel.getGameController().getCurrentTurnPlayer())) return;
             rectangle.requestFocus();
             ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
             GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
@@ -179,8 +179,8 @@ public class CardActionsMenu implements MainPhasesController {
             sword.setY(rectangle.getLayoutY() + 10);
             GameMenuController.getGameMenuController().gameBoardPane.addEventHandler(MouseEvent.MOUSE_MOVED, event2 -> {
                 double constant = 0;
-                if((gamePane.rotateProperty().get()%360)>179) constant = 180;
-                sword.setRotate(constant-(Math.toDegrees(Math.atan((event2.getSceneX() - 400 - rectangle.getLayoutX()) / (event2.getSceneY() - rectangle.getLayoutY())))));
+                if ((gamePane.rotateProperty().get() % 360) > 179) constant = 180;
+                sword.setRotate(constant - (Math.toDegrees(Math.atan((event2.getSceneX() - 400 - rectangle.getLayoutX()) / (event2.getSceneY() - rectangle.getLayoutY() - constant)))));
                 event2.consume();
             });
             event.consume();
@@ -242,12 +242,11 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static void openMainPhaseActions() {
-        if (Cell.getSelectedCell().getCellCard().isMonster()){
-                thisActions = handMonsterActions;
-        }
-        else {
-                thisActions = handSpellAndTrapActions;
-                
+        if (Cell.getSelectedCell().getCellCard().isMonster()) {
+            thisActions = handMonsterActions;
+        } else {
+            thisActions = handSpellAndTrapActions;
+
         }
         actionButton = new Button();
         actionButton.setMinWidth(70);
@@ -267,7 +266,7 @@ public class CardActionsMenu implements MainPhasesController {
                     }
                 } else if (t1.equals("summon")) {
                     if (gameController.doPlayerSetOrSummonedThisTurn() || gameController.currentTurnPlayer.getGameBoard().
-                            isMonsterZoneFull()||!new CardActionsMenu().isSummonable(Cell.getSelectedCell(),gameController)) {
+                            isMonsterZoneFull() || !new CardActionsMenu().isSummonable(Cell.getSelectedCell(), gameController)) {
                         actionButton.setDisable(true);
                     } else {
                         actionButton.setDisable(false);
