@@ -31,7 +31,7 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
     }
 
     public void backClicked() throws Exception {
-        playButtonSound();
+        playButtonSound("backButton");
         mainMenu.execute();
     }
 

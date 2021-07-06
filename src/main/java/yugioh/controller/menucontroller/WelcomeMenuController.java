@@ -30,7 +30,7 @@ public class WelcomeMenuController extends MenuController {
     }
 
     public void enterRegisterMenuClicked(MouseEvent mouseEvent) {
-        playButtonSound();
+        playButtonSound("enterButton");
         try {
             registerMenu.execute();
         } catch (Exception e) {
@@ -39,7 +39,7 @@ public class WelcomeMenuController extends MenuController {
     }
 
     public void enterLoginMenuClicked(MouseEvent mouseEvent) {
-        playButtonSound();
+        playButtonSound("enterButton");
         try {
             loginMenu.execute();
         } catch (Exception e) {
@@ -48,7 +48,7 @@ public class WelcomeMenuController extends MenuController {
     }
 
     public void exitClicked(MouseEvent mouseEvent) {
-        playButtonSound();
+        playButtonSound("backButton");
         System.exit(0);
     }
 
