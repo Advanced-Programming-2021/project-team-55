@@ -104,7 +104,7 @@ public class Cell {
         MagnumShield.deActivateEffect(this);
         if (Cell.getSelectedCell() == this) selectedCell = null;
         gameBoard.addCardToGraveyard(this.card);
-        GameMenuController.getGameMenuController().gameBoardPane.getChildren().remove(cellRectangle);
+        cellRectangle.setFill(null);
         this.card = null;
         this.cardStatus = null;
         Duel.getGameController().changedPositionCells.remove(this);

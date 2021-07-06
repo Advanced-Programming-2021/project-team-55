@@ -1,9 +1,7 @@
 package yugioh.model.board;
 
-import javafx.animation.Interpolator;
-import javafx.animation.RotateTransition;
-import javafx.animation.ScaleTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -391,6 +389,13 @@ public class GameBoard {
         trans.setFromY(constant * CardActionsMenu.getLastMousePositionY());
         rectangle.setFill(imagePattern);
         trans.play();
+    }
+
+    public void setFadeTransition(Node node, double fromValue, double toValue) {
+        FadeTransition ft = new FadeTransition(Duration.millis(2000), node);
+        ft.setFromValue(fromValue);
+        ft.setToValue(toValue);
+        ft.play();
     }
 
     public void addCardsToHandDeck(int countCard, boolean isToCurrentPlayer) {

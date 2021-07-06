@@ -23,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
@@ -85,6 +86,8 @@ public class GameMenuController extends MenuController implements Initializable 
     public ImageView background;
     public ImageView settingImage;
     public ImageView chatImage;
+    public Rectangle userGraveyard;
+    public Rectangle rivalGraveyard;
     private Stage pauseStage;
 
     public static GameMenuController getGameMenuController() {
