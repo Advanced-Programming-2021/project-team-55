@@ -26,7 +26,7 @@ public class RegisterMenuController extends MenuController implements Initializa
     boolean nicknameFieldIsFilled = false;
 
     public void RegisterClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound();
+        playButtonSound("enterButton");
         String username = usernameField.getText();
         String nickname = nicknameField.getText();
         String password = passwordField.getText();
@@ -59,7 +59,7 @@ public class RegisterMenuController extends MenuController implements Initializa
     }
 
     public void backClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound();
+        playButtonSound("backButton");
         welcomeMenu.execute();
     }
 

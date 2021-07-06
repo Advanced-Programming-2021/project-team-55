@@ -53,7 +53,7 @@ public class LoginMenuController extends MenuController implements Initializable
     }
 
     public void loginClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound();
+        playButtonSound("enterButton");
         String username = usernameField.getText();
         String password = passwordField.getText();
         if (username.equals("") || password.equals("")) {
@@ -73,7 +73,7 @@ public class LoginMenuController extends MenuController implements Initializable
     }
 
     public void backClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound();
+        playButtonSound("backButton");
         welcomeMenu.execute();
     }
 

@@ -60,13 +60,13 @@ public class ProfileMenuController extends MenuController implements Initializab
 
 
     public void backClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound();
+        playButtonSound("backButton");
         User.loggedInUser.setNickname(nicknameField.getText());
         mainMenu.execute();
     }
 
     public void changePasswordClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound();
+        playButtonSound("enterButton");
         if (oldPasswordField.getText().equals("") || newPasswordField.getText().equals("")) {
             new PopUpWindow(Responses.FILL_ALL_FIELDS.response).start(WelcomeMenu.stage);
         } else {
@@ -120,7 +120,7 @@ public class ProfileMenuController extends MenuController implements Initializab
     }
 
     public void changeImageClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound();
+        playButtonSound("enterButton");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select an image");
         FileChooser.ExtensionFilter extFilter =
