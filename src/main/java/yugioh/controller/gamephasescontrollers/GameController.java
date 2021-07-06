@@ -188,6 +188,7 @@ public class GameController {
 
     public void changePhase() {
 //        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
+        CardActionsMenu.close();
         switch (currentPhase) {
             case DRAW: {
                 currentPhase = GamePhase.STANDBY;
@@ -246,7 +247,7 @@ public class GameController {
 
     public void activateTrapEffect(ArrayList<SpellAndTrap> trapsCanBeActivated) {
         while (true) {
-            ViewInterface.showResult("do you want to activate your trap and spell? yes/no");
+            ViewInterface.showResult("do you want to activate your trap or spell? yes/no");
             String response = ViewInterface.getInput();
             if (response.equals("no")) {
                 break;

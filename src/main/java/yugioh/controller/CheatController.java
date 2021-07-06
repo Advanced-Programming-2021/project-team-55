@@ -51,7 +51,7 @@ public class CheatController implements Initializable {
         if (card == null) {
             throw new GameException(Responses.NO_CARD_EXISTS.response);
         } else {
-            gameController.currentTurnPlayer.getGameBoard().addCardToHandDeck(cardName);
+            gameController.currentTurnPlayer.getGameBoard().addCardToHandDeck(card,true);
             response += GameResponses.CHEAT_ACTIVATED_SELECT_FORCE + "\nnew card added to the hand : " + cardName;
         }
         return response;
@@ -62,7 +62,6 @@ public class CheatController implements Initializable {
         if (toBeAdded == null)
             throw new GameException(Responses.NO_CARD_EXISTS.response);
         Cell addedCell = gameController.getDrawPhaseController().addCardToHandDeck(gameController.getCurrentTurnPlayer(), toBeAdded);
-        Cell.setSelectedCell(addedCell);
         return "new card added to the hand and selected: " + cardName;
     }
 

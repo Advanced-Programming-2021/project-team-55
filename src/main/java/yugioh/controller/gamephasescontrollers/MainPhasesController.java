@@ -48,16 +48,21 @@ public interface MainPhasesController {
         gameController.setLastSummonedMonster(selectedCell);
         if (TheTricky.handleEffect(gameController, selectedCell)) return;
         if (GateGuardian.handleEffect(gameController)) return;
-        handleTributeForNormalSummon(currentPlayer, selectedCell, monsterLevel, false);
+        handleTribute(currentPlayer, gameController, monsterLevel, false,false);
+    }
+    default void continueMonsterSummon(GameController gameController) {
+        Cell selectedCell=Cell.getSelectedCell();
+        Player currentPlayer=gameController.currentTurnPlayer;
         TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
-        if (selectedCell.isEmpty()) {
-            System.out.println("erorororo");
-        }
         addMonstersToSummonEffectSpellAndTrap(selectedCell);
         activateTrapIfCanBeActivated(gameController, SummonTypes.NormalSummon);
-        currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED,
-                gameController);
+        try {
+            currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED,
+                    gameController);
+        } catch (GameException e) {
+            e.printStackTrace();
+        }
         currentPlayer.getGameBoard().removeCardFromHand(selectedCell);
         Cell.deselectCell();
     }
@@ -128,12 +133,33 @@ public interface MainPhasesController {
         SpecialSummonEffectSpellAndTrap.add(new TorrentialTribute());
         //todo add the rest of summon monsters thing
     }
+    default boolean hasEnoughTribute(Card card,Player currentPlayer,boolean isSpecialSummon){
 
-    private void handleTributeForNormalSummon(Player currentPlayer, Cell selectedCell, int monsterLevel, boolean isSpecialSummon) throws GameException {
+        int monsterLevel=((Monster)card).getLevel();
+        if (monsterLevel > 4 || isSpecialSummon) {
+            if (isSpecialSummon) {
+                if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 1)
+                    return false;
+            } else {
+                if (monsterLevel < 7) {
+                    if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 1)
+                        return false;
+                } else {
+                    if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 2)
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private void handleTribute(Player currentPlayer,GameController gameController, int monsterLevel, boolean isSpecialSummon,boolean isForSet) throws GameException {
         GameBoard playerGameBoard = currentPlayer.getGameBoard();
         if (monsterLevel > 4 || isSpecialSummon) {
             int numberOfTributes;
             if (isSpecialSummon) {
+                if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 1)
+                    throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
                 numberOfTributes = 1;
             } else {
                 if (monsterLevel < 7) {
@@ -146,7 +172,10 @@ public interface MainPhasesController {
                     numberOfTributes = 2;
                 }
             }
-            ArrayList<Cell> tributes = new ArrayList<>();
+           currentPlayer.getGameBoard().handleTribute(gameController,numberOfTributes,!isForSet);
+
+
+           /* ArrayList<Cell> tributes = new ArrayList<>();
             Cell newSelectedCell;
             for (int i = 0; i < numberOfTributes; i++) {
                 while (true) {
@@ -170,7 +199,8 @@ public interface MainPhasesController {
             Cell.setSelectedCell(selectedCell);
             for (Cell tribute : tributes) {
                 tribute.removeCardFromCell(playerGameBoard);
-            }
+            }*/
+
 //            for (int i=0;i<numberOfTributes;i++){
 //                ViewInterface.showResult("select cell to tribute:");
 //                Duel.processSelect(ViewInterface.getInput());
@@ -185,6 +215,12 @@ public interface MainPhasesController {
 //            }
 //
 //        }
+        }
+        else if(isForSet){
+            continueSetMonster(gameController);
+        }
+        else{
+            continueMonsterSummon(gameController);
         }
     }
 
@@ -204,10 +240,15 @@ public interface MainPhasesController {
                 if (gameController.doPlayerSetOrSummonedThisTurn()) {
                     throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
                 }
-                playerGameBoard.addCardToMonsterCardZone(selectedCard, CardStatus.DEFENSIVE_HIDDEN, gameController);
-                playerGameBoard.removeCardFromHand(selectedCell);
-                gameController.changedPositionCells.add(selectedCell);
-                gameController.setDidPlayerSetOrSummonThisTurn(true);
+                else if(!hasEnoughTribute(selectedCard,gameController.currentTurnPlayer,false)){
+                    throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
+                }
+                handleTribute(gameController.currentTurnPlayer,gameController,((Monster)selectedCard).getLevel(),false,true);
+
+//                playerGameBoard.addCardToMonsterCardZone(selectedCard, CardStatus.DEFENSIVE_HIDDEN, gameController);
+//                playerGameBoard.removeCardFromHand(selectedCell);
+//                gameController.changedPositionCells.add(selectedCell);
+//                gameController.setDidPlayerSetOrSummonThisTurn(true);
             } else {
                 playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard, CardStatus.HIDDEN, gameController);
                 playerGameBoard.removeCardFromHand(selectedCell);
@@ -216,6 +257,19 @@ public interface MainPhasesController {
             }
             Cell.deselectCell();
         }
+    }
+    default void continueSetMonster(GameController gameController){
+        GameBoard playerGameBoard=gameController.currentTurnPlayer.getGameBoard();
+        Cell selectedCell=Cell.getSelectedCell();
+        Card selectedCard=selectedCell.getCellCard();
+        try {
+            playerGameBoard.addCardToMonsterCardZone(selectedCard, CardStatus.DEFENSIVE_HIDDEN, gameController);
+        } catch (GameException e) {
+            e.printStackTrace();
+        }
+        playerGameBoard.removeCardFromHand(selectedCell);
+        gameController.changedPositionCells.add(selectedCell);
+        gameController.setDidPlayerSetOrSummonThisTurn(true);
     }
 
     default void setPosition(String position, GameController gameController) throws GameException {
@@ -337,7 +391,8 @@ public interface MainPhasesController {
                 continue;
             }
             int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
-            handleTributeForNormalSummon(currentPlayer, selectedCell, monsterLevel, true);
+            handleTribute(currentPlayer, gameController, monsterLevel, true,false);
+
             currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(),
                     CardStatus.OFFENSIVE_OCCUPIED, gameController);
             currentPlayer.getGameBoard().removeCardFromHand(selectedCell);

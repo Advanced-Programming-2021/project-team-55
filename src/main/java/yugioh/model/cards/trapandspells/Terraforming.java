@@ -23,7 +23,7 @@ public class Terraforming extends SpellAndTrap {
         for (Cell cell : playerGameBoard.getDeckZone()) {
             if (cell.getCellCard().isSpell() && ((SpellAndTrap) cell.getCellCard()).getAttribute() == SpellOrTrapAttribute.FIELD) {
                 fieldSpell = cell;
-                playerGameBoard.addCardToHandDeck(fieldSpell.getCellCard().getName());
+                playerGameBoard.addCardToHandDeck(fieldSpell.getCellCard(),false);
                 break;
             }
         }

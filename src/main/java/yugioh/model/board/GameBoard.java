@@ -4,12 +4,20 @@ import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.menucontroller.GameMenuController;
@@ -22,7 +30,10 @@ import yugioh.model.exceptions.GameException;
 import yugioh.view.gamephases.CardActionsMenu;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GameResponses;
+import yugioh.view.menus.WelcomeMenu;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -437,7 +448,21 @@ public class GameBoard {
         trans.play();
     }
 
-    public void addCardToHandDeck(String cardName) {
+    public void addCardToHandDeck(Card cardToAdd,boolean isForce) {
+        if(isForce){
+            Cell cell = new Cell(cardToAdd);
+            Rectangle rectangle = new Rectangle();
+            Duel.getGameController().getGameMenuController().addEventForCardImageRectangle(rectangle, cardToAdd);
+            rectangle.setWidth(90);
+            rectangle.setHeight(120);
+            rectangle.setFill(cardToAdd.getCardImagePattern());
+            cell.setCellRectangle(rectangle);
+            handDeck.getChildren().add(rectangle);
+            setTransitionForHandDeck(1, rectangle);
+            handCards.add(cell);
+            return;
+        }
+        String cardName=cardToAdd.getName();
         for (int i = 0; i < deckZone.size(); i++) {
             if (deckZone.get(i).getCellCard().getName().equals(cardName)) {
                 Card card = deckZone.get(i).getCellCard();
@@ -627,5 +652,37 @@ public class GameBoard {
             }
         }
         return true;
+    }
+    public void handleTribute(GameController gameController,int countTributes,boolean isSummon){
+        Stage tributeStage=new Stage();
+        tributeStage.initOwner(WelcomeMenu.stage);
+        tributeStage.initStyle(StageStyle.UNDECORATED);
+        tributeStage.initModality(Modality.NONE);
+        URL url=getClass().getResource("/yugioh/fxml/TributeMenu.fxml");
+        try {
+            Pane pane= FXMLLoader.load(url);
+            Scene scene=new Scene(pane);
+            tributeStage.setScene(scene);
+            Button yesButton =(Button)pane.getChildren().get(0);
+            Button noButton=(Button) pane.getChildren().get(1);
+            yesButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    tributeStage.close();
+                    gameController.getGameMenuController().shouldSelectTributesNow=true;
+                    gameController.getGameMenuController().neededTributes=countTributes;
+                    gameController.getGameMenuController().isTributeForSummon=isSummon;
+                }
+            });
+            noButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    tributeStage.close();
+                }
+            });
+            tributeStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

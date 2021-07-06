@@ -18,8 +18,7 @@ public class DrawPhaseController {
 
     public Cell addCardToHandDeck(Player player, Card toBeAdded) {
         Cell toBeAddedCell = new Cell(toBeAdded);
-        player.getGameBoard().getHandCards().add(toBeAddedCell);
-        player.getGameBoard().getDeckZone().remove(0);
+        player.getGameBoard().addCardToHandDeck(toBeAdded,true);
         return toBeAddedCell;
     }
 

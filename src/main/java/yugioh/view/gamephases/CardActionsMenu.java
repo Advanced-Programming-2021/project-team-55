@@ -5,11 +5,16 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -25,6 +30,8 @@ import java.util.ArrayList;
 
 public class CardActionsMenu implements MainPhasesController {
     private static Stage actionsStage = new Stage();
+    private static Stage errorStage=new Stage();
+
 
     private static double xImage;
     private static double yImage;
@@ -42,12 +49,18 @@ public class CardActionsMenu implements MainPhasesController {
 
     private static double lastMousePositionX = 0;
     private static double lastMousePositionY = 0;
+
+    private static int counter=0;
     
 
     static {
         actionsStage.initOwner(WelcomeMenu.stage);
         actionsStage.initModality(Modality.NONE);
         actionsStage.initStyle(StageStyle.UNDECORATED);
+
+        errorStage.initOwner(WelcomeMenu.stage);
+        errorStage.initModality(Modality.NONE);
+        errorStage.initStyle(StageStyle.UNDECORATED);
         {
             handMonsterActions.add("set");
             handMonsterActions.add("summon");
@@ -70,6 +83,7 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static void start() throws Exception {
+        counter=0;
         Cell selectedCell=Cell.getSelectedCell();
         if (gameController.currentTurnPlayer.getGameBoard().isCellInHandZone(selectedCell)) {
             if (gameController.currentPhase.equals(GamePhase.MAIN1) || gameController.currentPhase.equals(GamePhase.MAIN2)) {
@@ -188,8 +202,12 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static void close() {
+        counter=0;
         if (actionsStage != null)
             actionsStage.close();
+        if(errorStage!=null){
+            errorStage.close();
+        }
     }
 
     public static void setCoordinates(double x, double y) {
@@ -258,23 +276,73 @@ public class CardActionsMenu implements MainPhasesController {
         actionButton.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if (t1.equals("set")) {
-                    if (Cell.getSelectedCell().getCellCard().isMonster() && (gameController.doPlayerSetOrSummonedThisTurn()
-                            || gameController.currentTurnPlayer.getGameBoard().isMonsterZoneFull())) {
+                errorStage.setX(xImage-35);
+                errorStage.setY(yImage+25);
+                Label errorMessage=new Label();
+                errorMessage.setTextFill(Color.RED);
+                Scene scene=WelcomeMenu.createScene(errorMessage);
+                errorStage.setScene(scene);
+                if (t1.equals("set")||counter==0) {
+                    if (Cell.getSelectedCell().getCellCard().isMonster() && (gameController.doPlayerSetOrSummonedThisTurn())){
                         actionButton.setDisable(true);
-                    } else {
+                        errorMessage.setText("you have set/summoned once in this round!");
+                        errorStage.show();
+                    }
+                    else if(Cell.getSelectedCell().getCellCard().isMonster() && gameController.currentTurnPlayer.getGameBoard().isMonsterZoneFull()) {
+                        actionButton.setDisable(true);
+                        errorMessage.setText("monster zone is full!");
+                        errorStage.show();
+                    }
+                    else if(Cell.getSelectedCell().getCellCard().isMonster()&&
+                            !new CardActionsMenu().hasEnoughTribute(Cell.getSelectedCell().getCellCard(),gameController.currentTurnPlayer,
+                            false)){
+                        actionButton.setDisable(true);
+                        errorMessage.setText("you don't have enough tributes!");
+                        errorStage.show();
+                    }
+                    else if(Cell.getSelectedCell().getCellCard().isMonster()&&
+                            !new CardActionsMenu().isSummonable(Cell.getSelectedCell(),gameController)) {
+                        actionButton.setDisable(true);
+                        errorMessage.setText("you need the ritual spell to set/summon!");
+                        errorStage.show();
+                    }else {
                         actionButton.setDisable(false);
                     }
                 } else if (t1.equals("summon")) {
-                    if (gameController.doPlayerSetOrSummonedThisTurn() || gameController.currentTurnPlayer.getGameBoard().
-                            isMonsterZoneFull()||!new CardActionsMenu().isSummonable(Cell.getSelectedCell(),gameController)) {
+                    if (gameController.doPlayerSetOrSummonedThisTurn() ){
                         actionButton.setDisable(true);
-                    } else {
+                        errorMessage.setText("you have set/summoned once in this round!");
+                        errorStage.show();
+                    }else if( gameController.currentTurnPlayer.getGameBoard().
+                            isMonsterZoneFull()){
+                        actionButton.setDisable(true);
+                        errorMessage.setText("monster zone is full!");
+                        errorStage.show();
+                    }else if(!new CardActionsMenu().isSummonable(Cell.getSelectedCell(),gameController)) {
+                        actionButton.setDisable(true);
+                        errorMessage.setText("you need the ritual card to set/summon!");
+                        errorStage.show();
+                    }
+                    else if(!new CardActionsMenu().hasEnoughTribute(Cell.getSelectedCell().getCellCard(),gameController.currentTurnPlayer,
+                            false)){
+                        actionButton.setDisable(true);
+                        errorMessage.setText("you don't have enough tributes!");
+                        errorStage.show();
+                    }
+                    else {
                         actionButton.setDisable(false);
                     }
                 } else if (t1.equals("activate")) {
                     //todo: activate spell
                 }
+                actionButton.onMouseExitedProperty().set(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        if(errorStage.isShowing())
+                        errorStage.close();
+                    }
+                });
+            counter++;
             }
         });
         actionButton.setText(thisActions.get(0));
