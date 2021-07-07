@@ -25,6 +25,8 @@ public interface SoundPlayable {
             new AudioClip(new Media(new File("src\\resources\\yugioh\\Audio\\graveYard.mp3").toURI().toString()).getSource()).play();
         else if (music.equals("sword"))
             new AudioClip(new Media(new File("src\\resources\\yugioh\\Audio\\sword.mp3").toURI().toString()).getSource()).play();
+        else if (music.equals("forHonor"))
+            new AudioClip(new Media(new File("src\\resources\\yugioh\\Audio\\forHonor.mp3").toURI().toString()).getSource()).play();
 
     }
 }
