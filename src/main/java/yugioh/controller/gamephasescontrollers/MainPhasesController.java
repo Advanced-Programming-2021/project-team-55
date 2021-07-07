@@ -1,6 +1,9 @@
 package yugioh.controller.gamephasescontrollers;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.Player;
 import yugioh.model.board.CardStatus;
@@ -21,7 +24,7 @@ import yugioh.model.cards.trapandspells.TorrentialTribute;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.ConsoleColors;
 import yugioh.view.ViewInterface;
-import yugioh.view.gamephases.Duel;
+import yugioh.view.gamephases.CardActionsMenu;
 import yugioh.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
@@ -50,21 +53,28 @@ public interface MainPhasesController {
         if (GateGuardian.handleEffect(gameController)) return;
         handleTribute(currentPlayer, gameController, monsterLevel, false,false);
     }
-    default void continueMonsterSummon(GameController gameController) {
-        Cell selectedCell=Cell.getSelectedCell();
-        Player currentPlayer=gameController.currentTurnPlayer;
-        TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
-        gameController.setDidPlayerSetOrSummonThisTurn(true);
-        addMonstersToSummonEffectSpellAndTrap(selectedCell);
-        activateTrapIfCanBeActivated(gameController, SummonTypes.NormalSummon);
-        try {
-            currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED,
-                    gameController);
-        } catch (GameException e) {
-            e.printStackTrace();
-        }
-        currentPlayer.getGameBoard().removeCardFromHand(selectedCell);
-        Cell.deselectCell();
+
+    default void continueMonsterSummon(GameController gameController, boolean isNormalSummon) {
+        double length = 4;
+        if (isNormalSummon) length = 0.1;
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(length), event -> {
+            Cell.setSelectedCell(CardActionsMenu.getToBeSummonedCell());
+            Cell selectedCell= Cell.getSelectedCell();
+            Player currentPlayer=gameController.currentTurnPlayer;
+            TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
+            gameController.setDidPlayerSetOrSummonThisTurn(true);
+            addMonstersToSummonEffectSpellAndTrap(selectedCell);
+            activateTrapIfCanBeActivated(gameController, SummonTypes.NormalSummon);
+            try {
+                currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED,
+                        gameController);
+            } catch (GameException e) {
+                e.printStackTrace();
+            }
+            currentPlayer.getGameBoard().removeCardFromHand(selectedCell);
+            Cell.deselectCell();
+        }));
+        timeline.play();
     }
 
     default boolean isSummonedMonsterATKMoreThan1000(Cell summonedCell) {//todo check null pointer exception
@@ -220,7 +230,7 @@ public interface MainPhasesController {
             continueSetMonster(gameController);
         }
         else{
-            continueMonsterSummon(gameController);
+            continueMonsterSummon(gameController, true);
         }
     }
 

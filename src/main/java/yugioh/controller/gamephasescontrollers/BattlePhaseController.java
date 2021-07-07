@@ -21,6 +21,8 @@ import yugioh.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
 
+import static yugioh.view.SoundPlayable.playButtonSound;
+
 public class BattlePhaseController {
 
     private static final ArrayList<SpellAndTrap> attackEffectSpellAndTraps;
@@ -200,6 +202,7 @@ public class BattlePhaseController {
     }
 
     private void moveCardToGraveyard(Cell cell, Rectangle graveyard, Player player) {
+        playButtonSound("graveYard");
         graveyard.fillProperty().setValue(cell.getCellRectangle().getFill());
         player.getGameBoard().setFadeTransition(graveyard, 0, 1);
     }

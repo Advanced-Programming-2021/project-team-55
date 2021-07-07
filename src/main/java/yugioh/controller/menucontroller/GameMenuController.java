@@ -292,9 +292,9 @@ public class GameMenuController extends MenuController implements Initializable 
                         selectedCell.getCellRectangle().setEffect(null);
                         CardActionsMenu.close();
                     }
-                    if (selectedCell != null && (selectedCell.getCellCard().getCardImagePattern().equals
-                            (rectangleImage) || selectedCell.getCellCard().getCardBackImagePattern().equals
-                            (rectangleImage))) {
+                    if (selectedCell != null && selectedCell.getCellCard() != null &&
+                            (selectedCell.getCellCard().getCardImagePattern().equals(rectangleImage) ||
+                                    selectedCell.getCellCard().getCardBackImagePattern().equals(rectangleImage))) {
                         CardActionsMenu.close();
                         Cell.deselectCell();
                     } else if
@@ -322,25 +322,25 @@ public class GameMenuController extends MenuController implements Initializable 
                     event.consume();
                 }
             } else {
-                if (event.getButton() == MouseButton.PRIMARY) {
-                    Cell tributeCell = Cell.getSelectedCellByRectangle(rectangle);
+                if(event.getButton()==MouseButton.PRIMARY){
+                    Cell tributeCell=Cell.getSelectedCellByRectangle(rectangle);
                     tributeCells.add(tributeCell);
                     DropShadow tributeEffect = new DropShadow(BlurType.values()[1],
                             RED, 10, 2.0f, 0, 0);
                     tributeEffect.setBlurType(BlurType.ONE_PASS_BOX);
                     rectangle.setEffect(tributeEffect);
-                    if (neededTributes == tributeCells.size()) {
-                        for (Cell cell : tributeCells) {
+                    if(neededTributes==tributeCells.size()){
+                        for(Cell cell:tributeCells){
                             //todo : remove the monster and move it to the graveyard
                             //todo : call the method which moves the card to graveyard
                             cell.removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
                             gameController.currentTurnPlayer.getGameBoard().addCardToGraveyard(cell.getCellCard());
                         }
-                        if (isTributeForSummon)
-                            gameController.getMainPhase1Controller().continueMonsterSummon(gameController);
+                        if(isTributeForSummon)
+                            gameController.getMainPhase1Controller().continueMonsterSummon(gameController, false);
                         else gameController.getMainPhase1Controller().continueSetMonster(gameController);
-                        shouldSelectTributesNow = false;
-                        neededTributes = 0;
+                        shouldSelectTributesNow=false;
+                        neededTributes=0;
                     }
                 }
 //            if (event.getButton() == MouseButton.PRIMARY) {
@@ -411,7 +411,7 @@ public class GameMenuController extends MenuController implements Initializable 
 
     public void focusOpacityOnPhase(GamePhase gamePhase) {
         double length = 0.1;
-        if (gamePhase == GamePhase.DRAW) length = 3.5;
+        if (gamePhase == GamePhase.DRAW) length = 0.5;//todo make duration 3.5
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(length), event -> {
             dpLabel.setEffect(null);
             spLabel.setEffect(null);

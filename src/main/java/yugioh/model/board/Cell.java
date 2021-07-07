@@ -106,13 +106,22 @@ public class Cell {
         UnitedWeStand.deActivateEffect(this);
         Swordofdarkdestruction.deActivateEffect(this);
         MagnumShield.deActivateEffect(this);
-        if (Cell.getSelectedCell() == this) selectedCell = null;
         gameBoard.addCardToGraveyard(this.card);
-        Duel.getGameController().currentTurnPlayer.getGameBoard().setFadeTransition(cellRectangle, 1, 0);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> cellRectangle.setFill(null)));
+        Rectangle tempRectangle = new Rectangle();
+        tempRectangle.setLayoutX(cellRectangle.getLayoutX());
+        tempRectangle.setLayoutY(cellRectangle.getLayoutY());
+        tempRectangle.setWidth(cellRectangle.getWidth());
+        tempRectangle.setHeight(cellRectangle.getHeight());
+        tempRectangle.setFill(cellRectangle.getFill());
+        GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(tempRectangle);
+        Duel.getGameController().currentTurnPlayer.getGameBoard().setFadeTransition(tempRectangle, 1, 0);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2),
+                event -> GameMenuController.getGameMenuController().gameBoardPane.getChildren().remove(tempRectangle)));
         timeline.play();
+        if (Cell.getSelectedCell() == this) selectedCell = null;
         cellRectangle.setStrokeWidth(0);
         cellInfo.setText("");
+        cellRectangle.setFill(null);
         this.card = null;
         this.cardStatus = null;
         Duel.getGameController().changedPositionCells.remove(this);

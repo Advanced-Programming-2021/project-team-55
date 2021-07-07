@@ -22,7 +22,7 @@ public class StandByPhase extends Duel {
         String response = "";
         standByPhaseController.activateEffects();
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> gameController.changePhase()));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> gameController.changePhase()));//todo make duration 3.5
         timeline.play();
 
         return response;

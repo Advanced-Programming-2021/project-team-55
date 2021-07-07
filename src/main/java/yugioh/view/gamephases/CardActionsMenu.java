@@ -30,6 +30,8 @@ import yugioh.view.menus.WelcomeMenu;
 import java.io.File;
 import java.util.ArrayList;
 
+import static yugioh.view.SoundPlayable.playButtonSound;
+
 public class CardActionsMenu implements MainPhasesController {
     private static Stage actionsStage = new Stage();
     private static Stage errorStage=new Stage();
@@ -52,6 +54,27 @@ public class CardActionsMenu implements MainPhasesController {
     private static double lastMousePositionX = 0;
     private static double lastMousePositionY = 0;
 
+    private static Cell toBeSummonedCell;
+
+    public static Cell getToBeSummonedCell() {
+        return toBeSummonedCell;
+    }
+
+    public static void setToBeSummonedCell(Cell toBeSummonedCell) {
+        CardActionsMenu.toBeSummonedCell = toBeSummonedCell;
+    }
+
+    //    private static ImageView setImage=new ImageView(new Image(new File().toURI().toString()));
+//
+//    private static ImageView summonImage=new ImageView(new Image(new File().toURI().toString()));
+//
+//    private static ImageView attackImage=new ImageView(new Image(new File().toURI().toString()));
+//
+//    private static ImageView activateImage=new ImageView(new Image(new File().toURI().toString()));
+//
+//    private static ImageView flipSummon=new ImageView(new Image(new File().toURI().toString()));
+//
+//    private static ImageView changePosition=new ImageView(new Image(new File().toURI().toString()));
    private static ImageView setImageH=new ImageView(new Image(new File("src\\resources\\yugioh\\PNG\\icon\\SetH.png")
            .toURI().toString()));
 
@@ -127,6 +150,7 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     private static void openMainPhaseActionsForCardsInBoard() {
+        if (Cell.getSelectedCell() == null || Cell.getSelectedCell().getCellCard() == null) return;
         if (Cell.getSelectedCell().getCellCard().isMonster()){
             thisActions = boardMonsterActions;
         }
@@ -191,6 +215,7 @@ public class CardActionsMenu implements MainPhasesController {
 
     private static void handleChangePosition() {
         try {
+           playButtonSound("defence");
             if(Cell.getSelectedCell().getCardStatus()==CardStatus.DEFENSIVE_OCCUPIED)
             new CardActionsMenu().setPosition("attack",gameController);
             else new CardActionsMenu().setPosition("defense",gameController);
@@ -203,6 +228,7 @@ public class CardActionsMenu implements MainPhasesController {
 
     private static void handleFlipSummon() {
         try {
+            playButtonSound("summon");//todo better aud
             new CardActionsMenu().flipSummon(gameController);
         } catch (GameException e) {
             e.printStackTrace();
@@ -222,6 +248,7 @@ public class CardActionsMenu implements MainPhasesController {
             } else if (activeSword != null) {
                 removeSword();
             }
+            playButtonSound("sword");
             rectangle.requestFocus();
             ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
             GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
@@ -245,6 +272,7 @@ public class CardActionsMenu implements MainPhasesController {
                         if (gameController.currentPhase != GamePhase.BATTLE) return;
                         GameMenuController.getGameMenuController().selectCard(rectangle);
                         String result = Duel.getGameController().getBattlePhaseController().attack(finalI);
+                        playButtonSound("attack");
                         System.out.println(result);
                     } catch (Exception e) {
                         try {
@@ -296,6 +324,7 @@ public class CardActionsMenu implements MainPhasesController {
 
     public static void handleSet() {
         try {
+            playButtonSound("card");
             new CardActionsMenu().setCard(gameController);
         } catch (GameException e) {
             e.printStackTrace();
@@ -443,6 +472,7 @@ public class CardActionsMenu implements MainPhasesController {
 
     private static void handleSummon() {
         try {
+            playButtonSound("summon");
             new CardActionsMenu().monsterSummon(gameController);
         } catch (GameException e) {
             e.printStackTrace();
