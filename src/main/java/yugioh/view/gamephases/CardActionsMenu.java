@@ -9,8 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -53,17 +52,22 @@ public class CardActionsMenu implements MainPhasesController {
     private static double lastMousePositionX = 0;
     private static double lastMousePositionY = 0;
 
-//    private static ImageView setImage=new ImageView(new Image(new File().toURI().toString()));
-//
-//    private static ImageView summonImage=new ImageView(new Image(new File().toURI().toString()));
-//
-//    private static ImageView attackImage=new ImageView(new Image(new File().toURI().toString()));
-//
-//    private static ImageView activateImage=new ImageView(new Image(new File().toURI().toString()));
-//
-//    private static ImageView flipSummon=new ImageView(new Image(new File().toURI().toString()));
-//
-//    private static ImageView changePosition=new ImageView(new Image(new File().toURI().toString()));
+   private static ImageView setImageH=new ImageView(new Image(new File("src\\resources\\yugioh\\PNG\\icon\\SetH.png")
+           .toURI().toString()));
+
+   private static ImageView setImageV=new ImageView(new Image(new File("src\\resources\\yugioh\\PNG\\icon\\SetV.png").
+           toURI().toString()));
+
+   private static ImageView summonImage=new ImageView(new Image(new File("src\\resources\\yugioh\\PNG\\icon\\NormalSummon.png").
+           toURI().toString()));
+   private static ImageView attackImage=new ImageView(new Image(new File("src\\resources\\yugioh\\PNG\\icon\\Attack.png").
+           toURI().toString()));
+
+   private static ImageView activateImage=new ImageView(new Image(new File("src\\resources\\yugioh\\PNG\\icon\\Activate.png").toURI().toString()));
+
+   private static ImageView flipSummonImage=new ImageView(new Image(new File("src\\resources\\yugioh\\PNG\\icon\\Flip summon.png").toURI().toString()));
+
+   private static ImageView changePositionImage=new ImageView(new Image(new File("src\\resources\\yugioh\\PNG\\icon\\Change position.png").toURI().toString()));
 
     private static ImageView activeSword;
     private static Rectangle activeRectangle;
@@ -139,6 +143,7 @@ public class CardActionsMenu implements MainPhasesController {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 if (t1.equals("flip summon")) {
+                    actionButton.setGraphic(flipSummonImage);
                     Cell selectedCell=Cell.getSelectedCell();
                     if (selectedCell.getCardStatus() != CardStatus.DEFENSIVE_HIDDEN){
                         change();
@@ -152,12 +157,16 @@ public class CardActionsMenu implements MainPhasesController {
                     if(Cell.getSelectedCell().getCardStatus()==CardStatus.DEFENSIVE_HIDDEN){
                         change();
                     }
-                    else if (gameController.changedPositionCells.contains(Cell.getSelectedCell())) {
-                        actionButton.setDisable(true);
-                    } else {
-                        actionButton.setDisable(false);
+                    else{
+                        actionButton.setGraphic(changePositionImage);
+                        if (gameController.changedPositionCells.contains(Cell.getSelectedCell())) {
+                            actionButton.setDisable(true);
+                        } else {
+                            actionButton.setDisable(false);
+                        }
                     }
                 } else if (t1.equals("activate")) {
+                    actionButton.setGraphic(activateImage);
                     //todo: activate spell
                 }
             }
@@ -324,12 +333,10 @@ public class CardActionsMenu implements MainPhasesController {
                 
         }
         actionButton = new Button();
-        actionButton.setMinWidth(70);
-        //actionButton.setGraphic();
-        Pane pane = new Pane();
-        pane.getChildren().add(actionButton);
-        pane.setMaxWidth(70);
-        pane.setMaxHeight(30);
+        //actionButton.setStyle("-fx-background-image: url(\"src\\resources\\yugioh\\PNG\\SetH.png\");");
+//        actionButton.setStyle("-fx-background-color: #ff0000; ");
+        actionButton.setPrefWidth(setImageV.getFitWidth());
+        actionButton.setPrefHeight(setImageH.getFitHeight());
         actionButton.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -340,6 +347,12 @@ public class CardActionsMenu implements MainPhasesController {
                 Scene scene=WelcomeMenu.createScene(errorMessage);
                 errorStage.setScene(scene);
                 if (t1.equals("set")||counter==0) {
+                    if(Cell.getSelectedCell().getCellCard().isMonster()){
+                        actionButton.setGraphic(setImageH);
+                    }
+                    else{
+                        actionButton.setGraphic(setImageV);
+                    }
                     if (Cell.getSelectedCell().getCellCard().isMonster() && (gameController.doPlayerSetOrSummonedThisTurn())){
                         actionButton.setDisable(true);
                         errorMessage.setText("you have set/summoned once in this round!");
@@ -366,6 +379,7 @@ public class CardActionsMenu implements MainPhasesController {
                         actionButton.setDisable(false);
                     }
                 } else if (t1.equals("summon")) {
+                    actionButton.setGraphic(summonImage);
                     if (gameController.doPlayerSetOrSummonedThisTurn() ){
                         actionButton.setDisable(true);
                         errorMessage.setText("you have set/summoned once in this round!");
@@ -390,6 +404,7 @@ public class CardActionsMenu implements MainPhasesController {
                         actionButton.setDisable(false);
                     }
                 } else if (t1.equals("activate")) {
+                    actionButton.setGraphic(activateImage);
                     //todo: activate spell
                 }
                 actionButton.onMouseExitedProperty().set(new EventHandler<MouseEvent>() {
@@ -413,6 +428,12 @@ public class CardActionsMenu implements MainPhasesController {
                 }
             }
         });
+        Pane pane = new Pane();
+        pane.getChildren().add(actionButton);
+//        pane.setPrefWidth(actionButton.getWidth());
+//        pane.setPrefHeight(actionButton.getHeight());
+        pane.setPrefHeight(actionButton.getHeight());
+        pane.setPrefWidth(actionButton.getWidth());
         Scene scene = WelcomeMenu.createScene(pane);
         actionsStage.setX(xImage);
         actionsStage.setY(yImage);
