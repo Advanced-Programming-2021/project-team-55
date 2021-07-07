@@ -1,6 +1,9 @@
 package yugioh.controller.gamephasescontrollers;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.Player;
 import yugioh.model.board.CardStatus;
@@ -101,7 +104,8 @@ public class BattlePhaseController {
                 if (response.equals(""))
                     response = attackToDefensiveHiddenCell(attackerCell, attackedCell, opponentGameBoard);
             }
-            CardActionsMenu.removeSword();
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> CardActionsMenu.removeSword()));
+            timeline.play();
         }
         setAttacker(null);
         Cell.deselectCell();

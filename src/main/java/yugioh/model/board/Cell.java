@@ -1,14 +1,9 @@
 package yugioh.model.board;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
-import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
 import yugioh.model.cards.monsters.CommandKnight;
@@ -23,8 +18,8 @@ import java.util.ArrayList;
 
 public class Cell {
 
-    private static Cell selectedCell;
     private static final ArrayList<Cell> allCells = new ArrayList<>();
+    private static Cell selectedCell;
     public CardStatus cardStatus;
     private Card card;
     private double xPosition;
@@ -124,10 +119,10 @@ public class Cell {
 //       Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2),
 //               event -> GameMenuController.getGameMenuController().gameBoardPane.getChildren().remove(tempRectangle)));
 //       timeline.play();
-//        if (Cell.getSelectedCell() == this) selectedCell = null;
-//        cellRectangle.setStrokeWidth(0);
-//        cellInfo.setText("");
-//        cellRectangle.setFill(null);
+        if (Cell.getSelectedCell() == this) selectedCell = null;
+        cellRectangle.setStrokeWidth(0);
+        cellInfo.setText("");
+        cellRectangle.setFill(null);
 
         this.card = null;
         this.cardStatus = null;
@@ -156,7 +151,8 @@ public class Cell {
         this.cardStatus = cardStatus;
         CommandKnight.deActivateEffect(this);
     }
-    public void changeCardStatus(CardStatus cardStatus,Rectangle rectangle){
+
+    public void changeCardStatus(CardStatus cardStatus, Rectangle rectangle) {
 
     }
 
