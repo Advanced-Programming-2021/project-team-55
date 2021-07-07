@@ -409,10 +409,6 @@ public class GameBoard {
 
     public void setTranslationAnimation(ImageView imageView, Rectangle rectangle) {
         TranslateTransition trans = new TranslateTransition(Duration.seconds(2), imageView);
-        System.out.println(imageView.getX());
-        System.out.println(imageView.getY());
-        System.out.println(rectangle.getLayoutX());
-        System.out.println(rectangle.getLayoutY());
         trans.setByX(rectangle.getLayoutX() - imageView.getX());
         trans.setByY(rectangle.getLayoutY() - imageView.getY());
         trans.play();

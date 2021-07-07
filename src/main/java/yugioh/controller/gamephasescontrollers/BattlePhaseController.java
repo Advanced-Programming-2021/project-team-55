@@ -262,6 +262,8 @@ public class BattlePhaseController {
         gameController.getCurrentTurnOpponentPlayer().decreaseLP(attackerMonster.getAtk());
         gameController.getAttackerCellsThisTurn().add(selectedCell);
         Cell.deselectCell();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> CardActionsMenu.removeSword()));
+        timeline.play();
         return "your opponent receives " + attackerMonster.getAtk() + " battle damage";
     }
 

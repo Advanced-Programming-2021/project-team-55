@@ -245,12 +245,22 @@ public class CardActionsMenu implements MainPhasesController {
             activeRectangle = rectangle;
             GameMenuController.getGameMenuController().selectCard(rectangle);
             if (gameController.currentTurnOpponentPlayer.getGameBoard().isMonsterCardZoneEmpty()) {
-                try {
-                    String result = gameController.getBattlePhaseController().directAttack(gameController);
-                    System.out.println(result);
-                } catch (GameException e) {
-                    System.out.println(e.getMessage());
-                }
+                Rectangle rectangle1 = new Rectangle();
+                rectangle1.setLayoutX(340);
+                rectangle1.setLayoutY(100);
+                gameController.currentTurnPlayer.getGameBoard().setTranslationAnimation(sword, rectangle1);
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event4 -> {
+                    try {
+                        String result = gameController.getBattlePhaseController().directAttack(gameController);
+                        System.out.println(result);
+                    } catch (GameException e) {
+                        System.out.println(e.getMessage());
+                        Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(0.2), event10 -> CardActionsMenu.removeSword()));
+                        timeline2.play();
+                    }
+                }));
+                timeline.play();
+                playButtonSound("attack");
                 return;
             }
             GameMenuController.getGameMenuController().gameBoardPane.addEventHandler(MouseEvent.MOUSE_MOVED, event2 -> {
@@ -280,6 +290,8 @@ public class CardActionsMenu implements MainPhasesController {
                                 System.out.println(result);
                             } catch (GameException e) {
                                 System.out.println(e.getMessage());
+                                Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(0.2), event10 -> CardActionsMenu.removeSword()));
+                                timeline2.play();
                             }
                         }));
                         timeline.play();
