@@ -21,6 +21,10 @@ public interface SoundPlayable {
             new AudioClip(new Media(new File("src\\resources\\yugioh\\Audio\\card.mp3").toURI().toString()).getSource()).play();
         else if (music.equals("defence"))
             new AudioClip(new Media(new File("src\\resources\\yugioh\\Audio\\defence.mp3").toURI().toString()).getSource()).play();
+        else if (music.equals("graveYard"))
+            new AudioClip(new Media(new File("src\\resources\\yugioh\\Audio\\graveYard.mp3").toURI().toString()).getSource()).play();
+        else if (music.equals("sword"))
+            new AudioClip(new Media(new File("src\\resources\\yugioh\\Audio\\sword.mp3").toURI().toString()).getSource()).play();
 
     }
 }

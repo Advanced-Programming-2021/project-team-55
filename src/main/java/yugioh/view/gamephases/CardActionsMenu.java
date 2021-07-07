@@ -217,6 +217,7 @@ public class CardActionsMenu implements MainPhasesController {
             } else if (activeSword != null) {
                 removeSword();
             }
+            playButtonSound("sword");
             rectangle.requestFocus();
             ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
             GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
@@ -240,6 +241,7 @@ public class CardActionsMenu implements MainPhasesController {
                         if (gameController.currentPhase != GamePhase.BATTLE) return;
                         GameMenuController.getGameMenuController().selectCard(rectangle);
                         String result = Duel.getGameController().getBattlePhaseController().attack(finalI);
+                        playButtonSound("attack");
                         System.out.println(result);
                     } catch (Exception e) {
                         try {
