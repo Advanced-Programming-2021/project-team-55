@@ -339,9 +339,10 @@ public class GameMenuController extends MenuController implements Initializable 
                             Rectangle graveyard = GameMenuController.gameMenuController.userGraveyard;
                             if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.gameMenuController.rivalGraveyard;
                             gameController.getBattlePhaseController().moveCardToGraveyard(cell, graveyard, gameController.currentTurnPlayer);
+                            //todo : call the method which moves the card to graveyard
+                            cell.getCellRectangle().setEffect(null);
                             cell.removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
                             gameController.currentTurnPlayer.getGameBoard().addCardToGraveyard(cell.getCellCard());
-
                         }
                         if(isTributeForSummon)
                             gameController.getMainPhase1Controller().continueMonsterSummon(gameController, false);
