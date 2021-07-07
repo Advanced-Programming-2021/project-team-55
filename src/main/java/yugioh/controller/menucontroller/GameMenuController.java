@@ -199,6 +199,7 @@ public class GameMenuController extends MenuController implements Initializable 
         pane.getChildren().get(0).setOnMouseClicked(mouseEvent -> resume());
         pane.getChildren().get(1).setOnMouseClicked(mouseEvent -> {
             try {
+                SoundPlayable.playButtonSound("evilLaugh");
                 surrender();
             } catch (Exception ignored) {
             }
