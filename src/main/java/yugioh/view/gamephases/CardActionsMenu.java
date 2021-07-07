@@ -28,6 +28,7 @@ import yugioh.model.exceptions.GameException;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.WelcomeMenu;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class CardActionsMenu implements MainPhasesController {
@@ -51,6 +52,18 @@ public class CardActionsMenu implements MainPhasesController {
 
     private static double lastMousePositionX = 0;
     private static double lastMousePositionY = 0;
+
+//    private static ImageView setImage=new ImageView(new Image(new File().toURI().toString()));
+//
+//    private static ImageView summonImage=new ImageView(new Image(new File().toURI().toString()));
+//
+//    private static ImageView attackImage=new ImageView(new Image(new File().toURI().toString()));
+//
+//    private static ImageView activateImage=new ImageView(new Image(new File().toURI().toString()));
+//
+//    private static ImageView flipSummon=new ImageView(new Image(new File().toURI().toString()));
+//
+//    private static ImageView changePosition=new ImageView(new Image(new File().toURI().toString()));
 
     private static ImageView activeSword;
     private static Rectangle activeRectangle;
@@ -312,6 +325,7 @@ public class CardActionsMenu implements MainPhasesController {
         }
         actionButton = new Button();
         actionButton.setMinWidth(70);
+        //actionButton.setGraphic();
         Pane pane = new Pane();
         pane.getChildren().add(actionButton);
         pane.setMaxWidth(70);
