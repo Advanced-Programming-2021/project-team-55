@@ -337,9 +337,12 @@ public class GameMenuController extends MenuController implements Initializable 
                     if(neededTributes==tributeCells.size()){
                         for(Cell cell:tributeCells){
                             //todo : remove the monster and move it to the graveyard
-                            //todo : call the method which moves the card to graveyard
+                            Rectangle graveyard = GameMenuController.gameMenuController.userGraveyard;
+                            if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.gameMenuController.rivalGraveyard;
+                            gameController.getBattlePhaseController().moveCardToGraveyard(cell, graveyard, gameController.currentTurnPlayer);
                             cell.removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
                             gameController.currentTurnPlayer.getGameBoard().addCardToGraveyard(cell.getCellCard());
+
                         }
                         if(isTributeForSummon)
                             gameController.getMainPhase1Controller().continueMonsterSummon(gameController, false);
