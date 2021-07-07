@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.CardGeneratorMenuController">
+   <children>
+      <ImageView fx:id="cardImage" fitHeight="249.0" fitWidth="176.0" layoutX="869.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="23.0" layoutY="143.0" prefHeight="18.0" prefWidth="46.0" text="Attack : " />
+      <TextField fx:id="attackField" layoutX="76.0" layoutY="139.0" prefHeight="26.0" prefWidth="46.0" />
+      <Label layoutX="18.0" layoutY="176.0" prefHeight="18.0" prefWidth="58.0" text="Defense : " />
+      <TextField fx:id="defenseField" layoutX="76.0" layoutY="172.0" prefHeight="26.0" prefWidth="46.0" />
+      <MenuButton fx:id="monsterAttribute" layoutX="567.0" layoutY="106.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" text="Monster attribute">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Dark" />
+          <MenuItem mnemonicParsing="false" text="Earth" />
+            <MenuItem mnemonicParsing="false" text="Fire" />
+            <MenuItem mnemonicParsing="false" text="Light" />
+            <MenuItem mnemonicParsing="false" text="Water" />
+            <MenuItem mnemonicParsing="false" text="Wind" />
+        </items>
+      </MenuButton>
+      <MenuButton fx:id="monsterType" layoutX="731.0" layoutY="107.0" mnemonicParsing="false" text="Monster type">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Beast Warrior" />
+          <MenuItem mnemonicParsing="false" text="Warrior" />
+            <MenuItem mnemonicParsing="false" text="Aqua" />
+            <MenuItem mnemonicParsing="false" text="Fiend" />
+            <MenuItem mnemonicParsing="false" text="Beast" />
+            <MenuItem mnemonicParsing="false" text="Pyro" />
+            <MenuItem mnemonicParsing="false" text="Spell Caster" />
+            <MenuItem mnemonicParsing="false" text="Thunder" />
+            <MenuItem mnemonicParsing="false" text="Dragon" />
+            <MenuItem mnemonicParsing="false" text="Machine" />
+            <MenuItem mnemonicParsing="false" text="Rock" />
+            <MenuItem mnemonicParsing="false" text="Insect" />
+            <MenuItem mnemonicParsing="false" text="Cyberse" />
+            <MenuItem mnemonicParsing="false" text="Fairy" />
+            <MenuItem mnemonicParsing="false" text="Sea Serpent" />
+        </items>
+      </MenuButton>
+      <MenuButton fx:id="cardType" layoutX="437.0" layoutY="106.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="88.0" text="Card type">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Normal" />
+          <MenuItem mnemonicParsing="false" text="Effective" />
+            <MenuItem mnemonicParsing="false" text="Ritual" />
+        </items>
+      </MenuButton>
+      <Slider fx:id="level" blockIncrement="1.0" layoutX="81.0" layoutY="245.0" majorTickUnit="1.0" max="11.0" min="1.0" minorTickCount="1" prefHeight="38.0" prefWidth="155.0" showTickLabels="true" snapToTicks="true" value="1.0" />
+      <Label layoutX="23.0" layoutY="242.0" prefHeight="18.0" prefWidth="46.0" text="Level : " />
+      <Label layoutX="18.0" layoutY="340.0" prefHeight="38.0" prefWidth="66.0" text="Price : ">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Button fx:id="generateButton" layoutX="598.0" layoutY="396.0" mnemonicParsing="false" onMouseClicked="#generateClicked" text="Generate" />
+      <Label fx:id="usersCoin" layoutX="167.0" layoutY="293.0" prefHeight="38.0" prefWidth="79.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+       <Label layoutX="10.0" layoutY="299.0" styleClass="buttonText" text="YOUR COINS : " />
+       <Label fx:id="price" layoutX="89.0" layoutY="346.0" prefHeight="26.0" prefWidth="66.0" styleClass="buttonText" /><ImageView fx:id="coinImage" fitHeight="25.0" fitWidth="25.0" layoutX="246.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true" />
+       <JFXButton buttonType="RAISED" layoutX="31.0" layoutY="547.0" mnemonicParsing="false" onMouseClicked="#backToShop" prefHeight="60.0" prefWidth="155.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
+           <styleClass>
+               <String fx:value="buttonText" />
+               <String fx:value="buttonShape" />
+               <String fx:value="buttonHover" />
+           </styleClass>
+       </JFXButton>
+      <TextArea fx:id="descriptionBox" layoutX="207.0" layoutY="128.0" prefHeight="113.0" prefWidth="200.0" />
+      <Label layoutX="263.0" layoutY="110.0" prefHeight="18.0" prefWidth="88.0" text="Description : " />
+      <Label layoutX="19.0" layoutY="111.0" prefHeight="18.0" prefWidth="46.0" text="Name : " />
+      <TextField fx:id="cardName" layoutX="76.0" layoutY="107.0" prefHeight="26.0" prefWidth="58.0" />
+   </children>
+</AnchorPane>

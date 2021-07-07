@@ -1,1 +1,1 @@
-{"attribute":"NORMAL","status":"UNLIMITED","type":"SPELL","name":"Dark Hole","description":"Destroy all monsters on the field.","price":2500,"magicType":"SPELL","cardKind":"MAGIC","image":"src/resources/yugioh/PNG/cardsImages/DarkHole.jpg"}
+{"attribute":"NORMAL","status":"UNLIMITED","type":"SPELL","name":"Dark Hole","description":"Destroy all monsters on the field.","price":2500,"magicType":"SPELL","cardKind":"MAGIC","image":"src/resources/yugioh/PNG/cardsImages/DarkHole.jpg","isCustom":false}

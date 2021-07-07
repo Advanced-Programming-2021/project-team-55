@@ -158,4 +158,9 @@ public class ShopMenuController extends MenuController implements Initializable 
         description.setTextAlignment(TextAlignment.JUSTIFY);
     }
 
+    public void enterCardGeneratorMenu(MouseEvent mouseEvent) throws Exception {
+        SoundPlayable.playButtonSound("enter");
+        cardGeneratorMenu.execute();
+
+    }
 }
