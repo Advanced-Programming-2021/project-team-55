@@ -207,7 +207,7 @@ public class DataBaseController extends MenuController {
         mainMenu.execute();
     }
 
-    public void importCard(MouseEvent mouseEvent) {
+    public void importCard() {
         SoundPlayable.playButtonSound("enterButton");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("select a card");
@@ -316,7 +316,7 @@ public class DataBaseController extends MenuController {
         exportStage.show();
     }
 
-    public void exportClicked(MouseEvent mouseEvent) throws Exception {
+    public void exportClicked() throws Exception {
         SoundPlayable.playButtonSound("enterButton");
         openExportPage();
     }
@@ -347,4 +347,5 @@ public class DataBaseController extends MenuController {
         exportStage.close();
         importExportMenu.execute();
     }
+
 }
