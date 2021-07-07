@@ -36,6 +36,7 @@ import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
+import yugioh.view.SoundPlayable;
 import yugioh.view.gamephases.CardActionsMenu;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GamePhase;
@@ -190,11 +191,15 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void pauseClicked() throws Exception {
+        SoundPlayable.playButtonSound("surrender");
         URL url = getClass().getResource("/yugioh/fxml/PauseMenu.fxml");
         Pane pane = FXMLLoader.load(url);
+        pane.getChildren().get(0).setOnMouseEntered(mouseEvent -> SoundPlayable.playButtonSound("weNeverSurrender"));
+        pane.getChildren().get(1).setOnMouseEntered(mouseEvent -> SoundPlayable.playButtonSound("neverSurrender"));
         pane.getChildren().get(0).setOnMouseClicked(mouseEvent -> resume());
         pane.getChildren().get(1).setOnMouseClicked(mouseEvent -> {
             try {
+                SoundPlayable.playButtonSound("evilLaugh");
                 surrender();
             } catch (Exception ignored) {
             }
@@ -295,8 +300,8 @@ public class GameMenuController extends MenuController implements Initializable 
                     if (selectedCell != null && selectedCell.getCellCard() != null &&
                             (selectedCell.getCellCard().getCardImagePattern().equals(rectangleImage) ||
                                     selectedCell.getCellCard().getCardBackImagePattern().equals(rectangleImage))) {
-                            CardActionsMenu.close();
-                            Cell.deselectCell();
+                        CardActionsMenu.close();
+                        Cell.deselectCell();
                     } else if
                         (CardActionsMenu.getActiveSword() == null) {
                             selectCard(rectangle);
@@ -332,6 +337,9 @@ public class GameMenuController extends MenuController implements Initializable 
                     if(neededTributes==tributeCells.size()){
                         for(Cell cell:tributeCells){
                             //todo : remove the monster and move it to the graveyard
+                            Rectangle graveyard = GameMenuController.gameMenuController.userGraveyard;
+                            if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.gameMenuController.rivalGraveyard;
+                            gameController.getBattlePhaseController().moveCardToGraveyard(cell, graveyard, gameController.currentTurnPlayer);
                             //todo : call the method which moves the card to graveyard
                             cell.getCellRectangle().setEffect(null);
                             cell.removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
@@ -340,7 +348,6 @@ public class GameMenuController extends MenuController implements Initializable 
                         if(isTributeForSummon)
                             gameController.getMainPhase1Controller().continueMonsterSummon(gameController, false);
                         else gameController.getMainPhase1Controller().continueSetMonster(gameController);
-
                         shouldSelectTributesNow=false;
                         neededTributes=0;
                     }

@@ -91,13 +91,12 @@ public class DetermineStarterMenuController implements Initializable {
         if (yesNoQuestion.getText().startsWith(currentPlayerName)) {
             gameController.setCurrentTurnPlayer(gameController.getGame().getSecondPlayer());
             gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getFirstPlayer());
-            DetermineStarterMenu.getStage().close();
         } else if (yesNoQuestion.getText().startsWith(opponentPlayerName)) {
             gameController.setCurrentTurnPlayer(gameController.getGame().getFirstPlayer());
             gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getSecondPlayer());
-            DetermineStarterMenu.getStage().close();
-            playButtonSound("forHonor");
         }
+        DetermineStarterMenu.getStage().close();
+        playButtonSound("forHonor");
     }
 
     public void yesClicked() {
@@ -107,13 +106,12 @@ public class DetermineStarterMenuController implements Initializable {
         if (yesNoQuestion.getText().startsWith(currentPlayerName)) {
             gameController.setCurrentTurnPlayer(gameController.getGame().getFirstPlayer());
             gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getSecondPlayer());
-            DetermineStarterMenu.getStage().close();
         } else if (yesNoQuestion.getText().startsWith(opponentPlayerName)) {
             gameController.setCurrentTurnPlayer(gameController.getGame().getSecondPlayer());
             gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getFirstPlayer());
-            DetermineStarterMenu.getStage().close();
-            playButtonSound("forHonor");
         }
+        DetermineStarterMenu.getStage().close();
+        playButtonSound("forHonor");
     }
 
 }

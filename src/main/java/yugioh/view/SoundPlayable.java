@@ -27,6 +27,14 @@ public interface SoundPlayable {
             new AudioClip(new Media(new File("src\\resources\\yugioh\\Audio\\sword.mp3").toURI().toString()).getSource()).play();
         else if (music.equals("forHonor"))
             new AudioClip(new Media(new File("src\\resources\\yugioh\\Audio\\forHonor.mp3").toURI().toString()).getSource()).play();
+        else if (music.equals("surrender"))
+            new AudioClip(new Media(new File("src\\resources\\yugioh\\Audio\\surrender.mp3").toURI().toString()).getSource()).play();
+        else if (music.equals("neverSurrender"))
+            new AudioClip(new Media(new File("src\\resources\\yugioh\\Audio\\neverSurrender.mp3").toURI().toString()).getSource()).play();
+        else if (music.equals("weNeverSurrender"))
+            new AudioClip(new Media(new File("src\\resources\\yugioh\\Audio\\weNeverSurrender.mp3").toURI().toString()).getSource()).play();
+        else if (music.equals("evilLaugh"))
+            new AudioClip(new Media(new File("src\\resources\\yugioh\\Audio\\evilLaugh.mp3").toURI().toString()).getSource()).play();
 
     }
 }
