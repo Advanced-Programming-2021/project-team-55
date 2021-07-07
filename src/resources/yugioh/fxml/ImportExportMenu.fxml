@@ -1,46 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-
-<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.DataBaseController">
-    <VBox alignment="CENTER" layoutX="232.0" layoutY="32.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="656.0" prefWidth="616.0" spacing="10.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="232.0" AnchorPane.rightAnchor="232.0" AnchorPane.topAnchor="32.0">
-        <Label layoutX="196.0" layoutY="40.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Import/Export Menu" textFill="#ccdefc">
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import java.lang.*?>
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.DataBaseController">
+    <VBox alignment="CENTER" layoutX="232.0" layoutY="32.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="656.0"
+          prefWidth="616.0" spacing="10.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="232.0"
+          AnchorPane.rightAnchor="232.0" AnchorPane.topAnchor="32.0">
+        <Label layoutX="196.0" layoutY="40.0" styleClass="titleText" stylesheets="@../CSS/Menu.css"
+               text="Import/Export Menu" textFill="#ccdefc">
             <font>
-                <Font size="20.0" />
+                <Font size="20.0"/>
             </font>
         </Label>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-              <ScrollPane fx:id="cardInfoBox" fitToHeight="true" fitToWidth="true" prefHeight="318.0" prefWidth="328.0" styleClass="simpleText">
-                  <Text fx:id="cardInfo" fill="#ccdefc" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="simpleText" wrappingWidth="221.13671875" />
-              </ScrollPane>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#04091a" height="317.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="84.0" />
-            <ImageView fx:id="importedCard" fitHeight="316.0" fitWidth="230.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" />
-         </children></HBox>
-        <Button mnemonicParsing="false" onMouseClicked="#importCard" prefHeight="60.0" prefWidth="230.0" text="Import" textFill="#ccdefc">
+        <HBox prefHeight="100.0" prefWidth="200.0">
+            <ScrollPane fx:id="cardInfoBox" fitToHeight="true" fitToWidth="true" prefHeight="318.0" prefWidth="328.0"
+                        styleClass="simpleText">
+                <Text fx:id="cardInfo" fill="#ccdefc" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="simpleText"
+                      wrappingWidth="221.13671875"/>
+            </ScrollPane>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#04091a" height="317.0" opacity="0.0" stroke="BLACK"
+                       strokeType="INSIDE" strokeWidth="0.0" width="84.0"/>
+            <ImageView fx:id="importedCard" fitHeight="316.0" fitWidth="230.0" nodeOrientation="RIGHT_TO_LEFT"
+                       pickOnBounds="true" preserveRatio="true"/>
+        </HBox>
+        <Button mnemonicParsing="false" onMouseClicked="#importCard" prefHeight="60.0" prefWidth="230.0" text="Import"
+                textFill="#ccdefc">
             <styleClass>
-                <String fx:value="buttonShape" />
-                <String fx:value="buttonText" />
-                <String fx:value="buttonHover" />
+                <String fx:value="buttonShape"/>
+                <String fx:value="buttonText"/>
+                <String fx:value="buttonHover"/>
             </styleClass>
         </Button>
-        <Button mnemonicParsing="false" onMouseClicked="#exportClicked" prefHeight="60.0" prefWidth="230.0" text="Export" textFill="#ccdefc">
+        <Button mnemonicParsing="false" onMouseClicked="#exportClicked" prefHeight="60.0" prefWidth="230.0"
+                text="Export" textFill="#ccdefc">
             <styleClass>
-                <String fx:value="buttonShape" />
-                <String fx:value="buttonText" />
-                <String fx:value="buttonHover" />
+                <String fx:value="buttonShape"/>
+                <String fx:value="buttonText"/>
+                <String fx:value="buttonHover"/>
             </styleClass>
         </Button>
-        <Button mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0" prefWidth="230.0" text="Back" textFill="#ccdefc">
+        <Button mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0" prefWidth="230.0" text="Back"
+                textFill="#ccdefc">
             <styleClass>
-                <String fx:value="buttonShape" />
-                <String fx:value="buttonText" />
-                <String fx:value="buttonHover" />
+                <String fx:value="buttonShape"/>
+                <String fx:value="buttonText"/>
+                <String fx:value="buttonHover"/>
             </styleClass>
         </Button>
     </VBox>
