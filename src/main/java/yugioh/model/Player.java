@@ -53,6 +53,7 @@ public class Player {
 
     public void increaseLP(int amount) {
         setLP(this.getLP() + amount);
+        updateLP();
     }
 
     public GameBoard getGameBoard() {//better to rename to getPlayerGameBoard

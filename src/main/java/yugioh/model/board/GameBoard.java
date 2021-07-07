@@ -229,9 +229,10 @@ public class GameBoard {
                     setFlipZTransition(rectangle, true);
                 } else CardActionsMenu.makeSwordEventForSummonedMonsters(rectangle);
 
-                for (double j = 0; j <= 1; j += 0.05) {
-                    rectangle.opacityProperty().set(j);
-                }
+//                for (double j = 0; j <= 1; j += 0.05) {
+//                    rectangle.opacityProperty().set(j);
+//                }
+                Duel.getGameController().currentTurnPlayer.getGameBoard().setFadeTransition(rectangle, 0, 1);
                 if ((gamePane.rotateProperty().get() % 360) > 179) {
                     monsterCardZone[i].getCellInfo().rotateProperty().set(180);
                 }
