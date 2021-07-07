@@ -32,6 +32,7 @@ public class Card {
     transient protected ImagePattern cardImagePattern;
     transient protected ImageView backImage;
     transient protected ImagePattern backImagePattern;
+    private boolean isCustom=false;
 
 
     public Card(String name, String description, int price, Kind cardKind, SpellOrTrap magicType) {
@@ -348,6 +349,9 @@ public class Card {
     public static ImageView getCardImage(Card card, int width) {
         String name;
         if (card == null) name = "Unknown";
+        else if(card.isCustom){
+            name= card.name;
+        }
         else name = card.getClass().getName().replaceAll("yugioh.model.cards.monsters.",
                 "").replaceAll("yugioh.model.cards.trapandspells.", "");
         File imageFile = new File("src/resources/yugioh/PNG/cardsImages/" + name + ".jpg");
@@ -447,6 +451,9 @@ public class Card {
                 toURI().toString()));
         backImagePattern = new ImagePattern(new Image(new File("src/resources/yugioh/PNG/cardsImages/Unknown.jpg").toURI().toString()));
     }
+    public void setImage(ImageView imageView){
+        this.cardImage=imageView;
+    }
 
     public ImageView getCardImageForDeck(int width) {
         if (cardImage == null) {
@@ -477,4 +484,7 @@ public class Card {
 
     public enum Kind {MONSTER, MAGIC}
 
+    public void setIsCustom() {
+        isCustom = true;
+    }
 }
