@@ -201,7 +201,7 @@ public class BattlePhaseController {
         return response;
     }
 
-    private void moveCardToGraveyard(Cell cell, Rectangle graveyard, Player player) {
+    public void moveCardToGraveyard(Cell cell, Rectangle graveyard, Player player) {
         playButtonSound("graveYard");
         graveyard.fillProperty().setValue(cell.getCellRectangle().getFill());
         player.getGameBoard().setFadeTransition(graveyard, 0, 1);
