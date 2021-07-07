@@ -254,7 +254,6 @@ public interface MainPhasesController {
                     throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
                 }
                 handleTribute(gameController.currentTurnPlayer,gameController,((Monster)selectedCard).getLevel(),false,true);
-
 //                playerGameBoard.addCardToMonsterCardZone(selectedCard, CardStatus.DEFENSIVE_HIDDEN, gameController);
 //                playerGameBoard.removeCardFromHand(selectedCell);
 //                gameController.changedPositionCells.add(selectedCell);
@@ -264,8 +263,9 @@ public interface MainPhasesController {
                 playerGameBoard.removeCardFromHand(selectedCell);
                 gameController.changedPositionCells.add(selectedCell);
                 TimeSeal.setActivated(gameController);
+                Cell.deselectCell();
             }
-            Cell.deselectCell();
+
         }
     }
     default void continueSetMonster(GameController gameController){
@@ -280,6 +280,7 @@ public interface MainPhasesController {
         playerGameBoard.removeCardFromHand(selectedCell);
         gameController.changedPositionCells.add(selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
+        Cell.deselectCell();
     }
 
     default void setPosition(String position, GameController gameController) throws GameException {

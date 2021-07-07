@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -450,10 +451,12 @@ public class CardActionsMenu implements MainPhasesController {
         actionButton.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (actionButton.getText().equals("set")) {
-                    handleSet();
-                } else if (actionButton.getText().equals("summon")) {
-                    handleSummon();
+                if(mouseEvent.getButton()== MouseButton.PRIMARY) {
+                    if (actionButton.getText().equals("set")) {
+                        handleSet();
+                    } else if (actionButton.getText().equals("summon")) {
+                        handleSummon();
+                    }
                 }
             }
         });

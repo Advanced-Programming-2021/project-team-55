@@ -295,8 +295,8 @@ public class GameMenuController extends MenuController implements Initializable 
                     if (selectedCell != null && selectedCell.getCellCard() != null &&
                             (selectedCell.getCellCard().getCardImagePattern().equals(rectangleImage) ||
                                     selectedCell.getCellCard().getCardBackImagePattern().equals(rectangleImage))) {
-                        CardActionsMenu.close();
-                        Cell.deselectCell();
+                            CardActionsMenu.close();
+                            Cell.deselectCell();
                     } else if
                         (CardActionsMenu.getActiveSword() == null) {
                             selectCard(rectangle);
@@ -333,12 +333,14 @@ public class GameMenuController extends MenuController implements Initializable 
                         for(Cell cell:tributeCells){
                             //todo : remove the monster and move it to the graveyard
                             //todo : call the method which moves the card to graveyard
+                            cell.getCellRectangle().setEffect(null);
                             cell.removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
                             gameController.currentTurnPlayer.getGameBoard().addCardToGraveyard(cell.getCellCard());
                         }
                         if(isTributeForSummon)
                             gameController.getMainPhase1Controller().continueMonsterSummon(gameController, false);
                         else gameController.getMainPhase1Controller().continueSetMonster(gameController);
+
                         shouldSelectTributesNow=false;
                         neededTributes=0;
                     }

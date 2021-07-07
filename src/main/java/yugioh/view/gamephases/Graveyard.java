@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class Graveyard extends WelcomeMenu {
 
     private static Stage graveyardStage;
-    private static ArrayList<Card> graveyardCards;
+    private static ArrayList<Card> graveyardCards=new ArrayList<>();
 
     public static ArrayList<Card> getGraveyardCards() {
         return graveyardCards;
