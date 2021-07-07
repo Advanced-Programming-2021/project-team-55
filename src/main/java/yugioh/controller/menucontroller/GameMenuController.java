@@ -190,6 +190,7 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void pauseClicked() throws Exception {
+
         URL url = getClass().getResource("/yugioh/fxml/PauseMenu.fxml");
         Pane pane = FXMLLoader.load(url);
         pane.getChildren().get(0).setOnMouseClicked(mouseEvent -> resume());
