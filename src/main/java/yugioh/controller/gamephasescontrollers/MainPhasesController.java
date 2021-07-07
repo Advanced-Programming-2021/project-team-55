@@ -24,6 +24,7 @@ import yugioh.model.cards.trapandspells.TorrentialTribute;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.ConsoleColors;
 import yugioh.view.ViewInterface;
+import yugioh.view.gamephases.CardActionsMenu;
 import yugioh.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
@@ -57,7 +58,8 @@ public interface MainPhasesController {
         double length = 4;
         if (isNormalSummon) length = 0.1;
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(length), event -> {
-            Cell selectedCell=Cell.getSelectedCell();
+            Cell.setSelectedCell(CardActionsMenu.getToBeSummonedCell());
+            Cell selectedCell= Cell.getSelectedCell();
             Player currentPlayer=gameController.currentTurnPlayer;
             TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
             gameController.setDidPlayerSetOrSummonThisTurn(true);

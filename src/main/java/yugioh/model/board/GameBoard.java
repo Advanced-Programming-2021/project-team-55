@@ -666,6 +666,7 @@ public class GameBoard {
         tributeStage.initOwner(WelcomeMenu.stage);
         tributeStage.initStyle(StageStyle.UNDECORATED);
         tributeStage.initModality(Modality.NONE);
+        CardActionsMenu.setToBeSummonedCell(Cell.getSelectedCell());
         URL url=getClass().getResource("/yugioh/fxml/TributeMenu.fxml");
         try {
             Pane pane= FXMLLoader.load(url);

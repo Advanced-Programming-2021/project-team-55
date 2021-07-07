@@ -55,7 +55,17 @@ public class CardActionsMenu implements MainPhasesController {
     private static double lastMousePositionX = 0;
     private static double lastMousePositionY = 0;
 
-//    private static ImageView setImage=new ImageView(new Image(new File().toURI().toString()));
+    private static Cell toBeSummonedCell;
+
+    public static Cell getToBeSummonedCell() {
+        return toBeSummonedCell;
+    }
+
+    public static void setToBeSummonedCell(Cell toBeSummonedCell) {
+        CardActionsMenu.toBeSummonedCell = toBeSummonedCell;
+    }
+
+    //    private static ImageView setImage=new ImageView(new Image(new File().toURI().toString()));
 //
 //    private static ImageView summonImage=new ImageView(new Image(new File().toURI().toString()));
 //
