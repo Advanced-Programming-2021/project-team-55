@@ -55,10 +55,10 @@ public interface MainPhasesController {
     }
 
     default void continueMonsterSummon(GameController gameController, boolean isNormalSummon) {
-        double length = 4;
-        if (isNormalSummon) length = 0.1;
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(length), event -> {
-            Cell.setSelectedCell(CardActionsMenu.getToBeSummonedCell());
+//        double length = 4;
+//        if (isNormalSummon) length = 0.1;
+//        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(length), event -> {
+           // Cell.setSelectedCell(CardActionsMenu.getToBeSummonedCell());
             Cell selectedCell= Cell.getSelectedCell();
             Player currentPlayer=gameController.currentTurnPlayer;
             TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
@@ -73,8 +73,8 @@ public interface MainPhasesController {
             }
             currentPlayer.getGameBoard().removeCardFromHand(selectedCell);
             Cell.deselectCell();
-        }));
-        timeline.play();
+        //}));
+        //timeline.play();
     }
 
     default boolean isSummonedMonsterATKMoreThan1000(Cell summonedCell) {//todo check null pointer exception
