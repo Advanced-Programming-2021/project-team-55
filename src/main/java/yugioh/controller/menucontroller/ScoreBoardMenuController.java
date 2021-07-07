@@ -7,6 +7,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import yugioh.model.TableItem;
 import yugioh.model.User;
+import yugioh.view.SoundPlayable;
 
 import java.net.URL;
 import java.util.*;
@@ -31,7 +32,7 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
     }
 
     public void backClicked() throws Exception {
-        playButtonSound("backButton");
+        SoundPlayable.playButtonSound("backButton");
         mainMenu.execute();
     }
 

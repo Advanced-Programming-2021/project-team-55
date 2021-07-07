@@ -1,5 +1,6 @@
 package yugioh.controller.gamephasescontrollers;
 
+import javafx.scene.shape.Rectangle;
 import yugioh.controller.menucontroller.DetermineStarterMenuController;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.CoinDice;
@@ -203,6 +204,7 @@ public class GameController {
                 break;
             }
             case BATTLE: {
+                CardActionsMenu.removeSword();
                 currentPhase = GamePhase.MAIN2;
                 break;
             }
@@ -241,7 +243,6 @@ public class GameController {
         CardActionsMenu.close();
         mainPhase1Controller.showGameBoard(currentTurnPlayer,
                 currentTurnOpponentPlayer);
-
 
     }
 

@@ -1,5 +1,7 @@
 package yugioh.controller.gamephasescontrollers;
 
+import javafx.scene.shape.Rectangle;
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.Player;
 import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
@@ -13,6 +15,8 @@ import yugioh.model.cards.trapandspells.MirrorForce;
 import yugioh.model.cards.trapandspells.NegateAttack;
 import yugioh.model.cards.trapandspells.SwordsofRevealingLight;
 import yugioh.model.exceptions.GameException;
+import yugioh.view.gamephases.CardActionsMenu;
+import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
@@ -56,8 +60,8 @@ public class BattlePhaseController {
         Cell attackedCell = null;
         GameBoard opponentGameBoard = gameController.currentTurnOpponentPlayer.getGameBoard();
         GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
-        if (attackedCellNumber <= 5 && attackedCellNumber >= 1) {
-            attackedCell = (gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone())[attackedCellNumber - 1];
+        if (attackedCellNumber <= 4 && attackedCellNumber >= 0) {
+            attackedCell = (gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone())[attackedCellNumber];
         }
         if (attackerCell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
@@ -95,6 +99,7 @@ public class BattlePhaseController {
                 if (response.equals(""))
                     response = attackToDefensiveHiddenCell(attackerCell, attackedCell, opponentGameBoard);
             }
+            CardActionsMenu.removeSword();
         }
         setAttacker(null);
         Cell.deselectCell();
@@ -118,6 +123,7 @@ public class BattlePhaseController {
 
     private String attackToDefensiveHiddenCell(Cell attackerCell, Cell attackedCell, GameBoard opponentGameBoard) {
         String response;
+        Duel.getGameController().currentTurnPlayer.getGameBoard().setFlipTransition(attackedCell.getCellCard(), attackedCell.getCellRectangle(), false);
         if (isAttackerStronger(attackerCell, attackedCell)) {
             response = "opponent’s monster card was " +
                     attackedCell.getCellCard().getName() + " the defense position monster is destroyed";
@@ -141,6 +147,7 @@ public class BattlePhaseController {
 
     private String attackToDefensiveOccupiedCell(Cell attackerCell, Cell attackedCell, GameBoard playerGameBoard) {
         String response;
+        Duel.getGameController().currentTurnPlayer.getGameBoard().setFlipTransition(attackedCell.getCellCard(), attackedCell.getCellRectangle(), false);
         if (isAttackerStronger(attackerCell, attackedCell)) {
             decreasePlayersDamage(attackerCell, attackedCell);
             response = "the defense position monster is destroyed";
@@ -164,26 +171,45 @@ public class BattlePhaseController {
             response = "your opponent’s monster is destroyed and your opponent receives "
                     + calculateDamage(attackerCell, attackedCell) + " battle damage";
             YomiShip.handleEffect(gameController, attackerCell, attackedCell);
+            Rectangle graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
+            if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().userGraveyard;
+            moveCardToGraveyard(attackedCell, graveyard, gameController.currentTurnOpponentPlayer);
             attackedCell.removeCardFromCell(opponentGameBoard);
         } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
             response = "both you and your opponent monster cards are destroyed and no one receives damage";
+            if (CardActionsMenu.isBoardInverse()) {
+                moveCardToGraveyard(attackedCell, GameMenuController.getGameMenuController().userGraveyard, gameController.currentTurnOpponentPlayer);
+                moveCardToGraveyard(attackerCell, GameMenuController.getGameMenuController().rivalGraveyard, gameController.currentTurnPlayer);
+            } else {
+                moveCardToGraveyard(attackedCell, GameMenuController.getGameMenuController().rivalGraveyard, gameController.currentTurnOpponentPlayer);
+                moveCardToGraveyard(attackerCell, GameMenuController.getGameMenuController().userGraveyard, gameController.currentTurnPlayer);
+            }
             attackerCell.removeCardFromCell(playerGameBoard);
             attackedCell.removeCardFromCell(opponentGameBoard);
         } else {
             decreasePlayersDamage(attackerCell, attackedCell);
             response = "Your monster card is destroyed and you received " +
                     calculateDamage(attackerCell, attackedCell) + " battle damage";
+            Rectangle graveyard = GameMenuController.getGameMenuController().userGraveyard;
+            if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
+            moveCardToGraveyard(attackerCell, graveyard, gameController.currentTurnPlayer);
             attackerCell.removeCardFromCell(playerGameBoard);
         }
         gameController.getAttackerCellsThisTurn().add(attackerCell);
         return response;
     }
 
+    private void moveCardToGraveyard(Cell cell, Rectangle graveyard, Player player) {
+        graveyard.fillProperty().setValue(cell.getCellRectangle().getFill());
+        player.getGameBoard().setFadeTransition(graveyard, 0, 1);
+    }
+
     private void decreasePlayersDamage(Cell attackerCell, Cell attackedCell) {
-        if (isAttackerStronger(attackerCell, attackedCell))
+        if (isAttackerStronger(attackerCell, attackedCell)) {
             (gameController.getCurrentTurnOpponentPlayer()).decreaseLP(calculateDamage(attackerCell, attackedCell));
-        else
+        } else {
             (gameController.getCurrentTurnPlayer()).decreaseLP(calculateDamage(attackerCell, attackedCell));
+        }
     }
 
     public boolean isAttackerStronger(Cell attackerCell, Cell attackedCell) {

@@ -287,10 +287,10 @@ public interface MainPhasesController {
         } else {
             gameController.changedPositionCells.add(cell);
             if (position.equals("attack")) {
-                gameController.currentTurnPlayer.getGameBoard().setFlipZTransition(cell.getCellRectangle(),false);
+                gameController.currentTurnPlayer.getGameBoard().setFlipZTransition(cell.getCellRectangle(), false);
                 cell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
             } else {
-                gameController.currentTurnPlayer.getGameBoard().setFlipZTransition(cell.getCellRectangle(),true);
+                gameController.currentTurnPlayer.getGameBoard().setFlipZTransition(cell.getCellRectangle(), true);
                 cell.setCardStatus(CardStatus.DEFENSIVE_OCCUPIED);
             }
             Cell.deselectCell();
@@ -364,12 +364,12 @@ public interface MainPhasesController {
         }
         gameController.setLastSummonedMonster(selectedCell);
         addMonstersToFlipSummonEffectSpellAndTrap(selectedCell);
-        if(selectedCell.getCardStatus()==CardStatus.DEFENSIVE_HIDDEN){
-            gameController.currentTurnPlayer.getGameBoard().setFlipZTransition(selectedCell.getCellRectangle(),false);
+        if (selectedCell.getCardStatus() == CardStatus.DEFENSIVE_HIDDEN) {
+            gameController.currentTurnPlayer.getGameBoard().setFlipZTransition(selectedCell.getCellRectangle(), false);
         }
         selectedCell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
         gameController.currentTurnPlayer.getGameBoard().setFlipTransition(selectedCell.getCellCard(),
-                selectedCell.getCellRectangle(),false);
+                selectedCell.getCellRectangle(), false);
         ManEaterBug.handleEffect(gameController, selectedCell);
         activateTrapIfCanBeActivated(gameController, SummonTypes.FlipSummon);
         Cell.deselectCell();

@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToggleButton;
 import yugioh.model.User;
+import yugioh.view.SoundPlayable;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.RivalSelectionMenu;
 
@@ -45,6 +46,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
     }
 
     public void cancel() throws Exception {
+        SoundPlayable.playButtonSound("backButton");
         RivalSelectionMenu.setDoCancel(true);
         RivalSelectionMenu.getStage().close();
     }
@@ -54,18 +56,21 @@ public class RivalSelectionMenuController extends MenuController implements Init
             new PopUpWindow("Error: select a user first!").start(RivalSelectionMenu.getStage());
             return;
         }
+        SoundPlayable.playButtonSound("enterButton");//todo proper sound
         RivalSelectionMenu.setRival(rivals.getValue());
         RivalSelectionMenu.setDoCancel(false);
         RivalSelectionMenu.getStage().close();
     }
 
     public void clickOneRound() {
+        SoundPlayable.playButtonSound("enterButton");//todo proper sound
         threeRounds.setSelected(false);
         oneRound.setSelected(true);
         RivalSelectionMenu.setRounds(1);
     }
 
     public void clickThreeRounds() {
+        SoundPlayable.playButtonSound("enterButton");//todo proper sound
         oneRound.setSelected(false);
         threeRounds.setSelected(true);
         RivalSelectionMenu.setRounds(3);

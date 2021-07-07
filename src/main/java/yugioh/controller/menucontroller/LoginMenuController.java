@@ -15,6 +15,7 @@ import javafx.scene.media.MediaView;
 import yugioh.model.User;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.Responses;
+import yugioh.view.SoundPlayable;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.WelcomeMenu;
 
@@ -53,7 +54,7 @@ public class LoginMenuController extends MenuController implements Initializable
     }
 
     public void loginClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound("enterButton");
+        SoundPlayable.playButtonSound("enterButton");
         String username = usernameField.getText();
         String password = passwordField.getText();
         if (username.equals("") || password.equals("")) {
@@ -73,7 +74,7 @@ public class LoginMenuController extends MenuController implements Initializable
     }
 
     public void backClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound("backButton");
+        SoundPlayable.playButtonSound("backButton");
         welcomeMenu.execute();
     }
 

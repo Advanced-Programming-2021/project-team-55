@@ -315,6 +315,7 @@ public class GameBoard {
 
     public void addCardToGraveyard(Card card) {
         graveyard.add(new Cell(card));
+        //todo add card rectangle
     }
 
     public void addCardToSpellAndTrapCardZone(Card card, CardStatus cardStatus, GameController gameController) throws GameException {
@@ -402,6 +403,13 @@ public class GameBoard {
         trans.setFromY(constant * CardActionsMenu.getLastMousePositionY());
         rectangle.setFill(imagePattern);
         trans.play();
+    }
+
+    public void setFadeTransition(Node node, double fromValue, double toValue) {
+        FadeTransition ft = new FadeTransition(Duration.millis(2000), node);
+        ft.setFromValue(fromValue);
+        ft.setToValue(toValue);
+        ft.play();
     }
 
     public void addCardsToHandDeck(int countCard, boolean isToCurrentPlayer) {

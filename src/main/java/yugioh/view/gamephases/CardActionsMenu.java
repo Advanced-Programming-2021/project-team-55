@@ -21,9 +21,11 @@ import javafx.stage.StageStyle;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.gamephasescontrollers.MainPhasesController;
 import yugioh.controller.menucontroller.GameMenuController;
+import yugioh.model.Player;
 import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
 import yugioh.model.exceptions.GameException;
+import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.WelcomeMenu;
 
 import java.util.ArrayList;
@@ -50,8 +52,11 @@ public class CardActionsMenu implements MainPhasesController {
     private static double lastMousePositionX = 0;
     private static double lastMousePositionY = 0;
 
+    private static ImageView activeSword;
+    private static Rectangle activeRectangle;
+
     private static int counter=0;
-    
+
 
     static {
         actionsStage.initOwner(WelcomeMenu.stage);
@@ -185,20 +190,58 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static void makeSwordEventForSummonedMonsters(Rectangle rectangle) {
+        Player currentPlayer = Duel.getGameController().getCurrentTurnPlayer();
         rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            if (!currentPlayer.equals(Duel.getGameController().getCurrentTurnPlayer())) return;
+            if (Duel.getGameController().getCurrentPhase() != GamePhase.BATTLE) return;
+            if (activeRectangle == rectangle && activeSword != null) {
+                removeSword();
+                return;
+            } else if (activeSword != null) {
+                removeSword();
+            }
             rectangle.requestFocus();
             ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
             GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
             sword.setX(rectangle.getLayoutX() + 14);
             sword.setY(rectangle.getLayoutY() + 10);
+            activeSword = sword;
+            activeRectangle = rectangle;
             GameMenuController.getGameMenuController().gameBoardPane.addEventHandler(MouseEvent.MOUSE_MOVED, event2 -> {
                 double constant = 0;
-                if((gamePane.rotateProperty().get()%360)>179) constant = 180;
-                sword.setRotate(constant-(Math.toDegrees(Math.atan((event2.getSceneX() - 400 - rectangle.getLayoutX()) / (event2.getSceneY() - rectangle.getLayoutY())))));
+                if ((gamePane.rotateProperty().get() % 360) > 179) constant = 180;
+                sword.setRotate(constant - (Math.toDegrees(Math.atan((event2.getSceneX() - 400 - rectangle.getLayoutX()) / (event2.getSceneY() - rectangle.getLayoutY() - constant)))));
                 event2.consume();
             });
+            GameMenuController.getGameMenuController().selectCard(rectangle);
+            Cell[] monsterCardZone = gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone();
+            for (int i = 0; i < monsterCardZone.length; i++) {
+                Cell cell = monsterCardZone[i];
+                int finalI = i;
+                cell.getCellRectangle().addEventHandler(MouseEvent.MOUSE_CLICKED, event3 -> {
+                    try {
+                        if (gameController.currentPhase != GamePhase.BATTLE) return;
+                        GameMenuController.getGameMenuController().selectCard(rectangle);
+                        String result = Duel.getGameController().getBattlePhaseController().attack(finalI);
+                        System.out.println(result);
+                    } catch (Exception e) {
+                        try {
+                            System.out.println(e.getMessage());
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    event3.consume();
+                });
+            }
             event.consume();
         });
+    }
+
+    public static void removeSword() {
+        if (activeSword != null)
+            GameMenuController.getGameMenuController().gameBoardPane.getChildren().remove(activeSword);
+        activeSword = null;
+        activeRectangle = null;
     }
 
     public static void close() {
@@ -368,8 +411,21 @@ public class CardActionsMenu implements MainPhasesController {
             new CardActionsMenu().monsterSummon(gameController);
         } catch (GameException e) {
             e.printStackTrace();
+            try {
+                new PopUpWindow(e.getMessage()).start(WelcomeMenu.getStage());
+            } catch (Exception ignored) {
+            }
             //todo show an error box
         }
         actionsStage.close();
     }
+
+    public static ImageView getActiveSword() {
+        return activeSword;
+    }
+
+    public static boolean isBoardInverse() {
+        return (gamePane.rotateProperty().get() % 360) > 179;
+    }
+
 }

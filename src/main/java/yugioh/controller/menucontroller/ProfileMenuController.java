@@ -12,6 +12,7 @@ import javafx.stage.FileChooser;
 import yugioh.model.User;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.Responses;
+import yugioh.view.SoundPlayable;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.WelcomeMenu;
 
@@ -51,8 +52,10 @@ public class ProfileMenuController extends MenuController implements Initializab
 
     public void changePassword(String currentPassword, String newPassword) throws MenuException {
         if (!User.loggedInUser.getPassword().equals(currentPassword)) {
+            SoundPlayable.playButtonSound("enterButton");
             throw new MenuException("Error: current password is invalid");
         } else if (newPassword.equals(currentPassword)) {
+            SoundPlayable.playButtonSound("backButton");
             throw new MenuException("Error: please enter a new password");
         }
         User.loggedInUser.setPassword(newPassword);
@@ -60,13 +63,13 @@ public class ProfileMenuController extends MenuController implements Initializab
 
 
     public void backClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound("backButton");
+        SoundPlayable.playButtonSound("backButton");
         User.loggedInUser.setNickname(nicknameField.getText());
         mainMenu.execute();
     }
 
     public void changePasswordClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound("enterButton");
+        SoundPlayable.playButtonSound("enterButton");
         if (oldPasswordField.getText().equals("") || newPasswordField.getText().equals("")) {
             new PopUpWindow(Responses.FILL_ALL_FIELDS.response).start(WelcomeMenu.stage);
         } else {
@@ -120,7 +123,7 @@ public class ProfileMenuController extends MenuController implements Initializab
     }
 
     public void changeImageClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound("enterButton");
+        SoundPlayable.playButtonSound("enterButton");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select an image");
         FileChooser.ExtensionFilter extFilter =

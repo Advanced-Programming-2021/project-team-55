@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import yugioh.view.Responses;
+import yugioh.view.SoundPlayable;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.SelectDeckNamePage;
 
@@ -32,6 +33,7 @@ public class SelectDeckNamePageController extends MenuController implements Init
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
+                    SoundPlayable.playButtonSound("enterButton");
                     DeckMenuController.getInstance().createDeck(deckNameField.getText());
                     SelectDeckNamePage.page.close();
                     deckMenu.execute();
@@ -48,6 +50,7 @@ public class SelectDeckNamePageController extends MenuController implements Init
         selectionBackButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                SoundPlayable.playButtonSound("backButton");
                 SelectDeckNamePage.page.close();
                 try {
                     deckMenu.execute();

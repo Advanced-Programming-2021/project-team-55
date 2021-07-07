@@ -27,7 +27,7 @@
             </font>
          </Label>
           <HBox alignment="CENTER" prefHeight="353.0" prefWidth="1068.0">
-              <Pane fx:id="deckPane" prefHeight="354.0" prefWidth="369.0"><!--todo change to scroll pane due to enough space-->
+              <Pane fx:id="deckPane" prefHeight="354.0" prefWidth="369.0">
                  <padding>
                      <Insets left="200.0"/>
                  </padding>

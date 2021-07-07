@@ -91,6 +91,8 @@ public class GameMenuController extends MenuController implements Initializable 
     public int neededTributes;
     public boolean isTributeForSummon;
     public ArrayList<Cell> tributeCells = new ArrayList<>();
+    public Rectangle userGraveyard;
+    public Rectangle rivalGraveyard;
     private Stage pauseStage;
 
     public static GameMenuController getGameMenuController() {
@@ -149,7 +151,7 @@ public class GameMenuController extends MenuController implements Initializable 
                         ((Monster) (cell.getCellCard())).getDef());
             }
 
-            // if((gameBoardPane.rotateProperty().get()%360)>179)
+           // if((gameBoardPane.rotateProperty().get()%360)>179)
             //label.rotateProperty().set(0);
             label.rotateProperty().set(gameBoardPane.rotateProperty().get() + 180);
 
@@ -254,7 +256,7 @@ public class GameMenuController extends MenuController implements Initializable 
 
     public void addEventForCardImageRectangle(Rectangle rectangle, Card card) {
         rectangle.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
-            if (card == null || (rectangle.getFill().equals(card.getCardBackImagePattern()) && !gameController.
+            if (card == null || rectangle.getFill() == null || (rectangle.getFill().equals(card.getCardBackImagePattern()) && !gameController.
                     currentTurnPlayer.getGameBoard().isCellInMonsterZone(Cell.getSelectedCellByRectangle(rectangle)) &&
                     !gameController.currentTurnPlayer.getGameBoard().isCellInSpellAndTrapZone
                             (Cell.getSelectedCellByRectangle(rectangle)))) {
@@ -295,12 +297,9 @@ public class GameMenuController extends MenuController implements Initializable 
                             (rectangleImage))) {
                         CardActionsMenu.close();
                         Cell.deselectCell();
-                    } else {
-                        DropShadow selectEffect = new DropShadow(BlurType.values()[1],
-                                GREEN, 10, 2.0f, 0, 0);
-                        selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
-                        Cell.setSelectedCellByRectangle(rectangle);
-                        rectangle.setEffect(selectEffect);
+                    } else if
+                        (CardActionsMenu.getActiveSword() == null) {
+                            selectCard(rectangle);
                         if (!gameController.currentTurnOpponentPlayer.getGameBoard().isCellInGameBoard(Cell.getSelectedCell())
                                 && !gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {
                             try {
@@ -345,13 +344,58 @@ public class GameMenuController extends MenuController implements Initializable 
                         neededTributes=0;
                     }
                 }
+            if (event.getButton() == MouseButton.PRIMARY) {
+                Cell selectedCell = Cell.getSelectedCell();
+                ImagePattern rectangleImage = (ImagePattern) rectangle.getFill();
+                if (selectedCell != null && !selectedCell.isEmpty()) {
+                    selectedCell.getCellRectangle().setEffect(null);
+                    CardActionsMenu.close();
+                }
+                if (selectedCell != null && selectedCell.getCellCard() != null &&
+                        (selectedCell.getCellCard().getCardImagePattern().equals(rectangleImage) ||
+                                selectedCell.getCellCard().getCardBackImagePattern().equals(rectangleImage))) {
+                    CardActionsMenu.close();
+                    Cell.deselectCell();
+                } else if (CardActionsMenu.getActiveSword() == null) {
+                    selectCard(rectangle);
+                    if (!gameController.currentTurnOpponentPlayer.getGameBoard().isCellInGameBoard(Cell.getSelectedCell())
+                            && !gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {
+                        try {
+                            CardActionsMenu.setCoordinates(event.getSceneX() + 195, event.getSceneY() + 60);
+                            CardActionsMenu.setLastMousePositionX(event.getSceneX() - 700);
+                            CardActionsMenu.setLastMousePositionY(200);
+                            CardActionsMenu.execute(rectangle, gameController);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                event.consume();
+            } else if (event.getButton() == MouseButton.SECONDARY) {
+                if (Cell.getSelectedCell() != null && (Cell.getSelectedCell().getCellCard().getCardImagePattern().equals
+                        (rectangle.getFill()) || Cell.getSelectedCell().getCellCard().getCardBackImagePattern().equals
+                        (rectangle.getFill()))) {
+                    CardActionsMenu.change();
+                }
+                event.consume();
             }
-        });
+        }});
     }
 
 
+    public void selectCard(Rectangle rectangle) {
+        DropShadow selectEffect = new DropShadow(BlurType.values()[1],
+                GREEN, 10, 2.0f, 0, 0);
+        selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
+        Cell.setSelectedCellByRectangle(rectangle);
+        rectangle.setEffect(selectEffect);
+    }
+
     public void showGraveyardForUser() {
-        new Graveyard().execute(Duel.getGameController().getCurrentTurnPlayer().getGameBoard().getGraveyard());
+        if (CardActionsMenu.isBoardInverse())
+            new Graveyard().execute(Duel.getGameController().getCurrentTurnOpponentPlayer().getGameBoard().getGraveyard());
+        else
+            new Graveyard().execute(Duel.getGameController().getCurrentTurnPlayer().getGameBoard().getGraveyard());
     }
 
     public void closeGraveyard() {
@@ -359,7 +403,10 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void showGraveyardForOpponent() {
-        new Graveyard().execute(Duel.getGameController().getCurrentTurnOpponentPlayer().getGameBoard().getGraveyard());
+        if (CardActionsMenu.isBoardInverse())
+            new Graveyard().execute(Duel.getGameController().getCurrentTurnPlayer().getGameBoard().getGraveyard());
+        else
+            new Graveyard().execute(Duel.getGameController().getCurrentTurnOpponentPlayer().getGameBoard().getGraveyard());
     }
 
     public void focusOpacityOnPhase(GamePhase gamePhase) {

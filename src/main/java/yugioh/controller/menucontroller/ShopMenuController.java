@@ -18,6 +18,7 @@ import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.Responses;
+import yugioh.view.SoundPlayable;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.ShopMenu;
 import yugioh.view.menus.WelcomeMenu;
@@ -56,7 +57,7 @@ public class ShopMenuController extends MenuController implements Initializable 
     }
 
     public void buyCard() throws Exception {
-        playButtonSound("enterButton");
+        SoundPlayable.playButtonSound("enterButton");
         Card card = selectedCard;
         try {
             if (card == null) {
@@ -84,7 +85,7 @@ public class ShopMenuController extends MenuController implements Initializable 
     }
 
     public void back() throws Exception {
-        playButtonSound("backButton");
+        SoundPlayable.playButtonSound("backButton");
         mainMenu.execute();
     }
 

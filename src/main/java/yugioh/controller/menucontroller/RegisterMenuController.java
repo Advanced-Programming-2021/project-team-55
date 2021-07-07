@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import yugioh.model.User;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.Responses;
+import yugioh.view.SoundPlayable;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.WelcomeMenu;
 
@@ -26,7 +27,7 @@ public class RegisterMenuController extends MenuController implements Initializa
     boolean nicknameFieldIsFilled = false;
 
     public void RegisterClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound("enterButton");
+        SoundPlayable.playButtonSound("enterButton");
         String username = usernameField.getText();
         String nickname = nicknameField.getText();
         String password = passwordField.getText();
@@ -59,7 +60,7 @@ public class RegisterMenuController extends MenuController implements Initializa
     }
 
     public void backClicked(MouseEvent mouseEvent) throws Exception {
-        playButtonSound("backButton");
+        SoundPlayable.playButtonSound("backButton");
         welcomeMenu.execute();
     }
 

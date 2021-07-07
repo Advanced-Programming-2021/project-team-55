@@ -1,9 +1,14 @@
 package yugioh.model.board;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
+import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
 import yugioh.model.cards.monsters.CommandKnight;
@@ -103,6 +108,11 @@ public class Cell {
         MagnumShield.deActivateEffect(this);
         if (Cell.getSelectedCell() == this) selectedCell = null;
         gameBoard.addCardToGraveyard(this.card);
+        Duel.getGameController().currentTurnPlayer.getGameBoard().setFadeTransition(cellRectangle, 1, 0);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> cellRectangle.setFill(null)));
+        timeline.play();
+        cellRectangle.setStrokeWidth(0);
+        cellInfo.setText("");
         this.card = null;
         this.cardStatus = null;
         Duel.getGameController().changedPositionCells.remove(this);

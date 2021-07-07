@@ -100,7 +100,7 @@ abstract public class Duel {
         if (gameController.currentPhase == GamePhase.DRAW) {
             GameMenuController.getGameMenuController().getEpLabel().setEffect(null);
             GameMenuController.getGameMenuController().getEpLabel().setOpacity(0.5);
-            Toast.makeText(WelcomeMenu.getStage(), "its " + gameController.getCurrentTurnPlayer().getUser().getNickname() + "'s turn\n");
+            Toast.makeText(WelcomeMenu.getStage(), "its " + gameController.getCurrentTurnPlayer().getUser().getNickname() + "'s turn");
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
                 Toast.makeText(WelcomeMenu.getStage(), "phase: " + gameController.currentPhase.name);
             }));

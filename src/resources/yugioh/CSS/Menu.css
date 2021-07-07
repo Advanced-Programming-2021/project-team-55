@@ -3,7 +3,11 @@
     font-style: normal;
     src: url("../fonts/BAUHS93.ttf");
 }
-
+@font-face {
+    font-family: "Rage Italic";
+    font-style: normal;
+    src: url("../fonts/RAGE.TTF");
+}
 {
     -fx-base: #04091a;
 }
@@ -51,7 +55,6 @@ buttonSize {
 
 .buttonHover:hover {
     -fx-font-size: 26px;
-
     -fx-background-color: #62d9ec;
 }
 
@@ -67,4 +70,7 @@ buttonSize {
 .triangle:hover {
     -fx-fill: yellow;
 }
-
+.powerText{
+    -fx-font-family: "Rage Italic";
+    -fx-font-size: 10;
+}
