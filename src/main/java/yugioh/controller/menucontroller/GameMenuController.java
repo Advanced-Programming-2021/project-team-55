@@ -36,6 +36,7 @@ import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
+import yugioh.view.SoundPlayable;
 import yugioh.view.gamephases.CardActionsMenu;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GamePhase;
@@ -190,8 +191,11 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void pauseClicked() throws Exception {
+        SoundPlayable.playButtonSound("surrender");
         URL url = getClass().getResource("/yugioh/fxml/PauseMenu.fxml");
         Pane pane = FXMLLoader.load(url);
+        pane.getChildren().get(0).setOnMouseEntered(mouseEvent -> SoundPlayable.playButtonSound("weNeverSurrender"));
+        pane.getChildren().get(1).setOnMouseEntered(mouseEvent -> SoundPlayable.playButtonSound("neverSurrender"));
         pane.getChildren().get(0).setOnMouseClicked(mouseEvent -> resume());
         pane.getChildren().get(1).setOnMouseClicked(mouseEvent -> {
             try {
