@@ -302,8 +302,7 @@ public class GameMenuController extends MenuController implements Initializable 
                                     selectedCell.getCellCard().getCardBackImagePattern().equals(rectangleImage))) {
                         CardActionsMenu.close();
                         Cell.deselectCell();
-                    } else if
-                        (CardActionsMenu.getActiveSword() == null) {
+                    } else if (CardActionsMenu.getActiveSword() == null) {
                             selectCard(rectangle);
                         if (!gameController.currentTurnOpponentPlayer.getGameBoard().isCellInGameBoard(Cell.getSelectedCell())
                                 && !gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {
