@@ -3,10 +3,12 @@ package yugioh.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
@@ -48,6 +50,9 @@ public class DataBaseController extends MenuController {
     public ScrollPane exportCardsPane;
     public ImageView importedCard;
     public Button okButton;
+    public RadioButton jsonCheck;
+    public RadioButton csvCheck;
+
 
     public DataBaseController() {
     }
@@ -334,7 +339,9 @@ public class DataBaseController extends MenuController {
         File file = directoryChooser.showDialog(WelcomeMenu.stage);
         Card card = Card.getCardNameByImage(imageAddress);
         if (file != null) {
-            writeJSON(card, file.getPath() + "/" + card.getName() + ".json");
+            String format = ".json";
+            if (csvCheck.isSelected()) format = ".csv";
+            writeJSON(card, file.getPath() + "/" + card.getName() + format);
             exportStage.close();
             new PopUpWindow("Card exported successfully!").start(WelcomeMenu.stage);
         }
@@ -348,4 +355,13 @@ public class DataBaseController extends MenuController {
         importExportMenu.execute();
     }
 
+    public void switchToJson(ActionEvent event) {
+        jsonCheck.setSelected(true);
+        csvCheck.setSelected(false);
+    }
+
+    public void switchToCsv(ActionEvent event) {
+        jsonCheck.setSelected(false);
+        csvCheck.setSelected(true);
+    }
 }

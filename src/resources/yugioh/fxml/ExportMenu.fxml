@@ -24,8 +24,8 @@
             <String fx:value="buttonHover" />
          </styleClass>
       </JFXButton>
-      <RadioButton layoutX="266.0" layoutY="371.0" mnemonicParsing="false" selected="true" text="json" />
-      <RadioButton layoutX="322.0" layoutY="371.0" mnemonicParsing="false" text="csv" />
+      <RadioButton fx:id="jsonCheck" layoutX="266.0" layoutY="371.0" mnemonicParsing="false" onAction="#switchToJson" selected="true" text="json" />
+      <RadioButton fx:id="csvCheck" layoutX="322.0" layoutY="371.0" mnemonicParsing="false" onAction="#switchToCsv" text="csv" />
       <Label alignment="CENTER" layoutX="167.0" layoutY="361.0" prefHeight="38.0" prefWidth="93.0" style="-fx-font-size: 20;" styleClass="buttonText" text="format:">
          <font>
             <Font size="8.0" />
