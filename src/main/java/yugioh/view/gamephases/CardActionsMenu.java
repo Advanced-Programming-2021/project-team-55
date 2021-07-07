@@ -182,14 +182,11 @@ public class CardActionsMenu implements MainPhasesController {
             }
         });
         actionButton.setText(thisActions.get(0));
-        actionButton.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (actionButton.getText().equals("flip summon")) {
-                    handleFlipSummon();
-                } else if (actionButton.getText().equals("change position")) {
-                    handleChangePosition();
-                }
+        actionButton.onMouseClickedProperty().set(mouseEvent -> {
+            if (actionButton.getText().equals("flip summon")) {
+                handleFlipSummon();
+            } else if (actionButton.getText().equals("change position")) {
+                handleChangePosition();
             }
         });
         Scene scene = WelcomeMenu.createScene(pane);
@@ -236,7 +233,7 @@ public class CardActionsMenu implements MainPhasesController {
             }
             playButtonSound("sword");
             rectangle.requestFocus();
-            ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/icon.png"));
+            ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
             GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
             sword.setX(rectangle.getLayoutX() + 14);
             sword.setY(rectangle.getLayoutY() + 10);
