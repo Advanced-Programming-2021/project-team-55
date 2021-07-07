@@ -184,7 +184,7 @@ public class CardActionsMenu implements MainPhasesController {
 
     private static void handleChangePosition() {
         try {
-            playButtonSound("defence");
+           playButtonSound("defence");
             if(Cell.getSelectedCell().getCardStatus()==CardStatus.DEFENSIVE_OCCUPIED)
             new CardActionsMenu().setPosition("attack",gameController);
             else new CardActionsMenu().setPosition("defense",gameController);
