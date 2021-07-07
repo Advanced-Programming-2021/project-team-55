@@ -236,7 +236,7 @@ public class CardActionsMenu implements MainPhasesController {
             }
             playButtonSound("sword");
             rectangle.requestFocus();
-            ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
+            ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/icon.png"));
             GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
             sword.setX(rectangle.getLayoutX() + 14);
             sword.setY(rectangle.getLayoutY() + 10);

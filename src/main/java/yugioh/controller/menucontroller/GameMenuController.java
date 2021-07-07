@@ -335,6 +335,7 @@ public class GameMenuController extends MenuController implements Initializable 
                             //todo : call the method which moves the card to graveyard
                             cell.removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
                             gameController.currentTurnPlayer.getGameBoard().addCardToGraveyard(cell.getCellCard());
+
                         }
                         if(isTributeForSummon)
                             gameController.getMainPhase1Controller().continueMonsterSummon(gameController, false);

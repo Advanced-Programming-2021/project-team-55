@@ -29,6 +29,10 @@ public class GraveyardController implements Initializable {
         while (cards.size() > 0) {
             for (int j = 0; j < cardsPerRow; j++) {
                 Card card = cards.get(cards.size() - 1);
+                if (card == null) {
+                    cards.remove(cards.size() - 1);
+                    continue;
+                }
                 ImageView cardImage = card.getCardImageForDeck(52);
                 cardsPane.add(cardImage, j, columnCounter);
                 cards.remove(card);
