@@ -35,6 +35,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static yugioh.view.SoundPlayable.playButtonSound;
+
 public class GameBoard {
 
     private static Pane gamePane;
@@ -675,6 +677,7 @@ public class GameBoard {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     tributeStage.close();
+                    playButtonSound("tribute");
                     gameController.getGameMenuController().shouldSelectTributesNow=true;
                     gameController.getGameMenuController().neededTributes=countTributes;
                     gameController.getGameMenuController().isTributeForSummon=isSummon;

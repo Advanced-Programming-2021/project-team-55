@@ -31,6 +31,8 @@ import yugioh.view.menus.WelcomeMenu;
 import java.io.File;
 import java.util.ArrayList;
 
+import static yugioh.view.SoundPlayable.playButtonSound;
+
 public class CardActionsMenu implements MainPhasesController {
     private static Stage actionsStage = new Stage();
     private static Stage errorStage=new Stage();
@@ -182,6 +184,7 @@ public class CardActionsMenu implements MainPhasesController {
 
     private static void handleChangePosition() {
         try {
+            playButtonSound("defence");
             if(Cell.getSelectedCell().getCardStatus()==CardStatus.DEFENSIVE_OCCUPIED)
             new CardActionsMenu().setPosition("attack",gameController);
             else new CardActionsMenu().setPosition("defense",gameController);
@@ -194,6 +197,7 @@ public class CardActionsMenu implements MainPhasesController {
 
     private static void handleFlipSummon() {
         try {
+            playButtonSound("summon");//todo better aud
             new CardActionsMenu().flipSummon(gameController);
         } catch (GameException e) {
             e.printStackTrace();
@@ -287,6 +291,7 @@ public class CardActionsMenu implements MainPhasesController {
 
     public static void handleSet() {
         try {
+            playButtonSound("card");
             new CardActionsMenu().setCard(gameController);
         } catch (GameException e) {
             e.printStackTrace();
@@ -422,6 +427,7 @@ public class CardActionsMenu implements MainPhasesController {
 
     private static void handleSummon() {
         try {
+            playButtonSound("summon");
             new CardActionsMenu().monsterSummon(gameController);
         } catch (GameException e) {
             e.printStackTrace();
