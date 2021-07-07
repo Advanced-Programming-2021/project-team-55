@@ -123,6 +123,7 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     private static void openMainPhaseActionsForCardsInBoard() {
+        if (Cell.getSelectedCell() == null || Cell.getSelectedCell().getCellCard() == null) return;
         if (Cell.getSelectedCell().getCellCard().isMonster()){
             thisActions = boardMonsterActions;
         }
@@ -135,31 +136,28 @@ public class CardActionsMenu implements MainPhasesController {
         pane.getChildren().add(actionButton);
         pane.setMaxWidth(actionButton.getMaxWidth());
         pane.setMaxHeight(30);
-        actionButton.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if (t1.equals("flip summon")) {
-                    Cell selectedCell=Cell.getSelectedCell();
-                    if (selectedCell.getCardStatus() != CardStatus.DEFENSIVE_HIDDEN){
-                        change();
-                    }
-                        else if( gameController.getChangedPositionCells().contains(selectedCell)) {
-                        actionButton.setDisable(true);
-                    } else {
-                        actionButton.setDisable(false);
-                    }
-                } else if (t1.equals("change position")) {
-                    if(Cell.getSelectedCell().getCardStatus()==CardStatus.DEFENSIVE_HIDDEN){
-                        change();
-                    }
-                    else if (gameController.changedPositionCells.contains(Cell.getSelectedCell())) {
-                        actionButton.setDisable(true);
-                    } else {
-                        actionButton.setDisable(false);
-                    }
-                } else if (t1.equals("activate")) {
-                    //todo: activate spell
+        actionButton.textProperty().addListener((observableValue, s, t1) -> {
+            if (t1.equals("flip summon")) {
+                Cell selectedCell=Cell.getSelectedCell();
+                if (selectedCell.getCardStatus() != CardStatus.DEFENSIVE_HIDDEN){
+                    change();
                 }
+                    else if( gameController.getChangedPositionCells().contains(selectedCell)) {
+                    actionButton.setDisable(true);
+                } else {
+                    actionButton.setDisable(false);
+                }
+            } else if (t1.equals("change position")) {
+                if(Cell.getSelectedCell().getCardStatus()==CardStatus.DEFENSIVE_HIDDEN){
+                    change();
+                }
+                else if (gameController.changedPositionCells.contains(Cell.getSelectedCell())) {
+                    actionButton.setDisable(true);
+                } else {
+                    actionButton.setDisable(false);
+                }
+            } else if (t1.equals("activate")) {
+                //todo: activate spell
             }
         });
         actionButton.setText(thisActions.get(0));
