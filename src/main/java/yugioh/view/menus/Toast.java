@@ -19,9 +19,9 @@ import javafx.util.Duration;
 public final class Toast {
 
     public static void makeText(Stage ownerStage, String toastMsg) {
-        int toastDelay = 2500;
-        int fadeInDelay = 250;
-        int fadeOutDelay = 500;
+        int toastDelay = 500;//todo 2500, for debug purposes
+        int fadeInDelay = 50;//todo 250
+        int fadeOutDelay = 50;//todo 500
         Stage toastStage = new Stage();
         toastStage.initOwner(ownerStage);
         toastStage.setResizable(false);
