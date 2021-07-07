@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.EndOfGameMenuController">
+    <VBox alignment="CENTER" prefHeight="745.0" prefWidth="1038.0">
+        <Label fx:id="result" styleClass="buttonText" textFill="#ccdefc">
+            <font>
+                <Font size="18.0" />
+            </font>
+            <VBox.margin>
+                <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+            </VBox.margin>
+        </Label>
+
+        <JFXButton buttonType="RAISED" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#closeStage" onMousePressed="#closeStage" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="OK!" textFill="#ccdefc">
+            <styleClass>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
+            </styleClass>
+            <VBox.margin>
+                <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+            </VBox.margin>
+        </JFXButton>
+    </VBox>
+</AnchorPane>

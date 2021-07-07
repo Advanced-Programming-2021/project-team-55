@@ -21,6 +21,7 @@ import yugioh.view.gamephases.GamePhase;
 import yugioh.view.gamephases.GameResponses;
 import yugioh.view.menus.DetermineStarterMenu;
 import yugioh.view.menus.DuelMenu;
+import yugioh.view.menus.EndOfGameMenu;
 
 import java.util.ArrayList;
 
@@ -340,6 +341,7 @@ public class GameController {
             //todo end game should be handled here:
             //i mean we should play an animation or show a message to user
             try {
+                new EndOfGameMenu().execute(response);
                 new DuelMenu().execute();
             } catch (Exception e) {
                 e.printStackTrace();
