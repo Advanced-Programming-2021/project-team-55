@@ -407,12 +407,14 @@ public class GameBoard {
         trans.play();
     }
 
-    public void setTranslationAnimation(ImageView imageView) {
+    public void setTranslationAnimation(ImageView imageView, Rectangle rectangle) {
         TranslateTransition trans = new TranslateTransition(Duration.seconds(2), imageView);
-        trans.setFromX(imageView.getLayoutX());
-        trans.setFromY(imageView.getLayoutY());
-        trans.setToX(CardActionsMenu.getLastMousePositionX());
-        trans.setToY(CardActionsMenu.getLastMousePositionY());
+        System.out.println(imageView.getX());
+        System.out.println(imageView.getY());
+        System.out.println(rectangle.getLayoutX());
+        System.out.println(rectangle.getLayoutY());
+        trans.setByX(rectangle.getLayoutX() - imageView.getX());
+        trans.setByY(rectangle.getLayoutY() - imageView.getY());
         trans.play();
     }
 

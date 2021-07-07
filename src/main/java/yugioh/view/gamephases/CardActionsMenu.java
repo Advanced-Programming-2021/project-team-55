@@ -1,5 +1,7 @@
 package yugioh.view.gamephases;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -16,6 +18,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.gamephasescontrollers.MainPhasesController;
 import yugioh.controller.menucontroller.GameMenuController;
@@ -269,10 +272,18 @@ public class CardActionsMenu implements MainPhasesController {
                     try {
                         if (gameController.currentPhase != GamePhase.BATTLE) return;
                         GameMenuController.getGameMenuController().selectCard(rectangle);
-                        gameController.currentTurnPlayer.getGameBoard().setTranslationAnimation(sword);
-                        String result = Duel.getGameController().getBattlePhaseController().attack(finalI);
+                        gameController.currentTurnPlayer.getGameBoard().setTranslationAnimation(sword, cell.getCellRectangle());
+                        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event4 -> {
+                            String result;
+                            try {
+                                result = Duel.getGameController().getBattlePhaseController().attack(finalI);
+                                System.out.println(result);
+                            } catch (GameException e) {
+                                System.out.println(e.getMessage());
+                            }
+                        }));
+                        timeline.play();
                         playButtonSound("attack");
-                        System.out.println(result);
                     } catch (Exception e) {
                         try {
                             System.out.println(e.getMessage());
