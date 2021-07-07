@@ -343,42 +343,43 @@ public class GameMenuController extends MenuController implements Initializable 
                         neededTributes=0;
                     }
                 }
-            if (event.getButton() == MouseButton.PRIMARY) {
-                Cell selectedCell = Cell.getSelectedCell();
-                ImagePattern rectangleImage = (ImagePattern) rectangle.getFill();
-                if (selectedCell != null && !selectedCell.isEmpty()) {
-                    selectedCell.getCellRectangle().setEffect(null);
-                    CardActionsMenu.close();
-                }
-                if (selectedCell != null && selectedCell.getCellCard() != null &&
-                        (selectedCell.getCellCard().getCardImagePattern().equals(rectangleImage) ||
-                                selectedCell.getCellCard().getCardBackImagePattern().equals(rectangleImage))) {
-                    CardActionsMenu.close();
-                    Cell.deselectCell();
-                } else if (CardActionsMenu.getActiveSword() == null) {
-                    selectCard(rectangle);
-                    if (!gameController.currentTurnOpponentPlayer.getGameBoard().isCellInGameBoard(Cell.getSelectedCell())
-                            && !gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {
-                        try {
-                            CardActionsMenu.setCoordinates(event.getSceneX() + 195, event.getSceneY() + 60);
-                            CardActionsMenu.setLastMousePositionX(event.getSceneX() - 700);
-                            CardActionsMenu.setLastMousePositionY(200);
-                            CardActionsMenu.execute(rectangle, gameController);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                event.consume();
-            } else if (event.getButton() == MouseButton.SECONDARY) {
-                if (Cell.getSelectedCell() != null && (Cell.getSelectedCell().getCellCard().getCardImagePattern().equals
-                        (rectangle.getFill()) || Cell.getSelectedCell().getCellCard().getCardBackImagePattern().equals
-                        (rectangle.getFill()))) {
-                    CardActionsMenu.change();
-                }
-                event.consume();
-            }
-        }});
+//            if (event.getButton() == MouseButton.PRIMARY) {
+//                Cell selectedCell = Cell.getSelectedCell();
+//                ImagePattern rectangleImage = (ImagePattern) rectangle.getFill();
+//                if (selectedCell != null && !selectedCell.isEmpty()) {
+//                    selectedCell.getCellRectangle().setEffect(null);
+//                    CardActionsMenu.close();
+//                }
+//                if (selectedCell != null && selectedCell.getCellCard() != null &&
+//                        (selectedCell.getCellCard().getCardImagePattern().equals(rectangleImage) ||
+//                                selectedCell.getCellCard().getCardBackImagePattern().equals(rectangleImage))) {
+//                    CardActionsMenu.close();
+//                    Cell.deselectCell();
+//                } else if (CardActionsMenu.getActiveSword() == null) {
+//                    selectCard(rectangle);
+//                    if (!gameController.currentTurnOpponentPlayer.getGameBoard().isCellInGameBoard(Cell.getSelectedCell())
+//                            && !gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {
+//                        try {
+//                            CardActionsMenu.setCoordinates(event.getSceneX() + 195, event.getSceneY() + 60);
+//                            CardActionsMenu.setLastMousePositionX(event.getSceneX() - 700);
+//                            CardActionsMenu.setLastMousePositionY(200);
+//                            CardActionsMenu.execute(rectangle, gameController);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//                event.consume();
+//            } else if (event.getButton() == MouseButton.SECONDARY) {
+//                if (Cell.getSelectedCell() != null && (Cell.getSelectedCell().getCellCard().getCardImagePattern().equals
+//                        (rectangle.getFill()) || Cell.getSelectedCell().getCellCard().getCardBackImagePattern().equals
+//                        (rectangle.getFill()))) {
+//                    CardActionsMenu.change();
+//                }
+//                event.consume();
+//            }
+//        }});
+            }});
     }
 
 
