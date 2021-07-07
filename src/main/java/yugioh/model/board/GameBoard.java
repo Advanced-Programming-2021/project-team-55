@@ -457,6 +457,7 @@ public class GameBoard {
     }
 
     public void addCardToHandDeck(Card cardToAdd,boolean isForce) {
+        playButtonSound("card");
         if(isForce){
             Cell cell = new Cell(cardToAdd);
             Rectangle rectangle = new Rectangle();

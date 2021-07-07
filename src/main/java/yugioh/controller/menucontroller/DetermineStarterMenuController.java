@@ -96,6 +96,7 @@ public class DetermineStarterMenuController implements Initializable {
             gameController.setCurrentTurnPlayer(gameController.getGame().getFirstPlayer());
             gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getSecondPlayer());
             DetermineStarterMenu.getStage().close();
+            playButtonSound("forHonor");
         }
     }
 
@@ -111,6 +112,7 @@ public class DetermineStarterMenuController implements Initializable {
             gameController.setCurrentTurnPlayer(gameController.getGame().getSecondPlayer());
             gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getFirstPlayer());
             DetermineStarterMenu.getStage().close();
+            playButtonSound("forHonor");
         }
     }
 
