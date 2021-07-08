@@ -80,6 +80,7 @@ public class EndOfGameMenu extends WelcomeMenu {
             Label label=new Label( playerName + " do you want to be the first player?");
             label.setLayoutX(400);
             label.setLayoutY(400);
+            label.getStyleClass().add("buttonText");
             pane.getChildren().add(label);
             pane.getChildren().add(yesButton);
             pane.getChildren().add(noButton);
