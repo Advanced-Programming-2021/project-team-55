@@ -21,6 +21,7 @@ import yugioh.view.gamephases.GameResponses;
 import yugioh.view.menus.DetermineStarterMenu;
 import yugioh.view.menus.DuelMenu;
 import yugioh.view.menus.EndOfGameMenu;
+import yugioh.view.menus.GameMenu;
 
 import java.util.ArrayList;
 
@@ -344,7 +345,7 @@ public class GameController {
             //todo end game should be handled here:
             //i mean we should play an animation or show a message to user
             try {
-                new EndOfGameMenu().execute(response);
+                new EndOfGameMenu().execute(response,true);
                 new DuelMenu().execute();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -353,8 +354,13 @@ public class GameController {
             gameControllerInitialization();
             currentRound++;
             ViewInterface.showResult(response);
-            changeCards(currentTurnPlayer);
-            changeCards(currentTurnOpponentPlayer);
+//            changeCards(currentTurnPlayer);
+//            changeCards(currentTurnOpponentPlayer);
+            try {
+                new EndOfGameMenu().execute(response,false);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             Duel.runGame(this);
         }
 

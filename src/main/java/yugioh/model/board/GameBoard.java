@@ -684,7 +684,7 @@ public class GameBoard {
         URL url=getClass().getResource("/yugioh/fxml/TributeMenu.fxml");
         try {
             Pane pane= FXMLLoader.load(url);
-            Scene scene=new Scene(pane);
+            Scene scene=WelcomeMenu.createScene(pane);
             tributeStage.setScene(scene);
             Button yesButton =(Button)pane.getChildren().get(0);
             Button noButton=(Button) pane.getChildren().get(1);

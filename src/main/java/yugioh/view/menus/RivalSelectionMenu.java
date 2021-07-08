@@ -59,7 +59,7 @@ public class RivalSelectionMenu extends WelcomeMenu {
     public void start(Stage primaryStage) throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/RivalSelectionMenu.fxml");
         Parent parent = FXMLLoader.load(url);
-        Scene scene = new Scene(parent);
+        Scene scene = WelcomeMenu.createScene(parent);
         Stage stage = new Stage();
         RivalSelectionMenu.stage = stage;
         stage.initStyle(StageStyle.UTILITY);
