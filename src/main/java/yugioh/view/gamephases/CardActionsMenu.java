@@ -300,6 +300,7 @@ public class CardActionsMenu implements MainPhasesController {
                 } catch (Exception e) {
                     try {
                         System.out.println(e.getMessage());
+                        new PopUpWindow(e.getMessage()).start(WelcomeMenu.getStage());
                     } catch (Exception ignored) {
                     }
                 }
@@ -326,14 +327,20 @@ public class CardActionsMenu implements MainPhasesController {
                 rectangle1.setLayoutY(620);
                 sword.setRotate(sword.getRotate() + 180);
             }
-            gameController.currentTurnPlayer.getGameBoard().setTranslationAnimation(sword, rectangle1);
-            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event4 -> {
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.1), event4 -> {
                 try {
                     GameMenuController.getGameMenuController().selectCard(rectangle);
                     String result = gameController.getBattlePhaseController().directAttack(gameController);
+                    gameController.currentTurnPlayer.getGameBoard().setTranslationAnimation(sword, rectangle1);
+                    Timeline timeline3 = new Timeline(new KeyFrame(Duration.seconds(2), event -> CardActionsMenu.removeSword()));
+                    timeline3.play();
                     System.out.println(result);
                 } catch (GameException e) {
                     System.out.println(e.getMessage());
+                    try {
+                        new PopUpWindow(e.getMessage()).start(WelcomeMenu.getStage());
+                    } catch (Exception ignored) {
+                    }
                     Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(0.2), event10 -> CardActionsMenu.removeSword()));
                     timeline2.play();
                 }
