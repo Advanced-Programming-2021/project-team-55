@@ -5,6 +5,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import yugioh.model.TableItem;
 import yugioh.model.User;
 import yugioh.view.SoundPlayable;
@@ -49,7 +53,9 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
             counter++;
             if (counter > 10) break;
             if (tableItem.getUsername().equals(User.loggedInUser.getUsername())) {
-                tableItem.setStyle("-fx-background-color:green;");
+                tableItem.setTextFill(Color.CHARTREUSE);
+                tableItem.setBackground(new Background(new BackgroundFill(Color.CHARTREUSE, CornerRadii.EMPTY,null)));
+                //tableItem.setStyle("-fx-background-color:green;");
             }
             scoreBoard.getStyleClass().add("simpleText");
             scoreBoard.getItems().add(tableItem);
@@ -62,6 +68,12 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
             TableItem tableItem = new TableItem(i + 1, user.getNickname(), user.getScore());
+            if (tableItem.getUsername().equals(User.loggedInUser.getUsername())) {
+                System.out.println("hi");
+                tableItem.setTextFill(Color.CHARTREUSE);
+                tableItem.setBackground(new Background(new BackgroundFill(Color.CHARTREUSE, CornerRadii.EMPTY,null)));
+                tableItem.getStyleClass().add("mainTitleText");
+            }
             tableItems.add(tableItem);
         }
         return tableItems;

@@ -335,12 +335,10 @@ public class GameMenuController extends MenuController implements Initializable 
                     rectangle.setEffect(tributeEffect);
                     if (neededTributes == tributeCells.size()) {
                         for (Cell cell : tributeCells) {
-                            //todo : remove the monster and move it to the graveyard
                             Rectangle graveyard = GameMenuController.gameMenuController.userGraveyard;
                             if (CardActionsMenu.isBoardInverse())
                                 graveyard = GameMenuController.gameMenuController.rivalGraveyard;
                             gameController.getBattlePhaseController().moveCardToGraveyard(cell, graveyard, gameController.currentTurnPlayer);
-                            //todo : call the method which moves the card to graveyard
                             cell.getCellRectangle().setEffect(null);
                             cell.removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
                             gameController.currentTurnPlayer.getGameBoard().addCardToGraveyard(cell.getCellCard());

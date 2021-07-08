@@ -73,7 +73,7 @@ public class CardActionsMenu implements MainPhasesController {
             toURI().toString());
     private static Image activateImage = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\Activate.png").toURI().toString());
     private static Image flipSummonImage = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\Flip summon.png").toURI().toString());
-    private static Image changePositionImage = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\Change position.png").toURI().toString());
+    private static Image changePositionImage = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\ChangePosition.png").toURI().toString());
     private static ImageView activeSword;
     private static Rectangle activeRectangle;
     private static int counter = 0;
@@ -158,6 +158,7 @@ public class CardActionsMenu implements MainPhasesController {
             thisActions = boardSpellAndTrapActions;
         }
         actionButton = new ImageView();
+
         actionButton.fitWidthProperty().bind(actionsStage.widthProperty());
         actionButton.fitHeightProperty().bind(actionsStage.heightProperty());
         actionPane = new Pane();
@@ -166,7 +167,7 @@ public class CardActionsMenu implements MainPhasesController {
         actionButton.imageProperty().addListener(new ChangeListener<Image>() {
             @Override
             public void changed(ObservableValue<? extends Image> observableValue, Image image, Image t1) {
-                errorStage.setX(xImage - 40);
+                errorStage.setX(xImage - 60);
                 errorStage.setY(yImage + 20);
                 Label errorMessage = new Label();
                 errorMessage.setTextFill(Color.RED);
@@ -189,6 +190,7 @@ public class CardActionsMenu implements MainPhasesController {
                         change();
                     } else {
                         if (gameController.changedPositionCells.contains(Cell.getSelectedCell())) {
+                            actionButton.setImage(changePositionImage);
                             errorMessage.setText("you can't change the position of this card in this round!");
                             errorStage.show();
                             disableImage();
@@ -197,7 +199,7 @@ public class CardActionsMenu implements MainPhasesController {
                         }
                     }
                 } else if (t1.equals(activateImage)) {
-                    activateImage();
+                 //   activateImage();
                     //todo: activate spell
                 }
             }
