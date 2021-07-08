@@ -8,8 +8,8 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.CardGeneratorMenuController">
-    <VBox alignment="CENTER" layoutX="37.0" prefHeight="720" prefWidth="1026.0" spacing="10.0">
-      <Label alignment="BOTTOM_CENTER" prefHeight="87.0" prefWidth="344.0" styleClass="titleText" text="Card Generator" />
+    <VBox alignment="CENTER" layoutX="92.0" prefHeight="720" prefWidth="896.0" spacing="10.0">
+      <Label alignment="BOTTOM_CENTER" prefHeight="70.0" prefWidth="344.0" styleClass="titleText" text="Card Generator" />
       <HBox alignment="CENTER" prefHeight="202.0" prefWidth="899.0" spacing="20.0">
          <children>
             <VBox prefHeight="215.0" prefWidth="664.0" spacing="30.0">
@@ -27,7 +27,7 @@
             <HBox alignment="CENTER" prefHeight="58.0" prefWidth="1026.0">
                <children>
                     <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="55.0" prefWidth="146.0" styleClass="buttonText" text="Level : " />
-                    <JFXSlider fx:id="level" blockIncrement="1.0" indicatorPosition="RIGHT" majorTickUnit="1.0" max="11.0" min="1.0" minorTickCount="1" prefHeight="35.0" prefWidth="518.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+                    <JFXSlider fx:id="level" blockIncrement="1.0" indicatorPosition="RIGHT" majorTickUnit="1.0" max="11.0" min="1.0" minorTickCount="1" prefHeight="35.0" prefWidth="518.0" showTickLabels="true" snapToTicks="true" value="1.0" />
                </children>
             </HBox>
               <HBox alignment="CENTER" prefHeight="57.0" prefWidth="894.0" spacing="20.0">
@@ -85,9 +85,39 @@
         <JFXTextArea fx:id="descriptionBox" focusColor="#7aceed" labelFloat="true" prefHeight="120.0" prefWidth="1026.0" promptText="Description" styleClass="buttonText" unFocusColor="#a6e9ff" />
       <HBox alignment="CENTER" prefHeight="111.0" prefWidth="894.0">
          <children>
+            <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="482.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="64.0" prefWidth="482.0">
+                     <children>
+                          <Label prefHeight="38.0" prefWidth="161.0" styleClass="popupText" text="Price :              ">
+                              <font>
+                                  <Font size="22.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="price" prefHeight="30.0" prefWidth="204.0" styleClass="popupText" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="396.0">
+                     <children>
+                          <Label prefHeight="28.0" prefWidth="162.0" styleClass="buttonText" text="Your Coins : " />
+                          <Label fx:id="usersCoin" prefHeight="38.0" prefWidth="202.0" styleClass="popupText">
+                              <font>
+                                  <Font size="18.0" />
+                              </font>
+                          </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="376.0">
                <children>
-                    <Button fx:id="generateButton" mnemonicParsing="false" onMouseClicked="#generateClicked" text="Generate" />
+                   <JFXButton fx:id="generateButton" buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#generateClicked" prefHeight="60.0" prefWidth="260.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Generate">
+                   <styleClass>
+                       <String fx:value="buttonText" />
+                       <String fx:value="buttonShape" />
+                       <String fx:value="buttonHover" />
+                   </styleClass>
+               </JFXButton>
                     <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backToShop" prefHeight="60.0" prefWidth="260.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
                         <styleClass>
                             <String fx:value="buttonText" />
@@ -95,31 +125,6 @@
                             <String fx:value="buttonHover" />
                         </styleClass>
                     </JFXButton>
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="482.0">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="64.0" prefWidth="482.0">
-                     <children>
-                          <Label prefHeight="38.0" prefWidth="66.0" text="Price : ">
-                              <font>
-                                  <Font size="22.0" />
-                              </font>
-                          </Label>
-                          <Label fx:id="price" prefHeight="28.0" prefWidth="103.0" styleClass="buttonText" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="396.0">
-                     <children>
-                          <ImageView fx:id="coinImage" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                          <Label styleClass="buttonText" text="YOUR COINS : " />
-                          <Label fx:id="usersCoin" prefHeight="38.0" prefWidth="94.0">
-                              <font>
-                                  <Font size="18.0" />
-                              </font>
-                          </Label>
-                     </children>
-                  </HBox>
                </children>
             </VBox>
          </children>
