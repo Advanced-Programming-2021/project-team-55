@@ -8,11 +8,21 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.CardGeneratorMenuController">
-    <VBox alignment="CENTER" layoutX="90.0" prefHeight="792.0" prefWidth="899.0">
-        <JFXTextField fx:id="cardName" focusColor="#7aceed" labelFloat="true" prefHeight="44.0" prefWidth="337.0" promptText="Card Name" styleClass="buttonText" unFocusColor="#a6e9ff" />
-        <JFXTextField fx:id="attackField" focusColor="#7aceed" labelFloat="true" prefHeight="44.0" prefWidth="337.0" promptText="Attack Power" styleClass="buttonText" unFocusColor="#a6e9ff" />
-        <JFXTextField fx:id="defenseField" focusColor="#7aceed" labelFloat="true" prefHeight="44.0" prefWidth="337.0" promptText="Defence Power" styleClass="buttonText" unFocusColor="#a6e9ff" />
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+    <VBox alignment="CENTER" layoutX="93.0" prefHeight="720" prefWidth="893.0" spacing="20.0">
+      <Label text="Card Generator" />
+      <HBox alignment="CENTER" prefHeight="202.0" prefWidth="899.0" spacing="20.0">
+         <children>
+            <VBox prefHeight="215.0" prefWidth="664.0" spacing="30.0">
+               <children>
+                    <JFXTextField fx:id="cardName" focusColor="#7aceed" labelFloat="true" prefHeight="44.0" prefWidth="337.0" promptText="Card Name" styleClass="buttonText" unFocusColor="#a6e9ff" />
+                    <JFXTextField fx:id="attackField" focusColor="#7aceed" labelFloat="true" prefHeight="44.0" prefWidth="337.0" promptText="Attack Power" styleClass="buttonText" unFocusColor="#a6e9ff" />
+                    <JFXTextField fx:id="defenseField" focusColor="#7aceed" labelFloat="true" prefHeight="44.0" prefWidth="337.0" promptText="Defence Power" styleClass="buttonText" unFocusColor="#a6e9ff" />
+               </children>
+            </VBox>
+              <ImageView fx:id="cardImage" fitHeight="215.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </HBox>
+        <HBox alignment="CENTER" prefHeight="57.0" prefWidth="894.0" spacing="20.0">
             <MenuButton fx:id="monsterAttribute" mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" text="Monster attribute">
                 <items>
                     <MenuItem mnemonicParsing="false" text="Dark" />
@@ -49,32 +59,50 @@
                     <MenuItem mnemonicParsing="false" text="Ritual" />
                 </items>
             </MenuButton>
+           <Label alignment="CENTER" prefHeight="18.0" prefWidth="135.0" text="Level : " />
+           <Slider fx:id="level" blockIncrement="1.0" majorTickUnit="1.0" max="11.0" min="1.0" minorTickCount="1" prefHeight="33.0" prefWidth="284.0" showTickLabels="true" snapToTicks="true" value="1.0" />
         </HBox>
-        <Slider fx:id="level" blockIncrement="1.0" majorTickUnit="1.0" max="11.0" min="1.0" minorTickCount="1" prefHeight="38.0" prefWidth="155.0" showTickLabels="true" snapToTicks="true" value="1.0" />
-        <ImageView fx:id="cardImage" fitHeight="249.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true" />
-        <Label prefHeight="18.0" prefWidth="46.0" text="Level : " />
-        <Label prefHeight="38.0" prefWidth="66.0" text="Price : ">
-            <font>
-                <Font size="22.0" />
-            </font>
-        </Label>
-        <Button fx:id="generateButton" mnemonicParsing="false" onMouseClicked="#generateClicked" text="Generate" />
-        <Label fx:id="usersCoin" prefHeight="38.0" prefWidth="94.0">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Label>
-        <Label styleClass="buttonText" text="YOUR COINS : " />
-        <Label fx:id="price" prefHeight="28.0" prefWidth="103.0" styleClass="buttonText" />
-        <ImageView fx:id="coinImage" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backToShop" prefHeight="60.0" prefWidth="155.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
-            <styleClass>
-                <String fx:value="buttonText" />
-                <String fx:value="buttonShape" />
-                <String fx:value="buttonHover" />
-            </styleClass>
-        </JFXButton>
-        <TextArea fx:id="descriptionBox" prefHeight="113.0" prefWidth="200.0" />
-        <Label prefHeight="18.0" prefWidth="88.0" text="Description : " />
+        <JFXTextArea fx:id="descriptionBox" focusColor="#7aceed" labelFloat="true" prefHeight="179.0" prefWidth="894.0" promptText="Description" styleClass="buttonText" unFocusColor="#a6e9ff" />
+      <HBox alignment="CENTER" prefHeight="111.0" prefWidth="894.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="376.0">
+               <children>
+                    <Button fx:id="generateButton" mnemonicParsing="false" onMouseClicked="#generateClicked" text="Generate" />
+                    <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backToShop" prefHeight="60.0" prefWidth="260.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
+                        <styleClass>
+                            <String fx:value="buttonText" />
+                            <String fx:value="buttonShape" />
+                            <String fx:value="buttonHover" />
+                        </styleClass>
+                    </JFXButton>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="482.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                          <Label prefHeight="38.0" prefWidth="66.0" text="Price : ">
+                              <font>
+                                  <Font size="22.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="price" prefHeight="28.0" prefWidth="103.0" styleClass="buttonText" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="396.0">
+                     <children>
+                          <ImageView fx:id="coinImage" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                          <Label styleClass="buttonText" text="YOUR COINS : " />
+                          <Label fx:id="usersCoin" prefHeight="38.0" prefWidth="94.0">
+                              <font>
+                                  <Font size="18.0" />
+                              </font>
+                          </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
     </VBox>
 </AnchorPane>
