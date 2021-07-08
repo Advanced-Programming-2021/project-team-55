@@ -415,8 +415,6 @@ public class GameBoard {
         trans.setInterpolator(Interpolator.EASE_IN);
         trans.play();
         trans.setOnFinished(event -> new ExplodeAnimation(imageView));
-//        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> setFadeTransition(imageView, 1, 0)));
-//        timeline.play();
     }
 
     public void setFadeTransition(Node node, double fromValue, double toValue) {
@@ -470,9 +468,9 @@ public class GameBoard {
         trans.play();
     }
 
-    public void addCardToHandDeck(Card cardToAdd,boolean isForce) {
+    public void addCardToHandDeck(Card cardToAdd, boolean isForce) {
         playButtonSound("card");
-        if(isForce){
+        if (isForce) {
             Cell cell = new Cell(cardToAdd);
             Rectangle rectangle = new Rectangle();
             Duel.getGameController().getGameMenuController().addEventForCardImageRectangle(rectangle, cardToAdd);
@@ -485,7 +483,7 @@ public class GameBoard {
             handCards.add(cell);
             return;
         }
-        String cardName=cardToAdd.getName();
+        String cardName = cardToAdd.getName();
         for (int i = 0; i < deckZone.size(); i++) {
             if (deckZone.get(i).getCellCard().getName().equals(cardName)) {
                 Card card = deckZone.get(i).getCellCard();
@@ -676,27 +674,28 @@ public class GameBoard {
         }
         return true;
     }
-    public void handleTribute(GameController gameController,int countTributes,boolean isSummon){
-        Stage tributeStage=new Stage();
+
+    public void handleTribute(GameController gameController, int countTributes, boolean isSummon) {
+        Stage tributeStage = new Stage();
         tributeStage.initOwner(WelcomeMenu.stage);
         tributeStage.initStyle(StageStyle.UNDECORATED);
         tributeStage.initModality(Modality.NONE);
         CardActionsMenu.setToBeSummonedCell(Cell.getSelectedCell());
-        URL url=getClass().getResource("/yugioh/fxml/TributeMenu.fxml");
+        URL url = getClass().getResource("/yugioh/fxml/TributeMenu.fxml");
         try {
-            Pane pane= FXMLLoader.load(url);
-            Scene scene=WelcomeMenu.createScene(pane);
+            Pane pane = FXMLLoader.load(url);
+            Scene scene = WelcomeMenu.createScene(pane);
             tributeStage.setScene(scene);
-            Button yesButton =(Button)pane.getChildren().get(0);
-            Button noButton=(Button) pane.getChildren().get(1);
+            Button yesButton = (Button) pane.getChildren().get(0);
+            Button noButton = (Button) pane.getChildren().get(1);
             yesButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     tributeStage.close();
                     playButtonSound("tribute");
-                    gameController.getGameMenuController().shouldSelectTributesNow=true;
-                    gameController.getGameMenuController().neededTributes=countTributes;
-                    gameController.getGameMenuController().isTributeForSummon=isSummon;
+                    gameController.getGameMenuController().shouldSelectTributesNow = true;
+                    gameController.getGameMenuController().neededTributes = countTributes;
+                    gameController.getGameMenuController().isTributeForSummon = isSummon;
                 }
             });
             noButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
