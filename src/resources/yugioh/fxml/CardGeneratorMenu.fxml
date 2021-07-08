@@ -8,8 +8,8 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.CardGeneratorMenuController">
-    <VBox alignment="CENTER" layoutX="93.0" prefHeight="720" prefWidth="893.0" spacing="20.0">
-      <Label text="Card Generator" />
+    <VBox alignment="CENTER" layoutX="37.0" prefHeight="720" prefWidth="1026.0" spacing="10.0">
+      <Label alignment="BOTTOM_CENTER" prefHeight="87.0" prefWidth="344.0" styleClass="titleText" text="Card Generator" />
       <HBox alignment="CENTER" prefHeight="202.0" prefWidth="899.0" spacing="20.0">
          <children>
             <VBox prefHeight="215.0" prefWidth="664.0" spacing="30.0">
@@ -22,50 +22,70 @@
               <ImageView fx:id="cardImage" fitHeight="215.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
-        <HBox alignment="CENTER" prefHeight="57.0" prefWidth="894.0" spacing="20.0">
-            <MenuButton fx:id="monsterAttribute" mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" text="Monster attribute">
-                <items>
-                    <MenuItem mnemonicParsing="false" text="Dark" />
-                    <MenuItem mnemonicParsing="false" text="Earth" />
-                    <MenuItem mnemonicParsing="false" text="Fire" />
-                    <MenuItem mnemonicParsing="false" text="Light" />
-                    <MenuItem mnemonicParsing="false" text="Water" />
-                    <MenuItem mnemonicParsing="false" text="Wind" />
-                </items>
-            </MenuButton>
-            <MenuButton fx:id="monsterType" mnemonicParsing="false" text="Monster type">
-                <items>
-                    <MenuItem mnemonicParsing="false" text="Beast Warrior" />
-                    <MenuItem mnemonicParsing="false" text="Warrior" />
-                    <MenuItem mnemonicParsing="false" text="Aqua" />
-                    <MenuItem mnemonicParsing="false" text="Fiend" />
-                    <MenuItem mnemonicParsing="false" text="Beast" />
-                    <MenuItem mnemonicParsing="false" text="Pyro" />
-                    <MenuItem mnemonicParsing="false" text="Spell Caster" />
-                    <MenuItem mnemonicParsing="false" text="Thunder" />
-                    <MenuItem mnemonicParsing="false" text="Dragon" />
-                    <MenuItem mnemonicParsing="false" text="Machine" />
-                    <MenuItem mnemonicParsing="false" text="Rock" />
-                    <MenuItem mnemonicParsing="false" text="Insect" />
-                    <MenuItem mnemonicParsing="false" text="Cyberse" />
-                    <MenuItem mnemonicParsing="false" text="Fairy" />
-                    <MenuItem mnemonicParsing="false" text="Sea Serpent" />
-                </items>
-            </MenuButton>
-            <MenuButton fx:id="cardType" mnemonicParsing="false" prefHeight="26.0" prefWidth="88.0" text="Card type">
-                <items>
-                    <MenuItem mnemonicParsing="false" text="Normal" />
-                    <MenuItem mnemonicParsing="false" text="Effective" />
-                    <MenuItem mnemonicParsing="false" text="Ritual" />
-                </items>
-            </MenuButton>
-           <Label alignment="CENTER" prefHeight="18.0" prefWidth="135.0" text="Level : " />
-           <Slider fx:id="level" blockIncrement="1.0" majorTickUnit="1.0" max="11.0" min="1.0" minorTickCount="1" prefHeight="33.0" prefWidth="284.0" showTickLabels="true" snapToTicks="true" value="1.0" />
-        </HBox>
-        <JFXTextArea fx:id="descriptionBox" focusColor="#7aceed" labelFloat="true" prefHeight="179.0" prefWidth="894.0" promptText="Description" styleClass="buttonText" unFocusColor="#a6e9ff" />
+      <VBox prefHeight="119.0" prefWidth="1026.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="58.0" prefWidth="1026.0">
+               <children>
+                    <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="55.0" prefWidth="146.0" styleClass="buttonText" text="Level : " />
+                    <JFXSlider fx:id="level" blockIncrement="1.0" indicatorPosition="RIGHT" majorTickUnit="1.0" max="11.0" min="1.0" minorTickCount="1" prefHeight="35.0" prefWidth="518.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+               </children>
+            </HBox>
+              <HBox alignment="CENTER" prefHeight="57.0" prefWidth="894.0" spacing="20.0">
+                  <MenuButton fx:id="monsterAttribute" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="248.0" text="Monster attribute">
+                      <styleClass>
+                          <String fx:value="buttonShape" />
+                          <String fx:value="buttonText" />
+                      </styleClass>
+                      <items>
+                          <MenuItem mnemonicParsing="false" text="Dark" />
+                          <MenuItem mnemonicParsing="false" text="Earth" />
+                          <MenuItem mnemonicParsing="false" text="Fire" />
+                          <MenuItem mnemonicParsing="false" text="Light" />
+                          <MenuItem mnemonicParsing="false" text="Water" />
+                          <MenuItem mnemonicParsing="false" text="Wind" />
+                      </items>
+                  </MenuButton>
+                  <MenuButton fx:id="monsterType" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="248.0" text="Monster type">
+                      <styleClass>
+                          <String fx:value="buttonShape" />
+                          <String fx:value="buttonText" />
+                      </styleClass>
+                      <items>
+                          <MenuItem mnemonicParsing="false" text="Beast Warrior" />
+                          <MenuItem mnemonicParsing="false" text="Warrior" />
+                          <MenuItem mnemonicParsing="false" text="Aqua" />
+                          <MenuItem mnemonicParsing="false" text="Fiend" />
+                          <MenuItem mnemonicParsing="false" text="Beast" />
+                          <MenuItem mnemonicParsing="false" text="Pyro" />
+                          <MenuItem mnemonicParsing="false" text="Spell Caster" />
+                          <MenuItem mnemonicParsing="false" text="Thunder" />
+                          <MenuItem mnemonicParsing="false" text="Dragon" />
+                          <MenuItem mnemonicParsing="false" text="Machine" />
+                          <MenuItem mnemonicParsing="false" text="Rock" />
+                          <MenuItem mnemonicParsing="false" text="Insect" />
+                          <MenuItem mnemonicParsing="false" text="Cyberse" />
+                          <MenuItem mnemonicParsing="false" text="Fairy" />
+                          <MenuItem mnemonicParsing="false" text="Sea Serpent" />
+                      </items>
+                  </MenuButton>
+                  <MenuButton fx:id="cardType" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="248.0" text="Card type">
+                      <styleClass>
+                          <String fx:value="buttonShape" />
+                          <String fx:value="buttonText" />
+                      </styleClass>
+                      <items>
+                          <MenuItem mnemonicParsing="false" text="Normal" />
+                          <MenuItem mnemonicParsing="false" text="Effective" />
+                          <MenuItem mnemonicParsing="false" text="Ritual" />
+                      </items>
+                  </MenuButton>
+              </HBox>
+         </children>
+      </VBox>
+        <JFXTextArea fx:id="descriptionBox" focusColor="#7aceed" labelFloat="true" prefHeight="120.0" prefWidth="1026.0" promptText="Description" styleClass="buttonText" unFocusColor="#a6e9ff" />
       <HBox alignment="CENTER" prefHeight="111.0" prefWidth="894.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="376.0">
+            <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="376.0">
                <children>
                     <Button fx:id="generateButton" mnemonicParsing="false" onMouseClicked="#generateClicked" text="Generate" />
                     <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backToShop" prefHeight="60.0" prefWidth="260.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
@@ -77,9 +97,9 @@
                     </JFXButton>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="482.0">
+            <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="482.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="64.0" prefWidth="482.0">
                      <children>
                           <Label prefHeight="38.0" prefWidth="66.0" text="Price : ">
                               <font>
