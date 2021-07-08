@@ -191,6 +191,7 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void pauseClicked() throws Exception {
+        CardActionsMenu.close();
         SoundPlayable.playButtonSound("surrender");
         URL url = getClass().getResource("/yugioh/fxml/PauseMenu.fxml");
         Pane pane = FXMLLoader.load(url);
@@ -306,7 +307,7 @@ public class GameMenuController extends MenuController implements Initializable 
                         if (!gameController.currentTurnOpponentPlayer.getGameBoard().isCellInGameBoard(Cell.getSelectedCell())
                                 && !gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {
                             try {
-                                CardActionsMenu.setCoordinates(event.getSceneX() + 195, event.getSceneY() + 60);
+                                CardActionsMenu.setCoordinates(event.getSceneX() + 200, event.getSceneY() + 55);
                                 CardActionsMenu.setLastMousePositionX(event.getSceneX() - 700);
                                 CardActionsMenu.setLastMousePositionY(200);
                                 CardActionsMenu.execute(rectangle, gameController);
