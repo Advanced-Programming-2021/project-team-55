@@ -11,13 +11,11 @@
 }
 
 {
-    -fx-base: #04091a
-;
+    -fx-base: #04091a;
 }
 
 .vboxDesign {
     -fx-alignment: center;
-
 }
 
 .buttonText {

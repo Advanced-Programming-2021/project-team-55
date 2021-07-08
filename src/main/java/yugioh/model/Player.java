@@ -37,6 +37,7 @@ public class Player {
 
     public void setLP(int LP) {
         this.LP = LP;
+        updateLP();
     }
 
     public void decreaseLP(int amount) {

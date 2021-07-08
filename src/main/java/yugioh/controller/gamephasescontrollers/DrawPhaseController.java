@@ -16,10 +16,9 @@ public class DrawPhaseController {
         this.gameController = gameController;
     }
 
-    public Cell addCardToHandDeck(Player player, Card toBeAdded) {
-        Cell toBeAddedCell = new Cell(toBeAdded);
+    public void addCardToHandDeck(Player player, Card toBeAdded) {
+        new Cell(toBeAdded);
         player.getGameBoard().addCardToHandDeck(toBeAdded,true);
-        return toBeAddedCell;
     }
 
     public String removeFirstDeckCardFromDeckToPlay(Player player) throws GameException {
