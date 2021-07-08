@@ -1,5 +1,7 @@
 package yugioh.view.gamephases;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -16,6 +18,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.gamephasescontrollers.MainPhasesController;
 import yugioh.controller.menucontroller.GameMenuController;
@@ -242,12 +245,22 @@ public class CardActionsMenu implements MainPhasesController {
             activeRectangle = rectangle;
             GameMenuController.getGameMenuController().selectCard(rectangle);
             if (gameController.currentTurnOpponentPlayer.getGameBoard().isMonsterCardZoneEmpty()) {
-                try {
-                    String result = gameController.getBattlePhaseController().directAttack(gameController);
-                    System.out.println(result);
-                } catch (GameException e) {
-                    System.out.println(e.getMessage());
-                }
+                Rectangle rectangle1 = new Rectangle();
+                rectangle1.setLayoutX(340);
+                rectangle1.setLayoutY(100);
+                gameController.currentTurnPlayer.getGameBoard().setTranslationAnimation(sword, rectangle1);
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event4 -> {
+                    try {
+                        String result = gameController.getBattlePhaseController().directAttack(gameController);
+                        System.out.println(result);
+                    } catch (GameException e) {
+                        System.out.println(e.getMessage());
+                        Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(0.2), event10 -> CardActionsMenu.removeSword()));
+                        timeline2.play();
+                    }
+                }));
+                timeline.play();
+                playButtonSound("attack");
                 return;
             }
             GameMenuController.getGameMenuController().gameBoardPane.addEventHandler(MouseEvent.MOUSE_MOVED, event2 -> {
@@ -262,12 +275,27 @@ public class CardActionsMenu implements MainPhasesController {
                 Cell cell = monsterCardZone[i];
                 int finalI = i;
                 cell.getCellRectangle().addEventHandler(MouseEvent.MOUSE_CLICKED, event3 -> {
+                    System.out.println(event3.getSceneX() - 400);
+                    System.out.println(event3.getSceneY());
+                    setLastMousePositionX(event3.getSceneX() - 400);
+                    setLastMousePositionY(event3.getSceneY());
                     try {
                         if (gameController.currentPhase != GamePhase.BATTLE) return;
                         GameMenuController.getGameMenuController().selectCard(rectangle);
-                        String result = Duel.getGameController().getBattlePhaseController().attack(finalI);
+                        gameController.currentTurnPlayer.getGameBoard().setTranslationAnimation(sword, cell.getCellRectangle());
+                        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event4 -> {
+                            String result;
+                            try {
+                                result = Duel.getGameController().getBattlePhaseController().attack(finalI);
+                                System.out.println(result);
+                            } catch (GameException e) {
+                                System.out.println(e.getMessage());
+                                Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(0.2), event10 -> CardActionsMenu.removeSword()));
+                                timeline2.play();
+                            }
+                        }));
+                        timeline.play();
                         playButtonSound("attack");
-                        System.out.println(result);
                     } catch (Exception e) {
                         try {
                             System.out.println(e.getMessage());

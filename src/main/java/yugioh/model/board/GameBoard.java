@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -403,6 +404,13 @@ public class GameBoard {
         trans.setToY(rectangle.getY());
         trans.setFromY(constant * CardActionsMenu.getLastMousePositionY());
         rectangle.setFill(imagePattern);
+        trans.play();
+    }
+
+    public void setTranslationAnimation(ImageView imageView, Rectangle rectangle) {
+        TranslateTransition trans = new TranslateTransition(Duration.seconds(2), imageView);
+        trans.setByX(rectangle.getLayoutX() - imageView.getX());
+        trans.setByY(rectangle.getLayoutY() - imageView.getY());
         trans.play();
     }
 
