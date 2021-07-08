@@ -3,12 +3,16 @@ package yugioh.controller.menucontroller;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.view.SoundPlayable;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.menus.DetermineStarterMenu;
 import yugioh.view.menus.Toast;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -23,6 +27,7 @@ public class DetermineStarterMenuController implements Initializable {
     public Label yesNoQuestion;
     public JFXButton noButton;
     public JFXButton yesButton;
+    public MediaView coinToss;
 
     public DetermineStarterMenuController() {
         DetermineStarterMenuController.gameController = Duel.getGameController();
@@ -62,6 +67,11 @@ public class DetermineStarterMenuController implements Initializable {
         firstPlayerName.setText(currentPlayerName + " choose your Coin side:");
         noButton.setOpacity(0);
         yesButton.setOpacity(0);
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\coinToss.mp4").toURI().toString()));
+        mediaPlayer.play();
+        mediaPlayer.setCycleCount(1);
+        mediaPlayer.setMute(true);
+        coinToss.setMediaPlayer(mediaPlayer);
     }
 
     public void back() throws Exception {
