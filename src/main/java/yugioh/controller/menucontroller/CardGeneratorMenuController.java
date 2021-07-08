@@ -180,7 +180,7 @@ public class CardGeneratorMenuController extends MenuController implements Initi
 
     }
 
-    public void generateClicked(MouseEvent mouseEvent) throws Exception {
+    public void generateClicked(MouseEvent mouseEvent)throws Exception {
         if(
         monsterType.getText().equals("Monster type")||cardType.getText().equals("Card type")
                 ||monsterAttribute.getText().equals("Monster attribute")||attackField.getText().equals("")||
@@ -194,11 +194,17 @@ public class CardGeneratorMenuController extends MenuController implements Initi
                     Integer.parseInt(attackField.getText()),Integer.parseInt(defenseField.getText()),(int)level.getValue(),
                     (MonsterAttribute) getMenuItem(monsterAttribute.getText(),"Monster attribute"),(MonsterType) getMenuItem(monsterType.getText(),
                     "Monster type"),(CardType) getMenuItem(cardType.getText(),"Card type"));
-            monster.setImage(cardImage);
             monster.setIsCustom();
+            monster.setImage(cardImage);
+            monster.setImage();
+
             Path sourceDirectory = Paths.get("src\\resources\\yugioh\\PNG\\cardsImages\\questionMark.jpg");
             Path targetDirectory = Paths.get("src\\resources\\yugioh\\PNG\\cardsImages\\" + cardName.getText()+ ".jpg");
-            Files.copy(sourceDirectory, targetDirectory);
+            try {
+                Files.copy(sourceDirectory, targetDirectory);
+            }catch (Exception e){
+                new PopUpWindow("Error: card with this name already exists!").start(WelcomeMenu.stage);
+            }
             new CardGeneratorMenu().execute();
             new PopUpWindow("card generated successfully!").start(WelcomeMenu.stage);
 

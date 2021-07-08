@@ -348,14 +348,17 @@ public class Card {
 
     public static ImageView getCardImage(Card card, int width) {
         String name;
-        if (card == null) name = "Unknown";
-        else if(card.isCustom){
-            name= card.name;
+        if (card == null) name = "src\\resources\\yugioh\\PNG\\cardsImages\\Unknown.jpg";
+//        else if(card.isCustom){
+//            name= card.name;
+//        }
+//        else name = card.getClass().getName().replaceAll("yugioh.model.cards.monsters.",
+//                "").replaceAll("yugioh.model.cards.trapandspells.", "");
+        else name= card.image;
+        File imageFile = new File(name);
+        if (!imageFile.exists()) {
+            System.out.println(name);
         }
-        else name = card.getClass().getName().replaceAll("yugioh.model.cards.monsters.",
-                "").replaceAll("yugioh.model.cards.trapandspells.", "");
-        File imageFile = new File("src/resources/yugioh/PNG/cardsImages/" + name + ".jpg");
-        if (!imageFile.exists()) System.out.println(name);
         ImageView imageView = new ImageView(new Image(imageFile.toURI().toString()));
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(width);
@@ -442,8 +445,13 @@ public class Card {
     }
 
     public void setImage() {
-        String name = getClass().getName().replaceAll("yugioh.model.cards.monsters.",
+        String name="";
+        if(!isCustom)
+        name = getClass().getName().replaceAll("yugioh.model.cards.monsters.",
                 "").replaceAll("yugioh.model.cards.trapandspells.", "");
+        else{
+            name=this.name;
+        }
         image = "src/resources/yugioh/PNG/cardsImages/" + name + ".jpg";
         cardImage = new ImageView(new Image(new File(image).toURI().toString()));
         cardImagePattern = new ImagePattern(new Image(new File(image).toURI().toString()));
