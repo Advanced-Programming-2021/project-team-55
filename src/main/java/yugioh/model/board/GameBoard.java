@@ -30,6 +30,7 @@ import yugioh.view.gamephases.CardActionsMenu;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GameResponses;
 import yugioh.view.menus.WelcomeMenu;
+import yugioh.view.transitions.ExplodeAnimation;
 
 import java.io.IOException;
 import java.net.URL;
@@ -412,8 +413,9 @@ public class GameBoard {
         trans.setByX(rectangle.getLayoutX() - imageView.getX());
         trans.setByY(rectangle.getLayoutY() - imageView.getY());
         trans.play();
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> setFadeTransition(imageView, 1, 0)));
-        timeline.play();
+        trans.setOnFinished(event -> new ExplodeAnimation(imageView));
+//        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> setFadeTransition(imageView, 1, 0)));
+//        timeline.play();
     }
 
     public void setFadeTransition(Node node, double fromValue, double toValue) {
