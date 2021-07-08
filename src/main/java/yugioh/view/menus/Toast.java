@@ -38,7 +38,7 @@ public final class Toast {
         root.setStyle("-fx-background-radius: 20; -fx-background-color: #04091a; -fx-padding: 50px;");
         root.setOpacity(0);
 
-        Scene scene = new Scene(root);
+        Scene scene = WelcomeMenu.createScene(root);
         scene.setFill(Color.TRANSPARENT);
         toastStage.setScene(scene);
         toastStage.show();

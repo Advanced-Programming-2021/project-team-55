@@ -52,7 +52,7 @@ public class SplashScreen extends Application {
     }
 
     private void showSplash(Stage initStage) {
-        Scene splashScene = new Scene(splashLayout);
+        Scene splashScene = WelcomeMenu.createScene(splashLayout);
         splashScene.setFill(null);
         initStage.initStyle(StageStyle.TRANSPARENT);
         initStage.setScene(splashScene);
