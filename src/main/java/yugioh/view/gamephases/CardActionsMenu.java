@@ -300,8 +300,8 @@ public class CardActionsMenu implements MainPhasesController {
     private static boolean handleDirectAttack(ImageView sword, Rectangle rectangle) {
         if (gameController.currentTurnOpponentPlayer.getGameBoard().isMonsterCardZoneEmpty()) {
             Rectangle rectangle1 = new Rectangle();
-            rectangle1.setLayoutX(340);
-            rectangle1.setLayoutY(100);
+            rectangle1.setLayoutX(330);
+            rectangle1.setLayoutY(50);
             if (isBoardInverse()) {
                 rectangle1.setLayoutY(620);
                 sword.setRotate(sword.getRotate() + 180);

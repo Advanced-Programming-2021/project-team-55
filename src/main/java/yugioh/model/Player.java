@@ -1,5 +1,8 @@
 package yugioh.model;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.board.GameBoard;
 import yugioh.model.cards.Deck;
@@ -38,7 +41,9 @@ public class Player {
 
     public void decreaseLP(int amount) {
         setLP(this.getLP() - amount);
+        if (LP < 0) LP = 0;
         updateLP();
+        if (Duel.getGameController().isGameEnded()) Duel.getGameController().endGameRound();
     }
 
     private void updateLP() {
