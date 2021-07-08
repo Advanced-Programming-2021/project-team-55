@@ -199,25 +199,28 @@ abstract public class Duel {
             if (gameController.getCurrentRound() == 1)
                 new DetermineStarterMenu().execute();
             else {
-                String playerName = gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1).getUser().getNickname();
-                ViewInterface.showResult(playerName + " do you want to be the first player? yes/no");
-                String input = ViewInterface.getInput();
-                while (!input.equals("no") && !input.equals("yes")) {
-                    ViewInterface.showResult("Error: invalid choice!");
-                    input = ViewInterface.getInput();
-                }
-                switch (input) {
-                    case "yes": {
-                        gameController.setCurrentTurnPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
-                        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
-                        break;
-                    }
-                    case "no": {
-                        gameController.setCurrentTurnPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
-                        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
-                        break;
-                    }
-                }
+
+
+
+//                String playerName = gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1).getUser().getNickname();
+//                ViewInterface.showResult(playerName + " do you want to be the first player? yes/no");
+//                String input = ViewInterface.getInput();
+//                while (!input.equals("no") && !input.equals("yes")) {
+//                    ViewInterface.showResult("Error: invalid choice!");
+//                    input = ViewInterface.getInput();
+//                }
+//                switch (input) {
+//                    case "yes": {
+//                        gameController.setCurrentTurnPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
+//                        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
+//                        break;
+//                    }
+//                    case "no": {
+//                        gameController.setCurrentTurnPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
+//                        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
+//                        break;
+//                    }
+//                }
             }
         } catch (Exception e) {
             e.printStackTrace();
