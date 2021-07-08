@@ -77,6 +77,7 @@ public class CheatController implements Initializable {
     }
 
     public String processCommand(String command) {
+        command = ViewInterface.sortFields(command);
         String response = "";
         if (command.matches(GameRegexes.INCREASE_LP.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.INCREASE_LP.regex);

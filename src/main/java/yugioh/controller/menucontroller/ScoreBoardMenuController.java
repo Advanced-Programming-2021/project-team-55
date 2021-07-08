@@ -44,19 +44,25 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         ArrayList<TableItem> tableItems = makeTableItemsFromUsers(users);
         sortUsers(tableItems);
 
+        int toBeSelected = 0;
         int counter = 0;
-        for (TableItem tableItem : tableItems) {
+        for (int i = 0; i < tableItems.size(); i++) {
+            TableItem tableItem = tableItems.get(i);
             counter++;
             if (counter > 10) break;
             if (tableItem.getUsername().equals(User.loggedInUser.getUsername())) {
-                tableItem.setStyle("-fx-background-color:green;");
+                System.out.println(i);
+                toBeSelected = i;
             }
             scoreBoard.getStyleClass().add("simpleText");
             scoreBoard.getItems().add(tableItem);
         }
+
+        scoreBoard.requestFocus();
+        scoreBoard.getSelectionModel().clearAndSelect(toBeSelected);
+        scoreBoard.getFocusModel().focus(toBeSelected);
     }
 
-    // @NotNull
     private ArrayList<TableItem> makeTableItemsFromUsers(ArrayList<User> users) {
         ArrayList<TableItem> tableItems = new ArrayList<>();
         for (int i = 0; i < users.size(); i++) {
