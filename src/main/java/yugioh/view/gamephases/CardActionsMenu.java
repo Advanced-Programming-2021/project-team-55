@@ -275,8 +275,6 @@ public class CardActionsMenu implements MainPhasesController {
                 Cell cell = monsterCardZone[i];
                 int finalI = i;
                 cell.getCellRectangle().addEventHandler(MouseEvent.MOUSE_CLICKED, event3 -> {
-                    System.out.println(event3.getSceneX() - 400);
-                    System.out.println(event3.getSceneY());
                     setLastMousePositionX(event3.getSceneX() - 400);
                     setLastMousePositionY(event3.getSceneY());
                     try {
