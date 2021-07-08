@@ -4,6 +4,7 @@ import javafx.animation.Transition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import yugioh.view.SoundPlayable;
 
 public class ExplodeAnimation extends Transition {
 
@@ -14,6 +15,7 @@ public class ExplodeAnimation extends Transition {
         imageView.setTranslateX(imageView.getTranslateX() - 80);
         imageView.setTranslateY(imageView.getTranslateY() - 70);
         setCycleDuration(Duration.millis(500));
+        SoundPlayable.playButtonSound("explosion");
         this.play();
     }
 

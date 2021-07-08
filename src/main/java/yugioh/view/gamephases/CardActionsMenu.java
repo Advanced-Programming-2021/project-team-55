@@ -306,11 +306,13 @@ public class CardActionsMenu implements MainPhasesController {
                 rectangle1.setLayoutY(620);
                 sword.setRotate(sword.getRotate() + 180);
             }
-            gameController.currentTurnPlayer.getGameBoard().setTranslationAnimation(sword, rectangle1);
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event4 -> {
                 try {
                     GameMenuController.getGameMenuController().selectCard(rectangle);
                     String result = gameController.getBattlePhaseController().directAttack(gameController);
+                    gameController.currentTurnPlayer.getGameBoard().setTranslationAnimation(sword, rectangle1);
+                    Timeline timeline3 = new Timeline(new KeyFrame(Duration.seconds(2), event -> CardActionsMenu.removeSword()));
+                    timeline3.play();
                     System.out.println(result);
                 } catch (GameException e) {
                     System.out.println(e.getMessage());
