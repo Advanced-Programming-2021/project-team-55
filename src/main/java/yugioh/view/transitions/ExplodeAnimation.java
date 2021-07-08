@@ -11,6 +11,8 @@ public class ExplodeAnimation extends Transition {
 
     public ExplodeAnimation(ImageView imageView) {
         this.imageView = imageView;
+        imageView.setTranslateX(imageView.getTranslateX() - 80);
+        imageView.setTranslateY(imageView.getTranslateY() - 70);
         setCycleDuration(Duration.millis(500));
         this.play();
     }
