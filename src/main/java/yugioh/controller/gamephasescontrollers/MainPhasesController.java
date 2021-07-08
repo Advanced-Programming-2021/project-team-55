@@ -1,9 +1,6 @@
 package yugioh.controller.gamephasescontrollers;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
-import javafx.util.Duration;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.Player;
 import yugioh.model.board.CardStatus;
@@ -24,7 +21,6 @@ import yugioh.model.cards.trapandspells.TorrentialTribute;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.ConsoleColors;
 import yugioh.view.ViewInterface;
-import yugioh.view.gamephases.CardActionsMenu;
 import yugioh.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
@@ -51,28 +47,28 @@ public interface MainPhasesController {
         gameController.setLastSummonedMonster(selectedCell);
         if (TheTricky.handleEffect(gameController, selectedCell)) return;
         if (GateGuardian.handleEffect(gameController)) return;
-        handleTribute(currentPlayer, gameController, monsterLevel, false,false);
+        handleTribute(currentPlayer, gameController, monsterLevel, false, false);
     }
 
     default void continueMonsterSummon(GameController gameController, boolean isNormalSummon) {
 //        double length = 4;
 //        if (isNormalSummon) length = 0.1;
 //        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(length), event -> {
-           // Cell.setSelectedCell(CardActionsMenu.getToBeSummonedCell());
-            Cell selectedCell= Cell.getSelectedCell();
-            Player currentPlayer=gameController.currentTurnPlayer;
-            TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
-            gameController.setDidPlayerSetOrSummonThisTurn(true);
-            addMonstersToSummonEffectSpellAndTrap(selectedCell);
-            activateTrapIfCanBeActivated(gameController, SummonTypes.NormalSummon);
-            try {
-                currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED,
-                        gameController);
-            } catch (GameException e) {
-                e.printStackTrace();
-            }
-            currentPlayer.getGameBoard().removeCardFromHand(selectedCell);
-            Cell.deselectCell();
+        // Cell.setSelectedCell(CardActionsMenu.getToBeSummonedCell());
+        Cell selectedCell = Cell.getSelectedCell();
+        Player currentPlayer = gameController.currentTurnPlayer;
+        TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
+        gameController.setDidPlayerSetOrSummonThisTurn(true);
+        addMonstersToSummonEffectSpellAndTrap(selectedCell);
+        activateTrapIfCanBeActivated(gameController, SummonTypes.NormalSummon);
+        try {
+            currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED,
+                    gameController);
+        } catch (GameException e) {
+            e.printStackTrace();
+        }
+        currentPlayer.getGameBoard().removeCardFromHand(selectedCell);
+        Cell.deselectCell();
         //}));
         //timeline.play();
     }
@@ -143,9 +139,10 @@ public interface MainPhasesController {
         SpecialSummonEffectSpellAndTrap.add(new TorrentialTribute());
         //todo add the rest of summon monsters thing
     }
-    default boolean hasEnoughTribute(Card card,Player currentPlayer,boolean isSpecialSummon){
 
-        int monsterLevel=((Monster)card).getLevel();
+    default boolean hasEnoughTribute(Card card, Player currentPlayer, boolean isSpecialSummon) {
+
+        int monsterLevel = ((Monster) card).getLevel();
         if (monsterLevel > 4 || isSpecialSummon) {
             if (isSpecialSummon) {
                 if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 1)
@@ -163,7 +160,7 @@ public interface MainPhasesController {
         return true;
     }
 
-    private void handleTribute(Player currentPlayer,GameController gameController, int monsterLevel, boolean isSpecialSummon,boolean isForSet) throws GameException {
+    private void handleTribute(Player currentPlayer, GameController gameController, int monsterLevel, boolean isSpecialSummon, boolean isForSet) throws GameException {
         GameBoard playerGameBoard = currentPlayer.getGameBoard();
         if (monsterLevel > 4 || isSpecialSummon) {
             int numberOfTributes;
@@ -182,7 +179,7 @@ public interface MainPhasesController {
                     numberOfTributes = 2;
                 }
             }
-           currentPlayer.getGameBoard().handleTribute(gameController,numberOfTributes,!isForSet);
+            currentPlayer.getGameBoard().handleTribute(gameController, numberOfTributes, !isForSet);
 
 
            /* ArrayList<Cell> tributes = new ArrayList<>();
@@ -225,11 +222,9 @@ public interface MainPhasesController {
 //            }
 //
 //        }
-        }
-        else if(isForSet){
+        } else if (isForSet) {
             continueSetMonster(gameController);
-        }
-        else{
+        } else {
             continueMonsterSummon(gameController, true);
         }
     }
@@ -249,11 +244,10 @@ public interface MainPhasesController {
             if (selectedCard.isMonster()) {
                 if (gameController.doPlayerSetOrSummonedThisTurn()) {
                     throw new GameException(GameResponses.ALREADY_SUMMONED_SET_IN_THIS_TURN.response);
-                }
-                else if(!hasEnoughTribute(selectedCard,gameController.currentTurnPlayer,false)){
+                } else if (!hasEnoughTribute(selectedCard, gameController.currentTurnPlayer, false)) {
                     throw new GameException(GameResponses.NOT_ENOUGH_CARDS_FOR_TRIBUTE.response);
                 }
-                handleTribute(gameController.currentTurnPlayer,gameController,((Monster)selectedCard).getLevel(),false,true);
+                handleTribute(gameController.currentTurnPlayer, gameController, ((Monster) selectedCard).getLevel(), false, true);
 //                playerGameBoard.addCardToMonsterCardZone(selectedCard, CardStatus.DEFENSIVE_HIDDEN, gameController);
 //                playerGameBoard.removeCardFromHand(selectedCell);
 //                gameController.changedPositionCells.add(selectedCell);
@@ -268,10 +262,11 @@ public interface MainPhasesController {
 
         }
     }
-    default void continueSetMonster(GameController gameController){
-        GameBoard playerGameBoard=gameController.currentTurnPlayer.getGameBoard();
-        Cell selectedCell=Cell.getSelectedCell();
-        Card selectedCard=selectedCell.getCellCard();
+
+    default void continueSetMonster(GameController gameController) {
+        GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
+        Cell selectedCell = Cell.getSelectedCell();
+        Card selectedCard = selectedCell.getCellCard();
         try {
             playerGameBoard.addCardToMonsterCardZone(selectedCard, CardStatus.DEFENSIVE_HIDDEN, gameController);
         } catch (GameException e) {
@@ -402,7 +397,7 @@ public interface MainPhasesController {
                 continue;
             }
             int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
-            handleTribute(currentPlayer, gameController, monsterLevel, true,false);
+            handleTribute(currentPlayer, gameController, monsterLevel, true, false);
 
             currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(),
                     CardStatus.OFFENSIVE_OCCUPIED, gameController);

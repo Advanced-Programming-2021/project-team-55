@@ -88,8 +88,9 @@ public class EndOfGameMenu extends WelcomeMenu {
         stage = new Stage();
         stage.initStyle(StageStyle.UTILITY);
         stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(WelcomeMenu.getStage());
         stage.setScene(scene);
-        stage.showAndWait();
+        stage.show();
     }
 
 

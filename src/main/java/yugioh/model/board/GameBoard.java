@@ -408,10 +408,12 @@ public class GameBoard {
     }
 
     public void setTranslationAnimation(ImageView imageView, Rectangle rectangle) {
-        TranslateTransition trans = new TranslateTransition(Duration.seconds(2), imageView);
+        TranslateTransition trans = new TranslateTransition(Duration.seconds(1), imageView);
         trans.setByX(rectangle.getLayoutX() - imageView.getX());
         trans.setByY(rectangle.getLayoutY() - imageView.getY());
         trans.play();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> setFadeTransition(imageView, 1, 0)));
+        timeline.play();
     }
 
     public void setFadeTransition(Node node, double fromValue, double toValue) {
