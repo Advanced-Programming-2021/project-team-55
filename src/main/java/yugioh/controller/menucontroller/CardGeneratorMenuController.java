@@ -45,8 +45,6 @@ public class CardGeneratorMenuController extends MenuController implements Initi
     public MenuButton cardType;
     public Slider level;
 
-    public ImageView coinImage;
-
     public TextArea descriptionBox;
     public Button generateButton;
 
@@ -62,7 +60,6 @@ public class CardGeneratorMenuController extends MenuController implements Initi
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        new CoinTransition(coinImage).play();
         handleAllMenuItems();
         attackField.textProperty().addListener(new ChangeListener<String>() {
             @Override
