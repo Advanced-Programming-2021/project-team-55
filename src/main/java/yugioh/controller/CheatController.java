@@ -6,10 +6,10 @@ import javafx.scene.control.TextField;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.Player;
 import yugioh.model.User;
-import yugioh.model.board.Cell;
 import yugioh.model.cards.Card;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
+import yugioh.view.Regexes;
 import yugioh.view.Responses;
 import yugioh.view.ViewInterface;
 import yugioh.view.gamephases.Duel;
@@ -39,6 +39,7 @@ public class CheatController implements Initializable {
 
     public void setWinner(GameController gameController) {
         gameController.endDuel();
+        if (gameController.isGameEnded()) gameController.endGameRound();
     }
 
     public void increaseMoney(int amount, User user) {
@@ -47,12 +48,12 @@ public class CheatController implements Initializable {
 
     public String selectHandForce(String cardName, GameController gameController) throws GameException {
         String response = "";
-        Card card = Card.getCardByName(cardName);
+        Card card = Card.getNewCardObjectByName(cardName);
         if (card == null) {
             throw new GameException(Responses.NO_CARD_EXISTS.response);
         } else {
             gameController.currentTurnPlayer.getGameBoard().addCardToHandDeck(card, true);
-            response += GameResponses.CHEAT_ACTIVATED_SELECT_FORCE + "\nnew card added to the hand : " + cardName;
+            response += GameResponses.CHEAT_ACTIVATED_SELECT_FORCE.response + "\nnew card added to the hand : " + cardName;
         }
         return response;
     }
@@ -61,7 +62,7 @@ public class CheatController implements Initializable {
         Card toBeAdded = Card.getNewCardObjectByName(cardName);
         if (toBeAdded == null)
             throw new GameException(Responses.NO_CARD_EXISTS.response);
-        Cell addedCell = gameController.getDrawPhaseController().addCardToHandDeck(gameController.getCurrentTurnPlayer(), toBeAdded);
+        gameController.getDrawPhaseController().addCardToHandDeck(gameController.getCurrentTurnPlayer(), toBeAdded);
         return "new card added to the hand and selected: " + cardName;
     }
 
@@ -76,6 +77,7 @@ public class CheatController implements Initializable {
     }
 
     public String processCommand(String command) {
+        command = ViewInterface.sortFields(command);
         String response = "";
         if (command.matches(GameRegexes.INCREASE_LP.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.INCREASE_LP.regex);
@@ -84,6 +86,7 @@ public class CheatController implements Initializable {
         } else if (command.matches(GameRegexes.SET_WINNER.regex)) {
             setWinner(Duel.getGameController());
             response = GameResponses.CHEAT_ACTIVATED_WINNER_SET.response;
+            CheatMenu.getCheatStage().close();
         } else if (command.matches(GameRegexes.SELECT_CARD_FORCE.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_CARD_FORCE.regex);
             try {
@@ -91,6 +94,10 @@ public class CheatController implements Initializable {
             } catch (GameException e) {
                 response = e.toString();
             }
+        } else if (command.matches(Regexes.INCREASE_MONEY.regex)) {
+            Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.INCREASE_MONEY.regex);
+            cheatController.increaseMoney(Integer.parseInt(matcher.group(1)), User.loggedInUser);
+            response = Responses.CHEAT_ACTIVATED_MONEY_INCREASED.response;
         } else if (command.matches(GameRegexes.CHEAT_ADD_OPTIONAL_CARD.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.CHEAT_ADD_OPTIONAL_CARD.regex);
             try {

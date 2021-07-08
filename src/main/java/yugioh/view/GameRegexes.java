@@ -21,7 +21,7 @@ public enum GameRegexes {
     SURRENDER("^surrender$"),
     INCREASE_LP("^increase --LP (\\d+)$"),
     SET_WINNER("^duel set-winner$"),
-    SELECT_CARD_FORCE("^select --force --hand (\\d+)$"),
+    SELECT_CARD_FORCE("^select --force --hand (.+)$"),
     CHEAT_ADD_OPTIONAL_CARD("^add --force (.+)$"),
     MAKE_ME_AI("^make me ai$");
 
