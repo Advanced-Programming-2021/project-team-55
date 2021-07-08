@@ -26,6 +26,7 @@ public class Cell {
     private double yPosition;
     private transient Rectangle cellRectangle;
     private transient Label cellInfo;
+    public transient boolean isEventSet=false;
 
     public Cell() {
         allCells.add(this);
@@ -105,8 +106,11 @@ public class Cell {
 //        Timeline timeline=new Timeline(new KeyFrame(Duration.seconds(0.5),
 //                event->cellRectangle.setFill(null)));
 //        timeline.play();
-        cellRectangle.setFill(null);
-        cellRectangle.rotateProperty().set(0);
+//        cellRectangle.setFill(null);
+        cellRectangle.rotateProperty().set(90);
+        if(cellRectangle.rotateProperty().get()%180>89){
+            cellRectangle.rotateProperty().set(0);
+        }
 //        Rectangle tempRectangle = new Rectangle();
 //        tempRectangle.setLayoutX(cellRectangle.getLayoutX());
 //        tempRectangle.setLayoutY(cellRectangle.getLayoutY());
@@ -175,5 +179,9 @@ public class Cell {
 
     public double getyPosition() {
         return yPosition;
+    }
+
+    public void setEventIsSet() {
+        isEventSet =true;
     }
 }

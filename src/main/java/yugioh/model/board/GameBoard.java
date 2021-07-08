@@ -224,6 +224,7 @@ public class GameBoard {
                 monsterCardZone[i].addCardToCell(card);
                 monsterCardZone[i].setCardStatus(cardStatus);
                 ImagePattern imagePattern = card.getCardImagePattern();
+                Label cellInfo=monsterCardZone[i].getCellInfo();
                 Rectangle rectangle = monsterCardZone[i].getCellRectangle();
                 setTranslationAnimation(imagePattern, rectangle, card);
                 if (cardStatus == CardStatus.DEFENSIVE_HIDDEN) {
@@ -239,7 +240,10 @@ public class GameBoard {
                     monsterCardZone[i].getCellInfo().rotateProperty().set(180);
                 }
                 monsterCardZone[i].getCellInfo().setText(((Monster) card).getAtk() + "/" + ((Monster) card).getDef());
-                gameController.getGameMenuController().addEventForCardImageRectangle(rectangle, card);
+                if(!monsterCardZone[i].isEventSet) {
+                    gameController.getGameMenuController().addEventForCardImageRectangle(rectangle, card);
+                    monsterCardZone[i].setEventIsSet();
+                }
                 gameController.changedPositionCells.add(monsterCardZone[i]);
                 return;
             }
@@ -338,7 +342,10 @@ public class GameBoard {
                 for (double j = 0; j <= 1; j += 0.05) {
                     rectangle.opacityProperty().set(j);
                 }
-                gameController.getGameMenuController().addEventForCardImageRectangle(rectangle, card);
+                if(!spellAndTrapCardZone[i].isEventSet) {
+                    gameController.getGameMenuController().addEventForCardImageRectangle(rectangle, card);
+                    spellAndTrapCardZone[i].setEventIsSet();
+                }
                 gameController.changedPositionCells.add(spellAndTrapCardZone[i]);
 
                 return;
@@ -478,7 +485,17 @@ public class GameBoard {
             rectangle.setHeight(120);
             rectangle.setFill(cardToAdd.getCardImagePattern());
             cell.setCellRectangle(rectangle);
-            handDeck.getChildren().add(rectangle);
+            double rotationValue = GameMenuController.getGameMenuController().background.rotateProperty().getValue() % 360;
+            if (rotationValue > 179 && rotationValue < 181){
+                rectangle.rotateProperty().set(180);
+                handDeck.getChildren().add(0,rectangle);
+
+            }
+            else {
+                rectangle.rotateProperty().set(0);
+                handDeck.getChildren().add(rectangle);
+            }
+
             setTransitionForHandDeck(1, rectangle);
             handCards.add(cell);
             return;
