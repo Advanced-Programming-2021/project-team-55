@@ -98,9 +98,10 @@ public class Cell {
         BlackPendant.deActivateEffect(this);
         UnitedWeStand.deActivateEffect(this);
         Forest.deActivateEffect(Duel.getGameController());
+        Umiiruka.deActivateEffect(this);
         Swordofdarkdestruction.deActivateEffect(this);
         MagnumShield.deActivateEffect(this);
-        gameBoard.addCardToGraveyard(this.card);
+        gameBoard.addCardToGraveyard(this);
 //        Timeline timeline=new Timeline(new KeyFrame(Duration.seconds(0.5),
 //                event->cellRectangle.setFill(null)));
 //        timeline.play();

@@ -1,5 +1,8 @@
 package yugioh.model.cards;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
@@ -38,11 +41,13 @@ public class SpellAndTrap extends Card {
         else if (spellAndTrapName.equals("Swords of Revealing Light"))
             SwordsofRevealingLight.setActivated(gameController);
         else if (spellAndTrapName.equals("Twin Twisters")) TwinTwisters.setActivated(gameController);
+        else if(spellAndTrapName.equals("Umiiruka"))Umiiruka.setActivated(gameController);
         else if (spellAndTrapName.equals("Mystical space typhoon")) Mysticalspacetyphoon.setActivated(gameController);
         else if (spellAndTrapName.equals("Black Pendant")) BlackPendant.setActivated(gameController);
         else if (spellAndTrapName.equals("United We Stand")) UnitedWeStand.setActivated(gameController);
         else if (spellAndTrapName.equals("Sword of dark destruction"))
             Swordofdarkdestruction.setActivated(gameController);
+        else if(spellAndTrapName.equals("Raigeki"))Raigeki.setActivated(gameController);
         else if (spellAndTrapName.equals("Magnum Shield")) MagnumShield.setActivated(gameController);
         else if (spellAndTrapName.equals("Advanced Ritual Art")) AdvancedRitualArt.setActivated(gameController);
         else if (spellAndTrapName.equals("Torrential Tribute")) TorrentialTribute.setActivated(gameController);
@@ -71,6 +76,10 @@ public class SpellAndTrap extends Card {
             } else {
                 try {
                     playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED, gameController);
+                    if(!(((SpellAndTrap)card).getAttribute()==SpellOrTrapAttribute.CONTINUOUS)){
+                        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1),event -> selectedCell.removeCardFromCell(playerGameBoard)));//todo make duration 3.5
+                        timeline.play();
+                    }
                 } catch (GameException ignored) {
                 }
             }

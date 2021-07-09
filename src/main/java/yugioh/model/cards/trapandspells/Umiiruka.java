@@ -7,6 +7,7 @@ import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.cards.cardfeaturesenums.EffectiveTerm;
 import yugioh.model.cards.cardfeaturesenums.SpellOrTrap;
 import yugioh.model.cards.cardfeaturesenums.SpellOrTrapAttribute;
+import yugioh.view.ViewInterface;
 
 import java.util.ArrayList;
 
@@ -27,19 +28,23 @@ public class Umiiruka extends SpellAndTrap {
     public static void setActivated(GameController gameController) {
         Cell[] currentTurnPlayerMonsterCardZone = gameController.getCurrentTurnPlayer().getGameBoard().getMonsterCardZone();
         Cell[] currentTurnOpponentPlayerMonsterCardZone = gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone();
+        ViewInterface.showResult("Umiiruka activated: all WATER monsters ATK increased by 500 points and their DEF decreased by 400 points.");
         activateForPlayersMonsters(currentTurnPlayerMonsterCardZone);
         activateForPlayersMonsters(currentTurnOpponentPlayerMonsterCardZone);
         updateSpellInGameBoard(gameController);
     }
 
-    public static void deActivateEffect() {
-        deactivateForPlayersMonsters();
+    public static void deActivateEffect(Cell cell) {
+        if(!cell.isEmpty()&&cell.getCellCard().getName().equals("Umiiruka")) {
+            ViewInterface.showResult("Umiiruka deactivated: all WATER monsters ATK decrease by 500 points and their DEF increased by 400 points.");
+            deactivateForPlayersMonsters();
+        }
     }
 
     private static void activateForPlayersMonsters(Cell[] monsterCardZone) {
         for (Cell monster : monsterCardZone
         ) {
-            if (isForUmiiruka(monster)) {
+            if (!monster.isEmpty()&&isForUmiiruka(monster)) {
                 ((Monster) monster.getCellCard()).addATK(500);
                 ((Monster) monster.getCellCard()).addDEF(-400);
                 effectedMonsters.add((Monster) monster.getCellCard());

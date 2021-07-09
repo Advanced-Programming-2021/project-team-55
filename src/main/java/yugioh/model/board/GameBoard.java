@@ -20,6 +20,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.menucontroller.GameMenuController;
+import yugioh.model.Player;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Deck;
 import yugioh.model.cards.Monster;
@@ -321,9 +322,19 @@ public class GameBoard {
     }
 
 
-    public void addCardToGraveyard(Card card) {
+    public void addCardToGraveyard(Cell cell) {
+        Card card=cell.getCellCard();
         graveyard.add(new Cell(card));
+        moveCardToGraveyard(cell);
         //todo add card rectangle
+    }
+    public void moveCardToGraveyard(Cell cell) {
+        playButtonSound("graveYard");
+        Rectangle graveyard;
+        if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().userGraveyard;
+        else graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
+        graveyard.fillProperty().setValue(cell.getCellRectangle().getFill());
+        setFadeTransition(graveyard, 0, 1);
     }
 
     public void addCardToSpellAndTrapCardZone(Card card, CardStatus cardStatus, GameController gameController) throws GameException {
@@ -523,8 +534,8 @@ public class GameBoard {
         GameMenuController gameMenuController=GameMenuController.getGameMenuController();
         if (!fieldZone.isEmpty()) {
             Rectangle graveyard = gameMenuController.userGraveyard;
-            gameMenuController.gameController.getBattlePhaseController().moveCardToGraveyard(cell, graveyard, gameMenuController.gameController.currentTurnPlayer);
-            addCardToGraveyard(fieldZone.getCellCard());
+//            gameMenuController.gameController.getBattlePhaseController().moveCardToGraveyard(cell, graveyard, gameMenuController.gameController.currentTurnPlayer);
+            fieldZone.removeCardFromCell(gameMenuController.gameController.currentTurnPlayer.getGameBoard());
         }
         setTranslationAnimation(cell.getCellCard().getCardImagePattern(), fieldZone.getCellRectangle(),cell.getCellCard());
         fieldZone.addCardToCell(cell.getCellCard());

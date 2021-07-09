@@ -539,6 +539,7 @@ public class CardActionsMenu implements MainPhasesController {
         } catch (GameException e) {
             Toast.makeText(WelcomeMenu.stage,e.getMessage());
         }
+        actionsStage.close();
 
     }
 

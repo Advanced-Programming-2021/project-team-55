@@ -134,7 +134,7 @@ public class BattlePhaseController {
             response = "opponent’s monster card was " +
                     attackedCell.getCellCard().getName() + " the defense position monster is destroyed";
             response += Marshmallon.handleEffect(gameController, attackerCell, attackedCell);
-            if (!Marshmallon.isMarshmallon(attackedCell))//todo chera ba payiniha fargh miknone? baad inja tanaghoz dareha
+            if (!Marshmallon.isMarshmallon(attackedCell))
                 attackedCell.removeCardFromCell(opponentGameBoard);
         } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
             response = "opponent’s monster card was " +
@@ -179,16 +179,20 @@ public class BattlePhaseController {
             YomiShip.handleEffect(gameController, attackerCell, attackedCell);
             Rectangle graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
             if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().userGraveyard;
-            moveCardToGraveyard(attackedCell, graveyard, gameController.currentTurnOpponentPlayer);
+           // gameController.currentTurnPlayer.getGameBoard().moveCardToGraveyard(attackedCell, graveyard);
             attackedCell.removeCardFromCell(opponentGameBoard);
         } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
             response = "both you and your opponent monster cards are destroyed and no one receives damage";
             if (CardActionsMenu.isBoardInverse()) {
-                moveCardToGraveyard(attackedCell, GameMenuController.getGameMenuController().userGraveyard, gameController.currentTurnOpponentPlayer);
-                moveCardToGraveyard(attackerCell, GameMenuController.getGameMenuController().rivalGraveyard, gameController.currentTurnPlayer);
+               // gameController.currentTurnOpponentPlayer.getGameBoard().moveCardToGraveyard(attackedCell, GameMenuController.getGameMenuController().userGraveyard);
+               // gameController.currentTurnPlayer.getGameBoard().moveCardToGraveyard(attackerCell, GameMenuController.getGameMenuController().rivalGraveyard);
+                attackedCell.removeCardFromCell(opponentGameBoard);
+                attackerCell.removeCardFromCell(playerGameBoard);
             } else {
-                moveCardToGraveyard(attackedCell, GameMenuController.getGameMenuController().rivalGraveyard, gameController.currentTurnOpponentPlayer);
-                moveCardToGraveyard(attackerCell, GameMenuController.getGameMenuController().userGraveyard, gameController.currentTurnPlayer);
+                //gameController.currentTurnOpponentPlayer.getGameBoard().moveCardToGraveyard(attackedCell, GameMenuController.getGameMenuController().rivalGraveyard);
+                //gameController.currentTurnPlayer.getGameBoard().moveCardToGraveyard(attackerCell, GameMenuController.getGameMenuController().userGraveyard);
+                attackedCell.removeCardFromCell(opponentGameBoard);
+                attackerCell.removeCardFromCell(playerGameBoard);
             }
             attackerCell.removeCardFromCell(playerGameBoard);
             attackedCell.removeCardFromCell(opponentGameBoard);
@@ -198,18 +202,14 @@ public class BattlePhaseController {
                     calculateDamage(attackerCell, attackedCell) + " battle damage";
             Rectangle graveyard = GameMenuController.getGameMenuController().userGraveyard;
             if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
-            moveCardToGraveyard(attackerCell, graveyard, gameController.currentTurnPlayer);
+           // gameController.currentTurnPlayer.getGameBoard().moveCardToGraveyard(attackerCell, graveyard);
             attackerCell.removeCardFromCell(playerGameBoard);
         }
         gameController.getAttackerCellsThisTurn().add(attackerCell);
         return response;
     }
 
-    public void moveCardToGraveyard(Cell cell, Rectangle graveyard, Player player) {
-        playButtonSound("graveYard");
-        graveyard.fillProperty().setValue(cell.getCellRectangle().getFill());
-        player.getGameBoard().setFadeTransition(graveyard, 0, 1);
-    }
+
 
     private void decreasePlayersDamage(Cell attackerCell, Cell attackedCell) {
         if (isAttackerStronger(attackerCell, attackedCell)) {
