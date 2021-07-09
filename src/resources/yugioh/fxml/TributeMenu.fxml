@@ -1,18 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
-<AnchorPane prefHeight="115.0" prefWidth="375.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="200" prefWidth="650" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="156.0" layoutY="62.0" mnemonicParsing="false" text="yes" />
-      <Button layoutX="246.0" layoutY="62.0" mnemonicParsing="false" text="no" />
-      <Label layoutX="8.0" layoutY="31.0" prefHeight="26.0" prefWidth="424.0" text="Do you want to tribute card(s) to set/summon this card?">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Label>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="650.0">
+         <Label alignment="CENTER" prefHeight="67.0" prefWidth="622.0" styleClass="popupText" text="Do you want to tribute card(s) to set/summon this card?" textFill="#ccdefc">
+            <font>
+               <Font size="17.0" />
+            </font>
+         </Label>
+         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <JFXButton buttonType="RAISED" focusTraversable="false" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="yes" textFill="#ccdefc">
+               <styleClass>
+                  <String fx:value="buttonText" />
+                  <String fx:value="buttonShape" />
+                  <String fx:value="buttonHover" />
+               </styleClass>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" focusTraversable="false" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="no" textFill="#ccdefc">
+               <styleClass>
+                  <String fx:value="buttonText" />
+                  <String fx:value="buttonShape" />
+                  <String fx:value="buttonHover" />
+               </styleClass>
+            </JFXButton>
+         </HBox>
+      </VBox>
    </children>
 </AnchorPane>
