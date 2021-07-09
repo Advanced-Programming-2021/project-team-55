@@ -121,11 +121,6 @@ abstract public class Duel {
                 break;
             }
             case STANDBY: {
-                try {
-                    GameMenuController.getGameMenuController().background.setImage(new Image("/yugioh/PNG/Field/fie_burn.jpg"));
-                }catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
                 standByPhase.execute();
                 break;
             }

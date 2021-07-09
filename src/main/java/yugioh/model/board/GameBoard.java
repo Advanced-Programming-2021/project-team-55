@@ -226,7 +226,7 @@ public class GameBoard {
                 monsterCardZone[i].addCardToCell(card);
                 monsterCardZone[i].setCardStatus(cardStatus);
                 ImagePattern imagePattern = card.getCardImagePattern();
-                Label cellInfo=monsterCardZone[i].getCellInfo();
+                Label cellInfo = monsterCardZone[i].getCellInfo();
                 Rectangle rectangle = monsterCardZone[i].getCellRectangle();
                 setTranslationAnimation(imagePattern, rectangle, card);
                 if (cardStatus == CardStatus.DEFENSIVE_HIDDEN) {
@@ -242,7 +242,7 @@ public class GameBoard {
                     monsterCardZone[i].getCellInfo().rotateProperty().set(180);
                 }
                 monsterCardZone[i].getCellInfo().setText(((Monster) card).getAtk() + "/" + ((Monster) card).getDef());
-                if(!monsterCardZone[i].isEventSet) {
+                if (!monsterCardZone[i].isEventSet) {
                     gameController.getGameMenuController().addEventForCardImageRectangle(rectangle, card);
                     monsterCardZone[i].setEventIsSet();
                 }
@@ -344,7 +344,7 @@ public class GameBoard {
                 for (double j = 0; j <= 1; j += 0.05) {
                     rectangle.opacityProperty().set(j);
                 }
-                if(!spellAndTrapCardZone[i].isEventSet) {
+                if (!spellAndTrapCardZone[i].isEventSet) {
                     gameController.getGameMenuController().addEventForCardImageRectangle(rectangle, card);
                     spellAndTrapCardZone[i].setEventIsSet();
                 }
@@ -487,12 +487,11 @@ public class GameBoard {
             rectangle.setFill(cardToAdd.getCardImagePattern());
             cell.setCellRectangle(rectangle);
             double rotationValue = GameMenuController.getGameMenuController().background.rotateProperty().getValue() % 360;
-            if (rotationValue > 179 && rotationValue < 181){
+            if (rotationValue > 179 && rotationValue < 181) {
                 rectangle.rotateProperty().set(180);
-                handDeck.getChildren().add(0,rectangle);
+                handDeck.getChildren().add(0, rectangle);
 
-            }
-            else {
+            } else {
                 rectangle.rotateProperty().set(0);
                 handDeck.getChildren().add(rectangle);
             }
@@ -521,22 +520,38 @@ public class GameBoard {
     }
 
     public void addCardToFieldZone(Cell cell) {
-        GameMenuController gameMenuController=GameMenuController.getGameMenuController();
+        GameMenuController gameMenuController = GameMenuController.getGameMenuController();
         if (!fieldZone.isEmpty()) {
             Rectangle graveyard = gameMenuController.userGraveyard;
             gameMenuController.gameController.getBattlePhaseController().moveCardToGraveyard(cell, graveyard, gameMenuController.gameController.currentTurnPlayer);
             addCardToGraveyard(fieldZone.getCellCard());
         }
-        setTranslationAnimation(cell.getCellCard().getCardImagePattern(), fieldZone.getCellRectangle(),cell.getCellCard());
+        setTranslationAnimation(cell.getCellCard().getCardImagePattern(), fieldZone.getCellRectangle(), cell.getCellCard());
         fieldZone.addCardToCell(cell.getCellCard());
         gameMenuController.gameController.currentTurnPlayer.getGameBoard().setFadeTransition(fieldZone.getCellRectangle(), 0, 1);
-        if(!fieldZone.isEventSet){
-            gameMenuController.addEventForCardImageRectangle(fieldZone.getCellRectangle(),fieldZone.getCellCard());
+        if (!fieldZone.isEventSet) {
+            gameMenuController.addEventForCardImageRectangle(fieldZone.getCellRectangle(), fieldZone.getCellCard());
             fieldZone.setEventIsSet();
         }
         try {
-            GameMenuController.getGameMenuController().background.setImage(new Image("/yugioh/PNG/Field/fie_burn.bmp"));
-        }catch (Exception ignored) {}
+            Image backGround = new Image("/yugioh/PNG/Field/fie_normal.jpg");
+            switch (cell.getCellCard().getName()) {
+                case "Forest":
+                    backGround = new Image("/yugioh/PNG/Field/fie_gaia.jpg");
+                    break;
+                case "Yami":
+                    backGround = new Image("/yugioh/PNG/Field/fie_yami.jpg");
+                    break;
+                case "Closed Forest":
+                    backGround = new Image("/yugioh/PNG/Field/fie_mori.jpg");
+                    break;
+                case "Umiiruka":
+                    backGround = new Image("/yugioh/PNG/Field/fie_umi.jpg");
+                    break;
+            }
+            GameMenuController.getGameMenuController().background.setImage(backGround);
+        } catch (Exception ignored) {
+        }
     }
 
     public boolean doesMonsterZoneHaveMonsters(int number) {
