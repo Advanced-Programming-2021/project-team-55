@@ -134,8 +134,16 @@ public class BattlePhaseController {
             response = "opponent’s monster card was " +
                     attackedCell.getCellCard().getName() + " the defense position monster is destroyed";
             response += Marshmallon.handleEffect(gameController, attackerCell, attackedCell);
-            if (!Marshmallon.isMarshmallon(attackedCell))//todo chera ba payiniha fargh miknone? baad inja tanaghoz dareha
-                attackedCell.removeCardFromCell(opponentGameBoard);
+            if (!Marshmallon.isMarshmallon(attackedCell)) {//todo chera ba payiniha fargh miknone? baad inja tanaghoz dareha
+                Rectangle graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
+                if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().userGraveyard;
+                Rectangle finalGraveyard = graveyard;
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+                    moveCardToGraveyard(attackedCell, finalGraveyard, gameController.currentTurnOpponentPlayer);
+                    attackedCell.removeCardFromCell(opponentGameBoard);
+                }));
+                timeline.play();
+            }
         } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
             response = "opponent’s monster card was " +
                     attackedCell.getCellCard().getName() + " and no card is destroyed";
@@ -158,7 +166,14 @@ public class BattlePhaseController {
             decreasePlayersDamage(attackerCell, attackedCell);
             response = "the defense position monster is destroyed";
             YomiShip.handleEffect(gameController, attackerCell, attackedCell);
-            attackedCell.removeCardFromCell(playerGameBoard);
+            Rectangle graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
+            if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().userGraveyard;
+            Rectangle finalGraveyard = graveyard;
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+                moveCardToGraveyard(attackedCell, finalGraveyard, gameController.currentTurnOpponentPlayer);
+                attackedCell.removeCardFromCell(playerGameBoard);
+            }));
+            timeline.play();
         } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
             response = "no card is destroyed";
         } else {
