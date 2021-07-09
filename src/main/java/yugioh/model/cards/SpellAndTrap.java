@@ -26,30 +26,31 @@ public class SpellAndTrap extends Card {
         this.status = status;
     }
 
-    public static void activateSpellEffects(GameController gameController, SpellAndTrap spellAndTrap) {
-        if (spellAndTrap.name.equals("Monster Reborn")) MonsterReborn.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Terraforming")) Terraforming.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Pot of Greed")) PotofGreed.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Dark Hole")) DarkHole.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Spell Absorption")) SpellAbsorption.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Harpie's Feather Duster")) HarpiesFeatherDuster.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Yami")) Yami.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Closed Forest")) ClosedForest.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Swords of Revealing Light"))
+    public static void activateSpellEffects(GameController gameController, String spellAndTrapName) {
+        if (spellAndTrapName.equals("Monster Reborn")) MonsterReborn.setActivated(gameController);
+        else if (spellAndTrapName.equals("Terraforming")) Terraforming.setActivated(gameController);
+        else if (spellAndTrapName.equals("Pot of Greed")) PotofGreed.setActivated(gameController);
+        else if (spellAndTrapName.equals("Dark Hole")) DarkHole.setActivated(gameController);
+        else if (spellAndTrapName.equals("Spell Absorption")) SpellAbsorption.setActivated(gameController);
+        else if (spellAndTrapName.equals("Harpie's Feather Duster")) HarpiesFeatherDuster.setActivated(gameController);
+        else if (spellAndTrapName.equals("Yami")) Yami.setActivated(gameController);
+        else if (spellAndTrapName.equals("Closed Forest")) ClosedForest.setActivated(gameController);
+        else if (spellAndTrapName.equals("Swords of Revealing Light"))
             SwordsofRevealingLight.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Twin Twisters")) TwinTwisters.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Mystical space typhoon")) Mysticalspacetyphoon.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Black Pendant")) BlackPendant.setActivated(gameController);
-        else if (spellAndTrap.name.equals("United We Stand")) UnitedWeStand.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Sword of dark destruction"))
+        else if (spellAndTrapName.equals("Twin Twisters")) TwinTwisters.setActivated(gameController);
+        else if (spellAndTrapName.equals("Mystical space typhoon")) Mysticalspacetyphoon.setActivated(gameController);
+        else if (spellAndTrapName.equals("Black Pendant")) BlackPendant.setActivated(gameController);
+        else if (spellAndTrapName.equals("United We Stand")) UnitedWeStand.setActivated(gameController);
+        else if (spellAndTrapName.equals("Sword of dark destruction"))
             Swordofdarkdestruction.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Magnum Shield")) MagnumShield.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Advanced Ritual Art")) AdvancedRitualArt.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Torrential Tribute")) TorrentialTribute.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Trap Hole")) TrapHole.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Mirror Force")) MirrorForce.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Negate Attack")) NegateAttack.setActivated(gameController);
-        else if (spellAndTrap.name.equals("Magic Cylinder")) MagicCylinder.setActivated(gameController);
+        else if (spellAndTrapName.equals("Magnum Shield")) MagnumShield.setActivated(gameController);
+        else if (spellAndTrapName.equals("Advanced Ritual Art")) AdvancedRitualArt.setActivated(gameController);
+        else if (spellAndTrapName.equals("Torrential Tribute")) TorrentialTribute.setActivated(gameController);
+        else if (spellAndTrapName.equals("Trap Hole")) TrapHole.setActivated(gameController);
+        else if (spellAndTrapName.equals("Mirror Force")) MirrorForce.setActivated(gameController);
+        else if (spellAndTrapName.equals("Negate Attack")) NegateAttack.setActivated(gameController);
+        else if (spellAndTrapName.equals("Magic Cylinder")) MagicCylinder.setActivated(gameController);
+        else if(spellAndTrapName.equals("Forest"))Forest.setActivated(gameController);
         else {
             ViewInterface.showResult(GameResponses.ACTIVATION_ONLY_FOR_SPELL.response);
         }
@@ -63,18 +64,20 @@ public class SpellAndTrap extends Card {
         if (spell == null) return;
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         if (!playerGameBoard.isCellInSpellAndTrapZone(selectedCell)) {
-            playerGameBoard.removeCardFromHand(selectedCell);
+
             if (spell.getAttribute() == SpellOrTrapAttribute.FIELD) {
-                playerGameBoard.addCardToFieldZone(card);
-                gameController.currentTurnOpponentPlayer.getGameBoard().addCardToFieldZone(card);
+                playerGameBoard.addCardToFieldZone(selectedCell);
+                gameController.currentTurnOpponentPlayer.getGameBoard().addCardToFieldZone(selectedCell);
             } else {
                 try {
                     playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED, gameController);
                 } catch (GameException ignored) {
                 }
             }
+            playerGameBoard.removeCardFromHand(selectedCell);
         } else {
             SpellAbsorption.handleEffect();
+            gameController.currentTurnPlayer.getGameBoard().setFlipTransition(selectedCell.getCellCard(), selectedCell.getCellRectangle(), false);
             selectedCell.setCardStatus(CardStatus.OCCUPIED);
         }
         Cell.deselectCell();

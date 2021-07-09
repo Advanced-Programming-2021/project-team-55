@@ -30,6 +30,7 @@ import yugioh.model.board.CardStatus;
 import yugioh.model.board.Cell;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.menus.PopUpWindow;
+import yugioh.view.menus.Toast;
 import yugioh.view.menus.WelcomeMenu;
 
 import java.io.File;
@@ -199,7 +200,7 @@ public class CardActionsMenu implements MainPhasesController {
                         }
                     }
                 } else if (t1.equals(activateImage)) {
-                 //   activateImage();
+                    activateImage();
                     //todo: activate spell
                 }
             }
@@ -210,6 +211,9 @@ public class CardActionsMenu implements MainPhasesController {
                 handleFlipSummon();
             } else if (actionButton.getImage().equals(changePositionImage)) {
                 handleChangePosition();
+            }
+            else if(actionButton.getImage().equals(activateImage)){
+                handleActivate();
             }
         });
         Scene scene = new Scene(actionPane, 60, 60);
@@ -509,6 +513,9 @@ public class CardActionsMenu implements MainPhasesController {
                     } else if (actionButton.getImage().equals(summonImage)) {
                         handleSummon();
                     }
+                    else if(actionButton.getImage().equals(activateImage)){
+                        handleActivate();
+                    }
                 }
             }
         });
@@ -525,6 +532,16 @@ public class CardActionsMenu implements MainPhasesController {
         actionsStage.show();
     }
 
+    private static void handleActivate() {
+
+        try {
+            new CardActionsMenu().activateSpell(gameController);
+        } catch (GameException e) {
+            Toast.makeText(WelcomeMenu.stage,e.getMessage());
+        }
+
+    }
+
     private static void handleSummon() {
         try {
             playButtonSound("summon");
@@ -535,7 +552,6 @@ public class CardActionsMenu implements MainPhasesController {
                 new PopUpWindow(e.getMessage()).start(WelcomeMenu.getStage());
             } catch (Exception ignored) {
             }
-            //todo show an error box
         }
         actionsStage.close();
     }

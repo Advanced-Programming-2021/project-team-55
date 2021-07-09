@@ -51,7 +51,7 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
             counter++;
             if (counter > 10) break;
             if (tableItem.getUsername().equals(User.loggedInUser.getUsername())) {
-                System.out.println(i);
+                //System.out.println(i);
                 toBeSelected = i;
             }
             scoreBoard.getStyleClass().add("simpleText");

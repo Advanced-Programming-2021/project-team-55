@@ -32,7 +32,7 @@ public class Card {
     transient protected ImagePattern cardImagePattern;
     transient protected ImageView backImage;
     transient protected ImagePattern backImagePattern;
-    private boolean isCustom=false;
+    public boolean isCustom=false;
 
 
     public Card(String name, String description, int price, Kind cardKind, SpellOrTrap magicType) {

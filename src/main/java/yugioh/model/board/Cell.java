@@ -7,10 +7,7 @@ import javafx.scene.shape.Rectangle;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
 import yugioh.model.cards.monsters.CommandKnight;
-import yugioh.model.cards.trapandspells.BlackPendant;
-import yugioh.model.cards.trapandspells.MagnumShield;
-import yugioh.model.cards.trapandspells.Swordofdarkdestruction;
-import yugioh.model.cards.trapandspells.UnitedWeStand;
+import yugioh.model.cards.trapandspells.*;
 import yugioh.view.gamephases.Duel;
 
 import java.util.ArrayList;
@@ -25,7 +22,7 @@ public class Cell {
     private double xPosition;
     private double yPosition;
     private transient Rectangle cellRectangle;
-    private transient Label cellInfo;
+    private transient Label cellInfo=new Label();
     public transient boolean isEventSet=false;
 
     public Cell() {
@@ -100,6 +97,7 @@ public class Cell {
         CommandKnight.deActivateEffect(this);
         BlackPendant.deActivateEffect(this);
         UnitedWeStand.deActivateEffect(this);
+        Forest.deActivateEffect(Duel.getGameController());
         Swordofdarkdestruction.deActivateEffect(this);
         MagnumShield.deActivateEffect(this);
         gameBoard.addCardToGraveyard(this.card);

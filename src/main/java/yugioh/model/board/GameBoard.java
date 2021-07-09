@@ -81,6 +81,7 @@ public class GameBoard {
 
     public void setBoardRectangles(Pane gamePane, boolean isOpponent) {
         GameBoard.gamePane = gamePane;
+        fieldZone.setCellRectangle((Rectangle) gamePane.getChildren().get(36));
         if (!isOpponent) {
             monsterCardZone[0].setCellRectangle((Rectangle) gamePane.getChildren().get(8));
             monsterCardZone[1].setCellRectangle((Rectangle) gamePane.getChildren().get(9));
@@ -347,7 +348,6 @@ public class GameBoard {
                     spellAndTrapCardZone[i].setEventIsSet();
                 }
                 gameController.changedPositionCells.add(spellAndTrapCardZone[i]);
-
                 return;
             }
         }
@@ -519,12 +519,20 @@ public class GameBoard {
         }
     }
 
-    public void addCardToFieldZone(Card card) {
+    public void addCardToFieldZone(Cell cell) {
+        GameMenuController gameMenuController=GameMenuController.getGameMenuController();
         if (!fieldZone.isEmpty()) {
+            Rectangle graveyard = gameMenuController.userGraveyard;
+            gameMenuController.gameController.getBattlePhaseController().moveCardToGraveyard(cell, graveyard, gameMenuController.gameController.currentTurnPlayer);
             addCardToGraveyard(fieldZone.getCellCard());
         }
-        fieldZone.addCardToCell(card);
-
+        setTranslationAnimation(cell.getCellCard().getCardImagePattern(), fieldZone.getCellRectangle(),cell.getCellCard());
+        fieldZone.addCardToCell(cell.getCellCard());
+        gameMenuController.gameController.currentTurnPlayer.getGameBoard().setFadeTransition(fieldZone.getCellRectangle(), 0, 1);
+        if(!fieldZone.isEventSet){
+            gameMenuController.addEventForCardImageRectangle(fieldZone.getCellRectangle(),fieldZone.getCellCard());
+            fieldZone.setEventIsSet();
+        }
     }
 
     public boolean doesMonsterZoneHaveMonsters(int number) {

@@ -28,13 +28,13 @@ import static yugioh.view.SoundPlayable.playButtonSound;
 
 public class BattlePhaseController {
 
-    private static final ArrayList<SpellAndTrap> attackEffectSpellAndTraps;
+    private static final ArrayList<String> attackEffectSpellAndTraps;
 
     static {
         attackEffectSpellAndTraps = new ArrayList<>();
-        attackEffectSpellAndTraps.add(new MirrorForce());
-        attackEffectSpellAndTraps.add(new NegateAttack());
-        attackEffectSpellAndTraps.add(new MagicCylinder());
+        attackEffectSpellAndTraps.add(new MirrorForce().getName());
+        attackEffectSpellAndTraps.add(new NegateAttack().getName());
+        attackEffectSpellAndTraps.add(new MagicCylinder().getName());
     }
 
     private final GameController gameController;

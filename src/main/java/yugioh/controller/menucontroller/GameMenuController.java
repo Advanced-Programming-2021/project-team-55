@@ -41,6 +41,7 @@ import yugioh.view.gamephases.CardActionsMenu;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GamePhase;
 import yugioh.view.gamephases.Graveyard;
+import yugioh.view.menus.Toast;
 import yugioh.view.menus.WelcomeMenu;
 
 import java.io.File;
@@ -157,6 +158,7 @@ public class GameMenuController extends MenuController implements Initializable 
             label.rotateProperty().set(gameBoardPane.rotateProperty().get() + 180);
 
         }
+        gameController.currentTurnPlayer.getGameBoard().getFieldZone().getCellRectangle().rotateProperty().set(gameBoardPane.rotateProperty().get() + 180);
         Cell.deselectCell();
     }
 
@@ -327,27 +329,37 @@ public class GameMenuController extends MenuController implements Initializable 
                 }
             } else {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    Cell tributeCell = Cell.getSelectedCellByRectangle(rectangle);
-                    tributeCells.add(tributeCell);
-                    DropShadow tributeEffect = new DropShadow(BlurType.values()[1],
-                            RED, 10, 2.0f, 0, 0);
-                    tributeEffect.setBlurType(BlurType.ONE_PASS_BOX);
-                    rectangle.setEffect(tributeEffect);
-                    if (neededTributes == tributeCells.size()) {
-                        for (Cell cell : tributeCells) {
-                            Rectangle graveyard = GameMenuController.gameMenuController.userGraveyard;
-                            if (CardActionsMenu.isBoardInverse())
-                                graveyard = GameMenuController.gameMenuController.rivalGraveyard;
-                            gameController.getBattlePhaseController().moveCardToGraveyard(cell, graveyard, gameController.currentTurnPlayer);
-                            cell.getCellRectangle().setEffect(null);
-                            cell.removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
-                            gameController.currentTurnPlayer.getGameBoard().addCardToGraveyard(cell.getCellCard());
+                    if(!gameController.currentTurnPlayer.getGameBoard().isCellInMonsterZone(Cell.getSelectedCellByRectangle(rectangle))){
+                        Toast.makeText(WelcomeMenu.stage,"select a monster to tribute");
+                        return;
+                    }
+                    if (rectangle.getEffect() != null) {
+                        rectangle.setEffect(null);
+                        tributeCells.remove(Cell.getSelectedCellByRectangle(rectangle));
+                    } else {
+                        Cell tributeCell = Cell.getSelectedCellByRectangle(rectangle);
+                        tributeCells.add(tributeCell);
+                        DropShadow tributeEffect = new DropShadow(BlurType.values()[1],
+                                RED, 10, 2.0f, 0, 0);
+                        tributeEffect.setBlurType(BlurType.ONE_PASS_BOX);
+                        rectangle.setEffect(tributeEffect);
+                        if (neededTributes == tributeCells.size()) {
+                            for (Cell cell : tributeCells) {
+                                Rectangle graveyard = GameMenuController.gameMenuController.userGraveyard;
+                                if (CardActionsMenu.isBoardInverse())
+                                    graveyard = GameMenuController.gameMenuController.rivalGraveyard;
+                                gameController.getBattlePhaseController().moveCardToGraveyard(cell, graveyard, gameController.currentTurnPlayer);
+                                cell.getCellRectangle().setEffect(null);
+                                cell.removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
+                                gameController.currentTurnPlayer.getGameBoard().addCardToGraveyard(cell.getCellCard());
+                            }
+                            if (isTributeForSummon)
+                                gameController.getMainPhase1Controller().continueMonsterSummon(gameController, false);
+                            else gameController.getMainPhase1Controller().continueSetMonster(gameController);
+                            shouldSelectTributesNow = false;
+                            tributeCells.clear();
+                            neededTributes = 0;
                         }
-                        if (isTributeForSummon)
-                            gameController.getMainPhase1Controller().continueMonsterSummon(gameController, false);
-                        else gameController.getMainPhase1Controller().continueSetMonster(gameController);
-                        shouldSelectTributesNow = false;
-                        neededTributes = 0;
                     }
                 }
 //            if (event.getButton() == MouseButton.PRIMARY) {

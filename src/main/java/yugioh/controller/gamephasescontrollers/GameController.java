@@ -18,10 +18,7 @@ import yugioh.view.gamephases.CardActionsMenu;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.gamephases.GamePhase;
 import yugioh.view.gamephases.GameResponses;
-import yugioh.view.menus.DetermineStarterMenu;
-import yugioh.view.menus.DuelMenu;
-import yugioh.view.menus.EndOfGameMenu;
-import yugioh.view.menus.GameMenu;
+import yugioh.view.menus.*;
 
 import java.util.ArrayList;
 
@@ -231,68 +228,76 @@ public class GameController {
     }
 
     public void changeTurn(boolean isTemporary, boolean backToPlayer) {
+        if (isTemporary && !backToPlayer) {
+            ViewInterface.showResult("now it will be " + currentTurnOpponentPlayer.getUser().getNickname() + "’s turn");
+            ViewInterface.showResult(mainPhase1Controller.showGameBoard(currentTurnOpponentPlayer, currentTurnPlayer));
+            Toast.makeText(WelcomeMenu.getStage(),"now it will be " + currentTurnOpponentPlayer.getUser().getNickname() + "’s turn");
+            gameMenuController.changeGameBoard();
+            Player player = currentTurnPlayer;
+            currentTurnPlayer = currentTurnOpponentPlayer;
+            currentTurnOpponentPlayer = player;
+            gameMenuController.updateGameStatusUIs();
+            CardActionsMenu.close();
+            return;
+        }
         gameMenuController.changeGameBoard();
         Player player = currentTurnPlayer;
         currentTurnPlayer = currentTurnOpponentPlayer;
         currentTurnOpponentPlayer = player;
-        if (isTemporary && !backToPlayer) {
-            ViewInterface.showResult("now it will be " + currentTurnPlayer.getUser().getNickname() + "’s turn");
-            ViewInterface.showResult(mainPhase1Controller.showGameBoard(currentTurnPlayer, currentTurnOpponentPlayer));
-            return;
-        }
+        gameMenuController.updateGameStatusUIs();
+        CardActionsMenu.close();
         didPlayerSetOrSummonThisTurn = false;
         changedPositionCells = new ArrayList<>();
         attackerCellsThisTurn = new ArrayList<>();
         turnCount++;
-        gameMenuController.updateGameStatusUIs();
-        CardActionsMenu.close();
+
         mainPhase1Controller.showGameBoard(currentTurnPlayer,
                 currentTurnOpponentPlayer);
 
     }
 
-    public void activateTrapEffect(ArrayList<SpellAndTrap> trapsCanBeActivated) {
-        while (true) {
-            ViewInterface.showResult("do you want to activate your trap or spell? yes/no");
-            String response = ViewInterface.getInput();
-            if (response.equals("no")) {
-                break;
-            } else if (response.equals("yes")) {
-                ViewInterface.showResult("select the trap you want to be activated");
-                while (true) {
-                    String input = ViewInterface.getInput();
-                    if (input.equals("cancel")) {
-                        break;
-                    } else if (input.matches(GameRegexes.SELECT.regex)) {
-                        String responseSelect = Duel.processSelect(input);
-                        if (responseSelect.contains("selected")) responseSelect = "trap " + responseSelect;
-                        ViewInterface.showResult(responseSelect);
-                        continue;
-                    } else if (input.matches("activate effect")) {
-                        if (Cell.getSelectedCell() == null) {
-                            ViewInterface.showResult(GameResponses.NO_CARDS_SELECTED.response);
+    public void activateTrapEffect(ArrayList<String> trapsCanBeActivated) {
+            while (true) {
+                ViewInterface.showResult("do you want to activate your trap or spell? yes/no");
+                String response = ViewInterface.getInput();
+                if (response.equals("no")) {
+                    break;
+                } else if (response.equals("yes")) {
+                    ViewInterface.showResult("select the trap you want to be activated");
+                    while (true) {
+                        String input = ViewInterface.getInput();
+                        if (input.equals("cancel")) {
+                            break;
+                        } else if (input.matches(GameRegexes.SELECT.regex)) {
+                            String responseSelect = Duel.processSelect(input);
+                            if (responseSelect.contains("selected")) responseSelect = "trap " + responseSelect;
+                            ViewInterface.showResult(responseSelect);
                             continue;
-                        } else {
-                            Cell selectedCell = Cell.getSelectedCell();
-                            for (SpellAndTrap spellAndTrap : trapsCanBeActivated) {
-                                if (selectedCell.getCellCard().getName().equals(spellAndTrap.getName())) {
-                                    SpellAndTrap.activateSpellEffects(this, spellAndTrap);
-                                    return;
+                        } else if (input.matches("activate effect")) {
+                            if (Cell.getSelectedCell() == null) {
+                                ViewInterface.showResult(GameResponses.NO_CARDS_SELECTED.response);
+                                continue;
+                            } else {
+                                Cell selectedCell = Cell.getSelectedCell();
+                                for (String spellAndTrapName : trapsCanBeActivated) {
+                                    if (selectedCell.getCellCard().getName().equals(spellAndTrapName)) {
+                                        SpellAndTrap.activateSpellEffects(this, spellAndTrapName);
+                                        return;
+                                    }
                                 }
+                                ViewInterface.showResult("Error: you can’t activate this card");
+                                continue;
                             }
-                            ViewInterface.showResult("Error: you can’t activate this card");
-                            continue;
+                        } else {
+                            ViewInterface.showResult("Error: it’s not your turn to play this kind of moves");
                         }
-                    } else {
-                        ViewInterface.showResult("Error: it’s not your turn to play this kind of moves");
                     }
+                } else {
+                    ViewInterface.showResult("Error: try again!");
+                    continue;
                 }
-            } else {
-                ViewInterface.showResult("Error: try again!");
-                continue;
-            }
 
-        }
+            }
 
     }
 

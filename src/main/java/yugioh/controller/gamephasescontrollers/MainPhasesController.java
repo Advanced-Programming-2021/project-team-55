@@ -27,10 +27,10 @@ import java.util.ArrayList;
 
 public interface MainPhasesController {
 
-    ArrayList<SpellAndTrap> summonEffectSpellAndTrap = new ArrayList<>();
-    ArrayList<SpellAndTrap> flipSummonEffectSpellAndTrap = new ArrayList<>();
-    ArrayList<SpellAndTrap> SpecialSummonEffectSpellAndTrap = new ArrayList<>();
-    ArrayList<SpellAndTrap> ritualSummonEffectSpellAndTrap = new ArrayList<>();
+    ArrayList<String> summonEffectSpellAndTrap = new ArrayList<>();
+    ArrayList<String> flipSummonEffectSpellAndTrap = new ArrayList<>();
+    ArrayList<String> SpecialSummonEffectSpellAndTrap = new ArrayList<>();
+    ArrayList<String> ritualSummonEffectSpellAndTrap = new ArrayList<>();
 
     default void monsterSummon(GameController gameController) throws GameException {
 
@@ -81,62 +81,78 @@ public interface MainPhasesController {
         for (Cell cell : gameController.currentTurnPlayer.getGameBoard().getSpellAndTrapCardZone()) {
             if (!cell.isEmpty() && cell.getCardStatus() == CardStatus.HIDDEN) {
                 if (summonType == SummonTypes.NormalSummon) {
-                    gameController.activateTrapEffect(summonEffectSpellAndTrap);
-                    break;
+                    if(summonEffectSpellAndTrap.contains(cell.getCellCard())) {
+                        gameController.activateTrapEffect(summonEffectSpellAndTrap);
+                        break;
+                    }
                 } else if (summonType == SummonTypes.FlipSummon) {
-                    gameController.activateTrapEffect(flipSummonEffectSpellAndTrap);
-                    break;
+                    if(flipSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
+                        gameController.activateTrapEffect(flipSummonEffectSpellAndTrap);
+                        break;
+                    }
                 } else if (summonType == SummonTypes.SpecialSummon) {
-                    gameController.activateTrapEffect(SpecialSummonEffectSpellAndTrap);
-                    break;
+                    if(SpecialSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
+                        gameController.activateTrapEffect(SpecialSummonEffectSpellAndTrap);
+                        break;
+                    }
                 } else if (summonType == SummonTypes.RitualSummon) {
-                    gameController.activateTrapEffect(ritualSummonEffectSpellAndTrap);
-                    break;
+                    if(ritualSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
+                        gameController.activateTrapEffect(ritualSummonEffectSpellAndTrap);
+                        break;
+                    }
                 }
             }
         }
         for (Cell cell : gameController.currentTurnOpponentPlayer.getGameBoard().getSpellAndTrapCardZone()) {
             if (!cell.isEmpty() && cell.getCardStatus() == CardStatus.HIDDEN) {
                 if (summonType == SummonTypes.NormalSummon) {
-                    gameController.changeTurn(true, false);
-                    gameController.activateTrapEffect(summonEffectSpellAndTrap);
-                    gameController.changeTurn(true, true);
-                    break;
+                    if(summonEffectSpellAndTrap.contains(cell.getCellCard())) {
+                        gameController.changeTurn(true, false);
+                        gameController.activateTrapEffect(summonEffectSpellAndTrap);
+                        gameController.changeTurn(true, true);
+                        break;
+                    }
                 } else if (summonType == SummonTypes.FlipSummon) {
-                    gameController.changeTurn(true, false);
-                    gameController.activateTrapEffect(flipSummonEffectSpellAndTrap);
-                    gameController.changeTurn(true, true);
-                    break;
+                    if(flipSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
+                        gameController.changeTurn(true, false);
+                        gameController.activateTrapEffect(flipSummonEffectSpellAndTrap);
+                        gameController.changeTurn(true, true);
+                        break;
+                    }
                 } else if (summonType == SummonTypes.SpecialSummon) {
-                    gameController.changeTurn(true, false);
-                    gameController.activateTrapEffect(SpecialSummonEffectSpellAndTrap);
-                    gameController.changeTurn(true, true);
-                    break;
+                    if(SpecialSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
+                        gameController.changeTurn(true, false);
+                        gameController.activateTrapEffect(SpecialSummonEffectSpellAndTrap);
+                        gameController.changeTurn(true, true);
+                        break;
+                    }
                 } else if (summonType == SummonTypes.RitualSummon) {
-                    gameController.changeTurn(true, false);
-                    gameController.activateTrapEffect(ritualSummonEffectSpellAndTrap);
-                    gameController.changeTurn(true, true);
-                    break;
+                    if(ritualSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
+                        gameController.changeTurn(true, false);
+                        gameController.activateTrapEffect(ritualSummonEffectSpellAndTrap);
+                        gameController.changeTurn(true, true);
+                        break;
+                    }
                 }
             }
         }
     }
 
     private void addMonstersToSummonEffectSpellAndTrap(Cell summonedCell) {
-        summonEffectSpellAndTrap.add(new TorrentialTribute());
+        summonEffectSpellAndTrap.add(new TorrentialTribute().getName());
         if (isSummonedMonsterATKMoreThan1000(summonedCell))
-            flipSummonEffectSpellAndTrap.add(new TorrentialTribute());
+            flipSummonEffectSpellAndTrap.add(new TorrentialTribute().getName());
         //todo add the rest of summon monsters thing
     }
 
     private void addMonstersToFlipSummonEffectSpellAndTrap(Cell summonedCell) {
         if (isSummonedMonsterATKMoreThan1000(summonedCell))
-            flipSummonEffectSpellAndTrap.add(new TorrentialTribute());
+            flipSummonEffectSpellAndTrap.add(new TorrentialTribute().getName());
         //todo add the rest of summon monsters thing
     }
 
     private void addMonstersToSpecialSummonEffectSpellAndTrap() {
-        SpecialSummonEffectSpellAndTrap.add(new TorrentialTribute());
+        SpecialSummonEffectSpellAndTrap.add(new TorrentialTribute().getName());
         //todo add the rest of summon monsters thing
     }
 
@@ -336,7 +352,7 @@ public interface MainPhasesController {
                     if (Cell.getSelectedCell().isEmpty() || Cell.getSelectedCell() == null) {
                         System.out.println("error in activate effect");
                     }
-                    SpellAndTrap.activateSpellEffects(gameController, spell);
+                    SpellAndTrap.activateSpellEffects(gameController, spell.getName());
 //                        if(!playerGameBoard.isCellInSpellAndTrapZone(selectedCell)) {
 //                            playerGameBoard.getHandCards().remove(selectedCell);
 //                            if (spell.getAttribute() == SpellOrTrapAttribute.FIELD) {
@@ -451,6 +467,7 @@ public interface MainPhasesController {
             imageView.setFitWidth(70);
             imageView.rotateProperty().set(180.0);
             imageView.setLayoutX(paneX - i / 2);
+            if(!gameMenuController.rivalDeckZoneContainer.getChildren().contains(imageView))
             gameMenuController.rivalDeckZoneContainer.getChildren().add(imageView);
 //           gameMenuController.addEventForCardImageRectangle(imageView, null);
             //todo: i tried to make the deck zone Rectangles but i couldnt
@@ -582,6 +599,7 @@ public interface MainPhasesController {
             ImageView imageView = playerGameBoard.getDeckZone().get(i).getCellCard().getCardBackImage();
             imageView.setFitWidth(70);
             imageView.setLayoutX(xPane + i / 2);
+            if(!gameMenuController.userDeckZoneContainer.getChildren().contains(imageView))
             gameMenuController.userDeckZoneContainer.getChildren().add(imageView);
             //gameMenuController.addEventForCardImage(imageView,null);
         }
