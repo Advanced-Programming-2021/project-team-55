@@ -287,12 +287,15 @@ public class GameController {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     activateStage.close();
+                    gameMenuController.choiceHasBeenMade=true;
                     gameMenuController.shouldActivateEffectsNow=true;
+                    gameMenuController.canBeActivatedCards=trapsCanBeActivated;
                 }
             });
             noButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
+                    gameMenuController.choiceHasBeenMade=true;
                     activateStage.close();
                 }
             });

@@ -76,12 +76,11 @@ public class SpellAndTrap extends Card {
             } else {
                 try {
 
-                    if(!(((SpellAndTrap)card).getAttribute()==SpellOrTrapAttribute.CONTINUOUS)&&
-                    !(((SpellAndTrap)card).getAttribute()==SpellOrTrapAttribute.EQUIP)){
-                        playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED, gameController,true);
-                    }
-                    else{
-                        playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED, gameController,false);
+                    if (!(((SpellAndTrap) card).getAttribute() == SpellOrTrapAttribute.CONTINUOUS) &&
+                            !(((SpellAndTrap) card).getAttribute() == SpellOrTrapAttribute.EQUIP)) {
+                        playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED, gameController, true);
+                    } else {
+                        playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED, gameController, false);
                     }
                 } catch (GameException ignored) {
                 }
@@ -89,10 +88,16 @@ public class SpellAndTrap extends Card {
             playerGameBoard.removeCardFromHand(selectedCell);
         } else {
             SpellAbsorption.handleEffect();
-            gameController.currentTurnPlayer.getGameBoard().setFlipTransition(selectedCell.getCellCard(), selectedCell.getCellRectangle(), false);
             selectedCell.setCardStatus(CardStatus.OCCUPIED);
+            if (!(((SpellAndTrap) card).getAttribute() == SpellOrTrapAttribute.CONTINUOUS) &&
+                    !(((SpellAndTrap) card).getAttribute() == SpellOrTrapAttribute.EQUIP)) {
+                gameController.currentTurnPlayer.getGameBoard().setFlipTransition(selectedCell.getCellCard(), selectedCell.getCellRectangle(), false,true);
+            }
+            else{
+                gameController.currentTurnPlayer.getGameBoard().setFlipTransition(selectedCell.getCellCard(), selectedCell.getCellRectangle(), false,false);
+            }
+            Cell.deselectCell();
         }
-        Cell.deselectCell();
     }
 
     public SpellOrTrap getType() {

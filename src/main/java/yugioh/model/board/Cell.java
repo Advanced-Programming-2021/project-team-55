@@ -1,5 +1,6 @@
 package yugioh.model.board;
 
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
@@ -124,7 +125,9 @@ public class Cell {
 //       timeline.play();
         if (Cell.getSelectedCell() == this) selectedCell = null;
         cellRectangle.setStrokeWidth(0);
-        cellInfo.setText("");
+        Platform.runLater(()->{
+            cellInfo.setText("");
+        });
         cellRectangle.setFill(null);
 
         this.card = null;

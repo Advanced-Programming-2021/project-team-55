@@ -109,28 +109,28 @@ public interface MainPhasesController {
                     if(summonEffectSpellAndTrap.contains(cell.getCellCard())) {
                         gameController.changeTurn(true, false);
                         gameController.activateTrapEffect(summonEffectSpellAndTrap);
-                        gameController.changeTurn(true, true);
+                        //gameController.changeTurn(true, true);
                         break;
                     }
                 } else if (summonType == SummonTypes.FlipSummon) {
                     if(flipSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
                         gameController.changeTurn(true, false);
                         gameController.activateTrapEffect(flipSummonEffectSpellAndTrap);
-                        gameController.changeTurn(true, true);
+                        //gameController.changeTurn(true, true);
                         break;
                     }
                 } else if (summonType == SummonTypes.SpecialSummon) {
                     if(SpecialSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
                         gameController.changeTurn(true, false);
                         gameController.activateTrapEffect(SpecialSummonEffectSpellAndTrap);
-                        gameController.changeTurn(true, true);
+                       // gameController.changeTurn(true, true);
                         break;
                     }
                 } else if (summonType == SummonTypes.RitualSummon) {
                     if(ritualSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
                         gameController.changeTurn(true, false);
                         gameController.activateTrapEffect(ritualSummonEffectSpellAndTrap);
-                        gameController.changeTurn(true, true);
+                        //gameController.changeTurn(true, true);
                         break;
                     }
                 }
@@ -391,7 +391,7 @@ public interface MainPhasesController {
         }
         selectedCell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
         gameController.currentTurnPlayer.getGameBoard().setFlipTransition(selectedCell.getCellCard(),
-                selectedCell.getCellRectangle(), false);
+                selectedCell.getCellRectangle(), false,false);
         ManEaterBug.handleEffect(gameController, selectedCell);
         activateTrapIfCanBeActivated(gameController, SummonTypes.FlipSummon);
         Cell.deselectCell();

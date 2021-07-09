@@ -95,7 +95,9 @@ public class GameMenuController extends MenuController implements Initializable 
     public ArrayList<Cell> tributeCells = new ArrayList<>();
     public Rectangle userGraveyard;
     public Rectangle rivalGraveyard;
-    public boolean shouldActivateEffectsNow;
+    public boolean shouldActivateEffectsNow = false;
+    public ArrayList<String> canBeActivatedCards;
+    public boolean choiceHasBeenMade = false;
     private Stage pauseStage;
 
     public static GameMenuController getGameMenuController() {
@@ -107,6 +109,7 @@ public class GameMenuController extends MenuController implements Initializable 
 //        rivalDeckZoneContainer.getChildren().clear();
 //        userHandCardsContainer.getChildren().clear();
 //        userDeckZoneContainer.getChildren().clear();
+        updateCells();
         removeCardHoveredImageAndInfo(Card.backImageForAllCards);
         RotateTransition rotateTransition = new RotateTransition();
         RotateTransition rotateTransitionForBackground = new RotateTransition();
@@ -184,11 +187,17 @@ public class GameMenuController extends MenuController implements Initializable 
         description.setTextAlignment(TextAlignment.JUSTIFY);
     }
 
-    //todo: is this necessary?
+
     private void updateCells() {
-        for (Cell cell : Cell.getAllCells()) {
+        for (Cell cell : gameController.currentTurnPlayer.getGameBoard().getMonsterCardZone()) {
             if (!cell.isEmpty()) {
-                //  addEventForCardImageRectangle(cell.getCellCard().getCardImage(), cell.getCellCard());
+                cell.getCellInfo().setText(((Monster) cell.getCellCard()).getAtk() + "/" + ((Monster) cell.getCellCard()).getDef());
+
+            }
+        }
+        for (Cell cell : gameController.currentTurnOpponentPlayer.getGameBoard().getMonsterCardZone()) {
+            if (!cell.isEmpty()) {
+                cell.getCellInfo().setText(((Monster) cell.getCellCard()).getAtk() + "/" + ((Monster) cell.getCellCard()).getDef());
             }
         }
     }
@@ -292,7 +301,59 @@ public class GameMenuController extends MenuController implements Initializable 
         });
         CardActionsMenu.setGamePane(gameBoardPane);
         rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            if (!shouldSelectTributesNow) {
+            if (shouldSelectTributesNow) {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    if (!gameController.currentTurnPlayer.getGameBoard().isCellInMonsterZone(Cell.getSelectedCellByRectangle(rectangle))) {
+                        Toast.makeText(WelcomeMenu.stage, "select a monster to tribute");
+                        return;
+                    }
+                    if (rectangle.getEffect() != null) {
+                        rectangle.setEffect(null);
+                        tributeCells.remove(Cell.getSelectedCellByRectangle(rectangle));
+                    } else {
+                        Cell tributeCell = Cell.getSelectedCellByRectangle(rectangle);
+                        tributeCells.add(tributeCell);
+                        DropShadow tributeEffect = new DropShadow(BlurType.values()[1],
+                                RED, 10, 2.0f, 0, 0);
+                        tributeEffect.setBlurType(BlurType.ONE_PASS_BOX);
+                        rectangle.setEffect(tributeEffect);
+                        if (neededTributes == tributeCells.size()) {
+                            for (Cell cell : tributeCells) {
+                                Rectangle graveyard = GameMenuController.gameMenuController.userGraveyard;
+                                if (CardActionsMenu.isBoardInverse())
+                                    graveyard = GameMenuController.gameMenuController.rivalGraveyard;
+                                //    gameController.getBattlePhaseController().moveCardToGraveyard(cell, graveyard, gameController.currentTurnPlayer);
+                                cell.getCellRectangle().setEffect(null);
+                                cell.removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
+                                // gameController.currentTurnPlayer.getGameBoard().addCardToGraveyard(cell.getCellCard());
+                            }
+                            if (isTributeForSummon)
+                                gameController.getMainPhase1Controller().continueMonsterSummon(gameController, false);
+                            else gameController.getMainPhase1Controller().continueSetMonster(gameController);
+                            shouldSelectTributesNow = false;
+                            tributeCells.clear();
+                            neededTributes = 0;
+                        }
+                    }
+                }
+            } else if (shouldActivateEffectsNow) {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    if (gameController.currentTurnPlayer.getGameBoard().isCellInSpellAndTrapZone(Cell.getSelectedCellByRectangle(rectangle))) {
+                        if (Cell.getSelectedCell() != null && !Cell.getSelectedCell().isEmpty() && Cell.getSelectedCell().getCellRectangle().equals(rectangle)) {
+                            Cell.deselectCell();
+                        } else {
+                            Cell.deselectCell();
+                            selectCard(rectangle);
+                        }
+                        try {
+                            CardActionsMenu.setCoordinates(event.getSceneX() + 200, event.getSceneY() + 55);
+                            CardActionsMenu.execute(rectangle, gameController);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            } else {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     Cell selectedCell = Cell.getSelectedCell();
                     ImagePattern rectangleImage = (ImagePattern) rectangle.getFill();
@@ -327,60 +388,6 @@ public class GameMenuController extends MenuController implements Initializable 
                         CardActionsMenu.change();
                     }
                     event.consume();
-                }
-            } else if (shouldActivateEffectsNow) {
-                if (event.getButton() == MouseButton.PRIMARY) {
-                    if (gameController.currentTurnPlayer.getGameBoard().isCellInSpellAndTrapZone(Cell.getSelectedCellByRectangle(rectangle)))
-                    {
-                        if (Cell.getSelectedCell() != null && !Cell.getSelectedCell().isEmpty()) {
-                            if (Cell.getSelectedCell().getCellRectangle().equals(rectangle)) {
-                                Cell.deselectCell();
-                            } else {
-                                Cell.deselectCell();
-                                selectCard(rectangle);
-                            }
-                            try {
-                                CardActionsMenu.execute(rectangle, gameController);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }
-            } else {
-                if (event.getButton() == MouseButton.PRIMARY) {
-                    if (!gameController.currentTurnPlayer.getGameBoard().isCellInMonsterZone(Cell.getSelectedCellByRectangle(rectangle))) {
-                        Toast.makeText(WelcomeMenu.stage, "select a monster to tribute");
-                        return;
-                    }
-                    if (rectangle.getEffect() != null) {
-                        rectangle.setEffect(null);
-                        tributeCells.remove(Cell.getSelectedCellByRectangle(rectangle));
-                    } else {
-                        Cell tributeCell = Cell.getSelectedCellByRectangle(rectangle);
-                        tributeCells.add(tributeCell);
-                        DropShadow tributeEffect = new DropShadow(BlurType.values()[1],
-                                RED, 10, 2.0f, 0, 0);
-                        tributeEffect.setBlurType(BlurType.ONE_PASS_BOX);
-                        rectangle.setEffect(tributeEffect);
-                        if (neededTributes == tributeCells.size()) {
-                            for (Cell cell : tributeCells) {
-                                Rectangle graveyard = GameMenuController.gameMenuController.userGraveyard;
-                                if (CardActionsMenu.isBoardInverse())
-                                    graveyard = GameMenuController.gameMenuController.rivalGraveyard;
-                                //    gameController.getBattlePhaseController().moveCardToGraveyard(cell, graveyard, gameController.currentTurnPlayer);
-                                cell.getCellRectangle().setEffect(null);
-                                cell.removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
-                                // gameController.currentTurnPlayer.getGameBoard().addCardToGraveyard(cell.getCellCard());
-                            }
-                            if (isTributeForSummon)
-                                gameController.getMainPhase1Controller().continueMonsterSummon(gameController, false);
-                            else gameController.getMainPhase1Controller().continueSetMonster(gameController);
-                            shouldSelectTributesNow = false;
-                            tributeCells.clear();
-                            neededTributes = 0;
-                        }
-                    }
                 }
 //            if (event.getButton() == MouseButton.PRIMARY) {
 //                Cell selectedCell = Cell.getSelectedCell();

@@ -118,6 +118,10 @@ public class CardActionsMenu implements MainPhasesController {
     public static void start() throws Exception {
         counter = 0;
         Cell selectedCell = Cell.getSelectedCell();
+        if(gameController.getGameMenuController().shouldActivateEffectsNow){
+            openActivate();
+            return;
+        }
         if (gameController.currentTurnPlayer.getGameBoard().isCellInHandZone(selectedCell)) {
             if (gameController.currentPhase.equals(GamePhase.MAIN1) || gameController.currentPhase.equals(GamePhase.MAIN2)) {
                 openMainPhaseActions();
@@ -131,6 +135,31 @@ public class CardActionsMenu implements MainPhasesController {
             //todo : add actions of cards in monster zone and spell zone
         }
 
+    }
+
+    private static void openActivate() {
+        if (Cell.getSelectedCell() == null || Cell.getSelectedCell().getCellCard() == null) return;
+        actionButton = new ImageView();
+        actionButton.fitWidthProperty().bind(actionsStage.widthProperty());
+        actionButton.fitHeightProperty().bind(actionsStage.heightProperty());
+        actionPane = new Pane();
+        actionPane.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, null)));
+        actionButton.setImage(activateImage);
+        activateImage();
+        actionPane.getChildren().add(actionButton);
+        actionButton.onMouseClickedProperty().set(mouseEvent -> {
+            if (actionButton.getImage().equals(activateImage)) {
+                handleActivate();
+            }
+        });
+        Scene scene = new Scene(actionPane, 60, 60);
+        scene.setCursor(Cursor.OPEN_HAND);
+        actionPane.setPrefHeight(60);
+        actionPane.setPrefWidth(60);
+        actionsStage.setX(xImage);
+        actionsStage.setY(yImage);
+        actionsStage.setScene(scene);
+        actionsStage.show();
     }
 
     private static void openBattlePhaseActionsForCardsInBoard() {
@@ -200,7 +229,11 @@ public class CardActionsMenu implements MainPhasesController {
                         }
                     }
                 } else if (t1.equals(activateImage)) {
+                    if(Cell.getSelectedCell().getCellCard().isSpell())
                     activateImage();
+                    else{
+                        disableImage();
+                    }
                     //todo: activate spell
                 }
             }
@@ -255,6 +288,7 @@ public class CardActionsMenu implements MainPhasesController {
         rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             if (!currentPlayer.equals(Duel.getGameController().getCurrentTurnPlayer())) return;
             if (Duel.getGameController().getCurrentPhase() != GamePhase.BATTLE) return;
+            if(gameController.getGameMenuController().shouldActivateEffectsNow)return;
             if (activeRectangle == rectangle && activeSword != null) {
                 removeSword();
                 return;
@@ -488,8 +522,16 @@ public class CardActionsMenu implements MainPhasesController {
                     } else {
                         activateImage();
                     }
-                } else if (t1.equals(activateImage)) {
+                }
+                else if(t1.equals(setImageV)){
                     activateImage();
+                }
+                else if (t1.equals(activateImage)) {
+                    if(Cell.getSelectedCell().getCellCard().isSpell())
+                    activateImage();
+                    else{
+                        disableImage();
+                    }
                     //todo: activate spell
                 }
                 actionButton.onMouseExitedProperty().set(new EventHandler<MouseEvent>() {
@@ -533,14 +575,26 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     private static void handleActivate() {
-
         try {
-            new CardActionsMenu().activateSpell(gameController);
+            if(gameController.getGameMenuController().shouldActivateEffectsNow){
+                if(gameController.getGameMenuController().canBeActivatedCards.contains(Cell.
+                        getSelectedCell().getCellCard().getName())){
+                    new CardActionsMenu().activateSpell(gameController);
+                    gameController.getGameMenuController().shouldActivateEffectsNow=false;
+                    gameController.getGameMenuController().canBeActivatedCards.clear();
+                    gameController.changeTurn(true,true);
+                }
+                else{
+                    Toast.makeText(WelcomeMenu.stage,"You can't activate this card!");
+                }
+            }
+            else{
+                new CardActionsMenu().activateSpell(gameController);
+            }
         } catch (GameException e) {
             Toast.makeText(WelcomeMenu.stage,e.getMessage());
         }
         actionsStage.close();
-
     }
 
     private static void handleSummon() {

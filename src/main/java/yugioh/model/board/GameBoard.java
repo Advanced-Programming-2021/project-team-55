@@ -1,6 +1,7 @@
 package yugioh.model.board;
 
 import javafx.animation.*;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -235,7 +236,7 @@ public class GameBoard {
                 Rectangle rectangle = monsterCardZone[i].getCellRectangle();
                 setTranslationAnimation(imagePattern, rectangle, card);
                 if (cardStatus == CardStatus.DEFENSIVE_HIDDEN) {
-                    setFlipTransition(card, rectangle, true);
+                    setFlipTransition(card, rectangle, true,false);
                     setFlipZTransition(rectangle, true);
                 } else CardActionsMenu.makeSwordEventForSummonedMonsters(rectangle);
 
@@ -246,6 +247,7 @@ public class GameBoard {
                 if ((gamePane.rotateProperty().get() % 360) > 179) {
                     monsterCardZone[i].getCellInfo().rotateProperty().set(180);
                 }
+                //here
                 monsterCardZone[i].getCellInfo().setText(((Monster) card).getAtk() + "/" + ((Monster) card).getDef());
                 if (!monsterCardZone[i].isEventSet) {
                     gameController.getGameMenuController().addEventForCardImageRectangle(rectangle, card);
@@ -339,7 +341,7 @@ public class GameBoard {
 //        Rectangle graveyard;
 //        if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
 //        else graveyard = GameMenuController.getGameMenuController().userGraveyard;
-        graveyardPlace.fillProperty().setValue(cell.getCellRectangle().getFill());
+        graveyardPlace.fillProperty().setValue(cell.getCellCard().getCardBackImagePattern());
         setFadeTransition(graveyardPlace, 0, 1);
     }
 
@@ -356,7 +358,7 @@ public class GameBoard {
                 Rectangle rectangle = cell.getCellRectangle();
                 setTranslationAnimation(imagePattern, rectangle, card);
                 if (cardStatus == CardStatus.HIDDEN) {
-                    setFlipTransition(card, rectangle, true);
+                    setFlipTransition(card, rectangle, true,false);
                 }
                 for (double j = 0; j <= 1; j += 0.05) {
                     rectangle.opacityProperty().set(j);
@@ -408,7 +410,7 @@ public class GameBoard {
 //        hideFront.play();
     }
 
-    public void setFlipTransition(Card card, Rectangle rectangle, boolean isToBack) {
+    public void setFlipTransition(Card card, Rectangle rectangle, boolean isToBack,boolean hasToBeRemoved) {
         ScaleTransition hideFront = new ScaleTransition(Duration.millis(1000), rectangle);
         hideFront.setFromX(1);
         hideFront.setToX(0);
@@ -423,6 +425,15 @@ public class GameBoard {
                 rectangle.setFill(card.getCardBackImagePattern());
             else rectangle.setFill(card.getCardImagePattern());
             showBack.play();
+
+        });
+        showBack.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if(hasToBeRemoved){
+                    Cell.getSelectedCellByRectangle(rectangle).removeCardFromCell(GameBoard.this);
+                }
+            }
         });
         hideFront.play();
     }
