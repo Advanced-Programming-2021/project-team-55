@@ -46,6 +46,7 @@ public class GameBoard {
     private static Pane gamePane;
     private final Cell[] monsterCardZone;
     private final ArrayList<Cell> graveyard;
+    private transient Rectangle graveyardPlace;
     private final Cell[] spellAndTrapCardZone;
     private final ArrayList<Cell> deckZone;
     private final ArrayList<Cell> handCards;
@@ -85,6 +86,7 @@ public class GameBoard {
         GameBoard.gamePane = gamePane;
         fieldZone.setCellRectangle((Rectangle) gamePane.getChildren().get(36));
         if (!isOpponent) {
+            graveyardPlace=(Rectangle)gamePane.getChildren().get(4) ;
             monsterCardZone[0].setCellRectangle((Rectangle) gamePane.getChildren().get(8));
             monsterCardZone[1].setCellRectangle((Rectangle) gamePane.getChildren().get(9));
             monsterCardZone[2].setCellRectangle((Rectangle) gamePane.getChildren().get(7));
@@ -97,6 +99,7 @@ public class GameBoard {
             spellAndTrapCardZone[3].setCellRectangle((Rectangle) gamePane.getChildren().get(15));
             spellAndTrapCardZone[4].setCellRectangle((Rectangle) gamePane.getChildren().get(11));
         } else {
+            graveyardPlace=(Rectangle)gamePane.getChildren().get(5) ;
             Rectangle rectangle1 = (Rectangle) gamePane.getChildren().get(18);
             rectangle1.rotateProperty().set(180);
             Rectangle rectangle2 = (Rectangle) gamePane.getChildren().get(19);
@@ -325,17 +328,18 @@ public class GameBoard {
 
     public void addCardToGraveyard(Cell cell) {
         Card card=cell.getCellCard();
+
         graveyard.add(new Cell(card));
         moveCardToGraveyard(cell);
         //todo add card rectangle
     }
     public void moveCardToGraveyard(Cell cell) {
         playButtonSound("graveYard");
-        Rectangle graveyard;
-        if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().userGraveyard;
-        else graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
-        graveyard.fillProperty().setValue(cell.getCellRectangle().getFill());
-        setFadeTransition(graveyard, 0, 1);
+//        Rectangle graveyard;
+//        if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
+//        else graveyard = GameMenuController.getGameMenuController().userGraveyard;
+        graveyardPlace.fillProperty().setValue(cell.getCellRectangle().getFill());
+        setFadeTransition(graveyardPlace, 0, 1);
     }
 
     public void addCardToSpellAndTrapCardZone(Card card, CardStatus cardStatus, GameController gameController) throws GameException {
