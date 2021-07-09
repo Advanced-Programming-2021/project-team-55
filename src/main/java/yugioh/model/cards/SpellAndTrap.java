@@ -75,10 +75,13 @@ public class SpellAndTrap extends Card {
                 gameController.currentTurnOpponentPlayer.getGameBoard().addCardToFieldZone(selectedCell);
             } else {
                 try {
-                    playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED, gameController);
-                    if(!(((SpellAndTrap)card).getAttribute()==SpellOrTrapAttribute.CONTINUOUS)){
-                        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1),event -> selectedCell.removeCardFromCell(playerGameBoard)));//todo make duration 3.5
-                        timeline.play();
+
+                    if(!(((SpellAndTrap)card).getAttribute()==SpellOrTrapAttribute.CONTINUOUS)&&
+                    !(((SpellAndTrap)card).getAttribute()==SpellOrTrapAttribute.EQUIP)){
+                        playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED, gameController,true);
+                    }
+                    else{
+                        playerGameBoard.addCardToSpellAndTrapCardZone(card, CardStatus.OCCUPIED, gameController,false);
                     }
                 } catch (GameException ignored) {
                 }

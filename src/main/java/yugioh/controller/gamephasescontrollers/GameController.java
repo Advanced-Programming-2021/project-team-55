@@ -1,5 +1,16 @@
 package yugioh.controller.gamephasescontrollers;
 
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import yugioh.controller.menucontroller.DetermineStarterMenuController;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.CoinDice;
@@ -20,7 +31,11 @@ import yugioh.view.gamephases.GamePhase;
 import yugioh.view.gamephases.GameResponses;
 import yugioh.view.menus.*;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+
+import static yugioh.view.SoundPlayable.playButtonSound;
 
 public class GameController {
 
@@ -257,7 +272,35 @@ public class GameController {
     }
 
     public void activateTrapEffect(ArrayList<String> trapsCanBeActivated) {
-            while (true) {
+        Stage activateStage = new Stage();
+        activateStage.initOwner(WelcomeMenu.stage);
+        activateStage.initStyle(StageStyle.UNDECORATED);
+        activateStage.initModality(Modality.NONE);
+        URL url = getClass().getResource("/yugioh/fxml/ActivateEffectMenu.fxml");
+        try {
+            Pane pane = FXMLLoader.load(url);
+            Scene scene = WelcomeMenu.createScene(pane);
+            activateStage.setScene(scene);
+            Button yesButton = (Button) ((HBox)((VBox)pane.getChildren().get(0)).getChildren().get(1)).getChildren().get(0);
+            Button noButton = (Button) ((HBox)((VBox)pane.getChildren().get(0)).getChildren().get(1)).getChildren().get(1);
+            yesButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    activateStage.close();
+                    gameMenuController.shouldActivateEffectsNow=true;
+                }
+            });
+            noButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    activateStage.close();
+                }
+            });
+            activateStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+         /*   while (true) {
                 ViewInterface.showResult("do you want to activate your trap or spell? yes/no");
                 String response = ViewInterface.getInput();
                 if (response.equals("no")) {
@@ -298,7 +341,7 @@ public class GameController {
                 }
 
             }
-
+*/
     }
 
     public boolean doPlayerSetOrSummonedThisTurn() {

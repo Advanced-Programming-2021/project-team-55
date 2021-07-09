@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
@@ -342,16 +343,17 @@ public class GameBoard {
         setFadeTransition(graveyardPlace, 0, 1);
     }
 
-    public void addCardToSpellAndTrapCardZone(Card card, CardStatus cardStatus, GameController gameController) throws GameException {
+    public void addCardToSpellAndTrapCardZone(Card card, CardStatus cardStatus, GameController gameController,boolean hasToBeRemoved) throws GameException {
         if (isSpellAndTrapCardZoneFull())
             throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
 
         for (int i = 0; i < 5; i++) {
             if (spellAndTrapCardZone[i].isEmpty()) {
-                spellAndTrapCardZone[i].addCardToCell(card);
-                spellAndTrapCardZone[i].setCardStatus(cardStatus);
+                Cell cell=spellAndTrapCardZone[i];
+                cell.addCardToCell(card);
+                cell.setCardStatus(cardStatus);
                 ImagePattern imagePattern = card.getCardImagePattern();
-                Rectangle rectangle = spellAndTrapCardZone[i].getCellRectangle();
+                Rectangle rectangle = cell.getCellRectangle();
                 setTranslationAnimation(imagePattern, rectangle, card);
                 if (cardStatus == CardStatus.HIDDEN) {
                     setFlipTransition(card, rectangle, true);
@@ -359,11 +361,19 @@ public class GameBoard {
                 for (double j = 0; j <= 1; j += 0.05) {
                     rectangle.opacityProperty().set(j);
                 }
-                if (!spellAndTrapCardZone[i].isEventSet) {
-                    gameController.getGameMenuController().addEventForCardImageRectangle(rectangle, card);
-                    spellAndTrapCardZone[i].setEventIsSet();
+                if(hasToBeRemoved){
+                    Timeline timeline=new Timeline(new KeyFrame(Duration.seconds(2),actionEvent ->   cell.removeCardFromCell(this)));
+                    timeline.play();
+                    return;
                 }
-                gameController.changedPositionCells.add(spellAndTrapCardZone[i]);
+//                for (double j = 0; j <= 1; j += 0.05) {
+//                    rectangle.opacityProperty().set(j);
+//                }
+                if (!cell.isEventSet) {
+                    gameController.getGameMenuController().addEventForCardImageRectangle(rectangle, card);
+                    cell.setEventIsSet();
+                }
+                gameController.changedPositionCells.add(cell);
                 return;
             }
         }
@@ -524,9 +534,18 @@ public class GameBoard {
                 Duel.getGameController().getGameMenuController().addEventForCardImageRectangle(rectangle, card);
                 rectangle.setWidth(90);
                 rectangle.setHeight(120);
+
                 rectangle.setFill(card.getCardImagePattern());
                 cell.setCellRectangle(rectangle);
-                handDeck.getChildren().add(rectangle);
+                double rotationValue = GameMenuController.getGameMenuController().background.rotateProperty().getValue() % 360;
+                if (rotationValue > 179 && rotationValue < 181) {
+                    rectangle.rotateProperty().set(180);
+                    handDeck.getChildren().add(0, rectangle);
+
+                } else {
+                    rectangle.rotateProperty().set(0);
+                    handDeck.getChildren().add(rectangle);
+                }
                 handCards.add(cell);
                 ((Pane) gamePane.getChildren().get(3)).getChildren().remove(i);
                 deckZone.remove(i);
@@ -745,8 +764,8 @@ public class GameBoard {
             Pane pane = FXMLLoader.load(url);
             Scene scene = WelcomeMenu.createScene(pane);
             tributeStage.setScene(scene);
-            Button yesButton = (Button) pane.getChildren().get(0);
-            Button noButton = (Button) pane.getChildren().get(1);
+            Button yesButton = (Button) ((HBox)((VBox)pane.getChildren().get(0)).getChildren().get(1)).getChildren().get(0);
+            Button noButton = (Button) ((HBox)((VBox)pane.getChildren().get(0)).getChildren().get(1)).getChildren().get(1);
             yesButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
@@ -767,5 +786,9 @@ public class GameBoard {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void addCardToSpellAndTrapCardZoneActivated() {
+
     }
 }

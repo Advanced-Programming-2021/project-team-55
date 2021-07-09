@@ -269,7 +269,7 @@ public interface MainPhasesController {
 //                gameController.changedPositionCells.add(selectedCell);
 //                gameController.setDidPlayerSetOrSummonThisTurn(true);
             } else {
-                playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard, CardStatus.HIDDEN, gameController);
+                playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard, CardStatus.HIDDEN, gameController,false);
                 playerGameBoard.removeCardFromHand(selectedCell);
                 gameController.changedPositionCells.add(selectedCell);
                 TimeSeal.setActivated(gameController);
