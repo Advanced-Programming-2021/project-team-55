@@ -134,6 +134,16 @@ public class BattlePhaseController {
             response = "opponent’s monster card was " +
                     attackedCell.getCellCard().getName() + " the defense position monster is destroyed";
             response += Marshmallon.handleEffect(gameController, attackerCell, attackedCell);
+//            if (!Marshmallon.isMarshmallon(attackedCell)) {//todo chera ba payiniha fargh miknone? baad inja tanaghoz dareha
+//                Rectangle graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
+//                if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().userGraveyard;
+//                Rectangle finalGraveyard = graveyard;
+//                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+//                    moveCardToGraveyard(attackedCell, finalGraveyard, gameController.currentTurnOpponentPlayer);
+//                    attackedCell.removeCardFromCell(opponentGameBoard);
+//                }));
+//                timeline.play();
+//            }
             if (!Marshmallon.isMarshmallon(attackedCell))
                 attackedCell.removeCardFromCell(opponentGameBoard);
         } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
@@ -159,6 +169,14 @@ public class BattlePhaseController {
             response = "the defense position monster is destroyed";
             YomiShip.handleEffect(gameController, attackerCell, attackedCell);
             attackedCell.removeCardFromCell(playerGameBoard);
+//            Rectangle graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
+//            if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().userGraveyard;
+//            Rectangle finalGraveyard = graveyard;
+//            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+//                moveCardToGraveyard(attackedCell, finalGraveyard, gameController.currentTurnOpponentPlayer);
+//                attackedCell.removeCardFromCell(playerGameBoard);
+//            }));
+//            timeline.play();
         } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
             response = "no card is destroyed";
         } else {
@@ -209,7 +227,11 @@ public class BattlePhaseController {
         return response;
     }
 
-
+    public void moveCardToGraveyard(Cell cell, Rectangle graveyard, Player player) {
+        playButtonSound("graveYard");
+        graveyard.fillProperty().setValue(cell.getCellRectangle().getFill());
+        player.getGameBoard().setFadeTransition(graveyard, 0, 1);
+    }
 
     private void decreasePlayersDamage(Cell attackerCell, Cell attackedCell) {
         if (isAttackerStronger(attackerCell, attackedCell)) {
