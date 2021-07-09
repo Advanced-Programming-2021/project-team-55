@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -533,6 +534,9 @@ public class GameBoard {
             gameMenuController.addEventForCardImageRectangle(fieldZone.getCellRectangle(),fieldZone.getCellCard());
             fieldZone.setEventIsSet();
         }
+        try {
+            GameMenuController.getGameMenuController().background.setImage(new Image("/yugioh/PNG/Field/fie_burn.bmp"));
+        }catch (Exception ignored) {}
     }
 
     public boolean doesMonsterZoneHaveMonsters(int number) {
