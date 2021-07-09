@@ -222,9 +222,9 @@
         <Label alignment="CENTER" layoutX="503.0" layoutY="238.0" prefHeight="18.0" prefWidth="67.0" />
 
         <Rectangle fx:id="fieldZone" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="86.0" layoutX="613.0" layoutY="317.0" opacity="0.2" stroke="BLACK" strokeType="INSIDE" width="67.0" />
-        <Circle fill="#1f93ff" layoutX="625.0" layoutY="459.0" onMouseEntered="#showGraveyardForUser" onMouseExited="#closeGraveyard" opacity="0.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fill="#1f93ff" layoutX="625.0" layoutY="459.0" onMouseClicked="#showGraveyardForUser" opacity="0.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" />
 
-        <Circle fill="#1f93ff" layoutX="84.0" layoutY="259.0" onMouseEntered="#showGraveyardForOpponent" onMouseExited="#closeGraveyard" opacity="0.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fill="#1f93ff" layoutX="84.0" layoutY="259.0" onMouseClicked="#showGraveyardForOpponent" opacity="0.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" />
 
     </Pane>
     <Label fx:id="currentUsername" layoutX="144.0" layoutY="613.0" prefHeight="34.0" prefWidth="176.0" styleClass="simpleText" text="Username : " textFill="#ccdefc" />

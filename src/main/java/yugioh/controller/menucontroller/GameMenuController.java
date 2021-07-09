@@ -432,6 +432,14 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void showGraveyardForUser() {
+        try {
+            if (Graveyard.getGraveyardStage().isShowing()) {
+                Graveyard.getGraveyardStage().close();
+                return;
+            }
+        } catch (Exception ignored) {
+        }
+
         if (CardActionsMenu.isBoardInverse())
             new Graveyard().execute(Duel.getGameController().getCurrentTurnOpponentPlayer().getGameBoard().getGraveyard());
         else
@@ -443,6 +451,14 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void showGraveyardForOpponent() {
+        try {
+            if (Graveyard.getGraveyardStage().isShowing()) {
+                Graveyard.getGraveyardStage().close();
+                return;
+            }
+        } catch (Exception ignored) {
+        }
+
         if (CardActionsMenu.isBoardInverse())
             new Graveyard().execute(Duel.getGameController().getCurrentTurnPlayer().getGameBoard().getGraveyard());
         else

@@ -48,4 +48,10 @@ public class GraveyardController implements Initializable {
         initializeCardsPane(Graveyard.getGraveyardCards(), graveyard);
     }
 
+    public void closeGraveyard() {
+        try {
+            Graveyard.getGraveyardStage().close();
+        } catch (Exception ignored) {
+        }
+    }
 }
