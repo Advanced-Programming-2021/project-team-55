@@ -26,10 +26,6 @@ public class Graveyard extends WelcomeMenu {
         return graveyardCards;
     }
 
-    public static Stage getGraveyardStage() {
-        return graveyardStage;
-    }
-
     public static void close() {
 //        Duel.getGameController().currentPhase = Duel.getGameController().phases.get(Duel.getGameController().phases.size() - 2);//todo check
         Timeline fadeOutTimeline = new Timeline();
