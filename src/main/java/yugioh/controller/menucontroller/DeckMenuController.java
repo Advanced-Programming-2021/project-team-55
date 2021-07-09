@@ -305,13 +305,13 @@ public class DeckMenuController extends MenuController implements Initializable 
                 decksBox.setText(deckItem.getText());
                 deckInfo.setText(selectedDeck.toString());
                 setDeckView(selectedDeck);
+                Graveyard.getGraveyardStage().close();
             });
             Rectangle rectangle = new Rectangle();
-            rectangle.setWidth(50);
-            rectangle.setHeight(50);
+            rectangle.setWidth(10);
+            rectangle.setHeight(10);
             deckItem.setGraphic(rectangle);
             rectangle.addEventHandler(MouseEvent.MOUSE_ENTERED, mouseEvent -> new Graveyard().executeFloatStage(deck.getMainDeck()));
-            rectangle.addEventHandler(MouseEvent.MOUSE_EXITED, mouseEvent -> Graveyard.getGraveyardStage().close());
             decksBox.getItems().add(deckItem);
         }
 

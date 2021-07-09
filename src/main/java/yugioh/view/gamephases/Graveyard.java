@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -63,6 +64,11 @@ public class Graveyard extends WelcomeMenu {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        try {
+            graveyardStage.close();
+        } catch (Exception ignored) {
+        }
+
         URL url = getClass().getResource("/yugioh/fxml/Graveyard.fxml");
         Parent parent = FXMLLoader.load(url);
         Scene scene = WelcomeMenu.createScene(parent);

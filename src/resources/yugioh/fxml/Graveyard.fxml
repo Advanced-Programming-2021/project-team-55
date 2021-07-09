@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 
-<AnchorPane prefHeight="300" prefWidth="500" style="-fx-background-color: Transparent;" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.gamephasescontrollers.GraveyardController">
-   <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#0e1b77" height="300.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="500.0" />
-   <ScrollPane fx:id="graveyard" layoutX="35.0" layoutY="32.0" prefHeight="237.0" prefWidth="431.0" />
-
+<AnchorPane prefHeight="285.0" prefWidth="431.0" style="-fx-background-color: #05091a" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.gamephasescontrollers.GraveyardController">
+   <ScrollPane fx:id="graveyard" prefHeight="237.0" prefWidth="431.0" />
+   <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#closeGraveyard" prefHeight="42.0" prefWidth="100.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="close">
+      <styleClass>
+         <String fx:value="buttonText" />
+         <String fx:value="buttonShape" />
+         <String fx:value="buttonHover" />
+      </styleClass>
+   </JFXButton>
 </AnchorPane>
