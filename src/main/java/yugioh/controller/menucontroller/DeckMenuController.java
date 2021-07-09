@@ -1,5 +1,6 @@
 package yugioh.controller.menucontroller;
 
+import javafx.event.EventType;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -8,8 +9,11 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Deck;
@@ -17,6 +21,7 @@ import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.Responses;
 import yugioh.view.SoundPlayable;
+import yugioh.view.gamephases.Graveyard;
 import yugioh.view.menus.DeckMenu;
 import yugioh.view.menus.EditDeckMenu;
 import yugioh.view.menus.PopUpWindow;
@@ -301,8 +306,15 @@ public class DeckMenuController extends MenuController implements Initializable 
                 deckInfo.setText(selectedDeck.toString());
                 setDeckView(selectedDeck);
             });
+            Rectangle rectangle = new Rectangle();
+            rectangle.setWidth(50);
+            rectangle.setHeight(50);
+            deckItem.setGraphic(rectangle);
+            rectangle.addEventHandler(MouseEvent.MOUSE_ENTERED, mouseEvent -> new Graveyard().executeFloatStage(deck.getMainDeck()));
+            rectangle.addEventHandler(MouseEvent.MOUSE_EXITED, mouseEvent -> Graveyard.getGraveyardStage().close());
             decksBox.getItems().add(deckItem);
         }
+
         if (selectedMenuItem != null) {
             decksBox.setText(selectedMenuItem.getText());
         }
