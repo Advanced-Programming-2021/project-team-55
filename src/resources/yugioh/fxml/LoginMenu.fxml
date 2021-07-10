@@ -13,7 +13,7 @@
 <?import java.lang.*?>
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.LoginMenuController">
-    <MediaView fx:id="background" fitHeight="720.0" fitWidth="1080.0"/>
+    <MediaView fx:id="loginMenuBackground" fitHeight="720.0" fitWidth="1080.0"/>
     <VBox alignment="CENTER" layoutX="218.0" layoutY="173.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="375.0"
           prefWidth="644.0" spacing="25.0" AnchorPane.bottomAnchor="172.0" AnchorPane.leftAnchor="218.0"
           AnchorPane.rightAnchor="218.0" AnchorPane.topAnchor="173.0">
