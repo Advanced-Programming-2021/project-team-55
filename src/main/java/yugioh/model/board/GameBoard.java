@@ -509,7 +509,10 @@ public class GameBoard {
             handDeck.getChildren().add(rectangle);
             handCards.add(cell);
 
-            ((Pane) gamePane.getChildren().get(3)).getChildren().remove(0);
+            try {
+                ((Pane) gamePane.getChildren().get(3)).getChildren().remove(0);
+            } catch (Exception ignored) {
+            }
             deckZone.remove(0);
         }
     }
