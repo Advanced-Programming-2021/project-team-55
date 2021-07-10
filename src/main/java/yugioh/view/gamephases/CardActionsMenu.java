@@ -306,7 +306,13 @@ public class CardActionsMenu implements MainPhasesController {
                 }
                 return;
             }
-
+            if (gameController.didCardAttackThisTurn(selectedCell)) {
+                try {
+                    new PopUpWindow(GameResponses.CARD_ALREADY_ATTACKED.response).start(WelcomeMenu.getStage());
+                } catch (Exception ignored) {
+                }
+                return;
+            }
             playButtonSound("sword");
             rectangle.requestFocus();
             ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
@@ -629,7 +635,7 @@ public class CardActionsMenu implements MainPhasesController {
         return (gamePane.rotateProperty().get() % 360) > 179;
     }
 
-    public static void RemoveEventHandlers() {
+    public static void removeEventHandlers() {
         for (Cell cell : toBeRemovedEventHandlers.keySet()) {
             cell.getCellRectangle().removeEventHandler(MouseEvent.MOUSE_CLICKED, toBeRemovedEventHandlers.get(cell));
         }

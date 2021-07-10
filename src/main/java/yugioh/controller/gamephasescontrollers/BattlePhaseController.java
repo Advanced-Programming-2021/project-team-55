@@ -68,9 +68,7 @@ public class BattlePhaseController {
         if (attackedCellNumber <= 4 && attackedCellNumber >= 0) {
             attackedCell = (gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone())[attackedCellNumber];
         }
-        if (gameController.didCardAttackThisTurn(attackerCell)) {
-            throw new GameException(GameResponses.ALREADY_ATTACKED_CARD.response);
-        } else if (attackedCell == null || attackedCell.getCellCard() == null) {
+        if (attackedCell == null || attackedCell.getCellCard() == null) {
             throw new GameException(GameResponses.NO_CARD_TO_ATTACK.response);
         } else {
             setAttacker(attackerCell);
@@ -176,6 +174,7 @@ public class BattlePhaseController {
                 Cell.deselectCell();
                 ViewInterface.showResult(response);
             }
+            CardActionsMenu.removeEventHandlers();
         }).start();
     }
 
@@ -313,9 +312,6 @@ public class BattlePhaseController {
         String response = "";
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
-        if (gameController.didCardAttackThisTurn(selectedCell)) {
-            throw new GameException(GameResponses.CARD_ALREADY_ATTACKED.response);
-        }
         if (!gameController.canPlayerDirectAttack()) {
             throw new GameException(GameResponses.CAN_NOT_DIRECT_ATTACK.response);
         }
