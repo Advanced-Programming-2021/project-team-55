@@ -126,7 +126,7 @@ public class BattlePhaseController {
             }
         }
         new Thread(() -> {
-            Platform.runLater(()->{
+            Platform.runLater(() -> {
                 while (!gameController.getGameMenuController().choiceHasBeenMade ||
                         gameController.getGameMenuController().shouldActivateEffectsNow == true) {
                 }
@@ -194,7 +194,8 @@ public class BattlePhaseController {
             response += Marshmallon.handleEffect(gameController, attackerCell, attackedCell);
             if (!Marshmallon.isMarshmallon(attackedCell)) {
                 Rectangle graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
-                if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().userGraveyard;
+                if (CardActionsMenu.isBoardInverse())
+                    graveyard = GameMenuController.getGameMenuController().userGraveyard;
                 Rectangle finalGraveyard = graveyard;
                 Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
                     moveCardToGraveyard(attackedCell, finalGraveyard, gameController.currentTurnOpponentPlayer);

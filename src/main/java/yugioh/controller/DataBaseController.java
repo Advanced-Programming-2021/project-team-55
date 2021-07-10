@@ -77,25 +77,20 @@ public class DataBaseController extends MenuController {
     }
 
     public static void saveCardInfo(Card card) throws IOException {
-   //     writeJSON(card,"src\\resources\\cards\\" + card.getName() + ".json");
+        //     writeJSON(card,"src\\resources\\cards\\" + card.getName() + ".json");
         if (card.getCardKind() == Card.Kind.MAGIC) {
             SpellAndTrap spellAndTrap = (SpellAndTrap) card;
             writeJSON(spellAndTrap, "src\\resources\\cards\\SpellAndTraps\\" + card.getName() + ".json");
         } else {
             Monster monster = (Monster) card;
-            if(!card.isCustom)
-            writeJSON(monster, "src\\resources\\cards\\Monsters\\" + card.getName() + ".json");
-            else{
+            if (!card.isCustom)
+                writeJSON(monster, "src\\resources\\cards\\Monsters\\" + card.getName() + ".json");
+            else {
                 writeJSON(monster, "src\\resources\\cards\\Monsters\\Customs\\" + card.getName() + ".json");
             }
         }
     }
-    public void setImportExportMenuBackground(){
-        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\main.mp4").toURI().toString()));
-        mediaPlayer.play();
-        mediaPlayer.setCycleCount(-1);
-        importExportMenuBackground.setMediaPlayer(mediaPlayer);
-    }
+
     public static void writeFile(String fileAddress, String content) throws IOException {
         FileWriter writer = new FileWriter(fileAddress);
         writer.write(content);
@@ -118,21 +113,21 @@ public class DataBaseController extends MenuController {
         User.setAllUsers(dataBaseUsers);
     }
 
-    public static void cardsDataBaseInitialization()throws FileNotFoundException {
+    public static void cardsDataBaseInitialization() throws FileNotFoundException {
         initializeMonsterCards();
         initializeMagicCards();
     }
 
-    private static void initializeMonsterCards() throws FileNotFoundException{
-        File cardsFolder=new File("src\\resources\\cards\\Monsters\\Customs");
+    private static void initializeMonsterCards() throws FileNotFoundException {
+        File cardsFolder = new File("src\\resources\\cards\\Monsters\\Customs");
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        for(File file:cardsFolder.listFiles()){
-            if(file.getPath().endsWith(".json")){
+        for (File file : cardsFolder.listFiles()) {
+            if (file.getPath().endsWith(".json")) {
                 BufferedReader bufferedReader = new BufferedReader(
                         new FileReader(file.getPath())
                 );
-                Monster monster=gson.fromJson(bufferedReader,Monster.class);
+                Monster monster = gson.fromJson(bufferedReader, Monster.class);
                 Card.allCards.add(monster);
             }
         }
@@ -179,7 +174,7 @@ public class DataBaseController extends MenuController {
         Card CommandKnight = new CommandKnight();
     }
 
-    private static void initializeMagicCards()throws FileNotFoundException {
+    private static void initializeMagicCards() throws FileNotFoundException {
 //        File cardsFolder=new File("src\\resources\\cards\\SpellAndTraps");
 //        GsonBuilder builder = new GsonBuilder();
 //        Gson gson = builder.create();
@@ -192,41 +187,48 @@ public class DataBaseController extends MenuController {
 //                Card.allCards.add(spellAndTrap);
 //            }
 //        }
-      Card TrapHole = new TrapHole();
-      Card MirrorForce = new MirrorForce();
-      Card MagicCylinder = new MagicCylinder();
-      Card MindCrush = new MindCrush();
-      Card TorrentialTribute = new TorrentialTribute();
-      Card TimeSeal = new TimeSeal();
-      Card NegateAttack = new NegateAttack();
-      Card SolemnWarning = new SolemnWarning();
-      Card MagicJamamer = new MagicJamamer();
-      Card CallofTheHaunted = new CallofTheHaunted();
-      Card VanitysEmptiness = new VanitysEmptiness();
-      Card WallofRevealingLight = new WallofRevealingLight();
-      Card MonsterReborn = new MonsterReborn();
-      Card Terraforming = new Terraforming();
-      Card PotofGreed = new PotofGreed();
-      Card Raigeki = new Raigeki();
-      Card ChangeofHeart = new ChangeofHeart();
-      Card SwordsofRevealingLight = new SwordsofRevealingLight();
-      Card HarpiesFeatherDuster = new HarpiesFeatherDuster();
-      Card DarkHole = new DarkHole();
-      Card SupplySquad = new SupplySquad();
-      Card SpellAbsorption = new SpellAbsorption();
-      Card Messengerofpeace = new Messengerofpeace();
-      Card TwinTwisters = new TwinTwisters();
-      Card Mysticalspacetyphoon = new Mysticalspacetyphoon();
-      Card Ringofdefense = new Ringofdefense();
-      Card Yami = new Yami();
-      Card Forest = new Forest();
-      Card ClosedForest = new ClosedForest();
-      Card Umiiruka = new Umiiruka();
-      Card Swordofdarkdestruction = new Swordofdarkdestruction();
-      Card BlackPendant = new BlackPendant();
-      Card UnitedWeStand = new UnitedWeStand();
-      Card MagnumShield = new MagnumShield();
-      Card AdvancedRitualArt = new AdvancedRitualArt();
+        Card TrapHole = new TrapHole();
+        Card MirrorForce = new MirrorForce();
+        Card MagicCylinder = new MagicCylinder();
+        Card MindCrush = new MindCrush();
+        Card TorrentialTribute = new TorrentialTribute();
+        Card TimeSeal = new TimeSeal();
+        Card NegateAttack = new NegateAttack();
+        Card SolemnWarning = new SolemnWarning();
+        Card MagicJamamer = new MagicJamamer();
+        Card CallofTheHaunted = new CallofTheHaunted();
+        Card VanitysEmptiness = new VanitysEmptiness();
+        Card WallofRevealingLight = new WallofRevealingLight();
+        Card MonsterReborn = new MonsterReborn();
+        Card Terraforming = new Terraforming();
+        Card PotofGreed = new PotofGreed();
+        Card Raigeki = new Raigeki();
+        Card ChangeofHeart = new ChangeofHeart();
+        Card SwordsofRevealingLight = new SwordsofRevealingLight();
+        Card HarpiesFeatherDuster = new HarpiesFeatherDuster();
+        Card DarkHole = new DarkHole();
+        Card SupplySquad = new SupplySquad();
+        Card SpellAbsorption = new SpellAbsorption();
+        Card Messengerofpeace = new Messengerofpeace();
+        Card TwinTwisters = new TwinTwisters();
+        Card Mysticalspacetyphoon = new Mysticalspacetyphoon();
+        Card Ringofdefense = new Ringofdefense();
+        Card Yami = new Yami();
+        Card Forest = new Forest();
+        Card ClosedForest = new ClosedForest();
+        Card Umiiruka = new Umiiruka();
+        Card Swordofdarkdestruction = new Swordofdarkdestruction();
+        Card BlackPendant = new BlackPendant();
+        Card UnitedWeStand = new UnitedWeStand();
+        Card MagnumShield = new MagnumShield();
+        Card AdvancedRitualArt = new AdvancedRitualArt();
+    }
+
+    public void setImportExportMenuBackground() {
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\main.mp4").toURI().toString()));
+        mediaPlayer.play();
+        mediaPlayer.setCycleCount(-1);
+        importExportMenuBackground.setMediaPlayer(mediaPlayer);
     }
 
     public String readFileContent(String address) {

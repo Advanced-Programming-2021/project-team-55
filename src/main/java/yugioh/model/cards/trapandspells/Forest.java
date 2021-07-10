@@ -31,7 +31,7 @@ public class Forest extends SpellAndTrap {
     }
 
     public static void deActivateEffect(GameController gameController) {
-        if(Cell.getSelectedCell()!=null&&!Cell.getSelectedCell().isEmpty()&&Cell.getSelectedCell().getCellCard().getName().equals("Forest")) {
+        if (Cell.getSelectedCell() != null && !Cell.getSelectedCell().isEmpty() && Cell.getSelectedCell().getCellCard().getName().equals("Forest")) {
             Cell[] currentTurnPlayerMonsterCardZone = gameController.getCurrentTurnPlayer().getGameBoard().getMonsterCardZone();
             Cell[] currentTurnOpponentPlayerMonsterCardZone = gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone();
             ViewInterface.showResult("Forest effect deactivated : All Insect, Beast, Plant, and Beast-Warrior monsters on the field lose 200 ATK/DEF.");
@@ -44,7 +44,7 @@ public class Forest extends SpellAndTrap {
     private static void increaseOpponentPlayerMonstersAttack(Cell[] monsterCardZone) {
         for (Cell monster : monsterCardZone
         ) {
-            if (!monster.isEmpty()&&isForForest(monster)) {
+            if (!monster.isEmpty() && isForForest(monster)) {
                 ((Monster) monster.getCellCard()).addATK(200);
                 ((Monster) monster.getCellCard()).addDEF(200);
                 effectedMonsters.add((Monster) monster.getCellCard());

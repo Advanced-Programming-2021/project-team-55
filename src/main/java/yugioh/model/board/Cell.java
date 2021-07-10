@@ -1,6 +1,5 @@
 package yugioh.model.board;
 
-import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
@@ -20,12 +19,12 @@ public class Cell {
     private static final ArrayList<Cell> allCells = new ArrayList<>();
     private static Cell selectedCell;
     public CardStatus cardStatus;
+    public transient boolean isEventSet = false;
     private Card card;
     private double xPosition;
     private double yPosition;
     private transient Rectangle cellRectangle;
-    private transient Label cellInfo=new Label();
-    public transient boolean isEventSet=false;
+    private transient Label cellInfo = new Label();
 
     public Cell() {
         allCells.add(this);
@@ -125,7 +124,7 @@ public class Cell {
 //       timeline.play();
         if (Cell.getSelectedCell() == this) selectedCell = null;
         cellRectangle.setStrokeWidth(0);
-            cellInfo.setText("");
+        cellInfo.setText("");
         cellRectangle.setFill(null);
 
         this.card = null;
@@ -182,6 +181,6 @@ public class Cell {
     }
 
     public void setEventIsSet() {
-        isEventSet =true;
+        isEventSet = true;
     }
 }

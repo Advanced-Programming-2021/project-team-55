@@ -42,36 +42,36 @@ import static yugioh.view.SoundPlayable.playButtonSound;
 
 public class CardActionsMenu implements MainPhasesController {
     private static HashMap<Cell, EventHandler<MouseEvent>> toBeRemovedSelectionEventHandlers = new HashMap<>();
-    private static HashMap<Rectangle, ArrayList<EventHandler<MouseEvent>>> allCellEventHandlers = new HashMap<>();
-    private static Stage actionsStage = new Stage();
-    private static Stage errorStage = new Stage();
+    private static final HashMap<Rectangle, ArrayList<EventHandler<MouseEvent>>> allCellEventHandlers = new HashMap<>();
+    private static final Stage actionsStage = new Stage();
+    private static final Stage errorStage = new Stage();
     private static double xImage;
     private static double yImage;
     private static ImageView actionButton;
     private static Rectangle imageRectangle;
-    private static ArrayList<Image> handMonsterActions = new ArrayList<>();
-    private static ArrayList<Image> handSpellAndTrapActions = new ArrayList<>();
-    private static ArrayList<Image> boardMonsterActions = new ArrayList<>();
-    private static ArrayList<Image> boardSpellAndTrapActions = new ArrayList<>();
+    private static final ArrayList<Image> handMonsterActions = new ArrayList<>();
+    private static final ArrayList<Image> handSpellAndTrapActions = new ArrayList<>();
+    private static final ArrayList<Image> boardMonsterActions = new ArrayList<>();
+    private static final ArrayList<Image> boardSpellAndTrapActions = new ArrayList<>();
     private static ArrayList<Image> thisActions = new ArrayList<>();
     private static Pane gamePane;
     private static Pane actionPane;
-    private static int place = 6;
+    private static final int place = 6;
     private static GameController gameController;
     private static double lastMousePositionX = 0;
     private static double lastMousePositionY = 0;
     private static Cell toBeSummonedCell;
-    private static Image setImageH = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\SetH.png")
+    private static final Image setImageH = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\SetH.png")
             .toURI().toString());
-    private static Image setImageV = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\SetV.png").
+    private static final Image setImageV = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\SetV.png").
             toURI().toString());
-    private static Image summonImage = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\NormalSummon.png").
+    private static final Image summonImage = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\NormalSummon.png").
             toURI().toString());
-    private static Image attackImage = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\Attack.png").
+    private static final Image attackImage = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\Attack.png").
             toURI().toString());
-    private static Image activateImage = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\Activate.png").toURI().toString());
-    private static Image flipSummonImage = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\Flip summon.png").toURI().toString());
-    private static Image changePositionImage = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\ChangePosition.png").toURI().toString());
+    private static final Image activateImage = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\Activate.png").toURI().toString());
+    private static final Image flipSummonImage = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\Flip summon.png").toURI().toString());
+    private static final Image changePositionImage = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\ChangePosition.png").toURI().toString());
     private static ImageView activeSword;
     private static Rectangle activeRectangle;
     private static int counter = 0;

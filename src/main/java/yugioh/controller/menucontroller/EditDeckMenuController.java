@@ -16,7 +16,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
-import yugioh.view.SoundPlayable;
 import yugioh.view.menus.DeckMenu;
 import yugioh.view.menus.EditDeckMenu;
 

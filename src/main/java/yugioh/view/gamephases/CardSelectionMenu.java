@@ -10,13 +10,15 @@ import yugioh.view.menus.WelcomeMenu;
 import java.net.URL;
 
 public class CardSelectionMenu extends WelcomeMenu {
-    public static Stage cardSelectionStage=new Stage();
+    public static Stage cardSelectionStage = new Stage();
+
     static {
         cardSelectionStage.initOwner(WelcomeMenu.stage);
         cardSelectionStage.initStyle(StageStyle.UNDECORATED);
         cardSelectionStage.setX(500);
         cardSelectionStage.setY(250);
     }
+
     @Override
     public void start(Stage stage) throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/CardSelectionMenu.fxml");

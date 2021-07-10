@@ -2,7 +2,6 @@ package yugioh.model.cards.trapandspells;
 
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.board.Cell;
-import yugioh.model.cards.Monster;
 import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.cards.cardfeaturesenums.EffectiveTerm;
 import yugioh.model.cards.cardfeaturesenums.SpellOrTrap;
@@ -11,6 +10,7 @@ import yugioh.view.ViewInterface;
 
 public class NegateAttack extends SpellAndTrap {
     public static Cell attackerCell;
+
     public NegateAttack() {
         super("Negate Attack", "When an opponent's monster declares an attack: Target the attacking monster; negate the attack, then end the Battle Phase.",
                 3000, SpellOrTrap.TRAP, SpellOrTrapAttribute.COUNTER, EffectiveTerm.UNLIMITED);
@@ -18,7 +18,7 @@ public class NegateAttack extends SpellAndTrap {
 
     public static void setActivated(GameController gameController) {
         gameController.getBattlePhaseController().setAttackDisabled();
-      //  gameController.currentTurnOpponentPlayer.decreaseLP(((Monster)attackerCell.getCellCard()).getAtk());
+        //  gameController.currentTurnOpponentPlayer.decreaseLP(((Monster)attackerCell.getCellCard()).getAtk());
         ViewInterface.showResult("Negate Attack effect activated : attack is negated and opponent Battle Phase ended");
         gameController.changePhase();
         updateSpellInGameBoard(gameController);

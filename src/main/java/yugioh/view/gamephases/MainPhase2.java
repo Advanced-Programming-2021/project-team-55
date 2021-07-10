@@ -99,8 +99,7 @@ public class MainPhase2 extends Duel {
             } catch (GameException e) {
                 response = e.toString();
             }
-        }
-        else if (command.matches(GameRegexes.SURRENDER.regex)) {
+        } else if (command.matches(GameRegexes.SURRENDER.regex)) {
             gameController.surrender();
         } else if (command.matches(GameRegexes.INCREASE_LP.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.INCREASE_LP.regex);
@@ -119,7 +118,7 @@ public class MainPhase2 extends Duel {
         } else if (command.matches(GameRegexes.CHEAT_ADD_OPTIONAL_CARD.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.CHEAT_ADD_OPTIONAL_CARD.regex);
             try {
-                response = cheatController.addOptionalCardAndSelect(matcher.group(1), gameController,false);
+                response = cheatController.addOptionalCardAndSelect(matcher.group(1), gameController, false);
             } catch (GameException e) {
                 response = e.toString();
             }

@@ -52,9 +52,9 @@ public class GameBoard {
     private final ArrayList<Cell> deckZone;
     private final ArrayList<Cell> handCards;
     private final Cell fieldZone;
+    public transient HashMap<Rectangle, Double> rectanglesInitRotateValues = new HashMap<>();
     private transient Rectangle graveyardPlace;
     private transient HBox handDeck;
-    public transient HashMap<Rectangle,Double> rectanglesInitRotateValues=new HashMap<>();
 
     {
         monsterCardZone = new Cell[5];
@@ -86,16 +86,15 @@ public class GameBoard {
     public void setBoardRectangles(Pane gamePane, boolean isOpponent) {
         GameBoard.gamePane = gamePane;
         fieldZone.setCellRectangle((Rectangle) gamePane.getChildren().get(36));
-        rectanglesInitRotateValues.put(fieldZone.getCellRectangle(),fieldZone.getCellRectangle().rotateProperty().get());
+        rectanglesInitRotateValues.put(fieldZone.getCellRectangle(), fieldZone.getCellRectangle().rotateProperty().get());
         if (!isOpponent) {
             graveyardPlace = (Rectangle) gamePane.getChildren().get(4);
-            rectanglesInitRotateValues.put(graveyardPlace,graveyardPlace.rotateProperty().get());
+            rectanglesInitRotateValues.put(graveyardPlace, graveyardPlace.rotateProperty().get());
             monsterCardZone[0].setCellRectangle((Rectangle) gamePane.getChildren().get(8));
             monsterCardZone[1].setCellRectangle((Rectangle) gamePane.getChildren().get(9));
             monsterCardZone[2].setCellRectangle((Rectangle) gamePane.getChildren().get(7));
             monsterCardZone[3].setCellRectangle((Rectangle) gamePane.getChildren().get(10));
             monsterCardZone[4].setCellRectangle((Rectangle) gamePane.getChildren().get(6));
-
 
 
             spellAndTrapCardZone[0].setCellRectangle((Rectangle) gamePane.getChildren().get(13));
@@ -107,7 +106,7 @@ public class GameBoard {
 
         } else {
             graveyardPlace = (Rectangle) gamePane.getChildren().get(5);
-            rectanglesInitRotateValues.put(graveyardPlace,graveyardPlace.rotateProperty().get());
+            rectanglesInitRotateValues.put(graveyardPlace, graveyardPlace.rotateProperty().get());
             Rectangle rectangle1 = (Rectangle) gamePane.getChildren().get(18);
             rectangle1.rotateProperty().set(180);
             Rectangle rectangle2 = (Rectangle) gamePane.getChildren().get(19);
@@ -142,11 +141,11 @@ public class GameBoard {
             spellAndTrapCardZone[3].setCellRectangle(rectangle9);
             spellAndTrapCardZone[4].setCellRectangle(rectangle10);
         }
-        for(Cell cell:monsterCardZone){
-            rectanglesInitRotateValues.put(cell.getCellRectangle(),cell.getCellRectangle().rotateProperty().get());
+        for (Cell cell : monsterCardZone) {
+            rectanglesInitRotateValues.put(cell.getCellRectangle(), cell.getCellRectangle().rotateProperty().get());
         }
-        for(Cell cell:spellAndTrapCardZone){
-            rectanglesInitRotateValues.put(cell.getCellRectangle(),cell.getCellRectangle().rotateProperty().get());
+        for (Cell cell : spellAndTrapCardZone) {
+            rectanglesInitRotateValues.put(cell.getCellRectangle(), cell.getCellRectangle().rotateProperty().get());
         }
     }
 
@@ -452,7 +451,7 @@ public class GameBoard {
     }
 
     private void setTranslationAnimation(ImagePattern imagePattern, Cell cell, Card card) {
-        Rectangle rectangle=cell.getCellRectangle();
+        Rectangle rectangle = cell.getCellRectangle();
         TranslateTransition trans = new TranslateTransition(Duration.seconds(2), rectangle);
         trans.setToX(rectangle.getX());
         double constant = 1;
@@ -462,8 +461,8 @@ public class GameBoard {
         trans.setFromX(constant * CardActionsMenu.getLastMousePositionX());
         trans.setToY(rectangle.getY());
         trans.setFromY(constant * CardActionsMenu.getLastMousePositionY());
-        if(card.isMonster())
-        cell.getCellInfo().setText(((Monster) card).getAtk() + "/" + ((Monster) card).getDef());
+        if (card.isMonster())
+            cell.getCellInfo().setText(((Monster) card).getAtk() + "/" + ((Monster) card).getDef());
         rectangle.setFill(imagePattern);
         trans.play();
     }
@@ -560,7 +559,7 @@ public class GameBoard {
                 Card card = deckZone.get(i).getCellCard();
                 Cell cell = new Cell(card);
                 Rectangle rectangle = new Rectangle();
-                Duel.getGameController().getGameMenuController().addEventForCardImageRectangle(rectangle,cell);
+                Duel.getGameController().getGameMenuController().addEventForCardImageRectangle(rectangle, cell);
                 rectangle.setWidth(90);
                 rectangle.setHeight(120);
 
@@ -709,11 +708,11 @@ public class GameBoard {
 
     public ArrayList<Cell> getAllMonstersFromAllFieldsWithType(MonsterType monsterType) {
         ArrayList<Cell> result = new ArrayList<>();
-        for(Cell cell:deckZone){
+        for (Cell cell : deckZone) {
             try {
-                Monster monster=(Monster)cell.getCellCard();
-                if(monster.getMonsterType()==monsterType)result.add(cell);
-            }catch (Exception e){
+                Monster monster = (Monster) cell.getCellCard();
+                if (monster.getMonsterType() == monsterType) result.add(cell);
+            } catch (Exception e) {
 
             }
         }

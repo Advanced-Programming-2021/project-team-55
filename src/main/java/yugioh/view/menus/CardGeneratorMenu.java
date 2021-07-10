@@ -1,15 +1,11 @@
 package yugioh.view.menus;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import yugioh.model.User;
-import yugioh.model.cards.Card;
 
 import java.net.URL;
-import java.util.ArrayList;
 
 public class CardGeneratorMenu extends WelcomeMenu {
     @Override

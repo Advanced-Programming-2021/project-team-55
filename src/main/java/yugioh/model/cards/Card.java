@@ -22,6 +22,7 @@ public class Card {
         allCards = new ArrayList<>();
     }
 
+    public boolean isCustom = false;
     protected String name;
     protected String description;
     protected int price;
@@ -32,7 +33,6 @@ public class Card {
     transient protected ImagePattern cardImagePattern;
     transient protected ImageView backImage;
     transient protected ImagePattern backImagePattern;
-    public boolean isCustom=false;
 
 
     public Card(String name, String description, int price, Kind cardKind, SpellOrTrap magicType) {
@@ -354,7 +354,7 @@ public class Card {
 //        }
 //        else name = card.getClass().getName().replaceAll("yugioh.model.cards.monsters.",
 //                "").replaceAll("yugioh.model.cards.trapandspells.", "");
-        else name= card.image;
+        else name = card.image;
         File imageFile = new File(name);
         if (!imageFile.exists()) {
             System.out.println(name);
@@ -389,6 +389,10 @@ public class Card {
 
     public String getImage() {
         return image;
+    }
+
+    public void setImage(ImageView imageView) {
+        this.cardImage = imageView;
     }
 
     public String getDescription() {
@@ -445,12 +449,12 @@ public class Card {
     }
 
     public void setImage() {
-        String name="";
-        if(!isCustom)
-        name = getClass().getName().replaceAll("yugioh.model.cards.monsters.",
-                "").replaceAll("yugioh.model.cards.trapandspells.", "");
-        else{
-            name=this.name;
+        String name = "";
+        if (!isCustom)
+            name = getClass().getName().replaceAll("yugioh.model.cards.monsters.",
+                    "").replaceAll("yugioh.model.cards.trapandspells.", "");
+        else {
+            name = this.name;
         }
         image = "src/resources/yugioh/PNG/cardsImages/" + name + ".jpg";
         cardImage = new ImageView(new Image(new File(image).toURI().toString()));
@@ -458,9 +462,6 @@ public class Card {
         backImage = new ImageView(new Image(new File("src/resources/yugioh/PNG/cardsImages/Unknown.jpg").
                 toURI().toString()));
         backImagePattern = new ImagePattern(new Image(new File("src/resources/yugioh/PNG/cardsImages/Unknown.jpg").toURI().toString()));
-    }
-    public void setImage(ImageView imageView){
-        this.cardImage=imageView;
     }
 
     public ImageView getCardImageForDeck(int width) {
@@ -490,9 +491,9 @@ public class Card {
         return backImagePattern;
     }
 
-    public enum Kind {MONSTER, MAGIC}
-
     public void setIsCustom() {
         isCustom = true;
     }
+
+    public enum Kind {MONSTER, MAGIC}
 }

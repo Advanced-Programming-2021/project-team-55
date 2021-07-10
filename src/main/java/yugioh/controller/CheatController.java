@@ -58,11 +58,11 @@ public class CheatController implements Initializable {
         return response;
     }
 
-    public String addOptionalCardAndSelect(String cardName, GameController gameController,boolean shouldBeSelected) throws GameException {
+    public String addOptionalCardAndSelect(String cardName, GameController gameController, boolean shouldBeSelected) throws GameException {
         Card toBeAdded = Card.getNewCardObjectByName(cardName);
         if (toBeAdded == null)
             throw new GameException(Responses.NO_CARD_EXISTS.response);
-        gameController.getDrawPhaseController().addCardToHandDeck(gameController.getCurrentTurnPlayer(), toBeAdded,shouldBeSelected);
+        gameController.getDrawPhaseController().addCardToHandDeck(gameController.getCurrentTurnPlayer(), toBeAdded, shouldBeSelected);
         return "new card added to the hand and selected: " + cardName;
     }
 
@@ -101,7 +101,7 @@ public class CheatController implements Initializable {
         } else if (command.matches(GameRegexes.CHEAT_ADD_OPTIONAL_CARD.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.CHEAT_ADD_OPTIONAL_CARD.regex);
             try {
-                response = addOptionalCardAndSelect(matcher.group(1), Duel.getGameController(),false);
+                response = addOptionalCardAndSelect(matcher.group(1), Duel.getGameController(), false);
             } catch (GameException e) {
                 response = e.toString();
             }

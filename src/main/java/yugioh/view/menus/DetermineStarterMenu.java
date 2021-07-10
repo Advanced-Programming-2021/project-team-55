@@ -6,7 +6,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import yugioh.model.Player;
 
 import java.net.URL;
 

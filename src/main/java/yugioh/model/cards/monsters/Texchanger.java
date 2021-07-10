@@ -1,30 +1,15 @@
 package yugioh.model.cards.monsters;
 
-import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-import yugioh.controller.CheatController;
 import yugioh.controller.gamephasescontrollers.CardSelectionMenuController;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.board.Cell;
-import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
 import yugioh.model.cards.cardfeaturesenums.CardType;
 import yugioh.model.cards.cardfeaturesenums.MonsterAttribute;
 import yugioh.model.cards.cardfeaturesenums.MonsterType;
-import yugioh.model.exceptions.GameException;
 import yugioh.view.ViewInterface;
 import yugioh.view.gamephases.CardSelectionMenu;
 import yugioh.view.menus.PopUpWindow;
-import yugioh.view.menus.Toast;
 import yugioh.view.menus.WelcomeMenu;
 
 import java.util.ArrayList;
@@ -53,16 +38,16 @@ public class Texchanger extends Monster {
         ViewInterface.showResult("Texchanger effect activated:");
         ViewInterface.showResult("Turn changed temporary.");
         gameController.changeTurn(true, false);
-        if(gameController.currentTurnPlayer.getGameBoard().isMonsterZoneFull()){
+        if (gameController.currentTurnPlayer.getGameBoard().isMonsterZoneFull()) {
             ViewInterface.showResult("Error: monster zone is full");
-            gameController.changeTurn(true,true);
-        }
-        else {
+            gameController.changeTurn(true, true);
+        } else {
             CardSelectionMenuController.setCardsToShow(monsters);
             try {
                 new CardSelectionMenu().execute();
                 new PopUpWindow("select a monster to special summon").start(WelcomeMenu.stage);
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
             Cell oldSelectedCell = Cell.getSelectedCell();
             Cell.setSelectedCell(oldSelectedCell);
             usedTexChangerCellsThisTurn.add(attackedCell);
@@ -85,7 +70,7 @@ public class Texchanger extends Monster {
 //                        gameController.changeTurn(true,true);
 //                    }
 //                });
-          //  }
+            //  }
 
 
 //            Scene scene = WelcomeMenu.createScene(hBox);
@@ -147,7 +132,7 @@ public class Texchanger extends Monster {
 //            });
 //        }).start();
         }
-       return true;
+        return true;
     }
 
     public static void makeArrayEmpty() {
