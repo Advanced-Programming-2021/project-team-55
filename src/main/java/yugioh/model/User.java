@@ -269,9 +269,14 @@ public class User {
         initCards.add(new ManEaterBug());
         initCards.add(new Leotron());
         initCards.add(new HornImp());
+        initCards.add(new HornImp());
         initCards.add(new Haniwa());
         initCards.add(new CommandKnight());
         initCards.add(new BlackPendant());
+        initCards.add(new Babydragon());
+        initCards.add(new YomiShip());
+
+
         addCardsToInventory(initCards);
         Deck deckInit = new Deck("default");
         deckInit.addCardsToMainDeck(initCards);

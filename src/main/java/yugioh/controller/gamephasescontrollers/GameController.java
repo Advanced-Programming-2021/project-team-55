@@ -416,8 +416,6 @@ public class GameController {
         if (game.getRounds() == currentRound) {
             ViewInterface.showResult(response);
             isGameEnded = true;
-            //todo end game should be handled here:
-            //i mean we should play an animation or show a message to user
             try {
                 new EndOfGameMenu().execute(response,true);
                 new DuelMenu().execute();
@@ -428,8 +426,8 @@ public class GameController {
             gameControllerInitialization();
             currentRound++;
             ViewInterface.showResult(response);
-//            changeCards(currentTurnPlayer);
-//            changeCards(currentTurnOpponentPlayer);
+            changeCards(currentTurnPlayer);
+            changeCards(currentTurnOpponentPlayer);
             try {
                 new EndOfGameMenu().execute(response,false);
             }catch (Exception e){

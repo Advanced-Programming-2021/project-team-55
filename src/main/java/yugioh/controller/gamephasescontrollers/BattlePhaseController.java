@@ -341,7 +341,8 @@ public class BattlePhaseController {
         return gameController;
     }
 
-    public int getPower(Cell cell, Cell attackerCell, Cell attackedCell) {//todo null pointer exception
+    public int getPower(Cell cell, Cell attackerCell, Cell attackedCell) {
+        if (cell.isEmpty()) return 0;
         switch (cell.getCardStatus()) {
             case DEFENSIVE_OCCUPIED:
             case DEFENSIVE_HIDDEN:
