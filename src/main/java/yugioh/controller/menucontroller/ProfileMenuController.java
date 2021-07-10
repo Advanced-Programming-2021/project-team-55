@@ -8,6 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import yugioh.model.User;
 import yugioh.model.exceptions.MenuException;
@@ -31,6 +34,7 @@ public class ProfileMenuController extends MenuController implements Initializab
     public TextField newPasswordField;
     public Button changePasswordButton;
     public ImageView profileImage;
+    public MediaView profileMenuBackground;
     boolean isNewPasswordFieldFilled = false;
     boolean isOldPasswordFieldFilled = false;
 
@@ -88,6 +92,10 @@ public class ProfileMenuController extends MenuController implements Initializab
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\main.mp4").toURI().toString()));
+        mediaPlayer.play();
+        mediaPlayer.setCycleCount(-1);
+        profileMenuBackground.setMediaPlayer(mediaPlayer);
         System.out.println(User.loggedInUser.getProfileImageFile().toURI().toString());
         Image image = new Image(User.loggedInUser.getProfileImageFile().toURI().toString());
         profileImage.setImage(image);
