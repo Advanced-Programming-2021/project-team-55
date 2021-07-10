@@ -110,10 +110,10 @@ public class Cell {
 //                event->cellRectangle.setFill(null)));
 //        timeline.play();
 //        cellRectangle.setFill(null);
-        cellRectangle.rotateProperty().set(90);
-        if(cellRectangle.rotateProperty().get()%180>89){
-            cellRectangle.rotateProperty().set(0);
-        }
+//        cellRectangle.rotateProperty().set(90);
+//        if(cellRectangle.rotateProperty().get()%180>89){
+//            cellRectangle.rotateProperty().set(0);
+//        }
 //        Rectangle tempRectangle = new Rectangle();
 //        tempRectangle.setLayoutX(cellRectangle.getLayoutX());
 //        tempRectangle.setLayoutY(cellRectangle.getLayoutY());
