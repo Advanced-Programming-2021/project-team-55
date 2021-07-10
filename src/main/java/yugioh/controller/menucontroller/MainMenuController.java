@@ -72,7 +72,6 @@ public class MainMenuController extends MenuController {
         mediaPlayer.play();
         mediaPlayer.setCycleCount(-1);
         background.setMediaPlayer(mediaPlayer);
-
     }
 
 }
