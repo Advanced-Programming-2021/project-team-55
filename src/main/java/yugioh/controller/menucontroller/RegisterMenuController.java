@@ -7,6 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import yugioh.model.User;
 import yugioh.model.exceptions.MenuException;
 import yugioh.view.Responses;
@@ -14,6 +17,7 @@ import yugioh.view.SoundPlayable;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.WelcomeMenu;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -22,6 +26,7 @@ public class RegisterMenuController extends MenuController implements Initializa
     public TextField nicknameField;
     public PasswordField passwordField;
     public Button registerButton;
+    public MediaView signupMenuBackground;
     boolean usernameFieldIsFilled = false;
     boolean passwordFieldIsFilled = false;
     boolean nicknameFieldIsFilled = false;
@@ -66,6 +71,10 @@ public class RegisterMenuController extends MenuController implements Initializa
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\signup.mp4").toURI().toString()));
+        mediaPlayer.play();
+        mediaPlayer.setCycleCount(-1);
+        signupMenuBackground.setMediaPlayer(mediaPlayer);
         registerButton.setDisable(true);
         usernameField.textProperty().addListener(new ChangeListener<String>() {
             @Override

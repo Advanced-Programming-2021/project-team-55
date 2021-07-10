@@ -28,6 +28,7 @@ public class LoginMenuController extends MenuController implements Initializable
     public TextField usernameField;
     public PasswordField passwordField;
     public Button loginButton;
+    public MediaView loginMenuBackground;
     boolean passwordFieldIsFilled = false;
     boolean usernameFieldIsFilled = false;
     @FXML
@@ -80,6 +81,10 @@ public class LoginMenuController extends MenuController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\signup.mp4").toURI().toString()));
+        mediaPlayer.play();
+        mediaPlayer.setCycleCount(-1);
+        loginMenuBackground.setMediaPlayer(mediaPlayer);
         loginButton.setDisable(true);
         usernameField.textProperty().addListener(new ChangeListener<String>() {
             @Override

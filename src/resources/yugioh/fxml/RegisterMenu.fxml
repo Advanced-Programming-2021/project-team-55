@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.RegisterMenuController">
+<?import javafx.scene.media.MediaView?>
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.RegisterMenuController">
+    <MediaView fx:id="signupMenuBackground" fitHeight="720.0" fitWidth="1080.0"/>
     <VBox alignment="CENTER" layoutX="218.0" layoutY="173.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="375.0" prefWidth="644.0" spacing="25.0" AnchorPane.bottomAnchor="172.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="218.0" AnchorPane.topAnchor="173.0">
-
-
         <effect>
             <DropShadow blurType="GAUSSIAN" height="14.0" radius="6.5" width="14.0">
                 <color>
@@ -18,12 +18,12 @@
                 </color>
             </DropShadow>
         </effect>
-        <Label styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Register Menu" textFill="#e1e100" />
+        <Label styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Register Menu" textFill="#ccdefc" />
         <JFXTextField fx:id="usernameField" focusColor="#7aceed" labelFloat="true" promptText="Username" styleClass="buttonText" unFocusColor="#a6e9ff" />
         <JFXTextField fx:id="nicknameField" focusColor="#7aceed" labelFloat="true" promptText="Nickname" styleClass="buttonText" unFocusColor="#a6e9ff" />
         <JFXPasswordField fx:id="passwordField" focusColor="#7aceed" labelFloat="true" promptText="Password" styleClass="buttonText" unFocusColor="#a6e9ff" />
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-            <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#RegisterClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Register" fx:id="registerButton">
+            <JFXButton fx:id="registerButton" buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#RegisterClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Register">
                 <styleClass>
                     <String fx:value="buttonText" />
                     <String fx:value="buttonShape" />
