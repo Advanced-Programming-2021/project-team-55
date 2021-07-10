@@ -426,14 +426,14 @@ public class GameController {
             gameControllerInitialization();
             currentRound++;
             ViewInterface.showResult(response);
-            changeCards(currentTurnPlayer);
-            changeCards(currentTurnOpponentPlayer);
+            //changeCards(currentTurnPlayer);
+            //changeCards(currentTurnOpponentPlayer);
             try {
                 new EndOfGameMenu().execute(response,false);
             }catch (Exception e){
                 e.printStackTrace();
             }
-            Duel.runGame(this);
+
         }
 
     }

@@ -10,16 +10,15 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.EndOfGameMenuController">
-<ImageView fitHeight="720" fitWidth="1080">
-      <image>
-         <Image url="@../PNG/backgrounds/endGame.png" />
-      </image></ImageView>
-   <Rectangle fill="#073764" height="720" opacity="0.52" stroke="BLACK" strokeType="INSIDE" width="1080" />
-   <ImageView fitHeight="144.0" fitWidth="271.0" layoutX="136.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../PNG/backgrounds/results.png" />
-      </image></ImageView>
-
+    <ImageView fitHeight="720" fitWidth="1080">
+        <image>
+            <Image url="@../PNG/backgrounds/endGame.png" />
+        </image></ImageView>
+    <Rectangle fill="#073764" height="720" opacity="0.52" stroke="BLACK" strokeType="INSIDE" width="1080" />
+    <ImageView fitHeight="144.0" fitWidth="271.0" layoutX="136.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../PNG/backgrounds/results.png" />
+        </image></ImageView>
 <VBox alignment="CENTER" prefHeight="720" prefWidth="1080">
         <Label fx:id="result" alignment="CENTER" prefHeight="190.0" prefWidth="931.0" styleClass="buttonText3" textFill="#ccdefc">
             <font>
@@ -27,7 +26,6 @@
             </font>
 
         </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="63.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
 
         <JFXButton buttonType="RAISED" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#closeStage" onMousePressed="#closeStage" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="OK!" textFill="#ccdefc">
             <styleClass>
@@ -39,5 +37,7 @@
                 <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
             </VBox.margin>
         </JFXButton>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="63.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
     </VBox>
+
 </AnchorPane>

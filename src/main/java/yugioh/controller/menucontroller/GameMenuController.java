@@ -98,7 +98,7 @@ public class GameMenuController extends MenuController implements Initializable 
     public boolean shouldActivateEffectsNow = false;
     public ArrayList<String> canBeActivatedCards;
     public boolean choiceHasBeenMade = true;
-    private Stage pauseStage;
+    public static Stage pauseStage;
 
     public static GameMenuController getGameMenuController() {
         return gameMenuController;
@@ -204,6 +204,7 @@ public class GameMenuController extends MenuController implements Initializable 
 
     public void pauseClicked() throws Exception {
         CardActionsMenu.close();
+
         SoundPlayable.playButtonSound("surrender");
         URL url = getClass().getResource("/yugioh/fxml/PauseMenu.fxml");
         Pane pane = FXMLLoader.load(url);
@@ -225,7 +226,7 @@ public class GameMenuController extends MenuController implements Initializable 
         pauseStage.initStyle(StageStyle.UTILITY);
         pauseStage.initOwner(WelcomeMenu.getStage());
         pauseStage.initModality(Modality.APPLICATION_MODAL);
-        pauseStage.show();
+        pauseStage.showAndWait();
     }
 
     public void resume() {
@@ -235,7 +236,7 @@ public class GameMenuController extends MenuController implements Initializable 
     public void surrender() {
         gameController.surrender();
         pauseStage.close();
-        gameController.endGameRound();
+//        gameController.endGameRound();
     }
 
     public void updateGameStatusUIs() {

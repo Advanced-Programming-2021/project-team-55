@@ -16,7 +16,7 @@ import javafx.util.Duration;
 import yugioh.controller.menucontroller.GameMenuController;
 
 public final class Toast {
-
+    public static boolean isGameEnded=false;
     public static void makeText(Stage ownerStage, String toastMsg) {
         int toastDelay = 2500;
         int fadeInDelay = 250;
@@ -40,8 +40,9 @@ public final class Toast {
         Scene scene = WelcomeMenu.createScene(root);
         scene.setFill(Color.TRANSPARENT);
         toastStage.setScene(scene);
-        toastStage.show();
-
+        if(!(GameMenuController.pauseStage!=null&&GameMenuController.pauseStage.isShowing())&&!isGameEnded){
+            toastStage.show();
+        }
         try {
             GameMenuController.getGameMenuController().nextPhaseTriangle.setDisable(true);
         } catch (Exception ignored) {
