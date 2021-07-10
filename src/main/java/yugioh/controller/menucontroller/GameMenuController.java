@@ -271,8 +271,10 @@ public class GameMenuController extends MenuController implements Initializable 
         Platform.runLater(() -> atkValue.setText(""));
     }
 
-    public void addEventForCardImageRectangle(Rectangle rectangle, Card card) {
+    public void addEventForCardImageRectangle(Rectangle rectangle, Cell cellToAddEvent) {
+
         rectangle.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+            Card card=cellToAddEvent.getCellCard();
             if (card == null || rectangle.getFill() == null || (rectangle.getFill().equals(card.getCardBackImagePattern()) && !gameController.
                     currentTurnPlayer.getGameBoard().isCellInMonsterZone(Cell.getSelectedCellByRectangle(rectangle)) &&
                     !gameController.currentTurnPlayer.getGameBoard().isCellInSpellAndTrapZone

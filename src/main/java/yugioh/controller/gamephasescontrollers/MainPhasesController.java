@@ -1,5 +1,6 @@
 package yugioh.controller.gamephasescontrollers;
 
+import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.Player;
@@ -74,7 +75,11 @@ public interface MainPhasesController {
     }
 
     default boolean isSummonedMonsterATKMoreThan1000(Cell summonedCell) {//todo check null pointer exception
-        return ((Monster) summonedCell.getCellCard()).getAtk() >= 1000;
+        try {
+            return ((Monster) summonedCell.getCellCard()).getAtk() >= 1000;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     private void activateTrapIfCanBeActivated(GameController gameController, SummonTypes summonType) {
@@ -412,8 +417,8 @@ public interface MainPhasesController {
                 ViewInterface.showResult(GameResponses.YOU_SHOULD_SPECIAL_SUMMON_NOW.response);
                 continue;
             }
-            int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
-            handleTribute(currentPlayer, gameController, monsterLevel, true, false);
+            //int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
+            //handleTribute(currentPlayer, gameController, monsterLevel, true, false);
 
             currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(),
                     CardStatus.OFFENSIVE_OCCUPIED, gameController);
@@ -468,7 +473,10 @@ public interface MainPhasesController {
             imageView.rotateProperty().set(180.0);
             imageView.setLayoutX(paneX - i / 2);
             if(!gameMenuController.rivalDeckZoneContainer.getChildren().contains(imageView))
-            gameMenuController.rivalDeckZoneContainer.getChildren().add(imageView);
+                Platform.runLater(()->{
+                    gameMenuController.rivalDeckZoneContainer.getChildren().add(imageView);
+                });
+
 //           gameMenuController.addEventForCardImageRectangle(imageView, null);
             //todo: i tried to make the deck zone Rectangles but i couldnt
 //            javafx.scene.shape.Rectangle rectangleImage=new javafx.scene.shape.Rectangle();
@@ -600,7 +608,9 @@ public interface MainPhasesController {
             imageView.setFitWidth(70);
             imageView.setLayoutX(xPane + i / 2);
             if(!gameMenuController.userDeckZoneContainer.getChildren().contains(imageView))
-            gameMenuController.userDeckZoneContainer.getChildren().add(imageView);
+                Platform.runLater(()->{
+                    gameMenuController.userDeckZoneContainer.getChildren().add(imageView);
+                });
             //gameMenuController.addEventForCardImage(imageView,null);
         }
 

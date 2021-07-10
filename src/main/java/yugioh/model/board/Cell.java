@@ -110,10 +110,7 @@ public class Cell {
 //                event->cellRectangle.setFill(null)));
 //        timeline.play();
 //        cellRectangle.setFill(null);
-        cellRectangle.rotateProperty().set(90);
-        if(cellRectangle.rotateProperty().get()%180>89){
-            cellRectangle.rotateProperty().set(0);
-        }
+        cellRectangle.rotateProperty().set(gameBoard.rectanglesInitRotateValues.get(cellRectangle));
 //        Rectangle tempRectangle = new Rectangle();
 //        tempRectangle.setLayoutX(cellRectangle.getLayoutX());
 //        tempRectangle.setLayoutY(cellRectangle.getLayoutY());
@@ -128,9 +125,7 @@ public class Cell {
 //       timeline.play();
         if (Cell.getSelectedCell() == this) selectedCell = null;
         cellRectangle.setStrokeWidth(0);
-        Platform.runLater(()->{
             cellInfo.setText("");
-        });
         cellRectangle.setFill(null);
 
         this.card = null;
