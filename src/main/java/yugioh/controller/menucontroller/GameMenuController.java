@@ -236,7 +236,7 @@ public class GameMenuController extends MenuController implements Initializable 
     public void surrender() {
         gameController.surrender();
         pauseStage.close();
-//        gameController.endGameRound();
+        gameController.endGameRound();
     }
 
     public void updateGameStatusUIs() {
