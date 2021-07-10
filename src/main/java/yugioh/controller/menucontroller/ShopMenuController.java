@@ -13,6 +13,9 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.text.TextAlignment;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
@@ -23,6 +26,7 @@ import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.ShopMenu;
 import yugioh.view.menus.WelcomeMenu;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -44,6 +48,7 @@ public class ShopMenuController extends MenuController implements Initializable 
     public ScrollPane descriptionContainer;
     public Label userCoins;
     public Label numberOfCard;
+    public MediaView shopMenuBackground;
     private Card selectedCard;
     private ImageView selectedCardImageView;
     private boolean isCardClicked = false;
@@ -90,6 +95,10 @@ public class ShopMenuController extends MenuController implements Initializable 
     }
 
     private void initializeCardsPane() {
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\main.mp4").toURI().toString()));
+        mediaPlayer.play();
+        mediaPlayer.setCycleCount(-1);
+        shopMenuBackground.setMediaPlayer(mediaPlayer);
         ArrayList<Card> allCards = new ArrayList<>(getAllCards());
         int cardsPerRow = 7;
         int columnCounter = 0;
