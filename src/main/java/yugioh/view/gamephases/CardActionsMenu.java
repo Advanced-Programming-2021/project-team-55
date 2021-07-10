@@ -5,7 +5,6 @@ import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -41,7 +40,8 @@ import java.util.HashMap;
 import static yugioh.view.SoundPlayable.playButtonSound;
 
 public class CardActionsMenu implements MainPhasesController {
-    private static HashMap<Cell, EventHandler<MouseEvent>> toBeRemovedEventHandlers = new HashMap<>();
+    private static HashMap<Cell, EventHandler<MouseEvent>> toBeRemovedSelectionEventHandlers = new HashMap<>();
+    private static HashMap<Rectangle, ArrayList<EventHandler<MouseEvent>>> allCellEventHandlers = new HashMap<>();
     private static Stage actionsStage = new Stage();
     private static Stage errorStage = new Stage();
     private static double xImage;
@@ -280,7 +280,7 @@ public class CardActionsMenu implements MainPhasesController {
 
     public static void makeSwordEventForSummonedMonsters(Rectangle rectangle) {
         Player currentPlayer = Duel.getGameController().getCurrentTurnPlayer();
-        rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+        EventHandler<MouseEvent> eventHandler = event -> {
             if (!currentPlayer.equals(Duel.getGameController().getCurrentTurnPlayer())) return;
             if (Duel.getGameController().getCurrentPhase() != GamePhase.BATTLE) return;
             if (gameController.getGameMenuController().shouldActivateEffectsNow) return;
@@ -291,28 +291,7 @@ public class CardActionsMenu implements MainPhasesController {
                 removeSword();
             }
             GameMenuController.getGameMenuController().selectCard(rectangle);
-            Cell selectedCell = Cell.getSelectedCell();
-            if (selectedCell == null) {
-                try {
-                    new PopUpWindow(GameResponses.NO_CARDS_SELECTED.response).start(WelcomeMenu.getStage());
-                } catch (Exception ignored) {
-                }
-                return;
-            }
-            if (!currentPlayer.getGameBoard().isCellInMonsterZone(selectedCell) || selectedCell.getCardStatus() != CardStatus.OFFENSIVE_OCCUPIED) {
-                try {
-                    new PopUpWindow(GameResponses.CAN_NOT_ATTACK_WITH_THIS_CARD.response).start(WelcomeMenu.getStage());
-                } catch (Exception ignored) {
-                }
-                return;
-            }
-            if (gameController.didCardAttackThisTurn(selectedCell)) {
-                try {
-                    new PopUpWindow(GameResponses.CARD_ALREADY_ATTACKED.response).start(WelcomeMenu.getStage());
-                } catch (Exception ignored) {
-                }
-                return;
-            }
+            if (checkAttackConditions(currentPlayer)) return;
             playButtonSound("sword");
             rectangle.requestFocus();
             ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
@@ -328,7 +307,43 @@ public class CardActionsMenu implements MainPhasesController {
             Cell[] monsterCardZone = gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone();
             handleRivalMonsterSelection(rectangle, sword, monsterCardZone);
             event.consume();
-        });
+        };
+        rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
+        addEventHandlerToRectangleEventHandlers(rectangle, eventHandler);
+    }
+
+    private static boolean checkAttackConditions(Player currentPlayer) {
+        Cell selectedCell = Cell.getSelectedCell();
+        if (selectedCell == null) {
+            try {
+                new PopUpWindow(GameResponses.NO_CARDS_SELECTED.response).start(WelcomeMenu.getStage());
+            } catch (Exception ignored) {
+            }
+            return true;
+        }
+        if (!currentPlayer.getGameBoard().isCellInMonsterZone(selectedCell) || selectedCell.getCardStatus() != CardStatus.OFFENSIVE_OCCUPIED) {
+            try {
+                new PopUpWindow(GameResponses.CAN_NOT_ATTACK_WITH_THIS_CARD.response).start(WelcomeMenu.getStage());
+            } catch (Exception ignored) {
+            }
+            return true;
+        }
+        if (gameController.didCardAttackThisTurn(selectedCell)) {
+            try {
+                new PopUpWindow(GameResponses.CARD_ALREADY_ATTACKED.response).start(WelcomeMenu.getStage());
+            } catch (Exception ignored) {
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private static void addEventHandlerToRectangleEventHandlers(Rectangle rectangle, EventHandler<MouseEvent> eventHandler) {
+        if (!allCellEventHandlers.containsKey(rectangle)) {
+            ArrayList<EventHandler<MouseEvent>> eventHandlers = new ArrayList<>();
+            allCellEventHandlers.put(rectangle, eventHandlers);
+        }
+        allCellEventHandlers.get(rectangle).add(eventHandler);
     }
 
     private static void handleRivalMonsterSelection(Rectangle rectangle, ImageView sword, Cell[] monsterCardZone) {
@@ -366,7 +381,7 @@ public class CardActionsMenu implements MainPhasesController {
             };
 
             cell.getCellRectangle().addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
-            toBeRemovedEventHandlers.put(cell, eventHandler);
+            toBeRemovedSelectionEventHandlers.put(cell, eventHandler);
         }
     }
 
@@ -636,10 +651,10 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static void removeEventHandlers() {
-        for (Cell cell : toBeRemovedEventHandlers.keySet()) {
-            cell.getCellRectangle().removeEventHandler(MouseEvent.MOUSE_CLICKED, toBeRemovedEventHandlers.get(cell));
+        for (Cell cell : toBeRemovedSelectionEventHandlers.keySet()) {
+            cell.getCellRectangle().removeEventHandler(MouseEvent.MOUSE_CLICKED, toBeRemovedSelectionEventHandlers.get(cell));
         }
-        toBeRemovedEventHandlers = new HashMap<>();
+        toBeRemovedSelectionEventHandlers = new HashMap<>();
     }
 
 }
