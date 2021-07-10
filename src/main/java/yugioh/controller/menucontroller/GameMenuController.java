@@ -474,7 +474,7 @@ public class GameMenuController extends MenuController implements Initializable 
 
     public void focusOpacityOnPhase(GamePhase gamePhase) {
         double length = 0.1;
-        if (gamePhase == GamePhase.DRAW) length = 0.5;//todo make duration 3.5
+        if (gamePhase == GamePhase.DRAW) length = 3.5;
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(length), event -> {
             dpLabel.setEffect(null);
             spLabel.setEffect(null);
