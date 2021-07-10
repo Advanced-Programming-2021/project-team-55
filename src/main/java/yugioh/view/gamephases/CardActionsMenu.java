@@ -371,6 +371,7 @@ public class CardActionsMenu implements MainPhasesController {
                 setLastMousePositionY(event3.getSceneY());
                 try {
                     if (gameController.currentPhase != GamePhase.BATTLE) return;
+                    if (cell == null || cell.isEmpty()) return;
                     GameMenuController.getGameMenuController().selectCard(rectangle);
                     gameController.currentTurnPlayer.getGameBoard().setTranslationAnimation(sword, cell.getCellRectangle());
                     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event4 -> {
