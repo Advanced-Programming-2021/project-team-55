@@ -97,7 +97,7 @@ public class GameMenuController extends MenuController implements Initializable 
     public Rectangle rivalGraveyard;
     public boolean shouldActivateEffectsNow = false;
     public ArrayList<String> canBeActivatedCards;
-    public boolean choiceHasBeenMade = false;
+    public boolean choiceHasBeenMade = true;
     private Stage pauseStage;
 
     public static GameMenuController getGameMenuController() {

@@ -11,7 +11,6 @@ import yugioh.model.board.Cell;
 import yugioh.model.board.GameBoard;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
-import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.cards.monsters.*;
 import yugioh.model.cards.trapandspells.MagicCylinder;
 import yugioh.model.cards.trapandspells.MirrorForce;
@@ -69,17 +68,13 @@ public class BattlePhaseController {
         if (attackedCellNumber <= 4 && attackedCellNumber >= 0) {
             attackedCell = (gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone())[attackedCellNumber];
         }
-        if (attackerCell == null) {
-            throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
-        } else if (!playerGameBoard.isCellInMonsterZone(attackerCell)) {
-            throw new GameException(GameResponses.CANT_ATTACK_CARD.response);
-        } else if (gameController.didCardAttackThisTurn(attackerCell)) {
+        if (gameController.didCardAttackThisTurn(attackerCell)) {
             throw new GameException(GameResponses.ALREADY_ATTACKED_CARD.response);
         } else if (attackedCell == null || attackedCell.getCellCard() == null) {
             throw new GameException(GameResponses.NO_CARD_TO_ATTACK.response);
         } else {
             setAttacker(attackerCell);
-            activateTrapIfCanBeActivated(gameController, false, Cell.getSelectedCell(),attackerCell,attackedCell);
+            activateTrapIfCanBeActivated(gameController, false, Cell.getSelectedCell(), attackerCell, attackedCell);
         }
 //            if (attackDisabled) {
 //                gameController.getAttackerCellsThisTurn().add(attackerCell);
@@ -115,14 +110,14 @@ public class BattlePhaseController {
         return response;
     }
 
-    private void activateTrapIfCanBeActivated(GameController gameController,boolean isDirect,Cell selectedCell,Cell attackerCell,Cell attackedCell) {
+    private void activateTrapIfCanBeActivated(GameController gameController, boolean isDirect, Cell selectedCell, Cell attackerCell, Cell attackedCell) {
         for (Cell cell : gameController.currentTurnOpponentPlayer.getGameBoard().getSpellAndTrapCardZone()) {
             if (!cell.isEmpty() && cell.getCardStatus() == CardStatus.HIDDEN) {
                 Card card = cell.getCellCard();
                 if (card.getName().equals("Mirror Force") || card.getName().equals("Negate Attack")
                         || card.getName().equals("Magic Cylinder")) {
-                    if(card.getName().equals("Negate Attack")) {
-                        NegateAttack.attackerCell=attackerCell;
+                    if (card.getName().equals("Negate Attack")) {
+                        NegateAttack.attackerCell = attackerCell;
                     }
                     gameController.changeTurn(true, false);
                     gameController.activateTrapEffect(attackEffectSpellAndTraps);
@@ -131,12 +126,12 @@ public class BattlePhaseController {
                 }
             }
         }
-        new Thread(()->{
-            while (!gameController.getGameMenuController().choiceHasBeenMade||
-                    gameController.getGameMenuController().shouldActivateEffectsNow==true){
+        new Thread(() -> {
+            while (!gameController.getGameMenuController().choiceHasBeenMade ||
+                    gameController.getGameMenuController().shouldActivateEffectsNow == true) {
 
             }
-            if(isDirect){
+            if (isDirect) {
                 if (attackDisabled) {
                     gameController.getAttackerCellsThisTurn().add(selectedCell);
                     attackDisabled = false;
@@ -146,9 +141,8 @@ public class BattlePhaseController {
                 gameController.getAttackerCellsThisTurn().add(selectedCell);
                 Cell.deselectCell();
                 ViewInterface.showResult("your opponent receives " + attackerMonster.getAtk() + " battle damage");
-            }
-            else {
-                String response="";
+            } else {
+                String response = "";
                 if (attackDisabled) {
                     gameController.getAttackerCellsThisTurn().add(attackerCell);
                     attackDisabled = false;
@@ -159,11 +153,12 @@ public class BattlePhaseController {
                 if (CommandKnight.handleEffect(gameController, attackedCell))
                     ViewInterface.showResult("Command Knight effect activated: you should first destroy other opponent monsters");
                 Suijin.handleEffect(attackerCell, attackedCell);
-                if (Texchanger.handleEffect(gameController, attackedCell)) ViewInterface.showResult("your attack canceled.");
+                if (Texchanger.handleEffect(gameController, attackedCell))
+                    ViewInterface.showResult("your attack canceled.");
                 gameController.getAttackerCellsThisTurn().add(attackerCell);
                 response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
-                GameBoard playerGameBoard=gameController.currentTurnPlayer.getGameBoard();
-                GameBoard opponentGameBoard=gameController.currentTurnOpponentPlayer.getGameBoard();
+                GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
+                GameBoard opponentGameBoard = gameController.currentTurnOpponentPlayer.getGameBoard();
                 if (attackedCell.getCardStatus() == CardStatus.OFFENSIVE_OCCUPIED) {
                     if (response.equals(""))
                         response = attackToOffensiveCell(attackerCell, attackedCell, opponentGameBoard, playerGameBoard);
@@ -186,7 +181,7 @@ public class BattlePhaseController {
 
     private String attackToDefensiveHiddenCell(Cell attackerCell, Cell attackedCell, GameBoard opponentGameBoard) {
         String response;
-        Duel.getGameController().currentTurnPlayer.getGameBoard().setFlipTransition(attackedCell.getCellCard(), attackedCell.getCellRectangle(), false,false);
+        Duel.getGameController().currentTurnPlayer.getGameBoard().setFlipTransition(attackedCell.getCellCard(), attackedCell.getCellRectangle(), false, false);
         if (isAttackerStronger(attackerCell, attackedCell)) {
             response = "opponent’s monster card was " +
                     attackedCell.getCellCard().getName() + " the defense position monster is destroyed";
@@ -220,7 +215,7 @@ public class BattlePhaseController {
 
     private String attackToDefensiveOccupiedCell(Cell attackerCell, Cell attackedCell, GameBoard playerGameBoard) {
         String response;
-        Duel.getGameController().currentTurnPlayer.getGameBoard().setFlipTransition(attackedCell.getCellCard(), attackedCell.getCellRectangle(), false,false);
+        Duel.getGameController().currentTurnPlayer.getGameBoard().setFlipTransition(attackedCell.getCellCard(), attackedCell.getCellRectangle(), false, false);
         if (isAttackerStronger(attackerCell, attackedCell)) {
             decreasePlayersDamage(attackerCell, attackedCell);
             response = "the defense position monster is destroyed";
@@ -254,13 +249,13 @@ public class BattlePhaseController {
             YomiShip.handleEffect(gameController, attackerCell, attackedCell);
             Rectangle graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
             if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().userGraveyard;
-           // gameController.currentTurnPlayer.getGameBoard().moveCardToGraveyard(attackedCell, graveyard);
+            // gameController.currentTurnPlayer.getGameBoard().moveCardToGraveyard(attackedCell, graveyard);
             attackedCell.removeCardFromCell(opponentGameBoard);
         } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
             response = "both you and your opponent monster cards are destroyed and no one receives damage";
             if (CardActionsMenu.isBoardInverse()) {
-               // gameController.currentTurnOpponentPlayer.getGameBoard().moveCardToGraveyard(attackedCell, GameMenuController.getGameMenuController().userGraveyard);
-               // gameController.currentTurnPlayer.getGameBoard().moveCardToGraveyard(attackerCell, GameMenuController.getGameMenuController().rivalGraveyard);
+                // gameController.currentTurnOpponentPlayer.getGameBoard().moveCardToGraveyard(attackedCell, GameMenuController.getGameMenuController().userGraveyard);
+                // gameController.currentTurnPlayer.getGameBoard().moveCardToGraveyard(attackerCell, GameMenuController.getGameMenuController().rivalGraveyard);
                 attackedCell.removeCardFromCell(opponentGameBoard);
                 attackerCell.removeCardFromCell(playerGameBoard);
             } else {
@@ -277,7 +272,7 @@ public class BattlePhaseController {
                     calculateDamage(attackerCell, attackedCell) + " battle damage";
             Rectangle graveyard = GameMenuController.getGameMenuController().userGraveyard;
             if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
-           // gameController.currentTurnPlayer.getGameBoard().moveCardToGraveyard(attackerCell, graveyard);
+            // gameController.currentTurnPlayer.getGameBoard().moveCardToGraveyard(attackerCell, graveyard);
             attackerCell.removeCardFromCell(playerGameBoard);
         }
         gameController.getAttackerCellsThisTurn().add(attackerCell);
@@ -318,12 +313,6 @@ public class BattlePhaseController {
         String response = "";
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
-        if (selectedCell == null) {
-            throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
-        }
-        if (!currentPlayer.getGameBoard().isCellInMonsterZone(selectedCell) || selectedCell.getCardStatus() != CardStatus.OFFENSIVE_OCCUPIED) {
-            throw new GameException(GameResponses.CAN_NOT_ATTACK_WITH_THIS_CARD.response);
-        }
         if (gameController.didCardAttackThisTurn(selectedCell)) {
             throw new GameException(GameResponses.CARD_ALREADY_ATTACKED.response);
         }
@@ -331,7 +320,7 @@ public class BattlePhaseController {
             throw new GameException(GameResponses.CAN_NOT_DIRECT_ATTACK.response);
         }
         setAttacker(selectedCell);
-        activateTrapIfCanBeActivated(gameController,true,selectedCell,attacker,null);
+        activateTrapIfCanBeActivated(gameController, true, selectedCell, attacker, null);
         return response;
 //        if (attackDisabled) {
 //            gameController.getAttackerCellsThisTurn().add(selectedCell);
