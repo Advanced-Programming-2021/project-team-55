@@ -341,7 +341,10 @@ public class GameBoard {
 //        Rectangle graveyard;
 //        if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
 //        else graveyard = GameMenuController.getGameMenuController().userGraveyard;
-        graveyardPlace.fillProperty().setValue(cell.getCellCard().getCardBackImagePattern());
+        try {
+            graveyardPlace.fillProperty().setValue(cell.getCellCard().getCardBackImagePattern());
+        } catch (Exception ignored) {
+        }
         setFadeTransition(graveyardPlace, 0, 1);
     }
 

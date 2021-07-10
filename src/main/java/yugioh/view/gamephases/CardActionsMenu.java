@@ -346,6 +346,15 @@ public class CardActionsMenu implements MainPhasesController {
         allCellEventHandlers.get(rectangle).add(eventHandler);
     }
 
+    public static void removeRectangleEventHandlers(Rectangle rectangle) {
+        try {
+            for (EventHandler<MouseEvent> eventHandler : allCellEventHandlers.get(rectangle)) {
+                rectangle.removeEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
+            }
+        } catch (Exception ignored) {
+        }
+    }
+
     private static void handleRivalMonsterSelection(Rectangle rectangle, ImageView sword, Cell[] monsterCardZone) {
         for (int i = 0; i < monsterCardZone.length; i++) {
             Cell cell = monsterCardZone[i];
@@ -651,10 +660,13 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static void removeEventHandlers() {
-        for (Cell cell : toBeRemovedSelectionEventHandlers.keySet()) {
-            cell.getCellRectangle().removeEventHandler(MouseEvent.MOUSE_CLICKED, toBeRemovedSelectionEventHandlers.get(cell));
+        try {
+            for (Cell cell : toBeRemovedSelectionEventHandlers.keySet()) {
+                cell.getCellRectangle().removeEventHandler(MouseEvent.MOUSE_CLICKED, toBeRemovedSelectionEventHandlers.get(cell));
+            }
+            toBeRemovedSelectionEventHandlers = new HashMap<>();
+        } catch (Exception ignored) {
         }
-        toBeRemovedSelectionEventHandlers = new HashMap<>();
     }
 
 }
