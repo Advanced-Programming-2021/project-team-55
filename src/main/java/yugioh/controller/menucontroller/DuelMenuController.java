@@ -118,10 +118,11 @@ public class DuelMenuController extends MenuController {
             if (RivalSelectionMenu.isDoCancel()) return;
             Duel.runGame(newPVPDuel(RivalSelectionMenu.getRival().getUsername(), RivalSelectionMenu.getRounds()));
         } catch (Exception e) {
-            try {
-                new PopUpWindow(e.getMessage()).start(WelcomeMenu.getStage());
-            } catch (Exception ignored) {
-            }
+//            try {
+//                new PopUpWindow(e.getMessage()).start(WelcomeMenu.getStage());
+//            } catch (Exception ignored) {
+//            }
+            e.printStackTrace();
         }
     }
 }

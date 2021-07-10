@@ -98,7 +98,7 @@ public class GameMenuController extends MenuController implements Initializable 
     public boolean shouldActivateEffectsNow = false;
     public ArrayList<String> canBeActivatedCards;
     public boolean choiceHasBeenMade = true;
-    private Stage pauseStage;
+    public static Stage pauseStage;
 
     public static GameMenuController getGameMenuController() {
         return gameMenuController;
@@ -204,6 +204,7 @@ public class GameMenuController extends MenuController implements Initializable 
 
     public void pauseClicked() throws Exception {
         CardActionsMenu.close();
+
         SoundPlayable.playButtonSound("surrender");
         URL url = getClass().getResource("/yugioh/fxml/PauseMenu.fxml");
         Pane pane = FXMLLoader.load(url);
@@ -225,7 +226,7 @@ public class GameMenuController extends MenuController implements Initializable 
         pauseStage.initStyle(StageStyle.UTILITY);
         pauseStage.initOwner(WelcomeMenu.getStage());
         pauseStage.initModality(Modality.APPLICATION_MODAL);
-        pauseStage.show();
+        pauseStage.showAndWait();
     }
 
     public void resume() {
@@ -235,7 +236,7 @@ public class GameMenuController extends MenuController implements Initializable 
     public void surrender() {
         gameController.surrender();
         pauseStage.close();
-        gameController.endGameRound();
+//        gameController.endGameRound();
     }
 
     public void updateGameStatusUIs() {
@@ -252,10 +253,14 @@ public class GameMenuController extends MenuController implements Initializable 
                 getUser().getUsername());
         currentNickname.setText("Nickname : " + gameController.currentTurnPlayer.
                 getUser().getNickname());
-        currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageString()));
+        if (gameController.currentTurnPlayer.getUser().isImageIsChanged())
+        currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageFile().toURI().toString()));
+        else currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageString()));
         currentImage.setPreserveRatio(true);
         currentImage.setFitHeight(85);
-        opponentImage.setImage(new Image(gameController.currentTurnOpponentPlayer.getUser().getProfileImageString()));
+        if (gameController.currentTurnOpponentPlayer.getUser().isImageIsChanged())
+            opponentImage.setImage(new Image(gameController.currentTurnOpponentPlayer.getUser().getProfileImageFile().toURI().toString()));
+        else opponentImage.setImage(new Image(gameController.currentTurnOpponentPlayer.getUser().getProfileImageString()));
         opponentImage.setPreserveRatio(true);
         opponentImage.setFitHeight(85);
         rivalLPBar.setProgress((double) opponentLP / 8000);
@@ -348,7 +353,7 @@ public class GameMenuController extends MenuController implements Initializable 
                             selectCard(rectangle);
                         }
                         try {
-                            CardActionsMenu.setCoordinates(event.getSceneX() + 200, event.getSceneY() + 55);
+                            CardActionsMenu.setCoordinates(event.getSceneX() + 100, event.getSceneY() + 35);
                             CardActionsMenu.execute(rectangle, gameController);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -373,7 +378,7 @@ public class GameMenuController extends MenuController implements Initializable 
                         if (!gameController.currentTurnOpponentPlayer.getGameBoard().isCellInGameBoard(Cell.getSelectedCell())
                                 && !gameController.currentTurnPlayer.getGameBoard().isCellInDeckZone(Cell.getSelectedCell())) {
                             try {
-                                CardActionsMenu.setCoordinates(event.getSceneX() + 200, event.getSceneY() + 55);
+                                CardActionsMenu.setCoordinates(event.getSceneX() + 100, event.getSceneY() + 35);
                                 CardActionsMenu.setLastMousePositionX(event.getSceneX() - 700);
                                 CardActionsMenu.setLastMousePositionY(200);
                                 CardActionsMenu.execute(rectangle, gameController);

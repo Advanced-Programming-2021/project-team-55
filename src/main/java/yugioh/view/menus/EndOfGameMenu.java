@@ -27,6 +27,7 @@ public class EndOfGameMenu extends WelcomeMenu {
     private boolean isEndOfTheGame;
 
     public void execute(String resultString,boolean isEndOfTheGame) throws Exception {
+        Toast.isGameEnded=true;
         this.resultString = resultString;
         this.isEndOfTheGame=isEndOfTheGame;
         start(stage);
@@ -37,7 +38,7 @@ public class EndOfGameMenu extends WelcomeMenu {
         URL url = getClass().getResource("/yugioh/fxml/EndOfGameMenu.fxml");
         Pane pane = FXMLLoader.load(url);
         if(!isEndOfTheGame){
-            ((VBox)pane.getChildren().get(0)).getChildren().remove(1);
+            ((VBox)pane.getChildren().get(3)).getChildren().remove(1);
             Button yesButton=new Button();
             yesButton.setText("yes");
 
@@ -49,7 +50,9 @@ public class EndOfGameMenu extends WelcomeMenu {
                     gameController.setCurrentTurnPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
                        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
                        Duel.runGame(gameController);
+
                        stage.close();
+                    Toast.isGameEnded=false;
                 }
             });
             noButton.setText("no");
@@ -74,6 +77,7 @@ public class EndOfGameMenu extends WelcomeMenu {
                         gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
                         Duel.runGame(gameController);
                         stage.close();
+                    Toast.isGameEnded=false;
                 }
             });
             String playerName = gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1).getUser().getNickname();
