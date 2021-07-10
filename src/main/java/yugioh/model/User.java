@@ -232,7 +232,7 @@ public class User {
         //game init cards:
         initCards.add(new AxeRaider());
         initCards.add(new Babydragon());
-        initCards.add(new CallofTheHaunted());
+        initCards.add(new Fireyarou());
         initCards.add(new SilverFang());
         initCards.add(new Flamemanipulator());
         initCards.add(new HornImp());
@@ -246,8 +246,6 @@ public class User {
         //other cards added by me (parham)
 
         initCards.add(new BattleOX());
-        initCards.add(new BeastKingBarbaros());
-        initCards.add(new CrabTurtle());
         initCards.add(new DarkBlade());
         initCards.add(new ExploderDragon());
         initCards.add(new Haniwa());

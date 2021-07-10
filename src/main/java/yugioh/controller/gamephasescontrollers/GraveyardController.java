@@ -33,7 +33,8 @@ public class GraveyardController implements Initializable {
                     cards.remove(cards.size() - 1);
                     continue;
                 }
-                ImageView cardImage = card.getCardImageForDeck(52);
+//                ImageView cardImage = card.getCardImageForDeck(52);
+                ImageView cardImage = Card.getCardImage(card, 52);
                 cardsPane.add(cardImage, j, columnCounter);
                 cards.remove(card);
                 if (cards.size() == 0) break outer;

@@ -216,6 +216,10 @@ public class DeckMenuController extends MenuController implements Initializable 
     }
 
     private void setDeckView(Deck deck) {
+        try {
+            deckPane.getChildren().clear();
+        } catch (Exception ignored) {
+        }
         ArrayList<Card> mainCards = new ArrayList<>(Card.sortCards(deck.getMainDeck()));
         ArrayList<Card> sideCards = new ArrayList<>(Card.sortCards(deck.getSideDeck()));
         int cardsPerRow = 9;
