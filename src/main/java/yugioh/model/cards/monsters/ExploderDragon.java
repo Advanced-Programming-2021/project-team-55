@@ -55,7 +55,11 @@ public class ExploderDragon extends Monster {
     }
 
     public static boolean isNotExploderDragon(Cell attackerCell, Cell attackedCell) {
-        return !attackedCell.getCellCard().getName().equals("Exploder Dragon") &&
-                !attackerCell.getCellCard().getName().equals("Exploder Dragon");
+        try {
+            return !attackedCell.getCellCard().getName().equals("Exploder Dragon") &&
+                    !attackerCell.getCellCard().getName().equals("Exploder Dragon");
+        } catch (Exception e) {
+            return true;
+        }
     }
 }

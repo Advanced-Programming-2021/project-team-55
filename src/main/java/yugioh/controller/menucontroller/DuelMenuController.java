@@ -1,5 +1,8 @@
 package yugioh.controller.menucontroller;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.Player;
 import yugioh.model.User;
@@ -13,9 +16,12 @@ import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.RivalSelectionMenu;
 import yugioh.view.menus.WelcomeMenu;
 
+import java.io.File;
+
 public class DuelMenuController extends MenuController {
 
     public static DuelMenuController duelMenuController;
+    public MediaView duelMenuBackground;
 
     public DuelMenuController() {
 
@@ -57,7 +63,6 @@ public class DuelMenuController extends MenuController {
     }
 
     public GameController newAIDuel(int rounds) throws Exception {
-        SoundPlayable.playButtonSound("enterButton");
         if (rounds != 1 && rounds != 3) {
             throw new MenuException(Responses.NUMBER_OF_ROUNDS_NOT_SUPPORTED.response);
         } else {
