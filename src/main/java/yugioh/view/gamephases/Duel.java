@@ -2,6 +2,7 @@ package yugioh.view.gamephases;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.image.Image;
 import javafx.util.Duration;
 import yugioh.controller.CheatController;
 import yugioh.controller.gamephasescontrollers.GameController;

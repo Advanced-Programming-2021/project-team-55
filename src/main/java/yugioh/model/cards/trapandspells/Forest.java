@@ -8,6 +8,7 @@ import yugioh.model.cards.cardfeaturesenums.EffectiveTerm;
 import yugioh.model.cards.cardfeaturesenums.MonsterType;
 import yugioh.model.cards.cardfeaturesenums.SpellOrTrap;
 import yugioh.model.cards.cardfeaturesenums.SpellOrTrapAttribute;
+import yugioh.view.ViewInterface;
 
 import java.util.ArrayList;
 
@@ -23,22 +24,27 @@ public class Forest extends SpellAndTrap {
     public static void setActivated(GameController gameController) {
         Cell[] currentTurnPlayerMonsterCardZone = gameController.getCurrentTurnPlayer().getGameBoard().getMonsterCardZone();
         Cell[] currentTurnOpponentPlayerMonsterCardZone = gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone();
+        ViewInterface.showResult("Forest effect activated : All Insect, Beast, Plant, and Beast-Warrior monsters on the field gain 200 ATK/DEF.");
         increaseOpponentPlayerMonstersAttack(currentTurnPlayerMonsterCardZone);
         increaseOpponentPlayerMonstersAttack(currentTurnOpponentPlayerMonsterCardZone);
         updateSpellInGameBoard(gameController);
     }
 
     public static void deActivateEffect(GameController gameController) {
-        Cell[] currentTurnPlayerMonsterCardZone = gameController.getCurrentTurnPlayer().getGameBoard().getMonsterCardZone();
-        Cell[] currentTurnOpponentPlayerMonsterCardZone = gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone();
-        decreaseOpponentPlayerMonstersAttack(currentTurnPlayerMonsterCardZone);
-        decreaseOpponentPlayerMonstersAttack(currentTurnOpponentPlayerMonsterCardZone);
+        if(Cell.getSelectedCell()!=null&&!Cell.getSelectedCell().isEmpty()&&Cell.getSelectedCell().getCellCard().getName().equals("Forest")) {
+            Cell[] currentTurnPlayerMonsterCardZone = gameController.getCurrentTurnPlayer().getGameBoard().getMonsterCardZone();
+            Cell[] currentTurnOpponentPlayerMonsterCardZone = gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone();
+            ViewInterface.showResult("Forest effect deactivated : All Insect, Beast, Plant, and Beast-Warrior monsters on the field lose 200 ATK/DEF.");
+            decreaseOpponentPlayerMonstersAttack(currentTurnPlayerMonsterCardZone);
+            decreaseOpponentPlayerMonstersAttack(currentTurnOpponentPlayerMonsterCardZone);
+        }
     }
+
 
     private static void increaseOpponentPlayerMonstersAttack(Cell[] monsterCardZone) {
         for (Cell monster : monsterCardZone
         ) {
-            if (isForForest(monster)) {
+            if (!monster.isEmpty()&&isForForest(monster)) {
                 ((Monster) monster.getCellCard()).addATK(200);
                 ((Monster) monster.getCellCard()).addDEF(200);
                 effectedMonsters.add((Monster) monster.getCellCard());

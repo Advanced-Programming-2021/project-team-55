@@ -129,6 +129,7 @@ public class EditDeckMenuController implements Initializable {//todo debug
 
     public void moveToOrFormMainDeck() {
         playButtonSound("enterButton");//todo proper sound
+        if (selectedCard == null) return;
         if (toAndFromMainDeck.getText().equals(">")) {
             EditDeckMenu.getDeck().getMainDeck().remove(selectedCard);
             inventoryCards.add(selectedCard);
@@ -138,10 +139,12 @@ public class EditDeckMenuController implements Initializable {//todo debug
         }
         initializeCardsPane(new ArrayList<>(EditDeckMenu.getDeck().getMainDeck()), mainDeck);
         initializeCardsPane(new ArrayList<>(inventoryCards), inventory);
+        selectedCard = null;
     }
 
     public void moveToOrFormSideDeck() {
         playButtonSound("enterButton");//todo proper sound
+        if (selectedCard == null) return;
         if (toAndFromSideDeck.getText().equals(">")) {
             EditDeckMenu.getDeck().getSideDeck().remove(selectedCard);
             inventoryCards.add(selectedCard);
@@ -151,6 +154,7 @@ public class EditDeckMenuController implements Initializable {//todo debug
         }
         initializeCardsPane(new ArrayList<>(EditDeckMenu.getDeck().getSideDeck()), sideDeck);
         initializeCardsPane(new ArrayList<>(inventoryCards), inventory);
+        selectedCard = null;
     }
 
 }

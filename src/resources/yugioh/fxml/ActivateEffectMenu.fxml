@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="200" prefWidth="650" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="650.0">
+            <Label alignment="CENTER" prefHeight="67.0" prefWidth="622.0" styleClass="popupText" text="Do you want to activate your trap or spell?" textFill="#ccdefc">
+                <font>
+                    <Font size="17.0" />
+                </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                <JFXButton buttonType="RAISED" focusTraversable="false" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="yes" textFill="#ccdefc">
+                    <styleClass>
+                        <String fx:value="buttonText" />
+                        <String fx:value="buttonShape" />
+                        <String fx:value="buttonHover" />
+                    </styleClass>
+                </JFXButton>
+                <JFXButton buttonType="RAISED" focusTraversable="false" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="no" textFill="#ccdefc">
+                    <styleClass>
+                        <String fx:value="buttonText" />
+                        <String fx:value="buttonShape" />
+                        <String fx:value="buttonHover" />
+                    </styleClass>
+                </JFXButton>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

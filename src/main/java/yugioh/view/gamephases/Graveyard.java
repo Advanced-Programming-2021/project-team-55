@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class Graveyard extends WelcomeMenu {
 
     private static Stage graveyardStage;
-    private static ArrayList<Card> graveyardCards=new ArrayList<>();
+    private static ArrayList<Card> graveyardCards = new ArrayList<>();
 
     public static ArrayList<Card> getGraveyardCards() {
         return graveyardCards;
@@ -51,8 +52,23 @@ public class Graveyard extends WelcomeMenu {
         }
     }
 
+    public void executeFloatStage(ArrayList<Card> cards) {
+        graveyardCards = new ArrayList<>();
+        graveyardCards.addAll(cards);
+        try {
+            start(WelcomeMenu.getStage());
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+        try {
+            graveyardStage.close();
+        } catch (Exception ignored) {
+        }
+
         URL url = getClass().getResource("/yugioh/fxml/Graveyard.fxml");
         Parent parent = FXMLLoader.load(url);
         Scene scene = WelcomeMenu.createScene(parent);

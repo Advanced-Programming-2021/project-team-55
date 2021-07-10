@@ -2,6 +2,7 @@ package yugioh.model;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.util.Duration;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.board.GameBoard;
@@ -49,11 +50,16 @@ public class Player {
 
     private void updateLP() {
         if (this == Duel.getGameController().currentTurnPlayer) {
-            GameMenuController.getGameMenuController().userLP.setText(getLP() + "");
-            GameMenuController.getGameMenuController().userLPBar.setProgress((double) getLP() / 8000);
+            Platform.runLater(()->{
+                GameMenuController.getGameMenuController().userLP.setText(getLP() + "");
+                GameMenuController.getGameMenuController().userLPBar.setProgress((double) getLP() / 8000);
+            });
+
         } else {
-            GameMenuController.getGameMenuController().rivalLP.setText(getLP() + "");
-            GameMenuController.getGameMenuController().rivalLPBar.setProgress((double) getLP() / 8000);
+            Platform.runLater(()->{
+                GameMenuController.getGameMenuController().rivalLP.setText(getLP() + "");
+                GameMenuController.getGameMenuController().rivalLPBar.setProgress((double) getLP() / 8000);
+            });
         }
     }
 

@@ -23,6 +23,7 @@ public class Mysticalspacetyphoon extends SpellAndTrap {
         GameBoard opponentGameBoard = gameController.getCurrentTurnOpponentPlayer().getGameBoard();
         if (playerGameBoard.isSpellAndTrapCardZoneEmpty() && opponentGameBoard.isSpellAndTrapCardZoneEmpty()) {
             ViewInterface.showResult(GameResponses.PREPARATION_NOT_DONE.response);
+            return;
         }
         Cell selectedCell = Cell.getSelectedCell();
         ViewInterface.showResult("Mystical space typhoon activated : select a spell or trap on the field to destroy:");
