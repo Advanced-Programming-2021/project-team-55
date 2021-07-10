@@ -22,7 +22,10 @@
     -fx-font-family: "Bauhaus 93";;
     -fx-font-size: 23px;
 }
-
+.buttonText3 {
+    -fx-font-family: "Bauhaus 93";;
+    -fx-font-size: 33px;
+}
 .popupText {
     -fx-font-family: "Bauhaus 93";;
     -fx-font-size: 25px;

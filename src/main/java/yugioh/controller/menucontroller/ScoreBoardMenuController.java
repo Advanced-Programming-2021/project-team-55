@@ -5,10 +5,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import yugioh.model.TableItem;
 import yugioh.model.User;
 import yugioh.view.SoundPlayable;
 
+import java.io.File;
 import java.net.URL;
 import java.util.*;
 
@@ -16,6 +20,7 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
 
     public static ScoreBoardMenuController scoreBoardMenuController;
     public TableView<TableRow> scoreBoard;
+    public MediaView scoreBoardMenuBackground;
 
     public ScoreBoardMenuController() {
     }
@@ -38,6 +43,10 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\main.mp4").toURI().toString()));
+        mediaPlayer.play();
+        mediaPlayer.setCycleCount(-1);
+        scoreBoardMenuBackground.setMediaPlayer(mediaPlayer);
         initializeScoreBoard();
 
         ArrayList<User> users = User.getAllUsers();

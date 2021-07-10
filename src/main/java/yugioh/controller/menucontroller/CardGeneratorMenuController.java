@@ -12,6 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
@@ -51,6 +54,7 @@ public class CardGeneratorMenuController extends MenuController implements Initi
     public Label usersCoin;
 
     public Label price;
+    public MediaView cardGeneratorMenuBackground;
 
 
     public void backToShop(MouseEvent mouseEvent) throws Exception {
@@ -60,6 +64,10 @@ public class CardGeneratorMenuController extends MenuController implements Initi
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\main.mp4").toURI().toString()));
+        mediaPlayer.play();
+        mediaPlayer.setCycleCount(-1);
+        cardGeneratorMenuBackground.setMediaPlayer(mediaPlayer);
         handleAllMenuItems();
         attackField.textProperty().addListener(new ChangeListener<String>() {
             @Override

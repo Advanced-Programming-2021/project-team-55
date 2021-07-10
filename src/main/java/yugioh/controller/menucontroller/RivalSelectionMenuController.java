@@ -4,11 +4,15 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import yugioh.model.User;
 import yugioh.view.SoundPlayable;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.RivalSelectionMenu;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -22,6 +26,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
     public ToggleButton threeRounds;
     public ToggleButton oneRound;
     public JFXButton start;
+    public MediaView rivalSelectionMenuBackground;
 
     public RivalSelectionMenuController() {
         deckMenuController = this;
@@ -33,6 +38,10 @@ public class RivalSelectionMenuController extends MenuController implements Init
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\main.mp4").toURI().toString()));
+        mediaPlayer.play();
+        mediaPlayer.setCycleCount(-1);
+        rivalSelectionMenuBackground.setMediaPlayer(mediaPlayer);
         RivalSelectionMenu.setDoCancel(false);
         RivalSelectionMenu.setRival(null);
         oneRound.setSelected(false);

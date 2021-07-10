@@ -7,7 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.CardGeneratorMenuController">
+<?import javafx.scene.media.MediaView?>
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.CardGeneratorMenuController">
+    <MediaView fx:id="cardGeneratorMenuBackground" fitHeight="720.0" fitWidth="1080.0" />
     <VBox alignment="CENTER" layoutX="92.0" prefHeight="720" prefWidth="896.0" spacing="10.0">
       <Label alignment="BOTTOM_CENTER" prefHeight="70.0" prefWidth="344.0" styleClass="titleText" text="Card Generator" textFill="#ccdefc" />
       <HBox alignment="CENTER" prefHeight="202.0" prefWidth="899.0" spacing="20.0">

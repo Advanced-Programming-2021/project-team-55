@@ -1,5 +1,7 @@
 package yugioh.controller.menucontroller;
 
+import javafx.event.EventType;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -10,7 +12,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.shape.Rectangle;
 import yugioh.model.User;
 import yugioh.model.cards.Card;
@@ -25,6 +31,7 @@ import yugioh.view.menus.EditDeckMenu;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.WelcomeMenu;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,9 +49,8 @@ public class DeckMenuController extends MenuController implements Initializable 
     public Button deleteDeckButton;
     public Button editDeckButton;
     public Button activateDeckButton;
-
+    public MediaView deckMenuBackground;
     private MenuItem selectedMenuItem;
-
     public DeckMenuController() {
     }
 
@@ -195,6 +201,10 @@ public class DeckMenuController extends MenuController implements Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\main.mp4").toURI().toString()));
+        mediaPlayer.play();
+        mediaPlayer.setCycleCount(-1);
+        deckMenuBackground.setMediaPlayer(mediaPlayer);
         editDeckButton.setDisable(true);
         deleteDeckButton.setDisable(true);
         activateDeckButton.setDisable(true);
@@ -214,10 +224,6 @@ public class DeckMenuController extends MenuController implements Initializable 
     }
 
     private void setDeckView(Deck deck) {
-        try {
-            deckPane.getChildren().clear();
-        } catch (Exception ignored) {
-        }
         ArrayList<Card> mainCards = new ArrayList<>(Card.sortCards(deck.getMainDeck()));
         ArrayList<Card> sideCards = new ArrayList<>(Card.sortCards(deck.getSideDeck()));
         int cardsPerRow = 9;
@@ -307,10 +313,7 @@ public class DeckMenuController extends MenuController implements Initializable 
                 decksBox.setText(deckItem.getText());
                 deckInfo.setText(selectedDeck.toString());
                 setDeckView(selectedDeck);
-                try {
-                    Graveyard.getGraveyardStage().close();
-                } catch (Exception ignored) {
-                }
+                Graveyard.getGraveyardStage().close();
             });
             Rectangle rectangle = new Rectangle();
             rectangle.setWidth(10);
