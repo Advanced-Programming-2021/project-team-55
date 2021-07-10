@@ -144,8 +144,6 @@ public class DataBaseController extends MenuController {
         Card Crawlingdragon = new Crawlingdragon();
         Card Flamemanipulator = new Flamemanipulator();
         Card BlueEyeswhitedragon = new BlueEyeswhitedragon();
-        Card CrabTurtle = new CrabTurtle();
-        Card SkullGuardian = new SkullGuardian();
         Card SlotMachine = new SlotMachine();
         Card Haniwa = new Haniwa();
         Card ManEaterBug = new ManEaterBug();
@@ -217,7 +215,6 @@ public class DataBaseController extends MenuController {
       Card BlackPendant = new BlackPendant();
       Card UnitedWeStand = new UnitedWeStand();
       Card MagnumShield = new MagnumShield();
-      Card AdvancedRitualArt = new AdvancedRitualArt();
     }
 
     public String readFileContent(String address) {

@@ -258,7 +258,7 @@ public class GameBoard {
 //                    rectangle.opacityProperty().set(j);
 //                }
                 Duel.getGameController().currentTurnPlayer.getGameBoard().setFadeTransition(rectangle, 0, 1);
-                if ((gamePane.rotateProperty().get() % 360) > 179) {
+                if (CardActionsMenu.isBoardInverse()) {
                     monsterCardZone[i].getCellInfo().rotateProperty().set(180);
                 }
                 if (!monsterCardZone[i].isEventSet) {
