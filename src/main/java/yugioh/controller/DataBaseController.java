@@ -16,6 +16,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -52,6 +55,7 @@ public class DataBaseController extends MenuController {
     public Button okButton;
     public RadioButton jsonCheck;
     public RadioButton csvCheck;
+    private MediaView importExportMenuBackground;
 
 
     public DataBaseController() {
@@ -86,7 +90,12 @@ public class DataBaseController extends MenuController {
             }
         }
     }
-
+    public void setImportExportMenuBackground(){
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\main.mp4").toURI().toString()));
+        mediaPlayer.play();
+        mediaPlayer.setCycleCount(-1);
+        importExportMenuBackground.setMediaPlayer(mediaPlayer);
+    }
     public static void writeFile(String fileAddress, String content) throws IOException {
         FileWriter writer = new FileWriter(fileAddress);
         writer.write(content);

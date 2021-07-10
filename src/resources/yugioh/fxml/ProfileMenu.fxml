@@ -6,80 +6,65 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.media.*?>
 <?import javafx.scene.text.*?>
 
-<?import javafx.scene.media.MediaView?>
-<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ProfileMenuController">
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ProfileMenuController">
     <MediaView fx:id="profileMenuBackground" fitHeight="720.0" fitWidth="1080.0" />
 
-    <ImageView fitHeight="160.0" fitWidth="144.0" layoutX="665.0" layoutY="130.0" pickOnBounds="true"
-               preserveRatio="true" fx:id="profileImage"/>
-    <VBox alignment="CENTER" layoutX="246.0" layoutY="55.0" prefHeight="586.0" prefWidth="587.0" spacing="25.0">
+    <ImageView fx:id="profileImage" fitHeight="160.0" fitWidth="144.0" layoutX="665.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true" />
+    <VBox alignment="CENTER" layoutX="229.0" layoutY="67.0" prefHeight="586.0" prefWidth="622.0" spacing="25.0">
         <children>
-            <Label prefHeight="58.0" prefWidth="305.0" styleClass="titleText" stylesheets="@../CSS/Menu.css"
-                   text="Profile Menu" textFill="#fafa00">
+            <Label prefHeight="58.0" prefWidth="305.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Profile Menu" textFill="#ccdefc">
                 <font>
-                    <Font size="20.0"/>
+                    <Font size="20.0" />
                 </font>
             </Label>
             <HBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="354.0">
                 <children>
-                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="144.0"
-                           styleClass="buttonText" text="Username:">
+                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="144.0" styleClass="buttonText" text="Username:" textFill="#ccdefc">
                         <font>
-                            <Font size="18.0"/>
+                            <Font size="18.0" />
                         </font>
                     </Label>
-                    <Label prefHeight="28.0" prefWidth="203.0" styleClass="buttonText" text="username"/>
+                    <Label prefHeight="28.0" prefWidth="203.0" styleClass="buttonText" text="username" textFill="#ccdefc" />
                 </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="96.0" prefHeight="58.0" prefWidth="514.0">
                 <children>
-                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="144.0"
-                           styleClass="buttonText" text="Nickname:">
+                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="144.0" styleClass="buttonText" text="Nickname:" textFill="#ccdefc">
                         <font>
-                            <Font size="18.0"/>
+                            <Font size="18.0" />
                         </font>
                     </Label>
-                    <JFXTextField fx:id="nicknameField" focusColor="#7aceed" focusTraversable="false" prefHeight="26.0"
-                                  prefWidth="200.0" promptText="Enter A Nickname" styleClass="buttonText"
-                                  unFocusColor="#a6e9ff"/>
+                    <JFXTextField fx:id="nicknameField" focusColor="#7aceed" focusTraversable="false" prefHeight="26.0" prefWidth="200.0" promptText="Enter A Nickname" styleClass="buttonText" unFocusColor="#a6e9ff" />
                 </children>
             </HBox>
-        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#changeImageClicked"
-                   prefHeight="60.0" prefWidth="260.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css"
-                   text="Change Image">
+        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#changeImageClicked" prefHeight="50.0" prefWidth="248.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Change Image" textFill="#ccdefc">
             <VBox.margin>
-                <Insets left="400.0"/>
+                <Insets left="400.0" />
             </VBox.margin>
             <styleClass>
-                <String fx:value="buttonText"/>
-                <String fx:value="buttonShape"/>
-                <String fx:value="buttonHover"/>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
             </styleClass>
         </JFXButton>
-            <JFXTextField fx:id="oldPasswordField" focusColor="#7aceed" focusTraversable="false" labelFloat="true"
-                          prefHeight="38.0" prefWidth="526.0" promptText="old password" styleClass="buttonText"
-                          unFocusColor="#a6e9ff"/>
-            <JFXTextField fx:id="newPasswordField" focusColor="#7aceed" focusTraversable="false" labelFloat="true"
-                          promptText="new password" styleClass="buttonText" unFocusColor="#a6e9ff"/>
+            <JFXTextField fx:id="oldPasswordField" focusColor="#7aceed" focusTraversable="false" labelFloat="true" prefHeight="38.0" prefWidth="526.0" promptText="old password" styleClass="buttonText" unFocusColor="#a6e9ff" />
+            <JFXTextField fx:id="newPasswordField" focusColor="#7aceed" focusTraversable="false" labelFloat="true" promptText="new password" styleClass="buttonText" unFocusColor="#a6e9ff" />
 
-            <JFXButton fx:id="changePasswordButton" buttonType="RAISED" mnemonicParsing="false"
-                       onMouseClicked="#changePasswordClicked" prefHeight="60.0" prefWidth="260.0" ripplerFill="#e72727"
-                       stylesheets="@../CSS/Menu.css" text="Change Password">
+            <JFXButton fx:id="changePasswordButton" buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#changePasswordClicked" prefHeight="60.0" prefWidth="260.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Change Password" textFill="#ccdefc">
                 <styleClass>
-                    <String fx:value="buttonText"/>
-                    <String fx:value="buttonShape"/>
-                    <String fx:value="buttonHover"/>
+                    <String fx:value="buttonText" />
+                    <String fx:value="buttonShape" />
+                    <String fx:value="buttonHover" />
                 </styleClass>
             </JFXButton>
-            <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0"
-                       prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
+            <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="56.0" prefWidth="242.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back" textFill="#ccdefc">
                 <styleClass>
-                    <String fx:value="buttonText"/>
-                    <String fx:value="buttonShape"/>
-                    <String fx:value="buttonHover"/>
+                    <String fx:value="buttonText" />
+                    <String fx:value="buttonShape" />
+                    <String fx:value="buttonHover" />
                 </styleClass>
             </JFXButton>
         </children>
