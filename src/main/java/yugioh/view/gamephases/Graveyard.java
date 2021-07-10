@@ -32,7 +32,6 @@ public class Graveyard extends WelcomeMenu {
     }
 
     public static void close() {
-//        Duel.getGameController().currentPhase = Duel.getGameController().phases.get(Duel.getGameController().phases.size() - 2);//todo check
         Timeline fadeOutTimeline = new Timeline();
         KeyFrame fadeOutKey1 = new KeyFrame(Duration.millis(500), new KeyValue(graveyardStage.getScene().getRoot().opacityProperty(), 0));
         fadeOutTimeline.getKeyFrames().add(fadeOutKey1);

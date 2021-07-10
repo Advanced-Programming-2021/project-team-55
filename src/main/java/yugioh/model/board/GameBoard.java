@@ -81,8 +81,6 @@ public class GameBoard {
             cell.setCellRectangle(rectangle);
             deckZone.add(cell);
         }
-        //todo i changed:
-        //addCardsToHandDeck(5);
     }
 
     public void setBoardRectangles(Pane gamePane, boolean isOpponent) {
@@ -346,7 +344,6 @@ public class GameBoard {
 
         graveyard.add(new Cell(card));
         moveCardToGraveyard(cell);
-        //todo add card rectangle
     }
 
     public void moveCardToGraveyard(Cell cell) {
@@ -512,8 +509,7 @@ public class GameBoard {
             handDeck.getChildren().add(rectangle);
             handCards.add(cell);
 
-
-            //todo : remove deckzone card in graphic
+            ((Pane) gamePane.getChildren().get(3)).getChildren().remove(0);
             deckZone.remove(0);
         }
     }

@@ -21,7 +21,7 @@ public class CommandKnight extends Monster {
                 , 2100, 1000, 1000, 4, MonsterAttribute.FIRE, MonsterType.WARRIOR, CardType.EFFECTIVE);
     }
 
-    public static void handleEffect(CardStatus cardStatus, Cell cell) {//todo deactivate
+    public static void handleEffect(CardStatus cardStatus, Cell cell) {
         if (cell == null || cell.isEmpty() || cardStatus != CardStatus.OFFENSIVE_OCCUPIED ||
                 !cell.getCellCard().getName().equals("Command Knight")) return;
 

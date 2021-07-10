@@ -22,6 +22,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.jetbrains.annotations.NotNull;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.gamephasescontrollers.MainPhasesController;
 import yugioh.controller.menucontroller.GameMenuController;
@@ -128,7 +129,6 @@ public class CardActionsMenu implements MainPhasesController {
             } else if (gameController.currentPhase.equals(GamePhase.MAIN1) || gameController.currentPhase.equals(GamePhase.MAIN2)) {
                 openMainPhaseActionsForCardsInBoard();
             }
-            //todo : add actions of cards in monster zone and spell zone
         }
 
     }
@@ -193,13 +193,7 @@ public class CardActionsMenu implements MainPhasesController {
         actionButton.imageProperty().addListener(new ChangeListener<Image>() {
             @Override
             public void changed(ObservableValue<? extends Image> observableValue, Image image, Image t1) {
-                errorStage.setX(xImage - 60);
-                errorStage.setY(yImage + 20);
-                Label errorMessage = new Label();
-                errorMessage.setTextFill(Color.RED);
-                errorMessage.setBackground(new Background(new BackgroundFill(Color.CYAN, CornerRadii.EMPTY, null)));
-                Scene scene = WelcomeMenu.createScene(errorMessage);
-                errorStage.setScene(scene);
+                Label errorMessage = buildErrorStage();
                 if (t1.equals(flipSummonImage)) {
                     Cell selectedCell = Cell.getSelectedCell();
                     if (selectedCell.getCardStatus() != CardStatus.DEFENSIVE_HIDDEN) {
@@ -230,7 +224,6 @@ public class CardActionsMenu implements MainPhasesController {
                     else {
                         disableImage();
                     }
-                    //todo: activate spell
                 }
             }
         });
@@ -255,25 +248,39 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     private static void handleChangePosition() {
+        Label errorMessage = buildErrorStage();
         try {
             playButtonSound("defence");
             if (Cell.getSelectedCell().getCardStatus() == CardStatus.DEFENSIVE_OCCUPIED)
                 new CardActionsMenu().setPosition("attack", gameController);
             else new CardActionsMenu().setPosition("defense", gameController);
         } catch (GameException e) {
-            e.printStackTrace();
-            //todo show an error box
+            errorMessage.setText(e.getMessage());
+            errorStage.show();
         }
         actionsStage.close();
     }
 
+    @NotNull
+    private static Label buildErrorStage() {
+        errorStage.setX(xImage - 60);
+        errorStage.setY(yImage + 20);
+        Label errorMessage = new Label();
+        errorMessage.setTextFill(Color.RED);
+        errorMessage.setBackground(new Background(new BackgroundFill(Color.CYAN, CornerRadii.EMPTY, null)));
+        Scene scene = WelcomeMenu.createScene(errorMessage);
+        errorStage.setScene(scene);
+        return errorMessage;
+    }
+
     private static void handleFlipSummon() {
+        Label errorMessage = buildErrorStage();
         try {
-            playButtonSound("summon");//todo better aud
+            playButtonSound("summon");
             new CardActionsMenu().flipSummon(gameController);
         } catch (GameException e) {
-            e.printStackTrace();
-            //todo show an error box
+            errorMessage.setText(e.getMessage());
+            errorStage.show();
         }
         actionsStage.close();
     }
@@ -473,12 +480,13 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static void handleSet() {
+        Label errorMessage = buildErrorStage();
         try {
             playButtonSound("card");
             new CardActionsMenu().setCard(gameController);
         } catch (GameException e) {
-            e.printStackTrace();
-            //todo show an error box
+            errorMessage.setText(e.getMessage());
+            errorStage.show();
         }
         actionsStage.close();
     }
@@ -575,7 +583,6 @@ public class CardActionsMenu implements MainPhasesController {
                     else {
                         disableImage();
                     }
-                    //todo: activate spell
                 }
                 actionButton.onMouseExitedProperty().set(new EventHandler<MouseEvent>() {
                     @Override

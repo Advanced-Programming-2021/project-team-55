@@ -192,7 +192,7 @@ public class BattlePhaseController {
             response = "opponent’s monster card was " +
                     attackedCell.getCellCard().getName() + " the defense position monster is destroyed";
             response += Marshmallon.handleEffect(gameController, attackerCell, attackedCell);
-            if (!Marshmallon.isMarshmallon(attackedCell)) {//todo chera ba payiniha fargh miknone? baad inja tanaghoz dareha
+            if (!Marshmallon.isMarshmallon(attackedCell)) {
                 Rectangle graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
                 if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().userGraveyard;
                 Rectangle finalGraveyard = graveyard;
@@ -219,7 +219,7 @@ public class BattlePhaseController {
         return response;
     }
 
-    private String attackToDefensiveOccupiedCell(Cell attackerCell, Cell attackedCell, GameBoard playerGameBoard) {
+    private String attackToDefensiveOccupiedCell(Cell attackerCell, Cell attackedCell, GameBoard playerGameBoard) {//todo check
         String response;
         Duel.getGameController().currentTurnPlayer.getGameBoard().setFlipTransition(attackedCell.getCellCard(), attackedCell.getCellRectangle(), false, false);
         if (isAttackerStronger(attackerCell, attackedCell)) {

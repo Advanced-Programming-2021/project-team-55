@@ -20,7 +20,7 @@ public class DuelMenu extends WelcomeMenu {
 
     @Override
     public void execute() throws Exception {
-        AIPlayerController.setIsGameEnded(true);   //todo: in chie? (parham)
+        AIPlayerController.setIsGameEnded(true);
         start(stage);
     }
 

@@ -69,8 +69,7 @@ public class Deck {
     }
 
     public boolean isDeckValid() {
-        //TODO checkForEachCardFrequency
-        return true;
+        return mainDeck.size() >= 40;
     }
 
     public boolean isMainDeckFull() {
@@ -160,7 +159,7 @@ public class Deck {
         }
     }
 
-    public Deck clone() {//todo use this except reference
+    public Deck clone() {
         Deck copiedDeck = new Deck(this.getName());
         for (Card card : mainDeck) {
             copiedDeck.addCardToMainDeck(card.clone());

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ProfileMenuController">
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.ProfileMenuController">
     <children>
         <ImageView fitHeight="160.0" fitWidth="144.0" layoutX="665.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true" fx:id="profileImage" />
         <VBox alignment="CENTER" layoutX="246.0" layoutY="55.0" prefHeight="586.0" prefWidth="587.0" spacing="25.0">
