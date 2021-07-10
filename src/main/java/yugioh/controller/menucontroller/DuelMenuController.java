@@ -9,7 +9,9 @@ import yugioh.model.exceptions.MenuException;
 import yugioh.view.Responses;
 import yugioh.view.SoundPlayable;
 import yugioh.view.gamephases.Duel;
+import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.RivalSelectionMenu;
+import yugioh.view.menus.WelcomeMenu;
 
 public class DuelMenuController extends MenuController {
 
@@ -111,7 +113,10 @@ public class DuelMenuController extends MenuController {
             if (RivalSelectionMenu.isDoCancel()) return;
             Duel.runGame(newPVPDuel(RivalSelectionMenu.getRival().getUsername(), RivalSelectionMenu.getRounds()));
         } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                new PopUpWindow(e.getMessage()).start(WelcomeMenu.getStage());
+            } catch (Exception ignored) {
+            }
         }
     }
 }

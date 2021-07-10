@@ -1,5 +1,6 @@
 package yugioh.controller.gamephasescontrollers;
 
+import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 import yugioh.controller.menucontroller.GameMenuController;
 import yugioh.model.Player;
@@ -73,8 +74,12 @@ public interface MainPhasesController {
         //timeline.play();
     }
 
-    default boolean isSummonedMonsterATKMoreThan1000(Cell summonedCell) {//todo check null pointer exception
-        return ((Monster) summonedCell.getCellCard()).getAtk() >= 1000;
+    default boolean isSummonedMonsterATKMoreThan1000(Cell summonedCell) {
+        try {
+            return ((Monster) summonedCell.getCellCard()).getAtk() >= 1000;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     private void activateTrapIfCanBeActivated(GameController gameController, SummonTypes summonType) {
@@ -142,18 +147,15 @@ public interface MainPhasesController {
         summonEffectSpellAndTrap.add(new TorrentialTribute().getName());
         if (isSummonedMonsterATKMoreThan1000(summonedCell))
             flipSummonEffectSpellAndTrap.add(new TorrentialTribute().getName());
-        //todo add the rest of summon monsters thing
     }
 
     private void addMonstersToFlipSummonEffectSpellAndTrap(Cell summonedCell) {
         if (isSummonedMonsterATKMoreThan1000(summonedCell))
             flipSummonEffectSpellAndTrap.add(new TorrentialTribute().getName());
-        //todo add the rest of summon monsters thing
     }
 
     private void addMonstersToSpecialSummonEffectSpellAndTrap() {
         SpecialSummonEffectSpellAndTrap.add(new TorrentialTribute().getName());
-        //todo add the rest of summon monsters thing
     }
 
     default boolean hasEnoughTribute(Card card, Player currentPlayer, boolean isSpecialSummon) {
@@ -245,7 +247,7 @@ public interface MainPhasesController {
         }
     }
 
-    default void setCard(GameController gameController) throws GameException {//todo, the method can insert 6 spells
+    default void setCard(GameController gameController) throws GameException {
         Cell selectedCell = Cell.getSelectedCell();
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         if (selectedCell == null) {
@@ -348,7 +350,6 @@ public interface MainPhasesController {
                 } else if (playerGameBoard.isSpellAndTrapCardZoneFull() && spell.getAttribute() != SpellOrTrapAttribute.FIELD) {
                     throw new GameException(GameResponses.SPELL_ZONE_IS_FULL.response);
                 } else {
-                    //todo activate spell
                     if (Cell.getSelectedCell().isEmpty() || Cell.getSelectedCell() == null) {
                         System.out.println("error in activate effect");
                     }
@@ -380,7 +381,7 @@ public interface MainPhasesController {
         if (!currentPlayer.getGameBoard().isCellInMonsterZone(selectedCell)) {
             throw new GameException(GameResponses.CAN_NOT_CHANGE_CARD_POSITION.response);
         }
-        //todo  ببینین ارور دوم رو درست هندل کردم: در همین دور تازه روی زمین گذاشته شده باشد
+
         if (selectedCell.getCardStatus() != CardStatus.DEFENSIVE_HIDDEN || gameController.getChangedPositionCells().contains(selectedCell)) {
             throw new GameException(GameResponses.CAN_NOT_FLIP_SUMMON.response);
         }
@@ -412,8 +413,8 @@ public interface MainPhasesController {
                 ViewInterface.showResult(GameResponses.YOU_SHOULD_SPECIAL_SUMMON_NOW.response);
                 continue;
             }
-            int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
-            handleTribute(currentPlayer, gameController, monsterLevel, true, false);
+            //int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
+            //handleTribute(currentPlayer, gameController, monsterLevel, true, false);
 
             currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(),
                     CardStatus.OFFENSIVE_OCCUPIED, gameController);
@@ -468,17 +469,8 @@ public interface MainPhasesController {
             imageView.rotateProperty().set(180.0);
             imageView.setLayoutX(paneX - i / 2);
             if(!gameMenuController.rivalDeckZoneContainer.getChildren().contains(imageView))
-            gameMenuController.rivalDeckZoneContainer.getChildren().add(imageView);
-//           gameMenuController.addEventForCardImageRectangle(imageView, null);
-            //todo: i tried to make the deck zone Rectangles but i couldnt
-//            javafx.scene.shape.Rectangle rectangleImage=new javafx.scene.shape.Rectangle();
-//            rectangleImage.setLayoutX(paneX - i / 2);
-//            rectangleImage.setWidth(70);
-//            ImagePattern imagePattern = opponentPlayerGameBoard.getDeckZone().get(i).getCellCard().getCardBackImagePattern();
-//            rectangleImage.setFill(imagePattern);
-//            rectangleImage.rotateProperty().set(180.0);
-//            gameMenuController.rivalDeckZoneContainer.getChildren().add(rectangleImage);
-//            gameMenuController.addEventForCardImageRectangle(rectangleImage, null);
+                Platform.runLater(()-> gameMenuController.rivalDeckZoneContainer.getChildren().add(imageView));
+
         }
 
         response.append("\n").append(opponentPlayerGameBoard.getDeckZone().size()).append("\n");
@@ -588,19 +580,13 @@ public interface MainPhasesController {
         double xPane = gameMenuController.userDeckZoneContainer.getLayoutX();
 
         for (int i = playerGameBoard.getDeckZone().size() - 1; i >= 0; i--) {
-            //todo: i tried to make the deck zone Rectangles but i couldnt
-//            Rectangle rectangleImage=new Rectangle();
-//            //rectangleImage.setLayoutX(xPane + i / 2);
-//            //rectangleImage.setWidth(70);
-//            ImagePattern imagePattern = playerGameBoard.getDeckZone().get(i).getCellCard().getCardBackImagePattern();
-//            rectangleImage.setFill(imagePattern);
-//            gameMenuController.userDeckZoneContainer2.getChildren().add(rectangleImage);
-//            gameMenuController.addEventForCardImageRectangle(rectangleImage, null);
             ImageView imageView = playerGameBoard.getDeckZone().get(i).getCellCard().getCardBackImage();
             imageView.setFitWidth(70);
             imageView.setLayoutX(xPane + i / 2);
             if(!gameMenuController.userDeckZoneContainer.getChildren().contains(imageView))
-            gameMenuController.userDeckZoneContainer.getChildren().add(imageView);
+                Platform.runLater(()->{
+                    gameMenuController.userDeckZoneContainer.getChildren().add(imageView);
+                });
             //gameMenuController.addEventForCardImage(imageView,null);
         }
 

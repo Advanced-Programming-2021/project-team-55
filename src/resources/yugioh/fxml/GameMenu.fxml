@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="gamePane" prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.GameMenuController">
+<AnchorPane fx:id="gamePane" prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.GameMenuController">
     <!--2-->
     <ScrollPane fx:id="descriptionContainer" hbarPolicy="NEVER" layoutX="26.0" layoutY="423.0" prefHeight="131.0" prefWidth="274.0">
         <!--2/1-->
@@ -179,7 +179,7 @@
         <Pane fx:id="userDeckZoneContainer" layoutX="300.0" layoutY="510.0" prefHeight="94.0" prefWidth="67.0" />
 
         <!--18/5-->
-        <Rectangle fx:id="userGraveyard" arcHeight="5.0" arcWidth="5.0" height="86.0" layoutX="604.0" layoutY="423.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="67.0" /><!--todo add chat page-->
+        <Rectangle fx:id="userGraveyard" arcHeight="5.0" arcWidth="5.0" height="86.0" layoutX="604.0" layoutY="423.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="67.0" />
         <!--18/6-->
         <Rectangle fx:id="rivalGraveyard" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="86.0" layoutX="61.0" layoutY="220.0" opacity="0.1" rotate="180.0" stroke="BLACK" strokeType="INSIDE" width="67.0" />
 

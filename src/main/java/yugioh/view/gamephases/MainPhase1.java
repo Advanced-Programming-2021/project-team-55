@@ -20,27 +20,6 @@ public class MainPhase1 extends Duel {
     @Override
     protected void execute() {
         mainPhase1Controller = gameController.getMainPhase1Controller();
-
-//        ViewInterface.showResult(mainPhase1Controller.showGameBoard(gameController.currentTurnPlayer,
-//                gameController.currentTurnOpponentPlayer));
-
-//        String response = "";//todo uncomment
-//        if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
-//            AIPlayerController aiPlayerController = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
-//                    AIPlayerController.orderKind.RANDOM));
-//            String AICommand = "";
-//            response = processCommand(AICommand);
-//            while (response.startsWith("Error: ") && !AICommand.equals("next phase")) {
-//                AICommand = aiPlayerController.getSelectCommandForMainPhases();
-//                response = processCommand(AICommand);
-//                if (AICommand.equals("next phase")) break;
-//                AICommand = aiPlayerController.getMainCommandForMainPhases();
-//                response = processCommand(AICommand);
-//            }
-//        } else {
-//            response = processCommand(ViewInterface.getInput());
-//        }
-//        ViewInterface.showResult(response);
     }
 
     @Override
@@ -130,7 +109,7 @@ public class MainPhase1 extends Duel {
         } else if (command.matches(GameRegexes.CHEAT_ADD_OPTIONAL_CARD.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.CHEAT_ADD_OPTIONAL_CARD.regex);
             try {
-                response = cheatController.addOptionalCardAndSelect(matcher.group(1), gameController);
+                response = cheatController.addOptionalCardAndSelect(matcher.group(1), gameController,false);
             } catch (GameException e) {
                 response = e.toString();
             }

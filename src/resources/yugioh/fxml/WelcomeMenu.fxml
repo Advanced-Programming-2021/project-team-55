@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
 
-<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.WelcomeMenuController">
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.WelcomeMenuController">
    <MediaView fx:id="background" fitHeight="720.0" fitWidth="1080.0" />
     <VBox alignment="CENTER" layoutX="287.0" layoutY="227.0" maxHeight="720.0" maxWidth="1080.0" prefHeight="493.0" prefWidth="531.0" spacing="10.0" stylesheets="@../CSS/Menu.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="287.0" AnchorPane.rightAnchor="262.0" AnchorPane.topAnchor="227.0">
       <!-- <Label styleClass="mainTitleText" text="YU GI OH" textFill="#e1ff00">

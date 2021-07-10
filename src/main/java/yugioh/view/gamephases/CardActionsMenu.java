@@ -22,6 +22,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.jetbrains.annotations.NotNull;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.controller.gamephasescontrollers.MainPhasesController;
 import yugioh.controller.menucontroller.GameMenuController;
@@ -35,35 +36,31 @@ import yugioh.view.menus.WelcomeMenu;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static yugioh.view.SoundPlayable.playButtonSound;
 
 public class CardActionsMenu implements MainPhasesController {
+    private static HashMap<Cell, EventHandler<MouseEvent>> toBeRemovedSelectionEventHandlers = new HashMap<>();
+    private static HashMap<Rectangle, ArrayList<EventHandler<MouseEvent>>> allCellEventHandlers = new HashMap<>();
     private static Stage actionsStage = new Stage();
     private static Stage errorStage = new Stage();
-
-
     private static double xImage;
     private static double yImage;
     private static ImageView actionButton;
     private static Rectangle imageRectangle;
-
     private static ArrayList<Image> handMonsterActions = new ArrayList<>();
     private static ArrayList<Image> handSpellAndTrapActions = new ArrayList<>();
     private static ArrayList<Image> boardMonsterActions = new ArrayList<>();
     private static ArrayList<Image> boardSpellAndTrapActions = new ArrayList<>();
-
     private static ArrayList<Image> thisActions = new ArrayList<>();
     private static Pane gamePane;
     private static Pane actionPane;
     private static int place = 6;
     private static GameController gameController;
-
     private static double lastMousePositionX = 0;
     private static double lastMousePositionY = 0;
-
     private static Cell toBeSummonedCell;
-
     private static Image setImageH = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\SetH.png")
             .toURI().toString());
     private static Image setImageV = new Image(new File("src\\resources\\yugioh\\PNG\\icon\\SetV.png").
@@ -118,7 +115,7 @@ public class CardActionsMenu implements MainPhasesController {
     public static void start() throws Exception {
         counter = 0;
         Cell selectedCell = Cell.getSelectedCell();
-        if(gameController.getGameMenuController().shouldActivateEffectsNow){
+        if (gameController.getGameMenuController().shouldActivateEffectsNow) {
             openActivate();
             return;
         }
@@ -132,7 +129,6 @@ public class CardActionsMenu implements MainPhasesController {
             } else if (gameController.currentPhase.equals(GamePhase.MAIN1) || gameController.currentPhase.equals(GamePhase.MAIN2)) {
                 openMainPhaseActionsForCardsInBoard();
             }
-            //todo : add actions of cards in monster zone and spell zone
         }
 
     }
@@ -197,13 +193,7 @@ public class CardActionsMenu implements MainPhasesController {
         actionButton.imageProperty().addListener(new ChangeListener<Image>() {
             @Override
             public void changed(ObservableValue<? extends Image> observableValue, Image image, Image t1) {
-                errorStage.setX(xImage - 60);
-                errorStage.setY(yImage + 20);
-                Label errorMessage = new Label();
-                errorMessage.setTextFill(Color.RED);
-                errorMessage.setBackground(new Background(new BackgroundFill(Color.CYAN,CornerRadii.EMPTY,null)));
-                Scene scene = WelcomeMenu.createScene(errorMessage);
-                errorStage.setScene(scene);
+                Label errorMessage = buildErrorStage();
                 if (t1.equals(flipSummonImage)) {
                     Cell selectedCell = Cell.getSelectedCell();
                     if (selectedCell.getCardStatus() != CardStatus.DEFENSIVE_HIDDEN) {
@@ -229,12 +219,11 @@ public class CardActionsMenu implements MainPhasesController {
                         }
                     }
                 } else if (t1.equals(activateImage)) {
-                    if(Cell.getSelectedCell().getCellCard().isSpell())
-                    activateImage();
-                    else{
+                    if (Cell.getSelectedCell().getCellCard().isSpell())
+                        activateImage();
+                    else {
                         disableImage();
                     }
-                    //todo: activate spell
                 }
             }
         });
@@ -244,8 +233,7 @@ public class CardActionsMenu implements MainPhasesController {
                 handleFlipSummon();
             } else if (actionButton.getImage().equals(changePositionImage)) {
                 handleChangePosition();
-            }
-            else if(actionButton.getImage().equals(activateImage)){
+            } else if (actionButton.getImage().equals(activateImage)) {
                 handleActivate();
             }
         });
@@ -260,41 +248,57 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     private static void handleChangePosition() {
+        Label errorMessage = buildErrorStage();
         try {
             playButtonSound("defence");
             if (Cell.getSelectedCell().getCardStatus() == CardStatus.DEFENSIVE_OCCUPIED)
                 new CardActionsMenu().setPosition("attack", gameController);
             else new CardActionsMenu().setPosition("defense", gameController);
         } catch (GameException e) {
-            e.printStackTrace();
-            //todo show an error box
+            errorMessage.setText(e.getMessage());
+            errorStage.show();
         }
         actionsStage.close();
     }
 
+    @NotNull
+    private static Label buildErrorStage() {
+        errorStage.setX(xImage - 60);
+        errorStage.setY(yImage + 20);
+        Label errorMessage = new Label();
+        errorMessage.setTextFill(Color.RED);
+        errorMessage.setBackground(new Background(new BackgroundFill(Color.CYAN, CornerRadii.EMPTY, null)));
+        Scene scene = WelcomeMenu.createScene(errorMessage);
+        errorStage.setScene(scene);
+        return errorMessage;
+    }
+
     private static void handleFlipSummon() {
+        Label errorMessage = buildErrorStage();
         try {
-            playButtonSound("summon");//todo better aud
+            playButtonSound("summon");
             new CardActionsMenu().flipSummon(gameController);
         } catch (GameException e) {
-            e.printStackTrace();
-            //todo show an error box
+            errorMessage.setText(e.getMessage());
+            errorStage.show();
         }
         actionsStage.close();
     }
 
     public static void makeSwordEventForSummonedMonsters(Rectangle rectangle) {
         Player currentPlayer = Duel.getGameController().getCurrentTurnPlayer();
-        rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+        EventHandler<MouseEvent> eventHandler = event -> {
             if (!currentPlayer.equals(Duel.getGameController().getCurrentTurnPlayer())) return;
             if (Duel.getGameController().getCurrentPhase() != GamePhase.BATTLE) return;
-            if(gameController.getGameMenuController().shouldActivateEffectsNow)return;
+            if (gameController.getGameMenuController().shouldActivateEffectsNow) return;
             if (activeRectangle == rectangle && activeSword != null) {
                 removeSword();
                 return;
             } else if (activeSword != null) {
                 removeSword();
             }
+            GameMenuController.getGameMenuController().selectCard(rectangle);
+            if (checkAttackConditions(currentPlayer)) return;
             playButtonSound("sword");
             rectangle.requestFocus();
             ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
@@ -310,14 +314,59 @@ public class CardActionsMenu implements MainPhasesController {
             Cell[] monsterCardZone = gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone();
             handleRivalMonsterSelection(rectangle, sword, monsterCardZone);
             event.consume();
-        });
+        };
+        rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
+        addEventHandlerToRectangleEventHandlers(rectangle, eventHandler);
+    }
+
+    private static boolean checkAttackConditions(Player currentPlayer) {
+        Cell selectedCell = Cell.getSelectedCell();
+        if (selectedCell == null) {
+            try {
+                new PopUpWindow(GameResponses.NO_CARDS_SELECTED.response).start(WelcomeMenu.getStage());
+            } catch (Exception ignored) {
+            }
+            return true;
+        }
+        if (!currentPlayer.getGameBoard().isCellInMonsterZone(selectedCell) || selectedCell.getCardStatus() != CardStatus.OFFENSIVE_OCCUPIED) {
+            try {
+                new PopUpWindow(GameResponses.CAN_NOT_ATTACK_WITH_THIS_CARD.response).start(WelcomeMenu.getStage());
+            } catch (Exception ignored) {
+            }
+            return true;
+        }
+        if (gameController.didCardAttackThisTurn(selectedCell)) {
+            try {
+                new PopUpWindow(GameResponses.CARD_ALREADY_ATTACKED.response).start(WelcomeMenu.getStage());
+            } catch (Exception ignored) {
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private static void addEventHandlerToRectangleEventHandlers(Rectangle rectangle, EventHandler<MouseEvent> eventHandler) {
+        if (!allCellEventHandlers.containsKey(rectangle)) {
+            ArrayList<EventHandler<MouseEvent>> eventHandlers = new ArrayList<>();
+            allCellEventHandlers.put(rectangle, eventHandlers);
+        }
+        allCellEventHandlers.get(rectangle).add(eventHandler);
+    }
+
+    public static void removeRectangleEventHandlers(Rectangle rectangle) {
+        try {
+            for (EventHandler<MouseEvent> eventHandler : allCellEventHandlers.get(rectangle)) {
+                rectangle.removeEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
+            }
+        } catch (Exception ignored) {
+        }
     }
 
     private static void handleRivalMonsterSelection(Rectangle rectangle, ImageView sword, Cell[] monsterCardZone) {
         for (int i = 0; i < monsterCardZone.length; i++) {
             Cell cell = monsterCardZone[i];
             int finalI = i;
-            cell.getCellRectangle().addEventHandler(MouseEvent.MOUSE_CLICKED, event3 -> {
+            EventHandler<MouseEvent> eventHandler = event3 -> {
                 setLastMousePositionX(event3.getSceneX() - 400);
                 setLastMousePositionY(event3.getSceneY());
                 try {
@@ -345,7 +394,10 @@ public class CardActionsMenu implements MainPhasesController {
                     }
                 }
                 event3.consume();
-            });
+            };
+
+            cell.getCellRectangle().addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
+            toBeRemovedSelectionEventHandlers.put(cell, eventHandler);
         }
     }
 
@@ -428,12 +480,13 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static void handleSet() {
+        Label errorMessage = buildErrorStage();
         try {
             playButtonSound("card");
             new CardActionsMenu().setCard(gameController);
         } catch (GameException e) {
-            e.printStackTrace();
-            //todo show an error box
+            errorMessage.setText(e.getMessage());
+            errorStage.show();
         }
         actionsStage.close();
     }
@@ -473,7 +526,7 @@ public class CardActionsMenu implements MainPhasesController {
                 errorStage.setY(yImage + 20);
                 Label errorMessage = new Label();
                 errorMessage.setTextFill(Color.RED);
-                errorMessage.setBackground(new Background(new BackgroundFill(Color.CYAN,CornerRadii.EMPTY,null)));
+                errorMessage.setBackground(new Background(new BackgroundFill(Color.CYAN, CornerRadii.EMPTY, null)));
                 Scene scene = WelcomeMenu.createScene(errorMessage);
                 errorStage.setScene(scene);
                 if (t1.equals(setImageH) || counter == 0) {
@@ -522,17 +575,14 @@ public class CardActionsMenu implements MainPhasesController {
                     } else {
                         activateImage();
                     }
-                }
-                else if(t1.equals(setImageV)){
+                } else if (t1.equals(setImageV)) {
                     activateImage();
-                }
-                else if (t1.equals(activateImage)) {
-                    if(Cell.getSelectedCell().getCellCard().isSpell())
-                    activateImage();
-                    else{
+                } else if (t1.equals(activateImage)) {
+                    if (Cell.getSelectedCell().getCellCard().isSpell())
+                        activateImage();
+                    else {
                         disableImage();
                     }
-                    //todo: activate spell
                 }
                 actionButton.onMouseExitedProperty().set(new EventHandler<MouseEvent>() {
                     @Override
@@ -554,8 +604,7 @@ public class CardActionsMenu implements MainPhasesController {
                         handleSet();
                     } else if (actionButton.getImage().equals(summonImage)) {
                         handleSummon();
-                    }
-                    else if(actionButton.getImage().equals(activateImage)){
+                    } else if (actionButton.getImage().equals(activateImage)) {
                         handleActivate();
                     }
                 }
@@ -576,23 +625,21 @@ public class CardActionsMenu implements MainPhasesController {
 
     private static void handleActivate() {
         try {
-            if(gameController.getGameMenuController().shouldActivateEffectsNow){
-                if(gameController.getGameMenuController().canBeActivatedCards.contains(Cell.
-                        getSelectedCell().getCellCard().getName())){
+            if (gameController.getGameMenuController().shouldActivateEffectsNow) {
+                if (gameController.getGameMenuController().canBeActivatedCards.contains(Cell.
+                        getSelectedCell().getCellCard().getName())) {
                     new CardActionsMenu().activateSpell(gameController);
-                    gameController.getGameMenuController().shouldActivateEffectsNow=false;
+                    gameController.getGameMenuController().shouldActivateEffectsNow = false;
                     gameController.getGameMenuController().canBeActivatedCards.clear();
-                    gameController.changeTurn(true,true);
+                    gameController.changeTurn(true, true);
+                } else {
+                    Toast.makeText(WelcomeMenu.stage, "You can't activate this card!");
                 }
-                else{
-                    Toast.makeText(WelcomeMenu.stage,"You can't activate this card!");
-                }
-            }
-            else{
+            } else {
                 new CardActionsMenu().activateSpell(gameController);
             }
         } catch (GameException e) {
-            Toast.makeText(WelcomeMenu.stage,e.getMessage());
+            Toast.makeText(WelcomeMenu.stage, e.getMessage());
         }
         actionsStage.close();
     }
@@ -617,6 +664,16 @@ public class CardActionsMenu implements MainPhasesController {
 
     public static boolean isBoardInverse() {
         return (gamePane.rotateProperty().get() % 360) > 179;
+    }
+
+    public static void removeEventHandlers() {
+        try {
+            for (Cell cell : toBeRemovedSelectionEventHandlers.keySet()) {
+                cell.getCellRectangle().removeEventHandler(MouseEvent.MOUSE_CLICKED, toBeRemovedSelectionEventHandlers.get(cell));
+            }
+            toBeRemovedSelectionEventHandlers = new HashMap<>();
+        } catch (Exception ignored) {
+        }
     }
 
 }

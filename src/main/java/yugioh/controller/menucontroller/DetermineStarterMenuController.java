@@ -42,7 +42,7 @@ public class DetermineStarterMenuController implements Initializable {
         String opponentPlayerName = gameController.getGame().getSecondPlayer().getUser().getNickname();
 
         int randomNumber = gameController.tossCoin();
-        switch (randomNumber) {//todo add coin animation
+        switch (randomNumber) {
             case 1:
                 Toast.makeText(DetermineStarterMenu.getStage(), "HEAD!");
                 break;

@@ -97,7 +97,7 @@ public class GameMenuController extends MenuController implements Initializable 
     public Rectangle rivalGraveyard;
     public boolean shouldActivateEffectsNow = false;
     public ArrayList<String> canBeActivatedCards;
-    public boolean choiceHasBeenMade = false;
+    public boolean choiceHasBeenMade = true;
     private Stage pauseStage;
 
     public static GameMenuController getGameMenuController() {
@@ -271,8 +271,10 @@ public class GameMenuController extends MenuController implements Initializable 
         Platform.runLater(() -> atkValue.setText(""));
     }
 
-    public void addEventForCardImageRectangle(Rectangle rectangle, Card card) {
+    public void addEventForCardImageRectangle(Rectangle rectangle, Cell cellToAddEvent) {
+
         rectangle.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+            Card card=cellToAddEvent.getCellCard();
             if (card == null || rectangle.getFill() == null || (rectangle.getFill().equals(card.getCardBackImagePattern()) && !gameController.
                     currentTurnPlayer.getGameBoard().isCellInMonsterZone(Cell.getSelectedCellByRectangle(rectangle)) &&
                     !gameController.currentTurnPlayer.getGameBoard().isCellInSpellAndTrapZone
@@ -474,7 +476,7 @@ public class GameMenuController extends MenuController implements Initializable 
 
     public void focusOpacityOnPhase(GamePhase gamePhase) {
         double length = 0.1;
-        if (gamePhase == GamePhase.DRAW) length = 0.5;//todo make duration 3.5
+        if (gamePhase == GamePhase.DRAW) length = 3.5;
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(length), event -> {
             dpLabel.setEffect(null);
             spLabel.setEffect(null);

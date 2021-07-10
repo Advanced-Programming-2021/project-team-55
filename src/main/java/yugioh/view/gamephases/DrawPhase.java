@@ -17,7 +17,7 @@ public class DrawPhase extends Duel {
         String response = processCommand("");
         ViewInterface.showResult(response);
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> gameController.changePhase()));//todo make duration 7
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(7), event -> gameController.changePhase()));
         timeline.play();
 
     }

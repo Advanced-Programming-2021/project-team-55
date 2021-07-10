@@ -16,8 +16,11 @@ public class DrawPhaseController {
         this.gameController = gameController;
     }
 
-    public void addCardToHandDeck(Player player, Card toBeAdded) {
-        new Cell(toBeAdded);
+    public void addCardToHandDeck(Player player, Card toBeAdded,boolean shouldBeSelected) {
+        Cell cell=new Cell(toBeAdded);
+        if(shouldBeSelected){
+            Cell.setSelectedCell(cell);
+        }
         player.getGameBoard().addCardToHandDeck(toBeAdded,true);
     }
 

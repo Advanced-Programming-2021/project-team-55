@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane  prefHeight="256.0" prefWidth="554.0" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane  prefHeight="256.0" prefWidth="554.0" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
     <opaqueInsets>
         <Insets />
     </opaqueInsets>

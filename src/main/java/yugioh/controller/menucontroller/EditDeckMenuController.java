@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 import static yugioh.view.SoundPlayable.playButtonSound;
 
 
-public class EditDeckMenuController implements Initializable {//todo debug
+public class EditDeckMenuController implements Initializable {
 
     public Label deckName;
     public ScrollPane mainDeck;
@@ -128,7 +128,7 @@ public class EditDeckMenuController implements Initializable {//todo debug
     }
 
     public void moveToOrFormMainDeck() {
-        playButtonSound("enterButton");//todo proper sound
+        playButtonSound("enterButton");
         if (selectedCard == null) return;
         if (toAndFromMainDeck.getText().equals(">")) {
             EditDeckMenu.getDeck().getMainDeck().remove(selectedCard);
@@ -143,7 +143,7 @@ public class EditDeckMenuController implements Initializable {//todo debug
     }
 
     public void moveToOrFormSideDeck() {
-        playButtonSound("enterButton");//todo proper sound
+        playButtonSound("enterButton");
         if (selectedCard == null) return;
         if (toAndFromSideDeck.getText().equals(">")) {
             EditDeckMenu.getDeck().getSideDeck().remove(selectedCard);

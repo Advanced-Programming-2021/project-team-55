@@ -1,5 +1,6 @@
 package yugioh.controller.gamephasescontrollers;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -243,32 +244,54 @@ public class GameController {
     }
 
     public void changeTurn(boolean isTemporary, boolean backToPlayer) {
-        if (isTemporary && !backToPlayer) {
-            ViewInterface.showResult("now it will be " + currentTurnOpponentPlayer.getUser().getNickname() + "’s turn");
-            ViewInterface.showResult(mainPhase1Controller.showGameBoard(currentTurnOpponentPlayer, currentTurnPlayer));
-            Toast.makeText(WelcomeMenu.getStage(),"now it will be " + currentTurnOpponentPlayer.getUser().getNickname() + "’s turn");
+        if(isTemporary){
+            Platform.runLater(()->{
+                if (isTemporary && !backToPlayer) {
+                    ViewInterface.showResult("now it will be " + currentTurnOpponentPlayer.getUser().getNickname() + "’s turn");
+                    ViewInterface.showResult(mainPhase1Controller.showGameBoard(currentTurnOpponentPlayer, currentTurnPlayer));
+                    Toast.makeText(WelcomeMenu.getStage(),"now it will be " + currentTurnOpponentPlayer.getUser().getNickname() + "’s turn");
+
+                    gameMenuController.changeGameBoard();
+                    gameMenuController.nextPhaseTriangle.setDisable(true);
+                    Player player = currentTurnPlayer;
+                    currentTurnPlayer = currentTurnOpponentPlayer;
+                    currentTurnOpponentPlayer = player;
+                    gameMenuController.updateGameStatusUIs();
+                    CardActionsMenu.close();
+                    return;
+                }
+                gameMenuController.changeGameBoard();
+                gameMenuController.nextPhaseTriangle.setDisable(true);
+                Player player = currentTurnPlayer;
+                currentTurnPlayer = currentTurnOpponentPlayer;
+                currentTurnOpponentPlayer = player;
+                gameMenuController.updateGameStatusUIs();
+                CardActionsMenu.close();
+                didPlayerSetOrSummonThisTurn = false;
+                changedPositionCells = new ArrayList<>();
+                attackerCellsThisTurn = new ArrayList<>();
+                turnCount++;
+
+                mainPhase1Controller.showGameBoard(currentTurnPlayer,
+                        currentTurnOpponentPlayer);
+            });
+        }
+        else {
             gameMenuController.changeGameBoard();
             Player player = currentTurnPlayer;
             currentTurnPlayer = currentTurnOpponentPlayer;
             currentTurnOpponentPlayer = player;
             gameMenuController.updateGameStatusUIs();
             CardActionsMenu.close();
-            return;
+            didPlayerSetOrSummonThisTurn = false;
+            changedPositionCells = new ArrayList<>();
+            attackerCellsThisTurn = new ArrayList<>();
+            turnCount++;
+
+            mainPhase1Controller.showGameBoard(currentTurnPlayer,
+                    currentTurnOpponentPlayer);
+            //});
         }
-        gameMenuController.changeGameBoard();
-        Player player = currentTurnPlayer;
-        currentTurnPlayer = currentTurnOpponentPlayer;
-        currentTurnOpponentPlayer = player;
-        gameMenuController.updateGameStatusUIs();
-        CardActionsMenu.close();
-        didPlayerSetOrSummonThisTurn = false;
-        changedPositionCells = new ArrayList<>();
-        attackerCellsThisTurn = new ArrayList<>();
-        turnCount++;
-
-        mainPhase1Controller.showGameBoard(currentTurnPlayer,
-                currentTurnOpponentPlayer);
-
     }
 
     public void activateTrapEffect(ArrayList<String> trapsCanBeActivated) {
@@ -393,8 +416,6 @@ public class GameController {
         if (game.getRounds() == currentRound) {
             ViewInterface.showResult(response);
             isGameEnded = true;
-            //todo end game should be handled here:
-            //i mean we should play an animation or show a message to user
             try {
                 new EndOfGameMenu().execute(response,true);
                 new DuelMenu().execute();
@@ -405,8 +426,8 @@ public class GameController {
             gameControllerInitialization();
             currentRound++;
             ViewInterface.showResult(response);
-//            changeCards(currentTurnPlayer);
-//            changeCards(currentTurnOpponentPlayer);
+            changeCards(currentTurnPlayer);
+            changeCards(currentTurnOpponentPlayer);
             try {
                 new EndOfGameMenu().execute(response,false);
             }catch (Exception e){
