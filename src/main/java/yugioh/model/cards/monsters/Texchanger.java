@@ -2,13 +2,17 @@ package yugioh.model.cards.monsters;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import yugioh.controller.CheatController;
+import yugioh.controller.gamephasescontrollers.CardSelectionMenuController;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.board.Cell;
 import yugioh.model.cards.Card;
@@ -18,6 +22,9 @@ import yugioh.model.cards.cardfeaturesenums.MonsterAttribute;
 import yugioh.model.cards.cardfeaturesenums.MonsterType;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.ViewInterface;
+import yugioh.view.gamephases.CardSelectionMenu;
+import yugioh.view.menus.PopUpWindow;
+import yugioh.view.menus.Toast;
 import yugioh.view.menus.WelcomeMenu;
 
 import java.util.ArrayList;
@@ -51,31 +58,39 @@ public class Texchanger extends Monster {
             gameController.changeTurn(true,true);
         }
         else {
-            HBox hBox = new HBox();
-            Stage cardSelectionStage = new Stage();
-            for (Cell cell : monsters) {
-                Rectangle rectangle=new Rectangle();
-                cell.setCellRectangle(rectangle);
-                rectangle.setFill(cell.getCellCard().getCardImagePattern());
-                rectangle.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        Cell.setSelectedCell(Cell.getSelectedCellByRectangle(rectangle));
-                        try {
-                            gameController.getMainPhase1Controller().specialSummon(gameController);
-                        } catch (GameException e) {
-                            e.printStackTrace();
-                        }
-                        cardSelectionStage.close();
-                        Cell.deselectCell();
-                        gameController.changeTurn(true,true);
-                    }
-                });
-                hBox.getChildren().add(rectangle);
-            }
-            Scene scene = WelcomeMenu.createScene(hBox);
-            cardSelectionStage.setScene(scene);
-            cardSelectionStage.show();
+            CardSelectionMenuController.setCardsToShow(monsters);
+            try {
+                new CardSelectionMenu().execute();
+                new PopUpWindow("select a monster to special summon").start(WelcomeMenu.stage);
+            } catch (Exception e) {}
+            Cell oldSelectedCell = Cell.getSelectedCell();
+            Cell.setSelectedCell(oldSelectedCell);
+            usedTexChangerCellsThisTurn.add(attackedCell);
+
+//            for (Cell cell : monsters) {
+//                Rectangle rectangle=new Rectangle();
+//                cell.setCellRectangle(rectangle);
+//                rectangle.setFill(cell.getCellCard().getCardImagePattern());
+//                rectangle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//                    @Override
+//                    public void handle(MouseEvent mouseEvent) {
+//                        Cell.setSelectedCell(Cell.getSelectedCellByRectangle(rectangle));
+//                        try {
+//                            gameController.getMainPhase1Controller().specialSummon(gameController);
+//                        } catch (GameException e) {
+//                            e.printStackTrace();
+//                        }
+//                        cardSelectionStage.close();
+//                        Cell.deselectCell();
+//                        gameController.changeTurn(true,true);
+//                    }
+//                });
+          //  }
+
+
+//            Scene scene = WelcomeMenu.createScene(hBox);
+//            cardSelectionStage.setScene(scene);
+//            cardSelectionStage.show();
 //        new Thread(()->{
 //            Platform.runLater(()->{
 //                int counter = 0;

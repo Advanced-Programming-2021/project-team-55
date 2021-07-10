@@ -402,17 +402,17 @@ public interface MainPhasesController {
         addMonstersToSpecialSummonEffectSpellAndTrap();
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
-        while (true) {
-//            if (selectedCell == null) {
-//                throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
-//            } else if (!isSummonable(selectedCell.getCellCard())) {
-//                throw new GameException(GameResponses.CANT_SUMMON_CARD.response);
+//        while (true) {
+////            if (selectedCell == null) {
+////                throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
+////            } else if (!isSummonable(selectedCell.getCellCard())) {
+////                throw new GameException(GameResponses.CANT_SUMMON_CARD.response);
+////            }
+//            String input = ViewInterface.getInput();
+//            if (!input.equals("summon")) {
+//                ViewInterface.showResult(GameResponses.YOU_SHOULD_SPECIAL_SUMMON_NOW.response);
+//                continue;
 //            }
-            String input = ViewInterface.getInput();
-            if (!input.equals("summon")) {
-                ViewInterface.showResult(GameResponses.YOU_SHOULD_SPECIAL_SUMMON_NOW.response);
-                continue;
-            }
             //int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
             //handleTribute(currentPlayer, gameController, monsterLevel, true, false);
 
@@ -425,8 +425,8 @@ public interface MainPhasesController {
             gameController.setLastSummonedMonster(selectedCell);
             addMonstersToSpecialSummonEffectSpellAndTrap();
             Cell.deselectCell();
-            break;
-        }
+         //   break;
+       // }
         activateTrapIfCanBeActivated(gameController, SummonTypes.SpecialSummon);
     }
 

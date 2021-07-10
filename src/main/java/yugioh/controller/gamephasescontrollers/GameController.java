@@ -261,7 +261,7 @@ public class GameController {
                     return;
                 }
                 gameMenuController.changeGameBoard();
-                gameMenuController.nextPhaseTriangle.setDisable(true);
+                gameMenuController.nextPhaseTriangle.setDisable(false);
                 Player player = currentTurnPlayer;
                 currentTurnPlayer = currentTurnOpponentPlayer;
                 currentTurnOpponentPlayer = player;

@@ -709,11 +709,12 @@ public class GameBoard {
 
     public ArrayList<Cell> getAllMonstersFromAllFieldsWithType(MonsterType monsterType) {
         ArrayList<Cell> result = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for(Cell cell:deckZone){
             try {
-                Monster monster = (Monster) monsterCardZone[i].getCellCard();
-                if (monster.getMonsterType() == monsterType) result.add(monsterCardZone[i]);
-            } catch (Exception ignored) {
+                Monster monster=(Monster)cell.getCellCard();
+                if(monster.getMonsterType()==monsterType)result.add(cell);
+            }catch (Exception e){
+
             }
         }
         for (Cell cell : handCards) {
