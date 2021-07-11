@@ -55,6 +55,7 @@ public class ProfileMenuController extends MenuController implements Initializab
     }
 
     public void changePassword(String currentPassword, String newPassword) throws MenuException {
+        
         if (!User.loggedInUser.getPassword().equals(currentPassword)) {
             SoundPlayable.playButtonSound("enterButton");
             throw new MenuException("Error: current password is invalid");
