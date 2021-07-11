@@ -11,6 +11,7 @@ import javafx.scene.media.MediaView;
 import yugioh.client.model.TableItem;
 import yugioh.client.model.User;
 import yugioh.client.view.SoundPlayable;
+import yugioh.client.view.ViewInterface;
 
 import java.io.File;
 import java.net.URL;
@@ -37,6 +38,7 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
     }
 
     public void backClicked() throws Exception {
+        ViewInterface.showResult("menu exit");
         SoundPlayable.playButtonSound("backButton");
         mainMenu.execute();
     }
