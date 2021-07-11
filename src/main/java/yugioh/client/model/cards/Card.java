@@ -451,8 +451,8 @@ public class Card {
     public void setImage() {
         String name = "";
         if (!isCustom)
-            name = getClass().getName().replaceAll("yugioh.model.cards.monsters.",
-                    "").replaceAll("yugioh.model.cards.trapandspells.", "");
+            name = getClass().getName().replaceAll("yugioh.client.model.cards.monsters.",
+                    "").replaceAll("yugioh.client.model.cards.trapandspells.", "");
         else {
             name = this.name;
         }
