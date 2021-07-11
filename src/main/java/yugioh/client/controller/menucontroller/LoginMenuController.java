@@ -47,7 +47,8 @@ public class LoginMenuController extends MenuController implements Initializable
     }
 
     public void loginUser(String username, String password) throws MenuException {
-        ViewInterface.showResult("user login --password " + password + " --username " + username);
+
+        ViewInterface.showResult( "user login --password " + password + " --username " + username );
         User user = User.getUserByUsername(username);
         if (user == null || !user.getPassword().equals(password)) {
             throw new MenuException(Responses.USERNAME_AND_PASSWORD_DIDNT_MATCH.response);
