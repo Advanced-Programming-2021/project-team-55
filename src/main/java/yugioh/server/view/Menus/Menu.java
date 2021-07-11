@@ -2,7 +2,6 @@ package yugioh.server.view.Menus;
 
 
 import yugioh.server.controller.DataBaseController;
-import yugioh.server.view.ViewInterface;
 
 import java.io.IOException;
 
@@ -55,24 +54,7 @@ abstract public class Menu {
 //                }
 //            }
 //        }
-        while (true) {
-            String command = ViewInterface.getInput();
-            String result = loginMenu.processCommand(command);
-            if (result.equals("Error: invalid command"))
-                result = mainMenu.processCommand(command);
-            if (result.equals("Error: invalid command"))
-                result = scoreBoardMenu.processCommand(command);
-            if (result.equals("Error: invalid command"))
-                result = profileMenu.processCommand(command);
-            if (result.equals("Error: invalid command"))
-                result = shopMenu.processCommand(command);
-            if (result.equals("Error: invalid command"))
-                result = deckMenu.processCommand(command);
-            if (result.equals("Error: invalid command"))
-                result = duelMenu.processCommand(command);
 
-            ViewInterface.showResult(result);
-        }
     }
 
     public static String getCurrentMenu() {
@@ -86,5 +68,23 @@ abstract public class Menu {
     abstract protected void execute();
 
     abstract protected String processCommand(String command);
+
+    public static String handleCommand(String command) {
+        String result = loginMenu.processCommand(command);
+        if (result.equals("Error: invalid command"))
+            result = mainMenu.processCommand(command);
+        if (result.equals("Error: invalid command"))
+            result = scoreBoardMenu.processCommand(command);
+        if (result.equals("Error: invalid command"))
+            result = profileMenu.processCommand(command);
+        if (result.equals("Error: invalid command"))
+            result = shopMenu.processCommand(command);
+        if (result.equals("Error: invalid command"))
+            result = deckMenu.processCommand(command);
+        if (result.equals("Error: invalid command"))
+            result = duelMenu.processCommand(command);
+
+        return result;
+    }
 
 }
