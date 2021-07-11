@@ -101,6 +101,7 @@ public class GameController {
         mainPhase2Controller = MainPhase2Controller.getInstance();
         endPhaseController = EndPhaseController.getInstance(this);
         DetermineStarterMenuController.setGameController(this);
+        Toast.isGameEnded=false;
     }
 
     public int tossCoin() {
