@@ -1,6 +1,6 @@
 package yugioh.server.model.cards.justforscore;
 
-import yugioh.server.com.opencsv.bean.CsvBindByName;
+import  com.opencsv.bean.CsvBindByName;
 
 public class MonsterCardDetails {
 

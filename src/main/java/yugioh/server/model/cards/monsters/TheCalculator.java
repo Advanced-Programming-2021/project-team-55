@@ -9,7 +9,7 @@ import yugioh.server.model.cards.cardfeaturesenums.MonsterAttribute;
 import yugioh.server.model.cards.cardfeaturesenums.MonsterType;
 import yugioh.server.view.ViewInterface;
 
-import yugioh.server.static model.board.CardStatus.OFFENSIVE_OCCUPIED;
+import static yugioh.server.model.board.CardStatus.OFFENSIVE_OCCUPIED;
 
 public class TheCalculator extends Monster {
 

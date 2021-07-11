@@ -1,4 +1,4 @@
-package yugioh.server.
+package yugioh.server;
 
 import yugioh.server.view.Menus.Menu;
 

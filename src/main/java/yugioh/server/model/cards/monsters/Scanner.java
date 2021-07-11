@@ -60,7 +60,7 @@ public class Scanner extends Monster {
 
     public static void deActivateEffect() {
         if (convertedScannerThisTurn != null)
-            convertedScannerThisTurn.setCard(new model.cards.monsters.Scanner());
+            convertedScannerThisTurn.setCard(new yugioh.server.model.cards.monsters.Scanner());
         convertedScannerThisTurn = null;
     }
 

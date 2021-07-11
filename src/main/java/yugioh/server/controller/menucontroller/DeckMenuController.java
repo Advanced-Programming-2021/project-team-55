@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import yugioh.server.static model.cards.cardfeaturesenums.EffectiveTerm.LIMITED;
+import static yugioh.server.model.cards.cardfeaturesenums.EffectiveTerm.LIMITED;
 
 public class DeckMenuController extends MenuController {
     private static DeckMenuController deckMenuController;

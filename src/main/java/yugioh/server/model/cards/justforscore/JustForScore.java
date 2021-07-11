@@ -1,6 +1,6 @@
 package yugioh.server.model.cards.justforscore;
 
-import yugioh.server.com.opencsv.bean.CsvToBeanBuilder;
+import  com.opencsv.bean.CsvToBeanBuilder;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

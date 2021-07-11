@@ -10,7 +10,7 @@ import yugioh.server.model.cards.cardfeaturesenums.MonsterType;
 import yugioh.server.model.exceptions.GameException;
 import yugioh.server.view.ViewInterface;
 
-import yugioh.server.static model.board.CardStatus.*;
+import static yugioh.server.model.board.CardStatus.*;
 
 public class Marshmallon extends Monster {
 

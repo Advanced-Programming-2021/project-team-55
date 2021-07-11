@@ -10,7 +10,7 @@ import yugioh.server.model.cards.cardfeaturesenums.SpellOrTrapAttribute;
 
 import java.util.ArrayList;
 
-import yugioh.server.static model.cards.cardfeaturesenums.MonsterType.*;
+import static yugioh.server.model.cards.cardfeaturesenums.MonsterType.*;
 
 public class Forest extends SpellAndTrap {
 

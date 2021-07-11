@@ -8,8 +8,8 @@ import yugioh.server.model.cards.cardfeaturesenums.CardType;
 import yugioh.server.model.cards.cardfeaturesenums.MonsterAttribute;
 import yugioh.server.model.cards.cardfeaturesenums.MonsterType;
 
-import yugioh.server.static model.board.CardStatus.DEFENSIVE_OCCUPIED;
-import yugioh.server.static model.board.CardStatus.OFFENSIVE_OCCUPIED;
+import static yugioh.server.model.board.CardStatus.DEFENSIVE_OCCUPIED;
+import static yugioh.server.model.board.CardStatus.OFFENSIVE_OCCUPIED;
 
 public class ExploderDragon extends Monster {
 
