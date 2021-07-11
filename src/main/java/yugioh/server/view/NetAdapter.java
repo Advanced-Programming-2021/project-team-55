@@ -11,7 +11,6 @@ import java.net.*;
 public class NetAdapter {
 
     private final int port;
-    private final User owner;
     private ServerSocket serverSocket;
     private DataInputStream dataInputStream;
     private Thread listeningThread;
@@ -19,7 +18,6 @@ public class NetAdapter {
     public NetAdapter(int port) {
         this.port = port;
         startListening(port);
-        owner = User.getLoggedInUser();
     }
 
     public static void sendMessage(String message, int port, String host) throws IOException {

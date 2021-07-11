@@ -1,9 +1,11 @@
 package yugioh.client.view;
 
+import yugioh.client.Launcher;
 import yugioh.client.controller.AIPlayerController;
 import yugioh.client.view.gamephases.Duel;
 import yugioh.client.view.gamephases.GameResponses;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -29,6 +31,11 @@ public class ViewInterface {
     public static void showResult(String result) {
         if (!result.equals("")) {
             AIPlayerController.setLastResponse(result);
+            try {
+                NetAdapter.sendMessage(result, Launcher.port, Launcher.host);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             if (result.startsWith("Error: ")) {
                 try {
                     if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
