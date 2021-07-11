@@ -204,8 +204,8 @@ public class GameController {
     public void changePhase() {
 //        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
         CardActionsMenu.close();
-     //   if (isGameEnded()) {
-           endGameRound();
+//        if (isGameEnded()) {
+//           endGameRound();
 //            return;
 //        }
         switch (currentPhase) {

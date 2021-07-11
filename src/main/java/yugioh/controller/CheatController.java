@@ -39,6 +39,7 @@ public class CheatController implements Initializable {
 
     public void setWinner(GameController gameController) {
         gameController.endDuel();
+        if(gameController.isGameEnded())
         gameController.endGameRound();
     }
 

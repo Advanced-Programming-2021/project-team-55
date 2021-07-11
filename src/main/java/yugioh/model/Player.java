@@ -45,6 +45,7 @@ public class Player {
         setLP(this.getLP() - amount);
         if (LP < 0) LP = 0;
         updateLP();
+//        Duel.getGameController().isGameEnded();
         if (Duel.getGameController().isGameEnded()) Duel.getGameController().endGameRound();
     }
 
