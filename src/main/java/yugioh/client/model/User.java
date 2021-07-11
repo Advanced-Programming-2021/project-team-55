@@ -12,7 +12,9 @@ import java.util.LinkedHashMap;
 import java.util.Random;
 
 public class User {
+
     public static User loggedInUser;
+    private static String token;
     private static ArrayList<User> allUsers;
 
     static {
@@ -325,5 +327,13 @@ public class User {
 
     public static User getLoggedInUser() {
         return loggedInUser;
+    }
+
+    public static String getToken() {
+        return token;
+    }
+
+    public static void setToken(String token) {
+        User.token = token;
     }
 }
