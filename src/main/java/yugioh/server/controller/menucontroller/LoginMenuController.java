@@ -27,7 +27,7 @@ public class LoginMenuController extends MenuController {
         return loginMenuController;
     }
 
-    public void loginUser(String username, String password) throws MenuException {
+    public String loginUser(String username, String password) throws MenuException {
         User user = User.getUserByUsername(username);
         if (user == null || !user.getPassword().equals(password)) {
             throw new MenuException(Responses.USERNAME_AND_PASSWORD_DIDNT_MATCH.response);
@@ -37,7 +37,7 @@ public class LoginMenuController extends MenuController {
         }
         String token = UUID.randomUUID().toString();
         User.getLoggedInUsers().put(token, user);
-        ViewInterface.showResult(token);
+        return "success " + token;
     }
 
     public void createUser(String username, String password, String nickname) throws MenuException {

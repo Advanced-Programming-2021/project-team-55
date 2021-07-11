@@ -1,7 +1,5 @@
 package yugioh.client.view;
 
-import yugioh.client.model.User;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,56 +7,42 @@ import java.net.*;
 
 public class NetAdapter {
 
-    private final int port;
-    private final User owner;
-    private ServerSocket serverSocket;
-    private DataInputStream dataInputStream;
-    private Thread listeningThread;
+    private static String host = "127.0.0.1";
+    private static int port = 4444;
 
-    public NetAdapter(int port) {
-        this.port = port;
-        startListening(port);
-        owner = User.getLoggedInUser();
-    }
+    private static Socket socket;
+    private static DataOutputStream dataOutputStream;
+    private static DataInputStream dataInputStream;
 
-    public static void sendMessage(String message, int port, String host) throws IOException {
-        Socket socket = new Socket(host, port);
-        DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-        dataOutputStream.writeUTF(message);
-        dataOutputStream.flush();
-        dataOutputStream.close();
-        socket.close();
-    }
-
-    private void startListening(int port) {
-        listeningThread = new Thread(() -> {
-            try {
-                SocketAddress socketAddress = new InetSocketAddress(InetAddress.getLoopbackAddress(), port);
-                serverSocket = new ServerSocket();
-                serverSocket.bind(socketAddress);
-                while (true) {
-                    Socket socket = serverSocket.accept();
-                    dataInputStream = new DataInputStream(socket.getInputStream());
-                    String input = dataInputStream.readUTF();
-                    System.out.println(input);
-                }
-            } catch (IOException ignored) {
-            }
-        });
-        listeningThread.start();
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void close() {
+    public static void initialize() {
         try {
-            listeningThread.interrupt();
-            serverSocket.close();
-            dataInputStream.close();
-        } catch (Exception ignored) {
+            socket = new Socket(host, port);
+            dataOutputStream = new DataOutputStream(socket.getOutputStream());
+            dataInputStream = new DataInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            System.out.println("failed to connect to server");
         }
+    }
+
+    public static String sendRequest(String message) {
+        try {
+            dataOutputStream.writeUTF(message);
+            dataOutputStream.flush();
+            String result = dataInputStream.readUTF();
+            dataOutputStream.close();
+            socket.close();
+            return result;
+        } catch (Exception e) {
+            return "Error: failed to send request";
+        }
+    }
+
+    public static void setHost(String host) {
+        NetAdapter.host = host;
+    }
+
+    public static void setPort(int port) {
+        NetAdapter.port = port;
     }
 
 }
