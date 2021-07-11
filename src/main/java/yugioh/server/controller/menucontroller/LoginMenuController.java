@@ -8,6 +8,9 @@ import yugioh.server.view.LoggerMessage;
 import yugioh.server.view.Menus.Menu;
 import yugioh.server.view.Menus.MenuType;
 import yugioh.server.view.Responses;
+import yugioh.server.view.ViewInterface;
+
+import java.util.UUID;
 
 public class LoginMenuController extends MenuController {
 
@@ -24,7 +27,7 @@ public class LoginMenuController extends MenuController {
         return loginMenuController;
     }
 
-    public void loginUser(String username, String password) throws MenuException {
+    public String loginUser(String username, String password) throws MenuException {
         User user = User.getUserByUsername(username);
         if (user == null || !user.getPassword().equals(password)) {
             throw new MenuException(Responses.USERNAME_AND_PASSWORD_DIDNT_MATCH.response);
@@ -32,7 +35,9 @@ public class LoginMenuController extends MenuController {
             Menu.currentMenu = MenuType.MAIN;
             User.setLoggedInUser(user);
         }
-//        User.getLoggedInUsers().put()
+        String token = UUID.randomUUID().toString();
+        User.getLoggedInUsers().put(token, user);
+        return "success " + token;
     }
 
     public void createUser(String username, String password, String nickname) throws MenuException {

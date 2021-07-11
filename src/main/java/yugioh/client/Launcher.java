@@ -1,17 +1,19 @@
 package yugioh.client;
 
+import yugioh.client.view.NetAdapter;
+
 import java.util.Scanner;
 
 public class Launcher {
-    public static String host = "127.0.0.1";
-    public static int port = 4444;
+
     public static void main(String[] args) {
 //        Scanner scanner = new Scanner(System.in);
 //        System.out.println("enter server host:");
-//        host = scanner.nextLine();
+//        NetAdapter.setHost(scanner.nextLine());
 //        System.out.println("enter server port:");
-//        port = scanner.nextInt();
+//        NetAdapter.setPort(scanner.nextInt());
 //        scanner.nextLine();
+        NetAdapter.initialize();
         Main.main(args);
     }
 }

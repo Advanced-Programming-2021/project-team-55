@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminShopMenuController">
+   <rotationAxis>
+      <Point3D />
+   </rotationAxis>
+   <children>
+      <ScrollPane fx:id="cardsScrollPane" layoutX="456.0" prefHeight="720.0" prefWidth="626.0" />
+      <Separator layoutX="12.0" layoutY="325.0" prefHeight="2.0" prefWidth="233.0" />
+      <ImageView fx:id="hoveredImage" fitHeight="318.0" fitWidth="233.0" layoutX="12.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
+      <Separator layoutX="10.0" layoutY="7.0" orientation="VERTICAL" prefHeight="318.0" prefWidth="5.0" />
+      <Separator layoutX="242.0" layoutY="7.0" orientation="VERTICAL" prefHeight="318.0" prefWidth="0.0" />
+      <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="666.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="40.0" prefWidth="177.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
+         <styleClass>
+            <String fx:value="buttonText" />
+            <String fx:value="buttonShape" />
+            <String fx:value="buttonHover" />
+         </styleClass>
+      </JFXButton>
+      <ScrollPane fx:id="descriptionContainer" layoutX="10.0" layoutY="328.0" prefHeight="144.0" prefWidth="248.0">
+         <content>
+            <Label fx:id="description" alignment="TOP_LEFT" prefHeight="130.0" prefWidth="233.0" />
+         </content></ScrollPane>
+      <Label layoutX="245.0" layoutY="14.0" prefHeight="50.0" prefWidth="112.0" text="Number of cards : " />
+      <Label fx:id="numberOfCard" alignment="CENTER" layoutX="373.0" layoutY="25.0" prefHeight="28.0" prefWidth="52.0" />
+      <Button fx:id="plusButton" layoutX="431.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#increaseCount" text="+" />
+      <Button fx:id="minusButton" layoutX="347.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#decreaseCount" text="-" />
+      <TextField fx:id="changeAmount" alignment="CENTER" layoutX="368.0" layoutY="63.0" prefHeight="26.0" prefWidth="62.0" />
+      <CheckBox fx:id="forbidBox" layoutX="368.0" layoutY="131.0" mnemonicParsing="false" onAction="#changeForbid" prefHeight="18.0" prefWidth="73.0" text="Forbid" />
+   </children>
+</AnchorPane>
