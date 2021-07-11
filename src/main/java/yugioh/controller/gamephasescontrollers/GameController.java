@@ -22,7 +22,6 @@ import yugioh.model.board.Game;
 import yugioh.model.board.GameBoard;
 import yugioh.model.cards.Card;
 import yugioh.model.cards.Deck;
-import yugioh.model.cards.SpellAndTrap;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.GameRegexes;
 import yugioh.view.ViewInterface;
@@ -35,8 +34,6 @@ import yugioh.view.menus.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-
-import static yugioh.view.SoundPlayable.playButtonSound;
 
 public class GameController {
 
@@ -244,12 +241,12 @@ public class GameController {
     }
 
     public void changeTurn(boolean isTemporary, boolean backToPlayer) {
-        if(isTemporary){
-            Platform.runLater(()->{
+        if (isTemporary) {
+            Platform.runLater(() -> {
                 if (isTemporary && !backToPlayer) {
                     ViewInterface.showResult("now it will be " + currentTurnOpponentPlayer.getUser().getNickname() + "’s turn");
                     ViewInterface.showResult(mainPhase1Controller.showGameBoard(currentTurnOpponentPlayer, currentTurnPlayer));
-                    Toast.makeText(WelcomeMenu.getStage(),"now it will be " + currentTurnOpponentPlayer.getUser().getNickname() + "’s turn");
+                    Toast.makeText(WelcomeMenu.getStage(), "now it will be " + currentTurnOpponentPlayer.getUser().getNickname() + "’s turn");
 
                     gameMenuController.changeGameBoard();
                     gameMenuController.nextPhaseTriangle.setDisable(true);
@@ -275,8 +272,7 @@ public class GameController {
                 mainPhase1Controller.showGameBoard(currentTurnPlayer,
                         currentTurnOpponentPlayer);
             });
-        }
-        else {
+        } else {
             gameMenuController.changeGameBoard();
             Player player = currentTurnPlayer;
             currentTurnPlayer = currentTurnOpponentPlayer;
@@ -304,21 +300,21 @@ public class GameController {
             Pane pane = FXMLLoader.load(url);
             Scene scene = WelcomeMenu.createScene(pane);
             activateStage.setScene(scene);
-            Button yesButton = (Button) ((HBox)((VBox)pane.getChildren().get(0)).getChildren().get(1)).getChildren().get(0);
-            Button noButton = (Button) ((HBox)((VBox)pane.getChildren().get(0)).getChildren().get(1)).getChildren().get(1);
+            Button yesButton = (Button) ((HBox) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).getChildren().get(0);
+            Button noButton = (Button) ((HBox) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).getChildren().get(1);
             yesButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     activateStage.close();
-                    gameMenuController.choiceHasBeenMade=true;
-                    gameMenuController.shouldActivateEffectsNow=true;
-                    gameMenuController.canBeActivatedCards=trapsCanBeActivated;
+                    gameMenuController.choiceHasBeenMade = true;
+                    gameMenuController.shouldActivateEffectsNow = true;
+                    gameMenuController.canBeActivatedCards = trapsCanBeActivated;
                 }
             });
             noButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    gameMenuController.choiceHasBeenMade=true;
+                    gameMenuController.choiceHasBeenMade = true;
                     activateStage.close();
                 }
             });
@@ -417,7 +413,7 @@ public class GameController {
             ViewInterface.showResult(response);
             isGameEnded = true;
             try {
-                new EndOfGameMenu().execute(response,true);
+                new EndOfGameMenu().execute(response, true);
                 new DuelMenu().execute();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -429,8 +425,8 @@ public class GameController {
             //changeCards(currentTurnPlayer);
             //changeCards(currentTurnOpponentPlayer);
             try {
-                new EndOfGameMenu().execute(response,false);
-            }catch (Exception e){
+                new EndOfGameMenu().execute(response, false);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 

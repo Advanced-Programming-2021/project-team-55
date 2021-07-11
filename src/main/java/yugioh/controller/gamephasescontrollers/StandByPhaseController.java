@@ -13,7 +13,8 @@ public class StandByPhaseController {
     public void activateEffects() {
         try {
             Scanner.handleEffect(gameController);
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
 }
