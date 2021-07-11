@@ -5,35 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1448ede-1c3f-47e0-a021-52d6b4190de1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/ChatRoom.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/src/main/java/Launcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/src/main/java/controller/ChatRoomController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/src/main/java/view/ChatRoom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/src/main/resources/Sample/CSS/Menu.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/src/main/resources/Sample/fxml/ChatRoom.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/target/classes/Launcher.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/target/classes/Sample/CSS/Menu.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/target/classes/Sample/fxml/ChatRoom.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/target/classes/controller/ChatRoomController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/target/classes/view/ChatRoom.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Server.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/src/main/java/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/src/main/java/Server.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/ChatRoom.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/target/classes/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/target/classes/Server.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AdminPanel/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AdminPanel/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Client/.idea/vcs.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,5 +84,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

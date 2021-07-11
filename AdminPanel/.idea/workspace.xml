@@ -5,35 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90f71297-a315-4d56-a0e2-b9c590eb3434" name="Default Changelist" comment="handle admin shop">
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/ChatRoom.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/src/main/java/Launcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/src/main/java/controller/ChatRoomController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/src/main/java/view/ChatRoom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/src/main/resources/Sample/CSS/Menu.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/src/main/resources/Sample/fxml/ChatRoom.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/target/classes/Launcher.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/target/classes/Sample/CSS/Menu.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/target/classes/Sample/fxml/ChatRoom.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/target/classes/controller/ChatRoomController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Client/target/classes/view/ChatRoom.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Server/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Server/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Server/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Server/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Server/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Server/Server.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Server/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Server/src/main/java/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ChatRoom/Server/src/main/java/Server.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ChatRoom/.idea/ChatRoom.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ChatRoom/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ChatRoom/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ChatRoom/Server/target/classes/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ChatRoom/Server/target/classes/Server.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChatRoom/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatRoom/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChatRoom/Client/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatRoom/Client/.idea/vcs.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +42,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/model" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ChatRoom/Client" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
   </component>
