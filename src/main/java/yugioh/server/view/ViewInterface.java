@@ -13,17 +13,26 @@ import java.util.regex.Pattern;
 public class ViewInterface {
     private static final Scanner input = new Scanner(System.in);
 
+    public static String command = "";
+
     public static String getInput() {
-        String command;
-        try {
-            if (Duel.getGameController().getCurrentTurnPlayer().isAI() && !AIPlayerController.isIsGameEnded())
-                command = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
-                        AIPlayerController.orderKind.RANDOM)).getSpecialCommand();
-            else command = input.nextLine();
-        } catch (Exception e) {
-            command = input.nextLine();
+        while (command.equals("")) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ignored) {
+            }
         }
-        return sortFields(command);
+        String tempCommand = command;
+        command = "";
+//        try {
+//            if (Duel.getGameController().getCurrentTurnPlayer().isAI() && !AIPlayerController.isIsGameEnded())
+//                command = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
+//                        AIPlayerController.orderKind.RANDOM)).getSpecialCommand();
+//            else command = input.nextLine();
+//        } catch (Exception e) {
+//            command = input.nextLine();
+//        }
+        return sortFields(tempCommand);
     }
 
     public static void showResult(String result) {

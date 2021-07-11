@@ -16,6 +16,7 @@ import yugioh.client.model.User;
 import yugioh.client.model.exceptions.MenuException;
 import yugioh.client.view.Responses;
 import yugioh.client.view.SoundPlayable;
+import yugioh.client.view.ViewInterface;
 import yugioh.client.view.menus.PopUpWindow;
 import yugioh.client.view.menus.WelcomeMenu;
 
@@ -46,6 +47,7 @@ public class LoginMenuController extends MenuController implements Initializable
     }
 
     public void loginUser(String username, String password) throws MenuException {
+        ViewInterface.showResult("user login --password " + password + " --username " + username);
         User user = User.getUserByUsername(username);
         if (user == null || !user.getPassword().equals(password)) {
             throw new MenuException(Responses.USERNAME_AND_PASSWORD_DIDNT_MATCH.response);

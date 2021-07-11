@@ -18,7 +18,7 @@ public class LoginMenu extends Menu {
     }
 
     @Override
-    protected String processCommand(String command) {
+    public String processCommand(String command) {
         String response = "";
         if (command.matches(Regexes.LOGIN_USER.regex)) {
             try {

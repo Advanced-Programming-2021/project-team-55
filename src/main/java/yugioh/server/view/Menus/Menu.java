@@ -2,6 +2,7 @@ package yugioh.server.view.Menus;
 
 
 import yugioh.server.controller.DataBaseController;
+import yugioh.server.view.ViewInterface;
 
 import java.io.IOException;
 
@@ -22,37 +23,55 @@ abstract public class Menu {
         } catch (IOException e) {
             e.printStackTrace();
         }
+//        while (true) {
+//            switch (currentMenu) {
+//                case LOGIN: {
+//                    loginMenu.execute();
+//                    break;
+//                }
+//                case MAIN: {
+//                    mainMenu.execute();
+//                    break;
+//                }
+//                case PROFILE: {
+//                    profileMenu.execute();
+//                    break;
+//                }
+//                case SCOREBOARD: {
+//                    scoreBoardMenu.execute();
+//                    break;
+//                }
+//                case SHOP: {
+//                    shopMenu.execute();
+//                    break;
+//                }
+//                case DECK: {
+//                    deckMenu.execute();
+//                    break;
+//                }
+//                case DUEL: {
+//                    duelMenu.execute();
+//                    break;
+//                }
+//            }
+//        }
         while (true) {
-            switch (currentMenu) {
-                case LOGIN: {
-                    loginMenu.execute();
-                    break;
-                }
-                case MAIN: {
-                    mainMenu.execute();
-                    break;
-                }
-                case PROFILE: {
-                    profileMenu.execute();
-                    break;
-                }
-                case SCOREBOARD: {
-                    scoreBoardMenu.execute();
-                    break;
-                }
-                case SHOP: {
-                    shopMenu.execute();
-                    break;
-                }
-                case DECK: {
-                    deckMenu.execute();
-                    break;
-                }
-                case DUEL: {
-                    duelMenu.execute();
-                    break;
-                }
-            }
+            String command = ViewInterface.getInput();
+            String result = loginMenu.processCommand(command);
+            if (result.equals("Error: invalid command"))
+                result = mainMenu.processCommand(command);
+            if (result.equals("Error: invalid command"))
+                result = scoreBoardMenu.processCommand(command);
+            if (result.equals("Error: invalid command"))
+                result = profileMenu.processCommand(command);
+            if (result.equals("Error: invalid command"))
+                result = shopMenu.processCommand(command);
+            if (result.equals("Error: invalid command"))
+                result = deckMenu.processCommand(command);
+            if (result.equals("Error: invalid command"))
+                result = duelMenu.processCommand(command);
+
+            ViewInterface.showResult(result);
         }
     }
 

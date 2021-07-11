@@ -39,6 +39,7 @@ public class NetAdapter {
                     Socket socket = serverSocket.accept();
                     dataInputStream = new DataInputStream(socket.getInputStream());
                     String input = dataInputStream.readUTF();
+                    ViewInterface.command = input;
                     System.out.println(input);
                 }
             } catch (IOException ignored) {

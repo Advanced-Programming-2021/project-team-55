@@ -24,7 +24,7 @@ public class NetAdapter {
     public static void sendMessage(String message, int port, String host) throws IOException {
         Socket socket = new Socket(host, port);
         DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-        dataOutputStream.writeUTF(User.getLoggedInUser().getUsername() + " -> " + message);
+        dataOutputStream.writeUTF(message);
         dataOutputStream.flush();
         dataOutputStream.close();
         socket.close();
