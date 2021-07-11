@@ -32,6 +32,7 @@ public class LoginMenuController extends MenuController {
             Menu.currentMenu = MenuType.MAIN;
             User.setLoggedInUser(user);
         }
+//        User.getLoggedInUsers().put()
     }
 
     public void createUser(String username, String password, String nickname) throws MenuException {

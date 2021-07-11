@@ -11,6 +11,8 @@ public class User {
     public static User loggedInUser;
     private static ArrayList<User> allUsers;
 
+    private static HashMap<String, User> loggedInUsers = new HashMap<>();
+
     static {
         allUsers = new ArrayList<>();
     }
@@ -260,5 +262,9 @@ public class User {
 
     public static User getLoggedInUser() {
         return loggedInUser;
+    }
+
+    public static HashMap<String, User> getLoggedInUsers() {
+        return loggedInUsers;
     }
 }
