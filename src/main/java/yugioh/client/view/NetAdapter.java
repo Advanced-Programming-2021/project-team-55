@@ -29,8 +29,6 @@ public class NetAdapter {
             dataOutputStream.writeUTF(message);
             dataOutputStream.flush();
             String result = dataInputStream.readUTF();
-            dataOutputStream.close();
-            socket.close();
             return result;
         } catch (Exception e) {
             return "Error: failed to send request";

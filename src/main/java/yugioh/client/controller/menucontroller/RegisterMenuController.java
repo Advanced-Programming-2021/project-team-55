@@ -10,10 +10,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import yugioh.client.controller.Utilities;
 import yugioh.client.model.User;
 import yugioh.client.model.exceptions.MenuException;
 import yugioh.client.view.Responses;
 import yugioh.client.view.SoundPlayable;
+import yugioh.client.view.ViewInterface;
 import yugioh.client.view.menus.PopUpWindow;
 import yugioh.client.view.menus.WelcomeMenu;
 
@@ -44,7 +46,7 @@ public class RegisterMenuController extends MenuController implements Initializa
                 createUser(username, password, nickname);
                 response = Responses.CREATE_SUCCESSFULLY.response;
                 loginMenu.execute();
-            } catch (MenuException e) {
+            } catch (Exception e) {
                 response = e.getMessage();
             }
             new PopUpWindow(response).start(WelcomeMenu.stage);
@@ -55,12 +57,14 @@ public class RegisterMenuController extends MenuController implements Initializa
 
     }
 
-    public void createUser(String username, String password, String nickname) throws MenuException {
-        if (User.usernameExists(username)) {
-            throw new MenuException("Error: user with username " + username + " exists");
-        } else if (User.nicknameExists(nickname)) {
-            throw new MenuException("Error: user with nickname " + nickname + " already exists");
-        }
+    public void createUser(String username, String password, String nickname) throws Exception {
+        String result = ViewInterface.showResult("user create --nickname " + nickname + " --password " + password + " --username " + username);
+        Utilities.preprocessResult(result);
+//        if (User.usernameExists(username)) {
+//            throw new MenuException("Error: user with username " + username + " exists");
+//        } else if (User.nicknameExists(nickname)) {
+//            throw new MenuException("Error: user with nickname " + nickname + " already exists");
+//        }
         new User(username, nickname, password);
     }
 

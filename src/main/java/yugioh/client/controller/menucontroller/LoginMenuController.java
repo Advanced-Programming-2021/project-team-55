@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import yugioh.client.controller.Utilities;
 import yugioh.client.model.User;
 import yugioh.client.model.exceptions.MenuException;
 import yugioh.client.view.Responses;
@@ -19,7 +20,6 @@ import yugioh.client.view.SoundPlayable;
 import yugioh.client.view.ViewInterface;
 import yugioh.client.view.menus.PopUpWindow;
 import yugioh.client.view.menus.WelcomeMenu;
-import yugioh.server.view.Regexes;
 
 import java.io.File;
 import java.net.URL;
@@ -49,19 +49,13 @@ public class LoginMenuController extends MenuController implements Initializable
     }
 
     public String loginUser(String username, String password) throws Exception {
-
-        String result = ViewInterface.showResult( "user login --password " + password + " --username " + username );
-        if (result.startsWith("Error: ")) throw new Exception(result);
+        String result = ViewInterface.showResult("user login --password " + password + " --username " + username);
+        Utilities.preprocessResult(result);
         User user = User.getUserByUsername(username);
-
-//        if (user == null || !user.getPassword().equals(password)) {
-//            throw new MenuException(Responses.USERNAME_AND_PASSWORD_DIDNT_MATCH.response);
-//        } else {
-            User.setLoggedInUser(user);
-
-//        }
+        User.setLoggedInUser(user);
         return result;
     }
+
 
     public void loginClicked(MouseEvent mouseEvent) throws Exception {
         SoundPlayable.playButtonSound("enterButton");
@@ -77,8 +71,9 @@ public class LoginMenuController extends MenuController implements Initializable
                     Matcher matcher = ViewInterface.getCommandMatcher(response, "success (.+)");
                     User.setToken(matcher.group(1));
                     mainMenu.execute();
+                    response = Responses.LOGIN_SUCCESSFULLY.response;
                 }
-            } catch (MenuException e) {
+            } catch (Exception e) {
                 response = e.getMessage();
             }
             new PopUpWindow(response).start(WelcomeMenu.stage);
