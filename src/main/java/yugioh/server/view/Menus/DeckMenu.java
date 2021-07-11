@@ -1,12 +1,12 @@
-package view.Menus;
+package yugioh.server.view.Menus;
 
-import controller.menucontroller.DeckMenuController;
-import model.cards.Card;
-import model.cards.Deck;
-import model.exceptions.MenuException;
-import view.Regexes;
-import view.Responses;
-import view.ViewInterface;
+import yugioh.server.controller.menucontroller.DeckMenuController;
+import yugioh.server.model.cards.Card;
+import yugioh.server.model.cards.Deck;
+import yugioh.server.model.exceptions.MenuException;
+import yugioh.server.view.Regexes;
+import yugioh.server.view.Responses;
+import yugioh.server.view.ViewInterface;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;

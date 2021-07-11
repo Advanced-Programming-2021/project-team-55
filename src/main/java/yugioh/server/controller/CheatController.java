@@ -1,13 +1,13 @@
-package controller;
+package yugioh.server.controller;
 
-import controller.gamephasescontrollers.GameController;
-import model.exceptions.GameException;
-import model.Player;
-import model.User;
-import model.board.Cell;
-import model.cards.Card;
-import view.Responses;
-import view.gamephases.GameResponses;
+import yugioh.server.controller.gamephasescontrollers.GameController;
+import yugioh.server.model.exceptions.GameException;
+import yugioh.server.model.Player;
+import yugioh.server.model.User;
+import yugioh.server.model.board.Cell;
+import yugioh.server.model.cards.Card;
+import yugioh.server.view.Responses;
+import yugioh.server.view.gamephases.GameResponses;
 
 public class CheatController {
 

@@ -1,13 +1,13 @@
-package view.gamephases;
+package yugioh.server.view.gamephases;
 
-import controller.AIPlayerController;
-import controller.CheatController;
-import controller.gamephasescontrollers.MainPhase1Controller;
-import model.board.Cell;
-import model.cards.Monster;
-import model.exceptions.GameException;
-import view.GameRegexes;
-import view.ViewInterface;
+import yugioh.server.controller.AIPlayerController;
+import yugioh.server.controller.CheatController;
+import yugioh.server.controller.gamephasescontrollers.MainPhase1Controller;
+import yugioh.server.model.board.Cell;
+import yugioh.server.model.cards.Monster;
+import yugioh.server.model.exceptions.GameException;
+import yugioh.server.view.GameRegexes;
+import yugioh.server.view.ViewInterface;
 
 import java.util.regex.Matcher;
 

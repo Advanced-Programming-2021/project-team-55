@@ -1,6 +1,6 @@
-package yugioh.server;
+package yugioh.server.
 
-import view.Menus.Menu;
+import yugioh.server.view.Menus.Menu;
 
 public class Main {
     public static void main(String[] args) {

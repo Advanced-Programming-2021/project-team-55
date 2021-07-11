@@ -1,13 +1,13 @@
-package controller.menucontroller;
+package yugioh.server.controller.menucontroller;
 
 
-import controller.DataBaseController;
-import model.exceptions.MenuException;
-import model.User;
-import view.LoggerMessage;
-import view.Menus.Menu;
-import view.Menus.MenuType;
-import view.Responses;
+import yugioh.server.controller.DataBaseController;
+import yugioh.server.model.exceptions.MenuException;
+import yugioh.server.model.User;
+import yugioh.server.view.LoggerMessage;
+import yugioh.server.view.Menus.Menu;
+import yugioh.server.view.Menus.MenuType;
+import yugioh.server.view.Responses;
 
 public class LoginMenuController extends MenuController {
 

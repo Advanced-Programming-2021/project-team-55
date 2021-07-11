@@ -1,11 +1,11 @@
-package view.gamephases;
+package yugioh.server.view.gamephases;
 
-import controller.AIPlayerController;
-import controller.CheatController;
-import controller.gamephasescontrollers.GameController;
-import model.exceptions.GameException;
-import view.GameRegexes;
-import view.ViewInterface;
+import yugioh.server.controller.AIPlayerController;
+import yugioh.server.controller.CheatController;
+import yugioh.server.controller.gamephasescontrollers.GameController;
+import yugioh.server.model.exceptions.GameException;
+import yugioh.server.view.GameRegexes;
+import yugioh.server.view.ViewInterface;
 
 import java.util.regex.Matcher;
 

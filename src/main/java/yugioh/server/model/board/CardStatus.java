@@ -1,4 +1,4 @@
-package model.board;
+package yugioh.server.model.board;
 
 public enum CardStatus {
     DEFENSIVE_OCCUPIED,

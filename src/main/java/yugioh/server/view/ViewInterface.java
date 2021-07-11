@@ -1,8 +1,8 @@
-package view;
+package yugioh.server.view;
 
-import controller.AIPlayerController;
-import view.gamephases.Duel;
-import view.gamephases.GameResponses;
+import yugioh.server.controller.AIPlayerController;
+import yugioh.server.view.gamephases.Duel;
+import yugioh.server.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,12 +1,12 @@
-package view.Menus;
+package yugioh.server.view.Menus;
 
-import controller.AIPlayerController;
-import controller.menucontroller.DuelMenuController;
-import model.exceptions.MenuException;
-import view.Regexes;
-import view.Responses;
-import view.ViewInterface;
-import view.gamephases.Duel;
+import yugioh.server.controller.AIPlayerController;
+import yugioh.server.controller.menucontroller.DuelMenuController;
+import yugioh.server.model.exceptions.MenuException;
+import yugioh.server.view.Regexes;
+import yugioh.server.view.Responses;
+import yugioh.server.view.ViewInterface;
+import yugioh.server.view.gamephases.Duel;
 
 import java.util.regex.Matcher;
 

@@ -1,10 +1,10 @@
-package view.Menus;
+package yugioh.server.view.Menus;
 
-import controller.menucontroller.LoginMenuController;
-import model.exceptions.MenuException;
-import view.Regexes;
-import view.Responses;
-import view.ViewInterface;
+import yugioh.server.controller.menucontroller.LoginMenuController;
+import yugioh.server.model.exceptions.MenuException;
+import yugioh.server.view.Regexes;
+import yugioh.server.view.Responses;
+import yugioh.server.view.ViewInterface;
 
 import java.util.regex.Matcher;
 

@@ -1,13 +1,13 @@
-package view.Menus;
+package yugioh.server.view.Menus;
 
-import controller.CheatController;
-import controller.menucontroller.ShopMenuController;
-import model.User;
-import model.cards.Card;
-import model.exceptions.MenuException;
-import view.Regexes;
-import view.Responses;
-import view.ViewInterface;
+import yugioh.server.controller.CheatController;
+import yugioh.server.controller.menucontroller.ShopMenuController;
+import yugioh.server.model.User;
+import yugioh.server.model.cards.Card;
+import yugioh.server.model.exceptions.MenuException;
+import yugioh.server.view.Regexes;
+import yugioh.server.view.Responses;
+import yugioh.server.view.ViewInterface;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;

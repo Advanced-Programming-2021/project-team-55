@@ -1,4 +1,4 @@
-package view;
+package yugioh.server.view;
 
 public enum GameRegexes {
     SELECT("^select (.*)$"),

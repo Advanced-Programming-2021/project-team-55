@@ -1,4 +1,4 @@
-package view;
+package yugioh.server.view;
 
 public enum Responses {
     INVALID_COMMAND("Error: invalid command"),

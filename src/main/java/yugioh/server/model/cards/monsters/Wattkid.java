@@ -1,9 +1,9 @@
-package model.cards.monsters;
+package yugioh.server.model.cards.monsters;
 
-import model.cards.Monster;
-import model.cards.cardfeaturesenums.CardType;
-import model.cards.cardfeaturesenums.MonsterAttribute;
-import model.cards.cardfeaturesenums.MonsterType;
+import yugioh.server.model.cards.Monster;
+import yugioh.server.model.cards.cardfeaturesenums.CardType;
+import yugioh.server.model.cards.cardfeaturesenums.MonsterAttribute;
+import yugioh.server.model.cards.cardfeaturesenums.MonsterType;
 
 public class Wattkid extends Monster {
 

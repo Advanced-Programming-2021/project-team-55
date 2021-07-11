@@ -1,7 +1,7 @@
 package yugioh.server.view;
 
 
-import model.User;
+import yugioh.server.model.User;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

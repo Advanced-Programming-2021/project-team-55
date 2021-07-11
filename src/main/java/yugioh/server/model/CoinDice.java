@@ -1,4 +1,4 @@
-package model;
+package yugioh.server.model;
 
 import java.util.concurrent.ThreadLocalRandom;
 

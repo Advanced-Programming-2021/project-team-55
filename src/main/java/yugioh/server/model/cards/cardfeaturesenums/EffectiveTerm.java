@@ -1,4 +1,4 @@
-package model.cards.cardfeaturesenums;
+package yugioh.server.model.cards.cardfeaturesenums;
 
 public enum EffectiveTerm {
     UNLIMITED,

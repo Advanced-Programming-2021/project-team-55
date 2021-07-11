@@ -1,4 +1,4 @@
-package view;
+package yugioh.server.view;
 
 public enum Regexes {
 
@@ -21,7 +21,7 @@ public enum Regexes {
     SHOW_ALL_DECKS("^deck show --all$"),
     SHOW_DECK("^deck show --deck-name (\\S+)( --side)?$"),
     SHOW_DECK_CARDS("^deck show --cards$"),
-    IMPORT_CARD("^import card (.*)$"),
+    IMPORT_CARD("^import yugioh.server.card (.*)$"),
     EXPORT_CARD("^export card (.*)$"),
     DUEL_PLAYER("^duel --new --rounds (\\d+) --second-player (\\S+)$"),
     DUEL_AI("^duel --ai --new --rounds (\\d+)$"),

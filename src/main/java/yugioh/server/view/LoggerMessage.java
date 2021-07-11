@@ -1,4 +1,4 @@
-package view;
+package yugioh.server.view;
 
 import java.util.logging.Logger;
 

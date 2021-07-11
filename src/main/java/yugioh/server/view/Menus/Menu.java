@@ -1,7 +1,7 @@
-package view.Menus;
+package yugioh.server.view.Menus;
 
 
-import controller.DataBaseController;
+import yugioh.server.controller.DataBaseController;
 
 import java.io.IOException;
 

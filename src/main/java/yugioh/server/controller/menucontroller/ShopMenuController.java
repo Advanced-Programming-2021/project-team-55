@@ -1,11 +1,11 @@
-package controller.menucontroller;
+package yugioh.server.controller.menucontroller;
 
-import model.exceptions.MenuException;
-import model.User;
-import model.cards.Card;
-import view.Menus.Menu;
-import view.Menus.MenuType;
-import view.Responses;
+import yugioh.server.model.exceptions.MenuException;
+import yugioh.server.model.User;
+import yugioh.server.model.cards.Card;
+import yugioh.server.view.Menus.Menu;
+import yugioh.server.view.Menus.MenuType;
+import yugioh.server.view.Responses;
 
 import java.util.ArrayList;
 

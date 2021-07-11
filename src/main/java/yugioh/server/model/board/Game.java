@@ -1,6 +1,6 @@
-package model.board;
+package yugioh.server.model.board;
 
-import model.Player;
+import yugioh.server.model.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;

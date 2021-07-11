@@ -1,16 +1,16 @@
-package model.cards;
+package yugioh.server.model.cards;
 
-import controller.gamephasescontrollers.GameController;
-import model.board.CardStatus;
-import model.board.Cell;
-import model.board.GameBoard;
-import model.cards.cardfeaturesenums.EffectiveTerm;
-import model.cards.cardfeaturesenums.SpellOrTrap;
-import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
-import model.cards.trapandspells.*;
-import model.exceptions.GameException;
-import view.ViewInterface;
-import view.gamephases.GameResponses;
+import yugioh.server.controller.gamephasescontrollers.GameController;
+import yugioh.server.model.board.CardStatus;
+import yugioh.server.model.board.Cell;
+import yugioh.server.model.board.GameBoard;
+import yugioh.server.model.cards.cardfeaturesenums.EffectiveTerm;
+import yugioh.server.model.cards.cardfeaturesenums.SpellOrTrap;
+import yugioh.server.model.cards.cardfeaturesenums.SpellOrTrapAttribute;
+import yugioh.server.model.cards.trapandspells.*;
+import yugioh.server.model.exceptions.GameException;
+import yugioh.server.view.ViewInterface;
+import yugioh.server.view.gamephases.GameResponses;
 
 public abstract class SpellAndTrap extends Card {
 

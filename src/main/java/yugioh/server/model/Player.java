@@ -1,7 +1,7 @@
-package model;
+package yugioh.server.model;
 
-import model.board.GameBoard;
-import model.cards.Deck;
+import yugioh.server.model.board.GameBoard;
+import yugioh.server.model.cards.Deck;
 
 public class Player {
 

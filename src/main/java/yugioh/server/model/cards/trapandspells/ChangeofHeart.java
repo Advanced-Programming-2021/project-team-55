@@ -1,9 +1,9 @@
-package model.cards.trapandspells;
+package yugioh.server.model.cards.trapandspells;
 
-import model.cards.SpellAndTrap;
-import model.cards.cardfeaturesenums.EffectiveTerm;
-import model.cards.cardfeaturesenums.SpellOrTrap;
-import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
+import yugioh.server.model.cards.SpellAndTrap;
+import yugioh.server.model.cards.cardfeaturesenums.EffectiveTerm;
+import yugioh.server.model.cards.cardfeaturesenums.SpellOrTrap;
+import yugioh.server.model.cards.cardfeaturesenums.SpellOrTrapAttribute;
 
 public class ChangeofHeart extends SpellAndTrap {
 

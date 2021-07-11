@@ -1,6 +1,6 @@
-package view.gamephases;
+package yugioh.server.view.gamephases;
 
-import view.ViewInterface;
+import yugioh.server.view.ViewInterface;
 
 public class Graveyard extends Duel {
 
