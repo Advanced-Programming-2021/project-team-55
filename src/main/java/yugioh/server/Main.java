@@ -5,7 +5,7 @@ import yugioh.server.view.NetAdapter;
 
 public class Main {
     public static void main(String[] args) {
-        new NetAdapter(4444);
+        new NetAdapter(3333);
         Menu.run();
     }
 }
