@@ -7,7 +7,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import yugioh.controller.gamephasescontrollers.GameController;
-import yugioh.view.SoundPlayable;
 import yugioh.view.gamephases.Duel;
 import yugioh.view.menus.DetermineStarterMenu;
 import yugioh.view.menus.Toast;

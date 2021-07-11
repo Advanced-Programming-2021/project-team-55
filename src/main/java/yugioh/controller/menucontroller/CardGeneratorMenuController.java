@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,7 +15,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import yugioh.model.User;
-import yugioh.model.cards.Card;
 import yugioh.model.cards.Monster;
 import yugioh.model.cards.cardfeaturesenums.CardType;
 import yugioh.model.cards.cardfeaturesenums.MonsterAttribute;
@@ -25,18 +23,16 @@ import yugioh.view.SoundPlayable;
 import yugioh.view.menus.CardGeneratorMenu;
 import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.WelcomeMenu;
-import yugioh.view.transitions.CoinTransition;
 
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-public class CardGeneratorMenuController extends MenuController implements Initializable{
+public class CardGeneratorMenuController extends MenuController implements Initializable {
     public TextField attackField;
     public TextField defenseField;
     public TextField cardName;
@@ -59,7 +55,7 @@ public class CardGeneratorMenuController extends MenuController implements Initi
 
     public void backToShop(MouseEvent mouseEvent) throws Exception {
         SoundPlayable.playButtonSound("backButton");
-       shopMenu.execute();
+        shopMenu.execute();
     }
 
     @Override
@@ -72,11 +68,13 @@ public class CardGeneratorMenuController extends MenuController implements Initi
         attackField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                Platform.runLater(()->{
-                    int priceValue=0;
-                    if(attackField.getText().matches("^(\\d+)$"))priceValue+=Integer.parseInt(attackField.getText())*10;
-                    if(defenseField.getText().matches("^(\\d+)$"))priceValue+=Integer.parseInt(defenseField.getText())*5;
-                    priceValue+=level.getValue()*100;
+                Platform.runLater(() -> {
+                    int priceValue = 0;
+                    if (attackField.getText().matches("^(\\d+)$"))
+                        priceValue += Integer.parseInt(attackField.getText()) * 10;
+                    if (defenseField.getText().matches("^(\\d+)$"))
+                        priceValue += Integer.parseInt(defenseField.getText()) * 5;
+                    priceValue += level.getValue() * 100;
                     price.setText(String.valueOf(priceValue));
                 });
             }
@@ -84,11 +82,13 @@ public class CardGeneratorMenuController extends MenuController implements Initi
         defenseField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                Platform.runLater(()->{
-                    int priceValue=0;
-                    if(attackField.getText().matches("^(\\d+)$"))priceValue+=Integer.parseInt(attackField.getText())*10;
-                    if(defenseField.getText().matches("^(\\d+)$"))priceValue+=Integer.parseInt(defenseField.getText())*5;
-                    priceValue+=level.getValue()*100;
+                Platform.runLater(() -> {
+                    int priceValue = 0;
+                    if (attackField.getText().matches("^(\\d+)$"))
+                        priceValue += Integer.parseInt(attackField.getText()) * 10;
+                    if (defenseField.getText().matches("^(\\d+)$"))
+                        priceValue += Integer.parseInt(defenseField.getText()) * 5;
+                    priceValue += level.getValue() * 100;
                     price.setText(String.valueOf(priceValue));
                 });
             }
@@ -96,11 +96,13 @@ public class CardGeneratorMenuController extends MenuController implements Initi
         level.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                Platform.runLater(()->{
-                    int priceValue=0;
-                    if(attackField.getText().matches("^(\\d+)$"))priceValue+=Integer.parseInt(attackField.getText())*10;
-                    if(defenseField.getText().matches("^(\\d+)$"))priceValue+=Integer.parseInt(defenseField.getText())*5;
-                    priceValue+=level.getValue()*100;
+                Platform.runLater(() -> {
+                    int priceValue = 0;
+                    if (attackField.getText().matches("^(\\d+)$"))
+                        priceValue += Integer.parseInt(attackField.getText()) * 10;
+                    if (defenseField.getText().matches("^(\\d+)$"))
+                        priceValue += Integer.parseInt(defenseField.getText()) * 5;
+                    priceValue += level.getValue() * 100;
                     price.setText(String.valueOf(priceValue));
                 });
             }
@@ -110,22 +112,17 @@ public class CardGeneratorMenuController extends MenuController implements Initi
         setMenuItemsValues();
         cardImage.setImage(new Image(new File("src\\resources\\yugioh\\PNG\\cardsImages\\questionMark.jpg")
                 .toURI().toString()));
-        Platform.runLater(()->usersCoin.setText(String.valueOf(User.loggedInUser.getMoney())));
+        Platform.runLater(() -> usersCoin.setText(String.valueOf(User.loggedInUser.getMoney())));
         price.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if(Integer.parseInt(t1)>User.loggedInUser.getMoney()){
-                    generateButton.setDisable(true);
-                }
-                else{
-                    generateButton.setDisable(false);
-                }
+                generateButton.setDisable(Integer.parseInt(t1) > User.loggedInUser.getMoney());
             }
         });
     }
 
     private void handleAllMenuItems() {
-        for(MenuItem menuItem:cardType.getItems()){
+        for (MenuItem menuItem : cardType.getItems()) {
             menuItem.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
@@ -133,7 +130,7 @@ public class CardGeneratorMenuController extends MenuController implements Initi
                 }
             });
         }
-        for(MenuItem menuItem:monsterType.getItems()){
+        for (MenuItem menuItem : monsterType.getItems()) {
             menuItem.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
@@ -141,7 +138,7 @@ public class CardGeneratorMenuController extends MenuController implements Initi
                 }
             });
         }
-        for(MenuItem menuItem:monsterAttribute.getItems()){
+        for (MenuItem menuItem : monsterAttribute.getItems()) {
             menuItem.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
@@ -152,7 +149,7 @@ public class CardGeneratorMenuController extends MenuController implements Initi
     }
 
     private void setMenuItemsValues() {
-        ObservableList<MenuItem> attributes=monsterAttribute.getItems();
+        ObservableList<MenuItem> attributes = monsterAttribute.getItems();
         attributes.get(0).setUserData(MonsterAttribute.DARK);
         attributes.get(1).setUserData(MonsterAttribute.EARTH);
         attributes.get(2).setUserData(MonsterAttribute.FIRE);
@@ -160,7 +157,7 @@ public class CardGeneratorMenuController extends MenuController implements Initi
         attributes.get(4).setUserData(MonsterAttribute.WATER);
         attributes.get(5).setUserData(MonsterAttribute.WIND);
 
-        ObservableList<MenuItem>monsterTypes=monsterType.getItems();
+        ObservableList<MenuItem> monsterTypes = monsterType.getItems();
         monsterTypes.get(0).setUserData(MonsterType.BEAST_WARRIOR);
         monsterTypes.get(1).setUserData(MonsterType.WARRIOR);
         monsterTypes.get(2).setUserData(MonsterType.AQUA);
@@ -177,7 +174,7 @@ public class CardGeneratorMenuController extends MenuController implements Initi
         monsterTypes.get(13).setUserData(MonsterType.FAIRY);
         monsterTypes.get(14).setUserData(MonsterType.SEA_SERPENT);
 
-        ObservableList<MenuItem>cardTypes=cardType.getItems();
+        ObservableList<MenuItem> cardTypes = cardType.getItems();
         cardTypes.get(0).setUserData(CardType.NORMAL);
         cardTypes.get(1).setUserData(CardType.EFFECTIVE);
         cardTypes.get(2).setUserData(CardType.RITUAL);
@@ -185,29 +182,28 @@ public class CardGeneratorMenuController extends MenuController implements Initi
 
     }
 
-    public void generateClicked(MouseEvent mouseEvent)throws Exception {
-        if(
-        monsterType.getText().equals("Monster type")||cardType.getText().equals("Card type")
-                ||monsterAttribute.getText().equals("Monster attribute")||attackField.getText().equals("")||
-                !attackField.getText().matches("^(\\d+)$")||defenseField.getText().equals("")||
-                !defenseField.getText().matches("^(\\d+)$")||descriptionBox.getText().equals("")||cardName.getText().equals("")){
+    public void generateClicked(MouseEvent mouseEvent) throws Exception {
+        if (
+                monsterType.getText().equals("Monster type") || cardType.getText().equals("Card type")
+                        || monsterAttribute.getText().equals("Monster attribute") || attackField.getText().equals("") ||
+                        !attackField.getText().matches("^(\\d+)$") || defenseField.getText().equals("") ||
+                        !defenseField.getText().matches("^(\\d+)$") || descriptionBox.getText().equals("") || cardName.getText().equals("")) {
             new PopUpWindow("Error: fill all the fields!").start(WelcomeMenu.stage);
-        }
-        else{
-            User.loggedInUser.changeMoney((int) (-Integer.parseInt(price.getText())*0.1));
-            Monster monster=new Monster(cardName.getText(),descriptionBox.getText(),Integer.parseInt(price.getText()),
-                    Integer.parseInt(attackField.getText()),Integer.parseInt(defenseField.getText()),(int)level.getValue(),
-                    (MonsterAttribute) getMenuItem(monsterAttribute.getText(),"Monster attribute"),(MonsterType) getMenuItem(monsterType.getText(),
-                    "Monster type"),(CardType) getMenuItem(cardType.getText(),"Card type"));
+        } else {
+            User.loggedInUser.changeMoney((int) (-Integer.parseInt(price.getText()) * 0.1));
+            Monster monster = new Monster(cardName.getText(), descriptionBox.getText(), Integer.parseInt(price.getText()),
+                    Integer.parseInt(attackField.getText()), Integer.parseInt(defenseField.getText()), (int) level.getValue(),
+                    (MonsterAttribute) getMenuItem(monsterAttribute.getText(), "Monster attribute"), (MonsterType) getMenuItem(monsterType.getText(),
+                    "Monster type"), (CardType) getMenuItem(cardType.getText(), "Card type"));
             monster.setIsCustom();
             monster.setImage(cardImage);
             monster.setImage();
 
             Path sourceDirectory = Paths.get("src\\resources\\yugioh\\PNG\\cardsImages\\questionMark.jpg");
-            Path targetDirectory = Paths.get("src\\resources\\yugioh\\PNG\\cardsImages\\" + cardName.getText()+ ".jpg");
+            Path targetDirectory = Paths.get("src\\resources\\yugioh\\PNG\\cardsImages\\" + cardName.getText() + ".jpg");
             try {
                 Files.copy(sourceDirectory, targetDirectory);
-            }catch (Exception e){
+            } catch (Exception e) {
                 new PopUpWindow("Error: card with this name already exists!").start(WelcomeMenu.stage);
             }
             new CardGeneratorMenu().execute();
@@ -216,24 +212,23 @@ public class CardGeneratorMenuController extends MenuController implements Initi
         }
 
     }
-    private Object getMenuItem(String name,String from){
-        if(from.equals("Monster attribute")){
-            for(MenuItem menuItem:monsterAttribute.getItems()){
-                if(menuItem.getText().equals(name)){
+
+    private Object getMenuItem(String name, String from) {
+        if (from.equals("Monster attribute")) {
+            for (MenuItem menuItem : monsterAttribute.getItems()) {
+                if (menuItem.getText().equals(name)) {
                     return menuItem.getUserData();
                 }
             }
-        }
-        else if(from.equals("Card type")){
-            for(MenuItem menuItem:cardType.getItems()){
-                if(menuItem.getText().equals(name)){
+        } else if (from.equals("Card type")) {
+            for (MenuItem menuItem : cardType.getItems()) {
+                if (menuItem.getText().equals(name)) {
                     return menuItem.getUserData();
                 }
             }
-        }
-        else if(from.equals("Monster type")){
-            for(MenuItem menuItem:monsterType.getItems()){
-                if(menuItem.getText().equals(name)){
+        } else if (from.equals("Monster type")) {
+            for (MenuItem menuItem : monsterType.getItems()) {
+                if (menuItem.getText().equals(name)) {
                     return menuItem.getUserData();
                 }
             }

@@ -1,7 +1,5 @@
 package yugioh.controller.menucontroller;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import yugioh.controller.gamephasescontrollers.GameController;
 import yugioh.model.Player;
@@ -12,11 +10,7 @@ import yugioh.model.exceptions.MenuException;
 import yugioh.view.Responses;
 import yugioh.view.SoundPlayable;
 import yugioh.view.gamephases.Duel;
-import yugioh.view.menus.PopUpWindow;
 import yugioh.view.menus.RivalSelectionMenu;
-import yugioh.view.menus.WelcomeMenu;
-
-import java.io.File;
 
 public class DuelMenuController extends MenuController {
 

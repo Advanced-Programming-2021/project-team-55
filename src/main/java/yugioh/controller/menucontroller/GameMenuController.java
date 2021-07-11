@@ -54,6 +54,7 @@ import static javafx.scene.paint.Color.RED;
 
 public class GameMenuController extends MenuController implements Initializable {
 
+    public static Stage pauseStage;
     private static GameMenuController gameMenuController;
     public Pane gamePane;
     public Rectangle hoveredImageRectangle;
@@ -98,7 +99,6 @@ public class GameMenuController extends MenuController implements Initializable 
     public boolean shouldActivateEffectsNow = false;
     public ArrayList<String> canBeActivatedCards;
     public boolean choiceHasBeenMade = true;
-    public static Stage pauseStage;
 
     public static GameMenuController getGameMenuController() {
         return gameMenuController;
@@ -254,13 +254,14 @@ public class GameMenuController extends MenuController implements Initializable 
         currentNickname.setText("Nickname : " + gameController.currentTurnPlayer.
                 getUser().getNickname());
         if (gameController.currentTurnPlayer.getUser().isImageIsChanged())
-        currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageFile().toURI().toString()));
+            currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageFile().toURI().toString()));
         else currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageString()));
         currentImage.setPreserveRatio(true);
         currentImage.setFitHeight(85);
         if (gameController.currentTurnOpponentPlayer.getUser().isImageIsChanged())
             opponentImage.setImage(new Image(gameController.currentTurnOpponentPlayer.getUser().getProfileImageFile().toURI().toString()));
-        else opponentImage.setImage(new Image(gameController.currentTurnOpponentPlayer.getUser().getProfileImageString()));
+        else
+            opponentImage.setImage(new Image(gameController.currentTurnOpponentPlayer.getUser().getProfileImageString()));
         opponentImage.setPreserveRatio(true);
         opponentImage.setFitHeight(85);
         rivalLPBar.setProgress((double) opponentLP / 8000);
@@ -279,7 +280,7 @@ public class GameMenuController extends MenuController implements Initializable 
     public void addEventForCardImageRectangle(Rectangle rectangle, Cell cellToAddEvent) {
 
         rectangle.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
-            Card card=cellToAddEvent.getCellCard();
+            Card card = cellToAddEvent.getCellCard();
             if (card == null || rectangle.getFill() == null || (rectangle.getFill().equals(card.getCardBackImagePattern()) && !gameController.
                     currentTurnPlayer.getGameBoard().isCellInMonsterZone(Cell.getSelectedCellByRectangle(rectangle)) &&
                     !gameController.currentTurnPlayer.getGameBoard().isCellInSpellAndTrapZone

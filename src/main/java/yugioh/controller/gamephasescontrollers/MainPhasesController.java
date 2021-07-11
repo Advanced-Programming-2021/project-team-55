@@ -21,7 +21,6 @@ import yugioh.model.cards.trapandspells.TimeSeal;
 import yugioh.model.cards.trapandspells.TorrentialTribute;
 import yugioh.model.exceptions.GameException;
 import yugioh.view.ConsoleColors;
-import yugioh.view.ViewInterface;
 import yugioh.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
@@ -77,7 +76,7 @@ public interface MainPhasesController {
     default boolean isSummonedMonsterATKMoreThan1000(Cell summonedCell) {
         try {
             return ((Monster) summonedCell.getCellCard()).getAtk() >= 1000;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
@@ -86,22 +85,22 @@ public interface MainPhasesController {
         for (Cell cell : gameController.currentTurnPlayer.getGameBoard().getSpellAndTrapCardZone()) {
             if (!cell.isEmpty() && cell.getCardStatus() == CardStatus.HIDDEN) {
                 if (summonType == SummonTypes.NormalSummon) {
-                    if(summonEffectSpellAndTrap.contains(cell.getCellCard())) {
+                    if (summonEffectSpellAndTrap.contains(cell.getCellCard())) {
                         gameController.activateTrapEffect(summonEffectSpellAndTrap);
                         break;
                     }
                 } else if (summonType == SummonTypes.FlipSummon) {
-                    if(flipSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
+                    if (flipSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
                         gameController.activateTrapEffect(flipSummonEffectSpellAndTrap);
                         break;
                     }
                 } else if (summonType == SummonTypes.SpecialSummon) {
-                    if(SpecialSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
+                    if (SpecialSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
                         gameController.activateTrapEffect(SpecialSummonEffectSpellAndTrap);
                         break;
                     }
                 } else if (summonType == SummonTypes.RitualSummon) {
-                    if(ritualSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
+                    if (ritualSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
                         gameController.activateTrapEffect(ritualSummonEffectSpellAndTrap);
                         break;
                     }
@@ -111,28 +110,28 @@ public interface MainPhasesController {
         for (Cell cell : gameController.currentTurnOpponentPlayer.getGameBoard().getSpellAndTrapCardZone()) {
             if (!cell.isEmpty() && cell.getCardStatus() == CardStatus.HIDDEN) {
                 if (summonType == SummonTypes.NormalSummon) {
-                    if(summonEffectSpellAndTrap.contains(cell.getCellCard())) {
+                    if (summonEffectSpellAndTrap.contains(cell.getCellCard())) {
                         gameController.changeTurn(true, false);
                         gameController.activateTrapEffect(summonEffectSpellAndTrap);
                         //gameController.changeTurn(true, true);
                         break;
                     }
                 } else if (summonType == SummonTypes.FlipSummon) {
-                    if(flipSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
+                    if (flipSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
                         gameController.changeTurn(true, false);
                         gameController.activateTrapEffect(flipSummonEffectSpellAndTrap);
                         //gameController.changeTurn(true, true);
                         break;
                     }
                 } else if (summonType == SummonTypes.SpecialSummon) {
-                    if(SpecialSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
+                    if (SpecialSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
                         gameController.changeTurn(true, false);
                         gameController.activateTrapEffect(SpecialSummonEffectSpellAndTrap);
-                       // gameController.changeTurn(true, true);
+                        // gameController.changeTurn(true, true);
                         break;
                     }
                 } else if (summonType == SummonTypes.RitualSummon) {
-                    if(ritualSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
+                    if (ritualSummonEffectSpellAndTrap.contains(cell.getCellCard())) {
                         gameController.changeTurn(true, false);
                         gameController.activateTrapEffect(ritualSummonEffectSpellAndTrap);
                         //gameController.changeTurn(true, true);
@@ -163,15 +162,12 @@ public interface MainPhasesController {
         int monsterLevel = ((Monster) card).getLevel();
         if (monsterLevel > 4 || isSpecialSummon) {
             if (isSpecialSummon) {
-                if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 1)
-                    return false;
+                return currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() >= 1;
             } else {
                 if (monsterLevel < 7) {
-                    if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 1)
-                        return false;
+                    return currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() >= 1;
                 } else {
-                    if (currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() < 2)
-                        return false;
+                    return currentPlayer.getGameBoard().getNumberOfMonstersOnMonsterCardZone() >= 2;
                 }
             }
         }
@@ -271,7 +267,7 @@ public interface MainPhasesController {
 //                gameController.changedPositionCells.add(selectedCell);
 //                gameController.setDidPlayerSetOrSummonThisTurn(true);
             } else {
-                playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard, CardStatus.HIDDEN, gameController,false);
+                playerGameBoard.addCardToSpellAndTrapCardZone(selectedCard, CardStatus.HIDDEN, gameController, false);
                 playerGameBoard.removeCardFromHand(selectedCell);
                 gameController.changedPositionCells.add(selectedCell);
                 TimeSeal.setActivated(gameController);
@@ -392,7 +388,7 @@ public interface MainPhasesController {
         }
         selectedCell.setCardStatus(CardStatus.OFFENSIVE_OCCUPIED);
         gameController.currentTurnPlayer.getGameBoard().setFlipTransition(selectedCell.getCellCard(),
-                selectedCell.getCellRectangle(), false,false);
+                selectedCell.getCellRectangle(), false, false);
         ManEaterBug.handleEffect(gameController, selectedCell);
         activateTrapIfCanBeActivated(gameController, SummonTypes.FlipSummon);
         Cell.deselectCell();
@@ -413,20 +409,20 @@ public interface MainPhasesController {
 //                ViewInterface.showResult(GameResponses.YOU_SHOULD_SPECIAL_SUMMON_NOW.response);
 //                continue;
 //            }
-            //int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
-            //handleTribute(currentPlayer, gameController, monsterLevel, true, false);
+        //int monsterLevel = ((Monster) selectedCell.getCellCard()).getLevel();
+        //handleTribute(currentPlayer, gameController, monsterLevel, true, false);
 
-            currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(),
-                    CardStatus.OFFENSIVE_OCCUPIED, gameController);
-            currentPlayer.getGameBoard().removeCardFromHand(selectedCell);
-            TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
-            gameController.setDidPlayerSetOrSummonThisTurn(true);
-            gameController.shouldSpecialSummonNow = false;
-            gameController.setLastSummonedMonster(selectedCell);
-            addMonstersToSpecialSummonEffectSpellAndTrap();
-            Cell.deselectCell();
-         //   break;
-       // }
+        currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(),
+                CardStatus.OFFENSIVE_OCCUPIED, gameController);
+        currentPlayer.getGameBoard().removeCardFromHand(selectedCell);
+        TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
+        gameController.setDidPlayerSetOrSummonThisTurn(true);
+        gameController.shouldSpecialSummonNow = false;
+        gameController.setLastSummonedMonster(selectedCell);
+        addMonstersToSpecialSummonEffectSpellAndTrap();
+        Cell.deselectCell();
+        //   break;
+        // }
         activateTrapIfCanBeActivated(gameController, SummonTypes.SpecialSummon);
     }
 
@@ -468,8 +464,8 @@ public interface MainPhasesController {
             imageView.setFitWidth(70);
             imageView.rotateProperty().set(180.0);
             imageView.setLayoutX(paneX - i / 2);
-            if(!gameMenuController.rivalDeckZoneContainer.getChildren().contains(imageView))
-                Platform.runLater(()-> gameMenuController.rivalDeckZoneContainer.getChildren().add(imageView));
+            if (!gameMenuController.rivalDeckZoneContainer.getChildren().contains(imageView))
+                Platform.runLater(() -> gameMenuController.rivalDeckZoneContainer.getChildren().add(imageView));
 
         }
 
@@ -583,8 +579,8 @@ public interface MainPhasesController {
             ImageView imageView = playerGameBoard.getDeckZone().get(i).getCellCard().getCardBackImage();
             imageView.setFitWidth(70);
             imageView.setLayoutX(xPane + i / 2);
-            if(!gameMenuController.userDeckZoneContainer.getChildren().contains(imageView))
-                Platform.runLater(()->{
+            if (!gameMenuController.userDeckZoneContainer.getChildren().contains(imageView))
+                Platform.runLater(() -> {
                     gameMenuController.userDeckZoneContainer.getChildren().add(imageView);
                 });
             //gameMenuController.addEventForCardImage(imageView,null);

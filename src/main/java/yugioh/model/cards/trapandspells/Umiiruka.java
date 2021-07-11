@@ -35,7 +35,7 @@ public class Umiiruka extends SpellAndTrap {
     }
 
     public static void deActivateEffect(Cell cell) {
-        if(!cell.isEmpty()&&cell.getCellCard().getName().equals("Umiiruka")) {
+        if (!cell.isEmpty() && cell.getCellCard().getName().equals("Umiiruka")) {
             ViewInterface.showResult("Umiiruka deactivated: all WATER monsters ATK decrease by 500 points and their DEF increased by 400 points.");
             deactivateForPlayersMonsters();
         }
@@ -44,7 +44,7 @@ public class Umiiruka extends SpellAndTrap {
     private static void activateForPlayersMonsters(Cell[] monsterCardZone) {
         for (Cell monster : monsterCardZone
         ) {
-            if (!monster.isEmpty()&&isForUmiiruka(monster)) {
+            if (!monster.isEmpty() && isForUmiiruka(monster)) {
                 ((Monster) monster.getCellCard()).addATK(500);
                 ((Monster) monster.getCellCard()).addDEF(-400);
                 effectedMonsters.add((Monster) monster.getCellCard());

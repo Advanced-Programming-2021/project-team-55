@@ -1,9 +1,7 @@
 package yugioh.view.menus;
 
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,8 +12,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import yugioh.controller.gamephasescontrollers.GameController;
-import yugioh.controller.menucontroller.DeckMenuController;
-import yugioh.model.User;
 import yugioh.view.gamephases.Duel;
 
 import java.net.URL;
@@ -26,10 +22,18 @@ public class EndOfGameMenu extends WelcomeMenu {
     private static Stage stage;
     private boolean isEndOfTheGame;
 
-    public void execute(String resultString,boolean isEndOfTheGame) throws Exception {
-        Toast.isGameEnded=true;
-        this.resultString = resultString;
-        this.isEndOfTheGame=isEndOfTheGame;
+    public static void closeStage() {
+        stage.close();
+    }
+
+    public static String getResultString() {
+        return resultString;
+    }
+
+    public void execute(String resultString, boolean isEndOfTheGame) throws Exception {
+        Toast.isGameEnded = true;
+        EndOfGameMenu.resultString = resultString;
+        this.isEndOfTheGame = isEndOfTheGame;
         start(stage);
     }
 
@@ -37,22 +41,22 @@ public class EndOfGameMenu extends WelcomeMenu {
     public void start(Stage primaryStage) throws Exception {
         URL url = getClass().getResource("/yugioh/fxml/EndOfGameMenu.fxml");
         Pane pane = FXMLLoader.load(url);
-        if(!isEndOfTheGame){
-            ((VBox)pane.getChildren().get(3)).getChildren().remove(1);
-            Button yesButton=new Button();
+        if (!isEndOfTheGame) {
+            ((VBox) pane.getChildren().get(3)).getChildren().remove(1);
+            Button yesButton = new Button();
             yesButton.setText("yes");
 
-            Button noButton=new Button();
-            GameController gameController=Duel.getGameController();
+            Button noButton = new Button();
+            GameController gameController = Duel.getGameController();
             yesButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     gameController.setCurrentTurnPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
-                       gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
-                       Duel.runGame(gameController);
+                    gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
+                    Duel.runGame(gameController);
 
-                       stage.close();
-                    Toast.isGameEnded=false;
+                    stage.close();
+                    Toast.isGameEnded = false;
                 }
             });
             noButton.setText("no");
@@ -74,14 +78,14 @@ public class EndOfGameMenu extends WelcomeMenu {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     gameController.setCurrentTurnPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
-                        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
-                        Duel.runGame(gameController);
-                        stage.close();
-                    Toast.isGameEnded=false;
+                    gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
+                    Duel.runGame(gameController);
+                    stage.close();
+                    Toast.isGameEnded = false;
                 }
             });
             String playerName = gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1).getUser().getNickname();
-            Label label=new Label( playerName + " do you want to be the first player?");
+            Label label = new Label(playerName + " do you want to be the first player?");
             label.setLayoutX(400);
             label.setLayoutY(400);
             label.getStyleClass().add("buttonText");
@@ -96,15 +100,6 @@ public class EndOfGameMenu extends WelcomeMenu {
         stage.initOwner(WelcomeMenu.getStage());
         stage.setScene(scene);
         stage.show();
-    }
-
-
-    public static void closeStage() {
-        stage.close();
-    }
-
-    public static String getResultString() {
-        return resultString;
     }
 
 }

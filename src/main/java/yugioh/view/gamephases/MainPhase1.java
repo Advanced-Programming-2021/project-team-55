@@ -109,7 +109,7 @@ public class MainPhase1 extends Duel {
         } else if (command.matches(GameRegexes.CHEAT_ADD_OPTIONAL_CARD.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.CHEAT_ADD_OPTIONAL_CARD.regex);
             try {
-                response = cheatController.addOptionalCardAndSelect(matcher.group(1), gameController,false);
+                response = cheatController.addOptionalCardAndSelect(matcher.group(1), gameController, false);
             } catch (GameException e) {
                 response = e.toString();
             }

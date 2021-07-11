@@ -2,7 +2,6 @@ package yugioh.view.gamephases;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.image.Image;
 import javafx.util.Duration;
 import yugioh.controller.CheatController;
 import yugioh.controller.gamephasescontrollers.GameController;
@@ -200,7 +199,6 @@ abstract public class Duel {
             if (gameController.getCurrentRound() == 1)
                 new DetermineStarterMenu().execute();
             else {
-
 
 
 //                String playerName = gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1).getUser().getNickname();
