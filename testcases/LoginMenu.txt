@@ -6,6 +6,6 @@ user create --username new --password test --nickname testi
 user login --username new --password test
 menu show-current
 menu exit
-menu enter yugioh.Main
+menu enter yugioh.client.yugioh.server.Main
 user logout
 menu exit

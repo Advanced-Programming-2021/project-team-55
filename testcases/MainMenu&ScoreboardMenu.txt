@@ -4,9 +4,9 @@ menu enter Scoreboard
 menu show-current
 scoreboard show
 menu exit
-menu enter yugioh.Main
+menu enter yugioh.client.yugioh.server.Main
 menu exit
-menu enter yugioh.Main
+menu enter yugioh.client.yugioh.server.Main
 user logout
 menu exit
 

@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="361.0" prefWidth="540" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.CheatController">
+<AnchorPane prefHeight="361.0" prefWidth="540" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.client.controller.CheatController">
    <VBox alignment="CENTER" layoutX="50.0" prefHeight="335.0" prefWidth="440.0">
       <children>
           <Label prefHeight="112.0" prefWidth="275.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Cheat Menu" textFill="#ccdefc">

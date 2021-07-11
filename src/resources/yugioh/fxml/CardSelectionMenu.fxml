@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="111.0" prefWidth="396.0" style="-fx-background-color: #05091a" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.gamephasescontrollers.CardSelectionMenuController">
+<AnchorPane prefHeight="111.0" prefWidth="396.0" style="-fx-background-color: #05091a" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.client.controller.gamephasescontrollers.CardSelectionMenuController">
    <children>
       <ScrollPane fx:id="scrollBar" layoutY="7.0" prefHeight="126.0" prefWidth="500.0" />
    </children>

@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="170" prefWidth="600" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.SelectDeckNamePageController">
+<AnchorPane prefHeight="170" prefWidth="600" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.client.controller.menucontroller.SelectDeckNamePageController">
     <children>
         <VBox alignment="CENTER" layoutX="57.0" prefHeight="250.0" prefWidth="486.0" spacing="20.0">
             <children>

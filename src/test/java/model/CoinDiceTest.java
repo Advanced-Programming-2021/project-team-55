@@ -1,7 +1,7 @@
 package model;
 
 import org.junit.jupiter.api.*;
-import yugioh.model.CoinDice;
+import yugioh.client.model.CoinDice;
 
 import static org.junit.Assert.assertEquals;
 

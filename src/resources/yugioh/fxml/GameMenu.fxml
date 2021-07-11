@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="gamePane" prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.controller.menucontroller.GameMenuController">
+<AnchorPane fx:id="gamePane" prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.client.controller.menucontroller.GameMenuController">
     <!--2-->
     <ScrollPane fx:id="descriptionContainer" hbarPolicy="NEVER" layoutX="26.0" layoutY="423.0" prefHeight="131.0" prefWidth="274.0">
         <!--2/1-->
