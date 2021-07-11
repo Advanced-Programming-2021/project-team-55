@@ -1,14 +1,14 @@
-package controller.menucontroller;
+package yugioh.server.controller.menucontroller;
 
-import controller.gamephasescontrollers.GameController;
-import model.exceptions.MenuException;
-import model.Player;
-import model.User;
-import model.board.Game;
-import model.cards.Deck;
-import view.Menus.Menu;
-import view.Menus.MenuType;
-import view.Responses;
+import yugioh.server.controller.gamephasescontrollers.GameController;
+import yugioh.server.model.exceptions.MenuException;
+import yugioh.server.model.Player;
+import yugioh.server.model.User;
+import yugioh.server.model.board.Game;
+import yugioh.server.model.cards.Deck;
+import yugioh.server.view.Menus.Menu;
+import yugioh.server.view.Menus.MenuType;
+import yugioh.server.view.Responses;
 
 public class DuelMenuController extends MenuController {
 

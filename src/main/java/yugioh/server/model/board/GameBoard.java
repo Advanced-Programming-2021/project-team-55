@@ -1,13 +1,13 @@
-package model.board;
+package yugioh.server.model.board;
 
-import controller.gamephasescontrollers.GameController;
-import model.cards.Card;
-import model.cards.Deck;
-import model.cards.Monster;
-import model.cards.cardfeaturesenums.CardType;
-import model.cards.cardfeaturesenums.MonsterType;
-import model.exceptions.GameException;
-import view.gamephases.GameResponses;
+import yugioh.server.controller.gamephasescontrollers.GameController;
+import yugioh.server.model.cards.Card;
+import yugioh.server.model.cards.Deck;
+import yugioh.server.model.cards.Monster;
+import yugioh.server.model.cards.cardfeaturesenums.CardType;
+import yugioh.server.model.cards.cardfeaturesenums.MonsterType;
+import yugioh.server.model.exceptions.GameException;
+import yugioh.server.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
 import java.util.Collections;

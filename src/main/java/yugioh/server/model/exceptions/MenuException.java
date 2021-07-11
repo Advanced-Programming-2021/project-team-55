@@ -1,4 +1,4 @@
-package model.exceptions;
+package yugioh.server.model.exceptions;
 
 public class MenuException extends Exception {
     public MenuException(String message) {

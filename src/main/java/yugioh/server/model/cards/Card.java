@@ -1,8 +1,8 @@
-package model.cards;
+package yugioh.server.model.cards;
 
-import model.cards.cardfeaturesenums.SpellOrTrap;
-import model.cards.monsters.*;
-import model.cards.trapandspells.*;
+import yugioh.server.model.cards.cardfeaturesenums.SpellOrTrap;
+import yugioh.server.model.cards.monsters.*;
+import yugioh.server.model.cards.trapandspells.*;
 
 import java.util.ArrayList;
 import java.util.Collections;

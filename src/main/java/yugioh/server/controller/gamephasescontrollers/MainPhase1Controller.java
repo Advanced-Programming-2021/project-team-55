@@ -1,4 +1,4 @@
-package controller.gamephasescontrollers;
+package yugioh.server.controller.gamephasescontrollers;
 
 public class MainPhase1Controller implements MainPhasesController {
 

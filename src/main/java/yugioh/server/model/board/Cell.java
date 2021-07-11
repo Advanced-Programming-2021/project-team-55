@@ -1,13 +1,13 @@
-package model.board;
+package yugioh.server.model.board;
 
-import model.cards.Card;
-import model.cards.Monster;
-import model.cards.monsters.CommandKnight;
-import model.cards.trapandspells.BlackPendant;
-import model.cards.trapandspells.MagnumShield;
-import model.cards.trapandspells.Swordofdarkdestruction;
-import model.cards.trapandspells.UnitedWeStand;
-import view.gamephases.Duel;
+import yugioh.server.model.cards.Card;
+import yugioh.server.model.cards.Monster;
+import yugioh.server.model.cards.monsters.CommandKnight;
+import yugioh.server.model.cards.trapandspells.BlackPendant;
+import yugioh.server.model.cards.trapandspells.MagnumShield;
+import yugioh.server.model.cards.trapandspells.Swordofdarkdestruction;
+import yugioh.server.model.cards.trapandspells.UnitedWeStand;
+import yugioh.server.view.gamephases.Duel;
 
 
 public class Cell {

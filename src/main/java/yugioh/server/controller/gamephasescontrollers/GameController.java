@@ -1,21 +1,21 @@
-package controller.gamephasescontrollers;
+package yugioh.server.controller.gamephasescontrollers;
 
-import controller.AIPlayerController;
-import model.CoinDice;
-import model.Player;
-import model.User;
-import model.board.Cell;
-import model.board.Game;
-import model.board.GameBoard;
-import model.cards.Card;
-import model.cards.Deck;
-import model.cards.SpellAndTrap;
-import model.exceptions.GameException;
-import view.GameRegexes;
-import view.ViewInterface;
-import view.gamephases.Duel;
-import view.gamephases.GamePhase;
-import view.gamephases.GameResponses;
+import yugioh.server.controller.AIPlayerController;
+import yugioh.server.model.CoinDice;
+import yugioh.server.model.Player;
+import yugioh.server.model.User;
+import yugioh.server.model.board.Cell;
+import yugioh.server.model.board.Game;
+import yugioh.server.model.board.GameBoard;
+import yugioh.server.model.cards.Card;
+import yugioh.server.model.cards.Deck;
+import yugioh.server.model.cards.SpellAndTrap;
+import yugioh.server.model.exceptions.GameException;
+import yugioh.server.view.GameRegexes;
+import yugioh.server.view.ViewInterface;
+import yugioh.server.view.gamephases.Duel;
+import yugioh.server.view.gamephases.GamePhase;
+import yugioh.server.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
 

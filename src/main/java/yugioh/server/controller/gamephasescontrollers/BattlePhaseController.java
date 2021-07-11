@@ -1,25 +1,24 @@
-package controller.gamephasescontrollers;
+package yugioh.server.controller.gamephasescontrollers;
 
-import model.cards.SpellAndTrap;
-import model.cards.monsters.*;
-import model.board.CardStatus;
-import model.cards.monsters.ExploderDragon;
-import model.cards.monsters.Marshmallon;
-import model.cards.monsters.TheCalculator;
-import model.cards.trapandspells.*;
-import model.exceptions.GameException;
-import model.Player;
-import model.board.Cell;
-import model.board.GameBoard;
-import model.cards.Card;
-import model.cards.Monster;
-import model.cards.monsters.YomiShip;
-import view.gamephases.GameResponses;
+import yugioh.server.model.cards.SpellAndTrap;
+import yugioh.server.model.cards.monsters.*;
+import yugioh.server.model.board.CardStatus;
+import yugioh.server.model.cards.monsters.ExploderDragon;
+import yugioh.server.model.cards.monsters.Marshmallon;
+import yugioh.server.model.cards.monsters.TheCalculator;
+import yugioh.server.model.cards.trapandspells.*;
+import yugioh.server.model.exceptions.GameException;
+import yugioh.server.model.Player;
+import yugioh.server.model.board.Cell;
+import yugioh.server.model.board.GameBoard;
+import yugioh.server.model.cards.Card;
+import yugioh.server.model.cards.Monster;
+import yugioh.server.model.cards.monsters.YomiShip;
+import yugioh.server.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
 
-import static model.board.CardStatus.DEFENSIVE_OCCUPIED;
-import static model.board.CardStatus.OFFENSIVE_OCCUPIED;
+import yugioh.server.model.board.CardStatus.*;
 
 public class BattlePhaseController {
 
@@ -88,11 +87,11 @@ public class BattlePhaseController {
             if (Texchanger.handleEffect(gameController, attackedCell)) throw new GameException("your attack canceled.");
             gameController.getAttackerCellsThisTurn().add(attackerCell);
             response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
-            if (attackedCell.getCardStatus() == OFFENSIVE_OCCUPIED) {
+            if (attackedCell.getCardStatus() == CardStatus.DEFENSIVE_HIDDEN) {
                 if (response.equals(""))
                     response = attackToOffensiveCell(attackerCell, attackedCell, opponentGameBoard, playerGameBoard);
 
-            } else if (attackedCell.getCardStatus() == DEFENSIVE_OCCUPIED) {
+            } else if (attackedCell.getCardStatus() == CardStatus.DEFENSIVE_OCCUPIED) {
                 if (response.equals(""))
                     response = attackToDefensiveOccupiedCell(attackerCell, attackedCell, playerGameBoard);
             } else {
@@ -213,7 +212,7 @@ public class BattlePhaseController {
         if (selectedCell == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
-        if (!currentPlayer.getGameBoard().isCellInMonsterZone(selectedCell) || selectedCell.getCardStatus() != OFFENSIVE_OCCUPIED) {
+        if (!currentPlayer.getGameBoard().isCellInMonsterZone(selectedCell) || selectedCell.getCardStatus() != CardStatus.OFFENSIVE_OCCUPIED) {
             throw new GameException(GameResponses.CAN_NOT_ATTACK_WITH_THIS_CARD.response);
         }
         if (gameController.didCardAttackThisTurn(selectedCell)) {

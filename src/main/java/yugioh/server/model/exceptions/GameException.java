@@ -1,4 +1,4 @@
-package model.exceptions;
+package yugioh.server.model.exceptions;
 
 public class GameException extends Exception {
     public GameException(String message) {

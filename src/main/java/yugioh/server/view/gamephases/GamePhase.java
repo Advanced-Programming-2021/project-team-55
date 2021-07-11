@@ -1,4 +1,4 @@
-package view.gamephases;
+package yugioh.server.view.gamephases;
 
 public enum GamePhase {
 

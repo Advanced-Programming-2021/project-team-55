@@ -1,7 +1,7 @@
-package view.gamephases;
+package yugioh.server.view.gamephases;
 
-import controller.gamephasescontrollers.StandByPhaseController;
-import view.ViewInterface;
+import yugioh.server.controller.gamephasescontrollers.StandByPhaseController;
+import yugioh.server.view.ViewInterface;
 
 public class StandByPhase extends Duel {
     private StandByPhaseController standByPhaseController;

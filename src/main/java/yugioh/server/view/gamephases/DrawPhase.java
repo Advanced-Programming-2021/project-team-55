@@ -1,9 +1,9 @@
-package view.gamephases;
+package yugioh.server.view.gamephases;
 
-import controller.gamephasescontrollers.DrawPhaseController;
-import model.cards.trapandspells.TimeSeal;
-import model.exceptions.GameException;
-import view.ViewInterface;
+import yugioh.server.controller.gamephasescontrollers.DrawPhaseController;
+import yugioh.server.model.cards.trapandspells.TimeSeal;
+import yugioh.server.model.exceptions.GameException;
+import yugioh.server.view.ViewInterface;
 
 public class DrawPhase extends Duel {
     private DrawPhaseController drawPhaseController;

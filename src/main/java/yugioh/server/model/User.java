@@ -1,15 +1,17 @@
-package model;
+package yugioh.server.model;
 
-import model.cards.Card;
-import model.cards.Deck;
-import model.cards.monsters.*;
-import model.cards.trapandspells.*;
+import yugioh.server.model.cards.Card;
+import yugioh.server.model.cards.Deck;
+import yugioh.server.model.cards.monsters.*;
+import yugioh.server.model.cards.trapandspells.*;
 
 import java.util.*;
 
 public class User {
     public static User loggedInUser;
     private static ArrayList<User> allUsers;
+
+    private static HashMap<String, User> loggedInUsers = new HashMap<>();
 
     static {
         allUsers = new ArrayList<>();
@@ -256,5 +258,13 @@ public class User {
     @Override
     public String toString() {
         return "- " + nickname + ": " + score;
+    }
+
+    public static User getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public static HashMap<String, User> getLoggedInUsers() {
+        return loggedInUsers;
     }
 }

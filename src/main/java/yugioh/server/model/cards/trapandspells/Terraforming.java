@@ -1,14 +1,14 @@
-package model.cards.trapandspells;
+package yugioh.server.model.cards.trapandspells;
 
-import controller.gamephasescontrollers.GameController;
-import model.board.Cell;
-import model.board.GameBoard;
-import model.cards.SpellAndTrap;
-import model.cards.cardfeaturesenums.EffectiveTerm;
-import model.cards.cardfeaturesenums.SpellOrTrap;
-import model.cards.cardfeaturesenums.SpellOrTrapAttribute;
-import view.ViewInterface;
-import view.gamephases.GameResponses;
+import yugioh.server.controller.gamephasescontrollers.GameController;
+import yugioh.server.model.board.Cell;
+import yugioh.server.model.board.GameBoard;
+import yugioh.server.model.cards.SpellAndTrap;
+import yugioh.server.model.cards.cardfeaturesenums.EffectiveTerm;
+import yugioh.server.model.cards.cardfeaturesenums.SpellOrTrap;
+import yugioh.server.model.cards.cardfeaturesenums.SpellOrTrapAttribute;
+import yugioh.server.view.ViewInterface;
+import yugioh.server.view.gamephases.GameResponses;
 
 public class Terraforming extends SpellAndTrap {
 

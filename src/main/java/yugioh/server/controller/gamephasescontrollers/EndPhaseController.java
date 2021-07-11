@@ -1,8 +1,8 @@
-package controller.gamephasescontrollers;
+package yugioh.server.controller.gamephasescontrollers;
 
-import model.cards.monsters.Scanner;
-import model.cards.monsters.Texchanger;
-import model.cards.trapandspells.SwordsofRevealingLight;
+import yugioh.server.model.cards.monsters.Scanner;
+import yugioh.server.model.cards.monsters.Texchanger;
+import yugioh.server.model.cards.trapandspells.SwordsofRevealingLight;
 
 public class EndPhaseController {
 

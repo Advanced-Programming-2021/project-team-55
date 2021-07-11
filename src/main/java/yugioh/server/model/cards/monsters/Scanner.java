@@ -1,14 +1,14 @@
-package model.cards.monsters;
+package yugioh.server.model.cards.monsters;
 
-import controller.gamephasescontrollers.GameController;
-import model.board.CardStatus;
-import model.board.Cell;
-import model.cards.Card;
-import model.cards.Monster;
-import model.cards.cardfeaturesenums.CardType;
-import model.cards.cardfeaturesenums.MonsterAttribute;
-import model.cards.cardfeaturesenums.MonsterType;
-import view.ViewInterface;
+import yugioh.server.controller.gamephasescontrollers.GameController;
+import yugioh.server.model.board.CardStatus;
+import yugioh.server.model.board.Cell;
+import yugioh.server.model.cards.Card;
+import yugioh.server.model.cards.Monster;
+import yugioh.server.model.cards.cardfeaturesenums.CardType;
+import yugioh.server.model.cards.cardfeaturesenums.MonsterAttribute;
+import yugioh.server.model.cards.cardfeaturesenums.MonsterType;
+import yugioh.server.view.ViewInterface;
 
 import java.util.ArrayList;
 
@@ -60,7 +60,7 @@ public class Scanner extends Monster {
 
     public static void deActivateEffect() {
         if (convertedScannerThisTurn != null)
-            convertedScannerThisTurn.setCard(new model.cards.monsters.Scanner());
+            convertedScannerThisTurn.setCard(new yugioh.server.model.cards.monsters.Scanner());
         convertedScannerThisTurn = null;
     }
 

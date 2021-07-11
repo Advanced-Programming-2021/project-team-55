@@ -1,19 +1,19 @@
-package controller.menucontroller;
+package yugioh.server.controller.menucontroller;
 
-import model.exceptions.MenuException;
-import model.User;
-import model.cards.Card;
-import model.cards.Deck;
-import model.cards.SpellAndTrap;
-import view.Menus.Menu;
-import view.Menus.MenuType;
-import view.Responses;
+import yugioh.server.model.exceptions.MenuException;
+import yugioh.server.model.User;
+import yugioh.server.model.cards.Card;
+import yugioh.server.model.cards.Deck;
+import yugioh.server.model.cards.SpellAndTrap;
+import yugioh.server.view.Menus.Menu;
+import yugioh.server.view.Menus.MenuType;
+import yugioh.server.view.Responses;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import static model.cards.cardfeaturesenums.EffectiveTerm.LIMITED;
+import static yugioh.server.model.cards.cardfeaturesenums.EffectiveTerm.LIMITED;
 
 public class DeckMenuController extends MenuController {
     private static DeckMenuController deckMenuController;

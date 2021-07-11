@@ -1,10 +1,10 @@
-package controller.gamephasescontrollers;
+package yugioh.server.controller.gamephasescontrollers;
 
-import model.exceptions.GameException;
-import model.Player;
-import model.board.Cell;
-import model.cards.Card;
-import view.gamephases.GameResponses;
+import yugioh.server.model.exceptions.GameException;
+import yugioh.server.model.Player;
+import yugioh.server.model.board.Cell;
+import yugioh.server.model.cards.Card;
+import yugioh.server.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
 

@@ -16,12 +16,15 @@ import yugioh.client.model.User;
 import yugioh.client.model.exceptions.MenuException;
 import yugioh.client.view.Responses;
 import yugioh.client.view.SoundPlayable;
+import yugioh.client.view.ViewInterface;
 import yugioh.client.view.menus.PopUpWindow;
 import yugioh.client.view.menus.WelcomeMenu;
+import yugioh.server.view.Regexes;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
 
 public class LoginMenuController extends MenuController implements Initializable {
     public static LoginMenuController loginMenuController;
@@ -45,13 +48,19 @@ public class LoginMenuController extends MenuController implements Initializable
         return loginMenuController;
     }
 
-    public void loginUser(String username, String password) throws MenuException {
+    public String loginUser(String username, String password) throws Exception {
+
+        String result = ViewInterface.showResult( "user login --password " + password + " --username " + username );
+        if (result.startsWith("Error: ")) throw new Exception(result);
         User user = User.getUserByUsername(username);
-        if (user == null || !user.getPassword().equals(password)) {
-            throw new MenuException(Responses.USERNAME_AND_PASSWORD_DIDNT_MATCH.response);
-        } else {
+
+//        if (user == null || !user.getPassword().equals(password)) {
+//            throw new MenuException(Responses.USERNAME_AND_PASSWORD_DIDNT_MATCH.response);
+//        } else {
             User.setLoggedInUser(user);
-        }
+
+//        }
+        return result;
     }
 
     public void loginClicked(MouseEvent mouseEvent) throws Exception {
@@ -63,10 +72,12 @@ public class LoginMenuController extends MenuController implements Initializable
         } else {
             String response = "";
             try {
-                loginUser(username, password);
-                response = Responses.LOGIN_SUCCESSFULLY.response;
-                mainMenu.execute();
-
+                response = loginUser(username, password);
+                if (response.startsWith("success ")) {
+                    Matcher matcher = ViewInterface.getCommandMatcher(response, "success (.+)");
+                    User.setToken(matcher.group(1));
+                    mainMenu.execute();
+                }
             } catch (MenuException e) {
                 response = e.getMessage();
             }

@@ -1,15 +1,15 @@
-package model.cards.monsters;
+package yugioh.server.model.cards.monsters;
 
-import controller.gamephasescontrollers.GameController;
-import model.Player;
-import model.board.CardStatus;
-import model.board.Cell;
-import model.cards.Monster;
-import model.cards.cardfeaturesenums.CardType;
-import model.cards.cardfeaturesenums.MonsterAttribute;
-import model.cards.cardfeaturesenums.MonsterType;
-import view.ViewInterface;
-import view.gamephases.Duel;
+import yugioh.server.controller.gamephasescontrollers.GameController;
+import yugioh.server.model.Player;
+import yugioh.server.model.board.CardStatus;
+import yugioh.server.model.board.Cell;
+import yugioh.server.model.cards.Monster;
+import yugioh.server.model.cards.cardfeaturesenums.CardType;
+import yugioh.server.model.cards.cardfeaturesenums.MonsterAttribute;
+import yugioh.server.model.cards.cardfeaturesenums.MonsterType;
+import yugioh.server.view.ViewInterface;
+import yugioh.server.view.gamephases.Duel;
 
 public class CommandKnight extends Monster {
 

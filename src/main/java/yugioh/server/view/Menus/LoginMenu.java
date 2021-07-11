@@ -1,10 +1,10 @@
-package view.Menus;
+package yugioh.server.view.Menus;
 
-import controller.menucontroller.LoginMenuController;
-import model.exceptions.MenuException;
-import view.Regexes;
-import view.Responses;
-import view.ViewInterface;
+import yugioh.server.controller.menucontroller.LoginMenuController;
+import yugioh.server.model.exceptions.MenuException;
+import yugioh.server.view.Regexes;
+import yugioh.server.view.Responses;
+import yugioh.server.view.ViewInterface;
 
 import java.util.regex.Matcher;
 
@@ -18,13 +18,12 @@ public class LoginMenu extends Menu {
     }
 
     @Override
-    protected String processCommand(String command) {
+    public String processCommand(String command) {
         String response = "";
         if (command.matches(Regexes.LOGIN_USER.regex)) {
             try {
                 Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.LOGIN_USER.regex);
-                loginMenuController.loginUser(matcher.group(2), matcher.group(1));
-                response = Responses.LOGIN_SUCCESSFULLY.response;
+                response = loginMenuController.loginUser(matcher.group(2), matcher.group(1));
             } catch (MenuException e) {
                 response = e.toString();
             }

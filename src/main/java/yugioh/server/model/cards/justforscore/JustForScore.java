@@ -1,6 +1,6 @@
-package model.cards.justforscore;
+package yugioh.server.model.cards.justforscore;
 
-import com.opencsv.bean.CsvToBeanBuilder;
+import  com.opencsv.bean.CsvToBeanBuilder;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -30,10 +30,10 @@ public class JustForScore {
 //            String className = monsterCardsDetails.getName().trim()
 //                    .replaceAll(" ","").replaceAll("-", "")
 //                    .replaceAll(",","").replaceAll("'", "");
-//            String fileContent = "package model.cards.monsters;\n" +
+//            String fileContent = "package yugioh.server.model.cards.monsters;\n" +
 //                    "\n" +
-//                    "import model.cards.cardfeaturesenums.MonsterAttribute;\n" +
-//                    "import model.cards.cardfeaturesenum.CardType;\n\n" +
+//                    "import yugioh.server.model.cards.cardfeaturesenums.MonsterAttribute;\n" +
+//                    "import yugioh.server.model.cards.cardfeaturesenum.CardType;\n\n" +
 //                    "\n" +
 //                    "public class " + className + " {\n" +
 //                    "\n" +
@@ -60,11 +60,11 @@ public class JustForScore {
 //            String className = trapAndSpellCardDetails.getName().trim()
 //                    .replaceAll(" ","").replaceAll("-", "")
 //                    .replaceAll(",","").replaceAll("'", "");
-//            String fileContent = "package model.cards.trapandspells;\n" +
+//            String fileContent = "package yugioh.server.model.cards.trapandspells;\n" +
 //                    "\n" +
-//                    "import model.cards.cardfeaturesenums.SpellOrTrap;\n" +
-//                    "import model.cards.cardfeaturesenums.SpellOrTrapAttribute;\n" +
-//                    "import model.cards.cardfeaturesenums.Status;\n" +
+//                    "import yugioh.server.model.cards.cardfeaturesenums.SpellOrTrap;\n" +
+//                    "import yugioh.server.model.cards.cardfeaturesenums.SpellOrTrapAttribute;\n" +
+//                    "import yugioh.server.model.cards.cardfeaturesenums.Status;\n" +
 //                    "\n" +
 //                    "public class " + className +" {\n" +
 //                    "\n" +
@@ -110,12 +110,12 @@ public class JustForScore {
 //            String className = monsterCardsDetails.getName().trim()
 //                    .replaceAll(" ","").replaceAll("-", "")
 //                    .replaceAll(",","").replaceAll("'", "");
-//            String fileContent = "package model.cards.monsters;\n" +
+//            String fileContent = "package yugioh.server.model.cards.monsters;\n" +
 //                    "\n" +
-//                    "import model.cards.Monster;\n" +
-//                    "import model.cards.cardfeaturesenums.CardType;\n" +
-//                    "import model.cards.cardfeaturesenums.MonsterAttribute;\n" +
-//                    "import model.cards.cardfeaturesenums.MonsterType;\n" +
+//                    "import yugioh.server.model.cards.Monster;\n" +
+//                    "import yugioh.server.model.cards.cardfeaturesenums.CardType;\n" +
+//                    "import yugioh.server.model.cards.cardfeaturesenums.MonsterAttribute;\n" +
+//                    "import yugioh.server.model.cards.cardfeaturesenums.MonsterType;\n" +
 //                    "\n" +
 //                    "public class " + className + " extends Monster {\n" +
 //                    "\n" +
@@ -136,12 +136,12 @@ public class JustForScore {
 //            String className = trapAndSpellCardDetails.getName().trim()
 //                    .replaceAll(" ", "").replaceAll("-", "")
 //                    .replaceAll(",", "").replaceAll("'", "");
-//            String fileContent = "package model.cards.trapandspells;\n" +
+//            String fileContent = "package yugioh.server.model.cards.trapandspells;\n" +
 //                    "\n" +
-//                    "import model.cards.SpellAndTrap;\n" +
-//                    "import model.cards.cardfeaturesenums.SpellOrTrap;\n" +
-//                    "import model.cards.cardfeaturesenums.SpellOrTrapAttribute;\n" +
-//                    "import model.cards.cardfeaturesenums.Status;\n" +
+//                    "import yugioh.server.model.cards.SpellAndTrap;\n" +
+//                    "import yugioh.server.model.cards.cardfeaturesenums.SpellOrTrap;\n" +
+//                    "import yugioh.server.model.cards.cardfeaturesenums.SpellOrTrapAttribute;\n" +
+//                    "import yugioh.server.model.cards.cardfeaturesenums.Status;\n" +
 //                    "\n" +
 //                    "public class " + className + " extends SpellAndTrap {\n" +
 //                    "    \n" +

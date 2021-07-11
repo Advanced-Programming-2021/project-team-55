@@ -1,13 +1,16 @@
-package controller.menucontroller;
+package yugioh.server.controller.menucontroller;
 
 
-import controller.DataBaseController;
-import model.exceptions.MenuException;
-import model.User;
-import view.LoggerMessage;
-import view.Menus.Menu;
-import view.Menus.MenuType;
-import view.Responses;
+import yugioh.server.controller.DataBaseController;
+import yugioh.server.model.exceptions.MenuException;
+import yugioh.server.model.User;
+import yugioh.server.view.LoggerMessage;
+import yugioh.server.view.Menus.Menu;
+import yugioh.server.view.Menus.MenuType;
+import yugioh.server.view.Responses;
+import yugioh.server.view.ViewInterface;
+
+import java.util.UUID;
 
 public class LoginMenuController extends MenuController {
 
@@ -24,7 +27,7 @@ public class LoginMenuController extends MenuController {
         return loginMenuController;
     }
 
-    public void loginUser(String username, String password) throws MenuException {
+    public String loginUser(String username, String password) throws MenuException {
         User user = User.getUserByUsername(username);
         if (user == null || !user.getPassword().equals(password)) {
             throw new MenuException(Responses.USERNAME_AND_PASSWORD_DIDNT_MATCH.response);
@@ -32,6 +35,9 @@ public class LoginMenuController extends MenuController {
             Menu.currentMenu = MenuType.MAIN;
             User.setLoggedInUser(user);
         }
+        String token = UUID.randomUUID().toString();
+        User.getLoggedInUsers().put(token, user);
+        return "success " + token;
     }
 
     public void createUser(String username, String password, String nickname) throws MenuException {

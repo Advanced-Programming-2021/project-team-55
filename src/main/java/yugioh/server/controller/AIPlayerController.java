@@ -1,11 +1,11 @@
-package controller;
+package yugioh.server.controller;
 
-import controller.gamephasescontrollers.GameController;
-import model.CoinDice;
-import model.board.CardStatus;
-import model.board.Cell;
-import model.cards.Monster;
-import view.gamephases.Duel;
+import yugioh.server.controller.gamephasescontrollers.GameController;
+import yugioh.server.model.CoinDice;
+import yugioh.server.model.board.CardStatus;
+import yugioh.server.model.board.Cell;
+import yugioh.server.model.cards.Monster;
+import yugioh.server.view.gamephases.Duel;
 
 import java.util.ArrayList;
 import java.util.Collections;

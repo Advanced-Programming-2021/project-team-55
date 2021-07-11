@@ -1,6 +1,6 @@
-package controller.menucontroller;
+package yugioh.server.controller.menucontroller;
 
-import model.exceptions.MenuException;
+import yugioh.server.model.exceptions.MenuException;
 
 abstract public class MenuController {
 

@@ -1,17 +1,18 @@
-package controller;
+package yugioh.server.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import controller.menucontroller.MenuController;
-import model.exceptions.MenuException;
-import model.User;
-import model.cards.Card;
+import yugioh.server.controller.menucontroller.MenuController;
+import yugioh.server.model.board.CardStatus;
+import yugioh.server.model.exceptions.MenuException;
+import yugioh.server.model.User;
+import yugioh.server.model.cards.Card;
 
-import model.cards.monsters.*;
-import model.cards.trapandspells.*;
-import view.Menus.Menu;
-import view.Menus.MenuType;
-import view.Responses;
+import yugioh.server.model.cards.monsters.*;
+import yugioh.server.model.cards.trapandspells.*;
+import yugioh.server.view.Menus.Menu;
+import yugioh.server.view.Menus.MenuType;
+import yugioh.server.view.Responses;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -91,7 +92,7 @@ public class DataBaseController extends MenuController {
         Card Haniwa = new Haniwa();
         Card ManEaterBug = new ManEaterBug();
         Card GateGuardian = new GateGuardian();
-        Card Scanner = new model.cards.monsters.Scanner();
+        Card Scanner = new yugioh.server.model.cards.monsters.Scanner();
         Card Bitron = new Bitron();
         Card Marshmallon = new Marshmallon();
         Card BeastKingBarbaros = new BeastKingBarbaros();

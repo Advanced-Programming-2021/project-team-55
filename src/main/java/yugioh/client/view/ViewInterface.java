@@ -4,6 +4,7 @@ import yugioh.client.controller.AIPlayerController;
 import yugioh.client.view.gamephases.Duel;
 import yugioh.client.view.gamephases.GameResponses;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -26,27 +27,33 @@ public class ViewInterface {
         return sortFields(command);
     }
 
-    public static void showResult(String result) {
-        if (!result.equals("")) {
-            AIPlayerController.setLastResponse(result);
-            if (result.startsWith("Error: ")) {
-                try {
-                    if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
-                        return;
-                    }
-                } catch (Exception ignored) {
-                }
-//                new PopUpWindow(result, true, new Stage());
-                System.out.println(ConsoleColors.RED + result.replaceAll("Error: ", "") + ConsoleColors.RESET);
-            } else {
-//                new PopUpWindow(result, false, new Stage());
-                if (Responses.responseExists(result) || GameResponses.responseExists(result)) {
-                    System.out.println(ConsoleColors.GREEN + result + ConsoleColors.RESET);
-                } else {
-                    System.out.println(result);
-                }
-            }
-        }
+    public static String showResult(String result) {
+//        if (!result.equals("")) {
+//            AIPlayerController.setLastResponse(result);
+//            try {
+//                NetAdapter.sendRequest(result);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            if (result.startsWith("Error: ")) {
+//                try {
+//                    if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
+//                        return;
+//                    }
+//                } catch (Exception ignored) {
+//                }
+////                new PopUpWindow(result, true, new Stage());
+//                System.out.println(ConsoleColors.RED + result.replaceAll("Error: ", "") + ConsoleColors.RESET);
+//            } else {
+////                new PopUpWindow(result, false, new Stage());
+//                if (Responses.responseExists(result) || GameResponses.responseExists(result)) {
+//                    System.out.println(ConsoleColors.GREEN + result + ConsoleColors.RESET);
+//                } else {
+//                    System.out.println(result);
+//                }
+//            }
+//        }
+        return NetAdapter.sendRequest(result);
     }
 
     public static Matcher getCommandMatcher(String input, String regex) {

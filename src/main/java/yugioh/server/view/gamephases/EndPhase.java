@@ -1,7 +1,7 @@
-package view.gamephases;
+package yugioh.server.view.gamephases;
 
-import controller.gamephasescontrollers.EndPhaseController;
-import view.ViewInterface;
+import yugioh.server.controller.gamephasescontrollers.EndPhaseController;
+import yugioh.server.view.ViewInterface;
 
 public class EndPhase extends Duel {
 

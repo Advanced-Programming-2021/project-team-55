@@ -1,6 +1,6 @@
-package model.cards;
+package yugioh.server.model.cards;
 
-import model.User;
+import yugioh.server.model.User;
 
 import java.util.ArrayList;
 

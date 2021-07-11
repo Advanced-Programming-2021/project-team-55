@@ -1,6 +1,6 @@
-package controller.gamephasescontrollers;
+package yugioh.server.controller.gamephasescontrollers;
 
-import model.cards.monsters.Scanner;
+import yugioh.server.model.cards.monsters.Scanner;
 
 public class StandByPhaseController {
 
