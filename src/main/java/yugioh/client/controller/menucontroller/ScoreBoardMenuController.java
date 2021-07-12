@@ -8,6 +8,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import yugioh.client.controller.DataBaseController;
+import yugioh.client.model.ScoreBoardItem;
 import yugioh.client.model.TableItem;
 import yugioh.client.model.User;
 import yugioh.client.view.SoundPlayable;
@@ -51,9 +53,10 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         scoreBoardMenuBackground.setMediaPlayer(mediaPlayer);
         initializeScoreBoard();
 
-//        ArrayList<User> users = User.getAllUsers();//todo
-        ArrayList<User> users = null;
-        ArrayList<TableItem> tableItems = makeTableItemsFromUsers(users);
+        String scoreboardItemsSting = ViewInterface.showResult("scoreboard show");
+        System.out.println(scoreboardItemsSting);
+        ScoreBoardItem[] scoreBoardItems = DataBaseController.getObjectByString(scoreboardItemsSting);
+        ArrayList<TableItem> tableItems = makeTableItemsFromUsers(scoreBoardItems);
         sortUsers(tableItems);
 
         int toBeSelected = 0;
@@ -63,7 +66,6 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
             counter++;
             if (counter > 10) break;
             if (tableItem.getUsername().equals(User.loggedInUser.getUsername())) {
-                //System.out.println(i);
                 toBeSelected = i;
             }
             scoreBoard.getStyleClass().add("simpleText");
@@ -75,11 +77,11 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         scoreBoard.getFocusModel().focus(toBeSelected);
     }
 
-    private ArrayList<TableItem> makeTableItemsFromUsers(ArrayList<User> users) {
+    private ArrayList<TableItem> makeTableItemsFromUsers(ScoreBoardItem[] scoreBoardItems) {
         ArrayList<TableItem> tableItems = new ArrayList<>();
-        for (int i = 0; i < users.size(); i++) {
-            User user = users.get(i);
-            TableItem tableItem = new TableItem(i + 1, user.getNickname(), user.getScore());
+        for (int i = 0; i < scoreBoardItems.length; i++) {
+            ScoreBoardItem scoreBoardItem = scoreBoardItems[i];
+            TableItem tableItem = new TableItem(i + 1, scoreBoardItem.getNickname(), scoreBoardItem.getScore());
             tableItems.add(tableItem);
         }
         return tableItems;

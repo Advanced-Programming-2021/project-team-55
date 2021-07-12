@@ -14,7 +14,6 @@ import yugioh.client.view.menus.RivalSelectionMenu;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 

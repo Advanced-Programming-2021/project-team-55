@@ -15,7 +15,6 @@ import javafx.scene.media.MediaView;
 import yugioh.client.controller.DataBaseController;
 import yugioh.client.controller.Utilities;
 import yugioh.client.model.User;
-import yugioh.client.model.exceptions.MenuException;
 import yugioh.client.view.Responses;
 import yugioh.client.view.SoundPlayable;
 import yugioh.client.view.ViewInterface;

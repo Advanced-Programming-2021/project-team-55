@@ -12,10 +12,7 @@ import yugioh.client.model.User;
 import yugioh.client.view.NetAdapter;
 import yugioh.client.view.SoundPlayable;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
