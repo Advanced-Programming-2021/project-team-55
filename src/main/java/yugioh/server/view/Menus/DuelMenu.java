@@ -38,13 +38,6 @@ public class DuelMenu extends Menu {
             } catch (MenuException e) {
                 response = e.toString();
             }
-        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
-            Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
-            try {
-                duelMenuController.enterMenu(matcher.group(1));
-            } catch (MenuException e) {
-                response = e.toString();
-            }
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             duelMenuController.exitMenu();
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {

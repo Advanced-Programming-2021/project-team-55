@@ -35,13 +35,6 @@ public class ShopMenu extends Menu {
             }
         } else if (command.matches(Regexes.SHOW_SHOP.regex)) {
             showAllCards(shopMenuController.getAllCards());
-        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
-            Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
-            try {
-                shopMenuController.enterMenu(matcher.group(1));
-            } catch (MenuException e) {
-                response = e.toString();
-            }
         } else if (command.matches(Regexes.INCREASE_MONEY.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.INCREASE_MONEY.regex);
             cheatController.increaseMoney(Integer.parseInt(matcher.group(1)), User.loggedInUser);

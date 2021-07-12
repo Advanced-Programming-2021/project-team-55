@@ -35,13 +35,6 @@ public class LoginMenu extends Menu {
             } catch (MenuException e) {
                 response = e.toString();
             }
-        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
-            try {
-                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
-                loginMenuController.enterMenu(matcher.group(1));
-            } catch (MenuException e) {
-                response = e.toString();
-            }
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             loginMenuController.exitMenu();
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {

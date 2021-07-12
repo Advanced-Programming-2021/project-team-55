@@ -37,13 +37,6 @@ public class ProfileMenu extends Menu {
             } catch (MenuException e) {
                 response = e.toString();
             }
-        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
-            try {
-                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
-                profileMenuController.enterMenu(matcher.group(1));
-            } catch (MenuException e) {
-                response = e.toString();
-            }
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             profileMenuController.exitMenu();
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {
