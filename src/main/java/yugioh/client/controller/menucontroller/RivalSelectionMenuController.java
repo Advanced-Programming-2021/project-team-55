@@ -47,11 +47,11 @@ public class RivalSelectionMenuController extends MenuController implements Init
         oneRound.setSelected(false);
         threeRounds.setSelected(true);
         RivalSelectionMenu.setRounds(3);
-        ArrayList<User> allUsers = User.getAllUsers();
-        for (User user : allUsers) {
-            if (User.loggedInUser == user) continue;
-            rivals.getItems().add(user);
-        }
+//        ArrayList<User> allUsers = User.getAllUsers();//todo
+//        for (User user : allUsers) {
+//            if (User.loggedInUser == user) continue;
+//            rivals.getItems().add(user);
+//        }
     }
 
     public void cancel() throws Exception {

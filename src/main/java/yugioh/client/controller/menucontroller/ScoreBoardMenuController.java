@@ -33,9 +33,9 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         return scoreBoardMenuController;
     }
 
-    public LinkedHashMap<Integer, HashMap<Integer, String>> getScoreBoard() {
-        return User.getScoreBoardUsers();
-    }
+//    public LinkedHashMap<Integer, HashMap<Integer, String>> getScoreBoard() {
+//        return User.getScoreBoardUsers();
+//    }
 
     public void backClicked() throws Exception {
         ViewInterface.showResult("menu exit");
@@ -51,7 +51,8 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         scoreBoardMenuBackground.setMediaPlayer(mediaPlayer);
         initializeScoreBoard();
 
-        ArrayList<User> users = User.getAllUsers();
+//        ArrayList<User> users = User.getAllUsers();//todo
+        ArrayList<User> users = null;
         ArrayList<TableItem> tableItems = makeTableItemsFromUsers(users);
         sortUsers(tableItems);
 
