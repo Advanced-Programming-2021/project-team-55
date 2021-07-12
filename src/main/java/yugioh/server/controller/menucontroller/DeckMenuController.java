@@ -1,5 +1,6 @@
 package yugioh.server.controller.menucontroller;
 
+import yugioh.server.model.UserHolder;
 import yugioh.server.model.exceptions.MenuException;
 import yugioh.server.model.User;
 import yugioh.server.model.cards.Card;
@@ -29,40 +30,40 @@ public class DeckMenuController extends MenuController {
         }
     }
 
-    public void createDeck(String deckName) throws MenuException {
-        if (Deck.deckNameExists(deckName, User.loggedInUser)) {
+    public void createDeck(String deckName, UserHolder currentUser) throws MenuException {
+        if (Deck.deckNameExists(deckName, currentUser.getUser())) {
             throw new MenuException("Error: deck with name " + deckName + " already exists");
         } else {
-            User.loggedInUser.addDeck(new Deck(deckName));
+            currentUser.getUser().addDeck(new Deck(deckName));
         }
 
     }
 
-    public void deleteDeck(String deckName) throws MenuException {
-        Deck deck = User.loggedInUser.getDeckByName(deckName);
+    public void deleteDeck(String deckName, UserHolder currentUser) throws MenuException {
+        Deck deck = currentUser.getUser().getDeckByName(deckName);
         if (deck == null) {
             throw new MenuException("Error: deck with name " + deckName + " does not exist");
         } else {
-            User.loggedInUser.removeDeck(deck);
-            User.loggedInUser.addCardsToInventory(deck.getMainDeck());
-            User.loggedInUser.addCardsToInventory(deck.getSideDeck());
+            currentUser.getUser().removeDeck(deck);
+            currentUser.getUser().addCardsToInventory(deck.getMainDeck());
+            currentUser.getUser().addCardsToInventory(deck.getSideDeck());
         }
     }
 
-    public void activeDeck(String deckName) throws MenuException {
-        Deck deck = User.loggedInUser.getDeckByName(deckName);
+    public void activeDeck(String deckName, UserHolder currentUser) throws MenuException {
+        Deck deck = currentUser.getUser().getDeckByName(deckName);
         if (deck == null) {
             throw new MenuException("Error: deck with name " + deckName + " does not exist");
         } else {
-            User.loggedInUser.setActiveDeck(deck);
+            currentUser.getUser().setActiveDeck(deck);
         }
 
     }
 
-    public void addCardToDeck(String cardName, String deckName, boolean isSide) throws MenuException {
+    public void addCardToDeck(String cardName, String deckName, boolean isSide, UserHolder currentUser) throws MenuException {
         Card card = Card.getCardByName(cardName);
-        Deck deck = User.loggedInUser.getDeckByName(deckName);
-        if (!User.loggedInUser.cardExistsInInventory(cardName)) {
+        Deck deck = currentUser.getUser().getDeckByName(deckName);
+        if (!currentUser.getUser().cardExistsInInventory(cardName)) {
             throw new MenuException("Error: card with name " + cardName + " does not exist");
         } else if (deck == null) {
             throw new MenuException("Error: deck with name " + deckName + " does not exist");
@@ -78,7 +79,7 @@ public class DeckMenuController extends MenuController {
             throw new MenuException("Error: card " + cardName +
                     " frequency is limited by one and there is already a card with this name in deck " + deckName);
         } else {
-            User.loggedInUser.removeCardFromInventory(card);
+            currentUser.getUser().removeCardFromInventory(card);
             if (isSide) {
                 deck.addCardToSideDeck(card);
             } else {
@@ -87,8 +88,8 @@ public class DeckMenuController extends MenuController {
         }
     }
 
-    public void removeCardFromDeck(String cardName, String deckName, boolean isSide) throws MenuException {
-        Deck deck = User.loggedInUser.getDeckByName(deckName);
+    public void removeCardFromDeck(String cardName, String deckName, boolean isSide, UserHolder currentUser) throws MenuException {
+        Deck deck = currentUser.getUser().getDeckByName(deckName);
         if (deck == null) {
             throw new MenuException("Error: deck with name " + deckName + " does not exist");
         } else if (isSide && !deck.cardExistsInSideDeck(cardName)) {
@@ -104,9 +105,9 @@ public class DeckMenuController extends MenuController {
         }
     }
 
-    public ArrayList<Deck> getAllDecks() {
-        ArrayList<Deck> decksToShow = User.loggedInUser.getDecks();
-        Deck activeDeck = User.loggedInUser.getActiveDeck();
+    public ArrayList<Deck> getAllDecks(UserHolder currentUser) {
+        ArrayList<Deck> decksToShow = currentUser.getUser().getDecks();
+        Deck activeDeck = currentUser.getUser().getActiveDeck();
         boolean activeDeckRemoved = false;
         if (activeDeck != null) {
             decksToShow.remove(activeDeck);
@@ -124,8 +125,8 @@ public class DeckMenuController extends MenuController {
         return decksToShow;
     }
 
-    public String getADeck(String deckName, boolean isSide) throws MenuException {
-        for (Deck deck : User.loggedInUser.getDecks()) {
+    public String getADeck(String deckName, boolean isSide, UserHolder currentUser) throws MenuException {
+        for (Deck deck : currentUser.getUser().getDecks()) {
             if (deck.getName().equals(deckName)) {
                 String deckInfo = "Deck: " + deckName + "\n";
                 if (isSide) {
@@ -157,8 +158,8 @@ public class DeckMenuController extends MenuController {
         throw new MenuException("Error: deck with name " + deckName + " does not exist");
     }
 
-    public ArrayList<Card> getCards() {
-        return Card.sortCards(User.loggedInUser.getCardsInventory());
+    public ArrayList<Card> getCards(UserHolder currentUser) {
+        return Card.sortCards(currentUser.getUser().getCardsInventory());
     }
 
     @Override

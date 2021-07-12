@@ -1,6 +1,7 @@
 package yugioh.server.view.Menus;
 
 import yugioh.server.controller.menucontroller.DeckMenuController;
+import yugioh.server.model.UserHolder;
 import yugioh.server.model.cards.Card;
 import yugioh.server.model.cards.Deck;
 import yugioh.server.model.exceptions.MenuException;
@@ -16,17 +17,17 @@ public class DeckMenu extends Menu {
 
     @Override
     protected void execute() {
-        String response = processCommand(ViewInterface.getInput());
-        ViewInterface.showResult(response);
+//        String response = processCommand(ViewInterface.getInput());
+//        ViewInterface.showResult(response);
     }
 
     @Override
-    protected String processCommand(String command) {
+    protected String processCommand(String command, UserHolder currentUser) {
         String response = "";
         if (command.matches(Regexes.CREATE_DECK.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.CREATE_DECK.regex);
             try {
-                deckMenuController.createDeck(matcher.group(1));
+                deckMenuController.createDeck(matcher.group(1), currentUser);
                 response = Responses.DECK_CREATED_SUCCESSFULLY.response;
             } catch (MenuException e) {
                 response = e.toString();
@@ -34,7 +35,7 @@ public class DeckMenu extends Menu {
         } else if (command.matches(Regexes.DELETE_DECK.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.DELETE_DECK.regex);
             try {
-                deckMenuController.deleteDeck(matcher.group(1));
+                deckMenuController.deleteDeck(matcher.group(1), currentUser);
                 response = Responses.DECK_DELETED_SUCCESSFULLY.response;
             } catch (MenuException e) {
                 response = e.toString();
@@ -42,7 +43,7 @@ public class DeckMenu extends Menu {
         } else if (command.matches(Regexes.SET_DECK_ACTIVE.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.SET_DECK_ACTIVE.regex);
             try {
-                deckMenuController.activeDeck(matcher.group(1));
+                deckMenuController.activeDeck(matcher.group(1), currentUser);
                 response = Responses.DECK_ACTIVATED_SUCCESSFULLY.response;
             } catch (MenuException e) {
                 response = e.toString();
@@ -51,7 +52,7 @@ public class DeckMenu extends Menu {
         } else if (command.matches(Regexes.ADD_CARD_TO_DECK.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ADD_CARD_TO_DECK.regex);
             try {
-                deckMenuController.addCardToDeck(matcher.group(1), matcher.group(2), matcher.group(3) != null);
+                deckMenuController.addCardToDeck(matcher.group(1), matcher.group(2), matcher.group(3) != null, currentUser);
                 response = Responses.CARD_ADDED_TO_DECK_SUCCESSFULLY.response;
             } catch (MenuException e) {
                 response = e.toString();
@@ -59,22 +60,22 @@ public class DeckMenu extends Menu {
         } else if (command.matches(Regexes.REMOVE_CARD_FROM_CARD.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.REMOVE_CARD_FROM_CARD.regex);
             try {
-                deckMenuController.removeCardFromDeck(matcher.group(1), matcher.group(2), matcher.group(3) != null);
+                deckMenuController.removeCardFromDeck(matcher.group(1), matcher.group(2), matcher.group(3) != null, currentUser);
                 response = Responses.CARD_REMOVED_FROM_DECK_SUCCESSFULLY.response;
             } catch (MenuException e) {
                 response = e.toString();
             }
         } else if (command.matches(Regexes.SHOW_ALL_DECKS.regex)) {
-            showAllDecks(deckMenuController.getAllDecks());
+            showAllDecks(deckMenuController.getAllDecks(currentUser));
         } else if (command.matches(Regexes.SHOW_DECK.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.SHOW_DECK.regex);
             try {
-                response = deckMenuController.getADeck(matcher.group(1), matcher.group(2) != null);
+                response = deckMenuController.getADeck(matcher.group(1), matcher.group(2) != null, currentUser);
             } catch (MenuException e) {
                 response = e.toString();
             }
         } else if (command.matches(Regexes.SHOW_DECK_CARDS.regex)) {
-            showCards(deckMenuController.getCards());
+            showCards(deckMenuController.getCards(currentUser));
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             deckMenuController.exitMenu();
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {

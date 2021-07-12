@@ -97,20 +97,26 @@ public class DataBaseController extends MenuController {
         writer.close();
     }
 
-    public static void usersDataBaseInitialization() throws FileNotFoundException {
+//    public static void usersDataBaseInitialization() throws FileNotFoundException {
+//        GsonBuilder builder = new GsonBuilder();
+//        Gson gson = builder.create();
+//        File directoryPath = new File("src\\resources\\users");
+//        File[] filesList = directoryPath.listFiles();
+//        ArrayList<User> dataBaseUsers = new ArrayList<>();
+//        for (File file : filesList) {
+//            BufferedReader bufferedReader = new BufferedReader(
+//                    new FileReader(file.getPath())
+//            );
+//            User user = gson.fromJson(bufferedReader, User.class);
+//            dataBaseUsers.add(user);
+//        }
+//        User.setAllUsers(dataBaseUsers);
+//    }
+
+    public static User getUserObjectByString(String jsonUser) {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        File directoryPath = new File("src\\resources\\users");
-        File[] filesList = directoryPath.listFiles();
-        ArrayList<User> dataBaseUsers = new ArrayList<>();
-        for (File file : filesList) {
-            BufferedReader bufferedReader = new BufferedReader(
-                    new FileReader(file.getPath())
-            );
-            User user = gson.fromJson(bufferedReader, User.class);
-            dataBaseUsers.add(user);
-        }
-        User.setAllUsers(dataBaseUsers);
+        return gson.fromJson(jsonUser, User.class);
     }
 
     public static void cardsDataBaseInitialization() throws FileNotFoundException {

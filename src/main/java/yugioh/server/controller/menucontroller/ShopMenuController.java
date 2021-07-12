@@ -1,5 +1,6 @@
 package yugioh.server.controller.menucontroller;
 
+import yugioh.server.model.UserHolder;
 import yugioh.server.model.exceptions.MenuException;
 import yugioh.server.model.User;
 import yugioh.server.model.cards.Card;
@@ -21,17 +22,17 @@ public class ShopMenuController extends MenuController {
         return shopMenuController;
     }
 
-    public void buyCard(String cardName) throws MenuException {
+    public void buyCard(String cardName, UserHolder userHolder) throws MenuException {
         Card card = Card.getCardByName(cardName);
         if (card == null) {
             throw new MenuException(Responses.NO_CARD_EXISTS.response);
-        } else if (User.loggedInUser.getMoney() < card.getPrice()) {
+        } else if (userHolder.getUser().getMoney() < card.getPrice()) {
             throw new MenuException(Responses.NOT_ENOUGH_MONEY.response);
         } else {
-            User.loggedInUser.changeMoney(-card.getPrice());
+            userHolder.getUser().changeMoney(-card.getPrice());
             ArrayList<Card> cardsToAdd = new ArrayList<>();
             cardsToAdd.add(card);
-            User.loggedInUser.addCardsToInventory(cardsToAdd);
+            userHolder.getUser().addCardsToInventory(cardsToAdd);
         }
     }
 

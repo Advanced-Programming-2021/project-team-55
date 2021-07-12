@@ -47,11 +47,11 @@ public class ProfileMenuController extends MenuController implements Initializab
     }
 
     public void changeNickname(String nickname) throws MenuException {
-        if (User.nicknameExists(nickname)) {
-            throw new MenuException("Error: user with nickname " + nickname + " already exists");
-        } else {
-            User.loggedInUser.setNickname(nickname);
-        }
+//        if (User.nicknameExists(nickname)) {
+//            throw new MenuException("Error: user with nickname " + nickname + " already exists");
+//        } else {
+//            User.loggedInUser.setNickname(nickname);
+//        }
     }
 
     public void changePassword(String currentPassword, String newPassword) throws MenuException {

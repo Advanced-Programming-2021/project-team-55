@@ -10,10 +10,9 @@ import java.util.*;
 
 public class User {
 
-    public static User loggedInUser;
     private static ArrayList<User> allUsers;
 
-    private static HashMap<String, User> loggedInUsers = new HashMap<>();
+    private static ArrayList<UserHolder> loggedInUsers = new ArrayList<>();
 
     static {
         allUsers = new ArrayList<>();
@@ -73,21 +72,14 @@ public class User {
         return false;
     }
 
-    public static void setLoggedInUser(User user) {
-        loggedInUser = user;
-    }
-
     public static LinkedHashMap<Integer, HashMap<Integer, String>> getScoreBoardUsers() {
-        Collections.sort(allUsers, new Comparator<User>() {
-            @Override
-            public int compare(User user1, User user2) {
-                Integer score1 = user1.score;
-                Integer score2 = user2.score;
-                if (score1.equals(score2)) {
-                    return user1.nickname.compareTo(user2.nickname);
-                }
-                return score2.compareTo(score1);
+        Collections.sort(allUsers, (user1, user2) -> {
+            Integer score1 = user1.score;
+            Integer score2 = user2.score;
+            if (score1.equals(score2)) {
+                return user1.nickname.compareTo(user2.nickname);
             }
+            return score2.compareTo(score1);
         });
         LinkedHashMap<Integer, HashMap<Integer, String>> scoreBoard = new LinkedHashMap<>();
         int rank = 1;
@@ -312,11 +304,7 @@ public class User {
         return "- " + nickname + ": " + score;
     }
 
-    public static User getLoggedInUser() {
-        return loggedInUser;
-    }
-
-    public static HashMap<String, User> getLoggedInUsers() {
+    public static ArrayList<UserHolder> getLoggedInUsers() {
         return loggedInUsers;
     }
 

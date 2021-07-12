@@ -3,14 +3,13 @@ package yugioh.server.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import yugioh.server.controller.menucontroller.MenuController;
-import yugioh.server.model.cards.Monster;
-import yugioh.server.model.cards.SpellAndTrap;
-import yugioh.server.model.exceptions.MenuException;
 import yugioh.server.model.User;
 import yugioh.server.model.cards.Card;
-
+import yugioh.server.model.cards.Monster;
+import yugioh.server.model.cards.SpellAndTrap;
 import yugioh.server.model.cards.monsters.*;
 import yugioh.server.model.cards.trapandspells.*;
+import yugioh.server.model.exceptions.MenuException;
 import yugioh.server.view.Menus.Menu;
 import yugioh.server.view.Menus.MenuType;
 import yugioh.server.view.Responses;
@@ -40,6 +39,12 @@ public class DataBaseController extends MenuController {
 
     public static void saveUserInfo(User user) throws IOException {
         writeJSON(user, "src\\resources\\users\\" + user.getUsername() + ".json");
+    }
+
+    public static String getUserJson(User user) {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        return gson.toJson(user);
     }
 
     public static void saveCardInfo(Card card) throws IOException {
@@ -79,12 +84,24 @@ public class DataBaseController extends MenuController {
         User.setAllUsers(dataBaseUsers);
     }
 
-    public static void cardsDataBaseInitialization() {
+    public static void cardsDataBaseInitialization() throws FileNotFoundException {
         initializeMonsterCards();
         initializeMagicCards();
     }
 
-    private static void initializeMonsterCards() {
+    private static void initializeMonsterCards() throws FileNotFoundException {
+        File cardsFolder = new File("src\\resources\\cards\\Monsters\\Customs");
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        for (File file : cardsFolder.listFiles()) {
+            if (file.getPath().endsWith(".json")) {
+                BufferedReader bufferedReader = new BufferedReader(
+                        new FileReader(file.getPath())
+                );
+                yugioh.client.model.cards.Monster monster = gson.fromJson(bufferedReader, yugioh.client.model.cards.Monster.class);
+                yugioh.client.model.cards.Card.allCards.add(monster);
+            }
+        }
         Card BattleOX = new BattleOX();
         Card AxeRaider = new AxeRaider();
         Card YomiShip = new YomiShip();
@@ -129,6 +146,18 @@ public class DataBaseController extends MenuController {
     }
 
     private static void initializeMagicCards() {
+//        File cardsFolder=new File("src\\resources\\cards\\SpellAndTraps");
+//        GsonBuilder builder = new GsonBuilder();
+//        Gson gson = builder.create();
+//        for(File file:cardsFolder.listFiles()){
+//            if(file.getPath().endsWith(".json")){
+//                BufferedReader bufferedReader = new BufferedReader(
+//                        new FileReader(file.getPath())
+//                );
+//                SpellAndTrap spellAndTrap=gson.fromJson(bufferedReader,SpellAndTrap.class);
+//                Card.allCards.add(spellAndTrap);
+//            }
+//        }
         Card TrapHole = new TrapHole();
         Card MirrorForce = new MirrorForce();
         Card MagicCylinder = new MagicCylinder();

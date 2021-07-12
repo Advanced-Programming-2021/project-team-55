@@ -3,6 +3,7 @@ package yugioh.server.view.Menus;
 import yugioh.server.controller.CheatController;
 import yugioh.server.controller.menucontroller.ShopMenuController;
 import yugioh.server.model.User;
+import yugioh.server.model.UserHolder;
 import yugioh.server.model.cards.Card;
 import yugioh.server.model.exceptions.MenuException;
 import yugioh.server.view.Regexes;
@@ -18,17 +19,17 @@ public class ShopMenu extends Menu {
 
     @Override
     protected void execute() {
-        String response = processCommand(ViewInterface.getInput());
-        ViewInterface.showResult(response);
+//        String response = processCommand(ViewInterface.getInput());
+//        ViewInterface.showResult(response);
     }
 
     @Override
-    protected String processCommand(String command) {
+    protected String processCommand(String command, UserHolder currentUser) {
         String response = "";
         if (command.matches(Regexes.BUY_SHOP.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.BUY_SHOP.regex);
             try {
-                shopMenuController.buyCard(matcher.group(1));
+                shopMenuController.buyCard(matcher.group(1), currentUser);
                 response = Responses.CARD_BOUGHT_SUCCESSFULLY.response;
             } catch (MenuException e) {
                 response = e.toString();
@@ -37,7 +38,7 @@ public class ShopMenu extends Menu {
             showAllCards(shopMenuController.getAllCards());
         } else if (command.matches(Regexes.INCREASE_MONEY.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.INCREASE_MONEY.regex);
-            cheatController.increaseMoney(Integer.parseInt(matcher.group(1)), User.loggedInUser);
+            cheatController.increaseMoney(Integer.parseInt(matcher.group(1)), currentUser.getUser());
             response = Responses.CHEAT_ACTIVATED_MONEY_INCREASED.response;
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             shopMenuController.exitMenu();

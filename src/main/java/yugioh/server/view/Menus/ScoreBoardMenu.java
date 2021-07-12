@@ -1,6 +1,7 @@
 package yugioh.server.view.Menus;
 
 import yugioh.server.controller.menucontroller.ScoreBoardMenuController;
+import yugioh.server.model.UserHolder;
 import yugioh.server.model.exceptions.MenuException;
 import yugioh.server.view.Regexes;
 import yugioh.server.view.Responses;
@@ -16,12 +17,12 @@ public class ScoreBoardMenu extends Menu {
 
     @Override
     protected void execute() {
-        String response = processCommand(ViewInterface.getInput());
-        ViewInterface.showResult(response);
+//        String response = processCommand(ViewInterface.getInput());
+//        ViewInterface.showResult(response);
     }
 
     @Override
-    protected String processCommand(String command) {
+    protected String processCommand(String command, UserHolder currentUser) {
         String response = "";
         if (command.matches(Regexes.SHOW_SCOREBOARD.regex)) {
             showScoreBoard(scoreBoardMenuController.getScoreBoard());
