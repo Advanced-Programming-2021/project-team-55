@@ -27,7 +27,7 @@ public class ChatRoom extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        URL url=getClass().getResource("/Sample/fxml/ChatRoom.fxml");
+        URL url=getClass().getResource("/yugioh/fxml/ChatRoom.fxml");
         Parent parent= FXMLLoader.load(url);
         Scene scene=new Scene(parent);
         ChatRoom.stage=stage;
