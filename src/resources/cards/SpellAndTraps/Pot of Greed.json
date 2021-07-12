@@ -1,1 +1,1 @@
-{"type":"SPELL","attribute":"NORMAL","status":"LIMITED","isCustom":false,"name":"Pot of Greed","description":"Draw 2 cards.","price":2500,"magicType":"SPELL","cardKind":"MAGIC","image":"src/resources/yugioh/PNG/cardsImages/yugioh.server.model.cards.PotofGreed.jpg","isForbid":false}
+{"type":"SPELL","attribute":"NORMAL","status":"LIMITED","isCustom":false,"name":"Pot of Greed","description":"Draw 2 cards.","price":2500,"magicType":"SPELL","cardKind":"MAGIC","image":"src/resources/yugioh/PNG/cardsImages/PotofGreed.jpg","isForbid":false}
