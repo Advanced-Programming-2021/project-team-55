@@ -1,12 +1,15 @@
 package yugioh.server.view.Menus;
 
+import yugioh.server.controller.DataBaseController;
 import yugioh.server.controller.menucontroller.ScoreBoardMenuController;
+import yugioh.server.model.User;
 import yugioh.server.model.UserHolder;
 import yugioh.server.model.exceptions.MenuException;
 import yugioh.server.view.Regexes;
 import yugioh.server.view.Responses;
 import yugioh.server.view.ViewInterface;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
@@ -25,7 +28,7 @@ public class ScoreBoardMenu extends Menu {
     protected String processCommand(String command, UserHolder currentUser) {
         String response = "";
         if (command.matches(Regexes.SHOW_SCOREBOARD.regex)) {
-            showScoreBoard(scoreBoardMenuController.getScoreBoard());
+            response = showScoreBoard();
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             scoreBoardMenuController.exitMenu();
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {
@@ -36,12 +39,31 @@ public class ScoreBoardMenu extends Menu {
         return response;
     }
 
-    private void showScoreBoard(LinkedHashMap<Integer, HashMap<Integer, String>> scoreBoard) {
-        for (int i = 0; i < scoreBoard.size(); i++) {
-            HashMap<Integer, String> userInfo = scoreBoard.get(i);
-            for (int rank : userInfo.keySet()) {
-                System.out.println(rank + userInfo.get(rank));
-            }
+    private String showScoreBoard() {
+        ArrayList<User> users = User.getAllUsers();
+        ScoreBoardItem[] scoreBoardItems = new ScoreBoardItem[users.size()];
+        for (int i = 0; i < users.size(); i++) {
+            User user = users.get(i);
+            scoreBoardItems[i] = (new ScoreBoardItem(user.getUsername(), user.getScore()));
         }
+        return DataBaseController.getObjectJson(scoreBoardItems);
+    }
+}
+
+class ScoreBoardItem {
+    String nickname;
+    int score;
+
+    public ScoreBoardItem(String nickname, int score) {
+        this.nickname = nickname;
+        this.score = score;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public int getScore() {
+        return score;
     }
 }

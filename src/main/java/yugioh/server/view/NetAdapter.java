@@ -77,8 +77,8 @@ public class NetAdapter {
             while (true) {
                 Socket socket = serverSocket.accept();
                 new Thread(() -> {
+                    UserHolder userHolder = new UserHolder();
                     try {
-                        UserHolder userHolder = new UserHolder();
                         DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
                         DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                         allUsersOutputStreams.add(dataOutputStream);
@@ -98,6 +98,14 @@ public class NetAdapter {
                                 System.out.println(">>> " + result);
                             } catch (SocketException e) {
                                 allUsersOutputStreams.remove(dataOutputStream);
+                                if (e.getMessage().contains("Connection reset")) {
+                                    System.out.print("a client disconnected: ");
+                                    try {
+                                        System.out.println(userHolder.getUser().getUsername());
+                                    } catch (Exception ignored) {
+                                    }
+                                    return;
+                                }
                                 e.printStackTrace();
                                 break;
                             }
