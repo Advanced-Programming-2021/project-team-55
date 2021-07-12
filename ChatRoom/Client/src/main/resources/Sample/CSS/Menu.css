@@ -1,0 +1,71 @@
+
+
+{
+    -fx-base: #04091a;
+}
+
+.vboxDesign {
+    -fx-alignment: center;
+}
+
+.buttonText {
+    -fx-font-family: "Bauhaus 93";;
+    -fx-font-size: 23px;
+}
+.buttonText3 {
+    -fx-font-family: "Bauhaus 93";;
+    -fx-font-size: 33px;
+}
+.popupText {
+    -fx-font-family: "Bauhaus 93";;
+    -fx-font-size: 25px;
+}
+
+buttonSize {
+    -fx-pref-height: 60.0;
+    -fx-pref-width: 230.0;
+}
+
+.buttonText2 {
+    -fx-font-family: "Bauhaus 93";;
+    -fx-font-size: 40px;
+}
+
+.titleText {
+    -fx-font-family: "Bauhaus 93";;
+    -fx-font-size: 30px;
+}
+
+.simpleText {
+    -fx-font-family: "Bauhaus 93";;
+    -fx-font-size: 17px;
+}
+
+.mainTitleText {
+    -fx-font-family: "Bauhaus 93";;
+    -fx-font-size: 80px;
+    -fx-background-color: #ccdefc;
+}
+
+.buttonHover:hover {
+    -fx-font-size: 26px;
+    -fx-background-color: #62d9ec;
+}
+
+.buttonShape {
+    -fx-shape: "M 1000 300 L 1000 300 Q 550 250 50 300 Q 0 400 50 500 Q 500 550 1000 500 Q 1050 400 1000 300 ";
+    -fx-background-color: #0e1b77;
+}
+
+.background {
+
+}
+
+.triangle:hover {
+    -fx-fill: yellow;
+}
+
+.powerText {
+    -fx-font-family: "Rage Italic";
+    -fx-font-size: 10;
+}

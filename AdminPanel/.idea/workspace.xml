@@ -4,299 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90f71297-a315-4d56-a0e2-b9c590eb3434" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectAdminPanel.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Launcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/AdminShopMenuController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/AdminWelcomeMenuController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/DatabaseController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/cards/Card.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/cards/CardsInventory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/cards/Monster.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/cards/SpellAndTrap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/cards/cardfeaturesenums/CardType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/cards/cardfeaturesenums/EffectiveTerm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/cards/cardfeaturesenums/MonsterAttribute.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/cards/cardfeaturesenums/MonsterNames.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/cards/cardfeaturesenums/MonsterType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/cards/cardfeaturesenums/SpellOrTrap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/cards/cardfeaturesenums/SpellOrTrapAttribute.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/cards/cardfeaturesenums/SummonTypes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/cards/cardfeaturesenums/TrapAndSpellNames.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/view/AdminShopMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/view/AdminWelcomeMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Alexandrite Dragon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Axe Raider.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Baby dragon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Battle OX.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Battle warrior.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Beast King Barbaros.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Bitron.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Blue-Eyes white dragon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Command Knight.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Crab Turtle.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Crawling dragon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Curtain of the dark ones.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Dark Blade.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Dark magician.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Exploder Dragon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Feral Imp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Fireyarou.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Flame manipulator.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Gate Guardian.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Haniwa.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Herald of Creation.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Hero of the east.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Horn Imp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Leotron .json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Man-Eater Bug.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Marshmallon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Mirage Dragon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Scanner.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Silver Fang.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Skull Guardian.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Slot Machine.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Spiral Serpent.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Suijin.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Terratiger, the Empowered Warrior.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Texchanger.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/The Calculator.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/The Tricky.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Warrior Dai Grepher.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Wattaildragon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Wattkid.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/Monsters/Yomi Ship.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Advanced Ritual Art.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Black Pendant.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Call of The Haunted.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Change of Heart.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Closed Forest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Dark Hole.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Forest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Harpie's Feather Duster.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Magic Cylinder.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Magic Jamamer.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Magnum Shield.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Messenger of peace.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Mind Crush.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Mirror Force.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Monster Reborn.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Mystical space typhoon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Negate Attack.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Pot of Greed.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Raigeki.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Ring of defense.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Solemn Warning.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Spell Absorption.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Supply Squad.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Sword of dark destruction.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Swords of Revealing Light.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Terraforming.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Time Seal.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Torrential Tribute.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Trap Hole.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Twin Twisters.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Umiiruka.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/United We Stand.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Vanity's Emptiness.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Wall of Revealing Light.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/SpellAndTraps/Yami.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/cards/inventory.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/CSS/Menu.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/AdvancedRitualArt.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/AlexandriteDragon.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/AxeRaider.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/BabyDragon.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/BattleOx.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/BattleWarrior.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/BeastKingBarbaros.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/Bitron.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/BlackPendant.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/BlueEyesWhiteDragon.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/CallofTheHaunted.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/ChangeOfHeart.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/ClosedForest.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/CommandKnight.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/CrabTurtle.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/CrawlingDragon.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/CurtainOfTheDarkOnes.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/DarkBlade.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/DarkHole.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/DarkMagician.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/ExploderDragon.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/FeralImp.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/Fireyarou.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/FlameManipulator.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/Forest.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/GateGuardian.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/Haniwa.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/HarpiesFeatherDuster.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/HeraldOfCreation.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/HeroOfTheEast.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/HornImp.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/Leotron.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/MagicCylinder.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/MagicJamamer.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/MagnumShield.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/ManEaterBug.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/Marshmallon.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/MessengerOfPeace.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/MindCrush.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/MirageDragon.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/MirrorForce.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/MonsterReborn.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/MysticalSpaceTyphoon.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/NegateAttack.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/PotOfGreed.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/Raigeki.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/RingOfDefense.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/Scanner.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/SilverFang.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/SkullGuardian.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/SlotMachine.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/SolemnWarning.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/SpellAbsorption.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/SpiralSerpent.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/Suijin.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/SupplySquad.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/SwordOfDarkDestruction.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/SwordsofRevealingLight.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/Terraforming.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/TerratigertheEmpoweredWarrior.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/Texchanger.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/TheCalculator.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/TheTricky.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/TimeSeal.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/TorrentialTribute.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/TrapHole.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/TwinTwisters.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/Umiiruka.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/UnitedWeStand.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/Unknown.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/VanitysEmptiness.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/WallOfRevealingLight.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/WarriorDaiGrepher.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/Wattaildragon.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/Wattkid.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/Yami.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/YomiShip.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/parham.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/PNG/cardsImages/questionMark.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/fxml/AdminShopMenu.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Sample/fxml/AdminWelcomeMenu.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Alexandrite Dragon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Axe Raider.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Baby dragon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Battle OX.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Battle warrior.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Beast King Barbaros.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Bitron.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Blue-Eyes white dragon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Command Knight.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Crab Turtle.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Crawling dragon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Curtain of the dark ones.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Dark Blade.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Dark magician.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Exploder Dragon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Feral Imp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Fireyarou.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Flame manipulator.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Gate Guardian.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Haniwa.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Herald of Creation.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Hero of the east.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Horn Imp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Leotron .json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Man-Eater Bug.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Marshmallon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Mirage Dragon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Scanner.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Silver Fang.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Skull Guardian.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Slot Machine.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Spiral Serpent.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Suijin.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Terratiger, the Empowered Warrior.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Texchanger.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/The Calculator.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/The Tricky.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Warrior Dai Grepher.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Wattaildragon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Wattkid.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/Monsters/Yomi Ship.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Advanced Ritual Art.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Black Pendant.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Call of The Haunted.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Change of Heart.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Closed Forest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Dark Hole.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Forest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Harpie's Feather Duster.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Magic Cylinder.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Magic Jamamer.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Magnum Shield.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Messenger of peace.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Mind Crush.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Mirror Force.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Monster Reborn.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Mystical space typhoon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Negate Attack.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Pot of Greed.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Raigeki.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Ring of defense.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Solemn Warning.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Spell Absorption.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Supply Squad.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Sword of dark destruction.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Swords of Revealing Light.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Terraforming.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Time Seal.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Torrential Tribute.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Trap Hole.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Twin Twisters.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Umiiruka.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/United We Stand.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Vanity's Emptiness.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Wall of Revealing Light.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/SpellAndTraps/Yami.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Database/cards/inventory.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Launcher.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Sample/CSS/Menu.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Sample/fxml/AdminShopMenu.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Sample/fxml/AdminWelcomeMenu.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/controller/AdminShopMenuController$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/controller/AdminShopMenuController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/controller/AdminWelcomeMenuController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/controller/DatabaseController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/Card$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/Card$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/Card$3.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/Card$Kind.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/Card.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/CardsInventory.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/Monster.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/SpellAndTrap.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/cardfeaturesenums/CardType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/cardfeaturesenums/EffectiveTerm.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/cardfeaturesenums/MonsterAttribute.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/cardfeaturesenums/MonsterNames.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/cardfeaturesenums/MonsterType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/cardfeaturesenums/SpellOrTrap.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/cardfeaturesenums/SpellOrTrapAttribute.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/cardfeaturesenums/SummonTypes.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/cards/cardfeaturesenums/TrapAndSpellNames.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/view/AdminShopMenu.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/view/AdminWelcomeMenu$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/view/AdminWelcomeMenu.class" afterDir="false" />
+    <list default="true" id="90f71297-a315-4d56-a0e2-b9c590eb3434" name="Default Changelist" comment="handle admin shop">
+      <change afterPath="$PROJECT_DIR$/../ChatRoom/.idea/ChatRoom.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ChatRoom/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ChatRoom/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ChatRoom/Server/target/classes/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ChatRoom/Server/target/classes/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChatRoom/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatRoom/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChatRoom/Client/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatRoom/Client/.idea/vcs.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -326,7 +42,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/model" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ChatRoom/Client" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
   </component>
@@ -363,6 +80,14 @@
       <option name="presentableId" value="Default" />
       <updated>1625999551586</updated>
     </task>
+    <task id="LOCAL-00001" summary="handle admin shop">
+      <created>1626019094558</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1626019094558</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -377,6 +102,10 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="handle admin shop" />
+    <option name="LAST_COMMIT_MESSAGE" value="handle admin shop" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -387,7 +116,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/controller/AdminShopMenuController.java</url>
-          <line>180</line>
+          <line>176</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
