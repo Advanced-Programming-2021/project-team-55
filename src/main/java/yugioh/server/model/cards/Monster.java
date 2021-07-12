@@ -1,14 +1,12 @@
 package yugioh.server.model.cards;
 
-import yugioh.server.controller.gamephasescontrollers.GameController;
 import yugioh.server.model.board.CardStatus;
-import yugioh.server.model.board.Cell;
 import yugioh.server.model.cards.cardfeaturesenums.CardType;
 import yugioh.server.model.cards.cardfeaturesenums.MonsterAttribute;
 import yugioh.server.model.cards.cardfeaturesenums.MonsterType;
 
 
-public abstract class Monster extends yugioh.server.model.cards.Card {
+public abstract class Monster extends Card {
 
     private int atk;
     private int def;

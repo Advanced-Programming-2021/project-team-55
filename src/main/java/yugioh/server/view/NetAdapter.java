@@ -91,6 +91,8 @@ public class NetAdapter {
                                 } else {
                                     dataOutputStream.writeUTF(result);
                                 }
+                                System.out.println("--> " + input);
+                                System.out.println(">>> " + result);
                             } catch (SocketException e) {
                                 allUsersOutputStreams.remove(dataOutputStream);
                                 e.printStackTrace();
