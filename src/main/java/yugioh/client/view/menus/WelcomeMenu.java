@@ -32,21 +32,21 @@ public class WelcomeMenu extends Application {
 
     public static void run() throws Exception {
         try {
-            DataBaseController.usersDataBaseInitialization();
+//            DataBaseController.usersDataBaseInitialization();
             DataBaseController.cardsDataBaseInitialization();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Thread saveDataThread = new Thread(() -> {
+        Thread saveDataThread = new Thread(() -> {//todo
             while (true) {
-                for (User user : User.getAllUsers()) {
-                    try {
-                        DataBaseController.saveUserInfo(user);
-                    } catch (Exception e) {
-                        LoggerMessage.log("unable to save user data");
-                        e.printStackTrace();
-                    }
-                }
+//                for (User user : User.getAllUsers()) {
+//                    try {
+//                        DataBaseController.saveUserInfo(user);
+//                    } catch (Exception e) {
+//                        LoggerMessage.log("unable to save user data");
+//                        e.printStackTrace();
+//                    }
+//                }
                 try {
                     for (Card card : Card.getCards()) {
                         try {

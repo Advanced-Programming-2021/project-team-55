@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import yugioh.client.controller.DataBaseController;
 import yugioh.client.controller.Utilities;
 import yugioh.client.model.User;
 import yugioh.client.model.exceptions.MenuException;
@@ -51,13 +52,10 @@ public class LoginMenuController extends MenuController implements Initializable
     public String loginUser(String username, String password) throws Exception {
         String result = ViewInterface.showResult("user login --password " + password + " --username " + username);
         Utilities.preprocessResult(result);
-        User user = User.getUserByUsername(username);
-        User.setLoggedInUser(user);
         return result;
     }
 
-
-    public void loginClicked(MouseEvent mouseEvent) throws Exception {
+    public void loginClicked() throws Exception {
         SoundPlayable.playButtonSound("enterButton");
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -69,7 +67,8 @@ public class LoginMenuController extends MenuController implements Initializable
                 response = loginUser(username, password);
                 if (response.startsWith("success ")) {
                     Matcher matcher = ViewInterface.getCommandMatcher(response, "success (.+)");
-                    User.setToken(matcher.group(1));
+                    User user = DataBaseController.getUserObjectByString(matcher.group(1));
+                    User.setLoggedInUser(user);
                     mainMenu.execute();
                     response = Responses.LOGIN_SUCCESSFULLY.response;
                 }
@@ -126,4 +125,5 @@ public class LoginMenuController extends MenuController implements Initializable
         mediaPlayer.setCycleCount(-1);
         background.setMediaPlayer(mediaPlayer);
     }
+
 }

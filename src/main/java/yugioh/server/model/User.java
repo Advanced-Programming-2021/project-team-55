@@ -78,16 +78,13 @@ public class User {
     }
 
     public static LinkedHashMap<Integer, HashMap<Integer, String>> getScoreBoardUsers() {
-        Collections.sort(allUsers, new Comparator<User>() {
-            @Override
-            public int compare(User user1, User user2) {
-                Integer score1 = user1.score;
-                Integer score2 = user2.score;
-                if (score1.equals(score2)) {
-                    return user1.nickname.compareTo(user2.nickname);
-                }
-                return score2.compareTo(score1);
+        Collections.sort(allUsers, (user1, user2) -> {
+            Integer score1 = user1.score;
+            Integer score2 = user2.score;
+            if (score1.equals(score2)) {
+                return user1.nickname.compareTo(user2.nickname);
             }
+            return score2.compareTo(score1);
         });
         LinkedHashMap<Integer, HashMap<Integer, String>> scoreBoard = new LinkedHashMap<>();
         int rank = 1;
