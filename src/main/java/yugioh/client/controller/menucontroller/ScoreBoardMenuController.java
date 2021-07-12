@@ -54,7 +54,6 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         initializeScoreBoard();
 
         String scoreboardItemsSting = ViewInterface.showResult("scoreboard show");
-        System.out.println(scoreboardItemsSting);
         ScoreBoardItem[] scoreBoardItems = DataBaseController.getObjectByString(scoreboardItemsSting);
         ArrayList<TableItem> tableItems = makeTableItemsFromUsers(scoreBoardItems);
         sortUsers(tableItems);

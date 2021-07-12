@@ -44,7 +44,7 @@ public class ScoreBoardMenu extends Menu {
         ScoreBoardItem[] scoreBoardItems = new ScoreBoardItem[users.size()];
         for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
-            scoreBoardItems[i] = (new ScoreBoardItem(user.getNickname(), user.getScore()));
+            scoreBoardItems[i] = (new ScoreBoardItem(user.getUsername(), user.getScore()));
         }
         return DataBaseController.getObjectJson(scoreBoardItems);
     }
