@@ -126,6 +126,12 @@ public class DataBaseController extends MenuController {
         return gson.fromJson(jsonObject, ScoreBoardItem[].class);
     }
 
+    public static User[] parseAllUsers(String jsonObjects) {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        return gson.fromJson(jsonObjects, User[].class);
+    }
+
     public static void cardsDataBaseInitialization() throws FileNotFoundException {
         initializeMonsterCards();
         initializeMagicCards();

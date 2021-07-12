@@ -39,7 +39,7 @@ public class ScoreBoardMenu extends Menu {
         return response;
     }
 
-    private String showScoreBoard() {
+    private String showScoreBoard() {//todo show online users & auto refresh
         ArrayList<User> users = User.getAllUsers();
         ScoreBoardItem[] scoreBoardItems = new ScoreBoardItem[users.size()];
         for (int i = 0; i < users.size(); i++) {

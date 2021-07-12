@@ -4,11 +4,15 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.text.Text;
+import yugioh.client.controller.DataBaseController;
 import yugioh.client.model.User;
 import yugioh.client.view.SoundPlayable;
+import yugioh.client.view.ViewInterface;
 import yugioh.client.view.menus.PopUpWindow;
 import yugioh.client.view.menus.RivalSelectionMenu;
 
@@ -21,11 +25,15 @@ public class RivalSelectionMenuController extends MenuController implements Init
 
     public static RivalSelectionMenuController deckMenuController;
 
+    private static User[] awaitingUsersForOneRound;
+    private static User[] awaitingUsersForThreeRounds;
+
     public ChoiceBox<User> rivals;
     public ToggleButton threeRounds;
     public ToggleButton oneRound;
     public JFXButton start;
     public MediaView rivalSelectionMenuBackground;
+    public GridPane waitingUsersGridPane;
 
     public RivalSelectionMenuController() {
         deckMenuController = this;
@@ -46,11 +54,20 @@ public class RivalSelectionMenuController extends MenuController implements Init
         oneRound.setSelected(false);
         threeRounds.setSelected(true);
         RivalSelectionMenu.setRounds(3);
-//        ArrayList<User> allUsers = User.getAllUsers();//todo
-//        for (User user : allUsers) {
-//            if (User.loggedInUser == user) continue;
-//            rivals.getItems().add(user);
-//        }
+        awaitingUsersForOneRound = DataBaseController.parseAllUsers(ViewInterface.showResult("get awaiting users for 1 round"));
+        for (int i = 0; i < awaitingUsersForOneRound.length; i++) {
+            User user = awaitingUsersForOneRound[i];
+            waitingUsersGridPane.add(new Text("1 ROUND"), 0, i);
+            waitingUsersGridPane.add(new Text(user.getUsername()), 1, i);
+            waitingUsersGridPane.add(new Text("SCORE: " + user.getScore()), 2, i);
+        }
+        awaitingUsersForThreeRounds = DataBaseController.parseAllUsers(ViewInterface.showResult("get awaiting users for 3 rounds"));
+        for (int i = 0; i < awaitingUsersForThreeRounds.length; i++) {
+            User user = awaitingUsersForThreeRounds[i];
+            waitingUsersGridPane.add(new Text("1 ROUND"), 0, i + awaitingUsersForOneRound.length);
+            waitingUsersGridPane.add(new Text(user.getUsername()), 1, i + awaitingUsersForOneRound.length);
+            waitingUsersGridPane.add(new Text("SCORE: " + user.getScore()), 2, i + awaitingUsersForOneRound.length);
+        }
     }
 
     public void cancel() throws Exception {
