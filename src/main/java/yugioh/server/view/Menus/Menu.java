@@ -83,7 +83,9 @@ abstract public class Menu {
             result = deckMenu.processCommand(command);
         if (result.equals("Error: invalid command"))
             result = duelMenu.processCommand(command);
-
+        if(command.startsWith("chat ")){
+            result=command;
+        }
         return result;
     }
 

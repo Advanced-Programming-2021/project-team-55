@@ -50,6 +50,13 @@
                 <String fx:value="buttonHover" />
             </styleClass>
         </JFXButton>
+        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#enterChatMenuClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Chat">
+            <styleClass>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
+            </styleClass>
+        </JFXButton>
         <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#enterImportExportClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Import/Export">
             <styleClass>
                 <String fx:value="buttonText" />
