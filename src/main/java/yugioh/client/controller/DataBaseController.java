@@ -25,6 +25,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import yugioh.client.controller.menucontroller.MenuController;
+import yugioh.client.model.ScoreBoardItem;
 import yugioh.client.model.User;
 import yugioh.client.model.cards.Card;
 import yugioh.client.model.cards.Monster;
@@ -120,6 +121,12 @@ public class DataBaseController extends MenuController {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         return gson.fromJson(jsonUser, User.class);
+    }
+
+    public static ScoreBoardItem[] getObjectByString(String jsonObject) {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        return gson.fromJson(jsonObject, ScoreBoardItem[].class);
     }
 
     public static void cardsDataBaseInitialization() throws FileNotFoundException {
