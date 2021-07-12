@@ -48,6 +48,12 @@ public class DataBaseController  {
         return gson.toJson(user);
     }
 
+    public static <T> String getObjectJson(T object) {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        return gson.toJson(object);
+    }
+
 //    public static void saveCardInfo(Card card) throws IOException {
 //        //     writeJSON(card,"src\\resources\\cards\\" + card.getName() + ".json");
 //        if (card.getCardKind() == Card.Kind.MAGIC) {
@@ -62,6 +68,7 @@ public class DataBaseController  {
 //            }
 //        }
 //    }
+
 
     public static void writeFile(String fileAddress, String content) throws IOException {
         FileWriter writer = new FileWriter(fileAddress);

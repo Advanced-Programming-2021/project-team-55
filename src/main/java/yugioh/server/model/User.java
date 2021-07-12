@@ -308,4 +308,7 @@ public class User {
         return loggedInUsers;
     }
 
+    public int getScore() {
+        return score;
+    }
 }
