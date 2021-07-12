@@ -48,6 +48,24 @@ public class DuelMenu extends Menu {
             response = DataBaseController.getObjectJson(awaitingUsersForOneRound);
         } else if (command.matches("get awaiting users for 3 rounds")) {
             response = DataBaseController.getObjectJson(awaitingUsersForThreeRounds);
+        } else if (command.matches("duel --new --rounds (\\d+)")) {
+            Matcher matcher = ViewInterface.getCommandMatcher(command, "duel --new --rounds (\\d+)");
+            int rounds = Integer.parseInt(matcher.group(1));
+            if (rounds == 1) {//todo inform another player
+                if (awaitingUsersForOneRound.length > 0)
+                    return "success " + DataBaseController.getUserJson(awaitingUsersForOneRound[0]);
+                else {
+                    awaitingUsersForOneRound = new User[1];
+                    awaitingUsersForOneRound[0] = currentUser.getUser();
+                }
+            } else {
+                if (awaitingUsersForThreeRounds.length > 0)
+                    return "success " + DataBaseController.getUserJson(awaitingUsersForThreeRounds[0]);
+                else {
+                    awaitingUsersForThreeRounds = new User[1];
+                    awaitingUsersForThreeRounds[0] = currentUser.getUser();
+                }
+            }
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             duelMenuController.exitMenu();
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {
