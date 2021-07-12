@@ -135,7 +135,7 @@ public class ProfileMenuController extends MenuController implements Initializab
         });
     }
 
-    public void changeImageClicked(MouseEvent mouseEvent) throws Exception {
+    public void changeImageClicked() throws Exception {
         SoundPlayable.playButtonSound("enterButton");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select an image");
