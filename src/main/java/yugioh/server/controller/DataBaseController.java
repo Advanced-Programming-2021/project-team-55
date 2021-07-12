@@ -41,6 +41,12 @@ public class DataBaseController extends MenuController {
         writeJSON(user, "src\\resources\\users\\" + user.getUsername() + ".json");
     }
 
+    public static String getUserJson(User user) {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        return gson.toJson(user);
+    }
+
     public static void saveCardInfo(Card card) throws IOException {
         //     writeJSON(card,"src\\resources\\cards\\" + card.getName() + ".json");
         if (card.getCardKind() == Card.Kind.MAGIC) {

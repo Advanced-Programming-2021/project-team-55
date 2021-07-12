@@ -1,6 +1,7 @@
 package yugioh.server.view.Menus;
 
 import yugioh.server.controller.menucontroller.DeckMenuController;
+import yugioh.server.model.UserHolder;
 import yugioh.server.model.cards.Card;
 import yugioh.server.model.cards.Deck;
 import yugioh.server.model.exceptions.MenuException;
@@ -16,12 +17,12 @@ public class DeckMenu extends Menu {
 
     @Override
     protected void execute() {
-        String response = processCommand(ViewInterface.getInput());
-        ViewInterface.showResult(response);
+//        String response = processCommand(ViewInterface.getInput());
+//        ViewInterface.showResult(response);
     }
 
     @Override
-    protected String processCommand(String command) {
+    protected String processCommand(String command, UserHolder currentUser) {
         String response = "";
         if (command.matches(Regexes.CREATE_DECK.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.CREATE_DECK.regex);

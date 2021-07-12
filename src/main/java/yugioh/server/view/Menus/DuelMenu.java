@@ -2,6 +2,7 @@ package yugioh.server.view.Menus;
 
 import yugioh.server.controller.AIPlayerController;
 import yugioh.server.controller.menucontroller.DuelMenuController;
+import yugioh.server.model.UserHolder;
 import yugioh.server.model.exceptions.MenuException;
 import yugioh.server.view.Regexes;
 import yugioh.server.view.Responses;
@@ -17,12 +18,12 @@ public class DuelMenu extends Menu {
     @Override
     protected void execute() {
         AIPlayerController.setIsGameEnded(true);
-        String response = processCommand(ViewInterface.getInput());
-        ViewInterface.showResult(response);
+//        String response = processCommand(ViewInterface.getInput());
+//        ViewInterface.showResult(response);
     }
 
     @Override
-    protected String processCommand(String command) {
+    protected String processCommand(String command, UserHolder currentUser) {
         String response = "";
         if (command.matches(Regexes.DUEL_PLAYER.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.DUEL_PLAYER.regex);

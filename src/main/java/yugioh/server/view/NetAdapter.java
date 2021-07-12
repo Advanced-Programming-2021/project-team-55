@@ -1,6 +1,7 @@
 package yugioh.server.view;
 
 
+import yugioh.server.model.UserHolder;
 import yugioh.server.view.Menus.Menu;
 
 import java.io.DataInputStream;
@@ -76,6 +77,7 @@ public class NetAdapter {
                 Socket socket = serverSocket.accept();
                 new Thread(() -> {
                     try {
+                        UserHolder userHolder = new UserHolder();
                         DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
                         DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                         allUsersOutputStreams.add(dataOutputStream);
@@ -83,7 +85,7 @@ public class NetAdapter {
                             try {
                                 String input = dataInputStream.readUTF();
                                 ViewInterface.command = input;
-                                String result = Menu.handleCommand(input);
+                                String result = Menu.handleCommand(input, userHolder);
                                 if (result.startsWith("chat ")) {
                                     for (DataOutputStream dataOutputStreamUser : allUsersOutputStreams) {
                                         dataOutputStreamUser.writeUTF(result.replace("chat ", ""));

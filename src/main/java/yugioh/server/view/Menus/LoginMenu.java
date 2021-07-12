@@ -1,6 +1,7 @@
 package yugioh.server.view.Menus;
 
 import yugioh.server.controller.menucontroller.LoginMenuController;
+import yugioh.server.model.UserHolder;
 import yugioh.server.model.exceptions.MenuException;
 import yugioh.server.view.Regexes;
 import yugioh.server.view.Responses;
@@ -13,12 +14,12 @@ public class LoginMenu extends Menu {
 
     @Override
     protected void execute() {
-        String response = processCommand(ViewInterface.getInput());
-        ViewInterface.showResult(response);
+//        String response = processCommand(ViewInterface.getInput());
+//        ViewInterface.showResult(response);
     }
 
     @Override
-    public String processCommand(String command) {
+    public String processCommand(String command, UserHolder currentUser) {
         String response = "";
         if (command.matches(Regexes.LOGIN_USER.regex)) {
             try {

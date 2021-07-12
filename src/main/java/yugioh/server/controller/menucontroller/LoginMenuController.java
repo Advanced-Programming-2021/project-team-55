@@ -35,9 +35,9 @@ public class LoginMenuController extends MenuController {
             Menu.currentMenu = MenuType.MAIN;
             User.setLoggedInUser(user);
         }
-        String token = UUID.randomUUID().toString();
-        User.getLoggedInUsers().put(token, user);
-        return "success " + token;
+        String userJson = DataBaseController.getUserJson(user);
+        User.getLoggedInUsers().put(userJson, user);
+        return "success " + userJson;
     }
 
     public void createUser(String username, String password, String nickname) throws MenuException {

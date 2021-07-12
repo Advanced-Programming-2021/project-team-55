@@ -3,6 +3,7 @@ package yugioh.server.view.Menus;
 import yugioh.server.controller.CheatController;
 import yugioh.server.controller.menucontroller.ShopMenuController;
 import yugioh.server.model.User;
+import yugioh.server.model.UserHolder;
 import yugioh.server.model.cards.Card;
 import yugioh.server.model.exceptions.MenuException;
 import yugioh.server.view.Regexes;
@@ -18,12 +19,12 @@ public class ShopMenu extends Menu {
 
     @Override
     protected void execute() {
-        String response = processCommand(ViewInterface.getInput());
-        ViewInterface.showResult(response);
+//        String response = processCommand(ViewInterface.getInput());
+//        ViewInterface.showResult(response);
     }
 
     @Override
-    protected String processCommand(String command) {
+    protected String processCommand(String command, UserHolder currentUser) {
         String response = "";
         if (command.matches(Regexes.BUY_SHOP.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.BUY_SHOP.regex);

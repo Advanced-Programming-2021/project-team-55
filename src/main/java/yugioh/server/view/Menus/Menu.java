@@ -3,6 +3,8 @@ package yugioh.server.view.Menus;
 
 import javafx.embed.swing.JFXPanel;
 import yugioh.server.controller.DataBaseController;
+import yugioh.server.model.User;
+import yugioh.server.model.UserHolder;
 
 import java.io.IOException;
 
@@ -70,25 +72,23 @@ abstract public class Menu {
 
     abstract protected void execute();
 
-    abstract protected String processCommand(String command);
+    abstract protected String processCommand(String command, UserHolder currentUser);
 
-    public static String handleCommand(String command) {
-        String result = loginMenu.processCommand(command);
+    public static String handleCommand(String command, UserHolder currentUser) {
+        String result = loginMenu.processCommand(command, currentUser);
         if (result.equals("Error: invalid command"))
-            result = mainMenu.processCommand(command);
+            result = mainMenu.processCommand(command, currentUser);
         if (result.equals("Error: invalid command"))
-            result = scoreBoardMenu.processCommand(command);
+            result = scoreBoardMenu.processCommand(command, currentUser);
         if (result.equals("Error: invalid command"))
-            result = profileMenu.processCommand(command);
+            result = profileMenu.processCommand(command, currentUser);
         if (result.equals("Error: invalid command"))
-            result = shopMenu.processCommand(command);
+            result = shopMenu.processCommand(command, currentUser);
         if (result.equals("Error: invalid command"))
-            result = deckMenu.processCommand(command);
+            result = deckMenu.processCommand(command, currentUser);
         if (result.equals("Error: invalid command"))
-            result = duelMenu.processCommand(command);
-        if(command.startsWith("chat ")){
-            result=command;
-        }
+            result = duelMenu.processCommand(command, currentUser);
+
         return result;
     }
 
