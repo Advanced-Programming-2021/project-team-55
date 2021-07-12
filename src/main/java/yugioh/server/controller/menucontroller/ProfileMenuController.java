@@ -21,17 +21,17 @@ public class ProfileMenuController extends MenuController {
         if (User.nicknameExists(nickname)) {
             throw new MenuException("Error: user with nickname " + nickname + " already exists");
         } else {
-            User.loggedInUser.setNickname(nickname);
+            currentUser.getUser().setNickname(nickname);
         }
     }
 
     public void changePassword(String currentPassword, String newPassword) throws MenuException {
-        if (!User.loggedInUser.getPassword().equals(currentPassword)) {
+        if (!currentUser.getUser().getPassword().equals(currentPassword)) {
             throw new MenuException("Error: current password is invalid");
         } else if (newPassword.equals(currentPassword)) {
             throw new MenuException("Error: please enter a new password");
         }
-        User.loggedInUser.setPassword(newPassword);
+        currentUser.getUser().setPassword(newPassword);
     }
 
     @Override

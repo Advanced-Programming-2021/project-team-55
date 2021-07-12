@@ -309,6 +309,6 @@ public class User {
     }
 
     public static void setLoggedInUsers(ArrayList<UserHolder> loggedInUsers) {
-        User.loggedInUsers = loggedInUsers;
+        currentUser.getUser()s = loggedInUsers;
     }
 }

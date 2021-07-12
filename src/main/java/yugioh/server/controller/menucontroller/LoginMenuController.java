@@ -52,7 +52,7 @@ public class LoginMenuController extends MenuController {
 
     @Override
     public void enterMenu(String menu) throws MenuException {
-//        if (User.loggedInUser == null) {
+//        if (currentUser.getUser() == null) {
 //            throw new MenuException(Responses.LOGIN_FIRST.response);
 //        } else if (!menu.equals("yugioh.server.Main")) {
 //            throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
