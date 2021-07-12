@@ -30,6 +30,7 @@ public class Card {
     transient protected ImagePattern cardImagePattern;
     transient protected ImageView backImage;
     transient protected ImagePattern backImagePattern;
+    protected boolean isForbid;
 
 
     public Card(String name, String description, int price, Card.Kind cardKind, SpellOrTrap magicType) {
@@ -494,4 +495,11 @@ public class Card {
 
     public enum Kind {MONSTER, MAGIC}
 
+    public void setForbid(boolean forbid) {
+        isForbid = forbid;
+    }
+
+    public boolean isForbid() {
+        return isForbid;
+    }
 }

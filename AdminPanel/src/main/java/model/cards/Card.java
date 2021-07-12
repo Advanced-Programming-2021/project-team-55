@@ -107,7 +107,7 @@ public class Card {
 
     public static ImageView getCardImage(Card card, int width) {
         String name;
-        if (card == null) name = "src\\resources\\Sample\\PNG\\cardsImages\\Unknown.jpg";
+        if (card == null) name = "src\\resources\\yugioh\\PNG\\cardsImages\\Unknown.jpg";
         else name = card.image;
         File imageFile = new File(name);
         if (!imageFile.exists()) {

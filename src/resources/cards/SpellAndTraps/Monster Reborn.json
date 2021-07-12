@@ -1,1 +1,1 @@
-{"attribute":"NORMAL","status":"LIMITED","type":"SPELL","isCustom":false,"name":"Monster Reborn","description":"Target 1 monster in either GY; Special Summon it.","price":2500,"magicType":"SPELL","cardKind":"MAGIC","image":"src/resources/yugioh/PNG/cardsImages/MonsterReborn.jpg"}
+{"type":"SPELL","attribute":"NORMAL","status":"LIMITED","isCustom":false,"name":"Monster Reborn","description":"Target 1 monster in either GY; Special Summon it.","price":2500,"magicType":"SPELL","cardKind":"MAGIC","image":"src/resources/yugioh/PNG/cardsImages/MonsterReborn.jpg","isForbid":false}

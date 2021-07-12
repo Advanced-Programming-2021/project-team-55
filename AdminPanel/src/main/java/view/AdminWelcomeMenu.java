@@ -47,7 +47,7 @@ public class AdminWelcomeMenu extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        URL url=getClass().getResource("/Sample/fxml/AdminWelcomeMenu.fxml");
+        URL url=getClass().getResource("/yugioh/fxml/AdminWelcomeMenu.fxml");
         Parent parent = FXMLLoader.load(url);
         AdminWelcomeMenu.stage=stage;
         Scene scene = new Scene(parent);

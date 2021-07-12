@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.server.controller.menucontroller.AdminWelcomeMenuController">
+    <children>
+        <JFXButton buttonType="RAISED" layoutX="195.0" layoutY="192.0" mnemonicParsing="false" onMouseClicked="#enterAdminShop" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Shop">
+            <styleClass>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
+            </styleClass>
+        </JFXButton>
+        <Label layoutX="33.0" layoutY="80.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Welcome to Admin Panel">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

@@ -25,7 +25,7 @@ public class ChatRoomController  extends MenuController implements Initializable
     public TextArea chatBox;
     public transient Thread chatThread;
     public static Scanner input=new Scanner(System.in);
-    private boolean isChatEnded;
+    private boolean isChatEnded=false;
 
     public void sendMessage(MouseEvent mouseEvent) throws Exception {
         dataOutputStream.writeUTF("chat "+User.loggedInUser.getNickname()+": "+message.getText());
@@ -48,9 +48,9 @@ public class ChatRoomController  extends MenuController implements Initializable
                 if (!inputMessage.equals("")) {
                     Platform.runLater(() -> {
                         if(!inputMessage.startsWith(User.loggedInUser.getNickname())){
-                            String otherUsername=inputMessage.substring(0,inputMessage.indexOf(":"));
+//                            String otherUsername=inputMessage.substring(0,inputMessage.indexOf(":"));
                             String message=inputMessage.substring(inputMessage.indexOf(":")+2);
-                            message+=" :"+otherUsername;
+//                            message+=" :"+otherUsername;
                             chatBox.setText(chatBox.getText() + "\n\t\t\t\t" + message);
                         }
                         else
@@ -69,13 +69,22 @@ public class ChatRoomController  extends MenuController implements Initializable
         NetAdapter.justSendRequest(User.loggedInUser.getUsername() + " exited Chatroom");
         SoundPlayable.playButtonSound("backButton");
         chatThread.stop();
-        new Timeline(new KeyFrame(Duration.seconds(2),actionEvent ->{
-                try{
-                    mainMenu.execute();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-        })).play();
+        new Thread(()->{
+            while (!isChatEnded){ }
+                Platform.runLater(()->{
+                    try {
+                        mainMenu.execute();
+                    } catch (Exception e) {
+                    }
+                });
+        }).start();
+//        new Timeline(new KeyFrame(Duration.seconds(2),actionEvent ->{
+//                try{
+//                    mainMenu.execute();
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
+//        })).play();
         //mainMenu.execute();
     }
 }

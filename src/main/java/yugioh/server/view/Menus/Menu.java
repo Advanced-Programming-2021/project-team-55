@@ -27,6 +27,9 @@ abstract public class Menu {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        new Thread(()->{
+            new AdminWelcomeMenu().execute();
+        }).start();
 //        while (true) {
 //            switch (currentMenu) {
 //                case LOGIN: {
@@ -88,6 +91,9 @@ abstract public class Menu {
             result = deckMenu.processCommand(command, currentUser);
         if (result.equals("Error: invalid command"))
             result = duelMenu.processCommand(command, currentUser);
+        if(command.startsWith("chat ")){
+            result=command;
+        }
 
         return result;
     }
