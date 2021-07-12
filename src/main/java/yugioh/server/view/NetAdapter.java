@@ -93,6 +93,7 @@ public class NetAdapter {
                                 }
                             } catch (SocketException e) {
                                 allUsersOutputStreams.remove(dataOutputStream);
+                                e.printStackTrace();
                                 break;
                             }
                         }

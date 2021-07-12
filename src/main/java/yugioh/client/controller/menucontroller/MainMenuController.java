@@ -83,7 +83,6 @@ public class MainMenuController extends MenuController {
     }
 
     public void enterChatMenuClicked(MouseEvent mouseEvent)throws Exception {
-        ViewInterface.showResult("menu enter chatRoom");
         SoundPlayable.playButtonSound("enterButton");
         chatRoom.execute();
     }

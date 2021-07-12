@@ -97,7 +97,7 @@ public class ProfileMenuController extends MenuController implements Initializab
         mediaPlayer.play();
         mediaPlayer.setCycleCount(-1);
         profileMenuBackground.setMediaPlayer(mediaPlayer);
-        System.out.println(User.loggedInUser.getProfileImageFile().toURI());
+//        System.out.println(User.loggedInUser.getProfileImageFile().toURI());
         Image image = new Image(User.loggedInUser.getProfileImageFile().toURI().toString());
         profileImage.setImage(image);
         changePasswordButton.setDisable(true);

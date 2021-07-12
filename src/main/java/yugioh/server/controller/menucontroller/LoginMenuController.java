@@ -61,6 +61,7 @@ public class LoginMenuController extends MenuController {
 
     @Override
     public void exitMenu() {
+        //todo : close all streams
         for (User user : User.getAllUsers()) {
             try {
                 DataBaseController.saveUserInfo(user);
@@ -69,7 +70,7 @@ public class LoginMenuController extends MenuController {
                 e.printStackTrace();
             }
         }
-        System.exit(0);
+        //System.exit(0);
     }
 
 }

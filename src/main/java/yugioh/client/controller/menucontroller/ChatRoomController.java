@@ -18,9 +18,11 @@ import java.util.Scanner;
 public class ChatRoomController  extends MenuController implements Initializable{
     public TextField message;
     public TextArea chatBox;
+    public transient Thread chatThread;
     public static Scanner input=new Scanner(System.in);
     public void sendMessage(MouseEvent mouseEvent) throws Exception {
         dataOutputStream.writeUTF("chat "+User.loggedInUser.getNickname()+": "+message.getText());
+        dataOutputStream.flush();
         message.setText("");
     }
 
@@ -28,7 +30,9 @@ public class ChatRoomController  extends MenuController implements Initializable
     public void initialize(URL url, ResourceBundle resourceBundle) {
         chatBox.setWrapText(true);
         chatBox.setEditable(false);
-        new Thread(() -> {
+        chatThread =new Thread(new Runnable() {
+            @Override
+            public void run() {
             while (true) {
                 try {
                     String inputMessage = dataInputStream.readUTF();
@@ -45,18 +49,16 @@ public class ChatRoomController  extends MenuController implements Initializable
                         });
                     }
                 } catch (IOException e) {
-                    try {
-                        dataInputStream.close();
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
+                    e.printStackTrace();
                 }
             }
-        }).start();
+        }});
+        chatThread.start();
     }
 
     public void back(MouseEvent mouseEvent) throws Exception{
         SoundPlayable.playButtonSound("backButton");
+        chatThread.stop();
         mainMenu.execute();
     }
 }
