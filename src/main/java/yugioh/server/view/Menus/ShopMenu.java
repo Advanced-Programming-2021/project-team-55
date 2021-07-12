@@ -29,7 +29,7 @@ public class ShopMenu extends Menu {
         if (command.matches(Regexes.BUY_SHOP.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.BUY_SHOP.regex);
             try {
-                shopMenuController.buyCard(matcher.group(1));
+                shopMenuController.buyCard(matcher.group(1), currentUser);
                 response = Responses.CARD_BOUGHT_SUCCESSFULLY.response;
             } catch (MenuException e) {
                 response = e.toString();
@@ -38,7 +38,7 @@ public class ShopMenu extends Menu {
             showAllCards(shopMenuController.getAllCards());
         } else if (command.matches(Regexes.INCREASE_MONEY.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.INCREASE_MONEY.regex);
-            cheatController.increaseMoney(Integer.parseInt(matcher.group(1)), User.loggedInUser);
+            cheatController.increaseMoney(Integer.parseInt(matcher.group(1)), currentUser.getUser());
             response = Responses.CHEAT_ACTIVATED_MONEY_INCREASED.response;
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             shopMenuController.exitMenu();

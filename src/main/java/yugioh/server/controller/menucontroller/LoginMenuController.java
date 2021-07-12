@@ -2,6 +2,7 @@ package yugioh.server.controller.menucontroller;
 
 
 import yugioh.server.controller.DataBaseController;
+import yugioh.server.model.UserHolder;
 import yugioh.server.model.exceptions.MenuException;
 import yugioh.server.model.User;
 import yugioh.server.view.LoggerMessage;
@@ -27,16 +28,16 @@ public class LoginMenuController extends MenuController {
         return loginMenuController;
     }
 
-    public String loginUser(String username, String password) throws MenuException {
+    public String loginUser(String username, String password, UserHolder currentUser) throws MenuException {//todo ban multi login with one account
         User user = User.getUserByUsername(username);
         if (user == null || !user.getPassword().equals(password)) {
             throw new MenuException(Responses.USERNAME_AND_PASSWORD_DIDNT_MATCH.response);
         } else {
             Menu.currentMenu = MenuType.MAIN;
-            User.setLoggedInUser(user);
         }
         String userJson = DataBaseController.getUserJson(user);
-        User.getLoggedInUsers().put(userJson, user);
+        currentUser.setUser(user);
+        User.getLoggedInUsers().add(currentUser);
         return "success " + userJson;
     }
 
@@ -51,12 +52,12 @@ public class LoginMenuController extends MenuController {
 
     @Override
     public void enterMenu(String menu) throws MenuException {
-        if (User.loggedInUser == null) {
-            throw new MenuException(Responses.LOGIN_FIRST.response);
-        } else if (!menu.equals("yugioh.server.Main")) {
-            throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
-        }
-        Menu.setCurrentMenu(MenuType.MAIN);
+//        if (User.loggedInUser == null) {
+//            throw new MenuException(Responses.LOGIN_FIRST.response);
+//        } else if (!menu.equals("yugioh.server.Main")) {
+//            throw new MenuException(Responses.MENU_NAVIGATION_NOT_POSSIBLE.response);
+//        }
+//        Menu.setCurrentMenu(MenuType.MAIN);
     }
 
     @Override

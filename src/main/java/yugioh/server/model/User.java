@@ -10,10 +10,9 @@ import java.util.*;
 
 public class User {
 
-    public static User loggedInUser;
     private static ArrayList<User> allUsers;
 
-    private static HashMap<String, User> loggedInUsers = new HashMap<>();
+    private static ArrayList<UserHolder> loggedInUsers = new ArrayList<>();
 
     static {
         allUsers = new ArrayList<>();
@@ -71,10 +70,6 @@ public class User {
             }
         }
         return false;
-    }
-
-    public static void setLoggedInUser(User user) {
-        loggedInUser = user;
     }
 
     public static LinkedHashMap<Integer, HashMap<Integer, String>> getScoreBoardUsers() {
@@ -309,12 +304,11 @@ public class User {
         return "- " + nickname + ": " + score;
     }
 
-    public static User getLoggedInUser() {
-        return loggedInUser;
-    }
-
-    public static HashMap<String, User> getLoggedInUsers() {
+    public static ArrayList<UserHolder> getLoggedInUsers() {
         return loggedInUsers;
     }
 
+    public static void setLoggedInUsers(ArrayList<UserHolder> loggedInUsers) {
+        User.loggedInUsers = loggedInUsers;
+    }
 }

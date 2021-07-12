@@ -24,7 +24,7 @@ public class LoginMenu extends Menu {
         if (command.matches(Regexes.LOGIN_USER.regex)) {
             try {
                 Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.LOGIN_USER.regex);
-                response = loginMenuController.loginUser(matcher.group(2), matcher.group(1));
+                response = loginMenuController.loginUser(matcher.group(2), matcher.group(1), currentUser);
             } catch (MenuException e) {
                 response = e.toString();
             }
