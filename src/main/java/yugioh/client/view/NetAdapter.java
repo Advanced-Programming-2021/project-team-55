@@ -41,6 +41,15 @@ public class NetAdapter {
         }
     }
 
+    public static void justSendRequest(String message) {
+        try {
+            dataOutputStream.writeUTF(message);
+            dataOutputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void setHost(String host) {
         NetAdapter.host = host;
     }

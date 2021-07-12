@@ -1,6 +1,5 @@
 package yugioh.server;
 
-import yugioh.server.model.cards.monsters.BattleOX;
 import yugioh.server.view.Menus.Menu;
 import yugioh.server.view.NetAdapter;
 

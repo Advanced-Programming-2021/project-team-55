@@ -24,6 +24,9 @@ public class MainMenu extends Menu {
             response = Responses.LOGOUT_SUCCESSFULLY.response;
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             mainMenuController.exitMenu();
+        } else if (command.matches(Regexes.EXIT_CHATROOM.regex)) {
+            Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.EXIT_CHATROOM.regex);
+            response = matcher.group(1) + " gomsho";
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {
             response = getCurrentMenu();
         } else {

@@ -30,33 +30,33 @@ public class ChatRoomController  extends MenuController implements Initializable
     public void initialize(URL url, ResourceBundle resourceBundle) {
         chatBox.setWrapText(true);
         chatBox.setEditable(false);
-        chatThread =new Thread(new Runnable() {
-            @Override
-            public void run() {
-            while (true) {
-                try {
-                    String inputMessage = dataInputStream.readUTF();
-                    if (!inputMessage.equals("")) {
-                        Platform.runLater(() -> {
-                            if(!inputMessage.startsWith(User.loggedInUser.getNickname())){
-                                String otherUsername=inputMessage.substring(0,inputMessage.indexOf(":"));
-                                String message=inputMessage.substring(inputMessage.indexOf(":")+2);
-                                message+=" :"+otherUsername;
-                                chatBox.setText(chatBox.getText() + "\n\t\t\t\t" + message);
-                            }
-                            else
-                                chatBox.setText(chatBox.getText() + "\n" + inputMessage);
-                        });
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+        chatThread =new Thread(() -> {
+        while (true) {
+            try {
+                String inputMessage = dataInputStream.readUTF();
+                if (inputMessage.equals(User.loggedInUser.getUsername() + " gomsho")) return;
+                if (!inputMessage.equals("")) {
+                    Platform.runLater(() -> {
+                        if(!inputMessage.startsWith(User.loggedInUser.getNickname())){
+                            String otherUsername=inputMessage.substring(0,inputMessage.indexOf(":"));
+                            String message=inputMessage.substring(inputMessage.indexOf(":")+2);
+                            message+=" :"+otherUsername;
+                            chatBox.setText(chatBox.getText() + "\n\t\t\t\t" + message);
+                        }
+                        else
+                            chatBox.setText(chatBox.getText() + "\n" + inputMessage);
+                    });
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }});
+        }
+    });
         chatThread.start();
     }
 
     public void back(MouseEvent mouseEvent) throws Exception{
+        NetAdapter.justSendRequest(User.loggedInUser.getUsername() + " exited Chatroom");
         SoundPlayable.playButtonSound("backButton");
         chatThread.stop();
         mainMenu.execute();
