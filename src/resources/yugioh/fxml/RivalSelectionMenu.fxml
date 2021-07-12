@@ -25,7 +25,7 @@
                            <ToggleButton fx:id="oneRound" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="48.0" prefWidth="112.0" text="1 round" />
                         -->
                 </HBox>
-                <JFXButton fx:id="start" buttonType="RAISED" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="go!" textFill="#ccdefc">
+                <JFXButton fx:id="start" buttonType="RAISED" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#sendGameRequest" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="go!" textFill="#ccdefc">
                    <styleClass>
                        <String fx:value="buttonText" />
                        <String fx:value="buttonShape" />
