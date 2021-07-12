@@ -1,4 +1,4 @@
-package yugioh.client;
+package yugioh.client.view;
 
 import yugioh.client.view.SplashScreen;
 

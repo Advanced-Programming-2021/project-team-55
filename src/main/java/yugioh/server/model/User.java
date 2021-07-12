@@ -308,7 +308,4 @@ public class User {
         return loggedInUsers;
     }
 
-    public static void setLoggedInUsers(ArrayList<UserHolder> loggedInUsers) {
-        currentUser.getUser()s = loggedInUsers;
-    }
 }
