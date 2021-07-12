@@ -1,6 +1,7 @@
 package yugioh.server.view;
 
 
+import yugioh.server.controller.DataBaseController;
 import yugioh.server.model.UserHolder;
 import yugioh.server.view.Menus.Menu;
 
@@ -11,6 +12,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+
+import static yugioh.server.view.ViewInterface.getCommandMatcher;
 
 public class NetAdapter {
 
@@ -123,6 +127,48 @@ public class NetAdapter {
             e.printStackTrace();
         }
             }).start();
+        new Thread(()->{
+            try {
+                ServerSocket serverSocket = new ServerSocket(12345);
+                while (true) {
+                    Socket socket = serverSocket.accept();
+                    new Thread(() -> {
+                        try {
+                            DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+                            DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+                            while (true) {
+                                try {
+                                    String input = dataInputStream.readUTF();
+                                    Matcher matcher=getCommandMatcher(input,"save user address: (.*) content: (.*)");
+                                    String address=matcher.group(1);
+                                    String content=matcher.group(2);
+
+                                        DataBaseController.updateUserInfo(address,content);
+                                } catch (SocketException e) {
+                                    if (e.getMessage().contains("Connection reset")) {
+                                        System.out.print("a client disconnected: ");
+                                        try {
+                                        } catch (Exception ignored) {
+                                        }
+                                        return;
+                                    }
+                                    e.printStackTrace();
+                                    break;
+                                }
+                            }
+                            dataInputStream.close();
+                            dataOutputStream.close();
+                            socket.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }).start();
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
 //        new Thread(()->{
 //
 //

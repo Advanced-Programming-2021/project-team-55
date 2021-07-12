@@ -23,5 +23,7 @@ abstract public class MenuController implements SoundPlayable {
     protected ChatRoom chatRoom=new ChatRoom();
     protected DataOutputStream dataOutputStream= NetAdapter.dataOutputStream;
     protected DataInputStream dataInputStream=NetAdapter.dataInputStream;
+    protected static DataOutputStream dataOutputStreamForSaving=NetAdapter.dataOutputStreamForSaving;
+
 
 }

@@ -5,8 +5,13 @@ import javafx.embed.swing.JFXPanel;
 import yugioh.server.controller.DataBaseController;
 import yugioh.server.model.User;
 import yugioh.server.model.UserHolder;
+import yugioh.server.model.cards.Card;
+import yugioh.server.model.cards.CardsInventory;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+
+import static yugioh.server.view.ViewInterface.getCommandMatcher;
 
 abstract public class Menu {
     private static final LoginMenu loginMenu = new LoginMenu();
@@ -79,6 +84,23 @@ abstract public class Menu {
 
     public static String handleCommand(String command, UserHolder currentUser) {
         String result = loginMenu.processCommand(command, currentUser);
+        if(command.startsWith("get count ")){
+            result= String.valueOf(CardsInventory.inventory.cardsInventory.get(command.replace("get count ","")));
+        }
+        if(command.startsWith("reduce card ")){
+            CardsInventory.inventory.removeCardFromInventory(Card.getCardByName(command.replace("reduce card ","")),1);
+            result="card "+command.replace("reduce card ","")+" reduced";
+        }
+//        if(command.startsWith("save user ")){
+//            Matcher matcher=getCommandMatcher(command,"save user address: (.*) content: (.*)");
+//            String address=matcher.group(1);
+//            String content=matcher.group(2);
+//            try {
+//                DataBaseController.writeFile(address,content);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
         if (result.equals("Error: invalid command"))
             result = mainMenu.processCommand(command, currentUser);
         if (result.equals("Error: invalid command"))
@@ -94,6 +116,7 @@ abstract public class Menu {
         if(command.startsWith("chat ")){
             result=command;
         }
+
 
         return result;
     }
