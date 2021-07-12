@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -11,15 +12,18 @@ import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import yugioh.client.controller.DataBaseController;
 import yugioh.client.model.User;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.SoundPlayable;
 import yugioh.client.view.ViewInterface;
 import yugioh.client.view.menus.PopUpWindow;
 import yugioh.client.view.menus.RivalSelectionMenu;
+import yugioh.client.view.menus.WelcomeMenu;
 
 import java.io.File;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
 
 public class RivalSelectionMenuController extends MenuController implements Initializable {
 
@@ -28,7 +32,6 @@ public class RivalSelectionMenuController extends MenuController implements Init
     private static User[] awaitingUsersForOneRound;
     private static User[] awaitingUsersForThreeRounds;
 
-    public ChoiceBox<User> rivals;
     public ToggleButton threeRounds;
     public ToggleButton oneRound;
     public JFXButton start;
@@ -64,7 +67,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
         awaitingUsersForThreeRounds = DataBaseController.parseAllUsers(ViewInterface.showResult("get awaiting users for 3 rounds"));
         for (int i = 0; i < awaitingUsersForThreeRounds.length; i++) {
             User user = awaitingUsersForThreeRounds[i];
-            waitingUsersGridPane.add(new Text("1 ROUND"), 0, i + awaitingUsersForOneRound.length);
+            waitingUsersGridPane.add(new Text("3 ROUNDS"), 0, i + awaitingUsersForOneRound.length);
             waitingUsersGridPane.add(new Text(user.getUsername()), 1, i + awaitingUsersForOneRound.length);
             waitingUsersGridPane.add(new Text("SCORE: " + user.getScore()), 2, i + awaitingUsersForOneRound.length);
         }
@@ -77,12 +80,15 @@ public class RivalSelectionMenuController extends MenuController implements Init
     }
 
     public void startGame() throws Exception {
-        if (rivals.getValue() == null) {
-            new PopUpWindow("Error: select a user first!").start(RivalSelectionMenu.getStage());
+        String result = NetAdapter.dataInputStream.readUTF();
+        if (result.startsWith("Error: ")) {
+            new PopUpWindow(result).start(RivalSelectionMenu.getStage());
             return;
         }
+        Matcher matcher = ViewInterface.getCommandMatcher(result, "success (.+)");
+        User rival = DataBaseController.getUserObjectByString(matcher.group(1));
         SoundPlayable.playButtonSound("enterButton");
-        RivalSelectionMenu.setRival(rivals.getValue());
+        RivalSelectionMenu.setRival(rival);
         RivalSelectionMenu.setDoCancel(false);
         RivalSelectionMenu.getStage().close();
     }
@@ -101,4 +107,8 @@ public class RivalSelectionMenuController extends MenuController implements Init
         RivalSelectionMenu.setRounds(3);
     }
 
+    public void sendGameRequest() throws Exception {
+        NetAdapter.justSendRequest("duel --new --rounds " + RivalSelectionMenu.getRounds());
+        startGame();
+    }
 }
