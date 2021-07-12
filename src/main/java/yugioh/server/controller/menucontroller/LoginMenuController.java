@@ -63,14 +63,15 @@ public class LoginMenuController extends MenuController {
     @Override
     public void exitMenu() {
         //todo : close all streams
-        for (User user : User.getAllUsers()) {
-            try {
-                DataBaseController.saveUserInfo(user);
-            } catch (Exception e) {
-                LoggerMessage.log("unable to save user data");
-                e.printStackTrace();
-            }
-        }
+        //todo here is handled in server
+//        for (User user : User.getAllUsers()) {
+//            try {
+//                DataBaseController.saveUserInfo(user);
+//            } catch (Exception e) {
+//                LoggerMessage.log("unable to save user data");
+//                e.printStackTrace();
+//            }
+//        }
         //System.exit(0);
     }
 

@@ -18,15 +18,14 @@ import yugioh.server.model.cards.CardsInventory;
 public class AdminWelcomeMenu extends Application {
     public static Stage stage;
     public void execute(){
-//        try {
-//            DataBaseController.cardsDataBaseInitialization();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
+//       try {
+//           DataBaseController.cardsDataBaseInitialization();
+//       } catch (FileNotFoundException e) {
+//           e.printStackTrace();
 //        }
         Thread databaseThread=new Thread(new Runnable() {
             @Override
             public void run() {
-
                 while (true){
                     DataBaseController.updateCardsInventory();
                     for(Card card: Card.allCards){

@@ -14,6 +14,7 @@ import yugioh.client.controller.menucontroller.WelcomeMenuController;
 import yugioh.client.model.User;
 import yugioh.client.model.cards.Card;
 import yugioh.client.view.LoggerMessage;
+import yugioh.server.model.UserHolder;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,34 +38,31 @@ public class WelcomeMenu extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Thread saveDataThread = new Thread(() -> {//todo
+        Thread saveDataThread = new Thread(() -> {
             while (true) {
-//                for (User user : User.getAllUsers()) {
-//                    try {
-//                        DataBaseController.saveUserInfo(user);
-//                    } catch (Exception e) {
-//                        LoggerMessage.log("unable to save user data");
-//                        e.printStackTrace();
-//                    }
-//                }
+                   try {
+                       DataBaseController.saveUserInfo(User.loggedInUser);
+                   } catch (Exception e) {
+                       LoggerMessage.log("unable to save user data");
+                       e.printStackTrace();
+                   }
                 try {
-                    for (Card card : Card.getCards()) {
-                        try {
-                            DataBaseController.saveCardInfo(card);
-                        } catch (Exception e) {
-                            LoggerMessage.log("unable to save card data");
-                            e.printStackTrace();
-                        }
-                    }
+//                    for (Card card : Card.getCards()) {
+//                        try {
+//                            DataBaseController.saveCardInfo(card);
+//                        } catch (Exception e) {
+//                            LoggerMessage.log("unable to save card data");
+//                            e.printStackTrace();
+//                        }
+//                    }
                 } catch (Exception e) {
                 }
                 try {
-                    Thread.sleep(30000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
-        }, "save data");
+        }}, "save data");
         saveDataThread.setDaemon(true);
         saveDataThread.start();
         Stage stage = new Stage();
