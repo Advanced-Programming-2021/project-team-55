@@ -16,6 +16,7 @@ import yugioh.client.model.User;
 import yugioh.client.model.exceptions.MenuException;
 import yugioh.client.view.Responses;
 import yugioh.client.view.SoundPlayable;
+import yugioh.client.view.ViewInterface;
 import yugioh.client.view.menus.PopUpWindow;
 import yugioh.client.view.menus.WelcomeMenu;
 
@@ -47,22 +48,29 @@ public class ProfileMenuController extends MenuController implements Initializab
     }
 
     public void changeNickname(String nickname) throws MenuException {
-//        if (User.nicknameExists(nickname)) {
-//            throw new MenuException("Error: user with nickname " + nickname + " already exists");
-//        } else {
-//            User.loggedInUser.setNickname(nickname);
-//        }
+        ViewInterface.showResult("profile change --nickname " + nickname);
+        /*
+        if (User.nicknameExists(nickname)) {
+            throw new MenuException("Error: user with nickname " + nickname + " already exists");
+        } else {
+            User.loggedInUser.setNickname(nickname);
+        }*/
     }
 
     public void changePassword(String currentPassword, String newPassword) throws MenuException {
-        
+        String response = ViewInterface.showResult("profile change --current "+currentPassword+" --new " +newPassword +" --password");
+        System.out.println(response);
+        if (!response.equals("password changed successfully!")){
+            throw new MenuException(response);
+        }
+        /*
         if (!User.loggedInUser.getPassword().equals(currentPassword)) {
             SoundPlayable.playButtonSound("enterButton");
             throw new MenuException("Error: current password is invalid");
         } else if (newPassword.equals(currentPassword)) {
             SoundPlayable.playButtonSound("backButton");
             throw new MenuException("Error: please enter a new password");
-        }
+        }*/
         User.loggedInUser.setPassword(newPassword);
     }
 

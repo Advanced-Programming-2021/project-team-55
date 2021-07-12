@@ -19,6 +19,7 @@ public class ProfileMenuController extends MenuController {
     }
 
     public void changeNickname(String nickname, UserHolder currentUser) throws MenuException {
+        System.out.println("change password");
         if (User.nicknameExists(nickname)) {
             throw new MenuException("Error: user with nickname " + nickname + " already exists");
         } else {
@@ -27,6 +28,7 @@ public class ProfileMenuController extends MenuController {
     }
 
     public void changePassword(String currentPassword, String newPassword, UserHolder currentUser) throws MenuException {
+        System.out.println("change password");
         if (!currentUser.getUser().getPassword().equals(currentPassword)) {
             throw new MenuException("Error: current password is invalid");
         } else if (newPassword.equals(currentPassword)) {

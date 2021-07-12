@@ -76,6 +76,7 @@ abstract public class Menu {
 
     public static String handleCommand(String command, UserHolder currentUser) {
         String result = loginMenu.processCommand(command, currentUser);
+
         if (result.equals("Error: invalid command"))
             result = mainMenu.processCommand(command, currentUser);
         if (result.equals("Error: invalid command"))
