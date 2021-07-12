@@ -120,4 +120,5 @@ class SortByScore implements Comparator<TableItem> {
     public int compare(TableItem user1, TableItem user2) {
         return (user2.getScore() - user1.getScore());
     }
+
 }
