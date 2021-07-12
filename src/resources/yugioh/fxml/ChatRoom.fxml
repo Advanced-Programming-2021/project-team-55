@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.client.controller.menucontroller.ChatRoomController">
+    <children>
+        <ScrollPane prefHeight="400.0" prefWidth="331.0">
+            <content>
+                <TextArea fx:id="chatBox" prefHeight="398.0" prefWidth="318.0" />
+            </content>
+        </ScrollPane>
+        <TextField fx:id="message" alignment="TOP_LEFT" layoutX="345.0" layoutY="5.0" prefHeight="142.0" prefWidth="251.0" />
+        <Button layoutX="424.0" layoutY="158.0" mnemonicParsing="false" onMouseClicked="#sendMessage" text="Send Message" />
+        <JFXButton buttonType="RAISED" layoutX="417.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="40.0" prefWidth="177.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
+            <styleClass>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
+            </styleClass>
+        </JFXButton>
+    </children>
+</AnchorPane>

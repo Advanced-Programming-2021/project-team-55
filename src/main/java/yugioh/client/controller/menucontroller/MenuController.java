@@ -1,7 +1,11 @@
 package yugioh.client.controller.menucontroller;
 
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.SoundPlayable;
 import yugioh.client.view.menus.*;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 
 abstract public class MenuController implements SoundPlayable {
     protected WelcomeMenu welcomeMenu = new WelcomeMenu();
@@ -16,5 +20,8 @@ abstract public class MenuController implements SoundPlayable {
     protected ImportExportMenu importExportMenu = new ImportExportMenu();
     protected SelectDeckNamePage selectDeckNamePage = new SelectDeckNamePage();
     protected CardGeneratorMenu cardGeneratorMenu = new CardGeneratorMenu();
+    protected ChatRoom chatRoom=new ChatRoom();
+    protected DataOutputStream dataOutputStream= NetAdapter.dataOutputStream;
+    protected DataInputStream dataInputStream=NetAdapter.dataInputStream;
 
 }
