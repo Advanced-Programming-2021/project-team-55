@@ -1,16 +1,21 @@
 package yugioh.client.controller.menucontroller;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 import yugioh.client.model.User;
 import yugioh.client.view.NetAdapter;
 import yugioh.client.view.SoundPlayable;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -20,6 +25,8 @@ public class ChatRoomController  extends MenuController implements Initializable
     public TextArea chatBox;
     public transient Thread chatThread;
     public static Scanner input=new Scanner(System.in);
+    private boolean isChatEnded;
+
     public void sendMessage(MouseEvent mouseEvent) throws Exception {
         dataOutputStream.writeUTF("chat "+User.loggedInUser.getNickname()+": "+message.getText());
         dataOutputStream.flush();
@@ -34,7 +41,10 @@ public class ChatRoomController  extends MenuController implements Initializable
         while (true) {
             try {
                 String inputMessage = dataInputStream.readUTF();
-                if (inputMessage.equals(User.loggedInUser.getUsername() + " gomsho")) return;
+                if (inputMessage.equals(User.loggedInUser.getUsername() + " gomsho")) {
+                    isChatEnded=true;
+                    return;
+                }
                 if (!inputMessage.equals("")) {
                     Platform.runLater(() -> {
                         if(!inputMessage.startsWith(User.loggedInUser.getNickname())){
@@ -59,6 +69,13 @@ public class ChatRoomController  extends MenuController implements Initializable
         NetAdapter.justSendRequest(User.loggedInUser.getUsername() + " exited Chatroom");
         SoundPlayable.playButtonSound("backButton");
         chatThread.stop();
-        mainMenu.execute();
+        new Timeline(new KeyFrame(Duration.seconds(2),actionEvent ->{
+                try{
+                    mainMenu.execute();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+        })).play();
+        //mainMenu.execute();
     }
 }

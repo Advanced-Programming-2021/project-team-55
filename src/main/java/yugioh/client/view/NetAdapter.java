@@ -7,18 +7,24 @@ import java.net.*;
 
 public class NetAdapter {
 
-    private static String host = "127.0.0.1";
+    public static String host = "127.0.0.1";
     private static int port = 3333;
 
-    private static Socket socket;
+    public static Socket socket;
     public static DataOutputStream dataOutputStream;
     public static DataInputStream dataInputStream;
+//    public static DataOutputStream dataOutputStreamForChat;
+//    public static DataInputStream dataInputStreamForChat;
 
     public static void initialize() {
        try {
            socket = new Socket(host, port);
            dataOutputStream = new DataOutputStream(socket.getOutputStream());
            dataInputStream = new DataInputStream(socket.getInputStream());
+//           Socket socketForChat=new Socket(host,12345);
+//           dataOutputStreamForChat=new DataOutputStream(socketForChat.getOutputStream());
+//           dataInputStreamForChat=new DataInputStream(socketForChat.getInputStream());
+
        } catch (IOException e) {
            System.out.println("failed to connect to server");
        }

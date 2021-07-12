@@ -77,7 +77,7 @@ public class DataBaseController extends MenuController {
     }
 
     public static void saveCardInfo(Card card) throws IOException {
-        //     writeJSON(card,"src\\resources\\cards\\" + card.getName() + ".json");
+        //writeJSON(card,"src\\resources\\cards\\" + card.getName() + ".json");
         if (card.getCardKind() == Card.Kind.MAGIC) {
             SpellAndTrap spellAndTrap = (SpellAndTrap) card;
             writeJSON(spellAndTrap, "src\\resources\\cards\\SpellAndTraps\\" + card.getName() + ".json");

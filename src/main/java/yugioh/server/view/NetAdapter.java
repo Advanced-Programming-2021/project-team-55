@@ -70,6 +70,7 @@ public class NetAdapter {
 //            }
 //        });
         //  listeningThread.start();
+        new Thread(()->{
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             while (true) {
@@ -111,6 +112,45 @@ public class NetAdapter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+            }).start();
+//        new Thread(()->{
+//
+//
+//        try {
+//            ServerSocket serverSocket = new ServerSocket(12345);
+//            while (true) {
+//                Socket socket = serverSocket.accept();
+//                new Thread(() -> {
+//                    try {
+//                        DataInputStream dataInputStreamForChat = new DataInputStream(socket.getInputStream());
+//                        DataOutputStream dataOutputStreamForChat = new DataOutputStream(socket.getOutputStream());
+//                        allUsersOutputStreams.add(dataOutputStreamForChat);
+//                        while (true) {
+//                            try {
+//                                String message= dataInputStreamForChat.readUTF();
+//                                    for (DataOutputStream dataOutputStreamUser : allUsersOutputStreams) {
+//                                        dataOutputStreamUser.writeUTF(message);
+//                                    }
+//
+//                            } catch (SocketException e) {
+//                                allUsersOutputStreams.remove(dataOutputStreamForChat);
+//                                e.printStackTrace();
+//                                break;
+//                            }
+//                        }
+//                        dataInputStream.close();
+//                        dataOutputStreamForChat.close();
+//                        socket.close();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }).start();
+//
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        }).start();
     }
 
     public int getPort() {
