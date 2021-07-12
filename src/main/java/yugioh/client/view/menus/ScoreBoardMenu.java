@@ -19,8 +19,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class ScoreBoardMenu extends WelcomeMenu {
-    private static final ScoreBoardMenuController scoreBoardMenuController = ScoreBoardMenuController.getInstance();
 
+    private static final ScoreBoardMenuController scoreBoardMenuController = ScoreBoardMenuController.getInstance();
 
     @Override
     public void execute() throws Exception {
@@ -76,4 +76,5 @@ public class ScoreBoardMenu extends WelcomeMenu {
         stage.setScene(scene);
         stage.show();
     }
+
 }
