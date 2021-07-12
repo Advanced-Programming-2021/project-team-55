@@ -32,9 +32,7 @@ public class NetAdapter {
     private void startListening(int port) {
         listeningThread = new Thread(() -> {
             try {
-                SocketAddress socketAddress = new InetSocketAddress(InetAddress.getLoopbackAddress(), port);
-                serverSocket = new ServerSocket();
-                serverSocket.bind(socketAddress);
+                serverSocket = new ServerSocket(port);
                 while (true) {
                     Socket socket = serverSocket.accept();
                     new Thread(() -> {

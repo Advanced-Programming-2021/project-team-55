@@ -5,9 +5,11 @@ import yugioh.server.model.cards.Deck;
 import yugioh.server.model.cards.monsters.*;
 import yugioh.server.model.cards.trapandspells.*;
 
+import java.io.File;
 import java.util.*;
 
 public class User {
+
     public static User loggedInUser;
     private static ArrayList<User> allUsers;
 
@@ -19,11 +21,14 @@ public class User {
 
     private final ArrayList<Deck> decks;
     private final ArrayList<Card> cardsInventory;
+    private boolean imageIsChanged = false;
     private String username;
     private String password;
     private String nickname;
     private int score;
     private int money;
+    private String profileImage;
+    private File profileImageFile;
     private Deck activeDeck;
 
     {
@@ -110,6 +115,17 @@ public class User {
         User.allUsers = allUsers;
     }
 
+    public void setProfileImage() {
+        Random random = new Random();
+        int randomNumber = random.nextInt(7) + 1;
+        this.profileImage = "/yugioh/PNG/UsersImage/" + randomNumber + ".png";
+        profileImageFile = new File(profileImage);
+    }
+
+    public String getProfileImageString() {
+        return profileImage;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -169,6 +185,14 @@ public class User {
 
     public void setActiveDeck(Deck activeDeck) {
         this.activeDeck = activeDeck;
+    }
+
+    public int getNumberOfSpecificCard(String cardName) {
+        int counter = 0;
+        for (Card card : cardsInventory) {
+            if (card.getName().equals(cardName)) counter++;
+        }
+        return counter;
     }
 
     public boolean cardExistsInInventory(String cardName) {
@@ -255,6 +279,34 @@ public class User {
         this.addDeck(deckInit);
     }
 
+
+    public void setProfileImage(String address) {
+        this.profileImage = address;
+        profileImageFile = new File(address);
+    }
+
+    public void deleteProfileImage() {
+        this.profileImage = "";
+        profileImageFile.delete();
+        this.profileImageFile = null;
+    }
+
+    public File getProfileImageFile() {
+        return profileImageFile;
+    }
+
+    public void setProfileImageFile(File file) {
+        this.profileImageFile = file;
+    }
+
+    public boolean isImageIsChanged() {
+        return imageIsChanged;
+    }
+
+    public void setImageIsChanged() {
+        this.imageIsChanged = true;
+    }
+
     @Override
     public String toString() {
         return "- " + nickname + ": " + score;
@@ -267,4 +319,5 @@ public class User {
     public static HashMap<String, User> getLoggedInUsers() {
         return loggedInUsers;
     }
+
 }

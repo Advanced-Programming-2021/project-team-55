@@ -1,6 +1,7 @@
 package yugioh.server.view.Menus;
 
 
+import javafx.embed.swing.JFXPanel;
 import yugioh.server.controller.DataBaseController;
 
 import java.io.IOException;
@@ -17,6 +18,8 @@ abstract public class Menu {
 
     public static void run() {
         try {
+            JFXPanel jfxPanel = new JFXPanel();
+            jfxPanel.getScene();
             DataBaseController.usersDataBaseInitialization();
             DataBaseController.cardsDataBaseInitialization();
         } catch (IOException e) {

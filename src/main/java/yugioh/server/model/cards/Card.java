@@ -1,31 +1,42 @@
 package yugioh.server.model.cards;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
 import yugioh.server.model.cards.cardfeaturesenums.SpellOrTrap;
 import yugioh.server.model.cards.monsters.*;
 import yugioh.server.model.cards.trapandspells.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class Card {
 
-    public static ArrayList<Card> allCards;
+    transient public final static ImagePattern backImageForAllCards = new ImagePattern(new Image(
+            new File("src/resources/yugioh/PNG/cardsImages/Unknown.jpg").toURI().toString()));
+    public static ArrayList<Card> allCards = new ArrayList<>();;
 
-    static {
-        allCards = new ArrayList<>();
-    }
 
+    public boolean isCustom = false;
     protected String name;
     protected String description;
     protected int price;
     protected SpellOrTrap magicType;
-    protected Kind cardKind;
+    protected Card.Kind cardKind;
+    protected String image;
+    transient protected ImageView cardImage;
+    transient protected ImagePattern cardImagePattern;
+    transient protected ImageView backImage;
+    transient protected ImagePattern backImagePattern;
 
-    public Card(String name, String description, int price, Kind cardKind, SpellOrTrap magicType) {
+
+    public Card(String name, String description, int price, Card.Kind cardKind, SpellOrTrap magicType) {
         setName(name);
         setDescription(description);
         setPrice(price);
+        setImage();
         this.cardKind = cardKind;
         this.magicType = magicType;
 
@@ -96,6 +107,7 @@ public class Card {
     public static Card getNewCardObjectByName(String name) {
 
         switch (name) {
+            //monsters:
             case "Battle OX":
                 return new BattleOX();
 
@@ -219,8 +231,7 @@ public class Card {
             case "Command Knight":
                 return new CommandKnight();
 
-
-
+            //spell and traps:
             case "Trap Hole":
                 return new TrapHole();
 
@@ -332,16 +343,69 @@ public class Card {
 
     }
 
+    public static ImageView getCardImage(Card card, int width) {
+        String name;
+        if (card == null) name = "src\\resources\\yugioh\\PNG\\cardsImages\\Unknown.jpg";
+//        else if(card.isCustom){
+//            name= card.name;
+//        }
+//        else name = card.getClass().getName().replaceAll("monsters.",
+//                "").replaceAll("trapandspells.", "");
+        else name = card.image;
+        File imageFile = new File(name);
+        if (!imageFile.exists()) {
+            System.out.println(name);
+        }
+        ImageView imageView = new ImageView(new Image(imageFile.toURI().toString()));
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(width);
+        return imageView;
+    }
+
+    public static Card getCardNameByImage(String image) {
+        for (Card card : allCards) {
+            if (card.image.equals(image)) {
+                return card;
+            }
+        }
+        return null;
+    }
+
+    public static Card getArrayListCard(String cardName, ArrayList<Card> cards) {
+        for (Card card : cards) {
+            if (card.getName().equals(cardName)) return card;
+        }
+        return null;
+    }
+
+    public static void addCardToAllCards(Card card) {
+        if (getCardByName(card.name) == null) {
+            allCards.add(card);
+        }
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(ImageView imageView) {
+        this.cardImage = imageView;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    protected void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getName() {
         return name;
     }
 
     protected void setName(String name) {
         this.name = name;
-    }
-
-    protected void setDescription(String description) {
-        this.description = description;
     }
 
     public int getPrice() {
@@ -358,11 +422,11 @@ public class Card {
     }
 
     public boolean isMonster() {
-        return cardKind == Kind.MONSTER;
+        return cardKind == Card.Kind.MONSTER;
     }
 
     public boolean isSpell() {
-        if (cardKind == Kind.MONSTER) {
+        if (cardKind == Card.Kind.MONSTER) {
             return false;
         } else {
             return magicType == SpellOrTrap.SPELL;
@@ -370,16 +434,62 @@ public class Card {
     }
 
     public boolean isSpellAndTrap() {
-        return cardKind != Kind.MONSTER;
+        return cardKind != Card.Kind.MONSTER;
     }
-
 
     public Card clone() {
         return Card.getNewCardObjectByName(this.getName());
     }
 
-    public Kind getCardKind() {
+    public Card.Kind getCardKind() {
         return cardKind;
+    }
+
+    public void setImage() {
+        String name = "";
+        if (!isCustom)
+            name = getClass().getName().replaceAll("monsters.",
+                    "").replaceAll("trapandspells.", "");
+        else {
+            name = this.name;
+        }
+        image = "src/resources/yugioh/PNG/cardsImages/" + name + ".jpg";
+        cardImage = new ImageView(new Image(new File(image).toURI().toString()));
+        cardImagePattern = new ImagePattern(new Image(new File(image).toURI().toString()));
+        backImage = new ImageView(new Image(new File("src/resources/yugioh/PNG/cardsImages/Unknown.jpg").
+                toURI().toString()));
+        backImagePattern = new ImagePattern(new Image(new File("src/resources/yugioh/PNG/cardsImages/Unknown.jpg").toURI().toString()));
+    }
+
+    public ImageView getCardImageForDeck(int width) {
+        if (cardImage == null) {
+            cardImage = new ImageView(new Image(new File(image).toURI().toString()));
+        }
+        cardImage.setPreserveRatio(true);
+        cardImage.setFitWidth(width);
+        return cardImage;
+    }
+
+    public ImagePattern getCardImagePattern() {
+        return cardImagePattern;
+    }
+
+    public ImageView getCardBackImage() {
+        backImage.setPreserveRatio(true);
+        backImage.setFitWidth(70);
+        return backImage;
+    }
+
+    public ImageView getCardImage() {
+        return cardImage;
+    }
+
+    public ImagePattern getCardBackImagePattern() {
+        return backImagePattern;
+    }
+
+    public void setIsCustom() {
+        isCustom = true;
     }
 
     public enum Kind {MONSTER, MAGIC}

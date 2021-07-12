@@ -3,7 +3,8 @@ package yugioh.server.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import yugioh.server.controller.menucontroller.MenuController;
-import yugioh.server.model.board.CardStatus;
+import yugioh.server.model.cards.Monster;
+import yugioh.server.model.cards.SpellAndTrap;
 import yugioh.server.model.exceptions.MenuException;
 import yugioh.server.model.User;
 import yugioh.server.model.cards.Card;
@@ -39,6 +40,21 @@ public class DataBaseController extends MenuController {
 
     public static void saveUserInfo(User user) throws IOException {
         writeJSON(user, "src\\resources\\users\\" + user.getUsername() + ".json");
+    }
+
+    public static void saveCardInfo(Card card) throws IOException {
+        //     writeJSON(card,"src\\resources\\cards\\" + card.getName() + ".json");
+        if (card.getCardKind() == Card.Kind.MAGIC) {
+            SpellAndTrap spellAndTrap = (SpellAndTrap) card;
+            writeJSON(spellAndTrap, "src\\resources\\cards\\SpellAndTraps\\" + card.getName() + ".json");
+        } else {
+            Monster monster = (Monster) card;
+            if (!card.isCustom)
+                writeJSON(monster, "src\\resources\\cards\\Monsters\\" + card.getName() + ".json");
+            else {
+                writeJSON(monster, "src\\resources\\cards\\Monsters\\Customs\\" + card.getName() + ".json");
+            }
+        }
     }
 
     public static void writeFile(String fileAddress, String content) throws IOException {

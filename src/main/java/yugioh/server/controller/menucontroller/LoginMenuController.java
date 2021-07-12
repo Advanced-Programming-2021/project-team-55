@@ -69,7 +69,6 @@ public class LoginMenuController extends MenuController {
                 e.printStackTrace();
             }
         }
-        System.exit(0);
     }
 
 }
