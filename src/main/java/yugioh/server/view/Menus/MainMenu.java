@@ -21,7 +21,7 @@ public class MainMenu extends Menu {
     protected String processCommand(String command, UserHolder currentUser) {
         String response = "";
         if (command.matches(Regexes.LOGOUT_USER.regex)) {
-            mainMenuController.logout();
+            mainMenuController.logout(currentUser);
             response = Responses.LOGOUT_SUCCESSFULLY.response;
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             mainMenuController.exitMenu();
