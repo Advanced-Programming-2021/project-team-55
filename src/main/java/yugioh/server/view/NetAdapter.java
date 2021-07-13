@@ -4,6 +4,7 @@ package yugioh.server.view;
 import yugioh.server.controller.DataBaseController;
 import yugioh.server.model.UserHolder;
 import yugioh.server.view.Menus.Menu;
+import yugioh.server.view.gamephases.Duel;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -92,6 +93,7 @@ public class NetAdapter {
                             try {
                                 String input = dataInputStream.readUTF();
                                 ViewInterface.command = input;
+                                sendToRival(input, userHolder);
                                 String result = Menu.handleCommand(input, userHolder);
                                 if (result.startsWith("chat ")) {
                                     for (DataOutputStream dataOutputStreamUser : allUsersOutputStreams) {
@@ -100,8 +102,7 @@ public class NetAdapter {
                                 } else {
                                     dataOutputStream.writeUTF(result);
                                 }
-                                System.out.println("--> " + input);
-                                System.out.println(">>> " + result);
+                                log(input, result);
                             } catch (SocketException e) {
                                 allUsersOutputStreams.remove(dataOutputStream);
                                 if (e.getMessage().contains("Connection reset")) {
@@ -209,6 +210,21 @@ public class NetAdapter {
 //            e.printStackTrace();
 //        }
 //        }).start();
+    }
+
+    private void sendToRival(String input, UserHolder userHolder) {
+        if (Duel.getGamesInProgress().containsKey(userHolder)) {
+            try {
+                Duel.getGamesInProgress().get(userHolder).getDataOutputStream().writeUTF(input);
+                Duel.getGamesInProgress().get(userHolder).getDataOutputStream().flush();
+            } catch (IOException ignored) {
+            }
+        }
+    }
+
+    private void log(String input, String result) {
+        System.out.println("--> " + input);
+        System.out.println(">>> " + result);
     }
 
     public int getPort() {

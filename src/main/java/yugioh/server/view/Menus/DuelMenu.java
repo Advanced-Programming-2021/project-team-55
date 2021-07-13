@@ -70,6 +70,8 @@ public class DuelMenu extends Menu {
                         e.printStackTrace();
                     }
                     awaitingUsersForOneRound = new UserHolder[0];
+                    Duel.getGamesInProgress().put(firstPlayer, currentUser);
+                    Duel.getGamesInProgress().put(currentUser, firstPlayer);
                     return "success " + DataBaseController.getUserJson(firstPlayer.getUser());
                 } else {
                     awaitingUsersForOneRound = new UserHolder[1];
@@ -85,6 +87,8 @@ public class DuelMenu extends Menu {
                         e.printStackTrace();
                     }
                     awaitingUsersForThreeRounds = new UserHolder[0];
+                    Duel.getGamesInProgress().put(firstPlayer, currentUser);
+                    Duel.getGamesInProgress().put(currentUser, firstPlayer);
                     return "success " + DataBaseController.getUserJson(firstPlayer.getUser());
                 } else {
                     awaitingUsersForThreeRounds = new UserHolder[1];

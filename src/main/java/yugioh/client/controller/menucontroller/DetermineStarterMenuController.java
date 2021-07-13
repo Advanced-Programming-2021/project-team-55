@@ -64,10 +64,17 @@ public class DetermineStarterMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         String currentPlayerName = gameController.getGame().getFirstPlayer().getUser().getNickname();
-        if (!RivalSelectionMenuController.isIsUserFirst()) currentPlayerName = gameController.getGame().getSecondPlayer().getUser().getNickname();
         firstPlayerName.setText(currentPlayerName + " choose your Coin side:");
         noButton.setOpacity(0);
         yesButton.setOpacity(0);
+        if (RivalSelectionMenu.isRival(gameController.getGame().getFirstPlayer())) {
+            head.setDisable(true);
+            tale.setDisable(true);
+        }
+        playSound();
+    }
+
+    private void playSound() {
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\coinToss.mp4").toURI().toString()));
         mediaPlayer.play();
         mediaPlayer.setCycleCount(1);

@@ -3,13 +3,17 @@ package yugioh.server.view.gamephases;
 import yugioh.server.controller.AIPlayerController;
 import yugioh.server.controller.CheatController;
 import yugioh.server.controller.gamephasescontrollers.GameController;
+import yugioh.server.model.UserHolder;
 import yugioh.server.model.exceptions.GameException;
 import yugioh.server.view.GameRegexes;
 import yugioh.server.view.ViewInterface;
 
+import java.util.HashMap;
 import java.util.regex.Matcher;
 
 abstract public class Duel {
+
+    private static HashMap<UserHolder, UserHolder> gamesInProgress = new HashMap<>();
 
     protected static final CheatController cheatController = CheatController.getInstance();
     private static final DrawPhase drawPhase = new DrawPhase();
@@ -221,4 +225,12 @@ abstract public class Duel {
     abstract protected void execute();
 
     abstract protected String processCommand(String command);
+
+    public static HashMap<UserHolder, UserHolder> getGamesInProgress() {
+        return gamesInProgress;
+    }
+
+    public static void setGamesInProgress(HashMap<UserHolder, UserHolder> gamesInProgress) {
+        Duel.gamesInProgress = gamesInProgress;
+    }
 }
