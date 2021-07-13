@@ -57,6 +57,7 @@ public class RivalSelectionMenu extends WelcomeMenu {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        ChatRoom.close();
         URL url = getClass().getResource("/yugioh/fxml/RivalSelectionMenu.fxml");
         Parent parent = FXMLLoader.load(url);
         Scene scene = WelcomeMenu.createScene(parent);
@@ -67,4 +68,8 @@ public class RivalSelectionMenu extends WelcomeMenu {
         stage.setScene(scene);
         stage.showAndWait();
     }
+
+
+
+
 }
