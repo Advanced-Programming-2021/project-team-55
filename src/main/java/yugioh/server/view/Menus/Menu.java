@@ -131,6 +131,16 @@ abstract public class Menu {
                 e.printStackTrace();
             }
         }
+        else if(command.startsWith("is card forbid ")){
+            Matcher matcher=getCommandMatcher(command,"is card forbid (.*)");
+            String cardName=matcher.group(1);
+            if(Card.getCardByName(cardName).isForbid()){
+                return "true";
+            }
+            else{
+                return "false";
+            }
+        }
         else {
             if (result.equals("Error: invalid command"))
                 result = mainMenu.processCommand(command, currentUser);

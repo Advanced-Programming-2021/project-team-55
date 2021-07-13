@@ -128,6 +128,18 @@ public class DataBaseController  {
                 Card.allCards.add(monster);
             }
         }
+        File cardsFolderCustoms = new File("src\\resources\\cards\\Monsters\\Customs");
+        GsonBuilder builderCustoms = new GsonBuilder();
+        Gson gsonCustoms = builderCustoms.create();
+        for (File file : cardsFolderCustoms.listFiles()) {
+            if (file.getPath().endsWith(".json")) {
+                BufferedReader bufferedReader = new BufferedReader(
+                        new FileReader(file.getPath())
+                );
+                Monster monster = gsonCustoms.fromJson(bufferedReader, Monster.class);
+                Card.allCards.add(monster);
+            }
+        }
      //   Card BattleOX = new BattleOX();
      //  Card AxeRaider = new AxeRaider();
      //  Card YomiShip = new YomiShip();
