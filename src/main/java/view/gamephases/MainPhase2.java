@@ -91,6 +91,7 @@ public class MainPhase2 extends Duel {
             }
         } else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
             gameController.currentPhase = GamePhase.GRAVEYARD;
+            Graveyard.setLastPhase(GamePhase.MAIN2);
             response = gameController.showGraveyard();
 
         } else if (command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {

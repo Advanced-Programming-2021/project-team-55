@@ -384,4 +384,7 @@ public class Card {
 
     public enum Kind {MONSTER, MAGIC}
 
+    public static ArrayList<Card> getAllCards() {
+        return allCards;
+    }
 }

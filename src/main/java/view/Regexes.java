@@ -31,4 +31,5 @@ public enum Regexes {
     Regexes(String label) {
         this.regex = label;
     }
+
 }

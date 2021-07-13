@@ -3,12 +3,11 @@ package controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controller.menucontroller.MenuController;
-import model.exceptions.MenuException;
 import model.User;
 import model.cards.Card;
-
 import model.cards.monsters.*;
 import model.cards.trapandspells.*;
+import model.exceptions.MenuException;
 import view.Menus.Menu;
 import view.Menus.MenuType;
 import view.Responses;
@@ -159,12 +158,29 @@ public class DataBaseController extends MenuController {
         Menu.setCurrentMenu(MenuType.MAIN);
     }
 
-    public void importDeck(String cardName) {
-
+    public String importCard(String cardName) {
+        try {
+            String cardJson = readFileContent("src\\resources\\cards\\" + cardName + ".json");
+            GsonBuilder builder = new GsonBuilder();
+            Gson gson = builder.create();
+            Card card = gson.fromJson(cardJson, Card.class);
+            Card.getAllCards().add(card);
+            return card.getName() + " successfully imported";
+        } catch (Exception e) {
+            return "there is no card exported at \"cards\" directory with this name";
+        }
     }
 
     public String exportCard(String cardName) {
-        return null;
+        if (cardName == null || cardName.equals("")) {
+            return "Error: no cards selected";
+        }
+        Card card = Card.getNewCardObjectByName(cardName);
+        try {
+            writeJSON(card, "src\\resources\\cards\\" + card.getName() + ".json");
+        } catch (IOException ignored) {
+        }
+        return "card successfully exported at \"cards\" directory";
     }
 
     public String readFileContent(String address) {

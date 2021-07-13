@@ -18,7 +18,7 @@ class CoinDiceTest {
     void testIsInBoundsTossCoin() {
         int random = CoinDice.tossCoin();
         System.out.println(random);
-        Assertions.assertTrue(random >= 0 && random <= 1);
+        Assertions.assertTrue(random >= 1 && random <= 2);
     }
 
 }

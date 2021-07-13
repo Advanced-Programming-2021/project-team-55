@@ -13,6 +13,7 @@ abstract public class Menu {
     private static final ShopMenu shopMenu = new ShopMenu();
     private static final DeckMenu deckMenu = new DeckMenu();
     private static final DuelMenu duelMenu = new DuelMenu();
+    private static final ImportExportMenu importExportMenu = new ImportExportMenu();
     public static MenuType currentMenu = MenuType.LOGIN;
 
     public static void run() {
@@ -50,6 +51,10 @@ abstract public class Menu {
                 }
                 case DUEL: {
                     duelMenu.execute();
+                    break;
+                }
+                case IMPORT_EXPORT: {
+                    importExportMenu.execute();
                     break;
                 }
             }
