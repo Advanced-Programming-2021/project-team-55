@@ -9,6 +9,7 @@ import javafx.scene.media.MediaView;
 import yugioh.client.controller.gamephasescontrollers.GameController;
 import yugioh.client.view.gamephases.Duel;
 import yugioh.client.view.menus.DetermineStarterMenu;
+import yugioh.client.view.menus.RivalSelectionMenu;
 import yugioh.client.view.menus.Toast;
 
 import java.io.File;
@@ -63,6 +64,7 @@ public class DetermineStarterMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         String currentPlayerName = gameController.getGame().getFirstPlayer().getUser().getNickname();
+        if (!RivalSelectionMenuController.isIsUserFirst()) currentPlayerName = gameController.getGame().getSecondPlayer().getUser().getNickname();
         firstPlayerName.setText(currentPlayerName + " choose your Coin side:");
         noButton.setOpacity(0);
         yesButton.setOpacity(0);

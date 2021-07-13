@@ -29,6 +29,7 @@ import java.util.regex.Matcher;
 public class RivalSelectionMenuController extends MenuController implements Initializable {
 
     public static RivalSelectionMenuController deckMenuController;
+    private static boolean isUserFirst;
 
     private static User[] awaitingUsersForOneRound;
     private static User[] awaitingUsersForThreeRounds;
@@ -124,15 +125,29 @@ public class RivalSelectionMenuController extends MenuController implements Init
         RivalSelectionMenu.setRounds(3);
     }
 
-    public void sendGameRequest() throws Exception {
+    public void sendGameRequest() {
         NetAdapter.justSendRequest("duel --new --rounds " + RivalSelectionMenu.getRounds());
         int tableRow = awaitingUsersForOneRound.length + awaitingUsersForThreeRounds.length;
-        String rounds = "1 ROUND";
-        if (RivalSelectionMenu.getRounds() == 3) rounds = "3 ROUNDS";
+        String rounds;
+        if (RivalSelectionMenu.getRounds() == 3) {
+            rounds = "3 ROUNDS";
+            isUserFirst = awaitingUsersForThreeRounds.length == 0;
+        } else {
+            rounds = "1 ROUND";
+            isUserFirst = awaitingUsersForOneRound.length == 0;
+        }
         waitingUsersGridPane.add(new Text(rounds), 0, tableRow);
         waitingUsersGridPane.add(new Text(User.loggedInUser.getUsername()), 1, tableRow);
         waitingUsersGridPane.add(new Text("SCORE: " + User.loggedInUser.getScore()), 2, tableRow);
         start.setDisable(true);
         startGame();
+    }
+
+    public static boolean isIsUserFirst() {
+        return isUserFirst;
+    }
+
+    public static void setIsUserFirst(boolean isUserFirst) {
+        RivalSelectionMenuController.isUserFirst = isUserFirst;
     }
 }
