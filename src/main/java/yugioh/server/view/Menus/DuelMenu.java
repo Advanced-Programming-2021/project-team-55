@@ -17,8 +17,8 @@ public class DuelMenu extends Menu {
 
     private static final DuelMenuController duelMenuController = DuelMenuController.getInstance();
 
-    private static User[] awaitingUsersForOneRound = new User[0];
-    private static User[] awaitingUsersForThreeRounds = new User[0];
+    private static UserHolder[] awaitingUsersForOneRound = new UserHolder[0];
+    private static UserHolder[] awaitingUsersForThreeRounds = new UserHolder[0];
 
     @Override
     protected void execute() {
@@ -45,25 +45,33 @@ public class DuelMenu extends Menu {
                 response = e.toString();
             }
         } else if (command.matches("get awaiting users for 1 round")) {
-            response = DataBaseController.getObjectJson(awaitingUsersForOneRound);
+            User[] users = new User[awaitingUsersForOneRound.length];
+            for (int i = 0; i < awaitingUsersForOneRound.length; i++) {
+                users[i] = awaitingUsersForOneRound[i].getUser();
+            }
+            response = DataBaseController.getObjectJson(users);
         } else if (command.matches("get awaiting users for 3 rounds")) {
-            response = DataBaseController.getObjectJson(awaitingUsersForThreeRounds);
+            User[] users = new User[awaitingUsersForThreeRounds.length];
+            for (int i = 0; i < awaitingUsersForThreeRounds.length; i++) {
+                users[i] = awaitingUsersForThreeRounds[i].getUser();
+            }
+            response = DataBaseController.getObjectJson(users);
         } else if (command.matches("duel --new --rounds (\\d+)")) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, "duel --new --rounds (\\d+)");
             int rounds = Integer.parseInt(matcher.group(1));
             if (rounds == 1) {//todo inform another player
                 if (awaitingUsersForOneRound.length > 0)
-                    return "success " + DataBaseController.getUserJson(awaitingUsersForOneRound[0]);
+                    return "success " + DataBaseController.getUserJson(awaitingUsersForOneRound[0].getUser());
                 else {
-                    awaitingUsersForOneRound = new User[1];
-                    awaitingUsersForOneRound[0] = currentUser.getUser();
+                    awaitingUsersForOneRound = new UserHolder[1];
+                    awaitingUsersForOneRound[0] = currentUser;
                 }
             } else {
                 if (awaitingUsersForThreeRounds.length > 0)
-                    return "success " + DataBaseController.getUserJson(awaitingUsersForThreeRounds[0]);
+                    return "success " + DataBaseController.getUserJson(awaitingUsersForThreeRounds[0].getUser());
                 else {
-                    awaitingUsersForThreeRounds = new User[1];
-                    awaitingUsersForThreeRounds[0] = currentUser.getUser();
+                    awaitingUsersForThreeRounds = new UserHolder[1];
+                    awaitingUsersForThreeRounds[0] = currentUser;
                 }
             }
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {

@@ -1,15 +1,17 @@
 package yugioh.client.controller.menucontroller;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import yugioh.client.controller.DataBaseController;
 import yugioh.client.model.User;
 import yugioh.client.view.NetAdapter;
@@ -17,7 +19,6 @@ import yugioh.client.view.SoundPlayable;
 import yugioh.client.view.ViewInterface;
 import yugioh.client.view.menus.PopUpWindow;
 import yugioh.client.view.menus.RivalSelectionMenu;
-import yugioh.client.view.menus.WelcomeMenu;
 
 import java.io.File;
 import java.net.URL;
@@ -79,18 +80,34 @@ public class RivalSelectionMenuController extends MenuController implements Init
         RivalSelectionMenu.getStage().close();
     }
 
-    public void startGame() throws Exception {
-        String result = NetAdapter.dataInputStream.readUTF();
-        if (result.startsWith("Error: ")) {
-            new PopUpWindow(result).start(RivalSelectionMenu.getStage());
-            return;
-        }
-        Matcher matcher = ViewInterface.getCommandMatcher(result, "success (.+)");
-        User rival = DataBaseController.getUserObjectByString(matcher.group(1));
-        SoundPlayable.playButtonSound("enterButton");
-        RivalSelectionMenu.setRival(rival);
-        RivalSelectionMenu.setDoCancel(false);
-        RivalSelectionMenu.getStage().close();
+    public void startGame() {
+        new Thread(() -> {
+            try {
+                String result = NetAdapter.dataInputStream.readUTF();
+                if (result.startsWith("Error: ")) {
+                    new PopUpWindow(result).start(RivalSelectionMenu.getStage());
+                    return;
+                }
+            if (!result.startsWith("success ")) {
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+                    try {
+                        startGame();
+                    } catch (Exception ignored) {
+                    }
+                }));
+                timeline.play();
+                return;
+            }
+            Matcher matcher = ViewInterface.getCommandMatcher(result, "success (.+)");
+            User rival = DataBaseController.getUserObjectByString(matcher.group(1));
+            SoundPlayable.playButtonSound("enterButton");
+            RivalSelectionMenu.setRival(rival);
+            RivalSelectionMenu.setDoCancel(false);
+            Platform.runLater(() -> RivalSelectionMenu.getStage().close());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     public void clickOneRound() {
@@ -109,6 +126,13 @@ public class RivalSelectionMenuController extends MenuController implements Init
 
     public void sendGameRequest() throws Exception {
         NetAdapter.justSendRequest("duel --new --rounds " + RivalSelectionMenu.getRounds());
+        int tableRow = awaitingUsersForOneRound.length + awaitingUsersForThreeRounds.length;
+        String rounds = "1 ROUND";
+        if (RivalSelectionMenu.getRounds() == 3) rounds = "3 ROUNDS";
+        waitingUsersGridPane.add(new Text(rounds), 0, tableRow);
+        waitingUsersGridPane.add(new Text(User.loggedInUser.getUsername()), 1, tableRow);
+        waitingUsersGridPane.add(new Text("SCORE: " + User.loggedInUser.getScore()), 2, tableRow);
+        start.setDisable(true);
         startGame();
     }
 }
