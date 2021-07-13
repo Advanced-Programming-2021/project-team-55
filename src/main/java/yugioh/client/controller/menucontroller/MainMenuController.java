@@ -8,6 +8,7 @@ import javafx.scene.media.MediaView;
 import yugioh.client.model.User;
 import yugioh.client.view.SoundPlayable;
 import yugioh.client.view.ViewInterface;
+import yugioh.client.view.menus.ChatRoom;
 
 import java.io.File;
 
@@ -66,6 +67,7 @@ public class MainMenuController extends MenuController {
     public void logoutClicked(MouseEvent mouseEvent) throws Exception {
         ViewInterface.showResult("user logout");
         SoundPlayable.playButtonSound("backButton");
+        ChatRoom.close();
         logout();
     }
 

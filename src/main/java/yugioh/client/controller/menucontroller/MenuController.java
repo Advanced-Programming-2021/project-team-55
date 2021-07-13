@@ -24,6 +24,8 @@ abstract public class MenuController implements SoundPlayable {
     protected DataOutputStream dataOutputStream= NetAdapter.dataOutputStream;
     protected DataInputStream dataInputStream=NetAdapter.dataInputStream;
     protected static DataOutputStream dataOutputStreamForSaving=NetAdapter.dataOutputStreamForSaving;
+    protected DataInputStream dataInputStreamForChat=NetAdapter.dataInputStreamForChat;
+    protected DataOutputStream dataOutputStreamForChat=NetAdapter.dataOutputStreamForChat;
 
 
 }

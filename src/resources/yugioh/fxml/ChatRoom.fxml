@@ -11,9 +11,15 @@
          <content>
             <AnchorPane prefHeight="386.0" prefWidth="317.0" />
          </content></ScrollPane>
-        <TextArea fx:id="message"  layoutX="345.0" layoutY="5.0" prefHeight="142.0" prefWidth="251.0" />
-        <Button fx:id="sendMessageButton" layoutX="424.0" layoutY="158.0" mnemonicParsing="false" onMouseClicked="#sendMessage" text="Send Message" />
+        <TextArea fx:id="message" layoutX="345.0" layoutY="5.0" prefHeight="142.0" prefWidth="251.0" />
         <JFXButton buttonType="RAISED" layoutX="417.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="40.0" prefWidth="177.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
+            <styleClass>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
+            </styleClass>
+        </JFXButton>
+        <JFXButton fx:id="sendMessageButton" buttonType="RAISED" layoutX="382.0" layoutY="156.0" mnemonicParsing="false" onMouseClicked="#sendMessage" prefHeight="40.0" prefWidth="177.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Send Message">
             <styleClass>
                 <String fx:value="buttonText" />
                 <String fx:value="buttonShape" />
