@@ -7,12 +7,12 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import yugioh.client.controller.gamephasescontrollers.GameController;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.gamephases.Duel;
-import yugioh.client.view.menus.DetermineStarterMenu;
-import yugioh.client.view.menus.RivalSelectionMenu;
-import yugioh.client.view.menus.Toast;
+import yugioh.client.view.menus.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -67,11 +67,34 @@ public class DetermineStarterMenuController implements Initializable {
         firstPlayerName.setText(currentPlayerName + " choose your Coin side:");
         noButton.setOpacity(0);
         yesButton.setOpacity(0);
+        playSound();
         if (RivalSelectionMenu.isRival(gameController.getGame().getFirstPlayer())) {
             head.setDisable(true);
             tale.setDisable(true);
+            startSyncingWithRival();
         }
-        playSound();
+    }
+
+    private void startSyncingWithRival() {
+        Thread listeningCommandThread = new Thread(() -> {
+            try {
+                while (true) {
+                    String command = NetAdapter.dataInputStream.readUTF();
+                    switch (command) {
+                        case "head selected":
+                            headClicked();
+                            break;
+                        case "tale selected":
+                            taleClicked();
+                            break;
+                        default:
+                            WelcomeMenu.getDuelMenu().processCommand(command);
+                    }
+                }
+            } catch (IOException ignored) {
+            }
+        });
+        listeningCommandThread.start();
     }
 
     private void playSound() {
