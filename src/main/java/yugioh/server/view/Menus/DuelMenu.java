@@ -60,28 +60,32 @@ public class DuelMenu extends Menu {
         } else if (command.matches("duel --new --rounds (\\d+)")) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, "duel --new --rounds (\\d+)");
             int rounds = Integer.parseInt(matcher.group(1));
-            if (rounds == 1) {//todo inform another player
+            if (rounds == 1) {
                 if (awaitingUsersForOneRound.length > 0) {
+                    UserHolder firstPlayer = awaitingUsersForOneRound[0];
                     try {
-                        awaitingUsersForOneRound[0].getDataOutputStream().writeUTF("success " + DataBaseController.getUserJson(currentUser.getUser()));
-                        awaitingUsersForOneRound[0].getDataOutputStream().flush();
+                        firstPlayer.getDataOutputStream().writeUTF("success " + DataBaseController.getUserJson(currentUser.getUser()));
+                        firstPlayer.getDataOutputStream().flush();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    return "success " + DataBaseController.getUserJson(awaitingUsersForOneRound[0].getUser());
+                    awaitingUsersForOneRound = new UserHolder[0];
+                    return "success " + DataBaseController.getUserJson(firstPlayer.getUser());
                 } else {
                     awaitingUsersForOneRound = new UserHolder[1];
                     awaitingUsersForOneRound[0] = currentUser;
                 }
             } else {
                 if (awaitingUsersForThreeRounds.length > 0) {
+                    UserHolder firstPlayer = awaitingUsersForThreeRounds[0];
                     try {
-                        awaitingUsersForThreeRounds[0].getDataOutputStream().writeUTF("success " + DataBaseController.getUserJson(currentUser.getUser()));
-                        awaitingUsersForThreeRounds[0].getDataOutputStream().flush();
+                        firstPlayer.getDataOutputStream().writeUTF("success " + DataBaseController.getUserJson(currentUser.getUser()));
+                        firstPlayer.getDataOutputStream().flush();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    return "success " + DataBaseController.getUserJson(awaitingUsersForThreeRounds[0].getUser());
+                    awaitingUsersForThreeRounds = new UserHolder[0];
+                    return "success " + DataBaseController.getUserJson(firstPlayer.getUser());
                 } else {
                     awaitingUsersForThreeRounds = new UserHolder[1];
                     awaitingUsersForThreeRounds[0] = currentUser;
