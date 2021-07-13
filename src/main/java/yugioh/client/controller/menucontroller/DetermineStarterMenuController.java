@@ -1,6 +1,7 @@
 package yugioh.client.controller.menucontroller;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.media.Media;
@@ -44,10 +45,10 @@ public class DetermineStarterMenuController implements Initializable {
         int randomNumber = gameController.tossCoin();
         switch (randomNumber) {
             case 1:
-                Toast.makeText(DetermineStarterMenu.getStage(), "HEAD!");
+                Platform.runLater(() -> Toast.makeText(DetermineStarterMenu.getStage(), "HEAD!"));;
                 break;
             case 2:
-                Toast.makeText(DetermineStarterMenu.getStage(), "TALE!");
+                Platform.runLater(() -> Toast.makeText(DetermineStarterMenu.getStage(), "TALE!"));;
                 break;
         }
         if (Integer.parseInt(choice) == randomNumber) {
@@ -112,6 +113,7 @@ public class DetermineStarterMenuController implements Initializable {
     }
 
     public void headClicked() {
+        NetAdapter.justSendRequest("head selected");
         playButtonSound("enterButton");
         head.setDisable(true);
         tale.setDisable(true);
@@ -119,6 +121,7 @@ public class DetermineStarterMenuController implements Initializable {
     }
 
     public void taleClicked() {
+        NetAdapter.justSendRequest("tale selected");
         playButtonSound("enterButton");
         head.setDisable(true);
         tale.setDisable(true);

@@ -204,7 +204,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
             }
         });
         chatThread = new Thread(() -> {
-            while (true) {
+          /*  while (true) {//todo commentd not worked
                 try {
                     String inputMessage = dataInputStream.readUTF();
                     if (inputMessage.equals(User.loggedInUser.getUsername() + " gomsho")) {
@@ -265,7 +265,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
+            }*/
         });
         chatThread.start();
     }
