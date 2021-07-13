@@ -46,9 +46,9 @@ public class ChatRoomController  extends MenuController implements Initializable
                     Platform.runLater(() -> {
                         if(!inputMessage.startsWith(User.loggedInUser.getNickname())){
 //                            String otherUsername=inputMessage.substring(0,inputMessage.indexOf(":"));
-                            String message=inputMessage.substring(inputMessage.indexOf(":")+2);
+                           // String message=inputMessage.substring(inputMessage.indexOf(":")+2);
 //                            message+=" :"+otherUsername;
-                            chatBox.setText(chatBox.getText() + "\n\t\t\t\t" + message);
+                            chatBox.setText(chatBox.getText() + "\n\t\t\t\t" + inputMessage);
                         }
                         else
                             chatBox.setText(chatBox.getText() + "\n" + inputMessage);
