@@ -13,6 +13,11 @@ public class User {
 
     public static User loggedInUser;
     private static String token;
+    private static ArrayList<User> allUsers;
+
+    static {
+        allUsers = new ArrayList<>();
+    }
 
     private final ArrayList<Deck> decks;
     private final ArrayList<Card> cardsInventory;
@@ -37,13 +42,76 @@ public class User {
         setUsername(username);
         setNickname(nickname);
         setPassword(password);
+        allUsers.add(this);
         setProfileImage();
         initializeCards();
-        loggedInUser = this;
+
+    }
+
+    public static User getUserByUsername(String username) {
+        for (User user : allUsers) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public static boolean usernameExists(String username) {
+        for (User user : allUsers) {
+            if (user.getUsername().equals(username)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean nicknameExists(String nickname) {
+        for (User user : allUsers) {
+            if (user.getNickname().equals(nickname)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void setLoggedInUser(User user) {
         loggedInUser = user;
+    }
+
+    public static LinkedHashMap<Integer, HashMap<Integer, String>> getScoreBoardUsers() {
+        allUsers.sort((user1, user2) -> {
+            Integer score1 = user1.score;
+            Integer score2 = user2.score;
+            if (score1.equals(score2)) {
+                return user1.nickname.compareTo(user2.nickname);
+            }
+            return score2.compareTo(score1);
+        });
+        LinkedHashMap<Integer, HashMap<Integer, String>> scoreBoard = new LinkedHashMap<>();
+        int rank = 1;
+        int sameNumbers = 1;
+        for (int i = 0; i < allUsers.size(); i++) {
+            HashMap<Integer, String> userInfo = new HashMap<>();
+            userInfo.put(rank, allUsers.get(i).toString());
+            scoreBoard.put(i, userInfo);
+            if (i + 1 < allUsers.size() && allUsers.get(i).score != allUsers.get(i + 1).score) {
+                rank += sameNumbers;
+                sameNumbers = 1;
+            } else {
+                sameNumbers++;
+            }
+
+        }
+        return scoreBoard;
+    }
+
+    public static ArrayList<User> getAllUsers() {
+        return allUsers;
+    }
+
+    public static void setAllUsers(ArrayList<User> allUsers) {
+        User.allUsers = allUsers;
     }
 
     public void setProfileImage() {

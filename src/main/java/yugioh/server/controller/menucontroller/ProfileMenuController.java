@@ -19,6 +19,7 @@ public class ProfileMenuController extends MenuController {
     }
 
     public void changeNickname(String nickname, UserHolder currentUser) throws MenuException {
+        System.out.println("change nick");
         if (User.nicknameExists(nickname)) {
             throw new MenuException("Error: user with nickname " + nickname + " already exists");
         } else {

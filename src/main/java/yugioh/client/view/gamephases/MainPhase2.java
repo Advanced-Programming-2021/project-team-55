@@ -70,6 +70,7 @@ public class MainPhase2 extends Duel {
         } else if (command.matches(GameRegexes.SET_POSITION.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SET_POSITION.regex);
             try {
+
                 mainPhase2Controller.setPosition(matcher.group(1), gameController);
                 response = GameResponses.SET_POSITION_SUCCESSFULLY.response;
             } catch (GameException e) {

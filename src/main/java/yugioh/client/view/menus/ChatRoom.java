@@ -1,9 +1,13 @@
 package yugioh.client.view.menus;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import yugioh.client.controller.menucontroller.ChatRoomController;
 
 import java.net.URL;
 
