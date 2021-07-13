@@ -1,5 +1,6 @@
 package yugioh.client.controller.menucontroller;
 
+import com.jfoenix.controls.JFXTextField;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -11,6 +12,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.skin.ScrollPaneSkin;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -23,17 +26,20 @@ import yugioh.client.view.NetAdapter;
 import yugioh.client.view.SoundPlayable;
 import yugioh.client.view.menus.WelcomeMenu;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class ChatRoomController  extends MenuController implements Initializable{
-    public TextArea message;
+   // public TextArea message;
     public ScrollPane chatBox;
     public transient Thread chatThread;
     public Button sendMessageButton;
     public static Scanner input=new Scanner(System.in);
+    public ImageView sendImage;
+    public JFXTextField message;
     private boolean isChatEnded=false;
 
 
@@ -45,7 +51,7 @@ public class ChatRoomController  extends MenuController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        message.setWrapText(true);
+       // message.setWrapText(true);
         WelcomeMenu.stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -160,5 +166,12 @@ public class ChatRoomController  extends MenuController implements Initializable
 //                }
 //        })).play();
         //mainMenu.execute();
+    }
+    public void setHoveredImageSend() {
+        sendImage.setImage(new Image(new File("src/resources/yugioh/PNG/Field/sendHover.png").toURI().toString()));
+    }
+
+    public void resetHoveredImageSend() {
+        sendImage.setImage(new Image(new File("src/resources/yugioh/PNG/Field/send.png").toURI().toString()));
     }
 }
