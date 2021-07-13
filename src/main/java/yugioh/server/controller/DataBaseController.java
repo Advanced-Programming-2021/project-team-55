@@ -222,6 +222,7 @@ public class DataBaseController  {
 //        Card AdvancedRitualArt = new AdvancedRitualArt();
 
     }
+
     public static void saveCardInfo(Card card) throws IOException {
         if (card.getCardKind() == Card.Kind.MAGIC) {
             SpellAndTrap spellAndTrap = (SpellAndTrap) card;

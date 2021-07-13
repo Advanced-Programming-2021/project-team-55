@@ -31,7 +31,7 @@ public class DuelMenuController extends MenuController {
 
     public GameController newPVPDuel(String secondPlayer, int rounds) throws Exception {
 //        User rival = User.getUserByUsername(secondPlayer);//todo
-        User rival = null;
+        User rival = RivalSelectionMenu.getRival();
         if (rival == null) {
             throw new MenuException(Responses.NO_PLAYER_EXISTS.response);
         } else if (User.loggedInUser.getActiveDeck() == null) {
