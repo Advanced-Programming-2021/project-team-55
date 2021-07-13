@@ -39,6 +39,7 @@ public class DuelMenuController extends MenuController {
         } else if (rival.getActiveDeck() == null) {
             throw new MenuException("Error: " + rival.getUsername() + " has no active deck");
         } else {
+
             Deck player1Deck = User.loggedInUser.getActiveDeck();
             Deck player2Deck = rival.getActiveDeck();
             if (!player1Deck.isDeckValid()) {
@@ -48,9 +49,13 @@ public class DuelMenuController extends MenuController {
             } else if (rounds != 1 && rounds != 3) {
                 throw new MenuException(Responses.NUMBER_OF_ROUNDS_NOT_SUPPORTED.response);
             } else {
-
                 Player player1 = new Player(User.loggedInUser, player1Deck.clone(), false);
                 Player player2 = new Player(rival, player2Deck.clone(), false);
+                if (!RivalSelectionMenuController.isIsUserFirst()) {
+                    Player temp = player1;
+                    player1 = player2;
+                    player2 = temp;
+                }
                 return new GameController(new Game(player1, player2, rounds));
             }
         }

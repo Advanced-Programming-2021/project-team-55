@@ -7,6 +7,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import yugioh.client.controller.menucontroller.DeckMenuController;
+import yugioh.client.model.Player;
 import yugioh.client.model.User;
 
 import java.net.URL;
@@ -69,7 +70,7 @@ public class RivalSelectionMenu extends WelcomeMenu {
         stage.showAndWait();
     }
 
-
-
-
+    public static boolean isRival(Player player) {
+        return player.getUser().equals(rival);
+    }
 }

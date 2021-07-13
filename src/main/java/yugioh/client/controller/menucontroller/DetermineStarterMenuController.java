@@ -9,6 +9,7 @@ import javafx.scene.media.MediaView;
 import yugioh.client.controller.gamephasescontrollers.GameController;
 import yugioh.client.view.gamephases.Duel;
 import yugioh.client.view.menus.DetermineStarterMenu;
+import yugioh.client.view.menus.RivalSelectionMenu;
 import yugioh.client.view.menus.Toast;
 
 import java.io.File;
@@ -66,6 +67,14 @@ public class DetermineStarterMenuController implements Initializable {
         firstPlayerName.setText(currentPlayerName + " choose your Coin side:");
         noButton.setOpacity(0);
         yesButton.setOpacity(0);
+        if (RivalSelectionMenu.isRival(gameController.getGame().getFirstPlayer())) {
+            head.setDisable(true);
+            tale.setDisable(true);
+        }
+        playSound();
+    }
+
+    private void playSound() {
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\coinToss.mp4").toURI().toString()));
         mediaPlayer.play();
         mediaPlayer.setCycleCount(1);

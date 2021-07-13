@@ -13,6 +13,11 @@ public class User {
 
     public static User loggedInUser;
     private static String token;
+    private static ArrayList<User> allUsers;
+
+    static {
+        allUsers = new ArrayList<>();
+    }
 
     private final ArrayList<Deck> decks;
     private final ArrayList<Card> cardsInventory;
@@ -37,13 +42,49 @@ public class User {
         setUsername(username);
         setNickname(nickname);
         setPassword(password);
+        allUsers.add(this);
         setProfileImage();
         initializeCards();
-        loggedInUser = this;
+
+    }
+
+    public static User getUserByUsername(String username) {
+        for (User user : allUsers) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public static boolean usernameExists(String username) {
+        for (User user : allUsers) {
+            if (user.getUsername().equals(username)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean nicknameExists(String nickname) {
+        for (User user : allUsers) {
+            if (user.getNickname().equals(nickname)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void setLoggedInUser(User user) {
         loggedInUser = user;
+    }
+
+    public static ArrayList<User> getAllUsers() {
+        return allUsers;
+    }
+
+    public static void setAllUsers(ArrayList<User> allUsers) {
+        User.allUsers = allUsers;
     }
 
     public void setProfileImage() {

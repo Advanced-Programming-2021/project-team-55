@@ -116,6 +116,8 @@ public class GameController {
     }
 
     public String showGraveyard() {
+        ViewInterface.showResult("show graveyard");//todo complete function
+
         String response = "";
         GameBoard playerGameBoard = currentTurnPlayer.getGameBoard();
         if (playerGameBoard.getGraveyard().size() == 0) {
@@ -129,6 +131,8 @@ public class GameController {
     }
 
     public String showCard() throws GameException {
+        ViewInterface.showResult("card show --selected");//todo complete function
+
         if (Cell.getSelectedCell() == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         } else if (!currentTurnOpponentPlayer.getGameBoard().isCellVisibleToOpponent(Cell.getSelectedCell())) {
@@ -139,6 +143,8 @@ public class GameController {
     }
 
     public void selectCard(String zone, int number, boolean opponent) throws GameException {
+       // ViewInterface.showResult("select --" + zone+ number+ );//todo complete function
+
         GameBoard currentPlayerGameBoard = currentTurnPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = currentTurnOpponentPlayer.getGameBoard();
         Cell selectedCell = null;
@@ -192,6 +198,8 @@ public class GameController {
     }
 
     public void deselect() throws GameException {
+        ViewInterface.showResult("select -d");//todo complete function
+
         if (Cell.getSelectedCell() == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
@@ -199,6 +207,8 @@ public class GameController {
     }
 
     public void changePhase() {
+        ViewInterface.showResult("next phase");//todo complete function
+
 //        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
         CardActionsMenu.close();
         //   if (isGameEnded()) {
