@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import yugioh.client.controller.DataBaseController;
 import yugioh.client.model.User;
 import yugioh.client.model.cards.Monster;
 import yugioh.client.model.cards.cardfeaturesenums.CardType;
@@ -202,13 +203,18 @@ public class CardGeneratorMenuController extends MenuController implements Initi
             Path sourceDirectory = Paths.get("src\\resources\\yugioh\\PNG\\cardsImages\\questionMark.jpg");
             Path targetDirectory = Paths.get("src\\resources\\yugioh\\PNG\\cardsImages\\" + cardName.getText() + ".jpg");
             try {
-                Files.copy(sourceDirectory, targetDirectory);
+
+                dataOutputStream.writeUTF("add card "+ DataBaseController.cardToJSON(monster));
+                if(!dataInputStream.readUTF().equals("true")) {
+                    new PopUpWindow("Error: card with this name already exists!").start(WelcomeMenu.stage);
+                }else{
+                    Files.copy(sourceDirectory, targetDirectory);
+                    new PopUpWindow("card generated successfully!").start(WelcomeMenu.stage);
+                }
             } catch (Exception e) {
                 new PopUpWindow("Error: card with this name already exists!").start(WelcomeMenu.stage);
             }
             new CardGeneratorMenu().execute();
-            new PopUpWindow("card generated successfully!").start(WelcomeMenu.stage);
-
         }
 
     }

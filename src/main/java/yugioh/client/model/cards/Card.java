@@ -496,4 +496,6 @@ public class Card {
     }
 
     public enum Kind {MONSTER, MAGIC}
+
+
 }

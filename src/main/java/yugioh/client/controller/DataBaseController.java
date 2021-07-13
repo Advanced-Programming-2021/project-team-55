@@ -32,6 +32,7 @@ import yugioh.client.model.cards.Monster;
 import yugioh.client.model.cards.SpellAndTrap;
 import yugioh.client.model.cards.monsters.*;
 import yugioh.client.model.cards.trapandspells.*;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.SoundPlayable;
 import yugioh.client.view.menus.PopUpWindow;
 import yugioh.client.view.menus.WelcomeMenu;
@@ -72,8 +73,14 @@ public class DataBaseController extends MenuController {
         Gson gson = builder.create();
         writeFile(fileAddress, gson.toJson(object));
     }
+    public static String cardToJSON(Card card){
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        return "address: src\\resources\\cards\\Monsters\\Customs\\"+card.getName()+".json content: "+gson.toJson(card);
+    }
 
     public static void saveUserInfo(User user) throws IOException {
+        if(user!=null)
         writeJSON(user, "src\\resources\\users\\" + user.getUsername() + ".json");
     }
 
@@ -93,9 +100,10 @@ public class DataBaseController extends MenuController {
     }
 
     public static void writeFile(String fileAddress, String content) throws IOException {
-        FileWriter writer = new FileWriter(fileAddress);
-        writer.write(content);
-        writer.close();
+        dataOutputStreamForSaving.writeUTF("save user address: "+fileAddress+" content: "+content);
+//        FileWriter writer = new FileWriter(fileAddress);
+//        writer.write(content);
+//        writer.close();
     }
 
 //    public static void usersDataBaseInitialization() throws FileNotFoundException {
@@ -124,6 +132,12 @@ public class DataBaseController extends MenuController {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         return gson.fromJson(jsonObject, ScoreBoardItem[].class);
+    }
+
+    public static User[] parseAllUsers(String jsonObjects) {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        return gson.fromJson(jsonObjects, User[].class);
     }
 
     public static void cardsDataBaseInitialization() throws FileNotFoundException {

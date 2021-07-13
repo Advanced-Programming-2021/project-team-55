@@ -3,14 +3,25 @@ package yugioh.client.controller.menucontroller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.skin.ScrollPaneSkin;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import yugioh.client.model.User;
 import yugioh.client.view.NetAdapter;
 import yugioh.client.view.SoundPlayable;
+import yugioh.client.view.menus.WelcomeMenu;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,13 +29,15 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class ChatRoomController  extends MenuController implements Initializable{
-    public TextField message;
-    public TextArea chatBox;
+    public TextArea message;
+    public ScrollPane chatBox;
     public transient Thread chatThread;
+    public Button sendMessageButton;
     public static Scanner input=new Scanner(System.in);
     private boolean isChatEnded=false;
 
-    public void sendMessage(MouseEvent mouseEvent) throws Exception {
+
+    public void sendMessage(Event event) throws Exception {
         dataOutputStream.writeUTF("chat "+User.loggedInUser.getNickname()+": "+message.getText());
         dataOutputStream.flush();
         message.setText("");
@@ -32,8 +45,30 @@ public class ChatRoomController  extends MenuController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        chatBox.setWrapText(true);
-        chatBox.setEditable(false);
+        message.setWrapText(true);
+        WelcomeMenu.stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode()== KeyCode.ENTER){
+                    try {
+                        sendMessage(event);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        message.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(t1.equals("")){
+                    sendMessageButton.setDisable(true);
+                }
+                else{
+                    sendMessageButton.setDisable(false);
+                }
+            }
+        });
         chatThread =new Thread(() -> {
         while (true) {
             try {
@@ -46,12 +81,54 @@ public class ChatRoomController  extends MenuController implements Initializable
                     Platform.runLater(() -> {
                         if(!inputMessage.startsWith(User.loggedInUser.getNickname())){
 //                            String otherUsername=inputMessage.substring(0,inputMessage.indexOf(":"));
-                            String message=inputMessage.substring(inputMessage.indexOf(":")+2);
+                           // String message=inputMessage.substring(inputMessage.indexOf(":")+2);
 //                            message+=" :"+otherUsername;
-                            chatBox.setText(chatBox.getText() + "\n\t\t\t\t" + message);
+                          //  chatBox.setText(chatBox.getText() + "\n\t\t\t\t" + inputMessage);
+                            AnchorPane anchorPane=(AnchorPane) chatBox.getContent();
+                            double yLastMessage;
+                            if(anchorPane.getChildren().size()>0) {
+                                Label lastMessage = (Label) anchorPane.getChildren().get(anchorPane.getChildren().size()-1);
+                                yLastMessage = lastMessage.getLayoutY();
+                            }
+                            else {
+                                yLastMessage = -10;
+                            }
+                            Label messageLabel=new Label(inputMessage);
+
+                            messageLabel.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY,null)));
+                            messageLabel.setTextFill(Color.CHARTREUSE);
+                            messageLabel.setLayoutY(yLastMessage+30);
+                            messageLabel.setLayoutX(100);
+                            anchorPane.getChildren().add(messageLabel);
+                            chatBox.setContent(anchorPane);
+
+                            //othersChatBox.getChildren().add(messageLabel);
+                            //chatPane.setContent(new Rectangle());
+
                         }
-                        else
-                            chatBox.setText(chatBox.getText() + "\n" + inputMessage);
+                        else {
+                            AnchorPane anchorPane=(AnchorPane) chatBox.getContent();
+                            double yLastMessage;
+                            if(anchorPane.getChildren().size()>0) {
+                                Label lastMessage = (Label) anchorPane.getChildren().get(anchorPane.getChildren().size()-1);
+                                yLastMessage = lastMessage.getLayoutY();
+                            }
+                            else {
+                                yLastMessage = -10;
+                            }
+                            Label messageLabel=new Label(inputMessage);
+                            messageLabel.setTextFill(Color.RED);
+                            messageLabel.setBackground(new Background(new BackgroundFill(Color.CHARTREUSE, CornerRadii.EMPTY,null)));
+                            messageLabel.setLayoutY(yLastMessage+30);
+                            messageLabel.setLayoutX(0);
+                            anchorPane.getChildren().add(messageLabel);
+                            chatBox.setContent(anchorPane);
+                           // chatBox.setText(chatBox.getText() + "\n" + inputMessage);
+                           // Label messageLabel=new Label(inputMessage);
+                            //messageLabel.setBackground(new Background(new BackgroundFill(Color.CHARTREUSE, CornerRadii.EMPTY,null)));
+                            //chatPane.getChildren().add(messageLabel);
+                            //myChatBox.getChildren().add(messageLabel);
+                        }
                     });
                 }
             } catch (IOException e) {

@@ -1,6 +1,9 @@
 package yugioh.client.controller.menucontroller;
 
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -27,11 +31,14 @@ import yugioh.client.view.menus.ShopMenu;
 import yugioh.client.view.menus.WelcomeMenu;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
 
 import static javafx.scene.paint.Color.GREEN;
+import static yugioh.client.view.ViewInterface.getCommandMatcher;
 
 public class ShopMenuController extends MenuController implements Initializable {
 
@@ -44,8 +51,11 @@ public class ShopMenuController extends MenuController implements Initializable 
     public Button buyButton;
     @FXML
     public Label description;
+    public Label numberOfCardInShop;
     @FXML
     public ScrollPane descriptionContainer;
+    public ImageView forbidImage;
+    private Image forbid=new Image(new File("src\\resources\\yugioh\\PNG\\icon\\forbid.png").toURI().toString());
     public Label userCoins;
     public Label numberOfCard;
     public MediaView shopMenuBackground;
@@ -76,6 +86,14 @@ public class ShopMenuController extends MenuController implements Initializable 
                 User.loggedInUser.addCardsToInventory(cardsToAdd);
                 Platform.runLater(() -> userCoins.setText(User.loggedInUser.getMoney() + ""));
                 Platform.runLater(() -> numberOfCard.setText(User.loggedInUser.getNumberOfSpecificCard(card.getName()) + ""));
+                Platform.runLater(()->{
+                    try {
+                        dataOutputStream.writeUTF("reduce card "+card.getName());
+                        dataInputStream.readUTF();
+                    } catch (IOException e) {
+                    }
+                    numberOfCardInShop.setText(String.valueOf(Integer.parseInt(numberOfCardInShop.getText())-1));
+                });
                 isCardClicked = false;
                 selectedCardImageView.setOpacity(1);
                 new PopUpWindow("Card added successfully").start(ShopMenu.stage);
@@ -100,6 +118,7 @@ public class ShopMenuController extends MenuController implements Initializable 
         mediaPlayer.setCycleCount(-1);
         shopMenuBackground.setMediaPlayer(mediaPlayer);
         ArrayList<Card> allCards = new ArrayList<>(getAllCards());
+
         int cardsPerRow = 7;
         int columnCounter = 0;
         GridPane cardsPane = new GridPane();
@@ -118,8 +137,30 @@ public class ShopMenuController extends MenuController implements Initializable 
                     Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));
                     Platform.runLater(() -> description.setText(card.getDescription()));
                     Platform.runLater(() -> numberOfCard.setText(User.loggedInUser.getNumberOfSpecificCard(card.getName()) + ""));
-                    buyButton.setDisable(card.getPrice() > User.loggedInUser.getMoney());
-                    Platform.runLater(() -> buyButton.setText("BUY (" + card.getPrice() + ")"));
+                    Platform.runLater(()->{
+                        try {
+                            dataOutputStream.writeUTF("get count " + card.getName());
+                            numberOfCardInShop.setText(dataInputStream.readUTF());
+                        }catch (Exception e){numberOfCardInShop.setText("can not find card in server database");}
+                    });
+                    Platform.runLater(()->{
+                        String result="";
+                        try {
+                            dataOutputStream.writeUTF("is card forbid "+card.getName());
+                        result=dataInputStream.readUTF();}
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        if(result.equals("true")){
+                            forbidImage.setOpacity(1);
+                        }
+                        else{
+                            forbidImage.setOpacity(0.2);
+                        }
+                    });
+               //     buyButton.setDisable(card.getPrice() > User.loggedInUser.getMoney()/*||Integer.parseInt(numberOfCardInShop.getText())==0*/);
+                    Platform.runLater(() -> {buyButton.setText("BUY (" + card.getPrice() + ")");
+                    checkDisabilityOfBuyButton();});
                     selectedCard = card;
                     selectedCardImageView = cardImage;
                     event.consume();
@@ -142,8 +183,31 @@ public class ShopMenuController extends MenuController implements Initializable 
                     cardImage.requestFocus();
                     Platform.runLater(() -> hoveredImage.setImage(cardImage.getImage()));
                     Platform.runLater(() -> description.setText(card.getDescription()));
-                    buyButton.setDisable(card.getPrice() > User.loggedInUser.getMoney());
-                    Platform.runLater(() -> buyButton.setText("BUY (" + card.getPrice() + ")"));
+                    Platform.runLater(()->{
+                        try {
+                            dataOutputStream.writeUTF("get count " + card.getName());
+                            numberOfCardInShop.setText(dataInputStream.readUTF());
+                        }catch (Exception e){numberOfCardInShop.setText("can not find card in server database");}
+                    });
+                   // buyButton.setDisable(card.getPrice() > User.loggedInUser.getMoney()/*||Integer.parseInt(numberOfCardInShop.getText())==0*/);
+                    Platform.runLater(()-> numberOfCard.setText(User.loggedInUser.getNumberOfSpecificCard(card.getName()) + ""));
+                    Platform.runLater(() -> {buyButton.setText("BUY (" + card.getPrice() + ")");
+                        Platform.runLater(()->{
+                            String result="";
+                            try {
+                                dataOutputStream.writeUTF("is card forbid "+card.getName());
+                                result=dataInputStream.readUTF();}
+                            catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if(result.equals("true")){
+                                forbidImage.setOpacity(1);
+                            }
+                            else{
+                                forbidImage.setOpacity(0.2);
+                            }
+                        });
+                    checkDisabilityOfBuyButton();});
                     selectedCard = card;
                     selectedCardImageView = cardImage;
                     event.consume();
@@ -162,9 +226,27 @@ public class ShopMenuController extends MenuController implements Initializable 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         shopMenuController = this;
         initializeCardsPane();
+        forbidImage.setImage(forbid);
+        forbidImage.setOpacity(0.2);
         hoveredImage.setImage(Card.getCardImage(null, 354).getImage());
         description.setWrapText(true);
         description.setTextAlignment(TextAlignment.JUSTIFY);
+    }
+    private void checkDisabilityOfBuyButton(){
+        String value=buyButton.getText();
+        if(value.matches("BUY \\((\\d+)\\)")){
+            Matcher matcher=getCommandMatcher(value,"BUY \\((\\d+)\\)");
+            int cardPrice=Integer.parseInt(matcher.group(1));
+            if(cardPrice<User.loggedInUser.getMoney()){
+                if(Integer.parseInt(numberOfCardInShop.getText())>0){
+                    if(forbidImage.getOpacity()<0.3) {
+                        buyButton.setDisable(false);
+                        return;
+                    }
+                }
+            }
+        }
+        buyButton.setDisable(true);
     }
 
     public void enterCardGeneratorMenu(MouseEvent mouseEvent) throws Exception {
