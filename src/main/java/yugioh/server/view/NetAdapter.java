@@ -85,6 +85,8 @@ public class NetAdapter {
                     try {
                         DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
                         DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+                        userHolder.setDataInputStream(dataInputStream);
+                        userHolder.setDataOutputStream(dataOutputStream);
                         allUsersOutputStreams.add(dataOutputStream);
                         while (true) {
                             try {
