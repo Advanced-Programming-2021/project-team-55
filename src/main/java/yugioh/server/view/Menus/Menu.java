@@ -90,46 +90,23 @@ abstract public class Menu {
     public static String handleCommand(String command, UserHolder currentUser) {
         String result = loginMenu.processCommand(command, currentUser);
         if(command.startsWith("get count ")){
-            result= String.valueOf(CardsInventory.inventory.cardsInventory.get(command.replace("get count ","")));
+            result= getCountCard(command);
         }
        else  if(command.startsWith("reduce card ")){
-            CardsInventory.inventory.removeCardFromInventory(Card.getCardByName(command.replace("reduce card ","")),1);
-            result="card "+command.replace("reduce card ","")+" reduced";
+            result=reduceCard(command);
         }
         else if(command.startsWith("save user ")){
-            Matcher matcher=getCommandMatcher(command,"save user address: (.*) content: (.*)");
-            String address=matcher.group(1);
-            String content=matcher.group(2);
-            try {
-                DataBaseController.writeFile(address,content);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                Matcher matcher = getCommandMatcher(command, "save user address: (.*) content: (.*)");
+                String address = matcher.group(1);
+                String content = matcher.group(2);
+                try {
+                    DataBaseController.writeFile(address, content);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
         }
         else if(command.startsWith("add card ")){
-            Matcher matcher=getCommandMatcher(command,"add card address: (.*) content: (.*)");
-            String address=matcher.group(1);
-            String content=matcher.group(2);
-            try {
-                GsonBuilder builder = new GsonBuilder();
-                Gson gson = builder.create();
-                DataBaseController.writeFile(address,content);
-                File file=new File(address);
-                BufferedReader bufferedReader = new BufferedReader(
-                        new FileReader(file.getPath())
-                );
-                Card card=gson.fromJson(bufferedReader,Card.class);
-                if(Card.getCardByName(card.getName())!=null){
-                    result="false";
-                }
-                else {
-                    Card.addCardToAllCards(card);
-                    CardsInventory.inventory.addCardToInventory(card, 1);
-                    result="true";
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+           result=addCard(command);
         }
         else if(command.startsWith("is card forbid ")){
             Matcher matcher=getCommandMatcher(command,"is card forbid (.*)");
@@ -159,6 +136,41 @@ abstract public class Menu {
             }
         }
         return result;
+    }
+
+    private static synchronized String reduceCard(String command) {
+        CardsInventory.inventory.removeCardFromInventory(Card.getCardByName(command.replace("reduce card ","")),1);
+        return "card "+command.replace("reduce card ","")+" reduced";
+    }
+
+    private static synchronized String getCountCard(String command){
+       return String.valueOf(CardsInventory.inventory.cardsInventory.get(command.replace("get count ","")));
+    }
+    private static synchronized String addCard(String command){
+        Matcher matcher=getCommandMatcher(command,"add card address: (.*) content: (.*)");
+        String address=matcher.group(1);
+        String content=matcher.group(2);
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            Gson gson = builder.create();
+            DataBaseController.writeFile(address,content);
+            File file=new File(address);
+            BufferedReader bufferedReader = new BufferedReader(
+                    new FileReader(file.getPath())
+            );
+            Card card=gson.fromJson(bufferedReader,Card.class);
+            if(Card.getCardByName(card.getName())!=null){
+                return "false";
+            }
+            else {
+                Card.addCardToAllCards(card);
+                CardsInventory.inventory.addCardToInventory(card, 1);
+                return "true";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "false";
     }
 
 }
