@@ -11,6 +11,7 @@ import yugioh.server.view.Menus.MenuType;
 import yugioh.server.view.Responses;
 import yugioh.server.view.ViewInterface;
 
+import java.util.Collections;
 import java.util.UUID;
 
 public class LoginMenuController extends MenuController {
@@ -35,6 +36,7 @@ public class LoginMenuController extends MenuController {
         } else {
             Menu.currentMenu = MenuType.MAIN;
         }
+        Collections.shuffle(user.getActiveDeck().getMainDeck());//todo make it standard
         String userJson = DataBaseController.getUserJson(user);
         currentUser.setUser(user);
         User.getLoggedInUsers().add(currentUser);

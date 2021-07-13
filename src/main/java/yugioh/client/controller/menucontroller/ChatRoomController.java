@@ -24,6 +24,7 @@ import javafx.util.Duration;
 import yugioh.client.model.User;
 import yugioh.client.view.NetAdapter;
 import yugioh.client.view.SoundPlayable;
+import yugioh.client.view.menus.ChatRoom;
 import yugioh.client.view.menus.WelcomeMenu;
 
 import java.io.File;
@@ -44,8 +45,8 @@ public class ChatRoomController  extends MenuController implements Initializable
 
 
     public void sendMessage(Event event) throws Exception {
-        dataOutputStream.writeUTF("chat "+User.loggedInUser.getNickname()+": "+message.getText());
-        dataOutputStream.flush();
+        dataOutputStreamForChat.writeUTF("chat "+User.loggedInUser.getNickname()+": "+message.getText());
+        dataOutputStreamForChat.flush();
         message.setText("");
     }
 
@@ -78,7 +79,8 @@ public class ChatRoomController  extends MenuController implements Initializable
         chatThread =new Thread(() -> {
         while (true) {
             try {
-                String inputMessage = dataInputStream.readUTF();
+                String inputMessage = dataInputStreamForChat.readUTF();
+                //System.out.println(inputMessage);
                 if (inputMessage.equals(User.loggedInUser.getUsername() + " gomsho")) {
                     isChatEnded=true;
                     return;
@@ -86,10 +88,6 @@ public class ChatRoomController  extends MenuController implements Initializable
                 if (!inputMessage.equals("")) {
                     Platform.runLater(() -> {
                         if(!inputMessage.startsWith(User.loggedInUser.getNickname())){
-//                            String otherUsername=inputMessage.substring(0,inputMessage.indexOf(":"));
-                           // String message=inputMessage.substring(inputMessage.indexOf(":")+2);
-//                            message+=" :"+otherUsername;
-                          //  chatBox.setText(chatBox.getText() + "\n\t\t\t\t" + inputMessage);
                             AnchorPane anchorPane=(AnchorPane) chatBox.getContent();
                             double yLastMessage;
                             if(anchorPane.getChildren().size()>0) {
@@ -104,12 +102,9 @@ public class ChatRoomController  extends MenuController implements Initializable
                             messageLabel.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY,null)));
                             messageLabel.setTextFill(Color.CHARTREUSE);
                             messageLabel.setLayoutY(yLastMessage+30);
-                            messageLabel.setLayoutX(100);
+                            messageLabel.setLayoutX(200);
                             anchorPane.getChildren().add(messageLabel);
                             chatBox.setContent(anchorPane);
-
-                            //othersChatBox.getChildren().add(messageLabel);
-                            //chatPane.setContent(new Rectangle());
 
                         }
                         else {
@@ -129,11 +124,8 @@ public class ChatRoomController  extends MenuController implements Initializable
                             messageLabel.setLayoutX(0);
                             anchorPane.getChildren().add(messageLabel);
                             chatBox.setContent(anchorPane);
-                           // chatBox.setText(chatBox.getText() + "\n" + inputMessage);
-                           // Label messageLabel=new Label(inputMessage);
-                            //messageLabel.setBackground(new Background(new BackgroundFill(Color.CHARTREUSE, CornerRadii.EMPTY,null)));
-                            //chatPane.getChildren().add(messageLabel);
-                            //myChatBox.getChildren().add(messageLabel);
+
+
                         }
                     });
                 }
@@ -146,14 +138,16 @@ public class ChatRoomController  extends MenuController implements Initializable
     }
 
     public void back(MouseEvent mouseEvent) throws Exception{
-        NetAdapter.justSendRequest(User.loggedInUser.getUsername() + " exited Chatroom");
+        dataOutputStreamForChat.writeUTF(User.loggedInUser.getUsername() + " exited Chatroom");
+        dataOutputStreamForChat.flush();
         SoundPlayable.playButtonSound("backButton");
         chatThread.stop();
+        ChatRoom.close();
         new Thread(()->{
             while (!isChatEnded){ }
                 Platform.runLater(()->{
                     try {
-                        mainMenu.execute();
+                        ChatRoom.close();
                     } catch (Exception e) {
                     }
                 });

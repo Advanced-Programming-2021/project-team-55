@@ -73,7 +73,7 @@ public class GameBoard {
 
     public GameBoard(Deck deck) {
         ArrayList<Card> mainDeck = new ArrayList<>(deck.getMainDeck());
-        Collections.shuffle(mainDeck);
+//        Collections.shuffle(mainDeck);
         for (Card card : mainDeck) {
             Cell cell = new Cell();
             Rectangle rectangle = new Rectangle();

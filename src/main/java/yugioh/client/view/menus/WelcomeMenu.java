@@ -113,4 +113,8 @@ public class WelcomeMenu extends Application {
     protected String processCommand(String command) {
         return "";
     }
+
+    public static DuelMenu getDuelMenu() {
+        return duelMenu;
+    }
 }

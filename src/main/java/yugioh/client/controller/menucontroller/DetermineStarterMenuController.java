@@ -1,17 +1,19 @@
 package yugioh.client.controller.menucontroller;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import yugioh.client.controller.gamephasescontrollers.GameController;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.gamephases.Duel;
-import yugioh.client.view.menus.DetermineStarterMenu;
-import yugioh.client.view.menus.Toast;
+import yugioh.client.view.menus.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -43,10 +45,10 @@ public class DetermineStarterMenuController implements Initializable {
         int randomNumber = gameController.tossCoin();
         switch (randomNumber) {
             case 1:
-                Toast.makeText(DetermineStarterMenu.getStage(), "HEAD!");
+                Platform.runLater(() -> Toast.makeText(DetermineStarterMenu.getStage(), "HEAD!"));;
                 break;
             case 2:
-                Toast.makeText(DetermineStarterMenu.getStage(), "TALE!");
+                Platform.runLater(() -> Toast.makeText(DetermineStarterMenu.getStage(), "TALE!"));;
                 break;
         }
         if (Integer.parseInt(choice) == randomNumber) {
@@ -66,6 +68,37 @@ public class DetermineStarterMenuController implements Initializable {
         firstPlayerName.setText(currentPlayerName + " choose your Coin side:");
         noButton.setOpacity(0);
         yesButton.setOpacity(0);
+        playSound();
+        if (RivalSelectionMenu.isRival(gameController.getGame().getFirstPlayer())) {
+            head.setDisable(true);
+            tale.setDisable(true);
+            startSyncingWithRival();
+        }
+    }
+
+    private void startSyncingWithRival() {
+        Thread listeningCommandThread = new Thread(() -> {
+            try {
+                while (true) {
+                    String command = NetAdapter.dataInputStream.readUTF();
+                    switch (command) {
+                        case "head selected":
+                            headClicked();
+                            break;
+                        case "tale selected":
+                            taleClicked();
+                            break;
+                        default:
+                            WelcomeMenu.getDuelMenu().processCommand(command);
+                    }
+                }
+            } catch (IOException ignored) {
+            }
+        });
+        listeningCommandThread.start();
+    }
+
+    private void playSound() {
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\coinToss.mp4").toURI().toString()));
         mediaPlayer.play();
         mediaPlayer.setCycleCount(1);
@@ -80,6 +113,7 @@ public class DetermineStarterMenuController implements Initializable {
     }
 
     public void headClicked() {
+        NetAdapter.justSendRequest("head selected");
         playButtonSound("enterButton");
         head.setDisable(true);
         tale.setDisable(true);
@@ -87,6 +121,7 @@ public class DetermineStarterMenuController implements Initializable {
     }
 
     public void taleClicked() {
+        NetAdapter.justSendRequest("tale selected");
         playButtonSound("enterButton");
         head.setDisable(true);
         tale.setDisable(true);

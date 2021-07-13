@@ -81,33 +81,6 @@ public class User {
         loggedInUser = user;
     }
 
-    public static LinkedHashMap<Integer, HashMap<Integer, String>> getScoreBoardUsers() {
-        allUsers.sort((user1, user2) -> {
-            Integer score1 = user1.score;
-            Integer score2 = user2.score;
-            if (score1.equals(score2)) {
-                return user1.nickname.compareTo(user2.nickname);
-            }
-            return score2.compareTo(score1);
-        });
-        LinkedHashMap<Integer, HashMap<Integer, String>> scoreBoard = new LinkedHashMap<>();
-        int rank = 1;
-        int sameNumbers = 1;
-        for (int i = 0; i < allUsers.size(); i++) {
-            HashMap<Integer, String> userInfo = new HashMap<>();
-            userInfo.put(rank, allUsers.get(i).toString());
-            scoreBoard.put(i, userInfo);
-            if (i + 1 < allUsers.size() && allUsers.get(i).score != allUsers.get(i + 1).score) {
-                rank += sameNumbers;
-                sameNumbers = 1;
-            } else {
-                sameNumbers++;
-            }
-
-        }
-        return scoreBoard;
-    }
-
     public static ArrayList<User> getAllUsers() {
         return allUsers;
     }

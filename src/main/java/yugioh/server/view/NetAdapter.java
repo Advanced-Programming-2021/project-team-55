@@ -4,6 +4,7 @@ package yugioh.server.view;
 import yugioh.server.controller.DataBaseController;
 import yugioh.server.model.UserHolder;
 import yugioh.server.view.Menus.Menu;
+import yugioh.server.view.gamephases.Duel;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -39,42 +40,6 @@ public class NetAdapter {
 //    }
 
     private void startListening(int port) {
-//        listeningThread = new Thread(() -> {
-//            try {
-//                SocketAddress socketAddress = new InetSocketAddress(InetAddress.getLoopbackAddress(), port);
-//                serverSocket = new ServerSocket();
-//                serverSocket.bind(socketAddress);
-//                while (true) {
-//                    Socket socket = serverSocket.accept();
-//                    new Thread(() -> {
-//                        try {
-//                            dataInputStream = new DataInputStream(socket.getInputStream());
-//                            DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-//                            allUsersOutputStreams.add(dataOutputStream);
-//                            String input = dataInputStream.readUTF();
-//                            ViewInterface.command = input;
-//                            String result = Menu.handleCommand(input);
-//                            if(result.startsWith("chat ")){
-//                                for(DataOutputStream dataOutputStreamUser:allUsersOutputStreams){
-//                                    dataOutputStreamUser.writeUTF(result.replace("chat ",""));
-//                                }
-//                            }
-//                            else {
-//                                dataOutputStream.writeUTF(result);
-//                            }
-//                            dataOutputStream.flush();
-//                            dataOutputStream.close();
-//                            System.out.println("--> " + input);
-//                            System.out.println(">>> " + result);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }).start();
-//                }
-//            } catch (IOException ignored) {
-//            }
-//        });
-        //  listeningThread.start();
         new Thread(()->{
         try {
             ServerSocket serverSocket = new ServerSocket(port);
@@ -87,21 +52,14 @@ public class NetAdapter {
                         DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                         userHolder.setDataInputStream(dataInputStream);
                         userHolder.setDataOutputStream(dataOutputStream);
-                        allUsersOutputStreams.add(dataOutputStream);
                         while (true) {
                             try {
                                 String input = dataInputStream.readUTF();
                                 ViewInterface.command = input;
+                                sendToRival(input, userHolder);
                                 String result = Menu.handleCommand(input, userHolder);
-                                if (result.startsWith("chat ")) {
-                                    for (DataOutputStream dataOutputStreamUser : allUsersOutputStreams) {
-                                        dataOutputStreamUser.writeUTF(result.replace("chat ", ""));
-                                    }
-                                } else {
                                     dataOutputStream.writeUTF(result);
-                                }
-                                System.out.println("--> " + input);
-                                System.out.println(">>> " + result);
+                                log(input, result);
                             } catch (SocketException e) {
                                 allUsersOutputStreams.remove(dataOutputStream);
                                 if (e.getMessage().contains("Connection reset")) {
@@ -171,44 +129,71 @@ public class NetAdapter {
                 e.printStackTrace();
             }
         }).start();
-//        new Thread(()->{
-//
-//
-//        try {
-//            ServerSocket serverSocket = new ServerSocket(12345);
-//            while (true) {
-//                Socket socket = serverSocket.accept();
-//                new Thread(() -> {
-//                    try {
-//                        DataInputStream dataInputStreamForChat = new DataInputStream(socket.getInputStream());
-//                        DataOutputStream dataOutputStreamForChat = new DataOutputStream(socket.getOutputStream());
-//                        allUsersOutputStreams.add(dataOutputStreamForChat);
-//                        while (true) {
-//                            try {
-//                                String message= dataInputStreamForChat.readUTF();
-//                                    for (DataOutputStream dataOutputStreamUser : allUsersOutputStreams) {
-//                                        dataOutputStreamUser.writeUTF(message);
-//                                    }
-//
-//                            } catch (SocketException e) {
-//                                allUsersOutputStreams.remove(dataOutputStreamForChat);
-//                                e.printStackTrace();
-//                                break;
-//                            }
-//                        }
-//                        dataInputStream.close();
-//                        dataOutputStreamForChat.close();
-//                        socket.close();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }).start();
-//
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        }).start();
+        new Thread(()->{
+            try {
+                ServerSocket serverSocket = new ServerSocket(11111);
+                while (true) {
+                    Socket socket = serverSocket.accept();
+                    new Thread(() -> {
+                        try {
+                            DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+                            DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+                            allUsersOutputStreams.add(dataOutputStream);
+                            while (true) {
+                                try {
+                                    String input = dataInputStream.readUTF();
+                                    if(input.matches(Regexes.EXIT_CHATROOM.regex)){
+                                        Matcher matcher = ViewInterface.getCommandMatcher(input, Regexes.EXIT_CHATROOM.regex);
+                                        dataOutputStream.writeUTF(matcher.group(1) + " gomsho");
+                                    }
+                                    else {
+                                        for (DataOutputStream dataOutputStreamUser : allUsersOutputStreams) {
+                                            dataOutputStreamUser.writeUTF(input.replace("chat ", ""));
+                                        }
+                                    }
+//                                    System.out.println("--> " + input);
+//                                    System.out.println(">>> " + input);
+                                } catch (SocketException e) {
+                                    allUsersOutputStreams.remove(dataOutputStream);
+                                    if (e.getMessage().contains("Connection reset")) {
+                                       // System.out.print("a client disconnected: ");
+                                        try {
+                                            //System.out.println(userHolder.getUser().getUsername());
+                                        } catch (Exception ignored) {
+                                        }
+                                        return;
+                                    }
+                                    e.printStackTrace();
+                                    break;
+                                }
+                            }
+                            dataInputStream.close();
+                            dataOutputStream.close();
+                            socket.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }).start();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    private void sendToRival(String input, UserHolder userHolder) {
+        if (Duel.getGamesInProgress().containsKey(userHolder)) {
+            try {
+                Duel.getGamesInProgress().get(userHolder).getDataOutputStream().writeUTF(input);
+                Duel.getGamesInProgress().get(userHolder).getDataOutputStream().flush();
+            } catch (IOException ignored) {
+            }
+        }
+    }
+
+    private void log(String input, String result) {
+        System.out.println("--> " + input);
+        System.out.println(">>> " + result);
     }
 
     public int getPort() {
