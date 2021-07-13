@@ -54,11 +54,12 @@
       <font>
          <Font size="11.0" />
       </font></Label>
-    <Label layoutX="14.0" layoutY="434.0" styleClass="buttonText" text="available in shop:">
+    <Label layoutX="14.0" layoutY="407.0" styleClass="buttonText" text="available in shop:">
         
         <font>
             <Font size="11.0" />
         </font></Label>
     <Label fx:id="numberOfCard" layoutX="322.0" layoutY="462.0" prefHeight="28.0" prefWidth="14.0" styleClass="buttonText" text="0" />
-    <Label fx:id="numberOfCardInShop" layoutX="207.0" layoutY="434.0" prefHeight="28.0" prefWidth="118.0" styleClass="buttonText" text="0" />
+    <Label fx:id="numberOfCardInShop" layoutX="208.0" layoutY="407.0" prefHeight="28.0" prefWidth="70.0" styleClass="buttonText" text="0" />
+   <ImageView fx:id="forbidImage" fitHeight="71.0" fitWidth="70.0" layoutX="274.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true" />
 </AnchorPane>

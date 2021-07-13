@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -53,6 +54,8 @@ public class ShopMenuController extends MenuController implements Initializable 
     public Label numberOfCardInShop;
     @FXML
     public ScrollPane descriptionContainer;
+    public ImageView forbidImage;
+    private Image forbid=new Image(new File("src\\resources\\yugioh\\PNG\\icon\\forbid.png").toURI().toString());
     public Label userCoins;
     public Label numberOfCard;
     public MediaView shopMenuBackground;
@@ -140,6 +143,21 @@ public class ShopMenuController extends MenuController implements Initializable 
                             numberOfCardInShop.setText(dataInputStream.readUTF());
                         }catch (Exception e){numberOfCardInShop.setText("can not find card in server database");}
                     });
+                    Platform.runLater(()->{
+                        String result="";
+                        try {
+                            dataOutputStream.writeUTF("is card forbid "+card.getName());
+                        result=dataInputStream.readUTF();}
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        if(result.equals("true")){
+                            forbidImage.setOpacity(1);
+                        }
+                        else{
+                            forbidImage.setOpacity(0.2);
+                        }
+                    });
                //     buyButton.setDisable(card.getPrice() > User.loggedInUser.getMoney()/*||Integer.parseInt(numberOfCardInShop.getText())==0*/);
                     Platform.runLater(() -> {buyButton.setText("BUY (" + card.getPrice() + ")");
                     checkDisabilityOfBuyButton();});
@@ -174,6 +192,21 @@ public class ShopMenuController extends MenuController implements Initializable 
                    // buyButton.setDisable(card.getPrice() > User.loggedInUser.getMoney()/*||Integer.parseInt(numberOfCardInShop.getText())==0*/);
                     Platform.runLater(()-> numberOfCard.setText(User.loggedInUser.getNumberOfSpecificCard(card.getName()) + ""));
                     Platform.runLater(() -> {buyButton.setText("BUY (" + card.getPrice() + ")");
+                        Platform.runLater(()->{
+                            String result="";
+                            try {
+                                dataOutputStream.writeUTF("is card forbid "+card.getName());
+                                result=dataInputStream.readUTF();}
+                            catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if(result.equals("true")){
+                                forbidImage.setOpacity(1);
+                            }
+                            else{
+                                forbidImage.setOpacity(0.2);
+                            }
+                        });
                     checkDisabilityOfBuyButton();});
                     selectedCard = card;
                     selectedCardImageView = cardImage;
@@ -193,19 +226,10 @@ public class ShopMenuController extends MenuController implements Initializable 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         shopMenuController = this;
         initializeCardsPane();
+        forbidImage.setImage(forbid);
+        forbidImage.setOpacity(0.2);
         hoveredImage.setImage(Card.getCardImage(null, 354).getImage());
         description.setWrapText(true);
-//        numberOfCardInShop.textProperty().addListener(new ChangeListener<String>() {
-//            @Override
-//            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-//                if(t1.equals("0")){
-//                    buyButton.setDisable(true);
-//                }
-//                else{
-//
-//                }
-//            }
-//        });
         description.setTextAlignment(TextAlignment.JUSTIFY);
     }
     private void checkDisabilityOfBuyButton(){
@@ -215,8 +239,10 @@ public class ShopMenuController extends MenuController implements Initializable 
             int cardPrice=Integer.parseInt(matcher.group(1));
             if(cardPrice<User.loggedInUser.getMoney()){
                 if(Integer.parseInt(numberOfCardInShop.getText())>0){
-                    buyButton.setDisable(false);
-                    return;
+                    if(forbidImage.getOpacity()<0.3) {
+                        buyButton.setDisable(false);
+                        return;
+                    }
                 }
             }
         }

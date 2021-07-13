@@ -73,6 +73,11 @@ public class DataBaseController extends MenuController {
         Gson gson = builder.create();
         writeFile(fileAddress, gson.toJson(object));
     }
+    public static String cardToJSON(Card card){
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        return "address: src\\resources\\cards\\Monsters\\Customs\\"+card.getName()+".json content: "+gson.toJson(card);
+    }
 
     public static void saveUserInfo(User user) throws IOException {
         if(user!=null)
