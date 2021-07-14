@@ -1,6 +1,5 @@
 package yugioh.client.controller.menucontroller;
 
-import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -38,10 +37,10 @@ public class ChatRoomController  extends MenuController implements Initializable
    // public TextArea message;
     public ScrollPane chatBox;
     public transient Thread chatThread;
-    public Button sendMessageButton;
     public static Scanner input=new Scanner(System.in);
     public ImageView sendImage;
-    public JFXTextArea message;
+    public JFXTextField message;
+    public ImageView backImage;
     private boolean isChatEnded=false;
 
 
@@ -53,8 +52,8 @@ public class ChatRoomController  extends MenuController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       // message.setWrapText(true);
-        message.setWrapText(true);
+        sendImage.setDisable(true);
+        sendImage.setOpacity(0.5);
         WelcomeMenu.stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -71,10 +70,12 @@ public class ChatRoomController  extends MenuController implements Initializable
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 if(t1.equals("")){
-                    sendMessageButton.setDisable(true);
+                    sendImage.setDisable(true);
+                    sendImage.setOpacity(0.5);
                 }
                 else{
-                    sendMessageButton.setDisable(false);
+                    sendImage.setDisable(false);
+                    sendImage.setOpacity(1);
                 }
             }
         });
@@ -94,8 +95,7 @@ public class ChatRoomController  extends MenuController implements Initializable
                             double yLastMessage;
                             if(anchorPane.getChildren().size()>0) {
                                 Label lastMessage = (Label) anchorPane.getChildren().get(anchorPane.getChildren().size()-1);
-                                yLastMessage=lastMessage.getLayoutY()+lastMessage.getHeight();
-                                //yLastMessage = lastMessage.getLayoutY();
+                                yLastMessage = lastMessage.getLayoutY();
                             }
                             else {
                                 yLastMessage = -10;
@@ -115,7 +115,7 @@ public class ChatRoomController  extends MenuController implements Initializable
                             double yLastMessage;
                             if(anchorPane.getChildren().size()>0) {
                                 Label lastMessage = (Label) anchorPane.getChildren().get(anchorPane.getChildren().size()-1);
-                                yLastMessage = lastMessage.getLayoutY()+lastMessage.getHeight();
+                                yLastMessage = lastMessage.getLayoutY();
                             }
                             else {
                                 yLastMessage = -10;
@@ -155,12 +155,28 @@ public class ChatRoomController  extends MenuController implements Initializable
                     }
                 });
         }).start();
+//        new Timeline(new KeyFrame(Duration.seconds(2),actionEvent ->{
+//                try{
+//                    mainMenu.execute();
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
+//        })).play();
+        //mainMenu.execute();
     }
     public void setHoveredImageSend() {
-        sendImage.setImage(new Image(new File("src/resources/yugioh/PNG/Field/sendHover.png").toURI().toString()));
+        sendImage.setImage(new Image(new File("src/resources/yugioh/PNG/icon/sendHover.png").toURI().toString()));
     }
 
     public void resetHoveredImageSend() {
-        sendImage.setImage(new Image(new File("src/resources/yugioh/PNG/Field/send.png").toURI().toString()));
+        sendImage.setImage(new Image(new File("src/resources/yugioh/PNG/icon/send.png").toURI().toString()));
+    }
+
+    public void resetHoveredImageBack(MouseEvent mouseEvent) {
+        backImage.setImage(new Image(new File("src/resources/yugioh/PNG/icon/close.png").toURI().toString()));
+    }
+
+    public void setHoveredImageBack(MouseEvent mouseEvent) {
+        backImage.setImage(new Image(new File("src/resources/yugioh/PNG/icon/closeHover.png").toURI().toString()));
     }
 }

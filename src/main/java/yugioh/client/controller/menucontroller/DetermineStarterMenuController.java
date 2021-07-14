@@ -11,11 +11,13 @@ import yugioh.client.controller.gamephasescontrollers.GameController;
 import yugioh.client.view.NetAdapter;
 import yugioh.client.view.gamephases.Duel;
 import yugioh.client.view.menus.*;
+import yugioh.server.view.ViewInterface;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
 
 import static yugioh.client.view.SoundPlayable.playButtonSound;
 
@@ -45,10 +47,10 @@ public class DetermineStarterMenuController implements Initializable {
         int randomNumber = gameController.tossCoin();
         switch (randomNumber) {
             case 1:
-                Platform.runLater(() -> Toast.makeText(DetermineStarterMenu.getStage(), "HEAD!"));;
+                Platform.runLater(() -> Toast.makeText(DetermineStarterMenu.getStage(), "HEAD!"));
                 break;
             case 2:
-                Platform.runLater(() -> Toast.makeText(DetermineStarterMenu.getStage(), "TALE!"));;
+                Platform.runLater(() -> Toast.makeText(DetermineStarterMenu.getStage(), "TALE!"));
                 break;
         }
         if (Integer.parseInt(choice) == randomNumber) {
@@ -81,16 +83,21 @@ public class DetermineStarterMenuController implements Initializable {
             try {
                 while (true) {
                     String command = NetAdapter.dataInputStream.readUTF();
-                    switch (command) {
-                        case "head selected":
-                            headClicked();
-                            break;
-                        case "tale selected":
-                            taleClicked();
-                            break;
-                        default:
-                            WelcomeMenu.getDuelMenu().processCommand(command);
-                    }
+                    if (command.startsWith("forward: ")) {
+                        Matcher matcher = ViewInterface.getCommandMatcher(command, "forward: (.+)");
+                        command = matcher.group(1);
+                        switch (command) {
+                            case "head selected":
+                                Platform.runLater(this::handleTale);
+                                break;
+                            case "tale selected":
+                                Platform.runLater(this::handleHead);
+                                break;
+                            default:
+                                String finalCommand = command;
+                                Platform.runLater(() -> WelcomeMenu.getDuelMenu().processCommand(finalCommand));
+                        }
+                    } else System.out.println("not handled: " + command);
                 }
             } catch (IOException ignored) {
             }
@@ -113,7 +120,11 @@ public class DetermineStarterMenuController implements Initializable {
     }
 
     public void headClicked() {
-        NetAdapter.justSendRequest("head selected");
+        NetAdapter.sendForwardRequest("head selected");
+        handleHead();
+    }
+
+    private void handleHead() {
         playButtonSound("enterButton");
         head.setDisable(true);
         tale.setDisable(true);
@@ -121,7 +132,11 @@ public class DetermineStarterMenuController implements Initializable {
     }
 
     public void taleClicked() {
-        NetAdapter.justSendRequest("tale selected");
+        NetAdapter.sendForwardRequest("tale selected");
+        handleTale();
+    }
+
+    private void handleTale() {
         playButtonSound("enterButton");
         head.setDisable(true);
         tale.setDisable(true);
