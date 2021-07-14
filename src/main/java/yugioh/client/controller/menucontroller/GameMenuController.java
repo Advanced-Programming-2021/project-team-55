@@ -36,6 +36,7 @@ import yugioh.client.model.board.CardStatus;
 import yugioh.client.model.board.Cell;
 import yugioh.client.model.cards.Card;
 import yugioh.client.model.cards.Monster;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.SoundPlayable;
 import yugioh.client.view.ViewInterface;
 import yugioh.client.view.gamephases.CardActionsMenu;
@@ -235,7 +236,7 @@ public class GameMenuController extends MenuController implements Initializable 
     }
 
     public void surrender() {
-        ViewInterface.showResult("surrender");//todo complete function
+        NetAdapter.sendForwardRequestForGame("surrender");//todo complete function
 
         gameController.surrender();
         pauseStage.close();

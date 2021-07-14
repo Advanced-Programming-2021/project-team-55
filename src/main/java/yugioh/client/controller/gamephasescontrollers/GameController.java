@@ -117,7 +117,7 @@ public class GameController {
     }
 
     public String showGraveyard() {
-        ViewInterface.showResult("show graveyard");//todo complete function
+        NetAdapter.sendForwardRequestForGame("show graveyard");//todo complete function
 
         String response = "";
         GameBoard playerGameBoard = currentTurnPlayer.getGameBoard();
@@ -132,7 +132,7 @@ public class GameController {
     }
 
     public String showCard() throws GameException {
-        ViewInterface.showResult("card show --selected");//todo complete function
+        NetAdapter.sendForwardRequestForGame("card show --selected");//todo complete function
 
         if (Cell.getSelectedCell() == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
@@ -198,7 +198,7 @@ public class GameController {
     }
 
     public void deselect() throws GameException {
-        ViewInterface.showResult("select -d");//todo complete function
+        NetAdapter.sendForwardRequestForGame("select -d");//todo complete function
 
         if (Cell.getSelectedCell() == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
