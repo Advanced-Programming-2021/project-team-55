@@ -28,8 +28,8 @@
                        <String fx:value="buttonHover" />
                    </styleClass>
                 </JFXButton>
-                <ScrollPane layoutX="24.0" layoutY="92.0" prefHeight="415.0" prefWidth="427.0">
-                    <GridPane fx:id="waitingUsersGridPane" alignment="CENTER" prefHeight="108.0" prefWidth="460.0">
+                <ScrollPane layoutX="24.0" layoutY="92.0" prefHeight="415.0" prefWidth="532.0">
+                    <GridPane fx:id="waitingUsersGridPane" alignment="CENTER" prefHeight="405.0" prefWidth="521.0">
                         <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="254.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="105.0" />
@@ -51,11 +51,6 @@
                     </styleClass>
                 </JFXButton>
 
-                <ScrollPane fx:id="chatBox" layoutX="452.0" layoutY="93.0" prefHeight="503.0" prefWidth="321.0">
-      <content>
-         <AnchorPane prefHeight="490.0" prefWidth="319.0" />
-      </content></ScrollPane>
-
        <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="662.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="40.0" prefWidth="177.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
            <styleClass>
                <String fx:value="buttonText" />
@@ -63,13 +58,4 @@
                <String fx:value="buttonHover" />
            </styleClass>
        </JFXButton>
-       <TextArea fx:id="message" layoutX="774.0" layoutY="166.0" prefHeight="171.0" prefWidth="306.0" />
-
-    <JFXButton fx:id="sendMessageButton" buttonType="RAISED" layoutX="840.0" layoutY="338.0" mnemonicParsing="false" onMouseClicked="#sendMessage" prefHeight="40.0" prefWidth="177.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Send Message">
-        <styleClass>
-            <String fx:value="buttonText" />
-            <String fx:value="buttonShape" />
-            <String fx:value="buttonHover" />
-        </styleClass>
-    </JFXButton>
 </AnchorPane>

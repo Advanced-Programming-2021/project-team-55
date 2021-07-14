@@ -1,5 +1,6 @@
 package yugioh.client.controller.menucontroller;
 
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -83,7 +84,6 @@ public class ChatRoomController  extends MenuController implements Initializable
         while (true) {
             try {
                 String inputMessage = dataInputStreamForChat.readUTF();
-                //System.out.println(inputMessage);
                 if (inputMessage.equals(User.loggedInUser.getUsername() + " gomsho")) {
                     isChatEnded=true;
                     return;
@@ -155,14 +155,6 @@ public class ChatRoomController  extends MenuController implements Initializable
                     }
                 });
         }).start();
-//        new Timeline(new KeyFrame(Duration.seconds(2),actionEvent ->{
-//                try{
-//                    mainMenu.execute();
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }
-//        })).play();
-        //mainMenu.execute();
     }
     public void setHoveredImageSend() {
         sendImage.setImage(new Image(new File("src/resources/yugioh/PNG/icon/sendHover.png").toURI().toString()));

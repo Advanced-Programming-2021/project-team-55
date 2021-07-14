@@ -34,12 +34,7 @@ public class ChatRoom extends WelcomeMenu{
         chatStage =new Stage();
         chatStage.initOwner(WelcomeMenu.stage);
         chatStage.initStyle(StageStyle.UNDECORATED);
-        chatStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent windowEvent) {
-
-            }
-        });
+        //chatStage.setAlwaysOnTop(true);
         start(chatStage);
     }
 
