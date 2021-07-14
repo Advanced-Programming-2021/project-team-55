@@ -9,6 +9,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import yugioh.client.controller.gamephasescontrollers.GameController;
 import yugioh.client.model.Player;
+import yugioh.client.model.User;
 import yugioh.client.view.NetAdapter;
 import yugioh.client.view.gamephases.Duel;
 import yugioh.client.view.menus.*;
@@ -67,11 +68,12 @@ public class DetermineStarterMenuController implements Initializable {
         }
     }
 
-    private void disableIfIsRival(Player secondPlayer) {
-        if (RivalSelectionMenu.isRival(secondPlayer)) {
+    private void disableIfIsRival(Player player) {
+        if (RivalSelectionMenu.isRival(player)) {
+            NetAdapter.sendForwardRequest("you decide");
             yesButton.setDisable(true);
             noButton.setDisable(true);
-        }
+        } else NetAdapter.sendForwardRequest("i decide");
     }
 
     @Override
@@ -103,11 +105,17 @@ public class DetermineStarterMenuController implements Initializable {
                             case "no selected":
                                 Platform.runLater(this::handleNoButton);
                                 break;
-                            case "head selected":
-                                Platform.runLater(this::handleHead);
+//                            case "head selected":
+//                                Platform.runLater(this::handleHead);
+//                                break;
+//                            case "tale selected":
+//                                Platform.runLater(this::handleTale);
+//                                break;
+                            case "i decide":
+                                Platform.runLater(this::handleRivalSelection);
                                 break;
-                            case "tale selected":
-                                Platform.runLater(this::handleTale);
+                            case "you decide":
+                                Platform.runLater(this::handleUserSelection);
                                 break;
                             default:
                                 String finalCommand = command;
@@ -129,6 +137,20 @@ public class DetermineStarterMenuController implements Initializable {
         coinToss.setMediaPlayer(mediaPlayer);
     }
 
+    private void handleUserSelection() {
+        yesNoQuestion.setText(User.getLoggedInUser().getNickname() + " do you want to be the first player?");
+        noButton.setOpacity(1);
+        yesButton.setOpacity(1);
+    }
+
+    private void handleRivalSelection() {
+        yesNoQuestion.setText(RivalSelectionMenu.getRival().getNickname() + " do you want to be the first player?");
+        noButton.setOpacity(0.5);
+        yesButton.setOpacity(0.5);
+        yesButton.setDisable(true);
+        noButton.setDisable(true);
+    }
+
     public void back() throws Exception {
         playButtonSound("backButton");
 //        new DuelMenu().execute();
@@ -136,7 +158,7 @@ public class DetermineStarterMenuController implements Initializable {
     }
 
     public void headClicked() {
-        NetAdapter.sendForwardRequest("head selected");
+//        NetAdapter.sendForwardRequest("head selected");
         handleHead();
     }
 
@@ -148,7 +170,7 @@ public class DetermineStarterMenuController implements Initializable {
     }
 
     public void taleClicked() {
-        NetAdapter.sendForwardRequest("tale selected");
+//        NetAdapter.sendForwardRequest("tale selected");
         handleTale();
     }
 
