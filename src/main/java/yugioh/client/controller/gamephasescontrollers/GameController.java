@@ -117,8 +117,6 @@ public class GameController {
     }
 
     public String showGraveyard() {
-        NetAdapter.sendForwardRequestForGame("show graveyard");//todo complete function
-
         String response = "";
         GameBoard playerGameBoard = currentTurnPlayer.getGameBoard();
         if (playerGameBoard.getGraveyard().size() == 0) {
