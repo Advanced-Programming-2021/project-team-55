@@ -58,8 +58,8 @@ public class NetAdapter {
                                 ViewInterface.command = input;
                                 if (sendToRival(input, userHolder)) continue;
                                 String result = Menu.handleCommand(input, userHolder);
-                                    dataOutputStream.writeUTF(result);
-                                    dataOutputStream.flush();
+                                dataOutputStream.writeUTF(result);
+                                dataOutputStream.flush();
                                 log(input, result);
                             } catch (SocketException e) {
                                 allUsersOutputStreams.remove(dataOutputStream);
