@@ -173,11 +173,10 @@ public class ChatRoomController  extends MenuController implements Initializable
     }
 
     public void resetHoveredImageBack(MouseEvent mouseEvent) {
-        sendImage.setImage(new Image(new File("src/resources/yugioh/PNG/icon/sendHover.png").toURI().toString()));
+        backImage.setImage(new Image(new File("src/resources/yugioh/PNG/icon/close.png").toURI().toString()));
     }
 
     public void setHoveredImageBack(MouseEvent mouseEvent) {
-        sendImage.setImage(new Image(new File("src/resources/yugioh/PNG/icon/send.png").toURI().toString()));
-
+        backImage.setImage(new Image(new File("src/resources/yugioh/PNG/icon/closeHover.png").toURI().toString()));
     }
 }
