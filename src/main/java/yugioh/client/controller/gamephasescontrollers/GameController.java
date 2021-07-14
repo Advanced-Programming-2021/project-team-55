@@ -208,7 +208,7 @@ public class GameController {
     }
 
     public void changePhase() {
-        NetAdapter.sendForwardRequestForGame("next phase");
+
 
 //        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
         CardActionsMenu.close();
@@ -226,15 +226,18 @@ public class GameController {
                 break;
             }
             case MAIN1: {
+                NetAdapter.sendForwardRequestForGame("next phase");
                 currentPhase = GamePhase.BATTLE;
                 break;
             }
             case BATTLE: {
+                NetAdapter.sendForwardRequestForGame("next phase");
                 CardActionsMenu.removeSword();
                 currentPhase = GamePhase.MAIN2;
                 break;
             }
             case MAIN2: {
+                NetAdapter.sendForwardRequestForGame("next phase");
                 currentPhase = GamePhase.END;
                 break;
             }

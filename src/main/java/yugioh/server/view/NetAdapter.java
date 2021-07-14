@@ -56,11 +56,16 @@ public class NetAdapter {
                             try {
                                 String input = dataInputStream.readUTF();
                                 ViewInterface.command = input;
-                                sendToRival(input, userHolder);
-                                String result = Menu.handleCommand(input, userHolder);
+                                if(input.startsWith("forward: ")) {
+                                    sendToRival(input, userHolder);
+                                }
+                                else {
+                                    String result = Menu.handleCommand(input, userHolder);
                                     dataOutputStream.writeUTF(result);
                                     dataOutputStream.flush();
-                                log(input, result);
+                                    log(input, result);
+                                }
+
                             } catch (SocketException e) {
                                 allUsersOutputStreams.remove(dataOutputStream);
                                 if (logUserDisconnection(userHolder, e)) return;
@@ -191,7 +196,6 @@ public class NetAdapter {
     }
 
     private void sendToRival(String input, UserHolder userHolder) {
-        if (input.startsWith("forward: ")) {
             if (Duel.getGamesInProgress().containsKey(userHolder)) {
                 try {
                     Duel.getGamesInProgress().get(userHolder).getDataOutputStream().writeUTF(input);
@@ -199,7 +203,6 @@ public class NetAdapter {
                     System.out.println("a command forwarded: " + input.replaceAll("forward: ", ""));
                 } catch (IOException ignored) {
                 }
-            }
         }
     }
 
