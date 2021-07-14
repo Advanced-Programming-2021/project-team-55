@@ -1,6 +1,8 @@
 package yugioh.client.model.board;
 
 import javafx.scene.control.Label;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -14,11 +16,13 @@ import yugioh.client.view.gamephases.Duel;
 
 import java.util.ArrayList;
 
+import static javafx.scene.paint.Color.GREEN;
+
 
 public class Cell {
 
     private static final ArrayList<Cell> allCells = new ArrayList<>();
-    private static Cell selectedCell;
+    public static Cell selectedCell;
     public CardStatus cardStatus;
     public transient boolean isEventSet = false;
     private Card card;
@@ -67,6 +71,7 @@ public class Cell {
 
     public static void deselectCell() {   //better to be same as select cell or rename
         try {
+            NetAdapter.sendForwardRequestForGame("select -d");
             selectedCell.getCellRectangle().setEffect(null);
         } catch (Exception e) {
         }
@@ -79,6 +84,10 @@ public class Cell {
 
     public static void setSelectedCell(Cell selectedCell) {
         Cell.selectedCell = selectedCell;
+        DropShadow selectEffect = new DropShadow(BlurType.values()[1],
+                GREEN, 10, 2.0f, 0, 0);
+        selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
+        selectedCell.getCellRectangle().setEffect(selectEffect);
         NetAdapter.sendForwardRequestForGame("select "+Duel.getGameController().currentTurnPlayer.getGameBoard().getCellInfo(selectedCell));
         //todo handle select opponent;
     }

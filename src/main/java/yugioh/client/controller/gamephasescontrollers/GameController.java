@@ -198,12 +198,10 @@ public class GameController {
     }
 
     public void deselect() throws GameException {
-        NetAdapter.sendForwardRequestForGame("select -d");//todo complete function
-
         if (Cell.getSelectedCell() == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
-        Cell.setSelectedCell(null);
+        Cell.deselectCell();
     }
 
     public void changePhase() {
