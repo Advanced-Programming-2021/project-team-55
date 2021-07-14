@@ -37,7 +37,6 @@ public class ChatRoomController  extends MenuController implements Initializable
    // public TextArea message;
     public ScrollPane chatBox;
     public transient Thread chatThread;
-    public Button sendMessageButton;
     public static Scanner input=new Scanner(System.in);
     public ImageView sendImage;
     public JFXTextField message;
@@ -52,7 +51,8 @@ public class ChatRoomController  extends MenuController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       // message.setWrapText(true);
+        sendImage.setDisable(true);
+        sendImage.setOpacity(0.5);
         WelcomeMenu.stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -69,10 +69,12 @@ public class ChatRoomController  extends MenuController implements Initializable
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 if(t1.equals("")){
-                    sendMessageButton.setDisable(true);
+                    sendImage.setDisable(true);
+                    sendImage.setOpacity(0.5);
                 }
                 else{
-                    sendMessageButton.setDisable(false);
+                    sendImage.setDisable(false);
+                    sendImage.setOpacity(1);
                 }
             }
         });
