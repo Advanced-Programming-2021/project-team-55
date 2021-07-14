@@ -62,14 +62,7 @@ public class NetAdapter {
                                 log(input, result);
                             } catch (SocketException e) {
                                 allUsersOutputStreams.remove(dataOutputStream);
-                                if (e.getMessage().contains("Connection reset")) {
-                                    System.out.print("a client disconnected: ");
-                                    try {
-                                        System.out.println(userHolder.getUser().getUsername());
-                                    } catch (Exception ignored) {
-                                    }
-                                    return;
-                                }
+                                if (logUserDisconnection(userHolder, e)) return;
                                 e.printStackTrace();
                                 break;
                             }
@@ -181,12 +174,26 @@ public class NetAdapter {
         }).start();
     }
 
-    private void sendToRival(String input, UserHolder userHolder) {
-        if (Duel.getGamesInProgress().containsKey(userHolder)) {
+    private boolean logUserDisconnection(UserHolder userHolder, SocketException e) {
+        if (e.getMessage().contains("Connection reset")) {
             try {
-                Duel.getGamesInProgress().get(userHolder).getDataOutputStream().writeUTF(input);
-                Duel.getGamesInProgress().get(userHolder).getDataOutputStream().flush();
-            } catch (IOException ignored) {
+                System.out.println("a client disconnected: " + userHolder.getUser().getUsername());
+            } catch (Exception ignored) {
+                System.out.print("a client disconnected.");
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private void sendToRival(String input, UserHolder userHolder) {
+        if (input.startsWith("forward: ")) {
+            if (Duel.getGamesInProgress().containsKey(userHolder)) {
+                try {
+                    Duel.getGamesInProgress().get(userHolder).getDataOutputStream().writeUTF(input);
+                    Duel.getGamesInProgress().get(userHolder).getDataOutputStream().flush();
+                } catch (IOException ignored) {
+                }
             }
         }
     }

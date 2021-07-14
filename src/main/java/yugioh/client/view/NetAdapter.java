@@ -59,6 +59,15 @@ public class NetAdapter {
         }
     }
 
+    public static void sendForwardRequest(String message) {
+        try {
+            dataOutputStream.writeUTF("forward: " + message);
+            dataOutputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void setHost(String host) {
         NetAdapter.host = host;
     }

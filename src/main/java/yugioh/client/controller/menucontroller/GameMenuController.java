@@ -261,10 +261,13 @@ public class GameMenuController extends MenuController implements Initializable 
         else currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageString()));
         currentImage.setPreserveRatio(true);
         currentImage.setFitHeight(85);
-        if (gameController.currentTurnOpponentPlayer.getUser().isImageIsChanged())
-            opponentImage.setImage(new Image(gameController.currentTurnOpponentPlayer.getUser().getProfileImageFile().toURI().toString()));
-        else
-            opponentImage.setImage(new Image(gameController.currentTurnOpponentPlayer.getUser().getProfileImageString()));
+        try {
+            if (gameController.currentTurnOpponentPlayer.getUser().isImageIsChanged())
+                opponentImage.setImage(new Image(gameController.currentTurnOpponentPlayer.getUser().getProfileImageFile().toURI().toString()));
+            else
+                opponentImage.setImage(new Image(gameController.currentTurnOpponentPlayer.getUser().getProfileImageString()));
+        } catch (Exception ignored) {
+        }
         opponentImage.setPreserveRatio(true);
         opponentImage.setFitHeight(85);
         rivalLPBar.setProgress((double) opponentLP / 8000);
