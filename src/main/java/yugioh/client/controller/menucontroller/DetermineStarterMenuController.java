@@ -69,8 +69,8 @@ public class DetermineStarterMenuController implements Initializable {
 
     private void disableIfIsRival(Player secondPlayer) {
         if (RivalSelectionMenu.isRival(secondPlayer)) {
-//            yesButton.setDisable(true);
-//            noButton.setDisable(true);
+            yesButton.setDisable(true);
+            noButton.setDisable(true);
         }
     }
 
@@ -82,8 +82,8 @@ public class DetermineStarterMenuController implements Initializable {
         yesButton.setOpacity(0);
         playSound();
         if (RivalSelectionMenu.isRival(gameController.getGame().getFirstPlayer())) {
-//            head.setDisable(true);
-//            tale.setDisable(true);
+            head.setDisable(true);
+            tale.setDisable(true);
         }
         startSyncingWithRival();
     }
@@ -97,11 +97,17 @@ public class DetermineStarterMenuController implements Initializable {
                         Matcher matcher = ViewInterface.getCommandMatcher(command, "forward: (.+)");
                         command = matcher.group(1);
                         switch (command) {
+                            case "yes selected":
+                                Platform.runLater(this::handleYesButton);
+                                break;
+                            case "no selected":
+                                Platform.runLater(this::handleNoButton);
+                                break;
                             case "head selected":
-                                Platform.runLater(this::handleTale);
+                                Platform.runLater(this::handleHead);
                                 break;
                             case "tale selected":
-                                Platform.runLater(this::handleHead);
+                                Platform.runLater(this::handleTale);
                                 break;
                             default:
                                 String finalCommand = command;
@@ -154,6 +160,11 @@ public class DetermineStarterMenuController implements Initializable {
     }
 
     public void noClicked() {
+        NetAdapter.sendForwardRequest("no selected");
+        handleNoButton();
+    }
+
+    private void handleNoButton() {
         playButtonSound("backButton");
         String currentPlayerName = gameController.getGame().getFirstPlayer().getUser().getNickname();
         String opponentPlayerName = gameController.getGame().getSecondPlayer().getUser().getNickname();
@@ -169,6 +180,11 @@ public class DetermineStarterMenuController implements Initializable {
     }
 
     public void yesClicked() {
+        NetAdapter.sendForwardRequest("yes selected");
+        handleYesButton();
+    }
+
+    private void handleYesButton() {
         playButtonSound("enterButton");
         String currentPlayerName = gameController.getGame().getFirstPlayer().getUser().getNickname();
         String opponentPlayerName = gameController.getGame().getSecondPlayer().getUser().getNickname();
