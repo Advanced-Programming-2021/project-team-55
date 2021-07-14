@@ -55,13 +55,12 @@ public class RivalSelectionMenuController extends MenuController implements Init
     public MediaView rivalSelectionMenuBackground;
     public GridPane waitingUsersGridPane;
 
-//    public ScrollPane chatBox;
-//    public transient Thread chatThread;
-//    public static Scanner input=new Scanner(System.in);
-//    public ImageView sendImage;
-//    public JFXTextField message;
-//    public ImageView backImage;
-//    private boolean isChatEnded=false;
+    public ScrollPane chatBox;
+    public transient Thread chatThread;
+    public static Scanner input = new Scanner(System.in);
+    public ImageView sendImage;
+    public JFXTextField message;
+    private boolean isChatEnded = false;
 
     public RivalSelectionMenuController() {
         deckMenuController = this;
@@ -77,11 +76,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
         mediaPlayer.play();
         mediaPlayer.setCycleCount(-1);
         rivalSelectionMenuBackground.setMediaPlayer(mediaPlayer);
-        try {
-            chatRoom.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        chatBoxInitialize();
         RivalSelectionMenu.setDoCancel(false);
         RivalSelectionMenu.setRival(null);
         oneRound.setSelected(false);
@@ -104,9 +99,21 @@ public class RivalSelectionMenuController extends MenuController implements Init
     }
 
     public void cancel() throws Exception {
+        dataOutputStreamForChat.writeUTF(User.loggedInUser.getUsername() + " exited Chatroom");
+        dataOutputStreamForChat.flush();
         SoundPlayable.playButtonSound("backButton");
         RivalSelectionMenu.setDoCancel(true);
-        RivalSelectionMenu.getStage().close();
+        chatThread.stop();
+
+        new Thread(() -> {
+            while (!isChatEnded) {
+            }
+                try {
+                    RivalSelectionMenu.getStage().close();
+                } catch (Exception e) {
+                }
+            }).start();
+
     }
 
     public void startGame() {
@@ -117,22 +124,22 @@ public class RivalSelectionMenuController extends MenuController implements Init
                     new PopUpWindow(result).start(RivalSelectionMenu.getStage());
                     return;
                 }
-            if (!result.startsWith("success ")) {
-                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-                    try {
-                        startGame();
-                    } catch (Exception ignored) {
-                    }
-                }));
-                timeline.play();
-                return;
-            }
-            Matcher matcher = ViewInterface.getCommandMatcher(result, "success (.+)");
-            User rival = DataBaseController.getUserObjectByString(matcher.group(1));
-            SoundPlayable.playButtonSound("enterButton");
-            RivalSelectionMenu.setRival(rival);
-            RivalSelectionMenu.setDoCancel(false);
-            Platform.runLater(() -> RivalSelectionMenu.getStage().close());
+                if (!result.startsWith("success ")) {
+                    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+                        try {
+                            startGame();
+                        } catch (Exception ignored) {
+                        }
+                    }));
+                    timeline.play();
+                    return;
+                }
+                Matcher matcher = ViewInterface.getCommandMatcher(result, "success (.+)");
+                User rival = DataBaseController.getUserObjectByString(matcher.group(1));
+                SoundPlayable.playButtonSound("enterButton");
+                RivalSelectionMenu.setRival(rival);
+                RivalSelectionMenu.setDoCancel(false);
+                Platform.runLater(() -> RivalSelectionMenu.getStage().close());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -179,142 +186,128 @@ public class RivalSelectionMenuController extends MenuController implements Init
         RivalSelectionMenuController.isUserFirst = isUserFirst;
     }
 
-    public void back(MouseEvent mouseEvent) {
-        try {
-            mainMenu.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
     ////////////////////////////////////////////////////////////////////////////////////////////
 
-//
-//
-//    public void sendMessage(Event event) throws Exception {
-//        dataOutputStreamForChat.writeUTF("chat "+User.loggedInUser.getNickname()+": "+message.getText());
-//        dataOutputStreamForChat.flush();
-//        message.setText("");
-//    }
-//
-//    public void chatBoxInitialize() {
-//        sendImage.setDisable(true);
-//        sendImage.setOpacity(0.5);
-//        WelcomeMenu.stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
-//            @Override
-//            public void handle(KeyEvent event) {
-//                if(event.getCode()== KeyCode.ENTER){
-//                    try {
-//                        sendMessage(event);
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        });
-//        message.textProperty().addListener(new ChangeListener<String>() {
-//            @Override
-//            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-//                if(t1.equals("")){
-//                    sendImage.setDisable(true);
-//                    sendImage.setOpacity(0.5);
-//                }
-//                else{
-//                    sendImage.setDisable(false);
-//                    sendImage.setOpacity(1);
-//                }
-//            }
-//        });
-//        chatThread =new Thread(() -> {
-//            while (true) {
-//                try {
-//                    String inputMessage = dataInputStreamForChat.readUTF();
-//                    if (inputMessage.equals(User.loggedInUser.getUsername() + " gomsho")) {
-//                        System.out.println("got it");
-//                        isChatEnded=true;
-//                        return;
-//                    }
-//                    if (!inputMessage.equals("")) {
-//                        Platform.runLater(() -> {
-//                            if(!inputMessage.startsWith(User.loggedInUser.getNickname())){
-//                                AnchorPane anchorPane=(AnchorPane) chatBox.getContent();
-//                                double yLastMessage;
-//                                if(anchorPane.getChildren().size()>0) {
-//                                    Label lastMessage = (Label) anchorPane.getChildren().get(anchorPane.getChildren().size()-1);
-//                                    yLastMessage = lastMessage.getLayoutY();
-//                                }
-//                                else {
-//                                    yLastMessage = -10;
-//                                }
-//                                Label messageLabel=new Label(inputMessage);
-//
-//                                messageLabel.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY,null)));
-//                                messageLabel.setTextFill(Color.CHARTREUSE);
-//                                messageLabel.setLayoutY(yLastMessage+30);
-//                                messageLabel.setLayoutX(200);
-//                                anchorPane.getChildren().add(messageLabel);
-//                                chatBox.setContent(anchorPane);
-//
-//                            }
-//                            else {
-//                                AnchorPane anchorPane=(AnchorPane) chatBox.getContent();
-//                                double yLastMessage;
-//                                if(anchorPane.getChildren().size()>0) {
-//                                    Label lastMessage = (Label) anchorPane.getChildren().get(anchorPane.getChildren().size()-1);
-//                                    yLastMessage = lastMessage.getLayoutY();
-//                                }
-//                                else {
-//                                    yLastMessage = -10;
-//                                }
-//                                Label messageLabel=new Label(inputMessage);
-//                                messageLabel.setTextFill(Color.RED);
-//                                messageLabel.setBackground(new Background(new BackgroundFill(Color.CHARTREUSE, CornerRadii.EMPTY,null)));
-//                                messageLabel.setLayoutY(yLastMessage+30);
-//                                messageLabel.setLayoutX(0);
-//                                anchorPane.getChildren().add(messageLabel);
-//                                chatBox.setContent(anchorPane);
-//
-//
-//                            }
-//                        });
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        chatThread.start();
-//    }
-//
-//    public void back(MouseEvent mouseEvent) throws Exception{
-//        dataOutputStreamForChat.writeUTF(User.loggedInUser.getUsername() + " exited Chatroom");
-//        dataOutputStreamForChat.flush();
-//        SoundPlayable.playButtonSound("backButton");
-//        chatThread.stop();
-//        System.out.println("send it");
-//        new Thread(()->{
-//            while (!isChatEnded){ }
-//            Platform.runLater(()->{
-//                try {
-//                    System.out.println("should execute");
-//                    mainMenu.execute();
-//                } catch (Exception e) {
-//                }
-//            });
-//        }).start();
-//    }
-//    public void setHoveredImageSend() {
-//        sendImage.setImage(new Image(new File("src/resources/yugioh/PNG/icon/sendHover.png").toURI().toString()));
-//    }
-//
-//    public void resetHoveredImageSend() {
-//        sendImage.setImage(new Image(new File("src/resources/yugioh/PNG/icon/send.png").toURI().toString()));
-//    }
-//
-//    public void resetHoveredImageBack(MouseEvent mouseEvent) {
-//        backImage.setImage(new Image(new File("src/resources/yugioh/PNG/icon/close.png").toURI().toString()));
-//    }
-//
-//    public void setHoveredImageBack(MouseEvent mouseEvent) {
-//        backImage.setImage(new Image(new File("src/resources/yugioh/PNG/icon/closeHover.png").toURI().toString()));
-//    }
+
+    public void sendMessage(Event event) throws Exception {
+        dataOutputStreamForChat.writeUTF("chat " + User.loggedInUser.getNickname() + ": " + message.getText());
+        dataOutputStreamForChat.flush();
+        message.setText("");
+    }
+
+    public void chatBoxInitialize() {
+        sendImage.setDisable(true);
+        sendImage.setOpacity(0.5);
+        RivalSelectionMenu.stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    try {
+                        sendMessage(event);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        message.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if (t1.equals("")) {
+                    sendImage.setDisable(true);
+                    sendImage.setOpacity(0.5);
+                } else {
+                    sendImage.setDisable(false);
+                    sendImage.setOpacity(1);
+                }
+            }
+        });
+        chatThread = new Thread(() -> {
+            while (true) {
+                try {
+                    String inputMessage = dataInputStreamForChat.readUTF();
+                    System.out.println(inputMessage);
+                    if (inputMessage.equals(User.loggedInUser.getUsername() + " gomsho")) {
+                        System.out.println("got it");
+                        isChatEnded = true;
+                        return;
+                    }
+                    if (!inputMessage.equals("")) {
+                        Platform.runLater(() -> {
+                            if (!inputMessage.startsWith(User.loggedInUser.getNickname())) {
+                                AnchorPane anchorPane = (AnchorPane) chatBox.getContent();
+                                double yLastMessage;
+                                if (anchorPane.getChildren().size() > 0) {
+                                    Label lastMessage = (Label) anchorPane.getChildren().get(anchorPane.getChildren().size() - 1);
+                                    yLastMessage = lastMessage.getLayoutY();
+                                } else {
+                                    yLastMessage = -10;
+                                }
+                                Label messageLabel = new Label(inputMessage);
+
+                                messageLabel.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, null)));
+                                messageLabel.setTextFill(Color.CHARTREUSE);
+                                messageLabel.setLayoutY(yLastMessage + 30);
+                                messageLabel.setLayoutX(200);
+                                anchorPane.getChildren().add(messageLabel);
+                                chatBox.setContent(anchorPane);
+
+                            } else {
+                                AnchorPane anchorPane = (AnchorPane) chatBox.getContent();
+                                double yLastMessage;
+                                if (anchorPane.getChildren().size() > 0) {
+                                    Label lastMessage = (Label) anchorPane.getChildren().get(anchorPane.getChildren().size() - 1);
+                                    yLastMessage = lastMessage.getLayoutY();
+                                } else {
+                                    yLastMessage = -10;
+                                }
+                                Label messageLabel = new Label(inputMessage);
+                                messageLabel.setTextFill(Color.RED);
+                                messageLabel.setBackground(new Background(new BackgroundFill(Color.CHARTREUSE, CornerRadii.EMPTY, null)));
+                                messageLabel.setLayoutY(yLastMessage + 30);
+                                messageLabel.setLayoutX(0);
+                                anchorPane.getChildren().add(messageLabel);
+                                chatBox.setContent(anchorPane);
+
+
+                            }
+                        });
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        chatThread.start();
+    }
+
+    public void back(MouseEvent mouseEvent) throws Exception {
+        dataOutputStreamForChat.writeUTF(User.loggedInUser.getUsername() + " exited Chatroom");
+        dataOutputStreamForChat.flush();
+        SoundPlayable.playButtonSound("backButton");
+        chatThread.stop();
+        System.out.println("send it");
+        new Thread(() -> {
+            while (!isChatEnded) {
+            }
+            Platform.runLater(() -> {
+                try {
+                    System.out.println("should execute");
+                    mainMenu.execute();
+                } catch (Exception e) {
+                }
+            });
+        }).start();
+    }
+
+    public void setHoveredImageSend() {
+        sendImage.setImage(new Image(new File("src/resources/yugioh/PNG/icon/sendHover.png").toURI().toString()));
+    }
+
+    public void resetHoveredImageSend() {
+        sendImage.setImage(new Image(new File("src/resources/yugioh/PNG/icon/send.png").toURI().toString()));
+    }
+
 }
+
+

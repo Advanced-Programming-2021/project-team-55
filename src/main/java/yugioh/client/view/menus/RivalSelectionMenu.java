@@ -17,6 +17,7 @@ public class RivalSelectionMenu extends WelcomeMenu {
     private static int rounds = 0;
     private static User rival = null;
     private static boolean doCancel = false;
+    public static Stage stage;
 
     public static int getRounds() {
         return rounds;
@@ -60,8 +61,10 @@ public class RivalSelectionMenu extends WelcomeMenu {
         URL url = getClass().getResource("/yugioh/fxml/RivalSelectionMenu.fxml");
         Parent parent = FXMLLoader.load(url);
         Scene scene = WelcomeMenu.createScene(parent);
-//        stage.initStyle(StageStyle.UNDECORATED);
-//        stage.initModality(Modality.APPLICATION_MODAL);
+        Stage stage = new Stage();
+        RivalSelectionMenu.stage = stage;
+        stage.initStyle(StageStyle.UTILITY);
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.showAndWait();
     }

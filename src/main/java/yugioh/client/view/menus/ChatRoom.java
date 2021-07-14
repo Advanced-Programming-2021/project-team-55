@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -26,6 +27,13 @@ public class ChatRoom extends WelcomeMenu{
         if(chatStage!=null){
             chatStage.close();
         }
+    }
+    public void execute(boolean isForRivalMenu)throws Exception{
+        close();
+        chatStage =new Stage();
+        chatStage.initOwner(RivalSelectionMenu.stage);
+        chatStage.setAlwaysOnTop(true);
+        start(chatStage);
     }
 
     @Override

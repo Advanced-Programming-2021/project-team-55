@@ -59,6 +59,7 @@ public class NetAdapter {
                                 sendToRival(input, userHolder);
                                 String result = Menu.handleCommand(input, userHolder);
                                     dataOutputStream.writeUTF(result);
+                                    dataOutputStream.flush();
                                 log(input, result);
                             } catch (SocketException e) {
                                 allUsersOutputStreams.remove(dataOutputStream);
@@ -136,12 +137,15 @@ public class NetAdapter {
                                 try {
                                     String input = dataInputStream.readUTF();
                                     if(input.matches(Regexes.EXIT_CHATROOM.regex)){
-                                        Matcher matcher = ViewInterface.getCommandMatcher(input, Regexes.EXIT_CHATROOM.regex);
+                                        Matcher matcher = getCommandMatcher(input, Regexes.EXIT_CHATROOM.regex);
+                                        System.out.println(input);
                                         dataOutputStream.writeUTF(matcher.group(1) + " gomsho");
+                                        dataOutputStream.flush();
                                     }
                                     else {
                                         for (DataOutputStream dataOutputStreamUser : allUsersOutputStreams) {
                                             dataOutputStreamUser.writeUTF(input.replace("chat ", ""));
+                                            dataOutputStreamUser.flush();
                                         }
                                     }
 //                                    System.out.println("--> " + input);
