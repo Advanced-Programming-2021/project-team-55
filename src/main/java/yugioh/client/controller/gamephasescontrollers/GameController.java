@@ -298,6 +298,16 @@ public class GameController {
             mainPhase1Controller.showGameBoard(currentTurnPlayer,
                     currentTurnOpponentPlayer);
             //});
+
+            disableActionsAndAddWaitingStage();
+        }
+    }
+
+    private void disableActionsAndAddWaitingStage() {
+        if (!Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) {
+            GameMenuController.getGameMenuController().gamePane.setDisable(true);
+        } else {//todo handle logo represent
+
         }
     }
 
