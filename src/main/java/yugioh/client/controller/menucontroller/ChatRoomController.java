@@ -1,5 +1,6 @@
 package yugioh.client.controller.menucontroller;
 
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -40,7 +41,7 @@ public class ChatRoomController  extends MenuController implements Initializable
     public Button sendMessageButton;
     public static Scanner input=new Scanner(System.in);
     public ImageView sendImage;
-    public JFXTextField message;
+    public JFXTextArea message;
     private boolean isChatEnded=false;
 
 
@@ -53,6 +54,7 @@ public class ChatRoomController  extends MenuController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
        // message.setWrapText(true);
+        message.setWrapText(true);
         WelcomeMenu.stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -92,7 +94,8 @@ public class ChatRoomController  extends MenuController implements Initializable
                             double yLastMessage;
                             if(anchorPane.getChildren().size()>0) {
                                 Label lastMessage = (Label) anchorPane.getChildren().get(anchorPane.getChildren().size()-1);
-                                yLastMessage = lastMessage.getLayoutY();
+                                yLastMessage=lastMessage.getLayoutY()+lastMessage.getHeight();
+                                //yLastMessage = lastMessage.getLayoutY();
                             }
                             else {
                                 yLastMessage = -10;
@@ -112,7 +115,7 @@ public class ChatRoomController  extends MenuController implements Initializable
                             double yLastMessage;
                             if(anchorPane.getChildren().size()>0) {
                                 Label lastMessage = (Label) anchorPane.getChildren().get(anchorPane.getChildren().size()-1);
-                                yLastMessage = lastMessage.getLayoutY();
+                                yLastMessage = lastMessage.getLayoutY()+lastMessage.getHeight();
                             }
                             else {
                                 yLastMessage = -10;
@@ -152,14 +155,6 @@ public class ChatRoomController  extends MenuController implements Initializable
                     }
                 });
         }).start();
-//        new Timeline(new KeyFrame(Duration.seconds(2),actionEvent ->{
-//                try{
-//                    mainMenu.execute();
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }
-//        })).play();
-        //mainMenu.execute();
     }
     public void setHoveredImageSend() {
         sendImage.setImage(new Image(new File("src/resources/yugioh/PNG/Field/sendHover.png").toURI().toString()));

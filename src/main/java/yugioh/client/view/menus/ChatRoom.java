@@ -1,5 +1,7 @@
 package yugioh.client.view.menus;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import yugioh.client.controller.menucontroller.ChatRoomController;
 
 import java.net.URL;
@@ -30,6 +33,12 @@ public class ChatRoom extends WelcomeMenu{
         chatStage =new Stage();
         chatStage.initOwner(WelcomeMenu.stage);
         chatStage.initStyle(StageStyle.UNDECORATED);
+        chatStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+
+            }
+        });
         start(chatStage);
     }
 

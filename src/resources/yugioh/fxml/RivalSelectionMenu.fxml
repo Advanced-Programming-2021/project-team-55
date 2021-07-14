@@ -51,7 +51,10 @@
                     </styleClass>
                 </JFXButton>
 
-                <ScrollPane fx:id="chatBox" layoutX="452.0" layoutY="93.0" prefHeight="503.0" prefWidth="306.0" />
+                <ScrollPane fx:id="chatBox" layoutX="452.0" layoutY="93.0" prefHeight="503.0" prefWidth="321.0">
+      <content>
+         <AnchorPane prefHeight="490.0" prefWidth="319.0" />
+      </content></ScrollPane>
 
        <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="662.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="40.0" prefWidth="177.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
            <styleClass>
@@ -60,7 +63,7 @@
                <String fx:value="buttonHover" />
            </styleClass>
        </JFXButton>
-       <TextArea fx:id="message" layoutX="758.0" layoutY="166.0" prefHeight="171.0" prefWidth="322.0" />
+       <TextArea fx:id="message" layoutX="774.0" layoutY="166.0" prefHeight="171.0" prefWidth="306.0" />
 
     <JFXButton fx:id="sendMessageButton" buttonType="RAISED" layoutX="840.0" layoutY="338.0" mnemonicParsing="false" onMouseClicked="#sendMessage" prefHeight="40.0" prefWidth="177.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Send Message">
         <styleClass>

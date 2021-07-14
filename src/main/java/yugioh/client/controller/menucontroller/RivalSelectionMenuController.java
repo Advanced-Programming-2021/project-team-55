@@ -52,6 +52,13 @@ public class RivalSelectionMenuController extends MenuController implements Init
     public MediaView rivalSelectionMenuBackground;
     public GridPane waitingUsersGridPane;
 
+    public TextArea message;
+    public ScrollPane chatBox;
+    public transient Thread chatThread;
+    public Button sendMessageButton;
+    public static Scanner input = new Scanner(System.in);
+    private boolean isChatEnded = false;
+
     public RivalSelectionMenuController() {
         deckMenuController = this;
     }
@@ -165,17 +172,12 @@ public class RivalSelectionMenuController extends MenuController implements Init
     }
     ////////////////////////////////////////////////////////////////////////////////////////////
 
-    public TextArea message;
-    public ScrollPane chatBox;
-    public transient Thread chatThread;
-    public Button sendMessageButton;
-    public static Scanner input = new Scanner(System.in);
-    private boolean isChatEnded = false;
+
 
 
     public void sendMessage(Event event) throws Exception {
-        dataOutputStream.writeUTF("chat " + User.loggedInUser.getNickname() + ": " + message.getText());
-        dataOutputStream.flush();
+        dataOutputStreamForChat.writeUTF("chat " + User.loggedInUser.getNickname() + ": " + message.getText());
+        dataOutputStreamForChat.flush();
         message.setText("");
     }
 
@@ -204,9 +206,9 @@ public class RivalSelectionMenuController extends MenuController implements Init
             }
         });
         chatThread = new Thread(() -> {
-          /*  while (true) {//todo commentd not worked
+            while (true) {//todo commentd not worked
                 try {
-                    String inputMessage = dataInputStream.readUTF();
+                    String inputMessage = dataInputStreamForChat.readUTF();
                     if (inputMessage.equals(User.loggedInUser.getUsername() + " gomsho")) {
                         isChatEnded = true;
                         return;
@@ -214,15 +216,11 @@ public class RivalSelectionMenuController extends MenuController implements Init
                     if (!inputMessage.equals("")) {
                         Platform.runLater(() -> {
                             if (!inputMessage.startsWith(User.loggedInUser.getNickname())) {
-//                            String otherUsername=inputMessage.substring(0,inputMessage.indexOf(":"));
-                                // String message=inputMessage.substring(inputMessage.indexOf(":")+2);
-//                            message+=" :"+otherUsername;
-                                //  chatBox.setText(chatBox.getText() + "\n\t\t\t\t" + inputMessage);
                                 AnchorPane anchorPane = (AnchorPane) chatBox.getContent();
                                 double yLastMessage;
                                 if (anchorPane.getChildren().size() > 0) {
                                     Label lastMessage = (Label) anchorPane.getChildren().get(anchorPane.getChildren().size() - 1);
-                                    yLastMessage = lastMessage.getLayoutY();
+                                    yLastMessage = lastMessage.getLayoutY()+lastMessage.getHeight();
                                 } else {
                                     yLastMessage = -10;
                                 }
@@ -235,15 +233,12 @@ public class RivalSelectionMenuController extends MenuController implements Init
                                 anchorPane.getChildren().add(messageLabel);
                                 chatBox.setContent(anchorPane);
 
-                                //othersChatBox.getChildren().add(messageLabel);
-                                //chatPane.setContent(new Rectangle());
-
                             } else {
                                 AnchorPane anchorPane = (AnchorPane) chatBox.getContent();
                                 double yLastMessage;
                                 if (anchorPane.getChildren().size() > 0) {
                                     Label lastMessage = (Label) anchorPane.getChildren().get(anchorPane.getChildren().size() - 1);
-                                    yLastMessage = lastMessage.getLayoutY();
+                                    yLastMessage = lastMessage.getLayoutY()+lastMessage.getHeight();
                                 } else {
                                     yLastMessage = -10;
                                 }
@@ -254,18 +249,13 @@ public class RivalSelectionMenuController extends MenuController implements Init
                                 messageLabel.setLayoutX(0);
                                 anchorPane.getChildren().add(messageLabel);
                                 chatBox.setContent(anchorPane);
-                                // chatBox.setText(chatBox.getText() + "\n" + inputMessage);
-                                // Label messageLabel=new Label(inputMessage);
-                                //messageLabel.setBackground(new Background(new BackgroundFill(Color.CHARTREUSE, CornerRadii.EMPTY,null)));
-                                //chatPane.getChildren().add(messageLabel);
-                                //myChatBox.getChildren().add(messageLabel);
                             }
                         });
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }*/
+            }
         });
         chatThread.start();
     }
