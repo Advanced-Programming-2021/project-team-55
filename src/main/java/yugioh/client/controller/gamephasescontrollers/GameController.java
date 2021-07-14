@@ -144,7 +144,7 @@ public class GameController {
     }
 
     public void selectCard(String zone, int number, boolean opponent) throws GameException {
-       // ViewInterface.showResult("select --" + zone+ number+ );//todo complete function
+        // ViewInterface.showResult("select --" + zone+ number+ );//todo complete function
 
         GameBoard currentPlayerGameBoard = currentTurnPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = currentTurnOpponentPlayer.getGameBoard();
@@ -301,6 +301,16 @@ public class GameController {
             mainPhase1Controller.showGameBoard(currentTurnPlayer,
                     currentTurnOpponentPlayer);
             //});
+
+            disableActionsAndAddWaitingStage();
+        }
+    }
+
+    private void disableActionsAndAddWaitingStage() {
+        if (!Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) {
+            GameMenuController.getGameMenuController().gamePane.setDisable(true);
+        } else {//todo handle logo represent
+
         }
     }
 
