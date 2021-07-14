@@ -118,6 +118,13 @@ abstract public class Menu {
                 return "false";
             }
         }
+        else if(command.startsWith("get online users")){
+            String users="";
+            for(UserHolder userHolder:User.getLoggedInUsers()){
+                users+=userHolder.getUser().getNickname()+" ";
+            }
+            result=users.trim();
+        }
         else {
             if (result.equals("Error: invalid command"))
                 result = mainMenu.processCommand(command, currentUser);

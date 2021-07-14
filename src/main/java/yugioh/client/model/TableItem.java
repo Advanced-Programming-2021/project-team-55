@@ -1,6 +1,11 @@
 package yugioh.client.model;
 
 import javafx.scene.control.TableRow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
+
+import java.io.File;
 
 public class TableItem extends TableRow {
 
@@ -8,12 +13,16 @@ public class TableItem extends TableRow {
     int rank;
     String username;
     int score;
+    //ImageView imageView;
+    String online;
 
-
-    public TableItem(int rank, String username, int score) {
+    public TableItem(String online,int rank, String username, int score) {
         this.rank = rank;
         this.username = username;
         this.score = score;
+        this.online=online;
+        //this.imageView=imageView;
+
     }
 
     public int getRank() {

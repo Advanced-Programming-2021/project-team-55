@@ -1,5 +1,7 @@
 package yugioh.client.model;
 
+import javafx.scene.image.ImageView;
+
 public class ScoreBoardItem {
     String nickname;
     int score;

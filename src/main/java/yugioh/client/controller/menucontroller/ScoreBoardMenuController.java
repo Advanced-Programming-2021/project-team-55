@@ -5,9 +5,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import yugioh.client.controller.DataBaseController;
 import yugioh.client.model.ScoreBoardItem;
 import yugioh.client.model.TableItem;
@@ -24,6 +29,7 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
     public static ScoreBoardMenuController scoreBoardMenuController;
     public TableView<TableRow> scoreBoard;
     public MediaView scoreBoardMenuBackground;
+    public AnchorPane scoreBoardPane;
 
     public ScoreBoardMenuController() {
     }
@@ -77,28 +83,47 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
     }
 
     private ArrayList<TableItem> makeTableItemsFromUsers(ScoreBoardItem[] scoreBoardItems) {
+        String onlineUsers="";
+        try {
+            dataOutputStream.writeUTF("get online users");
+            onlineUsers = dataInputStream.readUTF();
+        }catch (Exception e){}
+//        Circle onlineCircle=new Circle(10, Color.GREEN);
+//        Circle offlineCircle=new Circle(10, Color.RED);
         ArrayList<TableItem> tableItems = new ArrayList<>();
         for (int i = 0; i < scoreBoardItems.length; i++) {
             ScoreBoardItem scoreBoardItem = scoreBoardItems[i];
-            TableItem tableItem = new TableItem(i + 1, scoreBoardItem.getNickname(), scoreBoardItem.getScore());
-            tableItems.add(tableItem);
+            if(onlineUsers.contains(scoreBoardItem.getNickname())){
+                ImageView imageView=new ImageView(new Image(new File("src\\resources\\yugioh\\PNG\\icon\\greenCircle.png").toURI().toString()));
+                TableItem tableItem = new TableItem("yes",i + 1, scoreBoardItem.getNickname(), scoreBoardItem.getScore());
+                tableItems.add(tableItem);
+            }
+            else {
+                ImageView imageView=new ImageView(new Image(new File("src\\resources\\yugioh\\PNG\\icon\\redCircle.png").toURI().toString()));
+                TableItem tableItem = new TableItem("no", i + 1, scoreBoardItem.getNickname(), scoreBoardItem.getScore());
+                tableItems.add(tableItem);
+            }
         }
         return tableItems;
     }
 
     private void initializeScoreBoard() {
-        TableColumn<TableRow, Object> column0 = new TableColumn<>("Rank");
-        column0.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        TableColumn<TableRow, Object> column0 = new TableColumn<>("Online Status");
+        column0.setCellValueFactory(new PropertyValueFactory<>("online"));
         column0.setStyle("-fx-alignment: CENTER;");
-        TableColumn<TableRow, Object> column1 = new TableColumn<>("Nickname");
-        column1.setCellValueFactory(new PropertyValueFactory<>("username"));
+        TableColumn<TableRow, Object> column1 = new TableColumn<>("Rank");
+        column1.setCellValueFactory(new PropertyValueFactory<>("rank"));
         column1.setStyle("-fx-alignment: CENTER;");
-        TableColumn<TableRow, Object> column2 = new TableColumn<>("Max Score");
-        column2.setCellValueFactory(new PropertyValueFactory<>("score"));
+        TableColumn<TableRow, Object> column2 = new TableColumn<>("Nickname");
+        column2.setCellValueFactory(new PropertyValueFactory<>("username"));
         column2.setStyle("-fx-alignment: CENTER;");
+        TableColumn<TableRow, Object> column3 = new TableColumn<>("Max Score");
+        column3.setCellValueFactory(new PropertyValueFactory<>("score"));
+        column3.setStyle("-fx-alignment: CENTER;");
         scoreBoard.getColumns().add(column0);
         scoreBoard.getColumns().add(column1);
         scoreBoard.getColumns().add(column2);
+        scoreBoard.getColumns().add(column3);
 
     }
 
