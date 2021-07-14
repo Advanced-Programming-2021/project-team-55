@@ -30,18 +30,7 @@ public class ScoreBoardMenu extends WelcomeMenu {
     @Override
     protected String processCommand(String command) {
         String response = "";
-        if (command.matches(Regexes.SHOW_SCOREBOARD.regex)) {
-//            showScoreBoard(scoreBoardMenuController.getScoreBoard());
-//        } else if (command.matches(Regexes.ENTER_MENU.regex)) {
-//            try {
-//                Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.ENTER_MENU.regex);
-//                scoreBoardMenuController.enterMenu(matcher.group(1));
-//            } catch (MenuException e) {
-//                response = e.toString();
-//            }
-//        } else if (command.matches(Regexes.EXIT_MENU.regex)) {
-//            scoreBoardMenuController.exitMenu();
-        } else if (command.matches(Regexes.SHOW_MENU.regex)) {
+        if (command.matches(Regexes.SHOW_MENU.regex)) {
             response = getCurrentMenu();
         } else {
             response = Responses.INVALID_COMMAND.response;

@@ -1,18 +1,16 @@
 package yugioh.client.model;
 
-import javafx.scene.image.ImageView;
-
 public class ScoreBoardItem {
-    String nickname;
+    String username;
     int score;
 
-    public ScoreBoardItem(String nickname, int score) {
-        this.nickname = nickname;
+    public ScoreBoardItem(String username, int score) {
+        this.username = username;
         this.score = score;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getUsername() {
+        return username;
     }
 
     public int getScore() {

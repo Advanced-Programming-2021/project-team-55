@@ -8,6 +8,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import yugioh.client.controller.gamephasescontrollers.GameController;
+import yugioh.client.model.Player;
 import yugioh.client.view.NetAdapter;
 import yugioh.client.view.gamephases.Duel;
 import yugioh.client.view.menus.*;
@@ -57,10 +58,19 @@ public class DetermineStarterMenuController implements Initializable {
             yesNoQuestion.setText(currentPlayerName + " do you want to be the first player?");
             noButton.setOpacity(1);
             yesButton.setOpacity(1);
+            disableIfIsRival(gameController.getGame().getFirstPlayer());
         } else {
             yesNoQuestion.setText(opponentPlayerName + " do you want to be the first player?");
             noButton.setOpacity(1);
             yesButton.setOpacity(1);
+            disableIfIsRival(gameController.getGame().getSecondPlayer());
+        }
+    }
+
+    private void disableIfIsRival(Player secondPlayer) {
+        if (RivalSelectionMenu.isRival(secondPlayer)) {
+            yesButton.setDisable(true);
+            noButton.setDisable(true);
         }
     }
 

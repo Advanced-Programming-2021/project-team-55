@@ -192,6 +192,7 @@ public class NetAdapter {
                 try {
                     Duel.getGamesInProgress().get(userHolder).getDataOutputStream().writeUTF(input);
                     Duel.getGamesInProgress().get(userHolder).getDataOutputStream().flush();
+                    System.out.println("a command forwarded: " + input.replaceAll("forward: ", ""));
                 } catch (IOException ignored) {
                 }
             }

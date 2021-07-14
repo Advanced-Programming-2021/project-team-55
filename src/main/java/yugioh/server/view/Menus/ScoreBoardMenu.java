@@ -4,15 +4,10 @@ import yugioh.server.controller.DataBaseController;
 import yugioh.server.controller.menucontroller.ScoreBoardMenuController;
 import yugioh.server.model.User;
 import yugioh.server.model.UserHolder;
-import yugioh.server.model.exceptions.MenuException;
 import yugioh.server.view.Regexes;
 import yugioh.server.view.Responses;
-import yugioh.server.view.ViewInterface;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.regex.Matcher;
 
 public class ScoreBoardMenu extends Menu {
     private static final ScoreBoardMenuController scoreBoardMenuController = ScoreBoardMenuController.getInstance();
@@ -51,16 +46,16 @@ public class ScoreBoardMenu extends Menu {
 }
 
 class ScoreBoardItem {
-    String nickname;
+    String username;
     int score;
 
-    public ScoreBoardItem(String nickname, int score) {
-        this.nickname = nickname;
+    public ScoreBoardItem(String username, int score) {
+        this.username = username;
         this.score = score;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getUsername() {
+        return username;
     }
 
     public int getScore() {

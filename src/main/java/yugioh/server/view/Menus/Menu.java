@@ -117,13 +117,12 @@ abstract public class Menu {
             else{
                 return "false";
             }
-        }
-        else if(command.startsWith("get online users")){
-            String users="";
+        } else if(command.startsWith("get online users")){
+            StringBuilder users= new StringBuilder();
             for(UserHolder userHolder:User.getLoggedInUsers()){
-                users+=userHolder.getUser().getNickname()+" ";
+                users.append("\"").append(userHolder.getUser().getUsername()).append("\" ");
             }
-            result=users.trim();
+            result= users.toString().trim();
         }
         else {
             if (result.equals("Error: invalid command"))

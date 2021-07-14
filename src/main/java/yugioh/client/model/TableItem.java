@@ -13,16 +13,11 @@ public class TableItem extends TableRow {
     int rank;
     String username;
     int score;
-    //ImageView imageView;
-    String online;
 
-    public TableItem(String online,int rank, String username, int score) {
+    public TableItem(int rank, String username, int score) {
         this.rank = rank;
         this.username = username;
         this.score = score;
-        this.online=online;
-        //this.imageView=imageView;
-
     }
 
     public int getRank() {
