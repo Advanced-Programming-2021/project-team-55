@@ -110,7 +110,7 @@ public class WelcomeMenu extends Application {
         start(stage);
     }
 
-    protected String processCommand(String command) {
+    public String processCommand(String command) {
         return "";
     }
 

@@ -69,8 +69,8 @@ public class DetermineStarterMenuController implements Initializable {
 
     private void disableIfIsRival(Player secondPlayer) {
         if (RivalSelectionMenu.isRival(secondPlayer)) {
-            yesButton.setDisable(true);
-            noButton.setDisable(true);
+//            yesButton.setDisable(true);
+//            noButton.setDisable(true);
         }
     }
 
@@ -82,10 +82,10 @@ public class DetermineStarterMenuController implements Initializable {
         yesButton.setOpacity(0);
         playSound();
         if (RivalSelectionMenu.isRival(gameController.getGame().getFirstPlayer())) {
-            head.setDisable(true);
-            tale.setDisable(true);
-            startSyncingWithRival();
+//            head.setDisable(true);
+//            tale.setDisable(true);
         }
+        startSyncingWithRival();
     }
 
     private void startSyncingWithRival() {
@@ -105,7 +105,7 @@ public class DetermineStarterMenuController implements Initializable {
                                 break;
                             default:
                                 String finalCommand = command;
-                                Platform.runLater(() -> WelcomeMenu.getDuelMenu().processCommand(finalCommand));
+                                Platform.runLater(() -> Duel.handleCommand(finalCommand));
                         }
                     } else System.out.println("not handled: " + command);
                 }

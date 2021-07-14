@@ -14,7 +14,7 @@ public class StandByPhase extends Duel {
     protected void execute() {
         standByPhaseController = gameController.getStandByPhaseController();
         String response = processCommand("");
-        ViewInterface.showResult(response);
+//        ViewInterface.showResult(response);
     }
 
     @Override

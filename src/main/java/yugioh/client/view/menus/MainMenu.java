@@ -18,7 +18,7 @@ public class MainMenu extends WelcomeMenu {
         start(stage);
     }
 
-    protected String processCommand(String command) {
+    public String processCommand(String command) {
         String response = "";
         if (command.matches(Regexes.LOGOUT_USER.regex)) {
             // mainMenuController.logout();

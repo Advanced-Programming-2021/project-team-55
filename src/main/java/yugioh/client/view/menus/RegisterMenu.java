@@ -14,7 +14,7 @@ public class RegisterMenu extends WelcomeMenu {
     }
 
     @Override
-    protected String processCommand(String command) {
+    public String processCommand(String command) {
         return null;
     }
 

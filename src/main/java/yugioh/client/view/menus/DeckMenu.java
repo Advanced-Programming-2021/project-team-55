@@ -25,7 +25,7 @@ public class DeckMenu extends WelcomeMenu {
     }
 
     @Override
-    protected String processCommand(String command) {
+    public String processCommand(String command) {
         String response = "";
         if (command.matches(Regexes.CREATE_DECK.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.CREATE_DECK.regex);

@@ -14,7 +14,7 @@ public class EndPhase extends Duel {
     protected void execute() {
         endPhaseController = gameController.getEndPhaseController();
         String response = processCommand("");
-        ViewInterface.showResult(response);
+//        ViewInterface.showResult(response);
     }
 
     @Override

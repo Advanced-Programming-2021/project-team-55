@@ -1,5 +1,8 @@
 package yugioh.client.view;
 
+import yugioh.client.model.User;
+import yugioh.client.view.gamephases.Duel;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -61,6 +64,16 @@ public class NetAdapter {
 
     public static void sendForwardRequest(String message) {
         try {
+            dataOutputStream.writeUTF("forward: " + message);
+            dataOutputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void sendForwardRequestForGame(String message) {
+        try {
+            if (!Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) return;
             dataOutputStream.writeUTF("forward: " + message);
             dataOutputStream.flush();
         } catch (IOException e) {

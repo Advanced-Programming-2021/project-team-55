@@ -230,11 +230,32 @@ abstract public class Duel {
         String response = "";
         response += gameController.getSideDeckCards(gameController.getCurrentTurnPlayer());
         response += gameController.getSideDeckCards(gameController.getCurrentTurnOpponentPlayer());
-        ViewInterface.showResult(response);
+//        ViewInterface.showResult(response);
     }
 
     public static GameController getGameController() {
         return gameController;
+    }
+
+    public static void handleCommand(String command) {
+        if (command.contains("next phase")) {
+            GameMenuController.getGameMenuController().nextPhase();
+            return;
+        }
+        String result = drawPhase.processCommand(command);
+        if (result.equals("Error: invalid command"))
+            result = standByPhase.processCommand(command);
+        if (result.equals("Error: invalid command"))
+            result = mainPhase1.processCommand(command);
+        if (result.equals("Error: invalid command"))
+            result = battlePhase.processCommand(command);
+        if (result.equals("Error: invalid command"))
+            result = mainPhase2.processCommand(command);
+        if (result.equals("Error: invalid command"))
+            result = endPhase.processCommand(command);
+        if (result.equals("Error: invalid command"))
+            result = graveyard.processCommand(command);
+
     }
 
     abstract protected void execute();

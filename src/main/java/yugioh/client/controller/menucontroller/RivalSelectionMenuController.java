@@ -196,7 +196,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
     }
 
     public void chatBoxInitialize() {
-        sendImage.setDisable(true);
+/*        sendImage.setDisable(true);
         sendImage.setOpacity(0.5);
         RivalSelectionMenu.stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -278,7 +278,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
                 }
             }
         });
-        chatThread.start();
+        chatThread.start();*/
     }
 
     public void back(MouseEvent mouseEvent) throws Exception {

@@ -21,7 +21,7 @@ public class ImportExportMenu extends WelcomeMenu {
     }
 
     @Override
-    protected String processCommand(String command) {
+    public String processCommand(String command) {
         String response = "";
         if (command.matches(Regexes.IMPORT_CARD.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.IMPORT_CARD.regex);

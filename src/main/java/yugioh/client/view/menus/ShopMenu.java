@@ -29,7 +29,7 @@ public class ShopMenu extends WelcomeMenu {
     }
 
     @Override
-    protected String processCommand(String command) {
+    public String processCommand(String command) {
         String response = "";
         if (command.matches(Regexes.BUY_SHOP.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.BUY_SHOP.regex);

@@ -24,6 +24,7 @@ import yugioh.client.model.cards.Card;
 import yugioh.client.model.cards.Deck;
 import yugioh.client.model.exceptions.GameException;
 import yugioh.client.view.GameRegexes;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.ViewInterface;
 import yugioh.client.view.gamephases.CardActionsMenu;
 import yugioh.client.view.gamephases.Duel;
@@ -207,7 +208,7 @@ public class GameController {
     }
 
     public void changePhase() {
-        ViewInterface.showResult("next phase");//todo complete function
+        NetAdapter.sendForwardRequestForGame("next phase");
 
 //        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
         CardActionsMenu.close();

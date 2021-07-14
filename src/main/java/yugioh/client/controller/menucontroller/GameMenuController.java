@@ -256,9 +256,13 @@ public class GameMenuController extends MenuController implements Initializable 
                 getUser().getUsername());
         currentNickname.setText("Nickname : " + gameController.currentTurnPlayer.
                 getUser().getNickname());
-        if (gameController.currentTurnPlayer.getUser().isImageIsChanged())
+
+        try {
+            if (gameController.currentTurnPlayer.getUser().isImageIsChanged())
             currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageFile().toURI().toString()));
         else currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageString()));
+        } catch (Exception ignored) {
+        }
         currentImage.setPreserveRatio(true);
         currentImage.setFitHeight(85);
         try {

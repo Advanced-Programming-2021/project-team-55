@@ -28,7 +28,7 @@ public class ScoreBoardMenu extends WelcomeMenu {
     }
 
     @Override
-    protected String processCommand(String command) {
+    public String processCommand(String command) {
         String response = "";
         if (command.matches(Regexes.SHOW_MENU.regex)) {
             response = getCurrentMenu();
