@@ -40,6 +40,7 @@ public class ChatRoomController  extends MenuController implements Initializable
     public static Scanner input=new Scanner(System.in);
     public ImageView sendImage;
     public JFXTextField message;
+    public ImageView backImage;
     private boolean isChatEnded=false;
 
 
