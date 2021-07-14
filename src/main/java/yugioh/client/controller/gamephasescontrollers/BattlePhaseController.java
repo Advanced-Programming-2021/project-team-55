@@ -18,6 +18,7 @@ import yugioh.client.model.cards.trapandspells.MirrorForce;
 import yugioh.client.model.cards.trapandspells.NegateAttack;
 import yugioh.client.model.cards.trapandspells.SwordsofRevealingLight;
 import yugioh.client.model.exceptions.GameException;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.ViewInterface;
 import yugioh.client.view.gamephases.CardActionsMenu;
 import yugioh.client.view.gamephases.Duel;
@@ -61,7 +62,7 @@ public class BattlePhaseController {
     }
 
     public String attack(int attackedCellNumber) throws GameException {
-        ViewInterface.showResult("attack " +attackedCellNumber);//todo complete function
+        NetAdapter.sendForwardRequestForGame("attack " +attackedCellNumber);//todo complete function
 
         String response = "";
         Cell attackerCell = Cell.getSelectedCell();
