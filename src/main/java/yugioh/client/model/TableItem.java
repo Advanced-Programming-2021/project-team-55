@@ -9,7 +9,6 @@ import java.io.File;
 
 public class TableItem extends TableRow {
 
-    protected String text;
     int rank;
     String username;
     int score;
