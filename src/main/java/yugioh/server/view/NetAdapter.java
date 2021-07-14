@@ -56,16 +56,11 @@ public class NetAdapter {
                             try {
                                 String input = dataInputStream.readUTF();
                                 ViewInterface.command = input;
-                                if(input.startsWith("forward: ")) {
-                                    sendToRival(input, userHolder);
-                                }
-                                else {
-                                    String result = Menu.handleCommand(input, userHolder);
-                                    dataOutputStream.writeUTF(result);
-                                    dataOutputStream.flush();
-                                    log(input, result);
-                                }
-
+                                if (sendToRival(input, userHolder)) continue;
+                                String result = Menu.handleCommand(input, userHolder);
+                                dataOutputStream.writeUTF(result);
+                                dataOutputStream.flush();
+                                log(input, result);
                             } catch (SocketException e) {
                                 allUsersOutputStreams.remove(dataOutputStream);
                                 if (logUserDisconnection(userHolder, e)) return;
@@ -105,7 +100,7 @@ public class NetAdapter {
                                         DataBaseController.updateUserInfo(address,content);
                                 } catch (SocketException e) {
                                     if (e.getMessage().contains("Connection reset")) {
-                                        System.out.print("a client disconnected: ");
+                                        System.out.println("a client disconnected.");
                                         try {
                                         } catch (Exception ignored) {
                                         }
@@ -195,15 +190,19 @@ public class NetAdapter {
         return false;
     }
 
-    private void sendToRival(String input, UserHolder userHolder) {
+    private boolean sendToRival(String input, UserHolder userHolder) {
+        if (input.startsWith("forward: ")) {
             if (Duel.getGamesInProgress().containsKey(userHolder)) {
                 try {
                     Duel.getGamesInProgress().get(userHolder).getDataOutputStream().writeUTF(input);
                     Duel.getGamesInProgress().get(userHolder).getDataOutputStream().flush();
                     System.out.println("a command forwarded: " + input.replaceAll("forward: ", ""));
+                    return true;
                 } catch (IOException ignored) {
                 }
+            }
         }
+        return false;
     }
 
     private void log(String input, String result) {
