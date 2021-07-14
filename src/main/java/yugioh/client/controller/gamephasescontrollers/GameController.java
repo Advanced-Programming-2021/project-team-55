@@ -145,7 +145,6 @@ public class GameController {
 
     public void selectCard(String zone, int number, boolean opponent) throws GameException {
        // ViewInterface.showResult("select --" + zone+ number+ );//todo complete function
-
         GameBoard currentPlayerGameBoard = currentTurnPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = currentTurnOpponentPlayer.getGameBoard();
         Cell selectedCell = null;

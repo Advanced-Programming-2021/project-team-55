@@ -65,7 +65,6 @@ public class NetAdapter {
                                     dataOutputStream.flush();
                                     log(input, result);
                                 }
-
                             } catch (SocketException e) {
                                 allUsersOutputStreams.remove(dataOutputStream);
                                 if (logUserDisconnection(userHolder, e)) return;
@@ -203,7 +202,7 @@ public class NetAdapter {
                     System.out.println("a command forwarded: " + input.replaceAll("forward: ", ""));
                 } catch (IOException ignored) {
                 }
-        }
+            }
     }
 
     private void log(String input, String result) {

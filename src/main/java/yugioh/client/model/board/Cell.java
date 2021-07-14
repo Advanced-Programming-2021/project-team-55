@@ -8,6 +8,7 @@ import yugioh.client.model.cards.Card;
 import yugioh.client.model.cards.Monster;
 import yugioh.client.model.cards.monsters.CommandKnight;
 import yugioh.client.model.cards.trapandspells.*;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.gamephases.CardActionsMenu;
 import yugioh.client.view.gamephases.Duel;
 
@@ -37,6 +38,8 @@ public class Cell {
 
     public static void setSelectedCellByRectangle(Rectangle rectangle) {
         selectedCell = getSelectedCellByRectangle(rectangle);
+        NetAdapter.sendForwardRequestForGame("select "+Duel.getGameController().currentTurnPlayer.getGameBoard().getCellInfo(selectedCell));
+        //todo handle selecting opponent;
     }
 
     public static Cell getSelectedCellByRectangle(Rectangle rectangle) {
@@ -76,6 +79,8 @@ public class Cell {
 
     public static void setSelectedCell(Cell selectedCell) {
         Cell.selectedCell = selectedCell;
+        NetAdapter.sendForwardRequestForGame("select "+Duel.getGameController().currentTurnPlayer.getGameBoard().getCellInfo(selectedCell));
+        //todo handle select opponent;
     }
 
     public Label getCellInfo() {

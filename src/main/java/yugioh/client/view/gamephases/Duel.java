@@ -242,6 +242,7 @@ abstract public class Duel {
             GameMenuController.getGameMenuController().nextPhase();
             return;
         }
+
         String result = drawPhase.processCommand(command);
         if (result.equals("Error: invalid command"))
             result = standByPhase.processCommand(command);

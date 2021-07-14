@@ -356,6 +356,32 @@ public class GameBoard {
         }
         setFadeTransition(graveyardPlace, 0, 1);
     }
+    public String getCellInfo(Cell cell){
+        //todo handle selecting from other player hand
+        String info="";
+        int number=1;
+        for(Cell cell1:monsterCardZone){
+            if(cell1.equals(cell)){
+                info+="--monster "+number;
+            }
+            number++;
+        }
+        number=1;
+        for(Cell cell1:spellAndTrapCardZone){
+            if(cell1.equals(cell)){
+                info+="--spell "+number;
+            }
+            number++;
+        }
+        number=1;
+        for(Cell cell1:handCards){
+            if(cell1.equals(cell)){
+                info+="--hand "+number;
+            }
+            number++;
+        }
+        return info;
+    }
 
     public void addCardToSpellAndTrapCardZone(Card card, CardStatus cardStatus, GameController gameController, boolean hasToBeRemoved) throws GameException {
         if (isSpellAndTrapCardZoneFull())

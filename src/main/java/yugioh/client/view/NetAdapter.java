@@ -76,6 +76,7 @@ public class NetAdapter {
             if (!Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) return;
             dataOutputStream.writeUTF("forward: " + message);
             dataOutputStream.flush();
+            System.out.println("request sent to server in send forwardRequestForGame method: "+message);
         } catch (IOException e) {
             e.printStackTrace();
         }
