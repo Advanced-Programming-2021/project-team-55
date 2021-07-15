@@ -187,6 +187,8 @@ public class GameMenuController extends MenuController implements Initializable 
         hoveredImageRectangle.setFill(Card.backImageForAllCards);
         description.setWrapText(true);
         description.setTextAlignment(TextAlignment.JUSTIFY);
+        atkLabel.setOpacity(0);
+        defLabel.setOpacity(0);
     }
 
 

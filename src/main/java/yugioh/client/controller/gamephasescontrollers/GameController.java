@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -60,6 +61,8 @@ public class GameController {
     private EndPhaseController endPhaseController;
     private DetermineStarterMenu determineStarterMenu;
     private GameMenuController gameMenuController;
+
+    private static Stage logoStage;
 
     public GameController(Game game) {
         this.game = game;
@@ -299,15 +302,35 @@ public class GameController {
                     currentTurnOpponentPlayer);
             //});
 
-            disableActionsAndAddWaitingStage();
+            disableActionsAndShowWaitingStage();
         }
     }
 
-    private void disableActionsAndAddWaitingStage() {
+    public void disableActionsAndShowWaitingStage() {
         if (!Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) {
             GameMenuController.getGameMenuController().gamePane.setDisable(true);
-        } else {//todo handle logo represent
-
+            logoStage = new Stage();
+            logoStage.initOwner(WelcomeMenu.stage);
+            logoStage.initStyle(StageStyle.TRANSPARENT);
+            URL url = getClass().getResource("/yugioh/fxml/Logo.fxml");
+            Pane pane = null;
+            try {
+                pane = FXMLLoader.load(url);
+            } catch (IOException ignored) {
+            }
+            Scene scene = WelcomeMenu.createScene(pane);
+            scene.setFill(Color.TRANSPARENT);
+            logoStage.setScene(scene);
+            logoStage.setX(158);
+            logoStage.setY(217);
+            logoStage.show();
+        } else {
+            GameMenuController.getGameMenuController().gamePane.setDisable(false);
+            try {
+                logoStage.close();
+                logoStage = null;
+            } catch (Exception ignored) {
+            }
         }
     }
 
