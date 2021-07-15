@@ -181,7 +181,7 @@ public class BattlePhaseController {
                     timeline.play();
                     setAttacker(null);
                     Cell.deselectCell();
-                    ViewInterface.showResult(response);
+                    System.out.println(response);
                 }
                 CardActionsMenu.removeEventHandlers();
             });
