@@ -51,6 +51,7 @@ abstract public class Duel {
         gameController.currentTurnOpponentPlayer.getGameBoard().addCardsToHandDeck(5, false);
         Duel.getGameController().getMainPhase1Controller().showGameBoard(gameController.currentTurnPlayer,
                 gameController.currentTurnOpponentPlayer);
+        Duel.getGameController().disableActionsAndShowWaitingStage();
 //        new Thread(() -> {
 //        while (!gameController.isGameEnded()) {
 //            if (gameController.phases.get(gameController.phases.size() - 1) != gameController.currentPhase) {
