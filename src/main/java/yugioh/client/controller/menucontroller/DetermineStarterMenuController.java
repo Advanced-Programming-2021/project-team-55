@@ -145,10 +145,10 @@ public class DetermineStarterMenuController implements Initializable {
 
     private void handleRivalSelection() {
         yesNoQuestion.setText(RivalSelectionMenu.getRival().getNickname() + " do you want to be the first player?");
-        noButton.setOpacity(0.5);
-        yesButton.setOpacity(0.5);
         yesButton.setDisable(true);
         noButton.setDisable(true);
+        noButton.setOpacity(0.5);
+        yesButton.setOpacity(0.5);
     }
 
     public void back() throws Exception {

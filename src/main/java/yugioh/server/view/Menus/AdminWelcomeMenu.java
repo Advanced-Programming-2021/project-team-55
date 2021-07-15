@@ -23,21 +23,18 @@ public class AdminWelcomeMenu extends Application {
 //       } catch (FileNotFoundException e) {
 //           e.printStackTrace();
 //        }
-        Thread databaseThread=new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true){
-                    DataBaseController.updateCardsInventory();
-                    for(Card card: Card.allCards){
-                        try {
-                            DataBaseController.saveCardInfo(card);
-                        } catch (IOException e) {e.printStackTrace();}
-                    }
+        Thread databaseThread=new Thread(() -> {
+            while (true){
+                DataBaseController.updateCardsInventory();
+                for(Card card: Card.allCards){
                     try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                        DataBaseController.saveCardInfo(card);
+                    } catch (IOException e) {e.printStackTrace();}
+                }
+                try {
+                    Thread.sleep(20000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         });

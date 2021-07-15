@@ -142,7 +142,7 @@ public class BattlePhaseController {
                     gameController.getCurrentTurnOpponentPlayer().decreaseLP(attackerMonster.getAtk());
                     gameController.getAttackerCellsThisTurn().add(selectedCell);
                     Cell.deselectCell();
-                    ViewInterface.showResult("your opponent receives " + attackerMonster.getAtk() + " battle damage");
+                    System.out.println("your opponent receives " + attackerMonster.getAtk() + " battle damage");
                 } else {
                     String response = "";
                     if (attackDisabled) {
@@ -150,16 +150,16 @@ public class BattlePhaseController {
                         attackDisabled = false;
                     }
                     if (SwordsofRevealingLight.handleEffect(gameController)) {
-                        ViewInterface.showResult("you can't attack because of your opponent's Swords of Revealing Light effect");
+                        System.out.println("you can't attack because of your opponent's Swords of Revealing Light effect");
                         return;
                     }
                     if (CommandKnight.handleEffect(gameController, attackedCell)) {
-                        ViewInterface.showResult("Command Knight effect activated: you should first destroy other opponent monsters");
+                        System.out.println("Command Knight effect activated: you should first destroy other opponent monsters");
                         return;
                     }
                     Suijin.handleEffect(attackerCell, attackedCell);
                     if (Texchanger.handleEffect(gameController, attackedCell)) {
-                        ViewInterface.showResult("your attack canceled.");
+                        System.out.println("your attack canceled.");
                         return;
                     }
                     gameController.getAttackerCellsThisTurn().add(attackerCell);
@@ -320,7 +320,6 @@ public class BattlePhaseController {
     }
 
     public String directAttack(GameController gameController) throws GameException {
-        String result = ViewInterface.showResult("attack direct");//todo complete action
 
         String response = "";
         Player currentPlayer = gameController.currentTurnPlayer;

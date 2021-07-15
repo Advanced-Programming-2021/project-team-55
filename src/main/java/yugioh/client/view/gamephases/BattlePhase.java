@@ -55,12 +55,9 @@ public class BattlePhase extends Duel {
             response = processSelect(command);
         } else if (command.matches(GameRegexes.ATTACK.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.ATTACK.regex);
-            try {
-                response = battlePhaseController.attack(Integer.parseInt(matcher.group(1)));
-
-            } catch (GameException e) {
-                response = e.toString();
-            }
+            //                response = battlePhaseController.attack(Integer.parseInt(matcher.group(1)));
+            int monsterNumber = Integer.parseInt(matcher.group(1));
+            CardActionsMenu.attack(CardActionsMenu.getSword(), Duel.getGameController().currentTurnOpponentPlayer.getGameBoard().getMonsterCardZone()[monsterNumber], monsterNumber);
         } else if (command.matches(GameRegexes.ATTACK_DIRECT.regex)) {
             try {
                 response = battlePhaseController.directAttack(gameController);

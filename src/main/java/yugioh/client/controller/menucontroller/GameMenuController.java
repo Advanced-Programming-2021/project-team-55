@@ -460,6 +460,16 @@ public class GameMenuController extends MenuController implements Initializable 
         rectangle.setEffect(selectEffect);
     }
 
+    public void selectCardWithoutSending(Rectangle rectangle) {
+        DropShadow selectEffect = new DropShadow(BlurType.values()[1],
+                GREEN, 10, 2.0f, 0, 0);
+        selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
+        Cell.setSelectedCellByRectangle(rectangle);
+        Cell cell = Cell.getSelectedCellByRectangle(rectangle);
+        Cell.justSetSelectedCell(cell);
+        rectangle.setEffect(selectEffect);
+    }
+
     public void showGraveyardForUser() {
         try {
             if (Graveyard.getGraveyardStage().isShowing()) {
