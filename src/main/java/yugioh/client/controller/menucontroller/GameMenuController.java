@@ -381,6 +381,7 @@ public class GameMenuController extends MenuController implements Initializable 
                     if (selectedCell != null && !selectedCell.isEmpty()) {
                         selectedCell.getCellRectangle().setEffect(null);
                         CardActionsMenu.close();
+                        Cell.deselectCell();
                     }
                     if (selectedCell != null && selectedCell.getCellCard() != null &&
                             (selectedCell.getCellCard().getCardImagePattern().equals(rectangleImage) ||

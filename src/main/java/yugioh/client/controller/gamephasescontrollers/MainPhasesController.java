@@ -295,6 +295,7 @@ public interface MainPhasesController {
     }
 
     default void setPosition(String position, GameController gameController) throws GameException {
+        NetAdapter.sendForwardRequestForGame("set --position "+position);
         Cell cell = Cell.getSelectedCell();
         GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
         if (cell == null) {
@@ -371,6 +372,7 @@ public interface MainPhasesController {
     }
 
     default void flipSummon(GameController gameController) throws GameException {
+        NetAdapter.sendForwardRequestForGame("flip-summon");
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         if (selectedCell == null) {
@@ -400,6 +402,7 @@ public interface MainPhasesController {
         addMonstersToSpecialSummonEffectSpellAndTrap();
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
+
 //        while (true) {
 ////            if (selectedCell == null) {
 ////                throw new GameException(GameResponses.NO_CARDS_SELECTED.response);

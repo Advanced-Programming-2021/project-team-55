@@ -29,6 +29,7 @@ import yugioh.client.model.cards.Monster;
 import yugioh.client.model.cards.cardfeaturesenums.CardType;
 import yugioh.client.model.cards.cardfeaturesenums.MonsterType;
 import yugioh.client.model.exceptions.GameException;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.gamephases.CardActionsMenu;
 import yugioh.client.view.gamephases.Duel;
 import yugioh.client.view.gamephases.GameResponses;
@@ -557,6 +558,8 @@ public class GameBoard {
 
     public void addCardToHandDeck(Card cardToAdd, boolean isForce) {
         playButtonSound("card");
+        //todo handle adding card in the other side
+        NetAdapter.sendForwardRequestForGame("add card to hand "+cardToAdd+" "+isForce);
         if (isForce) {
             Cell cell = new Cell(cardToAdd);
             Rectangle rectangle = new Rectangle();
