@@ -196,6 +196,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
     }
 
     public void chatBoxInitialize() {
+        //todo don't delete it!
 /*        sendImage.setDisable(true);
         sendImage.setOpacity(0.5);
         RivalSelectionMenu.stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {

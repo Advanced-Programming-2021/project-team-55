@@ -21,6 +21,7 @@ import yugioh.client.model.cards.trapandspells.TimeSeal;
 import yugioh.client.model.cards.trapandspells.TorrentialTribute;
 import yugioh.client.model.exceptions.GameException;
 import yugioh.client.view.ConsoleColors;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
@@ -244,6 +245,7 @@ public interface MainPhasesController {
     }
 
     default void setCard(GameController gameController) throws GameException {
+        NetAdapter.sendForwardRequestForGame("set");
         Cell selectedCell = Cell.getSelectedCell();
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         if (selectedCell == null) {
