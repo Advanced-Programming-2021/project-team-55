@@ -109,6 +109,7 @@ public class Cell {
     }
 
     public void removeCardFromCell(GameBoard gameBoard) {
+        NetAdapter.sendForwardRequestForGame("remove card from cell "+gameBoard.equals(Duel.getGameController().currentTurnPlayer.getGameBoard()));
         CommandKnight.deActivateEffect(this);
         BlackPendant.deActivateEffect(this);
         UnitedWeStand.deActivateEffect(this);

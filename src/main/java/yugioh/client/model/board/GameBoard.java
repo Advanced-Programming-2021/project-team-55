@@ -241,6 +241,7 @@ public class GameBoard {
 
         for (int i = 0; i < 5; i++) {
             if (monsterCardZone[i].isEmpty()) {
+                NetAdapter.sendForwardRequestForGame("add card to monster zone "+card.getName()+" "+cardStatus.name());
                 monsterCardZone[i].addCardToCell(card);
                 monsterCardZone[i].setCardStatus(cardStatus);
                 ImagePattern imagePattern = card.getCardImagePattern();
@@ -390,6 +391,7 @@ public class GameBoard {
 
         for (int i = 0; i < 5; i++) {
             if (spellAndTrapCardZone[i].isEmpty()) {
+                NetAdapter.sendForwardRequestForGame("add card to spell zone "+card.getName()+" "+cardStatus.name()+" "+hasToBeRemoved);
                 Cell cell = spellAndTrapCardZone[i];
                 cell.addCardToCell(card);
                 cell.setCardStatus(cardStatus);
@@ -798,6 +800,7 @@ public class GameBoard {
     }
 
     public void removeCardFromHand(Cell selectedCell) {
+        NetAdapter.sendForwardRequestForGame("remove card from hand");
         handCards.remove(selectedCell);
         handDeck.getChildren().remove(selectedCell.getCellRectangle());
     }
