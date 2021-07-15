@@ -34,7 +34,7 @@ public interface MainPhasesController {
     ArrayList<String> ritualSummonEffectSpellAndTrap = new ArrayList<>();
 
     default void monsterSummon(GameController gameController) throws GameException {
-
+        NetAdapter.sendForwardRequestForGame("summon");
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         if (selectedCell == null) {
