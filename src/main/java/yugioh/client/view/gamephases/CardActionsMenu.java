@@ -290,37 +290,46 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static void makeSwordEventForSummonedMonsters(Rectangle rectangle) {
-        Player currentPlayer = Duel.getGameController().getCurrentTurnPlayer();
         EventHandler<MouseEvent> eventHandler = event -> {
-            if (!currentPlayer.equals(Duel.getGameController().getCurrentTurnPlayer())) return;
-            if (Duel.getGameController().getCurrentPhase() != GamePhase.BATTLE) return;
-            if (gameController.getGameMenuController().shouldActivateEffectsNow) return;
-            if (activeRectangle == rectangle && activeSword != null) {
-                removeSword();
-                return;
-            } else if (activeSword != null) {
-                removeSword();
-            }
-            GameMenuController.getGameMenuController().selectCardWithoutSending(rectangle);
-            if (checkAttackConditions(currentPlayer)) return;
-            playButtonSound("sword");
-            rectangle.requestFocus();
-            ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
-            GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
-            sword.setX(rectangle.getLayoutX() + 14);
-            sword.setY(rectangle.getLayoutY() + 10);
-            activeSword = sword;
-            activeRectangle = rectangle;
-            GameMenuController.getGameMenuController().selectCardWithoutSending(rectangle);
-            if (handleDirectAttack(sword, rectangle)) return;
-            handleSwordRotation(rectangle, sword);
-            GameMenuController.getGameMenuController().selectCardWithoutSending(rectangle);
-            Cell[] monsterCardZone = gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone();
-            handleRivalMonsterSelection(rectangle, sword, monsterCardZone);
+            if (handleUserMonsterClicked(rectangle)) return;
             event.consume();
         };
         rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
         addEventHandlerToRectangleEventHandlers(rectangle, eventHandler);
+    }
+
+    public static boolean handleUserMonsterClicked(Rectangle rectangle) {
+        Cell selectedCell = Cell.getSelectedCellByRectangle(rectangle);
+        int monsterNum = Duel.getGameController().currentTurnPlayer.getGameBoard().getMonsterNumberByCell(selectedCell);
+        if (monsterNum == -1) return true;
+        NetAdapter.sendForwardRequestForGame("handle user monster clicked: " + monsterNum);
+        Player currentPlayer = Duel.getGameController().getCurrentTurnPlayer();
+        if (!currentPlayer.equals(Duel.getGameController().getCurrentTurnPlayer())) return true;
+        if (Duel.getGameController().getCurrentPhase() != GamePhase.BATTLE) return true;
+        if (GameMenuController.getGameMenuController().shouldActivateEffectsNow) return true;
+        if (activeRectangle == rectangle && activeSword != null) {
+            removeSword();
+            return true;
+        } else if (activeSword != null) {
+            removeSword();
+        }
+        GameMenuController.getGameMenuController().selectCardWithoutSending(rectangle);
+        if (checkAttackConditions(currentPlayer)) return true;
+        playButtonSound("sword");
+        rectangle.requestFocus();
+        ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
+        GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
+        sword.setX(rectangle.getLayoutX() + 14);
+        sword.setY(rectangle.getLayoutY() + 10);
+        activeSword = sword;
+        activeRectangle = rectangle;
+        GameMenuController.getGameMenuController().selectCardWithoutSending(rectangle);
+        if (handleDirectAttack(sword, rectangle)) return true;
+        handleSwordRotation(rectangle, sword);
+        GameMenuController.getGameMenuController().selectCardWithoutSending(rectangle);
+        Cell[] monsterCardZone = gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone();
+        handleRivalMonsterSelection(rectangle, sword, monsterCardZone);
+        return false;
     }
 
     private static boolean checkAttackConditions(Player currentPlayer) {

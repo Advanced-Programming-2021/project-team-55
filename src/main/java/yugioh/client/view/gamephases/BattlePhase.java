@@ -86,6 +86,10 @@ public class BattlePhase extends Duel {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.INCREASE_LP.regex);
             cheatController.increaseLPAmount(Integer.parseInt(matcher.group(1)), gameController.currentTurnPlayer);
             response = GameResponses.CHEAT_ACTIVATED_LP_INCREASED.response;
+        } else if (command.matches("handle user monster clicked: (\\d+)")) {
+            Matcher matcher = ViewInterface.getCommandMatcher(command, "handle user monster clicked: (\\d+)");
+            int monsterNumber = Integer.parseInt(matcher.group(1));
+            CardActionsMenu.handleUserMonsterClicked(gameController.currentTurnPlayer.getGameBoard().getMonsterCardZone()[monsterNumber].getCellRectangle());
         } else if (command.matches(GameRegexes.SET_WINNER.regex)) {
             cheatController.setWinner(gameController);
             response = GameResponses.CHEAT_ACTIVATED_WINNER_SET.response;
