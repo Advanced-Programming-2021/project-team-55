@@ -144,7 +144,7 @@ public class NetAdapter {
                                     }
                                     else {
                                         for (DataOutputStream dataOutputStreamUser : allUsersOutputStreams) {
-                                            dataOutputStreamUser.writeUTF(input.replace("chat ", ""));
+                                            dataOutputStreamUser.writeUTF(input);
                                             dataOutputStreamUser.flush();
                                         }
                                     }
