@@ -15,6 +15,7 @@ import yugioh.client.controller.DataBaseController;
 import yugioh.client.model.ScoreBoardItem;
 import yugioh.client.model.TableItem;
 import yugioh.client.model.User;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.SoundPlayable;
 import yugioh.client.view.ViewInterface;
 
@@ -57,7 +58,7 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         scoreBoardMenuBackground.setMediaPlayer(mediaPlayer);
         initializeScoreBoard();
 
-        String scoreboardItemsSting = ViewInterface.showResult("scoreboard show");
+        String scoreboardItemsSting = NetAdapter.sendRequest("scoreboard show");
         ScoreBoardItem[] scoreBoardItems = DataBaseController.getObjectByString(scoreboardItemsSting);
         ArrayList<TableItem> tableItems = makeTableItemsFromUsers(scoreBoardItems);
         sortUsers(tableItems);

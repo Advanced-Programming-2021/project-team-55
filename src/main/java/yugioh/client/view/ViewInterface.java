@@ -27,7 +27,8 @@ public class ViewInterface {
         return sortFields(command);
     }
 
-    public static String showResult(String result) {
+    public static void showResult(String result) {
+        System.out.println(result);
 //        if (!result.equals("")) {
 //            AIPlayerController.setLastResponse(result);
 //            try {
@@ -53,7 +54,10 @@ public class ViewInterface {
 //                }
 //            }
 //        }
-        return NetAdapter.sendRequest(result);
+
+
+
+//        return NetAdapter.sendRequest(result);
     }
 
     public static Matcher getCommandMatcher(String input, String regex) {

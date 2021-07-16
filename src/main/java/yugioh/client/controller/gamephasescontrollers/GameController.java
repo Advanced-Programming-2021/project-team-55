@@ -323,12 +323,16 @@ public class GameController {
             logoStage.setY(217);
             logoStage.show();
         } else {
-            GameMenuController.getGameMenuController().gamePane.setDisable(false);
-            try {
-                logoStage.close();
-                logoStage = null;
-            } catch (Exception ignored) {
-            }
+            closeWaitingStage();
+        }
+    }
+
+    private void closeWaitingStage() {
+        GameMenuController.getGameMenuController().gamePane.setDisable(false);
+        try {
+            logoStage.close();
+            logoStage = null;
+        } catch (Exception ignored) {
         }
     }
 
@@ -445,6 +449,7 @@ public class GameController {
     }
 
     public void endGameRound() {
+        closeWaitingStage();
         Player winner = game.getWinners().get(game.getWinners().size() - 1);
         Player loser = game.getLosers().get(game.getLosers().size() - 1);
         String response = calculateScoresAndMoney(winner, loser);

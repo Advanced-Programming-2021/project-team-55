@@ -82,14 +82,14 @@ public class RivalSelectionMenuController extends MenuController implements Init
         oneRound.setSelected(false);
         threeRounds.setSelected(true);
         RivalSelectionMenu.setRounds(3);
-        awaitingUsersForOneRound = DataBaseController.parseAllUsers(ViewInterface.showResult("get awaiting users for 1 round"));
+        awaitingUsersForOneRound = DataBaseController.parseAllUsers(NetAdapter.sendRequest("get awaiting users for 1 round"));
         for (int i = 0; i < awaitingUsersForOneRound.length; i++) {
             User user = awaitingUsersForOneRound[i];
             waitingUsersGridPane.add(new Text("1 ROUND"), 0, i);
             waitingUsersGridPane.add(new Text(user.getUsername()), 1, i);
             waitingUsersGridPane.add(new Text("SCORE: " + user.getScore()), 2, i);
         }
-        awaitingUsersForThreeRounds = DataBaseController.parseAllUsers(ViewInterface.showResult("get awaiting users for 3 rounds"));
+        awaitingUsersForThreeRounds = DataBaseController.parseAllUsers(NetAdapter.sendRequest("get awaiting users for 3 rounds"));
         for (int i = 0; i < awaitingUsersForThreeRounds.length; i++) {
             User user = awaitingUsersForThreeRounds[i];
             waitingUsersGridPane.add(new Text("3 ROUNDS"), 0, i + awaitingUsersForOneRound.length);

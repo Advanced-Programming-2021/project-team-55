@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.client.controller.menucontroller.EditDeckMenuController">
+<AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.client.controller.menucontroller.EditDeckMenuController">
 
     <JFXButton buttonType="RAISED" layoutX="46.0" layoutY="632.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back">
         <styleClass>
@@ -33,7 +33,7 @@
       </font>
    </Label>
    <ScrollPane fx:id="sideDeck" layoutX="124.0" layoutY="393.0" prefHeight="140.0" prefWidth="399.0" />
-   <Label layoutX="17.0" layoutY="238.0" text="yugioh.server.Main Deck:" textFill="#fafa00">
+   <Label layoutX="17.0" layoutY="238.0" text="Main Deck:" textFill="#fafa00">
       <font>
          <Font size="20.0" />
       </font>
