@@ -383,7 +383,7 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     private static void handleRivalMonsterSelection(Rectangle rectangle, ImageView sword, Cell[] monsterCardZone) {
-        for (int i = 0; i < monsterCardZone.length; i++) {//todo refactor from here & make rival run this except attack()
+        for (int i = 0; i < monsterCardZone.length; i++) {
             int finalI = i;
             EventHandler<MouseEvent> eventHandler = event3 -> {
                 setLastMousePositionX(event3.getSceneX() - 400);

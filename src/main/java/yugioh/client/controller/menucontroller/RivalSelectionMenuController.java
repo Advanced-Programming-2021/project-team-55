@@ -116,7 +116,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
 
     }
 
-    public void startGame() {
+    public void startGame() {//todo handle cancel & back
         new Thread(() -> {
             try {
                 String result = NetAdapter.dataInputStream.readUTF();
