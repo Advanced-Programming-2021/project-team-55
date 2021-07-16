@@ -16,8 +16,12 @@ public class TheCalculator extends Monster {
     }
 
     public static void handleEffect(GameController gameController, Cell attackerCell, Cell attackedCell) {
-        if (!attackedCell.getCellCard().getName().equals("The Calculator") &&
-                !attackerCell.getCellCard().getName().equals("The Calculator")) return;
+        try {
+            if (!attackedCell.getCellCard().getName().equals("The Calculator") &&
+                    !attackerCell.getCellCard().getName().equals("The Calculator")) return;
+        } catch (Exception e) {
+            return;
+        }
         if (isCalculatorForCurrentTurnPlayer(gameController, attackerCell))
             ((Monster) attackerCell.getCellCard()).setAtk(calculateAtkPower(gameController.currentTurnPlayer.getGameBoard().getMonsterCardZone()));
         else

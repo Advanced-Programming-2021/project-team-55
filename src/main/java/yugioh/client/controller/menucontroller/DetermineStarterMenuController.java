@@ -34,6 +34,8 @@ public class DetermineStarterMenuController implements Initializable {
     public JFXButton yesButton;
     public MediaView coinToss;
 
+    private static Thread listeningCommandThread;
+
     public DetermineStarterMenuController() {
         DetermineStarterMenuController.gameController = Duel.getGameController();
     }
@@ -90,8 +92,8 @@ public class DetermineStarterMenuController implements Initializable {
         startSyncingWithRival();
     }
 
-    private void startSyncingWithRival() {
-        Thread listeningCommandThread = new Thread(() -> {
+    private void startSyncingWithRival() {//todo disable thread after ending game
+        listeningCommandThread = new Thread(() -> {
             try {
                 while (true) {
                     String command = NetAdapter.dataInputStream.readUTF();
@@ -99,6 +101,8 @@ public class DetermineStarterMenuController implements Initializable {
                         Matcher matcher = ViewInterface.getCommandMatcher(command, "forward: (.+)");
                         command = matcher.group(1);
                         switch (command) {
+                            case "stop receiving":
+                                return;
                             case "yes selected":
                                 Platform.runLater(this::handleYesButton);
                                 break;
@@ -221,4 +225,7 @@ public class DetermineStarterMenuController implements Initializable {
         playButtonSound("forHonor");
     }
 
+    public static Thread getListeningCommandThread() {
+        return listeningCommandThread;
+    }
 }

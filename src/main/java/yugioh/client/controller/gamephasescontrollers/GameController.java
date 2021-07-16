@@ -214,7 +214,7 @@ public class GameController {
 //        endGameRound();
 //            return;
 //        }
-        switch (currentPhase) {
+        switch (currentPhase) {//todo debug phases not sync
             case DRAW: {
                 currentPhase = GamePhase.STANDBY;
                 break;

@@ -66,7 +66,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
         deckMenuController = this;
     }
 
-    public static RivalSelectionMenuController getInstance() {//todo debug 3 rounds
+    public static RivalSelectionMenuController getInstance() {//todo handle 3 rounds end round
         return Objects.requireNonNullElseGet(deckMenuController, RivalSelectionMenuController::new);
     }
 

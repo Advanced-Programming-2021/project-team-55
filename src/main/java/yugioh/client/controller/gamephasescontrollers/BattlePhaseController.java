@@ -222,7 +222,7 @@ public class BattlePhaseController {
         return response;
     }
 
-    private String attackToDefensiveOccupiedCell(Cell attackerCell, Cell attackedCell, GameBoard playerGameBoard) {//todo check
+    private String attackToDefensiveOccupiedCell(Cell attackerCell, Cell attackedCell, GameBoard playerGameBoard) {
         String response;
         Duel.getGameController().currentTurnPlayer.getGameBoard().setFlipTransition(attackedCell.getCellCard(), attackedCell.getCellRectangle(), false, false);
         if (isAttackerStronger(attackerCell, attackedCell)) {

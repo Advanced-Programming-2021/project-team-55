@@ -11,7 +11,7 @@ import yugioh.server.view.gamephases.GameResponses;
 
 public class CheatController {
 
-    private static CheatController cheatController;
+    private static CheatController cheatController;//todo handle cheat for another client
 
     private CheatController() {
     }
