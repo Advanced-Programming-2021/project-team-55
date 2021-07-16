@@ -60,6 +60,7 @@ public class ChatRoomController  extends MenuController implements Initializable
     public ImageView deleteImage;
     public ImageView editImage;
     public ImageView pinImage;
+    public Label onlineUsers;
     public ImageView unpinImage;
     {
         unpinImage=new ImageView(new Image(new File("src\\resources\\yugioh\\PNG\\icon\\close.png").toURI().toString()));
@@ -125,10 +126,24 @@ public class ChatRoomController  extends MenuController implements Initializable
             message.setText("");
         }
     }
+    private void updateOnlineUsersCount(){
+        new Thread(()->{
+            while (true){
+                try {
+                    dataOutputStreamForGettingOnlineUsers.writeUTF("get online users");
+                    dataOutputStreamForGettingOnlineUsers.flush();
+                    String count = dataInputStreamForGettingOnlineUsers.readUTF();
+                    Platform.runLater(() -> {
+                        onlineUsers.setText("Online: "+ count);
+                    });
+                }catch (Exception e){}
+            }
+        }).start();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        ((AnchorPane)chatBox.getContent()).getChildren().clear();
+        updateOnlineUsersCount();
         sendImage.setDisable(true);
         sendImage.setOpacity(0.5);
         cancelReply.setOpacity(0.2);

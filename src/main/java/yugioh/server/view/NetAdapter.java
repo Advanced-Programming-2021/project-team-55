@@ -2,6 +2,7 @@ package yugioh.server.view;
 
 
 import yugioh.server.controller.DataBaseController;
+import yugioh.server.model.User;
 import yugioh.server.model.UserHolder;
 import yugioh.server.view.Menus.Menu;
 import yugioh.server.view.gamephases.Duel;
@@ -171,6 +172,37 @@ public class NetAdapter {
                             e.printStackTrace();
                         }
                     }).start();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        new Thread(()->{
+            try {
+                ServerSocket serverSocket = new ServerSocket(54321);
+                while (true) {
+                    Socket socket = serverSocket.accept();
+                    new Thread(() -> {
+                        try {
+                            DataInputStream dataInputStreamForGettingOnlineUsers = new DataInputStream(socket.getInputStream());
+                            DataOutputStream dataOutputStreamForGettingOnlineUsers = new DataOutputStream(socket.getOutputStream());
+                            while (true) {
+                                try {
+                                    String input = dataInputStreamForGettingOnlineUsers.readUTF();
+                                    dataOutputStreamForGettingOnlineUsers.writeUTF(String.valueOf(User.getLoggedInUsers().size()));
+                                    dataOutputStreamForGettingOnlineUsers.flush();
+                                } catch (SocketException e) {
+                                    break;
+                                }
+                            }
+                            dataInputStreamForGettingOnlineUsers.close();
+                            dataOutputStreamForGettingOnlineUsers.close();
+                            socket.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }).start();
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
