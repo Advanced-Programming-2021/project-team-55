@@ -46,6 +46,7 @@ public class ChatRoomController  extends MenuController implements Initializable
     public Label replyMessage;
     public ImageView cancelReply;
     private boolean isChatEnded=false;
+    public static boolean hasEnteredChatMenu=false;
 
 
     public void sendMessage(Event event) throws Exception {
@@ -66,6 +67,7 @@ public class ChatRoomController  extends MenuController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+//        ((AnchorPane)chatBox.getContent()).getChildren().clear();
         sendImage.setDisable(true);
         sendImage.setOpacity(0.5);
         cancelReply.setOpacity(0.2);
@@ -116,7 +118,7 @@ public class ChatRoomController  extends MenuController implements Initializable
                     isChatEnded=true;
                     return;
                 }
-                if (!inputMessage.equals("")) {
+                if (!inputMessage.equals("")&&hasEnteredChatMenu) {
                     Platform.runLater(() -> {
                         if(!inputMessage.startsWith(User.loggedInUser.getNickname())){
                             AnchorPane anchorPane=(AnchorPane) chatBox.getContent();
@@ -129,7 +131,6 @@ public class ChatRoomController  extends MenuController implements Initializable
                                 yLastMessage = -10;
                             }
                             Label messageLabel=new Label(inputMessage);
-
                             messageLabel.setOnDragDetected(new EventHandler<MouseEvent>() {
                                 @Override
                                 public void handle(MouseEvent mouseEvent) {
@@ -159,15 +160,12 @@ public class ChatRoomController  extends MenuController implements Initializable
                                     });
                                 }
                             });
-
-
                             messageLabel.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY,null)));
                             messageLabel.setTextFill(Color.CHARTREUSE);
                             messageLabel.setLayoutY(yLastMessage+20);
                             messageLabel.setLayoutX(400);
                             anchorPane.getChildren().add(messageLabel);
                             chatBox.setContent(anchorPane);
-
                         }
                         else {
                             AnchorPane anchorPane=(AnchorPane) chatBox.getContent();
@@ -180,7 +178,6 @@ public class ChatRoomController  extends MenuController implements Initializable
                                 yLastMessage = -10;
                             }
                             Label messageLabel=new Label(inputMessage);
-
                             messageLabel.setOnDragDetected(new EventHandler<MouseEvent>() {
                                 @Override
                                 public void handle(MouseEvent mouseEvent) {
@@ -210,27 +207,18 @@ public class ChatRoomController  extends MenuController implements Initializable
                                     });
                                 }
                             });
-
-//                            messageLabel.setOnDragExited(new EventHandler<DragEvent>() {
-//                                @Override
-//                                public void handle(DragEvent dragEvent) {
-//                                    messageLabel.setLayoutX(0);
-//                                }
-//                            });
-
                             messageLabel.setTextFill(Color.RED);
                             messageLabel.setBackground(new Background(new BackgroundFill(Color.CHARTREUSE, CornerRadii.EMPTY,null)));
                             messageLabel.setLayoutY(yLastMessage+20);
+                            System.out.println(yLastMessage+20);
                             messageLabel.setLayoutX(0);
                             anchorPane.getChildren().add(messageLabel);
                             chatBox.setContent(anchorPane);
-
-
                         }
                     });
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
     });

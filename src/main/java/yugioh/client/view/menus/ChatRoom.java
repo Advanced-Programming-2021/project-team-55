@@ -40,6 +40,7 @@ public class ChatRoom extends WelcomeMenu{
     public void execute() throws Exception {
         close();
         chatStage =new Stage();
+        ChatRoomController.hasEnteredChatMenu=true;
         chatStage.initOwner(WelcomeMenu.stage);
         chatStage.initStyle(StageStyle.UNDECORATED);
         //chatStage.setAlwaysOnTop(true);
