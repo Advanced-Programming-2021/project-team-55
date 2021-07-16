@@ -13,9 +13,9 @@ public class BattlePhase extends Duel {
     @Override
     protected void execute() {
         battlePhaseController = gameController.getBattlePhaseController();
-//        if (gameController.turnCount == 1) {
-////            gameController.changePhase();
-//        } else {
+        if (gameController.turnCount == 1) {
+          // gameController.changePhase();
+       }
 //            String response;
 //            if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
 //                AIPlayerController aiPlayerController = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
@@ -55,19 +55,23 @@ public class BattlePhase extends Duel {
             response = processSelect(command);
         } else if (command.matches(GameRegexes.ATTACK.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.ATTACK.regex);
-            try {
-                response = battlePhaseController.attack(Integer.parseInt(matcher.group(1)));
-
-            } catch (GameException e) {
-                response = e.toString();
-            }
+            //                response = battlePhaseController.attack(Integer.parseInt(matcher.group(1)));
+            int monsterNumber = Integer.parseInt(matcher.group(1));
+            CardActionsMenu.attack(CardActionsMenu.getSword(), Duel.getGameController().currentTurnOpponentPlayer.getGameBoard().getMonsterCardZone()[monsterNumber], monsterNumber);
         } else if (command.matches(GameRegexes.ATTACK_DIRECT.regex)) {
             try {
                 response = battlePhaseController.directAttack(gameController);
             } catch (GameException e) {
                 response = e.toString();
             }
-        } else if (command.matches(GameRegexes.SHOW_CARD_SELECTED.regex)) {
+        }
+        else if(command.matches(GameRegexes.SPECIAL_SUMMON.regex)){
+            try {
+                gameController.getMainPhase1Controller().specialSummon(gameController);
+            } catch (GameException e) {
+                response=e.toString();
+            }
+        }else if (command.matches(GameRegexes.SHOW_CARD_SELECTED.regex)) {
             try {
                 response = gameController.showCard();
             } catch (GameException e) {

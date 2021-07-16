@@ -60,7 +60,14 @@ public class MainPhase2 extends Duel {
             } catch (GameException e) {
                 response = e.toString();
             }
-        } else if (command.matches(GameRegexes.SET.regex)) {
+        }
+        else if(command.matches(GameRegexes.SPECIAL_SUMMON.regex)){
+            try {
+                mainPhase2Controller.specialSummon(gameController);
+            } catch (GameException e) {
+                response=e.toString();
+            }
+        }else if (command.matches(GameRegexes.SET.regex)) {
             try {
                 mainPhase2Controller.setCard(gameController);
                 response = GameResponses.SET_SUCCESSFULLY.response;

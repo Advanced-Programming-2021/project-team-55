@@ -58,7 +58,7 @@ public class WelcomeMenu extends Application {
                 } catch (Exception e) {
                 }
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(60000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

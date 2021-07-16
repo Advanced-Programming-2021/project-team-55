@@ -66,7 +66,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
         deckMenuController = this;
     }
 
-    public static RivalSelectionMenuController getInstance() {
+    public static RivalSelectionMenuController getInstance() {//todo debug 3 rounds
         return Objects.requireNonNullElseGet(deckMenuController, RivalSelectionMenuController::new);
     }
 
@@ -196,6 +196,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
     }
 
     public void chatBoxInitialize() {
+        //todo don't delete it!
 /*        sendImage.setDisable(true);
         sendImage.setOpacity(0.5);
         RivalSelectionMenu.stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {

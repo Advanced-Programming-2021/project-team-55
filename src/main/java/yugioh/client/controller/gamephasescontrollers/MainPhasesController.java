@@ -21,6 +21,7 @@ import yugioh.client.model.cards.trapandspells.TimeSeal;
 import yugioh.client.model.cards.trapandspells.TorrentialTribute;
 import yugioh.client.model.exceptions.GameException;
 import yugioh.client.view.ConsoleColors;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public interface MainPhasesController {
     ArrayList<String> ritualSummonEffectSpellAndTrap = new ArrayList<>();
 
     default void monsterSummon(GameController gameController) throws GameException {
-
+        NetAdapter.sendForwardRequestForGame("summon");
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         if (selectedCell == null) {
@@ -244,6 +245,7 @@ public interface MainPhasesController {
     }
 
     default void setCard(GameController gameController) throws GameException {
+        NetAdapter.sendForwardRequestForGame("set");
         Cell selectedCell = Cell.getSelectedCell();
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         if (selectedCell == null) {
@@ -293,6 +295,7 @@ public interface MainPhasesController {
     }
 
     default void setPosition(String position, GameController gameController) throws GameException {
+        NetAdapter.sendForwardRequestForGame("set --position "+position);
         Cell cell = Cell.getSelectedCell();
         GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
         if (cell == null) {
@@ -369,6 +372,7 @@ public interface MainPhasesController {
     }
 
     default void flipSummon(GameController gameController) throws GameException {
+        NetAdapter.sendForwardRequestForGame("flip-summon");
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         if (selectedCell == null) {
@@ -398,6 +402,7 @@ public interface MainPhasesController {
         addMonstersToSpecialSummonEffectSpellAndTrap();
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
+
 //        while (true) {
 ////            if (selectedCell == null) {
 ////                throw new GameException(GameResponses.NO_CARDS_SELECTED.response);

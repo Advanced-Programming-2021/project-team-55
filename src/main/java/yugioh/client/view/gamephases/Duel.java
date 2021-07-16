@@ -51,6 +51,7 @@ abstract public class Duel {
         gameController.currentTurnOpponentPlayer.getGameBoard().addCardsToHandDeck(5, false);
         Duel.getGameController().getMainPhase1Controller().showGameBoard(gameController.currentTurnPlayer,
                 gameController.currentTurnOpponentPlayer);
+        Duel.getGameController().disableActionsAndShowWaitingStage();
 //        new Thread(() -> {
 //        while (!gameController.isGameEnded()) {
 //            if (gameController.phases.get(gameController.phases.size() - 1) != gameController.currentPhase) {
@@ -242,23 +243,41 @@ abstract public class Duel {
             GameMenuController.getGameMenuController().nextPhase();
             return;
         }
-        if (command.contains("surrender")){
-            GameMenuController.getGameMenuController().surrender();
-            return;
+        //todo commented by parham :)
+
+//        String result = drawPhase.processCommand(command);
+//        if (result.equals("Error: invalid command"))
+//            result = standByPhase.processCommand(command);
+//        if (result.equals("Error: invalid command"))
+//            result = mainPhase1.processCommand(command);
+//        if (result.equals("Error: invalid command"))
+//            result = battlePhase.processCommand(command);
+//        if (result.equals("Error: invalid command"))
+//            result = mainPhase2.processCommand(command);
+//        if (result.equals("Error: invalid command"))
+//            result = endPhase.processCommand(command);
+//        if (result.equals("Error: invalid command"))
+//            result = graveyard.processCommand(command);
+        String result="";
+        if(gameController.currentPhase==GamePhase.DRAW){
+            result=drawPhase.processCommand(command);
         }
-        String result = drawPhase.processCommand(command);
-        if (result.equals("Error: invalid command"))
-            result = standByPhase.processCommand(command);
-        if (result.equals("Error: invalid command"))
-            result = mainPhase1.processCommand(command);
-        if (result.equals("Error: invalid command"))
-            result = battlePhase.processCommand(command);
-        if (result.equals("Error: invalid command"))
-            result = mainPhase2.processCommand(command);
-        if (result.equals("Error: invalid command"))
-            result = endPhase.processCommand(command);
-        if (result.equals("Error: invalid command"))
-            result = graveyard.processCommand(command);
+        else if(gameController.currentPhase==GamePhase.STANDBY){
+            result=standByPhase.processCommand(command);
+        }
+        else if(gameController.currentPhase==GamePhase.MAIN1){
+            result=mainPhase1.processCommand(command);
+        }
+        else if(gameController.currentPhase==GamePhase.MAIN2){
+            result=mainPhase2.processCommand(command);
+        }
+        else if(gameController.currentPhase==GamePhase.BATTLE){
+            result=battlePhase.processCommand(command);
+        }
+        else if(gameController.currentPhase==GamePhase.END){
+            result=endPhase.processCommand(command);
+        }
+        System.out.println("command "+command+" handled on other side with result: "+result);
 
     }
 

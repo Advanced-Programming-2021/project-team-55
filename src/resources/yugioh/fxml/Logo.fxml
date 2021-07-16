@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane cacheShape="false" prefHeight="236.0" prefWidth="295.0" style="-fx-background-color: TRANSPARENT;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <ImageView fitHeight="168.0" fitWidth="107.0" layoutX="94.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../logo/logo4.png" />
+   </ImageView>
+   <Label layoutX="48.0" layoutY="187.0" text="Opponent's TURN!" textFill="WHITE">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+</AnchorPane>

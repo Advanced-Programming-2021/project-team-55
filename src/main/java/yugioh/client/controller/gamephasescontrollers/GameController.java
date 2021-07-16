@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -60,6 +61,8 @@ public class GameController {
     private EndPhaseController endPhaseController;
     private DetermineStarterMenu determineStarterMenu;
     private GameMenuController gameMenuController;
+
+    private static Stage logoStage;
 
     public GameController(Game game) {
         this.game = game;
@@ -143,7 +146,6 @@ public class GameController {
 
     public void selectCard(String zone, int number, boolean opponent) throws GameException {
        // ViewInterface.showResult("select --" + zone+ number+ );//todo complete function
-
         GameBoard currentPlayerGameBoard = currentTurnPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = currentTurnOpponentPlayer.getGameBoard();
         Cell selectedCell = null;
@@ -197,12 +199,10 @@ public class GameController {
     }
 
     public void deselect() throws GameException {
-        NetAdapter.sendForwardRequestForGame("select -d");//todo complete function
-
         if (Cell.getSelectedCell() == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
-        Cell.setSelectedCell(null);
+        Cell.deselectCell();
     }
 
     public void changePhase() {
@@ -299,6 +299,36 @@ public class GameController {
             mainPhase1Controller.showGameBoard(currentTurnPlayer,
                     currentTurnOpponentPlayer);
             //});
+
+            disableActionsAndShowWaitingStage();
+        }
+    }
+
+    public void disableActionsAndShowWaitingStage() {
+        if (!Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) {
+            GameMenuController.getGameMenuController().gamePane.setDisable(true);
+            logoStage = new Stage();
+            logoStage.initOwner(WelcomeMenu.stage);
+            logoStage.initStyle(StageStyle.TRANSPARENT);
+            URL url = getClass().getResource("/yugioh/fxml/Logo.fxml");
+            Pane pane = null;
+            try {
+                pane = FXMLLoader.load(url);
+            } catch (IOException ignored) {
+            }
+            Scene scene = WelcomeMenu.createScene(pane);
+            scene.setFill(Color.TRANSPARENT);
+            logoStage.setScene(scene);
+            logoStage.setX(158);
+            logoStage.setY(217);
+            logoStage.show();
+        } else {
+            GameMenuController.getGameMenuController().gamePane.setDisable(false);
+            try {
+                logoStage.close();
+                logoStage = null;
+            } catch (Exception ignored) {
+            }
         }
     }
 

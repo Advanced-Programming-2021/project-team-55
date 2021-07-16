@@ -29,6 +29,7 @@ import yugioh.client.model.cards.Monster;
 import yugioh.client.model.cards.cardfeaturesenums.CardType;
 import yugioh.client.model.cards.cardfeaturesenums.MonsterType;
 import yugioh.client.model.exceptions.GameException;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.gamephases.CardActionsMenu;
 import yugioh.client.view.gamephases.Duel;
 import yugioh.client.view.gamephases.GameResponses;
@@ -356,6 +357,32 @@ public class GameBoard {
         }
         setFadeTransition(graveyardPlace, 0, 1);
     }
+    public String getCellInfo(Cell cell){
+        //todo handle selecting from other player hand
+        String info="";
+        int number=1;
+        for(Cell cell1:monsterCardZone){
+            if(cell1.equals(cell)){
+                info+="--monster "+number;
+            }
+            number++;
+        }
+        number=1;
+        for(Cell cell1:spellAndTrapCardZone){
+            if(cell1.equals(cell)){
+                info+="--spell "+number;
+            }
+            number++;
+        }
+        number=1;
+        for(Cell cell1:handCards){
+            if(cell1.equals(cell)){
+                info+="--hand "+number;
+            }
+            number++;
+        }
+        return info;
+    }
 
     public void addCardToSpellAndTrapCardZone(Card card, CardStatus cardStatus, GameController gameController, boolean hasToBeRemoved) throws GameException {
         if (isSpellAndTrapCardZoneFull())
@@ -531,6 +558,8 @@ public class GameBoard {
 
     public void addCardToHandDeck(Card cardToAdd, boolean isForce) {
         playButtonSound("card");
+        //todo handle adding card in the other side
+        NetAdapter.sendForwardRequestForGame("add card to hand "+cardToAdd+" "+isForce);
         if (isForce) {
             Cell cell = new Cell(cardToAdd);
             Rectangle rectangle = new Rectangle();

@@ -10,6 +10,7 @@ public enum GameRegexes {
     DESELECT("^select -d$"),
     NEXT_PHASE("^next phase$"),
     SUMMON("^summon$"),
+    SPECIAL_SUMMON("^special summon$"),
     SET("^set$"),
     SET_POSITION("^set --position (attack|defense)$"),
     FLIP_SUMMON("^flip-summon$"),
