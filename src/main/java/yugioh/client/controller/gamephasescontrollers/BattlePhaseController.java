@@ -350,7 +350,7 @@ public class BattlePhaseController {
     }
 
     public int getPower(Cell cell, Cell attackerCell, Cell attackedCell) {
-        if (cell.isEmpty()) return 0;
+        if (cell == null || cell.isEmpty()) return 0;
         switch (cell.getCardStatus()) {
             case DEFENSIVE_OCCUPIED:
             case DEFENSIVE_HIDDEN:
