@@ -128,6 +128,7 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
 
     private void sortUsers(ArrayList<TableItem> tableItems) {
         tableItems.sort(new SortByScore());
+        tableItems.sort(new SortByName());
         for (int i = 0; i < tableItems.size(); i++) {
             TableItem tableItem = tableItems.get(i);
             tableItem.setRank(i + 1);
@@ -144,6 +145,15 @@ class SortByScore implements Comparator<TableItem> {
     @Override
     public int compare(TableItem user1, TableItem user2) {
         return (user2.getScore() - user1.getScore());
+    }
+
+}
+
+class SortByName implements Comparator<TableItem> {
+
+    @Override
+    public int compare(TableItem user1, TableItem user2) {
+        return (user1.getUsername().compareTo(user2.getUsername()));
     }
 
 }

@@ -2,24 +2,16 @@ package yugioh.server.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import yugioh.server.controller.menucontroller.MenuController;
 import yugioh.server.model.User;
 import yugioh.server.model.cards.Card;
 import yugioh.server.model.cards.CardsInventory;
 import yugioh.server.model.cards.Monster;
 import yugioh.server.model.cards.SpellAndTrap;
-import yugioh.server.model.cards.monsters.*;
-import yugioh.server.model.cards.trapandspells.*;
-import yugioh.server.model.exceptions.MenuException;
-import yugioh.server.view.Menus.Menu;
-import yugioh.server.view.Menus.MenuType;
-import yugioh.server.view.Responses;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class DataBaseController  {
+public class DataBaseController {
 
     private static DataBaseController dataBaseController;
 
@@ -69,19 +61,21 @@ public class DataBaseController  {
 //        }
 //    }
 
-    public static void updateUserInfo(String fileAddress, String content){
+    public static void updateUserInfo(String fileAddress, String content) {
         try {
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        writeFile(fileAddress,content);
-        File file=new File(fileAddress);
-        BufferedReader bufferedReader = new BufferedReader(
-                new FileReader(file.getPath()));
-        User user=gson.fromJson(bufferedReader,User.class);
-        User.getAllUsers().remove(User.getUserByUsername(user.getUsername()));
-        User.getAllUsers().add(user);
-        }catch (Exception e){}
+            GsonBuilder builder = new GsonBuilder();
+            Gson gson = builder.create();
+            writeFile(fileAddress, content);
+            File file = new File(fileAddress);
+            BufferedReader bufferedReader = new BufferedReader(
+                    new FileReader(file.getPath()));
+            User user = gson.fromJson(bufferedReader, User.class);
+            User.getAllUsers().remove(User.getUserByUsername(user.getUsername()));
+            User.getAllUsers().add(user);
+        } catch (Exception e) {
+        }
     }
+
     public static void writeFile(String fileAddress, String content) throws IOException {
         FileWriter writer = new FileWriter(fileAddress);
         writer.write(content);
@@ -102,14 +96,16 @@ public class DataBaseController  {
             dataBaseUsers.add(user);
         }
         User.setAllUsers(dataBaseUsers);
-    } public static void cardsDataBaseInitialization() throws FileNotFoundException {
+    }
+
+    public static void cardsDataBaseInitialization() throws FileNotFoundException {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         File file = new File("src\\resources\\cards\\inventory.json");
         BufferedReader bufferedReader = new BufferedReader(
                 new FileReader(file.getPath())
         );
-        CardsInventory inventory = gson.fromJson(bufferedReader,CardsInventory.class);
+        CardsInventory inventory = gson.fromJson(bufferedReader, CardsInventory.class);
         CardsInventory.setInventory(inventory);
         initializeMonsterCards();
         initializeMagicCards();
@@ -140,60 +136,60 @@ public class DataBaseController  {
                 Card.allCards.add(monster);
             }
         }
-     //   Card BattleOX = new BattleOX();
-     //  Card AxeRaider = new AxeRaider();
-     //  Card YomiShip = new YomiShip();
-     //  Card HornImp = new HornImp();
-     //  Card SilverFang = new SilverFang();
-     //  Card Suijin = new Suijin();
-     //  Card Fireyarou = new Fireyarou();
-     //  Card Curtainofthedarkones = new Curtainofthedarkones();
-     //  Card FeralImp = new FeralImp();
-     //  Card Darkmagician = new Darkmagician();
-     //  Card Wattkid = new Wattkid();
-     //  Card Babydragon = new Babydragon();
-     //  Card Herooftheeast = new Herooftheeast();
-     //  Card Battlewarrior = new Battlewarrior();
-     //  Card Crawlingdragon = new Crawlingdragon();
-     //  Card Flamemanipulator = new Flamemanipulator();
-     //  Card BlueEyeswhitedragon = new BlueEyeswhitedragon();
-     //  Card CrabTurtle = new CrabTurtle();
-     //  Card SkullGuardian = new SkullGuardian();
-     //  Card SlotMachine = new SlotMachine();
-     //  Card Haniwa = new Haniwa();
-     //  Card ManEaterBug = new ManEaterBug();
-     //  Card GateGuardian = new GateGuardian();
-     //  Card Scanner = new yugioh.server.model.cards.monsters.Scanner();
-     //  Card Bitron = new Bitron();
-     //  Card Marshmallon = new Marshmallon();
-     //  Card BeastKingBarbaros = new BeastKingBarbaros();
-     //  Card Texchanger = new Texchanger();
-     //  Card Leotron = new Leotron();
-     //  Card TheCalculator = new TheCalculator();
-     //  Card AlexandriteDragon = new AlexandriteDragon();
-     //  Card MirageDragon = new MirageDragon();
-     //  Card HeraldofCreation = new HeraldofCreation();
-     //  Card ExploderDragon = new ExploderDragon();
-     //  Card WarriorDaiGrepher = new WarriorDaiGrepher();
-     //  Card DarkBlade = new DarkBlade();
-     //  Card Wattaildragon = new Wattaildragon();
-     //  Card TerratigertheEmpoweredWarrior = new TerratigertheEmpoweredWarrior();
-     //  Card TheTricky = new TheTricky();
-     //  Card SpiralSerpent = new SpiralSerpent();
-     //  Card CommandKnight = new CommandKnight();
+        //   Card BattleOX = new BattleOX();
+        //  Card AxeRaider = new AxeRaider();
+        //  Card YomiShip = new YomiShip();
+        //  Card HornImp = new HornImp();
+        //  Card SilverFang = new SilverFang();
+        //  Card Suijin = new Suijin();
+        //  Card Fireyarou = new Fireyarou();
+        //  Card Curtainofthedarkones = new Curtainofthedarkones();
+        //  Card FeralImp = new FeralImp();
+        //  Card Darkmagician = new Darkmagician();
+        //  Card Wattkid = new Wattkid();
+        //  Card Babydragon = new Babydragon();
+        //  Card Herooftheeast = new Herooftheeast();
+        //  Card Battlewarrior = new Battlewarrior();
+        //  Card Crawlingdragon = new Crawlingdragon();
+        //  Card Flamemanipulator = new Flamemanipulator();
+        //  Card BlueEyeswhitedragon = new BlueEyeswhitedragon();
+        //  Card CrabTurtle = new CrabTurtle();
+        //  Card SkullGuardian = new SkullGuardian();
+        //  Card SlotMachine = new SlotMachine();
+        //  Card Haniwa = new Haniwa();
+        //  Card ManEaterBug = new ManEaterBug();
+        //  Card GateGuardian = new GateGuardian();
+        //  Card Scanner = new yugioh.server.model.cards.monsters.Scanner();
+        //  Card Bitron = new Bitron();
+        //  Card Marshmallon = new Marshmallon();
+        //  Card BeastKingBarbaros = new BeastKingBarbaros();
+        //  Card Texchanger = new Texchanger();
+        //  Card Leotron = new Leotron();
+        //  Card TheCalculator = new TheCalculator();
+        //  Card AlexandriteDragon = new AlexandriteDragon();
+        //  Card MirageDragon = new MirageDragon();
+        //  Card HeraldofCreation = new HeraldofCreation();
+        //  Card ExploderDragon = new ExploderDragon();
+        //  Card WarriorDaiGrepher = new WarriorDaiGrepher();
+        //  Card DarkBlade = new DarkBlade();
+        //  Card Wattaildragon = new Wattaildragon();
+        //  Card TerratigertheEmpoweredWarrior = new TerratigertheEmpoweredWarrior();
+        //  Card TheTricky = new TheTricky();
+        //  Card SpiralSerpent = new SpiralSerpent();
+        //  Card CommandKnight = new CommandKnight();
 
     }
 
     private static void initializeMagicCards() throws FileNotFoundException {
-        File cardsFolder=new File("src\\resources\\cards\\SpellAndTraps");
+        File cardsFolder = new File("src\\resources\\cards\\SpellAndTraps");
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        for(File file:cardsFolder.listFiles()){
-            if(file.getPath().endsWith(".json")){
+        for (File file : cardsFolder.listFiles()) {
+            if (file.getPath().endsWith(".json")) {
                 BufferedReader bufferedReader = new BufferedReader(
                         new FileReader(file.getPath())
                 );
-                SpellAndTrap spellAndTrap=gson.fromJson(bufferedReader,SpellAndTrap.class);
+                SpellAndTrap spellAndTrap = gson.fromJson(bufferedReader, SpellAndTrap.class);
                 Card.allCards.add(spellAndTrap);
             }
         }
@@ -248,9 +244,10 @@ public class DataBaseController  {
             }
         }
     }
+
     public static void updateCardsInventory() {
         try {
-            writeJSON(CardsInventory.inventory,"src\\resources\\cards\\inventory.json");
+            writeJSON(CardsInventory.inventory, "src\\resources\\cards\\inventory.json");
         } catch (IOException e) {
             e.printStackTrace();
         }
