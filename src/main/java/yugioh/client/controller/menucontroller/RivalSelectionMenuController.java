@@ -98,7 +98,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
         }
     }
 
-    public void cancel() throws Exception {
+    public void cancel() throws Exception {//todo handle cancel
         dataOutputStreamForChat.writeUTF(User.loggedInUser.getUsername() + " exited Chatroom");
         dataOutputStreamForChat.flush();
         SoundPlayable.playButtonSound("backButton");

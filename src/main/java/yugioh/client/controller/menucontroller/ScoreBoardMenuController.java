@@ -30,6 +30,9 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
     public MediaView scoreBoardMenuBackground;
     public AnchorPane scoreBoardPane;
 
+    private static Thread autoUpdateTableThread;
+    private static boolean doStopUpdating = false;
+
     public ScoreBoardMenuController() {
     }
 
@@ -45,6 +48,9 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
 //    }
 
     public void backClicked() throws Exception {
+        doStopUpdating = true;
+        autoUpdateTableThread.stop();
+        autoUpdateTableThread = null;
         ViewInterface.showResult("menu exit");
         SoundPlayable.playButtonSound("backButton");
         mainMenu.execute();
@@ -52,16 +58,34 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        doStopUpdating = false;
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\main.mp4").toURI().toString()));
         mediaPlayer.play();
         mediaPlayer.setCycleCount(-1);
         scoreBoardMenuBackground.setMediaPlayer(mediaPlayer);
         initializeScoreBoard();
 
+        autoUpdateTableThread = new Thread(() -> {
+            while (true){
+                updateScoreBoardFromServer();
+                if (doStopUpdating) return;
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException ignored) {
+                }
+            }
+        });
+        autoUpdateTableThread.start();
+    }
+
+    private void updateScoreBoardFromServer() {
         String scoreboardItemsSting = NetAdapter.sendRequest("scoreboard show");
         ScoreBoardItem[] scoreBoardItems = DataBaseController.getObjectByString(scoreboardItemsSting);
         ArrayList<TableItem> tableItems = makeTableItemsFromUsers(scoreBoardItems);
         sortUsers(tableItems);
+
+        scoreBoard.getItems().clear();
+        scoreBoard.getStyleClass().clear();
 
         int toBeSelected = 0;
         int counter = 0;
@@ -86,12 +110,9 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         try {
             dataOutputStream.writeUTF("get online users");
             onlineUsers = dataInputStream.readUTF();
-            System.out.println(onlineUsers);
         }catch (Exception e){
             e.printStackTrace();
         }
-//        Circle onlineCircle=new Circle(10, Color.GREEN);
-//        Circle offlineCircle=new Circle(10, Color.RED);
         ArrayList<TableItem> tableItems = new ArrayList<>();
         for (int i = 0; i < scoreBoardItems.length; i++) {
             ScoreBoardItem scoreBoardItem = scoreBoardItems[i];
