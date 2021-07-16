@@ -36,9 +36,9 @@
             <Image url="@../PNG/icon/globe.png" />
          </image>
       </ImageView>
-        <ImageView fx:id="cancelReply" fitHeight="30.0" fitWidth="32.0" layoutX="619.0" layoutY="407.0" onMouseClicked="#cancelReply" onMouseEntered="#setHoveredImageBack" onMouseExited="#resetHoveredImageBack" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="cancelReply" fitHeight="30.0" fitWidth="32.0" layoutX="619.0" layoutY="407.0" onMouseClicked="#cancelReply" onMouseEntered="#setHoveredImageBackForReply" onMouseExited="#resetHoveredImageBackForReply" pickOnBounds="true" preserveRatio="true">
             <Image url="@../PNG/icon/close.png" />
         </ImageView>
-      <Label fx:id="replyMessage" layoutX="225.0" layoutY="403.0" prefHeight="38.0" prefWidth="390.0" />
+      <Label fx:id="replyMessage" layoutX="225.0" layoutY="403.0" prefHeight="38.0" prefWidth="390.0" styleClass="buttonText" />
     </children>
 </AnchorPane>
