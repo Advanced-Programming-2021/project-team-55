@@ -62,7 +62,6 @@ public class BattlePhaseController {
     }
 
     public String attack(int attackedCellNumber) throws GameException {
-        NetAdapter.sendForwardRequestForGame("attack " +attackedCellNumber);//todo complete function
 
         String response = "";
         Cell attackerCell = Cell.getSelectedCell();

@@ -1,6 +1,7 @@
 package yugioh.client.view.gamephases;
 
 import yugioh.client.controller.gamephasescontrollers.BattlePhaseController;
+import yugioh.client.model.board.Cell;
 import yugioh.client.model.exceptions.GameException;
 import yugioh.client.view.GameRegexes;
 import yugioh.client.view.ViewInterface;
@@ -55,9 +56,9 @@ public class BattlePhase extends Duel {
             response = processSelect(command);
         } else if (command.matches(GameRegexes.ATTACK.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.ATTACK.regex);
-            //                response = battlePhaseController.attack(Integer.parseInt(matcher.group(1)));
             int monsterNumber = Integer.parseInt(matcher.group(1));
-            CardActionsMenu.attack(CardActionsMenu.getSword(), Duel.getGameController().currentTurnOpponentPlayer.getGameBoard().getMonsterCardZone()[monsterNumber], monsterNumber);
+            Cell[] opponentMonsterCardZone = Duel.getGameController().currentTurnOpponentPlayer.getGameBoard().getMonsterCardZone();
+            CardActionsMenu.handleTargetSelected(CardActionsMenu.getActiveRectangle(), CardActionsMenu.getActiveSword(), opponentMonsterCardZone, monsterNumber);
         } else if (command.matches(GameRegexes.ATTACK_DIRECT.regex)) {
             try {
                 response = battlePhaseController.directAttack(gameController);

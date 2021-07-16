@@ -102,6 +102,10 @@ public class CardActionsMenu implements MainPhasesController {
         }
     }
 
+    public static Rectangle getActiveRectangle() {
+        return activeRectangle;
+    }
+
     public static Cell getToBeSummonedCell() {
         return toBeSummonedCell;
     }
@@ -290,6 +294,7 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static void makeSwordEventForSummonedMonsters(Rectangle rectangle) {
+        gameController = Duel.getGameController();
         EventHandler<MouseEvent> eventHandler = event -> {
             if (handleUserMonsterClicked(rectangle)) return;
             event.consume();
@@ -299,6 +304,7 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static boolean handleUserMonsterClicked(Rectangle rectangle) {
+        gameController = Duel.getGameController();
         Cell selectedCell = Cell.getSelectedCellByRectangle(rectangle);
         int monsterNum = Duel.getGameController().currentTurnPlayer.getGameBoard().getMonsterNumberByCell(selectedCell);
         if (monsterNum == -1) return true;
@@ -321,6 +327,7 @@ public class CardActionsMenu implements MainPhasesController {
         GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
         sword.setX(rectangle.getLayoutX() + 14);
         sword.setY(rectangle.getLayoutY() + 10);
+        CardActionsMenu.sword = sword;
         activeSword = sword;
         activeRectangle = rectangle;
         GameMenuController.getGameMenuController().selectCardWithoutSending(rectangle);
@@ -348,7 +355,7 @@ public class CardActionsMenu implements MainPhasesController {
             }
             return true;
         }
-        if (gameController.didCardAttackThisTurn(selectedCell)) {
+        if (Duel.getGameController().didCardAttackThisTurn(selectedCell)) {
             try {
                 new PopUpWindow(GameResponses.CARD_ALREADY_ATTACKED.response).start(WelcomeMenu.getStage());
             } catch (Exception ignored) {
@@ -376,30 +383,35 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     private static void handleRivalMonsterSelection(Rectangle rectangle, ImageView sword, Cell[] monsterCardZone) {
-        for (int i = 0; i < monsterCardZone.length; i++) {
-            Cell cell = monsterCardZone[i];//todo refactor from here & make rival run this except attack()
+        for (int i = 0; i < monsterCardZone.length; i++) {//todo refactor from here & make rival run this except attack()
             int finalI = i;
             EventHandler<MouseEvent> eventHandler = event3 -> {
                 setLastMousePositionX(event3.getSceneX() - 400);
                 setLastMousePositionY(event3.getSceneY());
-                try {
-                    if (gameController.currentPhase != GamePhase.BATTLE) return;
-                    if (cell == null || cell.isEmpty()) return;
-                    GameMenuController.getGameMenuController().selectCardWithoutSending(rectangle);
-                    CardActionsMenu.sword = sword;
-                    attack(sword, cell, finalI);
-                } catch (Exception e) {
-                    try {
-                        System.out.println(e.getMessage());
-                        new PopUpWindow(e.getMessage()).start(WelcomeMenu.getStage());
-                    } catch (Exception ignored) {
-                    }
-                }
+
+                if (handleTargetSelected(rectangle, sword, monsterCardZone, finalI)) return;
                 event3.consume();
             };
-            cell.getCellRectangle().addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
-            toBeRemovedSelectionEventHandlers.put(cell, eventHandler);
+            monsterCardZone[i].getCellRectangle().addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
+            toBeRemovedSelectionEventHandlers.put(monsterCardZone[i], eventHandler);
         }
+    }
+
+    public static boolean handleTargetSelected(Rectangle rectangle, ImageView sword, Cell[] monsterCardZone, int finalI) {
+        NetAdapter.sendForwardRequestForGame("attack " + finalI);
+        try {
+            if (gameController.currentPhase != GamePhase.BATTLE) return true;
+            if (monsterCardZone[finalI] == null || monsterCardZone[finalI].isEmpty()) return true;
+            GameMenuController.getGameMenuController().selectCardWithoutSending(rectangle);
+            attack(sword, monsterCardZone[finalI], finalI);
+        } catch (Exception e) {
+            try {
+                System.out.println(e.getMessage());
+                new PopUpWindow(e.getMessage()).start(WelcomeMenu.getStage());
+            } catch (Exception ignored) {
+            }
+        }
+        return false;
     }
 
     public static ImageView getSword() {
@@ -407,7 +419,6 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static void attack(ImageView sword, Cell cell, int finalI) {
-        NetAdapter.sendForwardRequestForGame("attack " + finalI);
         gameController.currentTurnPlayer.getGameBoard().setTranslationAnimation(sword, cell.getCellRectangle());
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event4 -> {
             String result;
@@ -435,7 +446,6 @@ public class CardActionsMenu implements MainPhasesController {
 
     private static boolean handleDirectAttack(ImageView sword, Rectangle rectangle) {
         if (gameController.currentTurnOpponentPlayer.getGameBoard().isMonsterCardZoneEmpty()) {
-            NetAdapter.sendForwardRequestForGame("attack direct");
             Rectangle rectangle1 = new Rectangle();
             rectangle1.setLayoutX(330);
             rectangle1.setLayoutY(50);
