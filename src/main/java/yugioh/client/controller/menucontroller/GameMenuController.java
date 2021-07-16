@@ -241,7 +241,11 @@ public class GameMenuController extends MenuController implements Initializable 
         NetAdapter.sendForwardRequestForGame("surrender");//todo complete function
 
         gameController.surrender();
-        pauseStage.close();
+        try {
+            pauseStage.close();
+        }catch (Exception ignored){
+
+        }
         gameController.endGameRound();
     }
 

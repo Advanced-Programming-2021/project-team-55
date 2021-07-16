@@ -120,8 +120,6 @@ public class GameController {
     }
 
     public String showGraveyard() {
-        NetAdapter.sendForwardRequestForGame("show graveyard");//todo complete function
-
         String response = "";
         GameBoard playerGameBoard = currentTurnPlayer.getGameBoard();
         if (playerGameBoard.getGraveyard().size() == 0) {
@@ -454,7 +452,7 @@ public class GameController {
         currentTurnOpponentPlayer.resetGameBoard();
         undoMakeAICheatCommand();
         if (game.getRounds() == currentRound) {
-            ViewInterface.showResult(response);
+           // ViewInterface.showResult(response);
             isGameEnded = true;
             try {
                 new EndOfGameMenu().execute(response, true);
@@ -465,7 +463,7 @@ public class GameController {
         } else {
             gameControllerInitialization();
             currentRound++;
-            ViewInterface.showResult(response);
+           // ViewInterface.showResult(response);
             //changeCards(currentTurnPlayer);
             //changeCards(currentTurnOpponentPlayer);
             try {

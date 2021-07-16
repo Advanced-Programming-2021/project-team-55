@@ -243,6 +243,10 @@ abstract public class Duel {
             GameMenuController.getGameMenuController().nextPhase();
             return;
         }
+        if (command.contains("surrender")){
+            GameMenuController.getGameMenuController().surrender();
+            return;
+        }
         //todo commented by parham :)
 
 //        String result = drawPhase.processCommand(command);
