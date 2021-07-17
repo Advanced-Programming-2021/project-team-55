@@ -244,9 +244,11 @@ public class GameController {
                 break;
             }
             case END: {
-                currentPhase = GamePhase.DRAW;
                 changeTurn(false, false);
-                break;
+                currentPhase = GamePhase.DRAW;
+                Duel.showPhase();
+                Duel.executePhase();
+                return;
             }
         }
         Duel.showPhase();

@@ -137,6 +137,9 @@ public class ChatRoomController  extends MenuController implements Initializable
                         onlineUsers.setText("Online: "+ count);
                     });
                 }catch (Exception e){}
+                try {
+                    Thread.sleep(10000);
+                }catch (Exception e){}
             }
         }).start();
     }
