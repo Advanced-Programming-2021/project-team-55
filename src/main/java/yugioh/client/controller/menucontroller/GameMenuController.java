@@ -117,6 +117,7 @@ public class GameMenuController extends MenuController implements Initializable 
         RotateTransition rotateTransitionForBackground = new RotateTransition();
         rotateTransition.setAxis(Rotate.Z_AXIS);
         rotateTransitionForBackground.setAxis(Rotate.Z_AXIS);
+
         //  Point3D point3D=Rotate.Z_AXIS;
         // point3D=new Point3D(50,0,1);
         //point3D=point3D.subtract(100,0,0);
@@ -125,6 +126,7 @@ public class GameMenuController extends MenuController implements Initializable 
 //        Group group=new Group();
 //        group.getChildren().add(gameMenuController.gameBoardPane);
 //        group.getChildren().add(gameMenuController.background);
+
         rotateTransition.setByAngle(180);
         rotateTransitionForBackground.setByAngle(180);
         rotateTransition.setDuration(Duration.millis(1000));

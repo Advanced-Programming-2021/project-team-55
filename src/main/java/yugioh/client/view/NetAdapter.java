@@ -19,6 +19,8 @@ public class NetAdapter {
     public static DataOutputStream dataOutputStreamForSaving;
     public static DataOutputStream dataOutputStreamForChat;
     public static DataInputStream dataInputStreamForChat;
+    public static DataInputStream dataInputStreamForGettingOnlineUsere;
+    public static DataOutputStream dataOutputStreamForGettingOnlineUsers;
 
     public static void initialize() {
        try {
@@ -30,6 +32,9 @@ public class NetAdapter {
           Socket socketForChatting=new Socket(host,11111);
           dataOutputStreamForChat=new DataOutputStream(socketForChatting.getOutputStream());
           dataInputStreamForChat=new DataInputStream(socketForChatting.getInputStream());
+          Socket socketForGettingOnlineUsers=new Socket(host,54321);
+          dataInputStreamForGettingOnlineUsere=new DataInputStream(socketForGettingOnlineUsers.getInputStream());
+          dataOutputStreamForGettingOnlineUsers=new DataOutputStream(socketForGettingOnlineUsers.getOutputStream());
 
        } catch (IOException e) {
            System.out.println("failed to connect to server");

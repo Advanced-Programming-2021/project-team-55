@@ -6,6 +6,9 @@ import javafx.util.Duration;
 import yugioh.client.controller.CheatController;
 import yugioh.client.controller.gamephasescontrollers.GameController;
 import yugioh.client.controller.menucontroller.GameMenuController;
+import yugioh.client.model.board.CardStatus;
+import yugioh.client.model.board.Cell;
+import yugioh.client.model.cards.Card;
 import yugioh.client.model.exceptions.GameException;
 import yugioh.client.view.GameRegexes;
 import yugioh.client.view.ViewInterface;
@@ -15,6 +18,8 @@ import yugioh.client.view.menus.Toast;
 import yugioh.client.view.menus.WelcomeMenu;
 
 import java.util.regex.Matcher;
+
+import static yugioh.client.view.ViewInterface.getCommandMatcher;
 
 abstract public class Duel {
 
@@ -146,7 +151,7 @@ abstract public class Duel {
     public static String processSelect(String command) {
         String response;
         if (command.matches(GameRegexes.SELECT_MONSTER.regex)) {
-            Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_MONSTER.regex);
+            Matcher matcher = getCommandMatcher(command, GameRegexes.SELECT_MONSTER.regex);
             try {
                 gameController.selectCard("monster", Integer.parseInt(matcher.group(1)),
                         matcher.group(2) != null);
@@ -155,7 +160,7 @@ abstract public class Duel {
                 response = e.toString();
             }
         } else if (command.matches(GameRegexes.SELECT_SPELL.regex)) {
-            Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_SPELL.regex);
+            Matcher matcher = getCommandMatcher(command, GameRegexes.SELECT_SPELL.regex);
             try {
                 gameController.selectCard("spell", Integer.parseInt(matcher.group(1)), false);
                 response = GameResponses.CARD_SELECTED.response;
@@ -163,7 +168,7 @@ abstract public class Duel {
                 response = e.toString();
             }
         } else if (command.matches(GameRegexes.SELECT_OPPONENT_SPELL.regex)) {
-            Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_OPPONENT_SPELL.regex);
+            Matcher matcher = getCommandMatcher(command, GameRegexes.SELECT_OPPONENT_SPELL.regex);
             try {
                 gameController.selectCard("spell", Integer.parseInt(matcher.group(1)),
                         true);
@@ -172,7 +177,7 @@ abstract public class Duel {
                 response = e.toString();
             }
         } else if (command.matches(GameRegexes.SELECT_FIELDZONE.regex)) {
-            Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_FIELDZONE.regex);
+            Matcher matcher = getCommandMatcher(command, GameRegexes.SELECT_FIELDZONE.regex);
             try {
                 gameController.selectCard("field", 0,
                         matcher.group(1) != null);
@@ -181,7 +186,7 @@ abstract public class Duel {
                 response = e.toString();
             }
         } else if (command.matches(GameRegexes.SELECT_HAND.regex)) {
-            Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_HAND.regex);
+            Matcher matcher = getCommandMatcher(command, GameRegexes.SELECT_HAND.regex);
             try {
                 gameController.selectCard("hand", Integer.parseInt(matcher.group(1)),
                         false);
@@ -243,6 +248,41 @@ abstract public class Duel {
             GameMenuController.getGameMenuController().nextPhase();
             return;
         }
+        if(command.startsWith("remove card from cell")){
+            if(command.contains("true"))
+            Cell.getSelectedCell().removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
+            else Cell.getSelectedCell().removeCardFromCell(gameController.currentTurnOpponentPlayer.getGameBoard());
+        }
+        else if(command.startsWith("add card to monster zone ")){
+            Matcher matcher=getCommandMatcher(command,"add card to monster zone (.*) (.*)");
+            Card card= Card.getNewCardObjectByName(matcher.group(1));
+            String cardStatus=matcher.group(2);
+            try {
+                if (cardStatus.equals("DEFENSIVE_HIDDEN"))
+                    gameController.currentTurnPlayer.getGameBoard().addCardToMonsterCardZone(card, CardStatus.DEFENSIVE_HIDDEN, gameController);
+                else
+                    gameController.currentTurnPlayer.getGameBoard().addCardToMonsterCardZone(card, CardStatus.OFFENSIVE_OCCUPIED, gameController);
+            }catch (Exception e){}
+
+        }
+        else if(command.startsWith("add card to spell zone ")){
+            Matcher matcher=getCommandMatcher(command,"^add card to spell zone (.*) (.*) (.*)$");
+            Card card=Card.getNewCardObjectByName(matcher.group(1));
+            CardStatus cardStatus;
+            if(matcher.group(2).equals("HIDDEN")){
+                cardStatus=CardStatus.HIDDEN;
+            }
+            else cardStatus=CardStatus.OCCUPIED;
+            boolean hasToBeRemoved=matcher.group(3).equals("true");
+            try {
+                gameController.currentTurnPlayer.getGameBoard().addCardToSpellAndTrapCardZone(card,cardStatus,gameController,hasToBeRemoved);
+            } catch (GameException e) {
+            }
+        }
+        else if(command.startsWith("remove card from hand")){
+            gameController.currentTurnPlayer.getGameBoard().removeCardFromHand(Cell.getSelectedCell());
+        }
+
         if (command.contains("surrender")){
             GameMenuController.getGameMenuController().surrender();
             return;
@@ -262,26 +302,23 @@ abstract public class Duel {
 //            result = endPhase.processCommand(command);
 //        if (result.equals("Error: invalid command"))
 //            result = graveyard.processCommand(command);
-        String result="";
-        if(gameController.currentPhase==GamePhase.DRAW){
-            result=drawPhase.processCommand(command);
+        else {
+            String result = "";
+            if (gameController.currentPhase == GamePhase.DRAW) {
+                result = drawPhase.processCommand(command);
+            } else if (gameController.currentPhase == GamePhase.STANDBY) {
+                result = standByPhase.processCommand(command);
+            } else if (gameController.currentPhase == GamePhase.MAIN1) {
+                result = mainPhase1.processCommand(command);
+            } else if (gameController.currentPhase == GamePhase.MAIN2) {
+                result = mainPhase2.processCommand(command);
+            } else if (gameController.currentPhase == GamePhase.BATTLE) {
+                result = battlePhase.processCommand(command);
+            } else if (gameController.currentPhase == GamePhase.END) {
+                result = endPhase.processCommand(command);
+            }
+            System.out.println("command " + command + " handled on other side with result: " + result);
         }
-        else if(gameController.currentPhase==GamePhase.STANDBY){
-            result=standByPhase.processCommand(command);
-        }
-        else if(gameController.currentPhase==GamePhase.MAIN1){
-            result=mainPhase1.processCommand(command);
-        }
-        else if(gameController.currentPhase==GamePhase.MAIN2){
-            result=mainPhase2.processCommand(command);
-        }
-        else if(gameController.currentPhase==GamePhase.BATTLE){
-            result=battlePhase.processCommand(command);
-        }
-        else if(gameController.currentPhase==GamePhase.END){
-            result=endPhase.processCommand(command);
-        }
-        System.out.println("command "+command+" handled on other side with result: "+result);
 
     }
 

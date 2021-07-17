@@ -18,6 +18,7 @@ import yugioh.client.controller.menucontroller.GameMenuController;
 import yugioh.client.model.CoinDice;
 import yugioh.client.model.Player;
 import yugioh.client.model.User;
+import yugioh.client.model.board.CardStatus;
 import yugioh.client.model.board.Cell;
 import yugioh.client.model.board.Game;
 import yugioh.client.model.board.GameBoard;
@@ -305,7 +306,7 @@ public class GameController {
     }
 
     public void disableActionsAndShowWaitingStage() {
-        if (!Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) {
+        if (!currentTurnPlayer.getUser().equals(User.getLoggedInUser())) {
             GameMenuController.getGameMenuController().gamePane.setDisable(true);
             logoStage = new Stage();
             logoStage.initOwner(WelcomeMenu.stage);
@@ -322,6 +323,17 @@ public class GameController {
             logoStage.setX(158);
             logoStage.setY(217);
             logoStage.show();
+            for(Cell cell:currentTurnPlayer.getGameBoard().getAllCellsInBoard()){
+                if(!cell.isEmpty()&&(cell.cardStatus== CardStatus.HIDDEN||cell.cardStatus==CardStatus.DEFENSIVE_HIDDEN)){
+                    cell.getCellRectangle().setFill(cell.getCellCard().getCardBackImagePattern());
+                }
+            }
+            for(Cell cell:currentTurnOpponentPlayer.getGameBoard().getAllCellsInBoard()){
+                if(!cell.isEmpty()&&(cell.cardStatus==CardStatus.OCCUPIED||cell.cardStatus==CardStatus.DEFENSIVE_OCCUPIED||
+                        cell.cardStatus==CardStatus.OFFENSIVE_OCCUPIED||currentTurnOpponentPlayer.getGameBoard().isCellInHandZone(cell))){
+                    cell.getCellRectangle().setFill(cell.getCellCard().getCardImagePattern());
+                }
+            }
         } else {
             closeWaitingStage();
         }
