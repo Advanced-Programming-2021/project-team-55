@@ -59,7 +59,8 @@ public class NetAdapter {
                                 ViewInterface.command = input;
                                 if (sendToRival(input, userHolder)) continue;
                                 String result = Menu.handleCommand(input, userHolder);
-                                if (result.contains("user logged out successfully")) continue;
+                                if (result.contains("user logged out successfully") ||
+                                        result.equals("ignore sending result")) continue;
                                 dataOutputStream.writeUTF(result);
                                 dataOutputStream.flush();
                                 log(input, result);
