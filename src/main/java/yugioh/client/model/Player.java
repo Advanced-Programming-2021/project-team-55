@@ -2,9 +2,12 @@ package yugioh.client.model;
 
 import javafx.application.Platform;
 import yugioh.client.controller.menucontroller.GameMenuController;
+import yugioh.client.model.board.Cell;
 import yugioh.client.model.board.GameBoard;
 import yugioh.client.model.cards.Deck;
 import yugioh.client.view.gamephases.Duel;
+
+import java.util.ArrayList;
 
 public class Player {
 
@@ -68,6 +71,8 @@ public class Player {
     public GameBoard getGameBoard() {//better to rename to getPlayerGameBoard
         return playerGameBoard;
     }
+
+
 
     public Deck getPlayDeck() {
         return playDeck;

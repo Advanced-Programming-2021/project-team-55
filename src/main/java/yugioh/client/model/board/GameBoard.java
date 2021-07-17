@@ -23,6 +23,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import yugioh.client.controller.gamephasescontrollers.GameController;
 import yugioh.client.controller.menucontroller.GameMenuController;
+import yugioh.client.model.User;
 import yugioh.client.model.cards.Card;
 import yugioh.client.model.cards.Deck;
 import yugioh.client.model.cards.Monster;
@@ -244,18 +245,25 @@ public class GameBoard {
                 NetAdapter.sendForwardRequestForGame("add card to monster zone "+card.getName()+" "+cardStatus.name());
                 monsterCardZone[i].addCardToCell(card);
                 monsterCardZone[i].setCardStatus(cardStatus);
-                ImagePattern imagePattern = card.getCardImagePattern();
+                ImagePattern imagePattern ;
+                if(cardStatus==CardStatus.DEFENSIVE_HIDDEN) {
+                    if (User.loggedInUser.equals(gameController.currentTurnPlayer.getUser()))
+                        imagePattern = card.getCardImagePattern();
+                    else imagePattern = card.getCardBackImagePattern();
+                }else imagePattern=card.getCardImagePattern();
                 Label cellInfo = monsterCardZone[i].getCellInfo();
                 Rectangle rectangle = monsterCardZone[i].getCellRectangle();
                 setTranslationAnimation(imagePattern, monsterCardZone[i], card);
                 if (cardStatus == CardStatus.DEFENSIVE_HIDDEN) {
+                    if(User.loggedInUser.equals(gameController.currentTurnPlayer.getUser()))
                     setFlipTransition(card, rectangle, true, false);
                     setFlipZTransition(rectangle, true);
-                } else CardActionsMenu.makeSwordEventForSummonedMonsters(rectangle);
-
-//                for (double j = 0; j <= 1; j += 0.05) {
-//                    rectangle.opacityProperty().set(j);
-//                }
+                } else{
+                    CardActionsMenu.makeSwordEventForSummonedMonsters(rectangle);
+                    if(!User.loggedInUser.equals(gameController.currentTurnPlayer.getUser())){
+                        setFlipTransition(card,rectangle,false,false);
+                    }
+                }
                 Duel.getGameController().currentTurnPlayer.getGameBoard().setFadeTransition(rectangle, 0, 1);
                 if (CardActionsMenu.isBoardInverse()) {
                     monsterCardZone[i].getCellInfo().rotateProperty().set(180);
@@ -395,11 +403,24 @@ public class GameBoard {
                 Cell cell = spellAndTrapCardZone[i];
                 cell.addCardToCell(card);
                 cell.setCardStatus(cardStatus);
-                ImagePattern imagePattern = card.getCardImagePattern();
+                ImagePattern imagePattern ;
                 Rectangle rectangle = cell.getCellRectangle();
+                if(cardStatus==CardStatus.HIDDEN) {
+                    if (User.loggedInUser.equals(gameController.currentTurnPlayer.getUser())) {
+                        imagePattern = card.getCardImagePattern();
+                        setFlipTransition(card, rectangle, true, false);
+                    }
+                    else imagePattern = card.getCardBackImagePattern();
+                }else {
+                    if(!User.loggedInUser.equals(gameController.currentTurnPlayer.getUser())){
+                        setFlipTransition(card,rectangle,false,false);
+                    }
+                    imagePattern=card.getCardImagePattern();
+                }
                 setTranslationAnimation(imagePattern, spellAndTrapCardZone[i], card);
                 if (cardStatus == CardStatus.HIDDEN) {
-                    setFlipTransition(card, rectangle, true, false);
+//                    if(User.loggedInUser.equals(gameController.currentTurnPlayer.getUser()))
+
                 }
                 for (double j = 0; j <= 1; j += 0.05) {
                     rectangle.opacityProperty().set(j);
@@ -511,6 +532,20 @@ public class GameBoard {
         ft.setToValue(toValue);
         ft.play();
     }
+    public ArrayList<Cell> getAllCellsInBoard(){
+        ArrayList<Cell>cells=new ArrayList<>();
+        for(Cell cell:monsterCardZone){
+            cells.add(cell);
+        }
+        for(Cell cell:spellAndTrapCardZone){
+            cells.add(cell);
+        }
+        for(Cell cell:handCards){
+            cells.add(cell);
+        }
+        return cells;
+
+    }
 
     public void addCardsToHandDeck(int countCard, boolean isToCurrentPlayer) {
         for (int i = 0; i < countCard; i++) {
@@ -527,9 +562,19 @@ public class GameBoard {
                 else {
                     rectangle.rotateProperty().set(180);
                 }
-                rectangle.setFill(card.getCardImagePattern());
+                if(User.loggedInUser.equals(Duel
+                .getGameController().currentTurnPlayer.getUser())){
+                    rectangle.setFill(card.getCardImagePattern());
+                }
+                else rectangle.setFill(card.getCardBackImagePattern());
+
             } else {
                 rectangle.rotateProperty().set(180);
+                if(User.loggedInUser.equals(Duel
+                        .getGameController().currentTurnPlayer.getUser())){
+                    rectangle.setFill(card.getCardBackImagePattern());
+                }
+                else rectangle.setFill(card.getCardImagePattern());
                 rectangle.setFill(card.getCardBackImagePattern());
             }
             setTransitionForHandDeck(countCard, rectangle);
