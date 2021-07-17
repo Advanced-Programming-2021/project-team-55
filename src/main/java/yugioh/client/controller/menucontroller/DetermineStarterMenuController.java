@@ -12,7 +12,9 @@ import yugioh.client.model.Player;
 import yugioh.client.model.User;
 import yugioh.client.view.NetAdapter;
 import yugioh.client.view.gamephases.Duel;
-import yugioh.client.view.menus.*;
+import yugioh.client.view.menus.DetermineStarterMenu;
+import yugioh.client.view.menus.RivalSelectionMenu;
+import yugioh.client.view.menus.Toast;
 import yugioh.server.view.ViewInterface;
 
 import java.io.File;
@@ -26,6 +28,8 @@ import static yugioh.client.view.SoundPlayable.playButtonSound;
 public class DetermineStarterMenuController implements Initializable {
 
     private static GameController gameController;
+    private static Thread listeningCommandThread;
+    private static Runnable runnable;
     public JFXButton head;
     public JFXButton tale;
     public Label firstPlayerName;
@@ -34,14 +38,16 @@ public class DetermineStarterMenuController implements Initializable {
     public JFXButton yesButton;
     public MediaView coinToss;
 
-    private static Thread listeningCommandThread;
-
     public DetermineStarterMenuController() {
         DetermineStarterMenuController.gameController = Duel.getGameController();
     }
 
     public static void setGameController(GameController gameController) {
         DetermineStarterMenuController.gameController = gameController;
+    }
+
+    public static Thread getListeningCommandThread() {
+        return listeningCommandThread;
     }
 
     private void assignTurn(String choice) {
@@ -93,7 +99,7 @@ public class DetermineStarterMenuController implements Initializable {
     }
 
     private void startSyncingWithRival() {
-        listeningCommandThread = new Thread(() -> {
+        runnable = () -> {
             try {
                 while (true) {
                     String command = NetAdapter.dataInputStream.readUTF();
@@ -123,8 +129,11 @@ public class DetermineStarterMenuController implements Initializable {
                 }
             } catch (IOException ignored) {
             }
-        });
+        };
+
+        listeningCommandThread = new Thread(runnable);
         listeningCommandThread.start();
+
     }
 
     private void playSound() {
@@ -219,7 +228,15 @@ public class DetermineStarterMenuController implements Initializable {
         playButtonSound("forHonor");
     }
 
-    public static Thread getListeningCommandThread() {
-        return listeningCommandThread;
+    public static void setListeningCommandThread(Thread listeningCommandThread) {
+        DetermineStarterMenuController.listeningCommandThread = listeningCommandThread;
+    }
+
+    public static Runnable getRunnable() {
+        return runnable;
+    }
+
+    public static void setRunnable(Runnable runnable) {
+        DetermineStarterMenuController.runnable = runnable;
     }
 }

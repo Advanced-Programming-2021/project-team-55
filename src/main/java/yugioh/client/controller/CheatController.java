@@ -8,10 +8,7 @@ import yugioh.client.model.Player;
 import yugioh.client.model.User;
 import yugioh.client.model.cards.Card;
 import yugioh.client.model.exceptions.GameException;
-import yugioh.client.view.GameRegexes;
-import yugioh.client.view.Regexes;
-import yugioh.client.view.Responses;
-import yugioh.client.view.ViewInterface;
+import yugioh.client.view.*;
 import yugioh.client.view.gamephases.Duel;
 import yugioh.client.view.gamephases.GameResponses;
 import yugioh.client.view.menus.CheatMenu;
@@ -80,14 +77,17 @@ public class CheatController implements Initializable {
         command = ViewInterface.sortFields(command);
         String response = "";
         if (command.matches(GameRegexes.INCREASE_LP.regex)) {
+            NetAdapter.sendForwardRequestForGame(command);
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.INCREASE_LP.regex);
             increaseLPAmount(Integer.parseInt(matcher.group(1)), Duel.getGameController().currentTurnPlayer);
             response = GameResponses.CHEAT_ACTIVATED_LP_INCREASED.response;
         } else if (command.matches(GameRegexes.SET_WINNER.regex)) {
+            NetAdapter.sendForwardRequestForGame(command);
             setWinner(Duel.getGameController());
             response = GameResponses.CHEAT_ACTIVATED_WINNER_SET.response;
             CheatMenu.getCheatStage().close();
         } else if (command.matches(GameRegexes.SELECT_CARD_FORCE.regex)) {
+            NetAdapter.sendForwardRequestForGame(command);
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.SELECT_CARD_FORCE.regex);
             try {
                 response = selectHandForce(matcher.group(1), Duel.getGameController());
@@ -95,10 +95,12 @@ public class CheatController implements Initializable {
                 response = e.toString();
             }
         } else if (command.matches(Regexes.INCREASE_MONEY.regex)) {
+            NetAdapter.sendForwardRequestForGame(command);
             Matcher matcher = ViewInterface.getCommandMatcher(command, Regexes.INCREASE_MONEY.regex);
             cheatController.increaseMoney(Integer.parseInt(matcher.group(1)), User.loggedInUser);
             response = Responses.CHEAT_ACTIVATED_MONEY_INCREASED.response;
         } else if (command.matches(GameRegexes.CHEAT_ADD_OPTIONAL_CARD.regex)) {
+            NetAdapter.sendForwardRequestForGame(command);
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.CHEAT_ADD_OPTIONAL_CARD.regex);
             try {
                 response = addOptionalCardAndSelect(matcher.group(1), Duel.getGameController(), false);
@@ -106,6 +108,7 @@ public class CheatController implements Initializable {
                 response = e.toString();
             }
         } else if (command.matches(GameRegexes.MAKE_ME_AI.regex)) {
+            NetAdapter.sendForwardRequestForGame(command);
             response = makeMeAI(Duel.getGameController());
         } else if (command.equals("close") || command.equals("exit")) {
             CheatMenu.getCheatStage().close();
