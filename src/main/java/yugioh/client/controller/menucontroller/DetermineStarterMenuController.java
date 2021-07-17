@@ -109,12 +109,6 @@ public class DetermineStarterMenuController implements Initializable {
                             case "no selected":
                                 Platform.runLater(this::handleNoButton);
                                 break;
-//                            case "head selected":
-//                                Platform.runLater(this::handleHead);
-//                                break;
-//                            case "tale selected":
-//                                Platform.runLater(this::handleTale);
-//                                break;
                             case "i decide":
                                 Platform.runLater(this::handleRivalSelection);
                                 break;
