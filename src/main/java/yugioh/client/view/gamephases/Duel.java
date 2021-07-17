@@ -318,6 +318,8 @@ abstract public class Duel {
             }  else if (gameController.currentPhase == GamePhase.END) {
                 result = endPhase.processCommand(command);
             }
+            if (result.equals("Error: invalid command"))
+                result = CheatController.getInstance().processCommand(command);
             System.out.println("command " + command + " handled on other side with result: " + result);
         }
 

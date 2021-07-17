@@ -15,7 +15,7 @@ public class ViewInterface {
 
     private static final Scanner input = new Scanner(System.in);
 
-    public static String getInput() {
+    public static String getInput() {//debug activate effect
         String command = "";
         if (Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) {
             NetAdapter.sendForwardRequestForGame("stop receiving");
@@ -29,6 +29,7 @@ public class ViewInterface {
                 System.out.println("command received: " + command);
                 Matcher matcher = getCommandMatcher(command, "forward: (.+)");
                 command = matcher.group(1);
+                DetermineStarterMenuController.setListeningCommandThread(new Thread(DetermineStarterMenuController.getRunnable()));
                 DetermineStarterMenuController.getListeningCommandThread().start();
             } catch (IOException e) {
                 e.printStackTrace();

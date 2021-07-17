@@ -34,7 +34,7 @@ public interface MainPhasesController {
     ArrayList<String> ritualSummonEffectSpellAndTrap = new ArrayList<>();
 
     default void monsterSummon(GameController gameController) throws GameException {
-       // NetAdapter.sendForwardRequestForGame("summon");
+        NetAdapter.sendForwardRequestForGame("summon");
         Player currentPlayer = gameController.currentTurnPlayer;
         Cell selectedCell = Cell.getSelectedCell();
         if (selectedCell == null) {
@@ -246,7 +246,7 @@ public interface MainPhasesController {
 
     default void setCard(GameController gameController) throws GameException {
         //todo here
-       // NetAdapter.sendForwardRequestForGame("set");
+        NetAdapter.sendForwardRequestForGame("set");
         Cell selectedCell = Cell.getSelectedCell();
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         if (selectedCell == null) {
@@ -332,6 +332,7 @@ public interface MainPhasesController {
     }
 
     default void activateSpell(GameController gameController) throws GameException {
+        System.out.println("activate spell called");
         Cell selectedCell = Cell.getSelectedCell();
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         if (selectedCell == null) {
