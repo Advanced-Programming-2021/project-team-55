@@ -45,6 +45,14 @@ public class DuelMenu extends Menu {
             } catch (MenuException e) {
                 response = e.toString();
             }
+        } else if (command.matches("cancel my duel")) {
+            if (awaitingUsersForOneRound.length != 0) {
+                if (awaitingUsersForOneRound[0].equals(currentUser)) awaitingUsersForOneRound = new UserHolder[0];
+            }
+            if (awaitingUsersForThreeRounds.length != 0) {
+                if (awaitingUsersForThreeRounds[0].equals(currentUser)) awaitingUsersForThreeRounds = new UserHolder[0];
+            }
+            response = "ignore sending result";
         } else if (command.matches("get awaiting users for 1 round")) {
             User[] users = new User[awaitingUsersForOneRound.length];
             for (int i = 0; i < awaitingUsersForOneRound.length; i++) {

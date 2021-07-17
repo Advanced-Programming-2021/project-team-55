@@ -630,17 +630,14 @@ public class CardActionsMenu implements MainPhasesController {
         });
         actionPane = new Pane();
         actionButton.setImage(thisActions.get(0));
-        actionButton.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-                    if (actionButton.getImage().equals(setImageH) || actionButton.getImage().equals(setImageV)) {
-                        handleSet();
-                    } else if (actionButton.getImage().equals(summonImage)) {
-                        handleSummon();
-                    } else if (actionButton.getImage().equals(activateImage)) {
-                        handleActivate();
-                    }
+        actionButton.onMouseClickedProperty().set(mouseEvent -> {
+            if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                if (actionButton.getImage().equals(setImageH) || actionButton.getImage().equals(setImageV)) {
+                    handleSet();
+                } else if (actionButton.getImage().equals(summonImage)) {
+                    handleSummon();
+                } else if (actionButton.getImage().equals(activateImage)) {
+                    handleActivate();
                 }
             }
         });

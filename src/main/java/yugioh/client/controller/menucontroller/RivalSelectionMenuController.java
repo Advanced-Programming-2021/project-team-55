@@ -5,22 +5,17 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import yugioh.client.controller.DataBaseController;
@@ -28,13 +23,10 @@ import yugioh.client.model.User;
 import yugioh.client.view.NetAdapter;
 import yugioh.client.view.SoundPlayable;
 import yugioh.client.view.ViewInterface;
-import yugioh.client.view.menus.ChatRoom;
 import yugioh.client.view.menus.PopUpWindow;
 import yugioh.client.view.menus.RivalSelectionMenu;
-import yugioh.client.view.menus.WelcomeMenu;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -44,20 +36,18 @@ import java.util.regex.Matcher;
 public class RivalSelectionMenuController extends MenuController implements Initializable {
 
     public static RivalSelectionMenuController deckMenuController;
+    public static Scanner input = new Scanner(System.in);
     private static boolean isUserFirst;
-
     private static User[] awaitingUsersForOneRound;
     private static User[] awaitingUsersForThreeRounds;
-
+    private static boolean isRequestAlive = false;
     public ToggleButton threeRounds;
     public ToggleButton oneRound;
     public JFXButton start;
     public MediaView rivalSelectionMenuBackground;
     public GridPane waitingUsersGridPane;
-
     public ScrollPane chatBox;
     public transient Thread chatThread;
-    public static Scanner input = new Scanner(System.in);
     public ImageView sendImage;
     public JFXTextField message;
     private boolean isChatEnded = false;
@@ -70,8 +60,17 @@ public class RivalSelectionMenuController extends MenuController implements Init
         return Objects.requireNonNullElseGet(deckMenuController, RivalSelectionMenuController::new);
     }
 
+    public static boolean isIsUserFirst() {
+        return isUserFirst;
+    }
+
+    public static void setIsUserFirst(boolean isUserFirst) {
+        RivalSelectionMenuController.isUserFirst = isUserFirst;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        isRequestAlive = false;
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\main.mp4").toURI().toString()));
         mediaPlayer.play();
         mediaPlayer.setCycleCount(-1);
@@ -98,29 +97,42 @@ public class RivalSelectionMenuController extends MenuController implements Init
         }
     }
 
-    public void cancel() throws Exception {//todo handle cancel
+    public void cancel() throws Exception {
+        if (isRequestAlive) {
+            NetAdapter.justSendRequest("stop my thread");
+            NetAdapter.justSendRequest("cancel my duel");
+        }
         dataOutputStreamForChat.writeUTF(User.loggedInUser.getUsername() + " exited Chatroom");
         dataOutputStreamForChat.flush();
         SoundPlayable.playButtonSound("backButton");
         RivalSelectionMenu.setDoCancel(true);
-        chatThread.stop();
-
-        new Thread(() -> {
+        try {
+            chatThread.stop();
+        } catch (Exception ignored) {
+        }
+/*        new Thread(() -> {//todo whats this?
             while (!isChatEnded) {
             }
-                try {
-                    RivalSelectionMenu.getStage().close();
-                } catch (Exception e) {
-                }
-            }).start();
+            try {
+                RivalSelectionMenu.getStage().close();
+            } catch (Exception e) {
+            }
+        }).start();*/
 
+        RivalSelectionMenu.getStage().close();
     }
 
-    public void startGame() {//todo handle cancel & back
+    public void startGame() {
         new Thread(() -> {
             try {
+                isRequestAlive = true;
                 String result = NetAdapter.dataInputStream.readUTF();
+                if (result.equals("forward: stop receiving")) {
+                    isRequestAlive = false;
+                    return;
+                }
                 if (result.startsWith("Error: ")) {
+                    isRequestAlive = false;
                     new PopUpWindow(result).start(RivalSelectionMenu.getStage());
                     return;
                 }
@@ -178,16 +190,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
         startGame();
     }
 
-    public static boolean isIsUserFirst() {
-        return isUserFirst;
-    }
-
-    public static void setIsUserFirst(boolean isUserFirst) {
-        RivalSelectionMenuController.isUserFirst = isUserFirst;
-    }
-
     ////////////////////////////////////////////////////////////////////////////////////////////
-
 
     public void sendMessage(Event event) throws Exception {
         dataOutputStreamForChat.writeUTF("chat " + User.loggedInUser.getNickname() + ": " + message.getText());

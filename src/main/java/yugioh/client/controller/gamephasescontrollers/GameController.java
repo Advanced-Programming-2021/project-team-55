@@ -472,7 +472,7 @@ public class GameController {
            // ViewInterface.showResult(response);
             isGameEnded = true;
             try {
-                NetAdapter.justSendRequest("stop my thread");
+                NetAdapter.justSendRequest("stop my thread");//todo handle removing abundant game info in server
                 new EndOfGameMenu().execute(response, true);
                 new DuelMenu().execute();
             } catch (Exception e) {
