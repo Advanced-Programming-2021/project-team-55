@@ -35,6 +35,7 @@ public class DetermineStarterMenuController implements Initializable {
     public MediaView coinToss;
 
     private static Thread listeningCommandThread;
+    private static boolean doStopThread = false;
 
     public DetermineStarterMenuController() {
         DetermineStarterMenuController.gameController = Duel.getGameController();
@@ -80,6 +81,7 @@ public class DetermineStarterMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        doStopThread = false;
         String currentPlayerName = gameController.getGame().getFirstPlayer().getUser().getNickname();
         firstPlayerName.setText(currentPlayerName + " choose your Coin side:");
         noButton.setOpacity(0);
@@ -92,10 +94,12 @@ public class DetermineStarterMenuController implements Initializable {
         startSyncingWithRival();
     }
 
-    private void startSyncingWithRival() {//todo disable thread after ending game
+    private void startSyncingWithRival() {
         listeningCommandThread = new Thread(() -> {
+            doStopThread = false;
             try {
                 while (true) {
+                    if (doStopThread) return;
                     String command = NetAdapter.dataInputStream.readUTF();
                     if (command.startsWith("forward: ")) {
                         Matcher matcher = ViewInterface.getCommandMatcher(command, "forward: (.+)");
@@ -208,6 +212,10 @@ public class DetermineStarterMenuController implements Initializable {
     public void yesClicked() {
         NetAdapter.sendForwardRequest("yes selected");
         handleYesButton();
+    }
+
+    public static void setDoStopThread(boolean doStopThread) {
+        DetermineStarterMenuController.doStopThread = doStopThread;
     }
 
     private void handleYesButton() {

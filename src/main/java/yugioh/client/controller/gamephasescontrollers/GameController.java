@@ -460,6 +460,8 @@ public class GameController {
            // ViewInterface.showResult(response);
             isGameEnded = true;
             try {
+                NetAdapter.sendForwardRequestForGame("stop receiving");
+                DetermineStarterMenuController.setDoStopThread(true);
                 new EndOfGameMenu().execute(response, true);
                 new DuelMenu().execute();
             } catch (Exception e) {
