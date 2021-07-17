@@ -26,10 +26,12 @@ public class LoginMenuController extends MenuController {
         return loginMenuController;
     }
 
-    public String loginUser(String username, String password, UserHolder currentUser) throws MenuException {//todo ban multi login with one account
+    public String loginUser(String username, String password, UserHolder currentUser) throws MenuException {
         User user = User.getUserByUsername(username);
         if (user == null || !user.getPassword().equals(password)) {
             throw new MenuException(Responses.USERNAME_AND_PASSWORD_DIDNT_MATCH.response);
+        } else if (isUserOnline(username)) {
+            throw new MenuException("Error: you've already logged in. please logout first!");
         } else {
             Menu.currentMenu = MenuType.MAIN;
         }
@@ -38,6 +40,13 @@ public class LoginMenuController extends MenuController {
         currentUser.setUser(user);
         User.getLoggedInUsers().add(currentUser);
         return "success " + userJson;
+    }
+
+    private boolean isUserOnline(String username) {
+        for (UserHolder userHolder : User.getLoggedInUsers()) {
+            if (userHolder.getUser().getUsername().equals(username)) return true;
+        }
+        return false;
     }
 
     public void createUser(String username, String password, String nickname) throws MenuException {

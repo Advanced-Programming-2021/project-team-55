@@ -6,6 +6,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import yugioh.client.model.User;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.SoundPlayable;
 import yugioh.client.view.ViewInterface;
 import yugioh.client.view.menus.ChatRoom;
@@ -54,18 +55,18 @@ public class MainMenuController extends MenuController {
         profileMenu.execute();
     }
 
-    public void enterShopMenuClicked(MouseEvent mouseEvent) throws Exception {
+    public void enterShopMenuClicked() throws Exception {
         SoundPlayable.playButtonSound("enterButton");
         shopMenu.execute();
     }
 
-    public void enterImportExportClicked(MouseEvent mouseEvent) throws Exception {
+    public void enterImportExportClicked() throws Exception {
         SoundPlayable.playButtonSound("enterButton");
         importExportMenu.execute();
     }
 
-    public void logoutClicked(MouseEvent mouseEvent) throws Exception {
-        ViewInterface.showResult("user logout");
+    public void logoutClicked() throws Exception {
+        NetAdapter.justSendRequest("user logout");
         SoundPlayable.playButtonSound("backButton");
         ChatRoom.close();
         logout();

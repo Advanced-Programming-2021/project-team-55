@@ -2,6 +2,7 @@ package yugioh.server.view;
 
 
 import yugioh.server.controller.DataBaseController;
+import yugioh.server.model.User;
 import yugioh.server.model.UserHolder;
 import yugioh.server.view.Menus.Menu;
 import yugioh.server.view.gamephases.Duel;
@@ -58,6 +59,7 @@ public class NetAdapter {
                                 ViewInterface.command = input;
                                 if (sendToRival(input, userHolder)) continue;
                                 String result = Menu.handleCommand(input, userHolder);
+                                if (result.contains("user logged out successfully")) continue;
                                 dataOutputStream.writeUTF(result);
                                 dataOutputStream.flush();
                                 log(input, result);
@@ -181,6 +183,7 @@ public class NetAdapter {
     private boolean logUserDisconnection(UserHolder userHolder, SocketException e) {
         if (e.getMessage().contains("Connection reset")) {
             try {
+                User.getLoggedInUsers().remove(userHolder);
                 System.out.println("a client disconnected: " + userHolder.getUser().getUsername());
             } catch (Exception ignored) {
                 System.out.print("a client disconnected.");

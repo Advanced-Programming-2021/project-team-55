@@ -1,8 +1,8 @@
 package yugioh.server.controller.menucontroller;
 
+import yugioh.server.model.User;
 import yugioh.server.model.UserHolder;
 import yugioh.server.model.exceptions.MenuException;
-import yugioh.server.model.User;
 import yugioh.server.view.Menus.Menu;
 import yugioh.server.view.Menus.MenuType;
 import yugioh.server.view.Responses;
@@ -24,6 +24,7 @@ public class MainMenuController extends MenuController {
 
     public void logout(UserHolder currentUser) {
         User.getLoggedInUsers().remove(currentUser);
+        System.out.println("logout requested.");
         Menu.setCurrentMenu(MenuType.LOGIN);
     }
 

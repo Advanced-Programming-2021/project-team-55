@@ -79,7 +79,7 @@ public class LoginMenuController extends MenuController implements Initializable
         }
     }
 
-    public void backClicked(MouseEvent mouseEvent) throws Exception {
+    public void backClicked() throws Exception {
         SoundPlayable.playButtonSound("backButton");
         welcomeMenu.execute();
     }
@@ -104,17 +104,14 @@ public class LoginMenuController extends MenuController implements Initializable
                 }
             }
         });
-        passwordField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if (t1.equals("")) {
-                    passwordFieldIsFilled = false;
-                    loginButton.setDisable(true);
-                } else {
-                    passwordFieldIsFilled = true;
-                    if (usernameFieldIsFilled)
-                        loginButton.setDisable(false);
-                }
+        passwordField.textProperty().addListener((observableValue, s, t1) -> {
+            if (t1.equals("")) {
+                passwordFieldIsFilled = false;
+                loginButton.setDisable(true);
+            } else {
+                passwordFieldIsFilled = true;
+                if (usernameFieldIsFilled)
+                    loginButton.setDisable(false);
             }
         });
     }
