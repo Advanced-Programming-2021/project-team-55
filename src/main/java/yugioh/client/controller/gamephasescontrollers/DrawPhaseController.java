@@ -8,7 +8,7 @@ import yugioh.client.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
 
-public class DrawPhaseController {
+public class DrawPhaseController {//todo handle hand cards not sync
 
     private final GameController gameController;
 
