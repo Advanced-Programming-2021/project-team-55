@@ -12,6 +12,7 @@ import yugioh.server.view.ViewInterface;
 import yugioh.server.view.gamephases.Duel;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 
 public class DuelMenu extends Menu {
@@ -105,6 +106,14 @@ public class DuelMenu extends Menu {
             }
         } else if (command.matches(Regexes.EXIT_MENU.regex)) {
             duelMenuController.exitMenu();
+        } else if (command.equals("remove abundant game info")) {
+            try {
+                HashMap<UserHolder, UserHolder> gamesInProgress = Duel.getGamesInProgress();
+                gamesInProgress.remove(gamesInProgress.get(currentUser));
+                gamesInProgress.remove(currentUser);
+            }catch (Exception ignored) {
+            }
+            response = "ignore sending result";
         } else if (command.matches(Regexes.SHOW_MENU.regex)) {
             response = getCurrentMenu();
         } else {
