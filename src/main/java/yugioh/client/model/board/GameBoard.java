@@ -85,6 +85,13 @@ public class GameBoard {
         }
     }
 
+    public int getMonsterNumberByCell(Cell cell) {
+        for (int i = 0; i < monsterCardZone.length; i++) {
+            if (monsterCardZone[i] == cell) return i;
+        }
+        return -1;
+    }
+
     public void setBoardRectangles(Pane gamePane, boolean isOpponent) {
         GameBoard.gamePane = gamePane;
         fieldZone.setCellRectangle((Rectangle) gamePane.getChildren().get(36));

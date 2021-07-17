@@ -72,5 +72,13 @@ public final class Toast {
                     fadeOutTimeline.play();
                 }, "toast").start());
         fadeInTimeline.play();
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
+            try {
+                toastStage.close();
+            } catch (Exception ignored) {
+            }
+        }));
+        timeline.play();
     }
 }

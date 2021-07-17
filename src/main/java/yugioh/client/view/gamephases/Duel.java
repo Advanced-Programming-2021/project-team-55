@@ -17,7 +17,6 @@ import yugioh.client.view.menus.GameMenu;
 import yugioh.client.view.menus.Toast;
 import yugioh.client.view.menus.WelcomeMenu;
 
-import java.util.Calendar;
 import java.util.regex.Matcher;
 
 import static yugioh.client.view.ViewInterface.getCommandMatcher;
@@ -284,6 +283,10 @@ abstract public class Duel {
             gameController.currentTurnPlayer.getGameBoard().removeCardFromHand(Cell.getSelectedCell());
         }
 
+        if (command.contains("surrender")){
+            GameMenuController.getGameMenuController().surrender();
+            return;
+        }
         //todo commented by parham :)
 
 //        String result = drawPhase.processCommand(command);

@@ -42,7 +42,7 @@ public class Cell {
 
     public static void setSelectedCellByRectangle(Rectangle rectangle) {
         selectedCell = getSelectedCellByRectangle(rectangle);
-        NetAdapter.sendForwardRequestForGame("select "+Duel.getGameController().currentTurnPlayer.getGameBoard().getCellInfo(selectedCell));
+        NetAdapter.sendForwardRequestForGame("select " + Duel.getGameController().currentTurnPlayer.getGameBoard().getCellInfo(selectedCell));
         //todo handle selecting opponent;
     }
 
@@ -88,8 +88,12 @@ public class Cell {
                 GREEN, 10, 2.0f, 0, 0);
         selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
         selectedCell.getCellRectangle().setEffect(selectEffect);
-        NetAdapter.sendForwardRequestForGame("select "+Duel.getGameController().currentTurnPlayer.getGameBoard().getCellInfo(selectedCell));
+        NetAdapter.sendForwardRequestForGame("select " + Duel.getGameController().currentTurnPlayer.getGameBoard().getCellInfo(selectedCell));
         //todo handle select opponent;
+    }
+
+    public static void justSetSelectedCell(Cell cell) {
+        selectedCell = cell;
     }
 
     public Label getCellInfo() {

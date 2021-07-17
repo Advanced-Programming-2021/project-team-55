@@ -30,9 +30,11 @@ import yugioh.client.model.Player;
 import yugioh.client.model.board.CardStatus;
 import yugioh.client.model.board.Cell;
 import yugioh.client.model.exceptions.GameException;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.menus.PopUpWindow;
 import yugioh.client.view.menus.Toast;
 import yugioh.client.view.menus.WelcomeMenu;
+import yugioh.server.model.cards.Card;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -76,6 +78,8 @@ public class CardActionsMenu implements MainPhasesController {
     private static Rectangle activeRectangle;
     private static int counter = 0;
 
+    private static ImageView sword;
+
     static {
         actionsStage.initOwner(WelcomeMenu.stage);
         actionsStage.initModality(Modality.NONE);
@@ -96,6 +100,10 @@ public class CardActionsMenu implements MainPhasesController {
 
             boardSpellAndTrapActions.add(activateImage);
         }
+    }
+
+    public static Rectangle getActiveRectangle() {
+        return activeRectangle;
     }
 
     public static Cell getToBeSummonedCell() {
@@ -286,37 +294,49 @@ public class CardActionsMenu implements MainPhasesController {
     }
 
     public static void makeSwordEventForSummonedMonsters(Rectangle rectangle) {
-        Player currentPlayer = Duel.getGameController().getCurrentTurnPlayer();
+        gameController = Duel.getGameController();
         EventHandler<MouseEvent> eventHandler = event -> {
-            if (!currentPlayer.equals(Duel.getGameController().getCurrentTurnPlayer())) return;
-            if (Duel.getGameController().getCurrentPhase() != GamePhase.BATTLE) return;
-            if (gameController.getGameMenuController().shouldActivateEffectsNow) return;
-            if (activeRectangle == rectangle && activeSword != null) {
-                removeSword();
-                return;
-            } else if (activeSword != null) {
-                removeSword();
-            }
-            GameMenuController.getGameMenuController().selectCard(rectangle);
-            if (checkAttackConditions(currentPlayer)) return;
-            playButtonSound("sword");
-            rectangle.requestFocus();
-            ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
-            GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
-            sword.setX(rectangle.getLayoutX() + 14);
-            sword.setY(rectangle.getLayoutY() + 10);
-            activeSword = sword;
-            activeRectangle = rectangle;
-            GameMenuController.getGameMenuController().selectCard(rectangle);
-            if (handleDirectAttack(sword, rectangle)) return;
-            handleSwordRotation(rectangle, sword);
-            GameMenuController.getGameMenuController().selectCard(rectangle);
-            Cell[] monsterCardZone = gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone();
-            handleRivalMonsterSelection(rectangle, sword, monsterCardZone);
+            if (handleUserMonsterClicked(rectangle)) return;
             event.consume();
         };
         rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
         addEventHandlerToRectangleEventHandlers(rectangle, eventHandler);
+    }
+
+    public static boolean handleUserMonsterClicked(Rectangle rectangle) {
+        gameController = Duel.getGameController();
+        Cell selectedCell = Cell.getSelectedCellByRectangle(rectangle);
+        int monsterNum = Duel.getGameController().currentTurnPlayer.getGameBoard().getMonsterNumberByCell(selectedCell);
+        if (monsterNum == -1) return true;
+        NetAdapter.sendForwardRequestForGame("handle user monster clicked: " + monsterNum);
+        Player currentPlayer = Duel.getGameController().getCurrentTurnPlayer();
+        if (!currentPlayer.equals(Duel.getGameController().getCurrentTurnPlayer())) return true;
+        if (Duel.getGameController().getCurrentPhase() != GamePhase.BATTLE) return true;
+        if (GameMenuController.getGameMenuController().shouldActivateEffectsNow) return true;
+        if (activeRectangle == rectangle && activeSword != null) {
+            removeSword();
+            return true;
+        } else if (activeSword != null) {
+            removeSword();
+        }
+        GameMenuController.getGameMenuController().selectCardWithoutSending(rectangle);
+        if (checkAttackConditions(currentPlayer)) return true;
+        playButtonSound("sword");
+        rectangle.requestFocus();
+        ImageView sword = new ImageView(new Image("/yugioh/PNG/icon/sword.png"));
+        GameMenuController.getGameMenuController().gameBoardPane.getChildren().add(sword);
+        sword.setX(rectangle.getLayoutX() + 14);
+        sword.setY(rectangle.getLayoutY() + 10);
+        CardActionsMenu.sword = sword;
+        activeSword = sword;
+        activeRectangle = rectangle;
+        GameMenuController.getGameMenuController().selectCardWithoutSending(rectangle);
+        if (handleDirectAttack(sword, rectangle)) return true;
+        handleSwordRotation(rectangle, sword);
+        GameMenuController.getGameMenuController().selectCardWithoutSending(rectangle);
+        Cell[] monsterCardZone = gameController.getCurrentTurnOpponentPlayer().getGameBoard().getMonsterCardZone();
+        handleRivalMonsterSelection(rectangle, sword, monsterCardZone);
+        return false;
     }
 
     private static boolean checkAttackConditions(Player currentPlayer) {
@@ -335,7 +355,7 @@ public class CardActionsMenu implements MainPhasesController {
             }
             return true;
         }
-        if (gameController.didCardAttackThisTurn(selectedCell)) {
+        if (Duel.getGameController().didCardAttackThisTurn(selectedCell)) {
             try {
                 new PopUpWindow(GameResponses.CARD_ALREADY_ATTACKED.response).start(WelcomeMenu.getStage());
             } catch (Exception ignored) {
@@ -364,42 +384,55 @@ public class CardActionsMenu implements MainPhasesController {
 
     private static void handleRivalMonsterSelection(Rectangle rectangle, ImageView sword, Cell[] monsterCardZone) {
         for (int i = 0; i < monsterCardZone.length; i++) {
-            Cell cell = monsterCardZone[i];
             int finalI = i;
             EventHandler<MouseEvent> eventHandler = event3 -> {
                 setLastMousePositionX(event3.getSceneX() - 400);
                 setLastMousePositionY(event3.getSceneY());
-                try {
-                    if (gameController.currentPhase != GamePhase.BATTLE) return;
-                    if (cell == null || cell.isEmpty()) return;
-                    GameMenuController.getGameMenuController().selectCard(rectangle);
-                    gameController.currentTurnPlayer.getGameBoard().setTranslationAnimation(sword, cell.getCellRectangle());
-                    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event4 -> {
-                        String result;
-                        try {
-                            result = Duel.getGameController().getBattlePhaseController().attack(finalI);
-                            System.out.println(result);
-                        } catch (GameException e) {
-                            System.out.println(e.getMessage());
-                            Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(0.2), event10 -> CardActionsMenu.removeSword()));
-                            timeline2.play();
-                        }
-                    }));
-                    timeline.play();
-                    playButtonSound("attack");
-                } catch (Exception e) {
-                    try {
-                        System.out.println(e.getMessage());
-                        new PopUpWindow(e.getMessage()).start(WelcomeMenu.getStage());
-                    } catch (Exception ignored) {
-                    }
-                }
+
+                if (handleTargetSelected(rectangle, sword, monsterCardZone, finalI)) return;
                 event3.consume();
             };
-
-            cell.getCellRectangle().addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
-            toBeRemovedSelectionEventHandlers.put(cell, eventHandler);
+            monsterCardZone[i].getCellRectangle().addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
+            toBeRemovedSelectionEventHandlers.put(monsterCardZone[i], eventHandler);
         }
+    }
+
+    public static boolean handleTargetSelected(Rectangle rectangle, ImageView sword, Cell[] monsterCardZone, int finalI) {
+        NetAdapter.sendForwardRequestForGame("attack " + finalI);
+        try {
+            if (gameController.currentPhase != GamePhase.BATTLE) return true;
+            if (monsterCardZone[finalI] == null || monsterCardZone[finalI].isEmpty()) return true;
+            GameMenuController.getGameMenuController().selectCardWithoutSending(rectangle);
+            attack(sword, monsterCardZone[finalI], finalI);
+        } catch (Exception e) {
+            try {
+                System.out.println(e.getMessage());
+                new PopUpWindow(e.getMessage()).start(WelcomeMenu.getStage());
+            } catch (Exception ignored) {
+            }
+        }
+        return false;
+    }
+
+    public static ImageView getSword() {
+        return sword;
+    }
+
+    public static void attack(ImageView sword, Cell cell, int finalI) {
+        gameController.currentTurnPlayer.getGameBoard().setTranslationAnimation(sword, cell.getCellRectangle());
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event4 -> {
+            String result;
+            try {
+                result = Duel.getGameController().getBattlePhaseController().attack(finalI);
+                System.out.println(result);
+            } catch (GameException e) {
+                System.out.println(e.getMessage());
+                Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(0.2), event10 -> CardActionsMenu.removeSword()));
+                timeline2.play();
+            }
+        }));
+        timeline.play();
+        playButtonSound("attack");
     }
 
     private static void handleSwordRotation(Rectangle rectangle, ImageView sword) {
@@ -422,7 +455,7 @@ public class CardActionsMenu implements MainPhasesController {
             }
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.1), event4 -> {
                 try {
-                    GameMenuController.getGameMenuController().selectCard(rectangle);
+                    GameMenuController.getGameMenuController().selectCardWithoutSending(rectangle);
                     String result = gameController.getBattlePhaseController().directAttack(gameController);
                     gameController.currentTurnPlayer.getGameBoard().setTranslationAnimation(sword, rectangle1);
                     Timeline timeline3 = new Timeline(new KeyFrame(Duration.seconds(2), event -> CardActionsMenu.removeSword()));

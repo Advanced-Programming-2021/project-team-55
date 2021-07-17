@@ -12,6 +12,8 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import yugioh.client.model.User;
+import yugioh.client.view.gamephases.Duel;
 
 import static yugioh.client.view.SoundPlayable.playButtonSound;
 
@@ -39,6 +41,10 @@ public class PopUpWindow extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        try {
+            if (!Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) return;
+        } catch (Exception ignored) {
+        }
         popUp = new Stage();
         popUp.initOwner(stage);
         popUp.initStyle(StageStyle.UTILITY);

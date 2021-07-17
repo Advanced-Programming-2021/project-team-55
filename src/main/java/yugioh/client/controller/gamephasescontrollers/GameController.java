@@ -121,8 +121,6 @@ public class GameController {
     }
 
     public String showGraveyard() {
-        NetAdapter.sendForwardRequestForGame("show graveyard");//todo complete function
-
         String response = "";
         GameBoard playerGameBoard = currentTurnPlayer.getGameBoard();
         if (playerGameBoard.getGraveyard().size() == 0) {
@@ -217,7 +215,7 @@ public class GameController {
 //        endGameRound();
 //            return;
 //        }
-        switch (currentPhase) {
+        switch (currentPhase) {//todo debug phases not sync
             case DRAW: {
                 currentPhase = GamePhase.STANDBY;
                 break;
@@ -337,12 +335,16 @@ public class GameController {
                 }
             }
         } else {
-            GameMenuController.getGameMenuController().gamePane.setDisable(false);
-            try {
-                logoStage.close();
-                logoStage = null;
-            } catch (Exception ignored) {
-            }
+            closeWaitingStage();
+        }
+    }
+
+    private void closeWaitingStage() {
+        GameMenuController.getGameMenuController().gamePane.setDisable(false);
+        try {
+            logoStage.close();
+            logoStage = null;
+        } catch (Exception ignored) {
         }
     }
 
@@ -459,6 +461,7 @@ public class GameController {
     }
 
     public void endGameRound() {
+        closeWaitingStage();
         Player winner = game.getWinners().get(game.getWinners().size() - 1);
         Player loser = game.getLosers().get(game.getLosers().size() - 1);
         String response = calculateScoresAndMoney(winner, loser);
@@ -466,9 +469,10 @@ public class GameController {
         currentTurnOpponentPlayer.resetGameBoard();
         undoMakeAICheatCommand();
         if (game.getRounds() == currentRound) {
-            ViewInterface.showResult(response);
+           // ViewInterface.showResult(response);
             isGameEnded = true;
             try {
+                NetAdapter.justSendRequest("stop my thread");
                 new EndOfGameMenu().execute(response, true);
                 new DuelMenu().execute();
             } catch (Exception e) {
@@ -477,7 +481,7 @@ public class GameController {
         } else {
             gameControllerInitialization();
             currentRound++;
-            ViewInterface.showResult(response);
+           // ViewInterface.showResult(response);
             //changeCards(currentTurnPlayer);
             //changeCards(currentTurnOpponentPlayer);
             try {

@@ -15,6 +15,7 @@ import yugioh.client.controller.DataBaseController;
 import yugioh.client.model.ScoreBoardItem;
 import yugioh.client.model.TableItem;
 import yugioh.client.model.User;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.SoundPlayable;
 import yugioh.client.view.ViewInterface;
 
@@ -28,6 +29,9 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
     public TableView<TableRow> scoreBoard;
     public MediaView scoreBoardMenuBackground;
     public AnchorPane scoreBoardPane;
+
+    private static Thread autoUpdateTableThread;
+    private static boolean doStopUpdating = false;
 
     public ScoreBoardMenuController() {
     }
@@ -44,6 +48,9 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
 //    }
 
     public void backClicked() throws Exception {
+        doStopUpdating = true;
+        autoUpdateTableThread.stop();
+        autoUpdateTableThread = null;
         ViewInterface.showResult("menu exit");
         SoundPlayable.playButtonSound("backButton");
         mainMenu.execute();
@@ -51,16 +58,34 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        doStopUpdating = false;
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\main.mp4").toURI().toString()));
         mediaPlayer.play();
         mediaPlayer.setCycleCount(-1);
         scoreBoardMenuBackground.setMediaPlayer(mediaPlayer);
         initializeScoreBoard();
 
-        String scoreboardItemsSting = ViewInterface.showResult("scoreboard show");
+        autoUpdateTableThread = new Thread(() -> {
+            while (true){
+                updateScoreBoardFromServer();
+                if (doStopUpdating) return;
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException ignored) {
+                }
+            }
+        });
+        autoUpdateTableThread.start();
+    }
+
+    private void updateScoreBoardFromServer() {
+        String scoreboardItemsSting = NetAdapter.sendRequest("scoreboard show");
         ScoreBoardItem[] scoreBoardItems = DataBaseController.getObjectByString(scoreboardItemsSting);
         ArrayList<TableItem> tableItems = makeTableItemsFromUsers(scoreBoardItems);
         sortUsers(tableItems);
+
+        scoreBoard.getItems().clear();
+        scoreBoard.getStyleClass().clear();
 
         int toBeSelected = 0;
         int counter = 0;
@@ -85,12 +110,9 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
         try {
             dataOutputStream.writeUTF("get online users");
             onlineUsers = dataInputStream.readUTF();
-            System.out.println(onlineUsers);
         }catch (Exception e){
             e.printStackTrace();
         }
-//        Circle onlineCircle=new Circle(10, Color.GREEN);
-//        Circle offlineCircle=new Circle(10, Color.RED);
         ArrayList<TableItem> tableItems = new ArrayList<>();
         for (int i = 0; i < scoreBoardItems.length; i++) {
             ScoreBoardItem scoreBoardItem = scoreBoardItems[i];
@@ -127,6 +149,7 @@ public class ScoreBoardMenuController extends MenuController implements Initiali
 
     private void sortUsers(ArrayList<TableItem> tableItems) {
         tableItems.sort(new SortByScore());
+        tableItems.sort(new SortByName());
         for (int i = 0; i < tableItems.size(); i++) {
             TableItem tableItem = tableItems.get(i);
             tableItem.setRank(i + 1);
@@ -143,6 +166,15 @@ class SortByScore implements Comparator<TableItem> {
     @Override
     public int compare(TableItem user1, TableItem user2) {
         return (user2.getScore() - user1.getScore());
+    }
+
+}
+
+class SortByName implements Comparator<TableItem> {
+
+    @Override
+    public int compare(TableItem user1, TableItem user2) {
+        return (user1.getUsername().compareTo(user2.getUsername()));
     }
 
 }

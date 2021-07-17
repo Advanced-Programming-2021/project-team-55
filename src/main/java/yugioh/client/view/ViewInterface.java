@@ -1,8 +1,8 @@
 package yugioh.client.view;
 
-import yugioh.client.controller.AIPlayerController;
+import yugioh.client.controller.menucontroller.DetermineStarterMenuController;
+import yugioh.client.model.User;
 import yugioh.client.view.gamephases.Duel;
-import yugioh.client.view.gamephases.GameResponses;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,22 +12,41 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ViewInterface {
+
     private static final Scanner input = new Scanner(System.in);
 
     public static String getInput() {
-        String command;
-        try {
-            if (Duel.getGameController().getCurrentTurnPlayer().isAI() && !AIPlayerController.isIsGameEnded())
-                command = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
-                        AIPlayerController.orderKind.RANDOM)).getSpecialCommand();
-            else command = input.nextLine();
-        } catch (Exception e) {
+        String command = "";
+        if (Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) {
+            NetAdapter.sendForwardRequestForGame("stop receiving");
             command = input.nextLine();
+            System.out.println("command received");
+            NetAdapter.sendForwardRequestForGame(command);
+            System.out.println("command sent");
+        } else {
+            try {
+                command = NetAdapter.dataInputStream.readUTF();
+                System.out.println("command received: " + command);
+                Matcher matcher = getCommandMatcher(command, "forward: (.+)");
+                command = matcher.group(1);
+                DetermineStarterMenuController.getListeningCommandThread().start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return sortFields(command);
+//        try {
+//            if (Duel.getGameController().getCurrentTurnPlayer().isAI() && !AIPlayerController.isIsGameEnded())
+//                command = (new AIPlayerController(AIPlayerController.orderKind.RANDOM,
+//                        AIPlayerController.orderKind.RANDOM)).getSpecialCommand();
+//            else command = input.nextLine();
+//        } catch (Exception e) {
+//            command = input.nextLine();
+//        }
+        return command;
     }
 
-    public static String showResult(String result) {
+    public static void showResult(String result) {
+        System.out.println(result);
 //        if (!result.equals("")) {
 //            AIPlayerController.setLastResponse(result);
 //            try {
@@ -53,7 +72,9 @@ public class ViewInterface {
 //                }
 //            }
 //        }
-        return NetAdapter.sendRequest(result);
+
+
+//        return NetAdapter.sendRequest(result);
     }
 
     public static Matcher getCommandMatcher(String input, String regex) {

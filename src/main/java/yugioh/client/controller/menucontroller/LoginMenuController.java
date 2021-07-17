@@ -15,6 +15,7 @@ import javafx.scene.media.MediaView;
 import yugioh.client.controller.DataBaseController;
 import yugioh.client.controller.Utilities;
 import yugioh.client.model.User;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.Responses;
 import yugioh.client.view.SoundPlayable;
 import yugioh.client.view.ViewInterface;
@@ -49,7 +50,7 @@ public class LoginMenuController extends MenuController implements Initializable
     }
 
     public String loginUser(String username, String password) throws Exception {
-        String result = ViewInterface.showResult("user login --password " + password + " --username " + username);
+        String result = NetAdapter.sendRequest("user login --password " + password + " --username " + username);
         Utilities.preprocessResult(result);
         return result;
     }

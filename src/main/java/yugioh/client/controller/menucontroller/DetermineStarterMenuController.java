@@ -34,6 +34,8 @@ public class DetermineStarterMenuController implements Initializable {
     public JFXButton yesButton;
     public MediaView coinToss;
 
+    private static Thread listeningCommandThread;
+
     public DetermineStarterMenuController() {
         DetermineStarterMenuController.gameController = Duel.getGameController();
     }
@@ -91,7 +93,7 @@ public class DetermineStarterMenuController implements Initializable {
     }
 
     private void startSyncingWithRival() {
-        Thread listeningCommandThread = new Thread(() -> {
+        listeningCommandThread = new Thread(() -> {
             try {
                 while (true) {
                     String command = NetAdapter.dataInputStream.readUTF();
@@ -99,18 +101,14 @@ public class DetermineStarterMenuController implements Initializable {
                         Matcher matcher = ViewInterface.getCommandMatcher(command, "forward: (.+)");
                         command = matcher.group(1);
                         switch (command) {
+                            case "stop receiving":
+                                return;
                             case "yes selected":
                                 Platform.runLater(this::handleYesButton);
                                 break;
                             case "no selected":
                                 Platform.runLater(this::handleNoButton);
                                 break;
-//                            case "head selected":
-//                                Platform.runLater(this::handleHead);
-//                                break;
-//                            case "tale selected":
-//                                Platform.runLater(this::handleTale);
-//                                break;
                             case "i decide":
                                 Platform.runLater(this::handleRivalSelection);
                                 break;
@@ -145,10 +143,10 @@ public class DetermineStarterMenuController implements Initializable {
 
     private void handleRivalSelection() {
         yesNoQuestion.setText(RivalSelectionMenu.getRival().getNickname() + " do you want to be the first player?");
-        noButton.setOpacity(0.5);
-        yesButton.setOpacity(0.5);
         yesButton.setDisable(true);
         noButton.setDisable(true);
+        noButton.setOpacity(0.5);
+        yesButton.setOpacity(0.5);
     }
 
     public void back() throws Exception {
@@ -221,4 +219,7 @@ public class DetermineStarterMenuController implements Initializable {
         playButtonSound("forHonor");
     }
 
+    public static Thread getListeningCommandThread() {
+        return listeningCommandThread;
+    }
 }

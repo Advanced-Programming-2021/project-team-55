@@ -2,17 +2,14 @@ package yugioh.server.controller.menucontroller;
 
 
 import yugioh.server.controller.DataBaseController;
+import yugioh.server.model.User;
 import yugioh.server.model.UserHolder;
 import yugioh.server.model.exceptions.MenuException;
-import yugioh.server.model.User;
-import yugioh.server.view.LoggerMessage;
 import yugioh.server.view.Menus.Menu;
 import yugioh.server.view.Menus.MenuType;
 import yugioh.server.view.Responses;
-import yugioh.server.view.ViewInterface;
 
 import java.util.Collections;
-import java.util.UUID;
 
 public class LoginMenuController extends MenuController {
 

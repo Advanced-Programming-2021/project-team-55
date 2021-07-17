@@ -14,6 +14,7 @@ import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import yugioh.client.model.User;
 import yugioh.client.model.exceptions.MenuException;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.Responses;
 import yugioh.client.view.SoundPlayable;
 import yugioh.client.view.ViewInterface;
@@ -58,7 +59,7 @@ public class ProfileMenuController extends MenuController implements Initializab
     }
 
     public void changePassword(String currentPassword, String newPassword) throws MenuException {
-        String response = ViewInterface.showResult("profile change --current "+currentPassword+" --new " +newPassword +" --password");
+        String response = NetAdapter.sendRequest("profile change --current "+currentPassword+" --new " +newPassword +" --password");
         System.out.println(response);
         if (!response.equals("password changed successfully!")){
             throw new MenuException(response);

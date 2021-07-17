@@ -311,7 +311,10 @@ public class DeckMenuController extends MenuController implements Initializable 
                 decksBox.setText(deckItem.getText());
                 deckInfo.setText(selectedDeck.toString());
                 setDeckView(selectedDeck);
-                Graveyard.getGraveyardStage().close();
+                try {
+                    Graveyard.getGraveyardStage().close();
+                } catch (Exception ignored) {
+                }
             });
             Rectangle rectangle = new Rectangle();
             rectangle.setWidth(10);

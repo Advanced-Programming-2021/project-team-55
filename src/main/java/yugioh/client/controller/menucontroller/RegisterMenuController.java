@@ -12,6 +12,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import yugioh.client.controller.Utilities;
 import yugioh.client.model.User;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.Responses;
 import yugioh.client.view.SoundPlayable;
 import yugioh.client.view.ViewInterface;
@@ -57,7 +58,7 @@ public class RegisterMenuController extends MenuController implements Initializa
     }
 
     public void createUser(String username, String password, String nickname) throws Exception {
-        String result = ViewInterface.showResult("user create --nickname " + nickname + " --password " + password + " --username " + username);
+        String result = NetAdapter.sendRequest("user create --nickname " + nickname + " --password " + password + " --username " + username);
         Utilities.preprocessResult(result);
 //        if (User.usernameExists(username)) {
 //            throw new MenuException("Error: user with username " + username + " exists");

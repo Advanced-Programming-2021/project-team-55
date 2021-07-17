@@ -243,7 +243,11 @@ public class GameMenuController extends MenuController implements Initializable 
         NetAdapter.sendForwardRequestForGame("surrender");//todo complete function
 
         gameController.surrender();
-        pauseStage.close();
+        try {
+            pauseStage.close();
+        }catch (Exception ignored){
+
+        }
         gameController.endGameRound();
     }
 
@@ -459,6 +463,16 @@ public class GameMenuController extends MenuController implements Initializable 
                 GREEN, 10, 2.0f, 0, 0);
         selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
         Cell.setSelectedCellByRectangle(rectangle);
+        rectangle.setEffect(selectEffect);
+    }
+
+    public void selectCardWithoutSending(Rectangle rectangle) {
+        DropShadow selectEffect = new DropShadow(BlurType.values()[1],
+                GREEN, 10, 2.0f, 0, 0);
+        selectEffect.setBlurType(BlurType.ONE_PASS_BOX);
+        Cell.setSelectedCellByRectangle(rectangle);
+        Cell cell = Cell.getSelectedCellByRectangle(rectangle);
+        Cell.justSetSelectedCell(cell);
         rectangle.setEffect(selectEffect);
     }
 

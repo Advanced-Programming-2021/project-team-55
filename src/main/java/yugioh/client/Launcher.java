@@ -3,6 +3,8 @@ package yugioh.client;
 import yugioh.client.view.Main;
 import yugioh.client.view.NetAdapter;
 
+import java.util.Scanner;
+
 public class Launcher {
 
     public static void main(String[] args) {
