@@ -125,7 +125,8 @@ abstract public class Menu {
             result= users.toString().trim();
         } else if(command.equals("stop my thread")){
             result = "forward: stop receiving";
-        } else {
+        }
+        else{
             if (result.equals("Error: invalid command"))
                 result = mainMenu.processCommand(command, currentUser);
             if (result.equals("Error: invalid command"))
