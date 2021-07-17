@@ -123,8 +123,9 @@ abstract public class Menu {
                 users.append("\"").append(userHolder.getUser().getUsername()).append("\" ");
             }
             result= users.toString().trim();
-        }
-        else {
+        } else if(command.equals("stop my thread")){
+            result = "forward: stop receiving";
+        } else {
             if (result.equals("Error: invalid command"))
                 result = mainMenu.processCommand(command, currentUser);
             if (result.equals("Error: invalid command"))
