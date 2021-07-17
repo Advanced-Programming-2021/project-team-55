@@ -249,7 +249,8 @@ public class GameBoard {
 
         for (int i = 0; i < 5; i++) {
             if (monsterCardZone[i].isEmpty()) {
-                NetAdapter.sendForwardRequestForGame("add card to monster zone "+card.getName()+" "+cardStatus.name());
+                //todo commented the deep way
+                //NetAdapter.sendForwardRequestForGame("add card to monster zone "+card.getName()+" "+cardStatus.name());
                 monsterCardZone[i].addCardToCell(card);
                 monsterCardZone[i].setCardStatus(cardStatus);
                 ImagePattern imagePattern ;
@@ -406,7 +407,8 @@ public class GameBoard {
 
         for (int i = 0; i < 5; i++) {
             if (spellAndTrapCardZone[i].isEmpty()) {
-                NetAdapter.sendForwardRequestForGame("add card to spell zone "+card.getName()+" "+cardStatus.name()+" "+hasToBeRemoved);
+                //todo commented the deep way
+                //NetAdapter.sendForwardRequestForGame("add card to spell zone "+card.getName()+" "+cardStatus.name()+" "+hasToBeRemoved);
                 Cell cell = spellAndTrapCardZone[i];
                 cell.addCardToCell(card);
                 cell.setCardStatus(cardStatus);
@@ -425,10 +427,6 @@ public class GameBoard {
                     imagePattern=card.getCardImagePattern();
                 }
                 setTranslationAnimation(imagePattern, spellAndTrapCardZone[i], card);
-                if (cardStatus == CardStatus.HIDDEN) {
-//                    if(User.loggedInUser.equals(gameController.currentTurnPlayer.getUser()))
-
-                }
                 for (double j = 0; j <= 1; j += 0.05) {
                     rectangle.opacityProperty().set(j);
                 }
@@ -519,6 +517,11 @@ public class GameBoard {
         trans.setToY(rectangle.getY());
         trans.setFromY(constant * CardActionsMenu.getLastMousePositionY());
         if (card.isMonster())
+            if(cell.getCardStatus()==CardStatus.DEFENSIVE_HIDDEN) {
+                if (User.loggedInUser.equals(Duel.getGameController().currentTurnPlayer.getUser())) {
+                    cell.getCellInfo().setText(((Monster) card).getAtk() + "/" + ((Monster) card).getDef());
+                }
+            }else
             cell.getCellInfo().setText(((Monster) card).getAtk() + "/" + ((Monster) card).getDef());
         rectangle.setFill(imagePattern);
         trans.play();
@@ -612,8 +615,8 @@ public class GameBoard {
 
     public void addCardToHandDeck(Card cardToAdd, boolean isForce) {
         playButtonSound("card");
-        //todo handle adding card in the other side
-        NetAdapter.sendForwardRequestForGame("add card to hand "+cardToAdd+" "+isForce);
+        //todo commented the deep way
+       // NetAdapter.sendForwardRequestForGame("add card to hand "+cardToAdd+" "+isForce);
         if (isForce) {
             Cell cell = new Cell(cardToAdd);
             Rectangle rectangle = new Rectangle();
@@ -852,7 +855,8 @@ public class GameBoard {
     }
 
     public void removeCardFromHand(Cell selectedCell) {
-        NetAdapter.sendForwardRequestForGame("remove card from hand");
+        //todo commented the deep way
+       // NetAdapter.sendForwardRequestForGame("remove card from hand");
         handCards.remove(selectedCell);
         handDeck.getChildren().remove(selectedCell.getCellRectangle());
     }

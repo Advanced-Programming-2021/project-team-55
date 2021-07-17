@@ -39,7 +39,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class GameController {
-
+    public static int counter=0;
     public Player currentTurnPlayer;
     public Player currentTurnOpponentPlayer;
     public GamePhase currentPhase;
@@ -204,17 +204,20 @@ public class GameController {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
         Cell.deselectCell();
-    }
+    }//
 
     public void changePhase() {
-
-
-//        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3.5), event -> {
         CardActionsMenu.close();
-        //   if (isGameEnded()) {
+
+        System.out.println("called "+ ++counter +" times in "+currentPhase);
+
+//        if(counter==15)
+//        new Exception().printStackTrace();
+//        if (isGameEnded()) {
 //        endGameRound();
 //            return;
 //        }
+
         switch (currentPhase) {//todo debug phases not sync
             case DRAW: {
                 currentPhase = GamePhase.STANDBY;
@@ -247,9 +250,6 @@ public class GameController {
             }
         }
         Duel.showPhase();
-//        }));
-//        timeline.play();
-
         Duel.executePhase();
     }
 
@@ -300,9 +300,8 @@ public class GameController {
             mainPhase1Controller.showGameBoard(currentTurnPlayer,
                     currentTurnOpponentPlayer);
             //});
-
-            disableActionsAndShowWaitingStage();
         }
+        disableActionsAndShowWaitingStage();
     }
 
     public void disableActionsAndShowWaitingStage() {

@@ -42,7 +42,8 @@ public class MainPhase2 extends Duel {
         if (gameController.checkCommandIsNotInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
         } else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
-            gameController.changePhase();
+            //todo change phase bug
+            //gameController.changePhase();
         } else if (command.matches(GameRegexes.DESELECT.regex)) {
             try {
                 gameController.deselect();

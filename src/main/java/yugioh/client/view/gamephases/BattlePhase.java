@@ -15,7 +15,7 @@ public class BattlePhase extends Duel {
     protected void execute() {
         battlePhaseController = gameController.getBattlePhaseController();
         if (gameController.turnCount == 1) {
-          // gameController.changePhase();
+           // gameController.changePhase();
        }
 //            String response;
 //            if (Duel.getGameController().getCurrentTurnPlayer().isAI()) {
@@ -44,7 +44,8 @@ public class BattlePhase extends Duel {
         if (gameController.checkCommandIsNotInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
         } else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
-            gameController.changePhase();
+            //todo change phase bug
+          //  gameController.changePhase();
         } else if (command.matches(GameRegexes.DESELECT.regex)) {
             try {
                 gameController.deselect();

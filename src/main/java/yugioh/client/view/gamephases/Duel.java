@@ -310,11 +310,12 @@ abstract public class Duel {
                 result = standByPhase.processCommand(command);
             } else if (gameController.currentPhase == GamePhase.MAIN1) {
                 result = mainPhase1.processCommand(command);
-            } else if (gameController.currentPhase == GamePhase.MAIN2) {
-                result = mainPhase2.processCommand(command);
-            } else if (gameController.currentPhase == GamePhase.BATTLE) {
+            }
+            else if (gameController.currentPhase == GamePhase.BATTLE) {
                 result = battlePhase.processCommand(command);
-            } else if (gameController.currentPhase == GamePhase.END) {
+            }else if (gameController.currentPhase == GamePhase.MAIN2) {
+                result = mainPhase2.processCommand(command);
+            }  else if (gameController.currentPhase == GamePhase.END) {
                 result = endPhase.processCommand(command);
             }
             System.out.println("command " + command + " handled on other side with result: " + result);
