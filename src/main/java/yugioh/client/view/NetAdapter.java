@@ -6,6 +6,7 @@ import yugioh.client.view.gamephases.Duel;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.*;
 
 public class NetAdapter {

@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -40,7 +41,6 @@ import yugioh.client.model.cards.Card;
 import yugioh.client.model.cards.Monster;
 import yugioh.client.view.NetAdapter;
 import yugioh.client.view.SoundPlayable;
-import yugioh.client.view.ViewInterface;
 import yugioh.client.view.gamephases.CardActionsMenu;
 import yugioh.client.view.gamephases.Duel;
 import yugioh.client.view.gamephases.GamePhase;
@@ -48,7 +48,10 @@ import yugioh.client.view.gamephases.Graveyard;
 import yugioh.client.view.menus.Toast;
 import yugioh.client.view.menus.WelcomeMenu;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -203,6 +206,20 @@ public class GameMenuController extends MenuController implements Initializable 
                 }
                 Platform.runLater(() -> {
                     WritableImage image = gamePane.snapshot(new SnapshotParameters(), null);
+                    try {
+//                        int w = (int)image.getWidth();
+//                        int h = (int)image.getHeight();
+//                        byte[] buf = new byte[w * h * 4];
+//                        image.getPixelReader().getPixels(0, 0, w, h, PixelFormat.getByteBgraInstance(), buf, 0, w * 4);
+//                        NetAdapter.tvDataOutputStream.write(buf);
+//                        NetAdapter.tvDataOutputStream.flush();
+                        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+                        ImageIO.write(bImage, "jpg", NetAdapter.tvDataOutputStream);
+                        NetAdapter.tvDataOutputStream.flush();
+                        System.out.println("image sent");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 //                    opponentImage.setImage(image);
                 });
             }
@@ -261,7 +278,7 @@ public class GameMenuController extends MenuController implements Initializable 
         gameController.surrender();
         try {
             pauseStage.close();
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
 
         }
         gameController.endGameRound();
@@ -284,8 +301,9 @@ public class GameMenuController extends MenuController implements Initializable 
 
         try {
             if (gameController.currentTurnPlayer.getUser().isImageIsChanged())
-            currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageFile().toURI().toString()));
-        else currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageString()));
+                currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageFile().toURI().toString()));
+            else
+                currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageString()));
         } catch (Exception ignored) {
         }
         currentImage.setPreserveRatio(true);
