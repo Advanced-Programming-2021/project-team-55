@@ -1,5 +1,7 @@
 package yugioh.server.model.cards.trapandspells;
 
+import yugioh.client.view.menus.PopUpWindow;
+import yugioh.client.view.menus.WelcomeMenu;
 import yugioh.server.controller.gamephasescontrollers.GameController;
 import yugioh.server.model.board.GameBoard;
 import yugioh.server.model.cards.SpellAndTrap;
@@ -19,6 +21,10 @@ public class PotofGreed extends SpellAndTrap {
     public static void setActivated(GameController gameController) {
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         if (playerGameBoard.getDeckZone().size() < 2 || playerGameBoard.getHandCards().size() > 4) {
+            try {
+                new PopUpWindow(GameResponses.PREPARATION_NOT_DONE.response).start(WelcomeMenu.stage);
+            } catch (Exception e) {
+            }
             ViewInterface.showResult(GameResponses.PREPARATION_NOT_DONE.response);
             return;
         }

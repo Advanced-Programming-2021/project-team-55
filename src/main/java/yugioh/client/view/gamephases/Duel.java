@@ -248,40 +248,40 @@ abstract public class Duel {
             GameMenuController.getGameMenuController().nextPhase();
             return;
         }
-        if(command.startsWith("remove card from cell")){
-            if(command.contains("true"))
-            Cell.getSelectedCell().removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
-            else Cell.getSelectedCell().removeCardFromCell(gameController.currentTurnOpponentPlayer.getGameBoard());
-        }
-        else if(command.startsWith("add card to monster zone ")){
-            Matcher matcher=getCommandMatcher(command,"add card to monster zone (.*) (.*)");
-            Card card= Card.getNewCardObjectByName(matcher.group(1));
-            String cardStatus=matcher.group(2);
-            try {
-                if (cardStatus.equals("DEFENSIVE_HIDDEN"))
-                    gameController.currentTurnPlayer.getGameBoard().addCardToMonsterCardZone(card, CardStatus.DEFENSIVE_HIDDEN, gameController);
-                else
-                    gameController.currentTurnPlayer.getGameBoard().addCardToMonsterCardZone(card, CardStatus.OFFENSIVE_OCCUPIED, gameController);
-            }catch (Exception e){}
-
-        }
-        else if(command.startsWith("add card to spell zone ")){
-            Matcher matcher=getCommandMatcher(command,"^add card to spell zone (.*) (.*) (.*)$");
-            Card card=Card.getNewCardObjectByName(matcher.group(1));
-            CardStatus cardStatus;
-            if(matcher.group(2).equals("HIDDEN")){
-                cardStatus=CardStatus.HIDDEN;
-            }
-            else cardStatus=CardStatus.OCCUPIED;
-            boolean hasToBeRemoved=matcher.group(3).equals("true");
-            try {
-                gameController.currentTurnPlayer.getGameBoard().addCardToSpellAndTrapCardZone(card,cardStatus,gameController,hasToBeRemoved);
-            } catch (GameException e) {
-            }
-        }
-        else if(command.startsWith("remove card from hand")){
-            gameController.currentTurnPlayer.getGameBoard().removeCardFromHand(Cell.getSelectedCell());
-        }
+//        if(command.startsWith("remove card from cell")){
+//            if(command.contains("true"))
+//            Cell.getSelectedCell().removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
+//            else Cell.getSelectedCell().removeCardFromCell(gameController.currentTurnOpponentPlayer.getGameBoard());
+//        }
+//        else if(command.startsWith("add card to monster zone ")){
+//            Matcher matcher=getCommandMatcher(command,"add card to monster zone (.*) (.*)");
+//            Card card= Card.getNewCardObjectByName(matcher.group(1));
+//            String cardStatus=matcher.group(2);
+//            try {
+//                if (cardStatus.equals("DEFENSIVE_HIDDEN"))
+//                    gameController.currentTurnPlayer.getGameBoard().addCardToMonsterCardZone(card, CardStatus.DEFENSIVE_HIDDEN, gameController);
+//                else
+//                    gameController.currentTurnPlayer.getGameBoard().addCardToMonsterCardZone(card, CardStatus.OFFENSIVE_OCCUPIED, gameController);
+//            }catch (Exception e){}
+//
+//        }
+//        else if(command.startsWith("add card to spell zone ")){
+//            Matcher matcher=getCommandMatcher(command,"^add card to spell zone (.*) (.*) (.*)$");
+//            Card card=Card.getNewCardObjectByName(matcher.group(1));
+//            CardStatus cardStatus;
+//            if(matcher.group(2).equals("HIDDEN")){
+//                cardStatus=CardStatus.HIDDEN;
+//            }
+//            else cardStatus=CardStatus.OCCUPIED;
+//            boolean hasToBeRemoved=matcher.group(3).equals("true");
+//            try {
+//                gameController.currentTurnPlayer.getGameBoard().addCardToSpellAndTrapCardZone(card,cardStatus,gameController,hasToBeRemoved);
+//            } catch (GameException e) {
+//            }
+//        }
+//        else if(command.startsWith("remove card from hand")){
+//            gameController.currentTurnPlayer.getGameBoard().removeCardFromHand(Cell.getSelectedCell());
+//        }
 
         if (command.contains("surrender")){
             GameMenuController.getGameMenuController().surrender();

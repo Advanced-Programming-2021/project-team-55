@@ -246,6 +246,7 @@ public class GameController {
             case END: {
                 changeTurn(false, false);
                 currentPhase = GamePhase.DRAW;
+                break;
 //                Duel.showPhase();
 //                Duel.executePhase();
 //                return;
@@ -269,6 +270,7 @@ public class GameController {
                     currentTurnPlayer = currentTurnOpponentPlayer;
                     currentTurnOpponentPlayer = player;
                     gameMenuController.updateGameStatusUIs();
+                    disableActionsAndShowWaitingStage();
                     CardActionsMenu.close();
                     return;
                 }
@@ -283,7 +285,7 @@ public class GameController {
                 changedPositionCells = new ArrayList<>();
                 attackerCellsThisTurn = new ArrayList<>();
                 turnCount++;
-
+                disableActionsAndShowWaitingStage();
                 mainPhase1Controller.showGameBoard(currentTurnPlayer,
                         currentTurnOpponentPlayer);
             });
@@ -298,12 +300,12 @@ public class GameController {
             changedPositionCells = new ArrayList<>();
             attackerCellsThisTurn = new ArrayList<>();
             turnCount++;
-
+            disableActionsAndShowWaitingStage();
             mainPhase1Controller.showGameBoard(currentTurnPlayer,
                     currentTurnOpponentPlayer);
             //});
         }
-        disableActionsAndShowWaitingStage();
+
     }
 
     public void disableActionsAndShowWaitingStage() {
@@ -336,6 +338,7 @@ public class GameController {
                 }
             }
         } else {
+            GameMenuController.getGameMenuController().gamePane.setDisable(false);
             closeWaitingStage();
         }
     }
@@ -357,6 +360,7 @@ public class GameController {
         URL url = getClass().getResource("/yugioh/fxml/ActivateEffectMenu.fxml");
         try {
             Pane pane = FXMLLoader.load(url);
+            if(!User.loggedInUser.equals(currentTurnPlayer.getUser()))pane.setDisable(true);
             Scene scene = WelcomeMenu.createScene(pane);
             activateStage.setScene(scene);
             Button yesButton = (Button) ((HBox) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).getChildren().get(0);

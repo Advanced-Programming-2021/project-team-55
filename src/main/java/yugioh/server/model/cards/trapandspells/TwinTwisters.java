@@ -1,5 +1,7 @@
 package yugioh.server.model.cards.trapandspells;
 
+import yugioh.client.view.menus.PopUpWindow;
+import yugioh.client.view.menus.WelcomeMenu;
 import yugioh.server.controller.gamephasescontrollers.GameController;
 import yugioh.server.model.board.Cell;
 import yugioh.server.model.cards.SpellAndTrap;
@@ -20,6 +22,10 @@ public class TwinTwisters extends SpellAndTrap {
 
     public static void setActivated(GameController gameController) {
         if (!canActivate(gameController)) {
+            try {
+                new PopUpWindow(GameResponses.PREPARATION_NOT_DONE.response).start(WelcomeMenu.stage);
+            } catch (Exception e) {
+            }
             ViewInterface.showResult(GameResponses.PREPARATION_NOT_DONE.response);
             return;
         }
