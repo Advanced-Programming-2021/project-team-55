@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" styleClass="TVBackground" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.client.controller.menucontroller.TVRoomController">
+   <children>
+      <ImageView fitHeight="588.0" fitWidth="827.0" layoutX="127.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../PNG/icon/TV.png" />
+      </ImageView>
+      <ImageView fx:id="tvScreenImage" fitHeight="386.0" fitWidth="680.0" layoutX="198.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true" />
+       <JFXButton buttonType="RAISED" layoutX="12.0" layoutY="622.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back" textFill="#ccdefc">
+           <styleClass>
+               <String fx:value="buttonText" />
+               <String fx:value="buttonShape" />
+               <String fx:value="buttonHover" />
+           </styleClass>
+       </JFXButton>
+   </children>
+    <stylesheets>
+        <URL value="@../CSS/Menu.css" />
+    </stylesheets>
+</AnchorPane>

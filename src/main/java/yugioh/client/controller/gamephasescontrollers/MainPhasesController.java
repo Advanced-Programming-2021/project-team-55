@@ -245,8 +245,7 @@ public interface MainPhasesController {
     }
 
     default void setCard(GameController gameController) throws GameException {
-        //todo here
-       // NetAdapter.sendForwardRequestForGame("set");
+        NetAdapter.sendForwardRequestForGame("set");
         Cell selectedCell = Cell.getSelectedCell();
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         if (selectedCell == null) {

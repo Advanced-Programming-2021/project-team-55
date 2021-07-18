@@ -21,6 +21,7 @@ abstract public class MenuController implements SoundPlayable {
     protected SelectDeckNamePage selectDeckNamePage = new SelectDeckNamePage();
     protected CardGeneratorMenu cardGeneratorMenu = new CardGeneratorMenu();
     protected ChatRoom chatRoom=new ChatRoom();
+    protected TVRoom tvRoom=new TVRoom();
     protected DataOutputStream dataOutputStream= NetAdapter.dataOutputStream;
     protected DataInputStream dataInputStream=NetAdapter.dataInputStream;
     protected static DataOutputStream dataOutputStreamForSaving=NetAdapter.dataOutputStreamForSaving;

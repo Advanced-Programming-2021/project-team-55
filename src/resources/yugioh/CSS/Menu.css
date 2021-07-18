@@ -79,3 +79,7 @@ buttonSize {
     -fx-font-family: "Rage Italic";
     -fx-font-size: 10;
 }
+
+.TVBackground{
+-fx-background-color: #04091a;
+}

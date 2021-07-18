@@ -83,4 +83,9 @@ public class MainMenuController extends MenuController {
         SoundPlayable.playButtonSound("enterButton");
         chatRoom.execute();
     }
+
+    public void enterTVRoomClicked(MouseEvent mouseEvent) throws Exception{
+        SoundPlayable.playButtonSound("enterButton");
+        tvRoom.execute();
+    }
 }
