@@ -47,5 +47,8 @@ public class MainMenu extends WelcomeMenu {
         Scene scene = WelcomeMenu.createScene(parent);
         stage.setScene(scene);
         stage.show();
+
+//        CaptureWindow window = new CaptureWindow(Screen.getPrimary().getBounds().getWidth(),Screen.getPrimary().getBounds().getHeight(), stage);
+//        window.show();
     }
 }

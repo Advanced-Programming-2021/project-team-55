@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.client.controller.menucontroller.MainMenuController">
     <MediaView fx:id="background" fitHeight="720.0" fitWidth="1080.0" />
-    <VBox alignment="CENTER" layoutX="381.0" layoutY="52.0" prefHeight="616.0" prefWidth="318.0" spacing="10.0">
+    <VBox alignment="CENTER" layoutX="292.0" layoutY="30.0" prefHeight="659.0" prefWidth="495.0" spacing="10.0">
         <Label prefHeight="111.0" prefWidth="251.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Main Menu" textFill="#ccdefc">
             <font>
                 <Font size="20.0" />
@@ -51,6 +51,13 @@
             </styleClass>
         </JFXButton>
         <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#enterChatMenuClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Chat">
+            <styleClass>
+                <String fx:value="buttonText" />
+                <String fx:value="buttonShape" />
+                <String fx:value="buttonHover" />
+            </styleClass>
+        </JFXButton>
+        <JFXButton buttonType="RAISED" mnemonicParsing="false" onMouseClicked="#enterTVRoomClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="TV">
             <styleClass>
                 <String fx:value="buttonText" />
                 <String fx:value="buttonShape" />

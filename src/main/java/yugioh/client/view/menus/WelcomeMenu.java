@@ -66,6 +66,7 @@ public class WelcomeMenu extends Application {
         saveDataThread.setDaemon(true);
         saveDataThread.start();
         Stage stage = new Stage();
+       // stage.initStyle(StageStyle.UTILITY);
         stage.initStyle(StageStyle.UNDECORATED);
         new WelcomeMenu().start(stage);
     }

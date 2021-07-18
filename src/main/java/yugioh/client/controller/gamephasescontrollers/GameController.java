@@ -246,9 +246,9 @@ public class GameController {
             case END: {
                 changeTurn(false, false);
                 currentPhase = GamePhase.DRAW;
-                Duel.showPhase();
-                Duel.executePhase();
-                return;
+//                Duel.showPhase();
+//                Duel.executePhase();
+//                return;
             }
         }
         Duel.showPhase();
