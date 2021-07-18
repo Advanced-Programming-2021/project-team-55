@@ -1,6 +1,7 @@
 package yugioh.client.model.cards.trapandspells;
 
 import yugioh.client.controller.gamephasescontrollers.GameController;
+import yugioh.client.model.User;
 import yugioh.client.model.board.Cell;
 import yugioh.client.model.cards.SpellAndTrap;
 import yugioh.client.model.cards.cardfeaturesenums.EffectiveTerm;
@@ -20,8 +21,10 @@ public class NegateAttack extends SpellAndTrap {
         gameController.getBattlePhaseController().setAttackDisabled();
         //  gameController.currentTurnOpponentPlayer.decreaseLP(((Monster)attackerCell.getCellCard()).getAtk());
         ViewInterface.showResult("Negate Attack effect activated : attack is negated and opponent Battle Phase ended");
-        gameController.changePhase();
         updateSpellInGameBoard(gameController);
+        if(User.loggedInUser.equals(gameController.currentTurnPlayer.getUser()))
+        gameController.changePhase();
+
     }
 
 }

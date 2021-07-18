@@ -268,7 +268,7 @@ public class GameController {
         if (isTemporary) {
             Platform.runLater(() -> {
                 if (isTemporary && !backToPlayer) {
-                    NetAdapter.sendForwardRequestForGame("change turn "+isTemporary+" "+backToPlayer);
+//                    NetAdapter.sendForwardRequestForGame("change turn "+isTemporary+" "+backToPlayer);
                     ViewInterface.showResult("now it will be " + currentTurnOpponentPlayer.getUser().getNickname() + "’s turn");
                     ViewInterface.showResult(mainPhase1Controller.showGameBoard(currentTurnOpponentPlayer, currentTurnPlayer));
                     Toast.makeText(WelcomeMenu.getStage(), "now it will be " + currentTurnOpponentPlayer.getUser().getNickname() + "’s turn");

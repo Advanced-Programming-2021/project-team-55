@@ -40,8 +40,14 @@ public class BattlePhase extends Duel {
     @Override
     protected String processCommand(String command) {
         String response = "";
-
-        if (gameController.checkCommandIsNotInCurrentPhase(command)) {
+       if (command.matches(GameRegexes.ACTIVATE_EFFECT.regex)) {
+            try {
+                gameController.getMainPhase1Controller().activateSpell(gameController);
+            } catch (GameException e) {
+                response = e.toString();
+            }
+        }
+       else if (gameController.checkCommandIsNotInCurrentPhase(command)) {
             response = GameResponses.ACTION_NOT_ALLOWED_FOR_THIS_PHASE.response;
         } else if (command.matches(GameRegexes.NEXT_PHASE.regex)) {
             //todo change phase bug
@@ -82,7 +88,8 @@ public class BattlePhase extends Duel {
         } else if (command.matches(GameRegexes.SHOW_GRAVEYARD.regex)) {
             gameController.currentPhase = GamePhase.GRAVEYARD;
             response = gameController.showGraveyard();
-        } else if (command.matches(GameRegexes.SURRENDER.regex)) {
+        }
+         else if (command.matches(GameRegexes.SURRENDER.regex)) {
             gameController.surrender();
         } else if (command.matches(GameRegexes.INCREASE_LP.regex)) {
             Matcher matcher = ViewInterface.getCommandMatcher(command, GameRegexes.INCREASE_LP.regex);

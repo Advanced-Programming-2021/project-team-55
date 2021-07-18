@@ -128,10 +128,11 @@ public class BattlePhaseController {
             }
         }
         new Thread(() -> {
-            Platform.runLater(() -> {
                 while (!gameController.getGameMenuController().choiceHasBeenMade ||
                         gameController.getGameMenuController().shouldActivateEffectsNow == true) {
+                    gameController.getGameMenuController().choiceHasBeenMade=false;
                 }
+            Platform.runLater(() -> {
                 if (isDirect) {
                     if (attackDisabled) {
                         gameController.getAttackerCellsThisTurn().add(selectedCell);
