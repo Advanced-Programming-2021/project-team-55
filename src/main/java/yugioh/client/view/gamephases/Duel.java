@@ -316,20 +316,15 @@ abstract public class Duel {
 //            result = graveyard.processCommand(command);
         else {
             String result = "";
-            if (gameController.currentPhase == GamePhase.DRAW) {
-                result = drawPhase.processCommand(command);
-            } else if (gameController.currentPhase == GamePhase.STANDBY) {
-                result = standByPhase.processCommand(command);
-            } else if (gameController.currentPhase == GamePhase.MAIN1) {
+            if (gameController.currentPhase == GamePhase.MAIN1) {
                 result = mainPhase1.processCommand(command);
             }
             else if (gameController.currentPhase == GamePhase.BATTLE) {
                 result = battlePhase.processCommand(command);
             }else if (gameController.currentPhase == GamePhase.MAIN2) {
                 result = mainPhase2.processCommand(command);
-            }  else if (gameController.currentPhase == GamePhase.END) {
-                result = endPhase.processCommand(command);
             }
+
             if (result.equals("Error: invalid command"))
                 result = CheatController.getInstance().processCommand(command);
             System.out.println("command " + command + " handled on other side with result: " + result);
