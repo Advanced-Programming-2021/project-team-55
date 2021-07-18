@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
@@ -17,6 +18,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -191,6 +193,20 @@ public class GameMenuController extends MenuController implements Initializable 
         description.setTextAlignment(TextAlignment.JUSTIFY);
         atkLabel.setOpacity(0);
         defLabel.setOpacity(0);
+
+        new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Platform.runLater(() -> {
+                    WritableImage image = gamePane.snapshot(new SnapshotParameters(), null);
+//                    opponentImage.setImage(image);
+                });
+            }
+        }).start();
     }
 
 
