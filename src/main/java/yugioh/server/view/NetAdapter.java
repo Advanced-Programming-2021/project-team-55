@@ -216,10 +216,10 @@ public class NetAdapter {
             }
         }).start();
 
-
+/*
         new Thread(() -> {
             try {
-                ServerSocket serverSocket = new ServerSocket(9595);
+                ServerSocket serverSocket = new ServerSocket(13085);
                 while (true) {
                     Socket socket = serverSocket.accept();
                     new Thread(() -> {
@@ -231,11 +231,46 @@ public class NetAdapter {
 //                                    WritableImage writableImage = (WritableImage) dataInputStream.readObject();
 //                                    byte[] bytes = dataInputStream.readAllBytes();
 //                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(img);
-                                    BufferedImage image = ImageIO.read(dataInputStream);
-                                    System.out.println("image received");
+
+
+//                                    System.out.println("started");
+//                                    BufferedImage image = ImageIO.read(dataInputStream);
+//                                    System.out.println("image received");
+//                                    Image image1 = SwingFXUtils.toFXImage(image, null);
+//                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(image1);
+//                                    System.out.println("image set");
+
+
+*//*                                    System.out.println("Reading: " + System.currentTimeMillis());
+
+                                    byte[] sizeAr = new byte[4];
+                                    dataInputStream.read(sizeAr);
+                                    int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
+
+                                    byte[] imageAr = new byte[size];
+                                    dataInputStream.read(imageAr);
+
+                                    BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
+
+                                    System.out.println("Received " + image.getHeight() + "x" + image.getWidth() + ": " + System.currentTimeMillis());
+
                                     Image image1 = SwingFXUtils.toFXImage(image, null);
-                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(image1);
-                                    System.out.println("image set");
+                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(image1);*//*
+
+
+//                                    ImageIO.write(image, "jpg", new File("C:\\Users\\Jakub\\Pictures\\test2.jpg"));
+
+//                                    serverSocket.close();
+
+
+//                                    BufferedImage img = ImageIO.read(ImageIO.createImageInputStream(dataInputStream));
+//                                    System.out.println("image received");
+//                                    Image image1 = SwingFXUtils.toFXImage(img, null);
+//                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(image1);
+
+                                    BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(dataInputStream.readAllBytes()));
+                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
+
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                     break;
@@ -252,7 +287,7 @@ public class NetAdapter {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }).start();
+        }).start();*/
     }
 
     private boolean logUserDisconnection(UserHolder userHolder, SocketException e) {

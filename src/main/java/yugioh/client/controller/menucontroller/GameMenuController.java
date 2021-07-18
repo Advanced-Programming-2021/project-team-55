@@ -35,6 +35,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import yugioh.client.controller.gamephasescontrollers.GameController;
+import yugioh.client.model.User;
 import yugioh.client.model.board.CardStatus;
 import yugioh.client.model.board.Cell;
 import yugioh.client.model.cards.Card;
@@ -50,9 +51,14 @@ import yugioh.client.view.menus.WelcomeMenu;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.net.URL;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -196,16 +202,17 @@ public class GameMenuController extends MenuController implements Initializable 
         description.setTextAlignment(TextAlignment.JUSTIFY);
         atkLabel.setOpacity(0);
         defLabel.setOpacity(0);
-
+/*
         new Thread(() -> {
             while (true) {
+                if (!Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) return;
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(20000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 Platform.runLater(() -> {
-                    WritableImage image = gamePane.snapshot(new SnapshotParameters(), null);
+                    WritableImage imagefx = gamePane.snapshot(new SnapshotParameters(), null);
                     try {
 //                        int w = (int)image.getWidth();
 //                        int h = (int)image.getHeight();
@@ -213,17 +220,39 @@ public class GameMenuController extends MenuController implements Initializable 
 //                        image.getPixelReader().getPixels(0, 0, w, h, PixelFormat.getByteBgraInstance(), buf, 0, w * 4);
 //                        NetAdapter.tvDataOutputStream.write(buf);
 //                        NetAdapter.tvDataOutputStream.flush();
-                        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
-                        ImageIO.write(bImage, "jpg", NetAdapter.tvDataOutputStream);
-                        NetAdapter.tvDataOutputStream.flush();
-                        System.out.println("image sent");
+
+
+//                        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+//                        ImageIO.write(bImage, "jpg", NetAdapter.tvDataOutputStream);
+//                        NetAdapter.tvDataOutputStream.flush();
+//                        System.out.println("image sent");
+
+
+//                        Socket socket = new Socket("localhost", 13085);
+//                        OutputStream outputStream = socket.getOutputStream();
+//
+////                        BufferedImage image = ImageIO.read(new File("C:\\Users\\Jakub\\Pictures\\test.jpg"));
+                        BufferedImage image = SwingFXUtils.fromFXImage(imagefx, null);
+//
+//                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//                        ImageIO.write(image, "jpg", byteArrayOutputStream);
+//
+//                        byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
+//                        outputStream.write(size);
+//                        outputStream.write(byteArrayOutputStream.toByteArray());
+//                        outputStream.flush();
+//
+
+                        ImageIO.write(image,"JPG", NetAdapter.tvDataOutputStream);
+                                                System.out.println("sent");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 //                    opponentImage.setImage(image);
                 });
+
             }
-        }).start();
+        }).start();*/
     }
 
 
