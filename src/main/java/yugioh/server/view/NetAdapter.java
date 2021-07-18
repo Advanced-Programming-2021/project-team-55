@@ -92,7 +92,7 @@ public class NetAdapter {
         }).start();
         new Thread(() -> {
             try {
-                ServerSocket serverSocket = new ServerSocket(12345);
+                ServerSocket serverSocket = new ServerSocket(3334);
                 while (true) {
                     Socket socket = serverSocket.accept();
                     new Thread(() -> {
@@ -134,7 +134,7 @@ public class NetAdapter {
         }).start();
         new Thread(() -> {
             try {
-                ServerSocket serverSocket = new ServerSocket(11111);
+                ServerSocket serverSocket = new ServerSocket(3335);
                 while (true) {
                     Socket socket = serverSocket.accept();
                     new Thread(() -> {
@@ -186,7 +186,7 @@ public class NetAdapter {
         }).start();
         new Thread(() -> {
             try {
-                ServerSocket serverSocket = new ServerSocket(54321);
+                ServerSocket serverSocket = new ServerSocket(3336);
                 while (true) {
                     Socket socket = serverSocket.accept();
                     new Thread(() -> {

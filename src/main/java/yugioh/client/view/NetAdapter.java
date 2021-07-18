@@ -31,12 +31,12 @@ public class NetAdapter {
            socket = new Socket(host, port);
            dataOutputStream = new DataOutputStream(socket.getOutputStream());
            dataInputStream = new DataInputStream(socket.getInputStream());
-          Socket socketForSaving=new Socket(host,12345);
+          Socket socketForSaving=new Socket(host,3334);
           dataOutputStreamForSaving=new DataOutputStream(socketForSaving.getOutputStream());
-          Socket socketForChatting=new Socket(host,11111);
+          Socket socketForChatting=new Socket(host,3335);
           dataOutputStreamForChat=new DataOutputStream(socketForChatting.getOutputStream());
           dataInputStreamForChat=new DataInputStream(socketForChatting.getInputStream());
-          Socket socketForGettingOnlineUsers=new Socket(host,54321);
+          Socket socketForGettingOnlineUsers=new Socket(host,3336);
           dataInputStreamForGettingOnlineUsere=new DataInputStream(socketForGettingOnlineUsers.getInputStream());
           dataOutputStreamForGettingOnlineUsers=new DataOutputStream(socketForGettingOnlineUsers.getOutputStream());
 
