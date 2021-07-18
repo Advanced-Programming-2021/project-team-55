@@ -287,7 +287,7 @@ abstract public class Duel {
             GameMenuController.getGameMenuController().surrender();
             return;
         }
-        //todo commented by parham :)
+        //todo commented by Parham :)
 
 //        String result = drawPhase.processCommand(command);
 //        if (result.equals("Error: invalid command"))
