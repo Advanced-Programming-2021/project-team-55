@@ -35,6 +35,8 @@ import yugioh.client.view.gamephases.GameResponses;
 import yugioh.client.view.menus.*;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -209,7 +211,7 @@ public class GameController {
     public void changePhase() {
         CardActionsMenu.close();
 
-        System.out.println("called "+ ++counter +" times in "+currentPhase);
+//        System.out.println("called "+ ++counter +" times in "+currentPhase);
 
 //        if(counter==15)
 //        new Exception().printStackTrace();
@@ -217,6 +219,12 @@ public class GameController {
 //        endGameRound();
 //            return;
 //        }
+
+
+//        StringWriter sw = new StringWriter();
+//        new Throwable("").printStackTrace(new PrintWriter(sw));
+//        String stackTrace = sw.toString();
+//        System.out.println(stackTrace);
 
         switch (currentPhase) {//todo debug phases not sync
             case DRAW: {
