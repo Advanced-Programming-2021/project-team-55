@@ -15,7 +15,7 @@
             </font>
         </Label>
                 <ScrollPane fx:id="matchFinder" layoutX="166.0" layoutY="108.0" prefHeight="415.0" prefWidth="748.0">
-                    <GridPane fx:id="waitingUsersGridPane" alignment="CENTER" prefHeight="406.0" prefWidth="733.0" styleClass="buttonText" >
+                    <GridPane fx:id="waitingUsersGridPane" alignment="CENTER" prefHeight="406.0" prefWidth="733.0" style="-fx-background-color: &quot;#ccdefc&quot;;" styleClass="buttonText">
                         <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="254.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="222.59999999999997" />
