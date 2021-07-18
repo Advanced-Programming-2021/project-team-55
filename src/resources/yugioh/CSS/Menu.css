@@ -21,6 +21,7 @@
 .buttonText {
     -fx-font-family: "Bauhaus 93";;
     -fx-font-size: 23px;
+    -fx-text-fill: "#ccdefc";
 }
 .buttonText3 {
     -fx-font-family: "Bauhaus 93";;
