@@ -360,7 +360,7 @@ public class GameController {
         URL url = getClass().getResource("/yugioh/fxml/ActivateEffectMenu.fxml");
         try {
             Pane pane = FXMLLoader.load(url);
-            if(!User.loggedInUser.equals(currentTurnPlayer.getUser()))pane.setDisable(true);
+            if(!User.loggedInUser.equals(currentTurnPlayer.getUser())){
             Scene scene = WelcomeMenu.createScene(pane);
             activateStage.setScene(scene);
             Button yesButton = (Button) ((HBox) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).getChildren().get(0);
@@ -382,7 +382,7 @@ public class GameController {
                 }
             });
             activateStage.show();
-        } catch (IOException e) {
+        }} catch (IOException e) {
             e.printStackTrace();
         }
          /*   while (true) {
