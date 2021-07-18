@@ -122,7 +122,7 @@ public class BattlePhaseController {
                     }
                     gameController.changeTurn(true, false);
                     gameController.activateTrapEffect(attackEffectSpellAndTraps);
-                    //gameController.changeTurn(true, true);
+
                     break;
                 }
             }
@@ -136,6 +136,7 @@ public class BattlePhaseController {
                     if (attackDisabled) {
                         gameController.getAttackerCellsThisTurn().add(selectedCell);
                         attackDisabled = false;
+                        return;
                     }
                     Monster attackerMonster = (Monster) selectedCell.getCellCard();
                     gameController.getCurrentTurnOpponentPlayer().decreaseLP(attackerMonster.getAtk());
@@ -147,6 +148,7 @@ public class BattlePhaseController {
                     if (attackDisabled) {
                         gameController.getAttackerCellsThisTurn().add(attackerCell);
                         attackDisabled = false;
+                        return;
                     }
                     if (SwordsofRevealingLight.handleEffect(gameController)) {
                         System.out.println("you can't attack because of your opponent's Swords of Revealing Light effect");

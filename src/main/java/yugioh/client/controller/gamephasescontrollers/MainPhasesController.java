@@ -331,6 +331,7 @@ public interface MainPhasesController {
     }
 
     default void activateSpell(GameController gameController) throws GameException {
+        NetAdapter.sendForwardRequestForGame("activate effect");
         Cell selectedCell = Cell.getSelectedCell();
         GameBoard playerGameBoard = gameController.getCurrentTurnPlayer().getGameBoard();
         if (selectedCell == null) {

@@ -660,15 +660,14 @@ public class CardActionsMenu implements MainPhasesController {
                 if (gameController.getGameMenuController().canBeActivatedCards.contains(Cell.
                         getSelectedCell().getCellCard().getName())) {
                     new CardActionsMenu().activateSpell(gameController);
-                    NetAdapter.sendForwardRequestForGame("activate effect");
                     gameController.getGameMenuController().shouldActivateEffectsNow = false;
                     gameController.getGameMenuController().canBeActivatedCards.clear();
+//                    NetAdapter.sendForwardRequestForGame("change turn true true");
                     gameController.changeTurn(true, true);
                 } else {
                     Toast.makeText(WelcomeMenu.stage, "You can't activate this card!");
                 }
             } else {
-                NetAdapter.sendForwardRequestForGame("activate effect");
                 new CardActionsMenu().activateSpell(gameController);
             }
         } catch (GameException e) {

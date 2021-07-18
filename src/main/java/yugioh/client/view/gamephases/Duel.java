@@ -248,6 +248,18 @@ abstract public class Duel {
             GameMenuController.getGameMenuController().nextPhase();
             return;
         }
+        else if(command.startsWith("change turn")){
+            Matcher matcher=getCommandMatcher(command,"change turn (.*) (.*)");
+            String boolean1=matcher.group(1);
+            String boolean2=matcher.group(2);
+            Boolean firstBoolean;
+            Boolean secondBoolean;
+            if(boolean1.equals("true"))firstBoolean=true;
+            else firstBoolean=false;
+            if(boolean2.equals("true"))secondBoolean=true;
+            else secondBoolean=false;
+            gameController.changeTurn(firstBoolean,secondBoolean);
+        }
 //        if(command.startsWith("remove card from cell")){
 //            if(command.contains("true"))
 //            Cell.getSelectedCell().removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
@@ -283,7 +295,7 @@ abstract public class Duel {
 //            gameController.currentTurnPlayer.getGameBoard().removeCardFromHand(Cell.getSelectedCell());
 //        }
 
-        if (command.contains("surrender")){
+        else if (command.contains("surrender")){
             GameMenuController.getGameMenuController().surrender();
             return;
         }
