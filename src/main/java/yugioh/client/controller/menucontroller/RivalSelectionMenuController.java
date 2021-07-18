@@ -50,6 +50,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
     public transient Thread chatThread;
     public ImageView sendImage;
     public JFXTextField message;
+    public ScrollPane matchFinder;
     private boolean isChatEnded = false;
 
     public RivalSelectionMenuController() {
@@ -71,6 +72,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         isRequestAlive = false;
+        matchFinder.getStyleClass().clear();
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File("src\\resources\\yugioh\\Backgrounds\\main.mp4").toURI().toString()));
         mediaPlayer.play();
         mediaPlayer.setCycleCount(-1);
@@ -91,6 +93,7 @@ public class RivalSelectionMenuController extends MenuController implements Init
         awaitingUsersForThreeRounds = DataBaseController.parseAllUsers(NetAdapter.sendRequest("get awaiting users for 3 rounds"));
         for (int i = 0; i < awaitingUsersForThreeRounds.length; i++) {
             User user = awaitingUsersForThreeRounds[i];
+            Text text = new Text("3 ROUNDS");
             waitingUsersGridPane.add(new Text("3 ROUNDS"), 0, i + awaitingUsersForOneRound.length);
             waitingUsersGridPane.add(new Text(user.getUsername()), 1, i + awaitingUsersForOneRound.length);
             waitingUsersGridPane.add(new Text("SCORE: " + user.getScore()), 2, i + awaitingUsersForOneRound.length);
