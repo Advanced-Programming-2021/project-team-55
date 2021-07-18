@@ -2,41 +2,24 @@
 
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="720" prefWidth="1080" stylesheets="@../CSS/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.client.controller.menucontroller.RivalSelectionMenuController">
     <MediaView fx:id="rivalSelectionMenuBackground" fitHeight="720.0" fitWidth="1080.0" />
-        <Label alignment="TOP_CENTER" layoutX="310.0" layoutY="14.0" prefHeight="67.0" prefWidth="460.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Rival Selection Menu" textFill="#ccdefc">
+        <Label alignment="BOTTOM_CENTER" layoutX="310.0" layoutY="14.0" prefHeight="74.0" prefWidth="460.0" styleClass="titleText" stylesheets="@../CSS/Menu.css" text="Rival Selection Menu" textFill="#ccdefc">
             <font>
                 <Font size="20.0" />
             </font>
         </Label>
-
-                    <JFXToggleButton fx:id="oneRound" layoutX="32.0" layoutY="516.0" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="66.0" prefWidth="180" selected="true" styleClass="buttonText" text="1 Round" textFill="#ccdefc" />
-                    <JFXToggleButton fx:id="threeRounds" focusTraversable="false" layoutX="238.0" layoutY="516.0" mnemonicParsing="false" onMouseClicked="#clickThreeRounds" prefHeight="66.0" prefWidth="180.0" styleClass="buttonText" text="3 Rounds" textFill="#ccdefc" />
-                    <!--  <ToggleButton fx:id="threeRounds" mnemonicParsing="false" onMouseClicked="#clickThreeRounds" prefHeight="48.0" prefWidth="112.0" text="3 rounds" />
-                           <ToggleButton fx:id="oneRound" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="48.0" prefWidth="112.0" text="1 round" />
-                        -->
-    
-                <JFXButton fx:id="start" buttonType="RAISED" focusTraversable="false" layoutX="238.0" layoutY="594.0" mnemonicParsing="false" onMouseClicked="#sendGameRequest" prefHeight="54.0" prefWidth="196.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="go!" textFill="#ccdefc">
-                   <styleClass>
-                       <String fx:value="buttonText" />
-                       <String fx:value="buttonShape" />
-                       <String fx:value="buttonHover" />
-                   </styleClass>
-                </JFXButton>
-                <ScrollPane layoutX="24.0" layoutY="92.0" prefHeight="415.0" prefWidth="532.0">
-                    <GridPane fx:id="waitingUsersGridPane" alignment="CENTER" prefHeight="405.0" prefWidth="521.0">
+                <ScrollPane fx:id="matchFinder" layoutX="166.0" layoutY="108.0" prefHeight="415.0" prefWidth="748.0">
+                    <GridPane fx:id="waitingUsersGridPane" alignment="CENTER" prefHeight="406.0" prefWidth="733.0" style="-fx-background-color: &quot;#ccdefc&quot;;" styleClass="buttonText">
                         <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="254.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="105.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="88.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="222.59999999999997" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="171.0" />
                         </columnConstraints>
                         <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -45,37 +28,34 @@
                     </GridPane>
 
                 </ScrollPane>
-
-                <JFXButton fx:id="cancel" buttonType="RAISED" focusTraversable="false" layoutX="24.0" layoutY="595.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="53.0" prefWidth="196.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Cancel" textFill="#ccdefc">
-                    <styleClass>
-                        <String fx:value="buttonText" />
-                        <String fx:value="buttonShape" />
-                        <String fx:value="buttonHover" />
-                    </styleClass>
-                </JFXButton>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cfdfed" height="30.0" layoutX="554.0" layoutY="119.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="568.0" />
-    <Circle fill="#50a9ff" layoutX="1081.0" layoutY="567.0" radius="28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-    <Rectangle arcHeight="200.0" arcWidth="50.0" fill="#50a9ff" height="54.0" layoutX="572.0" layoutY="540.0" stroke="#50a9ff" strokeLineCap="BUTT" strokeLineJoin="BEVEL" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="buttonShape" width="460.0" />
-    <JFXTextField fx:id="message" alignment="BOTTOM_LEFT" focusColor="#7aceed" labelFloat="true" layoutX="591.0" layoutY="532.0" prefHeight="54.0" prefWidth="405.0" promptText="Type a message" styleClass="buttonText" unFocusColor="#a6e9ff" />
-    <ImageView fx:id="sendImage" fitHeight="44.0" fitWidth="38.0" layoutX="1061.0" layoutY="550.0" onMouseClicked="#sendMessage" onMouseEntered="#setHoveredImageSend" onMouseExited="#resetHoveredImageSend" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../PNG/icon/send.png" />
-    </ImageView>
-    <Label alignment="CENTER" layoutX="704.0" layoutY="119.0" prefHeight="30.0" prefWidth="268.0" text="GLOBAL CHAT ROOM" textFill="#75767f">
-        <font>
-            <Font name="Bauhaus 93" size="21.0" />
-        </font></Label>
-    <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="557.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@../PNG/icon/globe.png" />
-        </image>
-    </ImageView>
-    <ScrollPane fx:id="chatBox" layoutX="556.0" layoutY="153.0" minViewportWidth="10.0" prefHeight="362.0" prefWidth="568.0">
-        <content>
-            <AnchorPane prefHeight="350.0" prefWidth="692.0" styleClass="buttonText">
-                <opaqueInsets>
-                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                </opaqueInsets></AnchorPane>
-        </content></ScrollPane>
-
-
+   <HBox alignment="CENTER" layoutX="274.0" layoutY="531.0" prefHeight="100.0" prefWidth="532.0">
+      <children>
+      
+                          <JFXToggleButton fx:id="oneRound" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="66.0" prefWidth="180" selected="true" styleClass="buttonText" text="1 Round " textFill="#ccdefc" />
+                          <JFXToggleButton fx:id="threeRounds" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#clickThreeRounds" prefHeight="66.0" prefWidth="180.0" styleClass="buttonText" text="3 Rounds" textFill="#ccdefc" />
+      </children>
+   </HBox>
+   <HBox alignment="CENTER" layoutX="274.0" layoutY="615.0" prefHeight="84.0" prefWidth="532.0" spacing="30.0">
+      <children>
+      
+                      <JFXButton fx:id="cancel" buttonType="RAISED" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="53.0" prefWidth="196.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Cancel" textFill="#ccdefc">
+                          <styleClass>
+                              <String fx:value="buttonText" />
+                              <String fx:value="buttonShape" />
+                              <String fx:value="buttonHover" />
+                          </styleClass>
+                      </JFXButton>
+                          <!--  <ToggleButton fx:id="threeRounds" mnemonicParsing="false" onMouseClicked="#clickThreeRounds" prefHeight="48.0" prefWidth="112.0" text="3 rounds" />
+                                 <ToggleButton fx:id="oneRound" mnemonicParsing="false" onMouseClicked="#clickOneRound" prefHeight="48.0" prefWidth="112.0" text="1 round" />
+                              -->
+          
+                      <JFXButton fx:id="start" buttonType="RAISED" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#sendGameRequest" prefHeight="54.0" prefWidth="196.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Find Match!" textFill="#ccdefc">
+                         <styleClass>
+                             <String fx:value="buttonText" />
+                             <String fx:value="buttonShape" />
+                             <String fx:value="buttonHover" />
+                         </styleClass>
+                      </JFXButton>
+      </children>
+   </HBox>
 </AnchorPane>

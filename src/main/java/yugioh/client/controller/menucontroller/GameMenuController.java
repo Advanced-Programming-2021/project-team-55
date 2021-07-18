@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -34,13 +35,13 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import yugioh.client.controller.gamephasescontrollers.GameController;
+import yugioh.client.model.User;
 import yugioh.client.model.board.CardStatus;
 import yugioh.client.model.board.Cell;
 import yugioh.client.model.cards.Card;
 import yugioh.client.model.cards.Monster;
 import yugioh.client.view.NetAdapter;
 import yugioh.client.view.SoundPlayable;
-import yugioh.client.view.ViewInterface;
 import yugioh.client.view.gamephases.CardActionsMenu;
 import yugioh.client.view.gamephases.Duel;
 import yugioh.client.view.gamephases.GamePhase;
@@ -48,8 +49,16 @@ import yugioh.client.view.gamephases.Graveyard;
 import yugioh.client.view.menus.Toast;
 import yugioh.client.view.menus.WelcomeMenu;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.net.URL;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -193,20 +202,57 @@ public class GameMenuController extends MenuController implements Initializable 
         description.setTextAlignment(TextAlignment.JUSTIFY);
         atkLabel.setOpacity(0);
         defLabel.setOpacity(0);
-
+/*
         new Thread(() -> {
             while (true) {
+                if (!Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) return;
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(20000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 Platform.runLater(() -> {
-                    WritableImage image = gamePane.snapshot(new SnapshotParameters(), null);
+                    WritableImage imagefx = gamePane.snapshot(new SnapshotParameters(), null);
+                    try {
+//                        int w = (int)image.getWidth();
+//                        int h = (int)image.getHeight();
+//                        byte[] buf = new byte[w * h * 4];
+//                        image.getPixelReader().getPixels(0, 0, w, h, PixelFormat.getByteBgraInstance(), buf, 0, w * 4);
+//                        NetAdapter.tvDataOutputStream.write(buf);
+//                        NetAdapter.tvDataOutputStream.flush();
+
+
+//                        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+//                        ImageIO.write(bImage, "jpg", NetAdapter.tvDataOutputStream);
+//                        NetAdapter.tvDataOutputStream.flush();
+//                        System.out.println("image sent");
+
+
+//                        Socket socket = new Socket("localhost", 13085);
+//                        OutputStream outputStream = socket.getOutputStream();
+//
+////                        BufferedImage image = ImageIO.read(new File("C:\\Users\\Jakub\\Pictures\\test.jpg"));
+                        BufferedImage image = SwingFXUtils.fromFXImage(imagefx, null);
+//
+//                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//                        ImageIO.write(image, "jpg", byteArrayOutputStream);
+//
+//                        byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
+//                        outputStream.write(size);
+//                        outputStream.write(byteArrayOutputStream.toByteArray());
+//                        outputStream.flush();
+//
+
+                        ImageIO.write(image,"JPG", NetAdapter.tvDataOutputStream);
+                                                System.out.println("sent");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 //                    opponentImage.setImage(image);
                 });
+
             }
-        }).start();
+        }).start();*/
     }
 
 
@@ -261,7 +307,7 @@ public class GameMenuController extends MenuController implements Initializable 
         gameController.surrender();
         try {
             pauseStage.close();
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
 
         }
         gameController.endGameRound();
@@ -284,8 +330,9 @@ public class GameMenuController extends MenuController implements Initializable 
 
         try {
             if (gameController.currentTurnPlayer.getUser().isImageIsChanged())
-            currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageFile().toURI().toString()));
-        else currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageString()));
+                currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageFile().toURI().toString()));
+            else
+                currentImage.setImage(new Image(gameController.currentTurnPlayer.getUser().getProfileImageString()));
         } catch (Exception ignored) {
         }
         currentImage.setPreserveRatio(true);

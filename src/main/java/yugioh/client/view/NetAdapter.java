@@ -6,6 +6,7 @@ import yugioh.client.view.gamephases.Duel;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.*;
 
 public class NetAdapter {
@@ -22,8 +23,8 @@ public class NetAdapter {
     public static DataInputStream dataInputStreamForGettingOnlineUsere;
     public static DataOutputStream dataOutputStreamForGettingOnlineUsers;
 
-    public static Socket tvSocket;
-    public static DataOutputStream tvDataOutputStream;
+//    public static Socket tvSocket;
+//    public static DataOutputStream tvDataOutputStream;
 
     public static void initialize() {
        try {
@@ -40,8 +41,8 @@ public class NetAdapter {
           dataOutputStreamForGettingOnlineUsers=new DataOutputStream(socketForGettingOnlineUsers.getOutputStream());
 
 
-           tvSocket = new Socket(host, 9595);
-           tvDataOutputStream = new DataOutputStream(tvSocket.getOutputStream());
+//           tvSocket = new Socket(host, 9595);
+//           tvDataOutputStream = new DataOutputStream(tvSocket.getOutputStream());
 
        } catch (IOException e) {
            System.out.println("failed to connect to server");

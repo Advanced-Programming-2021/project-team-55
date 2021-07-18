@@ -1,12 +1,18 @@
 package yugioh.server.view;
 
 
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import yugioh.server.controller.DataBaseController;
+import yugioh.server.controller.menucontroller.AdminWelcomeMenuController;
 import yugioh.server.model.User;
 import yugioh.server.model.UserHolder;
 import yugioh.server.view.Menus.Menu;
 import yugioh.server.view.gamephases.Duel;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -41,50 +47,50 @@ public class NetAdapter {
 //    }
 
     private void startListening(int port) {
-        new Thread(()->{
-        try {
-            ServerSocket serverSocket = new ServerSocket(port);
-            while (true) {
-                Socket socket = serverSocket.accept();
-                new Thread(() -> {
-                    UserHolder userHolder = new UserHolder();
-                    try {
-                        DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-                        DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-                        userHolder.setDataInputStream(dataInputStream);
-                        userHolder.setDataOutputStream(dataOutputStream);
-                        while (true) {
-                            try {
-                                String input = dataInputStream.readUTF();
-                                ViewInterface.command = input;
-                                if (sendToRival(input, userHolder)) continue;
-                                String result = Menu.handleCommand(input, userHolder);
-                                if (result.contains("user logged out successfully") ||
-                                        result.equals("ignore sending result")) continue;
-                                dataOutputStream.writeUTF(result);
-                                dataOutputStream.flush();
-                                log(input, result);
-                            } catch (SocketException e) {
-                                allUsersOutputStreams.remove(dataOutputStream);
-                                if (logUserDisconnection(userHolder, e)) return;
-                                e.printStackTrace();
-                                break;
+        new Thread(() -> {
+            try {
+                ServerSocket serverSocket = new ServerSocket(port);
+                while (true) {
+                    Socket socket = serverSocket.accept();
+                    new Thread(() -> {
+                        UserHolder userHolder = new UserHolder();
+                        try {
+                            DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+                            DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+                            userHolder.setDataInputStream(dataInputStream);
+                            userHolder.setDataOutputStream(dataOutputStream);
+                            while (true) {
+                                try {
+                                    String input = dataInputStream.readUTF();
+                                    ViewInterface.command = input;
+                                    if (sendToRival(input, userHolder)) continue;
+                                    String result = Menu.handleCommand(input, userHolder);
+                                    if (result.contains("user logged out successfully") ||
+                                            result.equals("ignore sending result")) continue;
+                                    dataOutputStream.writeUTF(result);
+                                    dataOutputStream.flush();
+                                    log(input, result);
+                                } catch (SocketException e) {
+                                    allUsersOutputStreams.remove(dataOutputStream);
+                                    if (logUserDisconnection(userHolder, e)) return;
+                                    e.printStackTrace();
+                                    break;
+                                }
                             }
+                            dataInputStream.close();
+                            dataOutputStream.close();
+                            socket.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                        dataInputStream.close();
-                        dataOutputStream.close();
-                        socket.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }).start();
+                    }).start();
 
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-            }).start();
-        new Thread(()->{
+        }).start();
+        new Thread(() -> {
             try {
                 ServerSocket serverSocket = new ServerSocket(12345);
                 while (true) {
@@ -96,11 +102,11 @@ public class NetAdapter {
                             while (true) {
                                 try {
                                     String input = dataInputStream.readUTF();
-                                    Matcher matcher=getCommandMatcher(input,"save user address: (.*) content: (.*)");
-                                    String address=matcher.group(1);
-                                    String content=matcher.group(2);
+                                    Matcher matcher = getCommandMatcher(input, "save user address: (.*) content: (.*)");
+                                    String address = matcher.group(1);
+                                    String content = matcher.group(2);
 
-                                        DataBaseController.updateUserInfo(address,content);
+                                    DataBaseController.updateUserInfo(address, content);
                                 } catch (SocketException e) {
                                     if (e.getMessage().contains("Connection reset")) {
                                         System.out.println("a client disconnected.");
@@ -126,7 +132,7 @@ public class NetAdapter {
                 e.printStackTrace();
             }
         }).start();
-        new Thread(()->{
+        new Thread(() -> {
             try {
                 ServerSocket serverSocket = new ServerSocket(11111);
                 while (true) {
@@ -139,13 +145,12 @@ public class NetAdapter {
                             while (true) {
                                 try {
                                     String input = dataInputStream.readUTF();
-                                    if(input.matches(Regexes.EXIT_CHATROOM.regex)){
+                                    if (input.matches(Regexes.EXIT_CHATROOM.regex)) {
                                         Matcher matcher = getCommandMatcher(input, Regexes.EXIT_CHATROOM.regex);
                                         System.out.println(input);
                                         dataOutputStream.writeUTF(matcher.group(1) + " gomsho");
                                         dataOutputStream.flush();
-                                    }
-                                    else {
+                                    } else {
                                         for (DataOutputStream dataOutputStreamUser : allUsersOutputStreams) {
                                             dataOutputStreamUser.writeUTF(input);
                                             dataOutputStreamUser.flush();
@@ -156,7 +161,7 @@ public class NetAdapter {
                                 } catch (SocketException e) {
                                     allUsersOutputStreams.remove(dataOutputStream);
                                     if (e.getMessage().contains("Connection reset")) {
-                                       // System.out.print("a client disconnected: ");
+                                        // System.out.print("a client disconnected: ");
                                         try {
                                             //System.out.println(userHolder.getUser().getUsername());
                                         } catch (Exception ignored) {
@@ -179,7 +184,7 @@ public class NetAdapter {
                 e.printStackTrace();
             }
         }).start();
-        new Thread(()->{
+        new Thread(() -> {
             try {
                 ServerSocket serverSocket = new ServerSocket(54321);
                 while (true) {
@@ -210,6 +215,79 @@ public class NetAdapter {
                 e.printStackTrace();
             }
         }).start();
+
+/*
+        new Thread(() -> {
+            try {
+                ServerSocket serverSocket = new ServerSocket(13085);
+                while (true) {
+                    Socket socket = serverSocket.accept();
+                    new Thread(() -> {
+                        String gamerUsername = "gamer";
+                        try {
+                            DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+                            while (true) {
+                                try {
+//                                    WritableImage writableImage = (WritableImage) dataInputStream.readObject();
+//                                    byte[] bytes = dataInputStream.readAllBytes();
+//                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(img);
+
+
+//                                    System.out.println("started");
+//                                    BufferedImage image = ImageIO.read(dataInputStream);
+//                                    System.out.println("image received");
+//                                    Image image1 = SwingFXUtils.toFXImage(image, null);
+//                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(image1);
+//                                    System.out.println("image set");
+
+
+*//*                                    System.out.println("Reading: " + System.currentTimeMillis());
+
+                                    byte[] sizeAr = new byte[4];
+                                    dataInputStream.read(sizeAr);
+                                    int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
+
+                                    byte[] imageAr = new byte[size];
+                                    dataInputStream.read(imageAr);
+
+                                    BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
+
+                                    System.out.println("Received " + image.getHeight() + "x" + image.getWidth() + ": " + System.currentTimeMillis());
+
+                                    Image image1 = SwingFXUtils.toFXImage(image, null);
+                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(image1);*//*
+
+
+//                                    ImageIO.write(image, "jpg", new File("C:\\Users\\Jakub\\Pictures\\test2.jpg"));
+
+//                                    serverSocket.close();
+
+
+//                                    BufferedImage img = ImageIO.read(ImageIO.createImageInputStream(dataInputStream));
+//                                    System.out.println("image received");
+//                                    Image image1 = SwingFXUtils.toFXImage(img, null);
+//                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(image1);
+
+                                    BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(dataInputStream.readAllBytes()));
+                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    break;
+                                }
+                            }
+                            dataInputStream.close();
+                            socket.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }).start();
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();*/
     }
 
     private boolean logUserDisconnection(UserHolder userHolder, SocketException e) {
