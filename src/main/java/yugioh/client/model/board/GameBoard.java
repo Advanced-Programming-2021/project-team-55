@@ -623,8 +623,13 @@ public class GameBoard {
             Duel.getGameController().getGameMenuController().addEventForCardImageRectangle(rectangle, cell);
             rectangle.setWidth(90);
             rectangle.setHeight(120);
-            rectangle.setFill(cardToAdd.getCardImagePattern());
+            //rectangle.setFill(cardToAdd.getCardImagePattern());
             cell.setCellRectangle(rectangle);
+            if(User.loggedInUser.equals(Duel
+                    .getGameController().currentTurnPlayer.getUser())){
+                rectangle.setFill(cardToAdd.getCardImagePattern());
+            }
+            else rectangle.setFill(cardToAdd.getCardBackImagePattern());
             double rotationValue = GameMenuController.getGameMenuController().background.rotateProperty().getValue() % 360;
             if (rotationValue > 179 && rotationValue < 181) {
                 rectangle.rotateProperty().set(180);
