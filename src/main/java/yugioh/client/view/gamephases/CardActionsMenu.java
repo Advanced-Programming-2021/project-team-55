@@ -662,7 +662,7 @@ public class CardActionsMenu implements MainPhasesController {
                     new CardActionsMenu().activateSpell(gameController);
                     gameController.getGameMenuController().shouldActivateEffectsNow = false;
                     gameController.getGameMenuController().canBeActivatedCards.clear();
-//                    NetAdapter.sendForwardRequestForGame("change turn true true");
+                    NetAdapter.sendForwardRequestForGame("change turn true true");
                     gameController.changeTurn(true, true);
                 } else {
                     Toast.makeText(WelcomeMenu.stage, "You can't activate this card!");
