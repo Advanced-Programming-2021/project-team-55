@@ -124,6 +124,12 @@ public class DetermineStarterMenuController implements Initializable {
                             case "you decide":
                                 Platform.runLater(this::handleUserSelection);
                                 break;
+                            case "i start":
+                                Platform.runLater(this::handleRivalSelection);
+                                break;
+                            case "you start":
+                                Platform.runLater(this::handleUserSelection);
+                                break;
                             default:
                                 String finalCommand = command;
                                 Platform.runLater(() -> Duel.handleCommand(finalCommand));
