@@ -3,27 +3,44 @@
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" styleClass="TVBackground" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yugioh.client.controller.menucontroller.TVRoomController">
-   <children>
-      <ImageView fitHeight="588.0" fitWidth="827.0" layoutX="127.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@../PNG/icon/TV.png" />
-      </ImageView>
-      <ImageView fx:id="tvScreenImage" fitHeight="386.0" fitWidth="680.0" layoutX="198.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true" />
-       <JFXButton buttonType="RAISED" layoutX="12.0" layoutY="622.0" mnemonicParsing="false" onMouseClicked="#backClicked" prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back" textFill="#ccdefc">
-           <styleClass>
-               <String fx:value="buttonText" />
-               <String fx:value="buttonShape" />
-               <String fx:value="buttonHover" />
-           </styleClass>
-       </JFXButton>
-      <ImageView fitHeight="136.0" fitWidth="123.0" layoutX="919.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@../PNG/icon/popcorn.png" />
-      </ImageView>
-   </children>
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" styleClass="TVBackground" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="yugioh.client.controller.menucontroller.TVRoomController">
     <stylesheets>
-        <URL value="@../CSS/Menu.css" />
+        <URL value="@../CSS/Menu.css"/>
     </stylesheets>
+    <ImageView fitHeight="588.0" fitWidth="827.0" layoutX="69.0" layoutY="47.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../PNG/icon/TV.png"/>
+    </ImageView>
+    <ImageView fx:id="tvScreenImage" fitHeight="443.0" fitWidth="563.0" layoutX="123.0" layoutY="71.0"
+               pickOnBounds="true" preserveRatio="true"/>
+    <JFXButton buttonType="RAISED" layoutX="12.0" layoutY="622.0" mnemonicParsing="false" onMouseClicked="#backClicked"
+               prefHeight="60.0" prefWidth="230.0" ripplerFill="#e72727" stylesheets="@../CSS/Menu.css" text="Back"
+               textFill="#ccdefc">
+        <styleClass>
+            <String fx:value="buttonText"/>
+            <String fx:value="buttonShape"/>
+            <String fx:value="buttonHover"/>
+        </styleClass>
+    </JFXButton>
+    <ImageView fitHeight="136.0" fitWidth="123.0" layoutX="914.0" layoutY="499.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../PNG/icon/popcorn.png"/>
+    </ImageView>
+    <MenuButton fx:id="currentGames" layoutX="728.0" layoutY="261.0" mnemonicParsing="false" prefHeight="25.0"
+                prefWidth="141.0" text="select Game" textAlignment="CENTER">
+      <items>
+          <MenuItem mnemonicParsing="false" text="Action 1"/>
+          <MenuItem mnemonicParsing="false" text="Action 2"/>
+      </items>
+        <padding>
+          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        </padding>
+    </MenuButton>
 </AnchorPane>

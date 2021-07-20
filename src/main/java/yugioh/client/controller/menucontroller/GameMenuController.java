@@ -208,7 +208,6 @@ public class GameMenuController extends MenuController implements Initializable 
     private void handleSendingGameForTV() {
         new Thread(() -> {
             while (true) {
-                if (!Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) return;
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {
