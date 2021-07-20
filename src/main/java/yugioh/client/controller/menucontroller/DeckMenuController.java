@@ -37,7 +37,7 @@ import java.util.ResourceBundle;
 
 import static yugioh.client.model.cards.cardfeaturesenums.EffectiveTerm.LIMITED;
 
-public class DeckMenuController extends MenuController implements Initializable {
+public class DeckMenuController extends MenuController implements Initializable {//todo debug
 
     public static DeckMenuController deckMenuController;
     public MenuButton decksBox;
