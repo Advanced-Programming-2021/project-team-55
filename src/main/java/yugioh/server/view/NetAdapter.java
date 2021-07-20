@@ -232,11 +232,10 @@ public class NetAdapter {
                         try {
                             DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
                             String gamerUsername = dataInputStream.readUTF();
-                            System.out.println(gamerUsername);
                             try {
                                 BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(dataInputStream.readAllBytes()));
                                 inProgressGamesSnapShots.put(gamerUsername, bufferedImage);
-                                AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
+//                                AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -265,7 +264,7 @@ public class NetAdapter {
                             DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
                             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                             String whichGame = dataInputStream.readUTF();
-                            System.out.println(whichGame);
+//                            System.out.println(whichGame);
                             Matcher matcher = getCommandMatcher(whichGame, "get game TV: (.+)");
                             whichGame = matcher.group(1);
                             try {
