@@ -13,6 +13,7 @@ import yugioh.client.model.User;
 import yugioh.client.view.NetAdapter;
 import yugioh.client.view.gamephases.Duel;
 import yugioh.client.view.menus.DetermineStarterMenu;
+import yugioh.client.view.menus.EndOfGameMenu;
 import yugioh.client.view.menus.RivalSelectionMenu;
 import yugioh.client.view.menus.Toast;
 import yugioh.server.view.ViewInterface;
@@ -98,7 +99,7 @@ public class DetermineStarterMenuController implements Initializable {
         startSyncingWithRival();
     }
 
-    private void startSyncingWithRival() {
+    public void startSyncingWithRival() {
         runnable = () -> {
             try {
                 while (true) {
@@ -126,6 +127,14 @@ public class DetermineStarterMenuController implements Initializable {
                                 break;
                             case "you start":
                                 Platform.runLater(this::handleUserSelection);
+                                break;
+                            case "handle no for surrender":
+                                Platform.runLater(()->
+                                        EndOfGameMenu.noHandler(gameController));
+                                break;
+                            case "handle yes for surrender":
+                                Platform.runLater(()->
+                                        EndOfGameMenu.yesHandler(gameController));
                                 break;
                             default:
                                 String finalCommand = command;
