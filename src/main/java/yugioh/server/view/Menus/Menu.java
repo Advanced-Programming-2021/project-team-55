@@ -9,6 +9,7 @@ import yugioh.server.model.User;
 import yugioh.server.model.UserHolder;
 import yugioh.server.model.cards.Card;
 import yugioh.server.model.cards.CardsInventory;
+import yugioh.server.view.gamephases.Duel;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,6 +20,7 @@ import java.util.regex.Matcher;
 import static yugioh.server.view.ViewInterface.getCommandMatcher;
 
 abstract public class Menu {
+
     private static final LoginMenu loginMenu = new LoginMenu();
     private static final MainMenu mainMenu = new MainMenu();
     private static final ScoreBoardMenu scoreBoardMenu = new ScoreBoardMenu();
@@ -37,7 +39,7 @@ abstract public class Menu {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        new Thread(()->{
+        new Thread(() -> {
             new AdminWelcomeMenu().execute();
         }).start();
 //        while (true) {
@@ -83,50 +85,42 @@ abstract public class Menu {
         Menu.currentMenu = currentMenu;
     }
 
-    abstract protected void execute();
-
-    abstract protected String processCommand(String command, UserHolder currentUser);
-
     public static String handleCommand(String command, UserHolder currentUser) {
         String result = loginMenu.processCommand(command, currentUser);
-        if(command.startsWith("get count ")){
-            result= getCountCard(command);
-        }
-       else  if(command.startsWith("reduce card ")){
-            result=reduceCard(command);
-        }
-        else if(command.startsWith("save user ")){
-                Matcher matcher = getCommandMatcher(command, "save user address: (.*) content: (.*)");
-                String address = matcher.group(1);
-                String content = matcher.group(2);
-                try {
-                    DataBaseController.writeFile(address, content);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-        }
-        else if(command.startsWith("add card ")){
-           result=addCard(command);
-        }
-        else if(command.startsWith("is card forbid ")){
-            Matcher matcher=getCommandMatcher(command,"is card forbid (.*)");
-            String cardName=matcher.group(1);
-            if(Card.getCardByName(cardName).isForbid()){
-                return "true";
+        if (command.startsWith("get count ")) {
+            result = getCountCard(command);
+        } else if (command.startsWith("reduce card ")) {
+            result = reduceCard(command);
+        } else if (command.equals("get games")) {
+            result = Duel.getGamesString();
+        } else if (command.startsWith("save user ")) {
+            Matcher matcher = getCommandMatcher(command, "save user address: (.*) content: (.*)");
+            String address = matcher.group(1);
+            String content = matcher.group(2);
+            try {
+                DataBaseController.writeFile(address, content);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            else{
+        } else if (command.startsWith("add card ")) {
+            result = addCard(command);
+        } else if (command.startsWith("is card forbid ")) {
+            Matcher matcher = getCommandMatcher(command, "is card forbid (.*)");
+            String cardName = matcher.group(1);
+            if (Card.getCardByName(cardName).isForbid()) {
+                return "true";
+            } else {
                 return "false";
             }
-        } else if(command.startsWith("get online users")){
-            StringBuilder users= new StringBuilder();
-            for(UserHolder userHolder:User.getLoggedInUsers()){
+        } else if (command.startsWith("get online users")) {
+            StringBuilder users = new StringBuilder();
+            for (UserHolder userHolder : User.getLoggedInUsers()) {
                 users.append("\"").append(userHolder.getUser().getUsername()).append("\" ");
             }
-            result= users.toString().trim();
-        } else if(command.equals("stop my thread")){
+            result = users.toString().trim();
+        } else if (command.equals("stop my thread")) {
             result = "forward: stop receiving";
-        }
-        else{
+        } else {
             if (result.equals("Error: invalid command"))
                 result = mainMenu.processCommand(command, currentUser);
             if (result.equals("Error: invalid command"))
@@ -147,30 +141,30 @@ abstract public class Menu {
     }
 
     private static synchronized String reduceCard(String command) {
-        CardsInventory.inventory.removeCardFromInventory(Card.getCardByName(command.replace("reduce card ","")),1);
-        return "card "+command.replace("reduce card ","")+" reduced";
+        CardsInventory.inventory.removeCardFromInventory(Card.getCardByName(command.replace("reduce card ", "")), 1);
+        return "card " + command.replace("reduce card ", "") + " reduced";
     }
 
-    private static synchronized String getCountCard(String command){
-       return String.valueOf(CardsInventory.inventory.cardsInventory.get(command.replace("get count ","")));
+    private static synchronized String getCountCard(String command) {
+        return String.valueOf(CardsInventory.inventory.cardsInventory.get(command.replace("get count ", "")));
     }
-    private static synchronized String addCard(String command){
-        Matcher matcher=getCommandMatcher(command,"add card address: (.*) content: (.*)");
-        String address=matcher.group(1);
-        String content=matcher.group(2);
+
+    private static synchronized String addCard(String command) {
+        Matcher matcher = getCommandMatcher(command, "add card address: (.*) content: (.*)");
+        String address = matcher.group(1);
+        String content = matcher.group(2);
         try {
             GsonBuilder builder = new GsonBuilder();
             Gson gson = builder.create();
-            DataBaseController.writeFile(address,content);
-            File file=new File(address);
+            DataBaseController.writeFile(address, content);
+            File file = new File(address);
             BufferedReader bufferedReader = new BufferedReader(
                     new FileReader(file.getPath())
             );
-            Card card=gson.fromJson(bufferedReader,Card.class);
-            if(Card.getCardByName(card.getName())!=null){
+            Card card = gson.fromJson(bufferedReader, Card.class);
+            if (Card.getCardByName(card.getName()) != null) {
                 return "false";
-            }
-            else {
+            } else {
                 Card.addCardToAllCards(card);
                 CardsInventory.inventory.addCardToInventory(card, 1);
                 return "true";
@@ -180,5 +174,9 @@ abstract public class Menu {
         }
         return "false";
     }
+
+    abstract protected void execute();
+
+    abstract protected String processCommand(String command, UserHolder currentUser);
 
 }

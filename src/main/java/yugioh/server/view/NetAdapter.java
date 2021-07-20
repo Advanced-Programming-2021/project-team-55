@@ -19,6 +19,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 
 import static yugioh.server.view.ViewInterface.getCommandMatcher;
@@ -30,6 +31,8 @@ public class NetAdapter {
     private ServerSocket serverSocket;
     private DataInputStream dataInputStream;
     private Thread listeningThread;
+
+    private HashMap<String, BufferedImage> inProgressGamesSnapShots = new HashMap<>();
 
     public NetAdapter(int port) {
         this.port = port;
@@ -216,6 +219,7 @@ public class NetAdapter {
         }).start();
 
         handleTV();
+        handleBroadCastTV();
     }
 
     private void handleTV() {
@@ -228,15 +232,54 @@ public class NetAdapter {
                         try {
                             DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
                             String gamerUsername = dataInputStream.readUTF();
-                            System.out.println(gamerUsername);
                             try {
                                 BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(dataInputStream.readAllBytes()));
-                                AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
+                                inProgressGamesSnapShots.put(gamerUsername, bufferedImage);
+//                                AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
                             dataInputStream.close();
                             socket.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }).start();
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    private void handleBroadCastTV() {
+        new Thread(() -> {
+            try {
+                ServerSocket serverSocket = new ServerSocket(9596);
+                while (true) {
+                    Socket socket = serverSocket.accept();
+                    new Thread(() -> {
+                        try {
+                            DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+                            DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+                            String whichGame = dataInputStream.readUTF();
+//                            System.out.println(whichGame);
+                            Matcher matcher = getCommandMatcher(whichGame, "get game TV: (.+)");
+                            whichGame = matcher.group(1);
+                            try {
+                                for (String s : inProgressGamesSnapShots.keySet()) {
+                                    if (!whichGame.contains("\"" + s + "\"")) continue;
+                                    ImageIO.write(inProgressGamesSnapShots.get(s), "png", dataOutputStream);
+                                    dataOutputStream.flush();
+                                    dataOutputStream.close();
+                                    dataInputStream.close();
+                                    socket.close();
+                                    break;
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 public class AdminWelcomeMenuController implements Initializable {
 
     public static AdminWelcomeMenuController adminWelcomeMenuController;
-    public ImageView tv;
+//    public ImageView tv;
 
     public void enterAdminShop(MouseEvent mouseEvent) {
         new AdminShopMenu().execute();

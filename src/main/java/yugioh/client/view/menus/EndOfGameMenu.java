@@ -1,5 +1,6 @@
 package yugioh.client.view.menus;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,15 +14,22 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import yugioh.client.controller.gamephasescontrollers.GameController;
+import yugioh.client.controller.menucontroller.DetermineStarterMenuController;
 import yugioh.client.model.Player;
 import yugioh.client.model.User;
 import yugioh.client.view.NetAdapter;
 import yugioh.client.view.gamephases.Duel;
+import yugioh.server.view.ViewInterface;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.regex.Matcher;
 
 public class EndOfGameMenu extends WelcomeMenu {
 
+    private static GameController gameController;
+    private static Thread listeningCommandThread;
+    private static Runnable runnable;
     private static String resultString;
     private static Stage stage;
     private boolean isEndOfTheGame;
@@ -42,6 +50,7 @@ public class EndOfGameMenu extends WelcomeMenu {
         EndOfGameMenu.resultString = resultString;
         this.isEndOfTheGame = isEndOfTheGame;
         start(stage);
+
     }
 
     @Override
@@ -64,11 +73,8 @@ public class EndOfGameMenu extends WelcomeMenu {
             yesButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    gameController.setCurrentTurnPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
-                    gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
-                    Duel.runGame(gameController);
-                    stage.close();
-                    Toast.isGameEnded = false;
+                    yesHandler(gameController);
+                    //startSyncingWithRival();
                 }
             });
 
@@ -82,11 +88,7 @@ public class EndOfGameMenu extends WelcomeMenu {
             noButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    gameController.setCurrentTurnPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
-                    gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
-                    Duel.runGame(gameController);
-                    stage.close();
-                    Toast.isGameEnded = false;
+                    noHandler(gameController);
                 }
             });
 
@@ -111,14 +113,15 @@ public class EndOfGameMenu extends WelcomeMenu {
             label.setLayoutY(400);
             label.getStyleClass().add("buttonText");
             pane.getChildren().add(label);
-            if (RivalSelectionMenu.isRival(LoserPlayer)){
+          /*  if (RivalSelectionMenu.isRival(LoserPlayer)){
                 pane.getChildren().add(continueButton);
-            }else{
+            }else{*/
                 pane.getChildren().add(yesButton);
                 pane.getChildren().add(noButton);
-            }
+         //   }
 
         }
+
         Scene scene = WelcomeMenu.createScene(pane);
         stage = new Stage();
         stage.initStyle(StageStyle.UTILITY);
@@ -127,11 +130,31 @@ public class EndOfGameMenu extends WelcomeMenu {
         stage.setScene(scene);
         stage.show();
     }
+
+    public static void noHandler(GameController gameController) {
+        NetAdapter.sendForwardRequestForGame("handle no for surrender");
+        gameController.setCurrentTurnPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
+        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
+        Duel.runGame(gameController);
+        stage.close();
+        Toast.isGameEnded = false;
+        // startSyncingWithRival();
+    }
+
+    public static void yesHandler(GameController gameController) {
+        NetAdapter.sendForwardRequestForGame("handle yes for surrender");
+        gameController.setCurrentTurnPlayer(gameController.getGame().getLosers().get(gameController.getGame().getLosers().size() - 1));
+        gameController.setCurrentTurnOpponentPlayer(gameController.getGame().getWinners().get(gameController.getGame().getWinners().size() - 1));
+        Duel.runGame(gameController);
+        stage.close();
+        Toast.isGameEnded = false;
+    }
+
     private void disableIfIsRival(Player player) {
         if (RivalSelectionMenu.isRival(player)) {
             NetAdapter.sendForwardRequest("you start");
-            //yesButton.setDisable(true);
-            // noButton.setDisable(true);
+            yesButton.setDisable(true);
+             noButton.setDisable(true);
         } else NetAdapter.sendForwardRequest("i start");
     }
 }
