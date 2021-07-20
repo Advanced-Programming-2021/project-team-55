@@ -132,6 +132,16 @@ abstract public class Duel {
         return response;
     }
 
+   public static String getGamesString() {
+        StringBuilder response = new StringBuilder();
+       for (UserHolder userHolder : gamesInProgress.keySet()) {
+           if (!response.toString().equals("")) response.append(",");
+           if (response.toString().contains("\"" + userHolder.getUser().getUsername() + "\"")) continue;
+           response.append("\"").append(userHolder.getUser().getUsername()).append("\" & \"").append(gamesInProgress.get(userHolder).getUser().getUsername()).append("\"");
+       }
+       return response.toString();
+   }
+
     private static void assignTurn() {
         String currentPlayerName = gameController.getGame().getFirstPlayer().getUser().getNickname();
         String opponentPlayerName = gameController.getGame().getSecondPlayer().getUser().getNickname();

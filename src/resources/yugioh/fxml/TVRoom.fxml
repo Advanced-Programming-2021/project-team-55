@@ -35,10 +35,6 @@
     </ImageView>
     <MenuButton fx:id="currentGames" layoutX="728.0" layoutY="261.0" mnemonicParsing="false" prefHeight="25.0"
                 prefWidth="141.0" text="select Game" textAlignment="CENTER">
-      <items>
-          <MenuItem mnemonicParsing="false" text="Action 1"/>
-          <MenuItem mnemonicParsing="false" text="Action 2"/>
-      </items>
         <padding>
           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
         </padding>
