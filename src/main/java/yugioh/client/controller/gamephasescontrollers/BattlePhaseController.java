@@ -123,8 +123,11 @@ public class BattlePhaseController {
                     }
                     gameController.changeTurn(true, false);
                     gameController.activateTrapEffect(attackEffectSpellAndTraps);
-
-                    break;
+                    this.isDirect=isDirect;
+                    this.attackerCell=attackerCell;Ba
+                    this.attackedCell=attackedCell;
+                    this.selectedCell=selectedCell;
+                    return;
                 }
             }
         }
@@ -132,6 +135,7 @@ public class BattlePhaseController {
         this.attackerCell=attackerCell;
         this.attackedCell=attackedCell;
         this.selectedCell=selectedCell;
+        continueAttack();
 //        new Thread(() -> {
 //            System.out.println(gameController.getGameMenuController().choiceHasBeenMade+"\n"+gameController.getGameMenuController().shouldActivateEffectsNow);
 //            while (!gameController.getGameMenuController().choiceHasBeenMade ||
