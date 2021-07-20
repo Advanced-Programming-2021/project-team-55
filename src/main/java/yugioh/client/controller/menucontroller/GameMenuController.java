@@ -176,7 +176,7 @@ public class GameMenuController extends MenuController implements Initializable 
 
         }
         gameController.currentTurnPlayer.getGameBoard().getFieldZone().getCellRectangle().rotateProperty().set(gameBoardPane.rotateProperty().get() + 180);
-        Cell.deselectCell();
+        Cell.deselectCell(true);
     }
 
     @Override
@@ -418,17 +418,12 @@ public class GameMenuController extends MenuController implements Initializable 
                         rectangle.setEffect(tributeEffect);
                         if (neededTributes == tributeCells.size()) {
                             for (Cell cell : tributeCells) {
-                                Rectangle graveyard = GameMenuController.gameMenuController.userGraveyard;
-                                if (CardActionsMenu.isBoardInverse())
-                                    graveyard = GameMenuController.gameMenuController.rivalGraveyard;
-                                //    gameController.getBattlePhaseController().moveCardToGraveyard(cell, graveyard, gameController.currentTurnPlayer);
                                 cell.getCellRectangle().setEffect(null);
-                                cell.removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
-                                // gameController.currentTurnPlayer.getGameBoard().addCardToGraveyard(cell.getCellCard());
+                                cell.removeCardFromCell(gameController.currentTurnPlayer.getGameBoard(),true);
                             }
                             if (isTributeForSummon)
-                                gameController.getMainPhase1Controller().continueMonsterSummon(gameController, false);
-                            else gameController.getMainPhase1Controller().continueSetMonster(gameController);
+                                gameController.getMainPhase1Controller().continueMonsterSummon(gameController,true);
+                            else gameController.getMainPhase1Controller().continueSetMonster(gameController,true);
                             shouldSelectTributesNow = false;
                             tributeCells.clear();
                             neededTributes = 0;
@@ -439,9 +434,9 @@ public class GameMenuController extends MenuController implements Initializable 
                 if (event.getButton() == MouseButton.PRIMARY) {
                     if (gameController.currentTurnPlayer.getGameBoard().isCellInSpellAndTrapZone(Cell.getSelectedCellByRectangle(rectangle))) {
                         if (Cell.getSelectedCell() != null && !Cell.getSelectedCell().isEmpty() && Cell.getSelectedCell().getCellRectangle().equals(rectangle)) {
-                            Cell.deselectCell();
+                            Cell.deselectCell(true);
                         } else {
-                            Cell.deselectCell();
+                            Cell.deselectCell(true);
                             selectCard(rectangle);
                         }
                         try {
@@ -459,13 +454,13 @@ public class GameMenuController extends MenuController implements Initializable 
                     if (selectedCell != null && !selectedCell.isEmpty()) {
                         selectedCell.getCellRectangle().setEffect(null);
                         CardActionsMenu.close();
-                        Cell.deselectCell();
+                        Cell.deselectCell(true);
                     }
                     if (selectedCell != null && selectedCell.getCellCard() != null &&
                             (selectedCell.getCellCard().getCardImagePattern().equals(rectangleImage) ||
                                     selectedCell.getCellCard().getCardBackImagePattern().equals(rectangleImage))) {
                         CardActionsMenu.close();
-                        Cell.deselectCell();
+                        Cell.deselectCell(true);
                     } else if (CardActionsMenu.getActiveSword() == null) {
                         selectCard(rectangle);
                         if (!gameController.currentTurnOpponentPlayer.getGameBoard().isCellInGameBoard(Cell.getSelectedCell())

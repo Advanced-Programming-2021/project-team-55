@@ -6,6 +6,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import yugioh.client.model.User;
 import yugioh.client.model.cards.Card;
 import yugioh.client.model.cards.Monster;
 import yugioh.client.model.cards.monsters.CommandKnight;
@@ -69,9 +70,11 @@ public class Cell {
         return allCells;
     }
 
-    public static void deselectCell() {   //better to be same as select cell or rename
+    public static void deselectCell(boolean sentToOtherPlayer) {   //better to be same as select cell or rename
         try {
+            if (sentToOtherPlayer)
             NetAdapter.sendForwardRequestForGame("select -d");
+
             selectedCell.getCellRectangle().setEffect(null);
         } catch (Exception e) {
         }
@@ -112,9 +115,9 @@ public class Cell {
         setCard(card);
     }
 
-    public void removeCardFromCell(GameBoard gameBoard) {
-        //todo commented the deep way
-       // NetAdapter.sendForwardRequestForGame("remove card from cell "+gameBoard.equals(Duel.getGameController().currentTurnPlayer.getGameBoard()));
+    public void removeCardFromCell(GameBoard gameBoard,boolean sendToOtherPlayer) {
+        if(sendToOtherPlayer)
+        NetAdapter.sendForwardRequestForGame("remove card from cell "+gameBoard.equals(Duel.getGameController().currentTurnPlayer.getGameBoard()));
         CommandKnight.deActivateEffect(this);
         BlackPendant.deActivateEffect(this);
         UnitedWeStand.deActivateEffect(this);
@@ -124,12 +127,16 @@ public class Cell {
         MagnumShield.deActivateEffect(this);
         CardActionsMenu.removeRectangleEventHandlers(cellRectangle);
         CardActionsMenu.removeEventHandlers();
-        gameBoard.addCardToGraveyard(this);
+
 //        Timeline timeline=new Timeline(new KeyFrame(Duration.seconds(0.5),
 //                event->cellRectangle.setFill(null)));
 //        timeline.play();
 //        cellRectangle.setFill(null);
-        cellRectangle.rotateProperty().set(gameBoard.rectanglesInitRotateValues.get(cellRectangle));
+        try {
+            cellRectangle.rotateProperty().set(gameBoard.rectanglesInitRotateValues.get(cellRectangle));
+
+        }catch (Exception e){}
+        gameBoard.addCardToGraveyard(this);
 //        Rectangle tempRectangle = new Rectangle();
 //        tempRectangle.setLayoutX(cellRectangle.getLayoutX());
 //        tempRectangle.setLayoutY(cellRectangle.getLayoutY());
@@ -143,9 +150,10 @@ public class Cell {
 //               event -> GameMenuController.getGameMenuController().gameBoardPane.getChildren().remove(tempRectangle)));
 //       timeline.play();
         if (Cell.getSelectedCell() == this) selectedCell = null;
-        cellRectangle.setStrokeWidth(0);
+
         cellInfo.setText("");
-        cellRectangle.setFill(null);
+            cellRectangle.setFill(null);
+            cellRectangle.setStrokeWidth(0);
 
         this.card = null;
         this.cardStatus = null;

@@ -13,7 +13,7 @@ import yugioh.client.view.gamephases.Duel;
 
 public class CommandKnight extends Monster {
 
-    private boolean isActive = false;
+    private static boolean isActive = false;
     private Player owner;
 
     public CommandKnight() {
@@ -42,7 +42,8 @@ public class CommandKnight extends Monster {
 
     public static void deActivateEffect(Cell cell) {
         if (cell == null || cell.isEmpty() || !cell.getCellCard().getName().equals("Command Knight") ||
-                cell.getCardStatus() == CardStatus.OFFENSIVE_OCCUPIED) return;
+        !isActive||!Duel.getGameController().currentTurnPlayer.getGameBoard()
+        .isCellInMonsterZone(cell)) return;
 
         ViewInterface.showResult("Command Knight effect deActivated: all monsters atk will decrease 400");
         try {

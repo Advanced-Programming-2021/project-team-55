@@ -29,7 +29,7 @@ public class TorrentialTribute extends SpellAndTrap {
         for (Cell monster : monsterCardZone
         ) {
             if (!monster.isEmpty()) {
-                monster.removeCardFromCell(gameBoard);
+                monster.removeCardFromCell(gameBoard, false);
             }
         }
     }

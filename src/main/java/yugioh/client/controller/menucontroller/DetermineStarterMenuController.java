@@ -27,6 +27,7 @@ import static yugioh.client.view.SoundPlayable.playButtonSound;
 
 public class DetermineStarterMenuController implements Initializable {
 
+    public static boolean hasReceivedStop=false;
     private static GameController gameController;
     private static Thread listeningCommandThread;
     private static Runnable runnable;
@@ -107,8 +108,10 @@ public class DetermineStarterMenuController implements Initializable {
                         Matcher matcher = ViewInterface.getCommandMatcher(command, "forward: (.+)");
                         command = matcher.group(1);
                         switch (command) {
-                            case "stop receiving":
+                            case "stop receiving": {
+                                hasReceivedStop=true;
                                 return;
+                            }
                             case "yes selected":
                                 Platform.runLater(this::handleYesButton);
                                 break;

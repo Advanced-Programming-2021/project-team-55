@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 import yugioh.client.controller.menucontroller.GameMenuController;
 import yugioh.client.model.Player;
+import yugioh.client.model.User;
 import yugioh.client.model.board.CardStatus;
 import yugioh.client.model.board.Cell;
 import yugioh.client.model.board.GameBoard;
@@ -22,6 +23,7 @@ import yugioh.client.model.cards.trapandspells.TorrentialTribute;
 import yugioh.client.model.exceptions.GameException;
 import yugioh.client.view.ConsoleColors;
 import yugioh.client.view.NetAdapter;
+import yugioh.client.view.gamephases.CardActionsMenu;
 import yugioh.client.view.gamephases.GameResponses;
 
 import java.util.ArrayList;
@@ -51,11 +53,15 @@ public interface MainPhasesController {
         handleTribute(currentPlayer, gameController, monsterLevel, false, false);
     }
 
-    default void continueMonsterSummon(GameController gameController, boolean isNormalSummon) {
+    default void continueMonsterSummon(GameController gameController,boolean sendToOtherPlayer) {
 //        double length = 4;
 //        if (isNormalSummon) length = 0.1;
 //        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(length), event -> {
         // Cell.setSelectedCell(CardActionsMenu.getToBeSummonedCell());
+        if(sendToOtherPlayer){
+            if(User.loggedInUser.equals(gameController.currentTurnPlayer.getUser()))
+            NetAdapter.sendForwardRequestForGame("continue summon "+gameController.currentTurnPlayer.getGameBoard().getCellInfo(Cell.getSelectedCell()));
+        }
         Cell selectedCell = Cell.getSelectedCell();
         Player currentPlayer = gameController.currentTurnPlayer;
         TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
@@ -65,11 +71,11 @@ public interface MainPhasesController {
         try {
             currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED,
                     gameController);
-        } catch (GameException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         currentPlayer.getGameBoard().removeCardFromHand(selectedCell);
-        Cell.deselectCell();
+        Cell.deselectCell(false);
         //}));
         //timeline.play();
     }
@@ -238,9 +244,9 @@ public interface MainPhasesController {
 //
 //        }
         } else if (isForSet) {
-            continueSetMonster(gameController);
+            continueSetMonster(gameController,false);
         } else {
-            continueMonsterSummon(gameController, true);
+            continueMonsterSummon(gameController, false);
         }
     }
 
@@ -273,13 +279,17 @@ public interface MainPhasesController {
                 playerGameBoard.removeCardFromHand(selectedCell);
                 gameController.changedPositionCells.add(selectedCell);
                 TimeSeal.setActivated(gameController);
-                Cell.deselectCell();
+                Cell.deselectCell(true);
             }
 
         }
     }
 
-    default void continueSetMonster(GameController gameController) {
+    default void continueSetMonster(GameController gameController,boolean sendToOtherPlayers) {
+        if(sendToOtherPlayers){
+            if(User.loggedInUser.equals(gameController.currentTurnPlayer.getUser()))
+                NetAdapter.sendForwardRequestForGame("continue set "+gameController.currentTurnPlayer.getGameBoard().getCellInfo(Cell.getSelectedCell()));
+        }
         GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
         Cell selectedCell = Cell.getSelectedCell();
         Card selectedCard = selectedCell.getCellCard();
@@ -291,7 +301,7 @@ public interface MainPhasesController {
         playerGameBoard.removeCardFromHand(selectedCell);
         gameController.changedPositionCells.add(selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
-        Cell.deselectCell();
+        Cell.deselectCell(true);
     }
 
     default void setPosition(String position, GameController gameController) throws GameException {
@@ -316,7 +326,7 @@ public interface MainPhasesController {
                 gameController.currentTurnPlayer.getGameBoard().setFlipZTransition(cell.getCellRectangle(), true);
                 cell.setCardStatus(CardStatus.DEFENSIVE_OCCUPIED);
             }
-            Cell.deselectCell();
+            Cell.deselectCell(true);
         }
     }
 
@@ -396,7 +406,7 @@ public interface MainPhasesController {
                 selectedCell.getCellRectangle(), false, false);
         ManEaterBug.handleEffect(gameController, selectedCell);
         activateTrapIfCanBeActivated(gameController, SummonTypes.FlipSummon);
-        Cell.deselectCell();
+        Cell.deselectCell(true);
     }
 
     default void specialSummon(GameController gameController) throws GameException {
@@ -426,7 +436,7 @@ public interface MainPhasesController {
         gameController.shouldSpecialSummonNow = false;
         gameController.setLastSummonedMonster(selectedCell);
         addMonstersToSpecialSummonEffectSpellAndTrap();
-        Cell.deselectCell();
+        Cell.deselectCell(true);
         //   break;
         // }
         activateTrapIfCanBeActivated(gameController, SummonTypes.SpecialSummon);

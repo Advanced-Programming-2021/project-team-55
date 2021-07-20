@@ -21,7 +21,7 @@ public class MirrorForce extends SpellAndTrap {
         GameBoard opponentPlayerGameBoard = gameController.getCurrentTurnOpponentPlayer().getGameBoard();
         for (Cell cell : opponentPlayerGameBoard.getMonsterCardZone()) {
             if (!cell.isEmpty() && cell.getCardStatus() == CardStatus.OFFENSIVE_OCCUPIED) {
-                cell.removeCardFromCell(opponentPlayerGameBoard);
+                cell.removeCardFromCell(opponentPlayerGameBoard, false);
             }
         }
         ViewInterface.showResult("Mirror Force effect activated : all your opponent's Attack Position monsters destroyed");

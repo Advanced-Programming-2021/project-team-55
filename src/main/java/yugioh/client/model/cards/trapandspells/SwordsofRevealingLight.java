@@ -47,7 +47,7 @@ public class SwordsofRevealingLight extends SpellAndTrap {
         if (((SwordsofRevealingLight) cell.getCellCard()).counter == 3) {
             ViewInterface.showResult("Swords of Revealing Light deactivated.");
 
-            cell.removeCardFromCell(opponentPlayerGameBoard);
+            cell.removeCardFromCell(opponentPlayerGameBoard, false);
         } else {
             ((SwordsofRevealingLight) cell.getCellCard()).counter++;
         }

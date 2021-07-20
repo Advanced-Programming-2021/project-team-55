@@ -40,7 +40,6 @@ import yugioh.client.view.transitions.ExplodeAnimation;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 import static yugioh.client.view.SoundPlayable.playButtonSound;
@@ -431,7 +430,7 @@ public class GameBoard {
                     rectangle.opacityProperty().set(j);
                 }
                 if (hasToBeRemoved) {
-                    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), actionEvent -> cell.removeCardFromCell(this)));
+                    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), actionEvent -> cell.removeCardFromCell(this, false)));
                     timeline.play();
                     return;
                 }
@@ -498,7 +497,7 @@ public class GameBoard {
             @Override
             public void handle(ActionEvent actionEvent) {
                 if (hasToBeRemoved) {
-                    Cell.getSelectedCellByRectangle(rectangle).removeCardFromCell(GameBoard.this);
+                    Cell.getSelectedCellByRectangle(rectangle).removeCardFromCell(GameBoard.this, false);
                 }
             }
         });
@@ -653,8 +652,11 @@ public class GameBoard {
                 Duel.getGameController().getGameMenuController().addEventForCardImageRectangle(rectangle, cell);
                 rectangle.setWidth(90);
                 rectangle.setHeight(120);
-
-                rectangle.setFill(card.getCardImagePattern());
+                if(User.loggedInUser.equals(Duel
+                        .getGameController().currentTurnPlayer.getUser())){
+                    rectangle.setFill(cardToAdd.getCardImagePattern());
+                }
+                else rectangle.setFill(cardToAdd.getCardBackImagePattern());
                 cell.setCellRectangle(rectangle);
                 double rotationValue = GameMenuController.getGameMenuController().background.rotateProperty().getValue() % 360;
                 if (rotationValue > 179 && rotationValue < 181) {
@@ -677,7 +679,7 @@ public class GameBoard {
         if (!fieldZone.isEmpty()) {
             Rectangle graveyard = gameMenuController.userGraveyard;
 //            gameMenuController.gameController.getBattlePhaseController().moveCardToGraveyard(cell, graveyard, gameMenuController.gameController.currentTurnPlayer);
-            fieldZone.removeCardFromCell(gameMenuController.gameController.currentTurnPlayer.getGameBoard());
+            fieldZone.removeCardFromCell(gameMenuController.gameController.currentTurnPlayer.getGameBoard(), false);
         }
         setTranslationAnimation(cell.getCellCard().getCardImagePattern(), fieldZone, cell.getCellCard());
         fieldZone.addCardToCell(cell.getCellCard());
@@ -880,6 +882,7 @@ public class GameBoard {
         tributeStage.initOwner(WelcomeMenu.stage);
         tributeStage.initStyle(StageStyle.UNDECORATED);
         tributeStage.initModality(Modality.NONE);
+        //System.out.println(Cell.getSelectedCell());
         CardActionsMenu.setToBeSummonedCell(Cell.getSelectedCell());
         URL url = getClass().getResource("/yugioh/fxml/TributeMenu.fxml");
         try {
@@ -896,6 +899,8 @@ public class GameBoard {
                     gameController.getGameMenuController().shouldSelectTributesNow = true;
                     gameController.getGameMenuController().neededTributes = countTributes;
                     gameController.getGameMenuController().isTributeForSummon = isSummon;
+//                    NetAdapter.sendForwardRequestForGame("tribute "+ gameController.getGameMenuController().shouldSelectTributesNow+
+//                            " "+countTributes+" "+isSummon);
                 }
             });
             noButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -904,6 +909,7 @@ public class GameBoard {
                     tributeStage.close();
                 }
             });
+            if(User.loggedInUser.equals(gameController.currentTurnPlayer.getUser()))
             tributeStage.show();
         } catch (IOException e) {
             e.printStackTrace();

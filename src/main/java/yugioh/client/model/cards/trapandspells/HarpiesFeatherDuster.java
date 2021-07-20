@@ -25,7 +25,7 @@ public class HarpiesFeatherDuster extends SpellAndTrap {
         }
         for (Cell cell : opponentPlayerGameBoard.getSpellAndTrapCardZone()) {
             if (!cell.isEmpty()) {
-                cell.removeCardFromCell(opponentPlayerGameBoard);
+                cell.removeCardFromCell(opponentPlayerGameBoard, false);
             }
         }
         updateSpellInGameBoard(gameController);

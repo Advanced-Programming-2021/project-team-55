@@ -35,13 +35,12 @@ import yugioh.client.view.gamephases.GameResponses;
 import yugioh.client.view.menus.*;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
 
 public class GameController {
-    public static int counter=0;
+    public static int counter = 0;
+    private static Stage logoStage;
     public Player currentTurnPlayer;
     public Player currentTurnOpponentPlayer;
     public GamePhase currentPhase;
@@ -64,8 +63,6 @@ public class GameController {
     private EndPhaseController endPhaseController;
     private DetermineStarterMenu determineStarterMenu;
     private GameMenuController gameMenuController;
-
-    private static Stage logoStage;
 
     public GameController(Game game) {
         this.game = game;
@@ -148,7 +145,7 @@ public class GameController {
     }
 
     public void selectCard(String zone, int number, boolean opponent) throws GameException {
-       // ViewInterface.showResult("select --" + zone+ number+ );//todo complete function
+        // ViewInterface.showResult("select --" + zone+ number+ );//todo complete function
         GameBoard currentPlayerGameBoard = currentTurnPlayer.getGameBoard();
         GameBoard opponentPlayerGameBoard = currentTurnOpponentPlayer.getGameBoard();
         Cell selectedCell = null;
@@ -205,7 +202,7 @@ public class GameController {
         if (Cell.getSelectedCell() == null) {
             throw new GameException(GameResponses.NO_CARDS_SELECTED.response);
         }
-        Cell.deselectCell();
+        Cell.deselectCell(true);
     }//
 
     public void changePhase() {
@@ -335,14 +332,14 @@ public class GameController {
             logoStage.setX(158);
             logoStage.setY(217);
             logoStage.show();
-            for(Cell cell:currentTurnPlayer.getGameBoard().getAllCellsInBoard()){
-                if(!cell.isEmpty()&&(cell.cardStatus== CardStatus.HIDDEN||cell.cardStatus==CardStatus.DEFENSIVE_HIDDEN)){
+            for (Cell cell : currentTurnPlayer.getGameBoard().getAllCellsInBoard()) {
+                if (!cell.isEmpty() && (cell.cardStatus == CardStatus.HIDDEN || cell.cardStatus == CardStatus.DEFENSIVE_HIDDEN)) {
                     cell.getCellRectangle().setFill(cell.getCellCard().getCardBackImagePattern());
                 }
             }
-            for(Cell cell:currentTurnOpponentPlayer.getGameBoard().getAllCellsInBoard()){
-                if(!cell.isEmpty()&&(cell.cardStatus==CardStatus.OCCUPIED||cell.cardStatus==CardStatus.DEFENSIVE_OCCUPIED||
-                        cell.cardStatus==CardStatus.OFFENSIVE_OCCUPIED||currentTurnOpponentPlayer.getGameBoard().isCellInHandZone(cell))){
+            for (Cell cell : currentTurnOpponentPlayer.getGameBoard().getAllCellsInBoard()) {
+                if (!cell.isEmpty() && (cell.cardStatus == CardStatus.OCCUPIED || cell.cardStatus == CardStatus.DEFENSIVE_OCCUPIED ||
+                        cell.cardStatus == CardStatus.OFFENSIVE_OCCUPIED || currentTurnOpponentPlayer.getGameBoard().isCellInHandZone(cell))) {
                     cell.getCellRectangle().setFill(cell.getCellCard().getCardImagePattern());
                 }
             }
@@ -369,29 +366,37 @@ public class GameController {
         URL url = getClass().getResource("/yugioh/fxml/ActivateEffectMenu.fxml");
         try {
             Pane pane = FXMLLoader.load(url);
-            if(!User.loggedInUser.equals(currentTurnPlayer.getUser())){
-            Scene scene = WelcomeMenu.createScene(pane);
-            activateStage.setScene(scene);
-            Button yesButton = (Button) ((HBox) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).getChildren().get(0);
-            Button noButton = (Button) ((HBox) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).getChildren().get(1);
-            yesButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    activateStage.close();
-                    gameMenuController.choiceHasBeenMade = true;
-                    gameMenuController.shouldActivateEffectsNow = true;
-                    gameMenuController.canBeActivatedCards = trapsCanBeActivated;
-                }
-            });
-            noButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    gameMenuController.choiceHasBeenMade = true;
-                    activateStage.close();
-                }
-            });
-            activateStage.show();
-        }} catch (IOException e) {
+            if (!User.loggedInUser.equals(currentTurnPlayer.getUser())) {
+                Scene scene = WelcomeMenu.createScene(pane);
+                activateStage.setScene(scene);
+                Button yesButton = (Button) ((HBox) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).getChildren().get(0);
+                Button noButton = (Button) ((HBox) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).getChildren().get(1);
+                yesButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        activateStage.close();
+                        gameMenuController.choiceHasBeenMade = true;
+                        gameMenuController.shouldActivateEffectsNow = true;
+                        gameMenuController.canBeActivatedCards = trapsCanBeActivated;
+                    }
+                });
+                noButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        changeTurn(true, true);
+                        NetAdapter.sendForwardRequestForGame("change turn true true");
+                        NetAdapter.sendForwardRequest("choice has been made");
+                        if(currentPhase==GamePhase.BATTLE) {
+                            battlePhaseController.continueAttack();
+                        }
+                       gameMenuController.choiceHasBeenMade = true;
+                       gameMenuController.shouldActivateEffectsNow=false;
+                        activateStage.close();
+                    }
+                });
+                activateStage.show();
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
          /*   while (true) {
@@ -483,7 +488,7 @@ public class GameController {
         currentTurnOpponentPlayer.resetGameBoard();
         undoMakeAICheatCommand();
         if (game.getRounds() == currentRound) {
-           // ViewInterface.showResult(response);
+            // ViewInterface.showResult(response);
             isGameEnded = true;
             try {
                 NetAdapter.justSendRequest("stop my thread");
@@ -496,7 +501,7 @@ public class GameController {
         } else {
             gameControllerInitialization();
             currentRound++;
-           // ViewInterface.showResult(response);
+            // ViewInterface.showResult(response);
             //changeCards(currentTurnPlayer);
             //changeCards(currentTurnOpponentPlayer);
             try {

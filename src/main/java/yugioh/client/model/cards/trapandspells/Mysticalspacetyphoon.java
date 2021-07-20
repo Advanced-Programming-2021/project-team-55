@@ -37,13 +37,13 @@ public class Mysticalspacetyphoon extends SpellAndTrap {
             if (input.matches("^select --spell (\\d+)$")) {
                 if (response.equals(GameResponses.CARD_SELECTED.response)) {
                     ViewInterface.showResult("your card " + Cell.getSelectedCell().getCellCard().getName() + " destroyed.");
-                    Cell.getSelectedCell().removeCardFromCell(playerGameBoard);
+                    Cell.getSelectedCell().removeCardFromCell(playerGameBoard, false);
                     break;
                 }
             } else if (input.matches("^select --opponent --spell (\\d+)$")) {
                 if (response.equals(GameResponses.CARD_SELECTED.response)) {
                     ViewInterface.showResult("your opponent card " + Cell.getSelectedCell().getCellCard().getName() + " destroyed.");
-                    Cell.getSelectedCell().removeCardFromCell(playerGameBoard);
+                    Cell.getSelectedCell().removeCardFromCell(playerGameBoard, false);
                     break;
                 }
             }
