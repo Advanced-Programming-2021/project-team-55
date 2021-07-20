@@ -202,59 +202,67 @@ public class GameMenuController extends MenuController implements Initializable 
         defLabel.setOpacity(0);
 
         if (Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser()))
-            new Thread(() -> {
-                while (true) {
-                    if (!Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) return;
+            handleSendingGameForTV();
+    }
+
+    private void handleSendingGameForTV() {
+        new Thread(() -> {
+            while (true) {
+                if (!Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) return;
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Platform.runLater(() -> {
+                    Socket tvSocket = null;
                     try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
+                        tvSocket = new Socket("localhost", 9595);
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    Platform.runLater(() -> {
-                        Socket tvSocket = null;
+                    DataOutputStream tvDataOutputStream = null;
+                    try {
+                        tvDataOutputStream = new DataOutputStream(tvSocket.getOutputStream());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        tvDataOutputStream.writeUTF(User.getLoggedInUser().getUsername());
+                        tvDataOutputStream.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    WritableImage imagefx = gamePane.snapshot(new SnapshotParameters(), null);
+                    DataOutputStream finalTvDataOutputStream = tvDataOutputStream;
+                    Socket finalTvSocket = tvSocket;
+                    new Thread(() -> {
+                        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(imagefx, null);
+                        java.awt.Image tmp = bufferedImage.getScaledInstance(436, 324, java.awt.Image.SCALE_SMOOTH);
+                        bufferedImage = new BufferedImage(436, 324, BufferedImage.TYPE_INT_ARGB);
+                        Graphics2D g2d = bufferedImage.createGraphics();
+                        g2d.drawImage(tmp, 0, 0, null);
+                        g2d.dispose();
+
                         try {
-                            tvSocket = new Socket("localhost", 9595);
+                            ImageIO.write(bufferedImage, "png", finalTvDataOutputStream);
+                            finalTvDataOutputStream.flush();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        DataOutputStream tvDataOutputStream = null;
+
                         try {
-                            tvDataOutputStream = new DataOutputStream(tvSocket.getOutputStream());
+                            finalTvDataOutputStream.close();
+                            finalTvSocket.close();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
 
-                        WritableImage imagefx = gamePane.snapshot(new SnapshotParameters(), null);
-                        DataOutputStream finalTvDataOutputStream = tvDataOutputStream;
-                        Socket finalTvSocket = tvSocket;
-                        new Thread(() -> {
-                            BufferedImage bufferedImage = SwingFXUtils.fromFXImage(imagefx, null);
-                            java.awt.Image tmp = bufferedImage.getScaledInstance(436, 324, java.awt.Image.SCALE_SMOOTH);
-                            bufferedImage = new BufferedImage(436, 324, BufferedImage.TYPE_INT_ARGB);
-                            Graphics2D g2d = bufferedImage.createGraphics();
-                            g2d.drawImage(tmp, 0, 0, null);
-                            g2d.dispose();
+                    }).start();
+                });
 
-                            try {
-                                ImageIO.write(bufferedImage, "png", finalTvDataOutputStream);
-                                System.out.println("done");
-                                finalTvDataOutputStream.flush();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-                            try {
-                                finalTvDataOutputStream.close();
-                                finalTvSocket.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-                        }).start();
-                    });
-
-                }
-            }).start();
+            }
+        }).start();
     }
 
 

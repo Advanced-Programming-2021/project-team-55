@@ -2,7 +2,6 @@ package yugioh.server.view;
 
 
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
 import yugioh.server.controller.DataBaseController;
 import yugioh.server.controller.menucontroller.AdminWelcomeMenuController;
 import yugioh.server.model.User;
@@ -19,7 +18,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 
@@ -217,65 +215,25 @@ public class NetAdapter {
             }
         }).start();
 
+        handleTV();
+    }
+
+    private void handleTV() {
         new Thread(() -> {
             try {
                 ServerSocket serverSocket = new ServerSocket(9595);
                 while (true) {
                     Socket socket = serverSocket.accept();
                     new Thread(() -> {
-                        String gamerUsername = "gamer";
                         try {
                             DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-                            while (true) {
-                                try {
-//                                    WritableImage writableImage = (WritableImage) dataInputStream.readObject();
-//                                    byte[] bytes = dataInputStream.readAllBytes();
-//                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(img);
-
-
-//                                    System.out.println("started");
-//                                    BufferedImage image = ImageIO.read(dataInputStream);
-//                                    System.out.println("image received");
-//                                    Image image1 = SwingFXUtils.toFXImage(image, null);
-//                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(image1);
-//                                    System.out.println("image set");
-
-
-//                                    System.out.println("Reading: " + System.currentTimeMillis());
-//
-//                                    byte[] sizeAr = new byte[4];
-//                                    dataInputStream.read(sizeAr);
-//                                    int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
-//
-//                                    byte[] imageAr = new byte[size];
-//                                    dataInputStream.read(imageAr);
-//
-//                                    BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
-//
-//                                    System.out.println("Received " + image.getHeight() + "x" + image.getWidth() + ": " + System.currentTimeMillis());
-//
-//                                    Image image1 = SwingFXUtils.toFXImage(image, null);
-//                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(image1);
-
-
-//                                    ImageIO.write(image, "jpg", new File("C:\\Users\\Jakub\\Pictures\\test2.jpg"));
-
-//                                    serverSocket.close();
-
-
-//                                    BufferedImage img = ImageIO.read(ImageIO.createImageInputStream(dataInputStream));
-//                                    System.out.println("image received");
-//                                    Image image1 = SwingFXUtils.toFXImage(img, null);
-//                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(image1);
-//
-                                    BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(dataInputStream.readAllBytes()));
-                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
-
-
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                    break;
-                                }
+                            String gamerUsername = dataInputStream.readUTF();
+                            System.out.println(gamerUsername);
+                            try {
+                                BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(dataInputStream.readAllBytes()));
+                                AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                             dataInputStream.close();
                             socket.close();
