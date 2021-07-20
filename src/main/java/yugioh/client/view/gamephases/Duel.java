@@ -8,6 +8,8 @@ import yugioh.client.controller.gamephasescontrollers.GameController;
 import yugioh.client.controller.menucontroller.GameMenuController;
 import yugioh.client.model.board.CardStatus;
 import yugioh.client.model.board.Cell;
+import yugioh.client.model.board.Game;
+import yugioh.client.model.board.GameBoard;
 import yugioh.client.model.cards.Card;
 import yugioh.client.model.exceptions.GameException;
 import yugioh.client.view.GameRegexes;
@@ -260,11 +262,39 @@ abstract public class Duel {
             else secondBoolean=false;
             gameController.changeTurn(firstBoolean,secondBoolean);
         }
-//        if(command.startsWith("remove card from cell")){
-//            if(command.contains("true"))
-//            Cell.getSelectedCell().removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
-//            else Cell.getSelectedCell().removeCardFromCell(gameController.currentTurnOpponentPlayer.getGameBoard());
+        else if(command.equals("choice has been made")){
+            gameController.getBattlePhaseController().continueAttack();
+        }
+//        else if(command.startsWith("tribute ")){
+//            Matcher matcher=getCommandMatcher(command,"tribute (.*) (\\d+) (.*)");
+//            boolean firstBoolean;
+//            if(matcher.group(1).equals("true"))firstBoolean=true;
+//            else firstBoolean=false;
+//            int count=Integer.parseInt(matcher.group(2));
+//            boolean secondBoolean;
+//            if(matcher.group(3).equals("true"))secondBoolean=true;
+//            else secondBoolean=false;
+//            GameMenuController.getGameMenuController().shouldSelectTributesNow=firstBoolean;
+//            GameMenuController.getGameMenuController().neededTributes=count;
+//            GameMenuController.getGameMenuController().isTributeForSummon=secondBoolean;
 //        }
+       else if(command.startsWith("remove card from cell")){
+           if(command.contains("true"))
+           Cell.getSelectedCell().removeCardFromCell(gameController.currentTurnPlayer.getGameBoard(),false);
+           else Cell.getSelectedCell().removeCardFromCell(gameController.currentTurnOpponentPlayer.getGameBoard(),false);
+       }
+       else if(command.startsWith("continue summon")){
+           Matcher matcher=getCommandMatcher(command,"continue summon (.*)");
+            System.out.println("select "+matcher.group(1));
+            GameBoard gameBoard=gameController.currentTurnPlayer.getGameBoard();
+            System.out.println(processSelect("select "+matcher.group(1)));
+           gameController.getMainPhase1Controller().continueMonsterSummon(gameController,false);
+       }
+       else if(command.startsWith("continue set")){
+            Matcher matcher=getCommandMatcher(command,"continue set (.*)");
+            System.out.println(processSelect("select "+matcher.group(1)));
+           gameController.getMainPhase1Controller().continueSetMonster(gameController,false);
+       }
 //        else if(command.startsWith("add card to monster zone ")){
 //            Matcher matcher=getCommandMatcher(command,"add card to monster zone (.*) (.*)");
 //            Card card= Card.getNewCardObjectByName(matcher.group(1));

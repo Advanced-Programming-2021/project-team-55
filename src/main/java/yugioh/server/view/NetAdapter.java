@@ -2,7 +2,6 @@ package yugioh.server.view;
 
 
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
 import yugioh.server.controller.DataBaseController;
 import yugioh.server.controller.menucontroller.AdminWelcomeMenuController;
 import yugioh.server.model.User;
@@ -20,6 +19,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 
 import static yugioh.server.view.ViewInterface.getCommandMatcher;
@@ -31,6 +31,8 @@ public class NetAdapter {
     private ServerSocket serverSocket;
     private DataInputStream dataInputStream;
     private Thread listeningThread;
+
+    private HashMap<String, BufferedImage> inProgressGamesSnapShots = new HashMap<>();
 
     public NetAdapter(int port) {
         this.port = port;
@@ -216,65 +218,26 @@ public class NetAdapter {
             }
         }).start();
 
-/*
+        handleTV();
+        handleBroadCastTV();
+    }
+
+    private void handleTV() {
         new Thread(() -> {
             try {
-                ServerSocket serverSocket = new ServerSocket(13085);
+                ServerSocket serverSocket = new ServerSocket(9595);
                 while (true) {
                     Socket socket = serverSocket.accept();
                     new Thread(() -> {
-                        String gamerUsername = "gamer";
                         try {
                             DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-                            while (true) {
-                                try {
-//                                    WritableImage writableImage = (WritableImage) dataInputStream.readObject();
-//                                    byte[] bytes = dataInputStream.readAllBytes();
-//                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(img);
-
-
-//                                    System.out.println("started");
-//                                    BufferedImage image = ImageIO.read(dataInputStream);
-//                                    System.out.println("image received");
-//                                    Image image1 = SwingFXUtils.toFXImage(image, null);
-//                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(image1);
-//                                    System.out.println("image set");
-
-
-*//*                                    System.out.println("Reading: " + System.currentTimeMillis());
-
-                                    byte[] sizeAr = new byte[4];
-                                    dataInputStream.read(sizeAr);
-                                    int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
-
-                                    byte[] imageAr = new byte[size];
-                                    dataInputStream.read(imageAr);
-
-                                    BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
-
-                                    System.out.println("Received " + image.getHeight() + "x" + image.getWidth() + ": " + System.currentTimeMillis());
-
-                                    Image image1 = SwingFXUtils.toFXImage(image, null);
-                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(image1);*//*
-
-
-//                                    ImageIO.write(image, "jpg", new File("C:\\Users\\Jakub\\Pictures\\test2.jpg"));
-
-//                                    serverSocket.close();
-
-
-//                                    BufferedImage img = ImageIO.read(ImageIO.createImageInputStream(dataInputStream));
-//                                    System.out.println("image received");
-//                                    Image image1 = SwingFXUtils.toFXImage(img, null);
-//                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(image1);
-
-                                    BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(dataInputStream.readAllBytes()));
-                                    AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
-
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                    break;
-                                }
+                            String gamerUsername = dataInputStream.readUTF();
+                            try {
+                                BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(dataInputStream.readAllBytes()));
+                                inProgressGamesSnapShots.put(gamerUsername, bufferedImage);
+//                                AdminWelcomeMenuController.adminWelcomeMenuController.tv.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                             dataInputStream.close();
                             socket.close();
@@ -287,7 +250,46 @@ public class NetAdapter {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }).start();*/
+        }).start();
+    }
+
+    private void handleBroadCastTV() {
+        new Thread(() -> {
+            try {
+                ServerSocket serverSocket = new ServerSocket(9596);
+                while (true) {
+                    Socket socket = serverSocket.accept();
+                    new Thread(() -> {
+                        try {
+                            DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+                            DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+                            String whichGame = dataInputStream.readUTF();
+//                            System.out.println(whichGame);
+                            Matcher matcher = getCommandMatcher(whichGame, "get game TV: (.+)");
+                            whichGame = matcher.group(1);
+                            try {
+                                for (String s : inProgressGamesSnapShots.keySet()) {
+                                    if (!whichGame.contains("\"" + s + "\"")) continue;
+                                    ImageIO.write(inProgressGamesSnapShots.get(s), "png", dataOutputStream);
+                                    dataOutputStream.flush();
+                                    dataOutputStream.close();
+                                    dataInputStream.close();
+                                    socket.close();
+                                    break;
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }).start();
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     private boolean logUserDisconnection(UserHolder userHolder, SocketException e) {

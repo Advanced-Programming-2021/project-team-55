@@ -121,15 +121,15 @@ public class AdvancedRitualArt extends SpellAndTrap {
                                                 return;
                                             }
                                             if (input3.equals("attack")) {
-                                                tributeCell.removeCardFromCell(playerGameBoard);
-                                                ritualMonsterCell.removeCardFromCell(playerGameBoard);
+                                                tributeCell.removeCardFromCell(playerGameBoard, false);
+                                                ritualMonsterCell.removeCardFromCell(playerGameBoard, false);
                                                 playerGameBoard.addCardToMonsterCardZone(ritualMonster, CardStatus.OFFENSIVE_OCCUPIED, gameController);
                                                 Cell.setSelectedCell(selectedSpellCell);
                                                 updateSpellInGameBoard(gameController);
                                                 return;
                                             } else if (input3.equals("defense")) {
-                                                tributeCell.removeCardFromCell(playerGameBoard);
-                                                ritualMonsterCell.removeCardFromCell(playerGameBoard);
+                                                tributeCell.removeCardFromCell(playerGameBoard, false);
+                                                ritualMonsterCell.removeCardFromCell(playerGameBoard, false);
                                                 playerGameBoard.addCardToMonsterCardZone(ritualMonster, CardStatus.DEFENSIVE_HIDDEN, gameController);
                                                 Cell.setSelectedCell(selectedSpellCell);
                                                 updateSpellInGameBoard(gameController);
@@ -175,17 +175,17 @@ public class AdvancedRitualArt extends SpellAndTrap {
                                                     return;
                                                 }
                                                 if (input3.equals("attack")) {
-                                                    tributeCell1.removeCardFromCell(playerGameBoard);
-                                                    tributeCell2.removeCardFromCell(playerGameBoard);
-                                                    ritualMonsterCell.removeCardFromCell(playerGameBoard);
+                                                    tributeCell1.removeCardFromCell(playerGameBoard, false);
+                                                    tributeCell2.removeCardFromCell(playerGameBoard, false);
+                                                    ritualMonsterCell.removeCardFromCell(playerGameBoard, false);
                                                     playerGameBoard.addCardToMonsterCardZone(ritualMonster, CardStatus.OFFENSIVE_OCCUPIED, gameController);
                                                     Cell.setSelectedCell(selectedSpellCell);
                                                     updateSpellInGameBoard(gameController);
                                                     return;
                                                 } else if (input3.equals("defense")) {
-                                                    tributeCell1.removeCardFromCell(playerGameBoard);
-                                                    tributeCell2.removeCardFromCell(playerGameBoard);
-                                                    ritualMonsterCell.removeCardFromCell(playerGameBoard);
+                                                    tributeCell1.removeCardFromCell(playerGameBoard, false);
+                                                    tributeCell2.removeCardFromCell(playerGameBoard, false);
+                                                    ritualMonsterCell.removeCardFromCell(playerGameBoard, false);
                                                     playerGameBoard.addCardToMonsterCardZone(ritualMonster, CardStatus.DEFENSIVE_HIDDEN, gameController);
                                                     Cell.setSelectedCell(selectedSpellCell);
                                                     updateSpellInGameBoard(gameController);

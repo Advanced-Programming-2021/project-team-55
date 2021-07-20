@@ -664,6 +664,7 @@ public class CardActionsMenu implements MainPhasesController {
                     gameController.getGameMenuController().canBeActivatedCards.clear();
                     NetAdapter.sendForwardRequestForGame("change turn true true");
                     gameController.changeTurn(true, true);
+                    gameController.getBattlePhaseController().continueAttack();
                 } else {
                     Toast.makeText(WelcomeMenu.stage, "You can't activate this card!");
                 }

@@ -23,7 +23,7 @@ public class TrapHole extends SpellAndTrap {
     }
 
     private static void destroySummonedMonster(Cell summonedMonster, GameBoard gameBoard) {
-        summonedMonster.removeCardFromCell(gameBoard);
+        summonedMonster.removeCardFromCell(gameBoard, false);
     }
 
 }

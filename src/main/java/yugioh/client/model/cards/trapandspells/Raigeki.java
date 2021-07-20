@@ -25,7 +25,7 @@ public class Raigeki extends SpellAndTrap {
         }
         for (Cell cell : opponentPlayerGameBoard.getMonsterCardZone()) {
             if (!cell.isEmpty()) {
-                cell.removeCardFromCell(opponentPlayerGameBoard);
+                cell.removeCardFromCell(opponentPlayerGameBoard, false);
             }
         }
         updateSpellInGameBoard(gameController);

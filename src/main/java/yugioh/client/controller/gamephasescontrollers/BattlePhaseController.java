@@ -2,7 +2,6 @@ package yugioh.client.controller.gamephasescontrollers;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import yugioh.client.controller.menucontroller.GameMenuController;
@@ -18,8 +17,6 @@ import yugioh.client.model.cards.trapandspells.MirrorForce;
 import yugioh.client.model.cards.trapandspells.NegateAttack;
 import yugioh.client.model.cards.trapandspells.SwordsofRevealingLight;
 import yugioh.client.model.exceptions.GameException;
-import yugioh.client.view.NetAdapter;
-import yugioh.client.view.ViewInterface;
 import yugioh.client.view.gamephases.CardActionsMenu;
 import yugioh.client.view.gamephases.Duel;
 import yugioh.client.view.gamephases.GameResponses;
@@ -38,6 +35,10 @@ public class BattlePhaseController {
         attackEffectSpellAndTraps.add(new NegateAttack().getName());
         attackEffectSpellAndTraps.add(new MagicCylinder().getName());
     }
+    private Cell selectedCell;
+    private Cell attackerCell;
+    private Cell attackedCell;
+    private boolean isDirect;
 
     private final GameController gameController;
     private boolean attackDisabled = false;
@@ -127,72 +128,135 @@ public class BattlePhaseController {
                 }
             }
         }
-        new Thread(() -> {
-                while (!gameController.getGameMenuController().choiceHasBeenMade ||
-                        gameController.getGameMenuController().shouldActivateEffectsNow == true) {
-                    gameController.getGameMenuController().choiceHasBeenMade=false;
-                }
-            Platform.runLater(() -> {
-                if (isDirect) {
-                    if (attackDisabled) {
-                        gameController.getAttackerCellsThisTurn().add(selectedCell);
-                        attackDisabled = false;
-                        return;
-                    }
-                    Monster attackerMonster = (Monster) selectedCell.getCellCard();
-                    gameController.getCurrentTurnOpponentPlayer().decreaseLP(attackerMonster.getAtk());
+        this.isDirect=isDirect;
+        this.attackerCell=attackerCell;
+        this.attackedCell=attackedCell;
+        this.selectedCell=selectedCell;
+//        new Thread(() -> {
+//            System.out.println(gameController.getGameMenuController().choiceHasBeenMade+"\n"+gameController.getGameMenuController().shouldActivateEffectsNow);
+//            while (!gameController.getGameMenuController().choiceHasBeenMade ||
+//                    gameController.getGameMenuController().shouldActivateEffectsNow) {
+//
+//            }
+//            System.out.println(User.loggedInUser.getNickname()+" entered");
+//            gameController.getGameMenuController().choiceHasBeenMade=false;
+//            Platform.runLater(() -> {
+//                if (isDirect) {
+//                    if (attackDisabled) {
+//                        gameController.getAttackerCellsThisTurn().add(selectedCell);
+//                        attackDisabled = false;
+//                        return;
+//                    }
+//                    Monster attackerMonster = (Monster) selectedCell.getCellCard();
+//                    gameController.getCurrentTurnOpponentPlayer().decreaseLP(attackerMonster.getAtk());
+//                    gameController.getAttackerCellsThisTurn().add(selectedCell);
+//                    Cell.deselectCell();
+//                    System.out.println("your opponent receives " + attackerMonster.getAtk() + " battle damage");
+//                } else {
+//                    String response = "";
+//                    if (attackDisabled) {
+//                        gameController.getAttackerCellsThisTurn().add(attackerCell);
+//                        attackDisabled = false;
+//                        return;
+//                    }
+//                    if (SwordsofRevealingLight.handleEffect(gameController)) {
+//                        System.out.println("you can't attack because of your opponent's Swords of Revealing Light effect");
+//                        return;
+//                    }
+//                    if (CommandKnight.handleEffect(gameController, attackedCell)) {
+//                        System.out.println("Command Knight effect activated: you should first destroy other opponent monsters");
+//                        return;
+//                    }
+//                    Suijin.handleEffect(attackerCell, attackedCell);
+//                    if (Texchanger.handleEffect(gameController, attackedCell)) {
+//                        System.out.println("your attack canceled.");
+//                        return;
+//                    }
+//                    gameController.getAttackerCellsThisTurn().add(attackerCell);
+//                    response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
+//                    GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
+//                    GameBoard opponentGameBoard = gameController.currentTurnOpponentPlayer.getGameBoard();
+//                    if (attackedCell.getCardStatus() == CardStatus.OFFENSIVE_OCCUPIED) {
+//                        if (response.equals(""))
+//                            response = attackToOffensiveCell(attackerCell, attackedCell, opponentGameBoard, playerGameBoard);
+//
+//                    } else if (attackedCell.getCardStatus() == CardStatus.DEFENSIVE_OCCUPIED) {
+//                        if (response.equals(""))
+//                            response = attackToDefensiveOccupiedCell(attackerCell, attackedCell, playerGameBoard);
+//                    } else {
+//                        if (response.equals(""))
+//                            response = attackToDefensiveHiddenCell(attackerCell, attackedCell, opponentGameBoard);
+//                    }
+//                    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> CardActionsMenu.removeSword()));
+//                    timeline.play();
+//                    setAttacker(null);
+//                    Cell.deselectCell();
+//                    System.out.println(response);
+//                }
+//                CardActionsMenu.removeEventHandlers();
+//            });
+//        }).start();
+    }
+    public void continueAttack(){
+            if (isDirect) {
+                if (attackDisabled) {
                     gameController.getAttackerCellsThisTurn().add(selectedCell);
-                    Cell.deselectCell();
-                    System.out.println("your opponent receives " + attackerMonster.getAtk() + " battle damage");
-                } else {
-                    String response = "";
-                    if (attackDisabled) {
-                        gameController.getAttackerCellsThisTurn().add(attackerCell);
-                        attackDisabled = false;
-                        return;
-                    }
-                    if (SwordsofRevealingLight.handleEffect(gameController)) {
-                        System.out.println("you can't attack because of your opponent's Swords of Revealing Light effect");
-                        return;
-                    }
-                    if (CommandKnight.handleEffect(gameController, attackedCell)) {
-                        System.out.println("Command Knight effect activated: you should first destroy other opponent monsters");
-                        return;
-                    }
-                    Suijin.handleEffect(attackerCell, attackedCell);
-                    if (Texchanger.handleEffect(gameController, attackedCell)) {
-                        System.out.println("your attack canceled.");
-                        return;
-                    }
-                    gameController.getAttackerCellsThisTurn().add(attackerCell);
-                    response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
-                    GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
-                    GameBoard opponentGameBoard = gameController.currentTurnOpponentPlayer.getGameBoard();
-                    if (attackedCell.getCardStatus() == CardStatus.OFFENSIVE_OCCUPIED) {
-                        if (response.equals(""))
-                            response = attackToOffensiveCell(attackerCell, attackedCell, opponentGameBoard, playerGameBoard);
-
-                    } else if (attackedCell.getCardStatus() == CardStatus.DEFENSIVE_OCCUPIED) {
-                        if (response.equals(""))
-                            response = attackToDefensiveOccupiedCell(attackerCell, attackedCell, playerGameBoard);
-                    } else {
-                        if (response.equals(""))
-                            response = attackToDefensiveHiddenCell(attackerCell, attackedCell, opponentGameBoard);
-                    }
-                    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> CardActionsMenu.removeSword()));
-                    timeline.play();
-                    setAttacker(null);
-                    Cell.deselectCell();
-                    System.out.println(response);
+                    attackDisabled = false;
+                    return;
                 }
-                CardActionsMenu.removeEventHandlers();
-            });
-        }).start();
+                Monster attackerMonster = (Monster) selectedCell.getCellCard();
+                gameController.getCurrentTurnOpponentPlayer().decreaseLP(attackerMonster.getAtk());
+                gameController.getAttackerCellsThisTurn().add(selectedCell);
+                Cell.deselectCell(true);
+                System.out.println("your opponent receives " + attackerMonster.getAtk() + " battle damage");
+            } else {
+                String response = "";
+                if (attackDisabled) {
+                    gameController.getAttackerCellsThisTurn().add(attackerCell);
+                    attackDisabled = false;
+                    return;
+                }
+                if (SwordsofRevealingLight.handleEffect(gameController)) {
+                    System.out.println("you can't attack because of your opponent's Swords of Revealing Light effect");
+                    return;
+                }
+                if (CommandKnight.handleEffect(gameController, attackedCell)) {
+                    System.out.println("Command Knight effect activated: you should first destroy other opponent monsters");
+                    return;
+                }
+                Suijin.handleEffect(attackerCell, attackedCell);
+                if (Texchanger.handleEffect(gameController, attackedCell)) {
+                    System.out.println("your attack canceled.");
+                    return;
+                }
+                gameController.getAttackerCellsThisTurn().add(attackerCell);
+                response = ExploderDragon.handleEffect(gameController, attackerCell, attackedCell);
+                GameBoard playerGameBoard = gameController.currentTurnPlayer.getGameBoard();
+                GameBoard opponentGameBoard = gameController.currentTurnOpponentPlayer.getGameBoard();
+                if (attackedCell.getCardStatus() == CardStatus.OFFENSIVE_OCCUPIED) {
+                    if (response.equals(""))
+                        response = attackToOffensiveCell(attackerCell, attackedCell, opponentGameBoard, playerGameBoard);
+
+                } else if (attackedCell.getCardStatus() == CardStatus.DEFENSIVE_OCCUPIED) {
+                    if (response.equals(""))
+                        response = attackToDefensiveOccupiedCell(attackerCell, attackedCell, playerGameBoard);
+                } else {
+                    if (response.equals(""))
+                        response = attackToDefensiveHiddenCell(attackerCell, attackedCell, opponentGameBoard);
+                }
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> CardActionsMenu.removeSword()));
+                timeline.play();
+                setAttacker(null);
+                Cell.deselectCell(true);
+                System.out.println(response);
+            }
+            CardActionsMenu.removeEventHandlers();
     }
 
     private String attackToDefensiveHiddenCell(Cell attackerCell, Cell attackedCell, GameBoard opponentGameBoard) {
         String response;
         Duel.getGameController().currentTurnPlayer.getGameBoard().setFlipTransition(attackedCell.getCellCard(), attackedCell.getCellRectangle(), false, false);
+        attackedCell.setCardStatus(CardStatus.DEFENSIVE_OCCUPIED);
         if (isAttackerStronger(attackerCell, attackedCell)) {
             response = "opponent’s monster card was " +
                     attackedCell.getCellCard().getName() + " the defense position monster is destroyed";
@@ -204,7 +268,7 @@ public class BattlePhaseController {
                 Rectangle finalGraveyard = graveyard;
                 Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
                     moveCardToGraveyard(attackedCell, finalGraveyard, gameController.currentTurnOpponentPlayer);
-                    attackedCell.removeCardFromCell(opponentGameBoard);
+                    attackedCell.removeCardFromCell(opponentGameBoard, false);
                 }));
                 timeline.play();
             }
@@ -227,12 +291,12 @@ public class BattlePhaseController {
 
     private String attackToDefensiveOccupiedCell(Cell attackerCell, Cell attackedCell, GameBoard playerGameBoard) {
         String response;
-        Duel.getGameController().currentTurnPlayer.getGameBoard().setFlipTransition(attackedCell.getCellCard(), attackedCell.getCellRectangle(), false, false);
+       // Duel.getGameController().currentTurnPlayer.getGameBoard().setFlipTransition(attackedCell.getCellCard(), attackedCell.getCellRectangle(), false, false);
         if (isAttackerStronger(attackerCell, attackedCell)) {
             decreasePlayersDamage(attackerCell, attackedCell);
             response = "the defense position monster is destroyed";
             YomiShip.handleEffect(gameController, attackerCell, attackedCell);
-            attackedCell.removeCardFromCell(playerGameBoard);
+            attackedCell.removeCardFromCell(playerGameBoard, false);
 //            Rectangle graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
 //            if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().userGraveyard;
 //            Rectangle finalGraveyard = graveyard;
@@ -262,22 +326,22 @@ public class BattlePhaseController {
             Rectangle graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
             if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().userGraveyard;
             // gameController.currentTurnPlayer.getGameBoard().moveCardToGraveyard(attackedCell, graveyard);
-            attackedCell.removeCardFromCell(opponentGameBoard);
+            attackedCell.removeCardFromCell(opponentGameBoard, false);
         } else if (isAttackerAndAttackedPowerEqual(attackerCell, attackedCell)) {
             response = "both you and your opponent monster cards are destroyed and no one receives damage";
             if (CardActionsMenu.isBoardInverse()) {
                 // gameController.currentTurnOpponentPlayer.getGameBoard().moveCardToGraveyard(attackedCell, GameMenuController.getGameMenuController().userGraveyard);
                 // gameController.currentTurnPlayer.getGameBoard().moveCardToGraveyard(attackerCell, GameMenuController.getGameMenuController().rivalGraveyard);
-                attackedCell.removeCardFromCell(opponentGameBoard);
-                attackerCell.removeCardFromCell(playerGameBoard);
+                attackedCell.removeCardFromCell(opponentGameBoard, false);
+                attackerCell.removeCardFromCell(playerGameBoard, false);
             } else {
                 //gameController.currentTurnOpponentPlayer.getGameBoard().moveCardToGraveyard(attackedCell, GameMenuController.getGameMenuController().rivalGraveyard);
                 //gameController.currentTurnPlayer.getGameBoard().moveCardToGraveyard(attackerCell, GameMenuController.getGameMenuController().userGraveyard);
-                attackedCell.removeCardFromCell(opponentGameBoard);
-                attackerCell.removeCardFromCell(playerGameBoard);
+                attackedCell.removeCardFromCell(opponentGameBoard, false);
+                attackerCell.removeCardFromCell(playerGameBoard, false);
             }
-            attackerCell.removeCardFromCell(playerGameBoard);
-            attackedCell.removeCardFromCell(opponentGameBoard);
+            attackerCell.removeCardFromCell(playerGameBoard, false);
+            attackedCell.removeCardFromCell(opponentGameBoard, false);
         } else {
             decreasePlayersDamage(attackerCell, attackedCell);
             response = "Your monster card is destroyed and you received " +
@@ -285,7 +349,7 @@ public class BattlePhaseController {
             Rectangle graveyard = GameMenuController.getGameMenuController().userGraveyard;
             if (CardActionsMenu.isBoardInverse()) graveyard = GameMenuController.getGameMenuController().rivalGraveyard;
             // gameController.currentTurnPlayer.getGameBoard().moveCardToGraveyard(attackerCell, graveyard);
-            attackerCell.removeCardFromCell(playerGameBoard);
+            attackerCell.removeCardFromCell(playerGameBoard, false);
         }
         gameController.getAttackerCellsThisTurn().add(attackerCell);
         return response;

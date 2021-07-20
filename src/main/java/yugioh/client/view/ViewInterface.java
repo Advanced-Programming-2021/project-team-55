@@ -1,5 +1,8 @@
 package yugioh.client.view;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import yugioh.client.controller.menucontroller.DetermineStarterMenuController;
 import yugioh.client.model.User;
 import yugioh.client.view.gamephases.Duel;
@@ -15,17 +18,19 @@ public class ViewInterface {
 
     private static final Scanner input = new Scanner(System.in);
 
-    public static String getInput() {//debug activate effect
+    public synchronized static String getInput() {//debug activate effect
         String command = "";
         if (Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) {
             NetAdapter.sendForwardRequestForGame("stop receiving");
-            command = input.nextLine();
-            System.out.println("command received");
-            NetAdapter.sendForwardRequestForGame(command);
+            command = sortFields(input.nextLine());
+            String sendCommand=command;
+            NetAdapter.sendForwardRequestForGame(sendCommand);
             System.out.println("command sent");
         } else {
             try {
+                while(!DetermineStarterMenuController.hasReceivedStop){}
                 command = NetAdapter.dataInputStream.readUTF();
+                DetermineStarterMenuController.hasReceivedStop=false;
                 System.out.println("command received: " + command);
                 Matcher matcher = getCommandMatcher(command, "forward: (.+)");
                 command = matcher.group(1);

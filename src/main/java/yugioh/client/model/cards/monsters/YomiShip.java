@@ -19,7 +19,7 @@ public class YomiShip extends Monster {
         if (!attackedCell.getCellCard().getName().equals("Yomi Ship")) return;
 
         ViewInterface.showResult("Yomi Ship effect activated:  monster card: \"" + attackerCell.getCellCard().getName() + "\" removed.");
-        attackerCell.removeCardFromCell(gameController.getCurrentTurnPlayer().getGameBoard());
+        attackerCell.removeCardFromCell(gameController.getCurrentTurnPlayer().getGameBoard(), false);
     }
 
 }

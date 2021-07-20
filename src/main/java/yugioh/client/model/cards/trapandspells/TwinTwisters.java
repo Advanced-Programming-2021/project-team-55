@@ -41,7 +41,7 @@ public class TwinTwisters extends SpellAndTrap {
                 ViewInterface.showResult("Error: try again!");
                 continue;
             }
-            Cell.getSelectedCell().removeCardFromCell(gameController.getCurrentTurnPlayer().getGameBoard());
+            Cell.getSelectedCell().removeCardFromCell(gameController.getCurrentTurnPlayer().getGameBoard(), false);
             ViewInterface.showResult("hand card removed from your hand.\nnow choose at most 2 opponent spell or traps to be removed:");
             break;
         }
@@ -49,21 +49,28 @@ public class TwinTwisters extends SpellAndTrap {
         int counter = 0;
         while (counter < 2) {
             String selectionCommand = ViewInterface.getInput();
-            if (!selectionCommand.matches("select --spell \\d+ --opponent") && !selectionCommand.matches("select --opponent --spell \\d+")) {
+//            String place="";
+//            if(User.loggedInUser.equals(gameController.currentTurnPlayer.getUser())){
+//                place=" --opponent";
+//            }
+            String place=" --opponent";
+            if (!selectionCommand.matches("select --spell \\d+"+place) && !selectionCommand.matches("select"+place+" --spell \\d+")) {
                 if (selectionCommand.equals("cancel")) {
                     ViewInterface.showResult("you cancelled the effect of your card!");
-                    return;
+                    if(counter==1)
+                    break;
+                    else return;
                 }
                 ViewInterface.showResult("Error: you should select a spell or trap card from your opponent gameBoard!");
                 continue;
             }
             String result = Duel.processSelect(selectionCommand);
             if (!result.equals("card selected")) {
-                ViewInterface.showResult("Error: try again! you should select a spell or trap on the field to destroy");
+                ViewInterface.showResult(result);
                 continue;
             }
             counter++;
-            Cell.getSelectedCell().removeCardFromCell(gameController.getCurrentTurnOpponentPlayer().getGameBoard());
+            gameController.currentTurnPlayer.getGameBoard().removeCardFromHand(Cell.getSelectedCell());
             ViewInterface.showResult("spell or trap " + counter + " destroyed");
             if (counter == 1) ViewInterface.showResult("select second spell or trap, or cancel the process");
         }

@@ -23,9 +23,6 @@ public class NetAdapter {
     public static DataInputStream dataInputStreamForGettingOnlineUsere;
     public static DataOutputStream dataOutputStreamForGettingOnlineUsers;
 
-//    public static Socket tvSocket;
-//    public static DataOutputStream tvDataOutputStream;
-
     public static void initialize() {
        try {
            socket = new Socket(host, port);
@@ -39,10 +36,6 @@ public class NetAdapter {
           Socket socketForGettingOnlineUsers=new Socket(host,3336);
           dataInputStreamForGettingOnlineUsere=new DataInputStream(socketForGettingOnlineUsers.getInputStream());
           dataOutputStreamForGettingOnlineUsers=new DataOutputStream(socketForGettingOnlineUsers.getOutputStream());
-
-
-//           tvSocket = new Socket(host, 9595);
-//           tvDataOutputStream = new DataOutputStream(tvSocket.getOutputStream());
 
        } catch (IOException e) {
            System.out.println("failed to connect to server");

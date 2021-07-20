@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import yugioh.client.model.board.Cell;
 import yugioh.client.model.exceptions.GameException;
+import yugioh.client.view.NetAdapter;
 import yugioh.client.view.gamephases.CardSelectionMenu;
 import yugioh.client.view.gamephases.Duel;
 
@@ -48,8 +49,9 @@ public class CardSelectionMenuController implements Initializable {
                         e.printStackTrace();
                     }
                     CardSelectionMenu.cardSelectionStage.close();
-                    Cell.deselectCell();
+                    Cell.deselectCell(true);
                     gameController.changeTurn(true, true);
+                    NetAdapter.sendForwardRequestForGame("change turn true true");
                 }
             });
             cardsPane.getChildren().add(cell.getCellRectangle());
