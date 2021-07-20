@@ -65,7 +65,7 @@ public class TwinTwisters extends SpellAndTrap {
             }
             String result = Duel.processSelect(selectionCommand);
             if (!result.equals("card selected")) {
-                ViewInterface.showResult("Error: try again! you should select a spell or trap on the field to destroy");
+                ViewInterface.showResult(result);
                 continue;
             }
             counter++;

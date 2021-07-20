@@ -49,9 +49,6 @@ public interface MainPhasesController {
         handleTributeForNormalSummon(currentPlayer, selectedCell, monsterLevel, false);
         TerratigertheEmpoweredWarrior.handleEffect(gameController, selectedCell);
         gameController.setDidPlayerSetOrSummonThisTurn(true);
-        if(selectedCell.isEmpty()){
-            System.out.println("erorororo");
-        }
         addMonstersToSummonEffectSpellAndTrap(selectedCell);
         activateTrapIfCanBeActivated(gameController, SummonTypes.NormalSummon);
         currentPlayer.getGameBoard().addCardToMonsterCardZone(selectedCell.getCellCard(), CardStatus.OFFENSIVE_OCCUPIED,

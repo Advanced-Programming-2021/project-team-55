@@ -50,8 +50,8 @@ public class ExploderDragon extends Monster {
     }
 
     private static void removePlayers(GameController gameController, Cell attackerCell, Cell attackedCell) {
-        attackedCell.removeCardFromCell(gameController.getCurrentTurnOpponentPlayer().getGameBoard());
-        attackerCell.removeCardFromCell(gameController.getCurrentTurnPlayer().getGameBoard());
+        attackedCell.removeCardFromCell(gameController.getCurrentTurnOpponentPlayer().getGameBoard(), false);
+        attackerCell.removeCardFromCell(gameController.getCurrentTurnPlayer().getGameBoard(), false);
     }
 
     public static boolean isNotExploderDragon(Cell attackerCell, Cell attackedCell) {

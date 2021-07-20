@@ -5,12 +5,10 @@ import javafx.animation.KeyFrame;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
@@ -19,7 +17,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -35,7 +32,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import yugioh.client.controller.gamephasescontrollers.GameController;
-import yugioh.client.model.User;
 import yugioh.client.model.board.CardStatus;
 import yugioh.client.model.board.Cell;
 import yugioh.client.model.cards.Card;
@@ -49,16 +45,8 @@ import yugioh.client.view.gamephases.Graveyard;
 import yugioh.client.view.menus.Toast;
 import yugioh.client.view.menus.WelcomeMenu;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.Socket;
 import java.net.URL;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -178,7 +166,7 @@ public class GameMenuController extends MenuController implements Initializable 
 
         }
         gameController.currentTurnPlayer.getGameBoard().getFieldZone().getCellRectangle().rotateProperty().set(gameBoardPane.rotateProperty().get() + 180);
-        Cell.deselectCell();
+        Cell.deselectCell(true);
     }
 
     @Override
@@ -409,17 +397,12 @@ public class GameMenuController extends MenuController implements Initializable 
                         rectangle.setEffect(tributeEffect);
                         if (neededTributes == tributeCells.size()) {
                             for (Cell cell : tributeCells) {
-                                Rectangle graveyard = GameMenuController.gameMenuController.userGraveyard;
-                                if (CardActionsMenu.isBoardInverse())
-                                    graveyard = GameMenuController.gameMenuController.rivalGraveyard;
-                                //    gameController.getBattlePhaseController().moveCardToGraveyard(cell, graveyard, gameController.currentTurnPlayer);
                                 cell.getCellRectangle().setEffect(null);
-                                cell.removeCardFromCell(gameController.currentTurnPlayer.getGameBoard());
-                                // gameController.currentTurnPlayer.getGameBoard().addCardToGraveyard(cell.getCellCard());
+                                cell.removeCardFromCell(gameController.currentTurnPlayer.getGameBoard(),true);
                             }
                             if (isTributeForSummon)
-                                gameController.getMainPhase1Controller().continueMonsterSummon(gameController, false);
-                            else gameController.getMainPhase1Controller().continueSetMonster(gameController);
+                                gameController.getMainPhase1Controller().continueMonsterSummon(gameController,true);
+                            else gameController.getMainPhase1Controller().continueSetMonster(gameController,true);
                             shouldSelectTributesNow = false;
                             tributeCells.clear();
                             neededTributes = 0;
@@ -430,9 +413,9 @@ public class GameMenuController extends MenuController implements Initializable 
                 if (event.getButton() == MouseButton.PRIMARY) {
                     if (gameController.currentTurnPlayer.getGameBoard().isCellInSpellAndTrapZone(Cell.getSelectedCellByRectangle(rectangle))) {
                         if (Cell.getSelectedCell() != null && !Cell.getSelectedCell().isEmpty() && Cell.getSelectedCell().getCellRectangle().equals(rectangle)) {
-                            Cell.deselectCell();
+                            Cell.deselectCell(true);
                         } else {
-                            Cell.deselectCell();
+                            Cell.deselectCell(true);
                             selectCard(rectangle);
                         }
                         try {
@@ -450,13 +433,13 @@ public class GameMenuController extends MenuController implements Initializable 
                     if (selectedCell != null && !selectedCell.isEmpty()) {
                         selectedCell.getCellRectangle().setEffect(null);
                         CardActionsMenu.close();
-                        Cell.deselectCell();
+                        Cell.deselectCell(true);
                     }
                     if (selectedCell != null && selectedCell.getCellCard() != null &&
                             (selectedCell.getCellCard().getCardImagePattern().equals(rectangleImage) ||
                                     selectedCell.getCellCard().getCardBackImagePattern().equals(rectangleImage))) {
                         CardActionsMenu.close();
-                        Cell.deselectCell();
+                        Cell.deselectCell(true);
                     } else if (CardActionsMenu.getActiveSword() == null) {
                         selectCard(rectangle);
                         if (!gameController.currentTurnOpponentPlayer.getGameBoard().isCellInGameBoard(Cell.getSelectedCell())

@@ -33,7 +33,7 @@ public class DarkHole extends SpellAndTrap {
     private static void removeOnePlayerMonsters(GameBoard currentTurnPlayerGameBoard) {
         for (Cell monster : currentTurnPlayerGameBoard.getMonsterCardZone()) {
             if (!monster.isEmpty())
-                monster.removeCardFromCell(currentTurnPlayerGameBoard);
+                monster.removeCardFromCell(currentTurnPlayerGameBoard, false);
         }
     }
 
