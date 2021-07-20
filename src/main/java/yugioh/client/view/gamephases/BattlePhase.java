@@ -1,6 +1,7 @@
 package yugioh.client.view.gamephases;
 
 import yugioh.client.controller.gamephasescontrollers.BattlePhaseController;
+import yugioh.client.model.User;
 import yugioh.client.model.board.Cell;
 import yugioh.client.model.exceptions.GameException;
 import yugioh.client.view.GameRegexes;
@@ -14,7 +15,7 @@ public class BattlePhase extends Duel {
     @Override
     protected void execute() {
         battlePhaseController = gameController.getBattlePhaseController();
-        if (gameController.turnCount == 1) {
+        if (gameController.turnCount == 1 && Duel.getGameController().currentTurnPlayer.getUser().equals(User.getLoggedInUser())) {
             gameController.changePhase();
        }
 //            String response;

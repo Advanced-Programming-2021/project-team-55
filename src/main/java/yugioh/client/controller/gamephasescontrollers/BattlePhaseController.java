@@ -124,7 +124,7 @@ public class BattlePhaseController {
                     gameController.changeTurn(true, false);
                     gameController.activateTrapEffect(attackEffectSpellAndTraps);
                     this.isDirect=isDirect;
-                    this.attackerCell=attackerCell;Ba
+                    this.attackerCell=attackerCell;
                     this.attackedCell=attackedCell;
                     this.selectedCell=selectedCell;
                     return;
@@ -211,7 +211,7 @@ public class BattlePhaseController {
                 Monster attackerMonster = (Monster) selectedCell.getCellCard();
                 gameController.getCurrentTurnOpponentPlayer().decreaseLP(attackerMonster.getAtk());
                 gameController.getAttackerCellsThisTurn().add(selectedCell);
-                Cell.deselectCell(true);
+                Cell.deselectCell(false);
                 System.out.println("your opponent receives " + attackerMonster.getAtk() + " battle damage");
             } else {
                 String response = "";
@@ -251,7 +251,7 @@ public class BattlePhaseController {
                 Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> CardActionsMenu.removeSword()));
                 timeline.play();
                 setAttacker(null);
-                Cell.deselectCell(true);
+                Cell.deselectCell(false);
                 System.out.println(response);
             }
             CardActionsMenu.removeEventHandlers();
