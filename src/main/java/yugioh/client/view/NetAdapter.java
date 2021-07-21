@@ -12,6 +12,7 @@ import java.net.*;
 public class NetAdapter {
 
     public static String host = "127.0.0.1";
+    public static String mainHost;
     private static int port = 3333;
 
     public static Socket socket;
@@ -25,7 +26,7 @@ public class NetAdapter {
 
     public static void initialize() {
        try {
-           socket = new Socket(host, port);
+           socket = new Socket(mainHost, port);
            dataOutputStream = new DataOutputStream(socket.getOutputStream());
            dataInputStream = new DataInputStream(socket.getInputStream());
           Socket socketForSaving=new Socket(host,3334);
@@ -75,6 +76,10 @@ public class NetAdapter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void setMainHost(String mainHost) {
+        NetAdapter.mainHost = mainHost;
     }
 
     public static void sendForwardRequestForGame(String message) {
