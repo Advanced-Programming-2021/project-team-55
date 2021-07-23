@@ -26,7 +26,7 @@ public class NetAdapter {
 
     public static void initialize() {
        try {
-           socket = new Socket(mainHost, port);
+           socket = new Socket(host, port);
            dataOutputStream = new DataOutputStream(socket.getOutputStream());
            dataInputStream = new DataInputStream(socket.getInputStream());
           Socket socketForSaving=new Socket(host,3334);
