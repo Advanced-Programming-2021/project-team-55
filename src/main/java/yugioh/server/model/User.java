@@ -41,6 +41,7 @@ public class User {
         setNickname(nickname);
         setPassword(password);
         allUsers.add(this);
+        setProfileImage();
         initializeCards();
 
     }
